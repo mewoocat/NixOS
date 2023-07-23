@@ -1,0 +1,30 @@
+;; Extra icons
+;; 
+
+;;(defpoll get_theme_light :interval "200ms" "cat theme_light")
+
+(defvar widgetSize 64)
+
+(defvar widgetSizeLarge 128)
+
+;; Module imports
+(include "modules/network.yuck")
+(include "modules/bluetooth.yuck")
+(include "modules/nightlight.yuck")
+(include "modules/theme.yuck")
+(include "modules/volume.yuck")
+(include "modules/microphone.yuck")
+(include "modules/brightness.yuck")
+(include "modules/system_stats.yuck")
+(include "modules/battery.yuck")
+(include "modules/display.yuck")
+(include "modules/keyboard.yuck")
+(include "modules/launcher.yuck")
+(include "modules/workspace.yuck")
+(include "modules/date_time.yuck")
+(include "modules/weather.yuck")
+(include "modules/user.yuck")
+(include "modules/sprite.yuck")
+(include "modules/system_menu.yuck")
+(include "modules/bar.yuck")
+(include "modules/launcher2.yuck")

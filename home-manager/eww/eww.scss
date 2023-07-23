@@ -1,0 +1,607 @@
+
+@use 'colors';
+
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+//Global Styles
+.bar {
+  background-color: rgba(colors.$bg, 0.6);
+  color: colors.$fg;
+  //padding: 10px;
+  font-size: 16px;
+  font-family: "System-ui";
+   // filter: blur(5px);
+
+}
+
+.system-menu-container-base{
+    color: colors.$fg;
+    border-color: rgba(colors.$bg_alt, 0.9);;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: rgba(colors.$bg, 0.6);
+
+}
+
+.calendar-widget{
+    font-size: 16px;
+    //margin: 20px;
+    padding: 40px;
+    border-color: rgba(colors.$bg_alt, 0.8);;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 20px;
+    background-color: rgba(colors.$bg, 0.6);
+
+
+}
+
+
+.bar_external {
+  background-color: rgba(colors.$bg, 0.8);
+  color: colors.$fg;
+  //padding: 10px;
+  font-size: 16px;
+  font-family: "System-ui";
+   // filter: blur(5px);
+}
+
+.container{
+    padding: 0px;
+    padding-left: 0px;
+}
+
+.bluetooth-container{
+    background-color: rgba(colors.$bg, 0.6);
+}
+
+.button-box{
+    padding: 6px;
+    //background-color: #ff00ff;
+    
+}
+
+.system-menu-button{
+   border-radius: 50px;
+}
+
+.con-hover{
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+
+.launcher {
+    padding-left: 18px;
+    padding-right: 18px;
+    font-size: 28px;
+    margin-left: 8px;
+    border-radius: 50px;
+}
+
+.launcher-hover{
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+
+.launcher:hover{
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+
+// using eventbox hover instead
+/*
+.launcher:hover {
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+*/
+
+.time-button{
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 50px;
+}
+
+.time-button-hover{
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+
+.ws-button{
+    border-radius: 50%;
+    //font-size: 30px;
+    margin: 0;
+}
+
+.ws-button:hover{
+    //background: #333333;
+    color: #ff0000;
+}
+
+.ws-but{
+    font-size: 30px;
+    //margin: 0;
+    border-radius: 0%;
+    color: #444444;
+    //background-color: #000000;
+}
+
+.ws-but:hover{
+    color: #ff0000;
+}
+
+
+
+.dot{
+    color: #ffff00;
+    border-radius: 0%;
+    padding: 0;
+    margin: 0;
+}
+
+.con{
+    font-size: 26px;
+    margin-right: 8px;
+    //margin-left: 16px;
+    padding-left: 18px;
+    padding-right: 18px;
+
+    border-radius: 50px;
+}
+
+.con:hover{
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+
+
+
+.menu-toggle-button{
+
+}
+
+.workspaces {
+    //padding: 4px;
+}
+
+.ws-icon{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.empty{
+    color: colors.$fg_alt;
+    font-size: 14px;
+}
+
+.empty:hover{
+    color: colors.$color2;
+    font-size: 24px;
+}
+
+.occupied{
+    color: colors.$color3;
+    font-size: 24px;
+}
+
+.occupied:hover{
+    color: colors.$color2;
+}
+
+
+.current{
+    color: colors.$color2;
+    font-size: 24px;
+}
+
+.current:hover{
+    color: colors.$color2;
+    font-size: 24px;
+}
+
+
+.ws-box{
+    background-color: #ff0000;
+    border-radius: 50%;
+}
+
+
+.wifi{
+    font-size: 24px;
+}
+
+.wifi-bg{
+   color: colors.$fg_alt; 
+}
+
+
+.window-name{
+    padding-left: 14px;
+}
+
+.battery{
+    font-size: 22px;
+}
+
+.battery-bg{
+    font-size: 22px;
+    color: #12da34;
+}
+
+.battery-critical{
+    color: #ff0000;
+}
+
+.volume{
+    font-family: "icon_font";
+    font-size: 22px;
+}
+
+.volume-bg{
+    font-family: "icon_font";
+    font-size: 22px;
+    color: colors.$fg_alt;
+}
+
+.icon{
+    font-family: "icon_font";
+}
+
+
+
+
+.system-menu-container{
+    //border-radius: 20px;
+    padding: 20px;
+    //background-color: rgba(colors.$bg, 1.0);
+}
+
+.system-stats{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(colors.$bg, 0.7);
+}
+
+.sliders{
+    border-radius: 10px;
+}
+
+.sliders scale trough highlight {
+  all: unset;
+  background-color: colors.$color3;
+  color: #000000;
+  min-width: 24px;
+  border-radius: 20px;
+}
+
+.mute scale trough highlight{
+    background-color: colors.$fg_alt;
+}
+
+
+.sliders scale trough {
+  all: unset;
+  background-color: colors.$bg;
+  border-radius: 80px;
+  min-height: 24px;
+  min-width: 24px;
+  margin-left: 10px;
+  //margin-right: 20px;
+  padding: 8px;
+}
+
+
+.osd-sliders{
+    //padding: 40px; // Doesn't work????
+    border-radius: 10px;
+    //background-color: rgba(colors.$bg, 0.7);
+}
+
+.osd-sliders scale trough highlight {
+  all: unset;
+  background-color: colors.$color3;
+  color: #000000;
+  border-radius: 20px;
+}
+.osd-sliders scale trough {
+  all: unset;
+  background-color: colors.$bg;
+  border-radius: 80px;
+  min-height: 30px;
+  min-width: 50px;
+  margin-left: 10px;
+}
+
+.menu-widget{
+    //padding: 8px 14px 8px 14px;
+    padding: 14px;
+    border-radius: 20px;
+    //backgrounmenu-widgetd-color: rgba(colors.$bg, 0.7);
+    background-color: rgba(colors.$bg_alt, 0.6);
+}
+
+.bottom-row{
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.bottom{
+
+}
+
+.menu-button{
+    //padding: 8px 14px 8px 14px;
+    //padding-left: 10px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: rgba(colors.$bg_alt, 0.2);;
+    border-width: 2px;
+    //backgrounmenu-widgetd-color: rgba(colors.$bg, 0.7);
+    background-color: rgba(colors.$bg_alt, 0.6);
+
+    // from https://www.youtube.com/watch?v=92XyPflDwkE
+    //box-shadow: 10px 10px 10px -1px rgba(colors.$bg, 1.0), 
+    //            -10px -10px 10px -1px rgba(colors.$bg, 1.0);
+}
+
+
+.menu-button:hover{
+    //color: #00ff00;
+    background-color: #00ff00;
+    background-color: rgba(#666666, 1);
+}
+
+.menu-button-active{
+    background-color: #ff0000;
+}
+
+
+// Derived from: https://github.com/Axarva/dotfiles-2.0/blob/main/config/eww-1920/eww.scss
+// and https://github.com/janleigh/dotfiles/blob/master/cfg/eww/src/scss/control-center/rows/_third-row.scss
+.pfp{
+    background-position: center;
+    //background-repeat: no-repeat;
+    border-radius: 100%;
+    min-width: 10px;
+    min-height: 10px;
+    //background-size: 34px;
+    background-size: cover;
+    //margin-left: 0px;
+    //margin-right: 4px;
+    background-image: url("/home/ghost/Pictures/zero.jpeg");
+}
+
+.button{
+   font-size: 32px; 
+}
+
+.button:hover{
+    color: #00ff00;
+    //min-width: 30px;
+    //min-height: 30px;
+}
+
+
+
+.night-light{
+    //font-size: 100px;
+}
+
+.brightness-icon{
+    font-size: 24px;
+}
+
+
+.circular-progress{
+    background-color: colors.$bg; 
+    color: colors.$color2; 
+}
+
+.circular-progress-battery{
+    background-color: colors.$bg; 
+    color: #12da34; 
+}
+
+
+.circular-progress-cpu{
+    color: colors.$color1; 
+}
+
+.circular-progress-mem{
+    color: colors.$color4; 
+}
+
+.storage-icon{
+    color: colors.$color2;
+    font-size: 20px;
+}
+
+.temp-icon{
+    color: colors.$color1;
+    font-size: 22px;
+}
+
+.cpu-icon{
+    color: colors.$color1;
+    //font-size: 16px;
+}
+
+.mem-icon{
+    color: colors.$color4
+}
+
+.sub-menu-label{
+    font-size: 18px;
+    padding: 10px;
+}
+
+.wifi-network{
+    padding: 8px;
+    //padding-left: 0px;
+    //border-radius: 14px;
+    //backgrounmenu-widgetd-color: rgba(colors.$bg, 0.7);
+    //background-color: rgba(colors.$bg_alt, 0.3);
+    //margin: 10;
+}
+
+.wifi-network:hover{
+    //color: #00ff00;
+    background-color: #00ff00;
+    background-color: rgba(#666666, 1);
+}
+
+.wifi-network-label{
+    padding: 8px;
+}
+
+
+.back-button{
+    font-size: 18px;
+    //margin: 8px;
+    padding: 2px;
+    border-radius: 50px;
+}
+
+.back-button:hover{
+    color: colors.$fg;
+    background-color: rgb(colors.$fg_alt, 0.4);
+}
+
+.wifi-ssid{
+    font-size: 18px;
+    padding: 0px;
+    margin-right: 18px;
+}
+
+.horizontal-line{
+    background-color: colors.$bg_alt;
+}
+
+.password-container{
+    margin: 10px;
+}
+
+.password-entry{
+    padding: 8px;
+    border-radius: 50px;
+    background-color: rgb(colors.$bg_alt, 0.5);
+    color: colors.$fg;
+}
+
+.bluetooth-label{
+    //padding: 4px;
+    font-size: 18px;
+}
+
+.bluetooth-on{
+   background-color: colors.$color4; 
+}
+
+.bluetooth-off{
+    color: rgb(colors.$fg_alt, 1.0);
+}
+
+.off{
+    color: rgb(colors.$fg_alt, 0.5);
+}
+
+.mic{
+    font-size: 28px;
+}
+
+.stat{
+    margin: 6px;
+}
+
+
+
+// Power buttons
+
+.power-button{
+   font-size: 20px; 
+   background-color: rgb(colors.$bg, 1.0);
+   border-radius: 100%;
+   padding: 0px;
+}
+
+
+.power-button:hover{
+    background-color: rgb(colors.$bg_alt, 1.0)
+}
+
+.power-off{
+
+}
+
+.lock{
+
+}
+
+.restart{
+
+}
+
+.osd-container{
+    color: colors.$fg;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(colors.$bg, 0.6); 
+}
+
+
+//calendar.view
+//├── header
+//│   ├── button
+//│   ├── stack.month
+//│   ├── button
+//│   ├── button
+//│   ├── label.year
+//│   ╰── button
+//╰── grid
+//    ╰── label[.day-name][.week-number][.day-number][.other-month][.today]
+
+
+calendar{
+
+    .header{
+        color: red;
+    }
+
+    .grid{
+        color: green;    
+
+    }
+    .today{
+        color: green;
+    }
+}
+
+
+.weather-container{
+    background-color: rgba(colors.$bg_alt, 0.8);
+    background-image: url("/home/ghost/Downloads/gregoire-jeanneau-9sxeKzuCVoE-unsplash.jpg");
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.weather-temp{
+    font-size: 20px;
+}
+
+.window-icon{
+    
+}
+
+.current-window{
+    margin-left: 24px;
+}
+
+.launcher-container{
+    background-color: rgba(colors.$bg, 0.8);
+    border-radius: 20px;
+}

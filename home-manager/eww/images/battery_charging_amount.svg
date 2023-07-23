@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 576 512"
+   version="1.1"
+   id="svg119"
+   sodipodi:docname="battery_empty.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs123" />
+  <sodipodi:namedview
+     id="namedview121"
+     pagecolor="#ffffff"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#ffffff"
+     showgrid="false"
+     showguides="false"
+     inkscape:zoom="0.98240691"
+     inkscape:cx="361.86635"
+     inkscape:cy="162.8653"
+     inkscape:window-width="2468"
+     inkscape:window-height="1264"
+     inkscape:window-x="26"
+     inkscape:window-y="70"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg119" />
+  <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path
+     id="path1485"
+     style="fill:#ffffff;stroke:none;stroke-width:77.0119;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+     d="M -80.841797 -185.26367 L -80.841797 -326.73633 L -204.23047 -326.73633 L -227.70312 -289.77148 L -138.80469 -233.31836 L -201.42578 -185.26367 L -80.841797 -185.26367 z M -341.45117 -185.26367 L -317.97852 -222.22656 L -406.87695 -278.67969 L -344.25586 -326.73633 L -464.8418 -326.73633 L -464.8418 -185.26367 L -341.45117 -185.26367 z "
+     transform="scale(-1)" />
+  <path
+     id="path1477"
+     style="fill:#ffffff;stroke:none;stroke-width:77.0119;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+     d="M 1140.0366,60.304688 916.59714,231.76953 998.22995,283.60938 891.49167,451.69531 1114.9292,280.22852 1033.2944,228.38867 Z M 803.55222,104.42188 a 60.63158,60.63158 0 0 0 -60.63086,60.63085 v 60.63086 60.63282 60.63086 a 60.63158,60.63158 0 0 0 60.63086,60.63085 h 60.63281 31.62891 l 38.50195,-60.63085 h -9.5 -60.63086 -60.63281 v -60.63086 -60.63282 -60.63086 h 60.63281 60.63086 45.86719 l 79.00972,-60.63085 h -3.6132 -60.63285 -60.63086 -60.63086 z m 332.15818,0 -38.5019,60.63085 h 9.5019 60.6328 60.6309 v 60.63086 60.63282 60.63086 h -60.6309 -60.6328 -45.8711 l -79.00778,60.63085 h 3.61523 60.63285 60.6308 60.6328 60.6309 a 60.63158,60.63158 0 0 0 60.6308,-60.63085 v -30.31641 c 16.7949,0 30.3165,-13.51958 30.3165,-30.31445 v -60.63282 c 0,-16.79487 -13.5216,-30.31445 -30.3165,-30.31445 v -30.31641 a 60.63158,60.63158 0 0 0 -60.6308,-60.63085 h -60.6309 z" />
+  <path
+     id="path330"
+     style="fill:#ffffff;stroke:none;stroke-width:77.0119;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+     d="m -629.15801,104.42188 a 60.63158,60.63158 0 0 0 -60.63086,60.63085 v 60.63086 60.63282 60.63086 a 60.63158,60.63158 0 0 0 60.63086,60.63085 h 60.63281 60.63086 60.63086 60.63281 60.63086 60.63282 60.63085 a 60.63158,60.63158 0 0 0 60.63086,-60.63085 v -30.31641 c 16.79493,0 30.31641,-13.51952 30.31641,-30.31445 v -60.63282 c 0,-16.79493 -13.52148,-30.31445 -30.31641,-30.31445 v -30.31641 a 60.63158,60.63158 0 0 0 -60.63086,-60.63085 h -60.63085 -60.63282 -60.63086 -60.63281 -60.63086 -60.63086 z m 0,60.63085 h 60.63281 60.63086 60.63086 60.63281 60.63086 60.63282 60.63085 v 60.63086 60.63282 60.63086 h -60.63085 -60.63282 -60.63086 -60.63281 -60.63086 -60.63086 -60.63281 v -60.63086 -60.63282 z" />
+  <rect
+     style="fill:#ffffff;stroke:none;stroke-width:129.671;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+     id="rect332"
+     width="384"
+     height="141.47368"
+     x="-608.94708"
+     y="185.26315"
+     rx="0"
+     ry="0" />
+  <path
+     id="path1336"
+     style="fill:#ffffff;stroke-width:67.6522;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     inkscape:transform-center-y="-11.298212"
+     d="m -188.17866,-308.9596 -223.43804,171.46589 81.63237,51.839114 z"
+     inkscape:transform-center-x="-23.634445" />
+  <path
+     id="path1338"
+     style="fill:#ffffff;stroke-width:67.6522;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     inkscape:transform-center-y="11.298228"
+     d="m -436.72347,82.430244 223.43805,-171.4659 -81.63236,-51.839114 z"
+     inkscape:transform-center-x="23.634454" />
+</svg>

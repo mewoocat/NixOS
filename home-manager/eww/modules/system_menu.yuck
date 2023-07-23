@@ -1,0 +1,256 @@
+
+(defvar system_menu_button_hover false)
+
+(defwidget system_menu_button []
+(eventbox
+        :cursor "pointer"
+        :onclick "scripts/toggleSystemMenu.sh"
+        :onhover "eww update system_menu_button_hover=true"
+        :onhoverlost "eww update system_menu_button_hover=false"
+        :width 80
+        (box
+          :class "button-box"
+          (button
+              ;;:class "con"
+              :class {system_menu_button_hover ? "con con-hover" : "con"}
+              ;;:timeout "0.05s"
+              :onclick "scripts/toggleSystemMenu.sh"
+              "";;""
+          )
+        )
+      )
+
+)
+
+(defvar power_reveal false)
+
+;; System menu
+
+(defwidget menu_button []
+  (eventbox 
+    :class "menu-button"
+    ;;name
+    (children)
+  )
+)
+
+
+
+
+
+
+(defwidget system_menu_items []
+  (box
+    :class "system-menu-container"
+    :orientation "v"
+    :spacing 14
+    :space-evenly false ;; Affects size of all child elements
+    ;; Sliders
+    (box
+      :orientation "h"
+      (system_stats)
+      (battery_stats_v2)
+    )
+    ;;(battery_stats)
+    (box
+      :orientation "h"
+      :spacing 10
+      :space-evenly false
+      
+    )
+   (box
+      :orientation "h"
+      :spacing 10
+      :space-evenly true
+      ;; Weather
+      (weather2)
+      (box)
+    )
+
+    (box
+      :orientation "v"
+      :spacing 20
+      :space-evenly false
+      :class "menu-widget"
+      (box
+        :class {volumeL.mute == "true" ? "sliders mute" : "sliders"}
+        (volume_slider)
+      ) 
+      (box
+        :class {microphone.mute == "true" ? "sliders mute" : "sliders"}
+        (microphone_slider)
+      )
+      (box
+        :class "sliders"
+        (brightness_slider)
+      )
+    )
+    ;; Menu button row 1
+    (box
+      :orientation "h"
+      :spacing 10
+      ;;:space-evenly false
+      (network_button)
+      (box
+        ;;:space-evenly false
+        :spacing 10
+        ;;:width "100%"
+        (bluetooth_button)
+        (nightlight_button)
+      )
+    )
+
+
+
+    
+
+    ;; Menu buttons row 2
+    (box
+      :orientation "h"
+      :spacing 10
+      ;;:space-evenly false
+      (box
+        :spacing 10
+        (keyboard_button)
+        (theme_button)
+      )
+      (display)
+    )
+
+    ;; Bottom row
+    (centerbox
+      ;;:space-evenly false
+      :class "menu-widget"
+      :orientation "h"
+      ;;:height 72
+      (box
+        :orientation "h"
+        :space-evenly false
+        :spacing 8
+        (box
+
+        ;;:height 62
+        :width 48
+          ;;:width 60
+          ;;:height 44
+        
+          :class "pfp"
+          :halign "start"
+          
+        )
+        (label
+          :halign "end"
+          :text "${user}\\n@scythe" 
+          ;;:style "font-size: 16px;"
+        )
+      )
+      ;;(eventbox
+      ;; :onhover "eww update power_reveal=true"
+      ;;  :onhoverlost "eww update power_reveal=false"
+      ;;  "ababa"
+      ;;)
+      ;; could create toggle with "eww state" to get variable and then run a script to change value
+      (label :text "") 
+      (box
+        :space-evenly false
+        :spacing 0
+        :halign "end" 
+        ;;:class "bottom-row"
+        (eventbox
+          ;;:onhover "eww update power_reveal=true"
+          ;;:onhoverlost "eww update power_reveal=false"
+          (revealer
+            :reveal {power_reveal}
+            :transition "slideleft"
+            :duration "100ms"
+            (box
+              :space-evenly false
+              :spacing 4
+              :style "padding: 6px;"
+              (eventbox
+                :class "power-button power-off"
+                :halign "end"
+                :cursor "pointer"
+                :width 36
+                :height 36
+                "⏼"
+              )
+              (eventbox
+                :class "power-button lock"
+                :halign "end"
+                :cursor "pointer"
+                :width 36
+                :height 36
+                :onclick "~/.scripts/swaylockenv.sh"
+                ""
+              )
+              (eventbox
+                :class "power-button restart"
+                :halign "end"
+                :cursor "pointer"
+                :width 36
+                :height 36
+                (label
+                  :text ""
+                )
+              )
+              "|"
+            )
+          )
+        )
+        (box
+          :style "padding-top: 6px; padding-bottom: 6px;"
+          (eventbox
+            ;;:style "margin: 6px;"
+            :class "power-button"
+            ;;:halign "end"
+            :cursor "pointer"
+            :width 36
+            :height 36
+            ;;:onhover "eww update power_reveal=true"
+            :onclick {power_reveal ? "eww update power_reveal=false" : "eww update power_reveal=true"}
+            ;;:onhoverlost "eww update power_reveal=false"
+            ;;:width 20
+            ;;:height 20
+            "⏻"
+          )
+        )
+      )
+    )
+  )
+)
+
+(defvar system_menu_open false)
+
+
+(defwindow system_menu
+  :monitor 0
+  :windowtype "normal"
+  :focusable false
+  :geometry (geometry :x "8px"
+                      :y "8px"
+                      :width "50px"
+                      :height "0%"
+                      :anchor "top right")
+  ;;(literal
+  ;;  :content "${system_menu_open ? '(system_menu_items)' : '(wifi_list)'}"
+  ;;)
+  ;;(eventbox
+    ;;:style "border-radius: 50px;"
+    ;;:onhover 
+    ;;:onhoverlost
+  
+  ;;)
+
+  (revealer
+    :reveal {system_menu_open}
+    :transition "slidedown"
+    :duration "150ms"
+    (box
+      :class "system-menu-container-base"
+     (system_menu_items)
+    )
+  )
+)
+
+

@@ -1,0 +1,5 @@
+
+(defpoll user
+  :interval "24h"
+  "echo $USER"
+)

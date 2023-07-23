@@ -1,0 +1,198 @@
+;; Network
+(defpoll wifi
+    :interval "2s"
+    "scripts/network.sh"
+)
+
+
+
+(defvar wifi_menu_open false)
+
+(defvar ssid "")
+(defvar wifiFocused false)
+
+(defvar wifiClickd true)
+
+(defwidget network_button []
+  (eventbox
+    :class "menu-button"
+    :cursor "pointer"
+    :onclick "scripts/toggleWifiMenu.sh"
+    :height {widgetSize}
+    (box
+      :space-evenly false
+      :spacing 8
+      :class "menu-widget"
+      (wifi)
+      (label
+        :text "${wifi.ssid}"
+      )
+    )
+  )
+)
+
+(defwidget wifi []
+  (overlay
+    (label
+      :class "wifi wifi-bg icon"
+      :text "${wifi.bg}"
+      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+    )
+    (label
+      :class {wifi.status == "true" ? "wifi icon" : "wifi icon off"}
+      :text "${wifi.icon}"
+      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+    )
+  )
+)
+
+(defpoll wifi_scan
+  :interval "5s"
+  "./scripts/getWifiNetworks.sh"
+)
+(defwidget wifi_list []
+  (box
+    :orientation "v"
+    :space-evenly false
+    (label
+      :text "${ssid}"
+    )
+    (scroll
+      :height 240
+      (box
+        :orientation "v"
+        :spacing 0
+        :space-evenly false
+        (for network in wifi_scan
+          (box
+            :orientation "v"
+            :space-evenly false
+            (eventbox
+              :cursor "pointer"
+              :class "wifi-network"
+              ;;:height 20
+              ;;:halign "start"
+              ;;:hexpand true
+              ;;:height 60
+              ;;:width 400
+              :onclick {ssid == "" ? "eww update ssid='${network.ssid}'" : "eww update ssid=''"}
+              (box
+                ;;:class ""
+                :space-evenly false
+                :class "wifi-network-label"
+                :spacing 10 
+                (overlay
+                  (label
+                    :class "icon wifi-bg"
+                    :text "${network.icon_bg}"
+                    ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+                  )
+                  (label
+                    :class "icon"
+                    :text "${network.icon}"
+                    ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+                  )
+                )
+                (label
+                  :text "${network.ssid}"
+                )
+                (label
+                  :text "${network.status}"
+                )
+              )
+            )
+            (revealer
+              :reveal {network.ssid == ssid ? true : false}
+              :height 0
+              :transition "slidedown"
+              :duration "100ms"
+              ;;:visible false 
+              (box
+                :class "password-container"
+                :orientation "h"
+                :space-evenly false
+                (label
+                  :text "Password:  "
+                )
+                (input
+                  :hexpand true
+                  :class "password-entry"
+                  :value ""
+                  :password true
+                  :onaccept "nmcli dev wifi connect ${ssid} password {}"
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget back_button []
+  (eventbox
+  :cursor "pointer"
+    (button
+      :class "back-button"
+      :timeout "0.05s"
+      :onclick "scripts/toggleWifiMenu.sh"
+      :height 48
+      :width 48
+      "◁"
+    )
+  )
+)
+
+(defwindow wifi_menu
+  :monitor 0
+  :windowtype "normal"
+  ;;:focusable {wifiFocused ? true : false}
+  :focusable true
+  :geometry (geometry :x "1%"
+                      :y "1%"
+                      :width "22%"
+                      :height "400px"
+                      :anchor "top right")
+  (box
+    :orientation "v"
+    :space-evenly false
+    :spacing 8
+    :class "system-menu-container-base"
+    (centerbox
+      ;;:space-evenly false
+      (box
+        :space-evenly false
+        (back_button)
+        (label
+          :text "Wi-Fi"
+          :height 40
+          :halign "start"
+          :class "sub-menu-label"
+          :space-evenly false
+        )
+      )
+      ;; dummy label
+      (label
+        :text "" 
+      )
+      (box
+        :halign "end"
+        :space-evenly false
+        :spacing 8
+        (wifi)
+        (label
+          :class "wifi-ssid"
+          :height 40
+          :halign "end"
+          :text "${wifi.ssid}" 
+        )
+      )
+    )
+    (box
+      :height 2 
+      :class "horizontal-line"
+    )
+    (wifi_list)
+  )
+)

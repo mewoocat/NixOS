@@ -1,0 +1,263 @@
+
+
+;; Dot
+(defwidget dot []
+    (button
+      :class "con"
+      ""
+    )
+)
+
+
+;; Workspaces
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces []
+  (eventbox 
+    :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" 
+    :class "workspaces-widget"
+    (box 
+        :space-evenly false 
+        :vexpand false :hexpand false
+        :spacing 8
+        (for workspace in workspaces
+            (eventbox 
+                :class "ws-button" 
+                :vexpand false
+                :cursor "pointer"
+                :width 0
+                :height 0
+                :onclick "hyprctl dispatch workspace ${workspace.id}" 
+                (box 
+                    ;;:class "${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                    (button 
+                        :class "ws-but ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                        :onclick "hyprctl dispatch workspace ${workspace.id}" 
+                        ""
+                    ) 
+                )
+            )
+        )
+      )
+    )
+  )
+
+
+;; test
+(deflisten workspaces_listen "./scripts/workspaces.sh")
+(defwidget workspaces_test []
+  (literal :content workspaces_listen))
+
+;; test 2
+
+(deflisten workspace_ "./scripts/workspaces_f")
+(defwidget workspaces_f []
+  (eventbox
+		:onscroll "echo {} | sed -e \"s/up/-1/g\" -e \"s/down/+1/g\" | xargs hyprctl dispatch workspace"
+		(box
+			:class "workspaces"
+			:spacing 10
+            ;;:height 100
+
+		  (for ws in workspace_
+		    (button
+
+            :vexpand "true"
+                    ;;:valign "start" 
+					:onclick "hyprctl dispatch workspace ${ws.number}"
+					:class "ws icon ${ws.color == "#313244" ? "empty" : "occupied"}"
+                    ;; comment the next line out and change style in scss / this also allows for hover color change
+					:style "color: ${ws.color};"
+					;;:tooltip {ws.tooltip}
+                    (label
+					  :text ""
+                      :yalign 0.6  ;; fix for empty dots wrong valign?
+                     )
+                    )))))
+
+;; ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+
+
+;; Battery
+
+(defwidget battery []
+    (label
+        :text "${EWW_BATTERY.BAT0.capacity}%"
+    )
+)
+
+;; Time
+
+(defpoll time 
+    :interval "10s"
+    "date '+%B %d  %l:%M %p'"
+)
+
+(defwidget time []
+    (label
+      :text "${time}"
+    )
+)
+
+;; Volume
+
+(defpoll volume 
+  :interval "1s"
+  "scripts/getvol"
+)
+
+(defwidget volume []
+    (label
+        :text "vol: ${volume}%"
+    )
+)
+
+
+
+;; Temperature
+
+(defpoll temp
+    :interval "2s"
+    "scripts/getTemp.sh"
+)
+
+(defwidget temp []
+    (label
+        :text "${temp} C"
+    )
+)
+
+
+;; Network
+
+(defpoll wifi
+    :interval "2s"
+    "scripts/network.sh"
+)
+
+(defwidget wifi []
+    (label
+        :text "Wifi:  ${wifi} %"
+    )
+)
+
+
+
+(defpoll battery
+    :interval "2s"
+    "scripts/battery.sh"
+)
+
+(defwidget battery-image []
+
+    (box
+      :spacing 10
+    (label
+        :text "${temp} C"
+      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+        :width 0
+    )
+    (image
+      :path "${wifi}"
+      :image-height 26
+      :image-width 26
+      :halign "end"       ;; Use this to fix dumbass spacing issue
+    )
+    (label
+        :text "vol: ${volume}%"
+      :halign "end"       ;; Use this to fix dumbass spacing issue
+        :width 20
+    )
+
+    (box
+
+    (label
+        :text "${EWW_BATTERY.BAT0.capacity}%"
+    )
+    (overlay 
+      (image
+          :path "${battery}"
+          :image-height 26
+          :image-width 26
+
+      )
+      (image
+          :path "images/battery_empty.png"
+          :image-height 26
+          :image-width 26
+
+      )
+      )
+    )
+    (button
+        :class "con"
+        ""
+    )
+
+  )
+)
+
+
+
+;; class "${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+
+(defwidget wifi-icon []
+    (label
+        :class "wifi-icon"
+        :text ""
+     )
+)
+
+
+
+
+;; Left widgets
+
+(defwidget left []
+    (box 
+        :halign "start"
+        (workspaces_f)
+        ;;(workspaces_test :halign "center" :vexpand true :hexpand false :orientation "h")
+    )
+)
+
+;; Center widgets
+
+(defwidget center []
+    (box
+        :halign "center"
+        (time)
+    )
+)
+
+;; Right widgets
+
+(defwidget right []
+    (box :halign "end"
+        :spacing 0
+        ;;(workspace_num)
+
+
+        (battery-image)
+    )
+)
+
+
+;; Bar
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :anchor "top center")
+  :exclusive true
+     
+	(box :class "container" :space-evenly "true"
+		(left)
+        (center)	
+        (right)
+    )
+)

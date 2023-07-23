@@ -1,0 +1,60 @@
+(defpoll bluetoothPower 
+  :interval "1s"
+  "scripts/getBluetooth.sh"
+)
+
+
+(defvar  bluetooth_window_open false)
+
+(defwidget bluetooth []
+  ;; bluetooth power on/off
+  (label
+    :width 16
+    :class {bluetoothPower ? "bluetooth-label" : "bluetooth-label bluetooth-off"}
+    :text {bluetoothPower ? "󰂯" : "󰂲"}
+  )
+)
+
+(defwidget bluetooth_button []
+  (eventbox
+    :class {bluetoothPower ? "menu-button bluetooth-on" : "menu-button"}
+    :cursor "pointer"
+    :height {widgetSize}
+    :width {widgetSize}
+    :onclick "scripts/toggleBluetooth.sh"
+    ;;:onclick "scripts/toggleBluetoothWindow.sh"
+
+    (box
+      ;;:class {bluetoothPower ? "bluetooth-on" : ""}
+      ;;:space-evenly false
+      ;;:spacing 8
+      ;;:class "menu-widget"
+      :valign "center"
+      :halign "center"
+      (label
+        :style "font-size: 20px;"
+        :text {bluetoothPower ? "󰂯" : "󰂲"} ;;
+      )
+    )
+  )
+)
+
+(defwidget bluetooth_menu []
+  (box
+    :class "bluetooth-container"
+    (label :text "hi")
+  )
+)
+
+(defwindow bluetooth_window
+  :monitor 0
+  :windowtype "normal"
+  :focusable false
+  :geometry (geometry :x "8px"
+                      :y "8px"
+                      :width "350px"
+                      :height "0%"
+                      :anchor "top right")
+
+  (bluetooth_menu)
+)
