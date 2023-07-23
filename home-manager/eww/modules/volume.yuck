@@ -1,0 +1,51 @@
+
+(deflisten volumeL "./scripts/checkVolume.sh")
+(deflisten microphone "./scripts/checkMicrophone.sh")
+
+(defwidget volume_slider []
+  (box
+    :orientation "v"
+    :space-evenly false
+    (label 
+      :text "${volumeL.device}"
+      :halign "start"
+    )
+    (box
+      :space-evenly false
+      (volume)
+      (eventbox
+        :hexpand true
+        :space-evenly false
+        :cursor "pointer"
+        (scale
+          :hexpand true
+          ;;:class "volume-slider"
+          :class {volumeL.mute == "true" ? "mute" : ""}
+          :value "${volumeL.level}"
+          :timeout "1000ms"
+          :min -12
+          :max 101
+          :onchange "pamixer --set-volume {}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget volume []
+  (overlay
+    (label
+      :text "${volumeL.bg}"
+      :class "volume-bg"
+      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+      :width 20
+    )
+
+    (label
+      :text "${volumeL.icon}"
+      :class {volumeL.mute == "true" ? "volume off" : "volume"}
+      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
+      :width 20
+    )
+  )
+)

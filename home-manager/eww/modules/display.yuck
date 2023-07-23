@@ -1,0 +1,24 @@
+(defwidget display []
+  (eventbox
+    :class "menu-button"
+    ;;:class {theme_light ? "menu-button menu-button-active" : "menu-button"}
+    :cursor "pointer"
+    ;;:onclick {theme_light ? "eww update theme_light=false; ~/.scripts/theme.sh -l" : "eww update theme_light=true; ~/.scripts/theme.sh -d"}
+    ;;:onclick "ls & ~/.scripts/theme.sh -T" ;; No clue why but without some command e.g. "ls", and "&" the theme script will only update the terminal
+    :height 60
+    (box
+      :space-evenly false
+      ;;:halign "center"
+      :spacing 4
+      :class "menu-widget"
+      (label
+        :class "icon"
+        :style "font-size: 24px;"
+        :text " "
+      )
+      (label
+        :text "Display"
+      )
+    )
+  )
+)

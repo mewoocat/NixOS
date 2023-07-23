@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 262144 262144"
+   version="1.1"
+   id="svg43"
+   sodipodi:docname="circle.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:export-filename="circle.svg"
+   inkscape:export-xdpi="18.75"
+   inkscape:export-ydpi="18.75"
+   width="262144"
+   height="262144"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs47" />
+  <sodipodi:namedview
+     id="namedview45"
+     pagecolor="#ffffff"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#ffffff"
+     showgrid="false"
+     inkscape:zoom="1.8735177"
+     inkscape:cx="247.1287"
+     inkscape:cy="254.06752"
+     inkscape:window-width="2556"
+     inkscape:window-height="1392"
+     inkscape:window-x="0"
+     inkscape:window-y="44"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg43" />
+  <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <circle
+     style="fill:#ffffff;stroke-width:12.6147;stroke-linecap:round;stroke-linejoin:bevel"
+     id="path251"
+     cx="256"
+     cy="256"
+     r="165.14561" />
+</svg>

@@ -1,0 +1,52 @@
+ :70\:79\:B3\:C7\:15\:4D:Faculty5:Infra:149:195 Mbit/s:60:▂▄▆_:WPA2
+ :70\:79\:B3\:C7\:15\:4E:Student5:Infra:149:195 Mbit/s:60:▂▄▆_:WPA2
+ :70\:79\:B3\:C7\:15\:4B:Staff5:Infra:149:195 Mbit/s:59:▂▄▆_:WPA2
+ :70\:79\:B3\:C7\:15\:4F:eduroam:Infra:149:195 Mbit/s:59:▂▄▆_:WPA2 802.1X
+ :70\:79\:B3\:C7\:15\:4A:UAH Get Connected:Infra:149:195 Mbit/s:59:▂▄▆_:
+*:70\:79\:B3\:C7\:15\:41:Student5:Infra:1:195 Mbit/s:50:▂▄__:WPA2
+ :70\:79\:B3\:C7\:15\:45:UAH Get Connected:Infra:1:195 Mbit/s:50:▂▄__:
+ :70\:79\:B3\:C7\:15\:44:Staff5:Infra:1:195 Mbit/s:50:▂▄__:WPA2
+ :70\:79\:B3\:C7\:15\:42:Faculty5:Infra:1:195 Mbit/s:50:▂▄__:WPA2
+ :70\:79\:B3\:C7\:15\:40:eduroam:Infra:1:195 Mbit/s:50:▂▄__:WPA2 802.1X
+ :68\:CA\:E4\:4A\:F6\:C1:Student5:Infra:6:130 Mbit/s:35:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:C3:Staff5:Infra:6:130 Mbit/s:35:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:C4:Guest5:Infra:6:130 Mbit/s:35:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:C2:Faculty5:Infra:6:130 Mbit/s:34:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:C0:UAH Get Connected:Infra:6:130 Mbit/s:34:▂▄__:
+ :68\:CA\:E4\:4A\:F6\:C8:eduroam:Infra:6:130 Mbit/s:34:▂▄__:WPA2 802.1X
+ :68\:CA\:E4\:4B\:74\:C1:Student5:Infra:11:130 Mbit/s:34:▂▄__:WPA2
+ :68\:CA\:E4\:4B\:74\:C4:Guest5:Infra:11:130 Mbit/s:34:▂▄__:WPA2
+ :68\:CA\:E4\:4B\:74\:C8:eduroam:Infra:11:130 Mbit/s:34:▂▄__:WPA2 802.1X
+ :68\:CA\:E4\:4B\:74\:C2:Faculty5:Infra:11:130 Mbit/s:34:▂▄__:WPA2
+ :68\:CA\:E4\:4B\:74\:C3:Staff5:Infra:11:130 Mbit/s:34:▂▄__:WPA2
+ :68\:CA\:E4\:4B\:74\:C0:UAH Get Connected:Infra:11:130 Mbit/s:34:▂▄__:
+ :00\:72\:78\:20\:72\:C1:Student5:Infra:6:195 Mbit/s:32:▂▄__:WPA2
+ :00\:72\:78\:20\:72\:C3:Staff5:Infra:6:195 Mbit/s:32:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:CE:Student5:Infra:128:130 Mbit/s:32:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:CB:Guest5:Infra:128:130 Mbit/s:32:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:CC:Staff5:Infra:128:130 Mbit/s:32:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:CD:Faculty5:Infra:128:130 Mbit/s:32:▂▄__:WPA2
+ :68\:CA\:E4\:4A\:F6\:C7:eduroam:Infra:128:130 Mbit/s:32:▂▄__:WPA2 802.1X
+ :68\:CA\:E4\:4A\:F6\:CF:UAH Get Connected:Infra:128:130 Mbit/s:32:▂▄__:
+ :00\:72\:78\:20\:72\:C2:Faculty5:Infra:6:195 Mbit/s:30:▂___:WPA2
+ :00\:72\:78\:20\:72\:C8:eduroam:Infra:6:195 Mbit/s:30:▂___:WPA2 802.1X
+ :00\:72\:78\:20\:A0\:83:Staff5:Infra:1:195 Mbit/s:29:▂___:WPA2
+ :00\:72\:78\:20\:72\:C4:Guest5:Infra:6:195 Mbit/s:29:▂___:WPA2
+ :00\:72\:78\:20\:72\:C0:UAH Get Connected:Infra:6:195 Mbit/s:29:▂___:
+ :68\:CA\:E4\:4B\:74\:CB:Guest5:Infra:112:130 Mbit/s:27:▂___:WPA2
+ :00\:72\:78\:20\:A0\:80:UAH Get Connected:Infra:1:195 Mbit/s:25:▂___:
+ :00\:72\:78\:20\:A0\:82:Faculty5:Infra:1:195 Mbit/s:24:▂___:WPA2
+ :00\:72\:78\:20\:A0\:88:eduroam:Infra:1:195 Mbit/s:24:▂___:WPA2 802.1X
+ :68\:CA\:E4\:4B\:74\:C7:eduroam:Infra:112:130 Mbit/s:24:▂___:WPA2 802.1X
+ :68\:CA\:E4\:4B\:74\:CE:Student5:Infra:112:130 Mbit/s:24:▂___:WPA2
+ :68\:CA\:E4\:4B\:74\:CC:Staff5:Infra:112:130 Mbit/s:24:▂___:WPA2
+ :00\:72\:78\:20\:A0\:84:Guest5:Infra:1:195 Mbit/s:22:▂___:WPA2
+ :68\:CA\:E4\:4B\:74\:CD:Faculty5:Infra:112:130 Mbit/s:22:▂___:WPA2
+ :68\:CA\:E4\:4B\:74\:CF:UAH Get Connected:Infra:112:130 Mbit/s:22:▂___:
+ :28\:AF\:FD\:A8\:A4\:EE:Student5:Infra:124:195 Mbit/s:22:▂___:WPA2
+ :F4\:DB\:E6\:C8\:53\:C2:Faculty5:Infra:11:130 Mbit/s:20:▂___:WPA2
+ :F4\:DB\:E6\:C8\:53\:C5:UAH Get Connected:Infra:11:130 Mbit/s:20:▂___:
+ :28\:AF\:FD\:A8\:A4\:EF:eduroam:Infra:124:195 Mbit/s:20:▂___:WPA2 802.1X
+ :28\:AF\:FD\:A8\:A4\:ED:Faculty5:Infra:124:195 Mbit/s:20:▂___:WPA2
+ :28\:AF\:FD\:A8\:A4\:EB:Staff5:Infra:124:195 Mbit/s:20:▂___:WPA2
+ :28\:AF\:FD\:A8\:A4\:EA:UAH Get Connected:Infra:124:195 Mbit/s:20:▂___:
