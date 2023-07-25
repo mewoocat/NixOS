@@ -3,7 +3,7 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.03";
 
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs }@attrs: {
 
     nixosConfigurations.container = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -30,6 +30,7 @@
      #   ];
 
      # Or inport it here like this
+     specialArgs = attrs;
      modules = [./nixos/configuration.nix];
     };
 
