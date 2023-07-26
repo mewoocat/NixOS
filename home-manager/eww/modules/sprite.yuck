@@ -1,8 +1,0 @@
-
-(defwidget sprite []
-  (image
-    :path "/home/ghost/Downloads/shinx_28px.gif"
-    :image-width 20
-    :image-height 20
-  )
-)
