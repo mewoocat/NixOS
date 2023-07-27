@@ -1,0 +1,31 @@
+
+;; extra icons:  
+(deflisten workspace "./scripts/workspaces_f")
+(defwidget workspaces_f []
+  (eventbox
+		(box
+			:class "workspaces"
+			:spacing 0
+            ;;:height 100
+		  (for ws in workspace
+        (eventbox
+          :cursor "pointer"
+          (button
+            :onclick "hyprctl dispatch workspace ${ws.number}"
+            :class "ws-icon ${ws.color == "occupied" ? "occupied" : "empty"} ${ws.color == "current" ? "current" : ""}"
+
+            ;;:hexpand "true"
+            ;; comment the next line out and change style in scss / this also allows for hover color change
+            ;;:style "color: ${ws.color};"
+            ;;:tooltip {ws.tooltip}
+            (label
+             ;;:text "" ;;${ws.color == "current" ? "❐" : ""}"
+             :text "${ws.color == "current" ? "" : ""}" ;;  
+             :yalign 0.6  ;; fix for empty dots wrong valign?
+            )
+          )
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,59 @@
+ :00\:72\:78\:20\:EA\:01:Student5:Infra:11:195 Mbit/s:89:▂▄▆█:WPA2
+ :00\:72\:78\:20\:EA\:08:eduroam:Infra:11:195 Mbit/s:89:▂▄▆█:WPA2 802.1X
+ :00\:72\:78\:20\:EA\:00:UAH Get Connected:Infra:11:195 Mbit/s:85:▂▄▆█:
+ :38\:ED\:18\:D6\:A7\:A1:Student5:Infra:11:130 Mbit/s:67:▂▄▆_:WPA2
+ :38\:ED\:18\:D6\:A7\:A8:eduroam:Infra:11:130 Mbit/s:67:▂▄▆_:WPA2 802.1X
+ :F0\:B2\:E5\:C1\:EB\:C8:eduroam:Infra:6:130 Mbit/s:59:▂▄▆_:WPA2 802.1X
+ :F0\:B2\:E5\:C1\:EB\:C1:Student5:Infra:6:130 Mbit/s:57:▂▄▆_:WPA2
+ :00\:72\:78\:28\:75\:40:UAH Get Connected:Infra:6:195 Mbit/s:55:▂▄__:
+ :00\:72\:78\:28\:75\:48:eduroam:Infra:6:195 Mbit/s:54:▂▄__:WPA2 802.1X
+ :00\:72\:78\:28\:75\:41:Student5:Infra:6:195 Mbit/s:54:▂▄__:WPA2
+ :38\:ED\:18\:D6\:A7\:AE:Student5:Infra:157:130 Mbit/s:54:▂▄__:WPA2
+ :00\:72\:78\:20\:EA\:07:eduroam:Infra:124:260 Mbit/s:52:▂▄__:WPA2 802.1X
+ :00\:72\:78\:20\:EA\:0E:Student5:Infra:124:260 Mbit/s:50:▂▄__:WPA2
+ :00\:72\:78\:20\:EA\:0F:UAH Get Connected:Infra:124:260 Mbit/s:50:▂▄__:
+ :38\:ED\:18\:D6\:A7\:A7:eduroam:Infra:157:130 Mbit/s:50:▂▄__:WPA2 802.1X
+ :94\:83\:C4\:00\:D1\:2A:CrackerBarrel:Infra:6:270 Mbit/s:49:▂▄__:WPA2
+ :00\:72\:78\:1D\:0F\:A1:Student5:Infra:6:195 Mbit/s:49:▂▄__:WPA2
+ :F0\:B2\:E5\:C1\:EB\:CE:Student5:Infra:56:130 Mbit/s:47:▂▄__:WPA2
+ :F0\:B2\:E5\:C1\:EB\:C7:eduroam:Infra:56:130 Mbit/s:47:▂▄__:WPA2 802.1X
+ :00\:72\:78\:23\:F8\:6F:UAH Get Connected:Infra:153:260 Mbit/s:47:▂▄__:
+*:00\:72\:78\:1D\:6A\:8E:Student5:Infra:48:260 Mbit/s:46:▂▄__:WPA2
+ :00\:72\:78\:28\:77\:C8:eduroam:Infra:1:195 Mbit/s:45:▂▄__:WPA2 802.1X
+ :00\:72\:78\:28\:77\:C0:UAH Get Connected:Infra:1:195 Mbit/s:45:▂▄__:
+ :00\:72\:78\:28\:77\:C1:Student5:Infra:1:195 Mbit/s:45:▂▄__:WPA2
+ :00\:72\:78\:1D\:6A\:87:eduroam:Infra:48:260 Mbit/s:45:▂▄__:WPA2 802.1X
+ :00\:72\:78\:1D\:6A\:8F:UAH Get Connected:Infra:48:260 Mbit/s:45:▂▄__:
+ :38\:ED\:18\:D6\:AD\:A8:eduroam:Infra:1:130 Mbit/s:44:▂▄__:WPA2 802.1X
+ :38\:ED\:18\:D6\:AD\:A1:Student5:Infra:1:130 Mbit/s:42:▂▄__:WPA2
+ :00\:B7\:71\:9A\:06\:81:Student5:Infra:1:130 Mbit/s:42:▂▄__:WPA2
+ :00\:72\:78\:20\:C4\:00:UAH Get Connected:Infra:11:195 Mbit/s:42:▂▄__:
+ :00\:72\:78\:20\:C4\:08:eduroam:Infra:11:195 Mbit/s:40:▂▄__:WPA2 802.1X
+ :94\:83\:C4\:00\:D1\:2B:CrackerBarrel5:Infra:36:135 Mbit/s:40:▂▄__:WPA2
+ :00\:72\:78\:1D\:6A\:80:UAH Get Connected:Infra:6:195 Mbit/s:39:▂▄__:
+ :00\:72\:78\:20\:C4\:01:Student5:Infra:11:195 Mbit/s:39:▂▄__:WPA2
+ :00\:72\:78\:28\:78\:28:eduroam:Infra:6:195 Mbit/s:35:▂▄__:WPA2 802.1X
+ :F4\:DB\:E6\:B4\:93\:05:UAH Get Connected:Infra:1:130 Mbit/s:34:▂▄__:
+ :00\:72\:78\:28\:78\:21:Student5:Infra:6:195 Mbit/s:34:▂▄__:WPA2
+ :68\:CA\:E4\:41\:C5\:68:eduroam:Infra:1:195 Mbit/s:32:▂▄__:WPA2 802.1X
+ :00\:72\:78\:28\:78\:20:UAH Get Connected:Infra:6:195 Mbit/s:32:▂▄__:
+ :00\:72\:78\:1D\:0F\:AE:Student5:Infra:56:260 Mbit/s:32:▂▄__:WPA2
+ :00\:72\:78\:1D\:0F\:AF:UAH Get Connected:Infra:56:260 Mbit/s:32:▂▄__:
+ :68\:CA\:E4\:41\:C5\:61:Student5:Infra:1:195 Mbit/s:30:▂___:WPA2
+ :68\:CA\:E4\:41\:C5\:60:UAH Get Connected:Infra:1:195 Mbit/s:30:▂___:
+ :00\:72\:78\:1D\:0F\:A7:eduroam:Infra:56:260 Mbit/s:30:▂___:WPA2 802.1X
+ :F4\:DB\:E6\:B4\:93\:00:eduroam:Infra:1:130 Mbit/s:29:▂___:WPA2 802.1X
+ :1C\:D1\:E0\:DB\:E9\:A7:UAH Get Connected:Infra:11:260 Mbit/s:29:▂___:
+ :38\:ED\:18\:D6\:AD\:AE:Student5:Infra:161:130 Mbit/s:27:▂___:WPA2
+ :1C\:D1\:E0\:DB\:E9\:A0:net40:Infra:11:260 Mbit/s:25:▂___:WPA2
+ :1C\:D1\:E0\:DB\:E9\:A5:Conf5:Infra:11:260 Mbit/s:25:▂___:WPA2
+ :68\:CA\:E4\:40\:8F\:A0:UAH Get Connected:Infra:11:195 Mbit/s:24:▂___:
+ :00\:B7\:71\:99\:FC\:08:eduroam:Infra:1:130 Mbit/s:22:▂___:WPA2 802.1X
+ :1C\:D1\:E0\:DB\:E9\:A2:Faculty5:Infra:11:260 Mbit/s:22:▂___:WPA2
+ :00\:72\:78\:28\:75\:47:eduroam:Infra:161:260 Mbit/s:22:▂___:WPA2 802.1X
+ :1C\:D1\:E0\:DB\:E9\:A1:Student5:Infra:11:260 Mbit/s:20:▂___:WPA2
+ :00\:72\:78\:28\:77\:CE:Student5:Infra:132:260 Mbit/s:20:▂___:WPA2
+ :00\:72\:78\:28\:75\:4E:Student5:Infra:161:260 Mbit/s:20:▂___:WPA2
+ :00\:72\:78\:28\:75\:4F:UAH Get Connected:Infra:161:260 Mbit/s:20:▂___:
+ :00\:72\:78\:28\:77\:C7:eduroam:Infra:132:260 Mbit/s:19:▂___:WPA2 802.1X
+ :38\:ED\:18\:D6\:AD\:A7:eduroam:Infra:161:130 Mbit/s:17:▂___:WPA2 802.1X

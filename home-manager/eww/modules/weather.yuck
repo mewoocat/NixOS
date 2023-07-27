@@ -1,0 +1,53 @@
+
+(defpoll weather_info
+  :interval "10s"
+  "scripts/weather.sh"
+)
+
+;; WARNING... Could cause eww to freeze on reload
+(defwidget weather []
+  (label
+    :class "weather"
+    ;;:text "${weather_info}"
+    :text "weather n/a"
+  )
+)
+
+(defpoll weather_data
+  :interval "10s"
+  "scripts/weather2.sh"
+)
+
+;;     
+
+(defwidget weather2 []
+  (box
+    :class "weather-container"
+    :height 138
+    :orientation "v"
+    (box
+      :orientation "v"
+      (label
+        :halign "start"
+        :text "${weather_data.location} ➤"
+      )
+      (label
+        :halign "start"
+        :text "${weather_data.conditions}"
+      )
+    )
+    (label
+      :class "weather-temp"
+      :text "${weather_data.temp} °F"
+    )
+    (box
+      :orientation "h"
+      (label
+        :text " ${weather_data.humidity}%"
+      )
+      (label
+        :text " ${weather_data.pressure}mb"
+      )
+    )
+  )
+)

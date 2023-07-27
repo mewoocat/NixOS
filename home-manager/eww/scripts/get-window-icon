@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Use geticons 
+
+
+
+iconDir="/home/ghost/.icons/Reversal-blue/apps/scalable/"
+
+function handle {
+    name=$(hyprctl activewindow -j | jq --raw-output .class)
+    icon="$iconDir$name.svg"
+    echo $icon
+}
+
+#socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do handle; done
+socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^activewindow>>' | stdbuf -o0 awk -F '>>|,' '{print $2".svg"}'
