@@ -1,0 +1,58 @@
+(defpoll brightness 
+  :interval "200ms"
+  "light -G"
+)
+
+(defwidget brightness_slider []
+  (box
+    :space-evenly false
+    (label
+      :text ""
+      :class "icon brightness-icon"
+      :width 20
+    )
+    (eventbox
+      :cursor "pointer"
+      :hexpand true
+      (scale
+        :hexpand true
+        :class "brightness-slider"
+        :value "${brightness}"
+        :min 1
+        :max 101
+        :onchange "light -S {}"
+      )
+    )
+  )
+)
+
+(defvar osd_mode "")
+
+;; Brightness osd
+(defwindow brightnessOSD
+  :monitor 0
+  :windowtype "normal"
+  :focusable false
+  :geometry (geometry :x "1%"
+                      :y "1%"
+                      :width 400
+                      :height 0
+                      :anchor "bottom center")
+  ;;:exclusive true
+     
+  ;;(brightness-slider)
+  (box
+    :class "osd-container"
+    ;;(brightness_slider)
+
+    (box
+      :class "osd-sliders"
+      :orientation "v"
+      (literal
+        :content {osd_mode == "brightness" ? "(brightness_slider)" : "(volume_slider)"}
+      )
+      ;;(brightness_slider)
+      ;;(volume_slider)
+    )
+  )
+)
