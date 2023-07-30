@@ -4,6 +4,16 @@
     #hyprland = (import flake-compat {
     # src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
     #}).defaultNix;
+
+      # Shell scripts
+  #what = pkgs.writeShellScriptBin "lockScreen2" ''exec ${pkgs.gtklock}/bin/gtklock'';
+  what = import ./scripts/lockScreen.nix { inherit pkgs; };
+  
+   huh = pkgs.writeShellScriptBin "lockScreen3" ''
+        echo "what";
+        ${pkgs.gtklock}/bin/gtklock;
+    '';
+
 in
 
 {
@@ -45,6 +55,10 @@ in
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    (pkgs.writeShellScriptBin "my-hello" ''
+        ${pkgs.gtklock}/bin/gtklock
+    '')
 
     git
     neovim
@@ -97,10 +111,17 @@ in
     wpgtk
     lxappearance-gtk2
     themechanger
+    
+    hyfetch
 
+    vlc
 
+    what
+    huh
 
   ];
+
+
 
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -118,7 +139,27 @@ in
     # '';
 
    ".config/kitty".source = ./kitty; 
+
+   ## Need to manually create .local/bin? 
+   #".local/bin/lockScreen.sh" = {
+   #  executable = true;
+   #  recursive = true;
+   #  source = ./scripts/lockScreen.sh;
+   #};
+
   };
+
+
+#    lockScreenVar = stdenv.mkDerivation rec {
+#      name = "lockScreenName";
+#      # disable unpackPhase etc
+#      phases = "buildPhase";
+#      builder = ./scripts/lockScreen.sh;
+#      nativeBuildInputs = [ gtklock ];
+#      PATH = lib.makeBinPath nativeBuildInputs;
+#    };
+
+
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -175,9 +216,12 @@ gtk = {
       enable = true; 
       package = pkgs.swayidle;
       #systemdTarget = "basic.target";
+      #extraArgs = [ pkgs ];
       events = [
-        { event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock"; }
-        #{ event = "lock"; command = "gtklock"; }
+        #{ event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock"; }
+        #{ event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock -t \"%l:%M %P\""; }
+        { event = "before-sleep"; command = "${pkgs.my-hello}/bin/my-hello"; }
+
       ];
     };
 
