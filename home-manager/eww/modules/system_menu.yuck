@@ -1,4 +1,5 @@
 
+
 (defvar system_menu_button_hover false)
 
 (defwidget system_menu_button []
@@ -222,6 +223,12 @@
 
 (defvar system_menu_open false)
 
+(defvar showWifi false)
+(defvar showMain true)
+
+;;[exia@nixos ~]$ eww update showMain=false && eww update showWifi=true
+;;[exia@nixos ~]$ eww update showMain=true && eww update showWifi=false
+
 
 (defwindow system_menu
   :monitor 0
@@ -242,13 +249,35 @@
   
   ;;)
 
+
   (revealer
     :reveal {system_menu_open}
     :transition "slidedown"
     :duration "150ms"
     (box
       :class "system-menu-container-base"
-     (system_menu_items)
+      (box
+        ;;(literal :content {showMain ? "(system_menu_items)" : "(label :text \"\")"})
+        ;;(literal :content {showWifi ? "(wifi_menu_container)" : "(label :text \"\")"})
+
+        (revealer
+          :reveal {showMain}
+          :visible {showMain}
+          :transition "sliderleft"
+          :duration "200ms"
+          (system_menu_items)
+        )
+
+        (revealer
+          :reveal {showWifi}
+          :visible {showWifi}
+          :transition "sliderleft"
+          :duration "200ms"
+          (wifi_menu_container)
+        )
+
+      
+      )
     )
   )
 )
