@@ -1,3 +1,4 @@
+
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
@@ -33,112 +34,43 @@ in
   };
 
 
-
   # Doesn't work?
   #environment.variables.EDITOR = "neovim";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];	
-
-
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
    vscodium
-   # git
-   # neovim
-   # vim
-   # acpi
-   # #hyprland  
-   # kitty
-   # firefox
-   # obsidian
-   # htop
-   # #eww-wayland 
-
-   # light
-   # bluez 
-   # killall 
-   # gnome.gucharmap
-   # swww
-   # rofi
-   # cinnamon.nemo
-   #     
-   # # For eww
-   # jaq 
-   # gojq
-   # socat
-   # ripgrep
-   # jq
-   # wirelesstools
-
-   #     
-   # pywal
-   # colorz
-
-   # wpgtk
-
-   # shotman
-   # gammastep
-   # apple-cursor
-   # glib
-   # lm_sensors
-
-   # onlyoffice-bin
-   # # Fonts
-   # liberation_ttf
-   # arkpandora_ttf
-   # nerdfonts
-
-   # themechanger 
-   # lxappearance-gtk2
-
-   # pipewire
-   # pulseaudio
-   # alsa-utils
-   # pamixer
-   # pavucontrol
-
-   # gtklock
-   # swayidle
-
-   # webcord
-   # obs-studio
-
-   # bc
-   # wl-clipboard
   ];
 
 
-# Gtklock needs this for password to work
-security.pam.services.gtklock = {};
-# https://github.com/NixOS/nixpkgs/issues/240886
-security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
+  # Gtklock needs this for password to work
+  security.pam.services.gtklock = {};
+  # https://github.com/NixOS/nixpkgs/issues/240886
+  security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
 
-# For udiskie automount to work
-services.udisks2.enable = true;
+  # For udiskie automount to work
+  services.udisks2.enable = true;
 
-# Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-sound.enable = false;
+  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
+  sound.enable = false;
 
-# rtkit is optional but recommended
-security.rtkit.enable = true;
-services.pipewire = {
-  enable = true;
-  alsa.enable = true;
-  alsa.support32Bit = true;
-  pulse.enable = true;
-  # If you want to use JACK applications, uncomment this
-  jack.enable = true;
-};
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    jack.enable = true;
+  };
  
 
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
+
 
   # Required for gtk?
   programs.dconf.enable = true;
-
-  #programs.hyprland.enable = true;
-  #programs.hyprland.xwayland.hidpi = true;
 
   programs.light.enable = true;
 
@@ -146,14 +78,15 @@ services.pipewire = {
   fonts.fontDir.enable = true;  
 
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    Policy = {
+      AutoEnable = "false";
+    };
+  };
   
-
-
   fonts.fonts = with pkgs; [
-    #"icon_font"
     nerdfonts
   ];
-
 
 
   # networking.hostName = "nixos"; # Define your hostname.
@@ -187,16 +120,8 @@ services.pipewire = {
 
   
 
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
