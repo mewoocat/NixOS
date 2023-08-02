@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: let
+{ config, pkgs, lib, inputs, ... }: let
     #flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
 
     #hyprland = (import flake-compat {
@@ -61,7 +61,7 @@ in
     '')
 
     git
-    neovim
+    #neovim
     vim
     kitty
 
@@ -119,6 +119,13 @@ in
     what
     huh
 
+    coreutils
+
+    steam
+
+    qdirstat
+    themechanger
+    qalculate-gtk
   ];
 
 
@@ -139,6 +146,7 @@ in
     # '';
 
    ".config/kitty".source = ./kitty; 
+   ".config/nvim".source = ./nvim;
 
    ## Need to manually create .local/bin? 
    #".local/bin/lockScreen.sh" = {
@@ -188,15 +196,53 @@ in
         package = pkgs.eww-wayland;
     };
 
+    #programs.steam.enable = true;
+  
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
 
+  programs.anyrun = {
+    enable = true;
+    config = {
+      plugins = [
+        # An array of all the plugins you want, which either can be paths to the .so files, or their packages
+        inputs.anyrun.packages.${pkgs.system}.applications
+        #./some_plugin.so
+        #"${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/kidex"
+      ];
+      width = { fraction = 0.3; };
+      #position = "top";
+      #verticalOffset = { absolute = 0; };
+      hideIcons = false;
+      ignoreExclusiveZones = false;
+      layer = "overlay";
+      hidePluginInfo = false;
+      closeOnClick = false;
+      showResultsImmediately = false;
+      maxEntries = null;
+    };
+    extraCss = ''
+      // css goes here 
+    '';
+
+    extraConfigFiles."some-plugin.ron".text = ''
+      Config(
+        // for any other plugin
+        // this file will be put in ~/.config/anyrun/some-plugin.ron
+        // refer to docs of xdg.configFile for available options
+      )
+    '';
+  };
 
 
 
 gtk = {
       enable = true;
       theme = {
-        name = "Materia-dark";
-        package = pkgs.materia-theme;
+        #name = "default";
+        
+        name = "WhiteSur-Dark";
+        package = pkgs.whitesur-gtk-theme;
       };
       cursorTheme = {
         name = "macOS-BigSur";
@@ -217,10 +263,18 @@ gtk = {
       package = pkgs.swayidle;
       #systemdTarget = "basic.target";
       #extraArgs = [ pkgs ];
-      events = [
+      events = let
+        lock = (pkgs.writeShellScriptBin "my-hello" ''
+            wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
+            ${pkgs.gtklock}/bin/gtklock -t "%l:%M %P" -b $wallpaper;
+        '');
+
+      in
+      [
         #{ event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock"; }
         #{ event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock -t \"%l:%M %P\""; }
-        { event = "before-sleep"; command = "${pkgs.my-hello}/bin/my-hello"; }
+        #{ event = "before-sleep"; command = "${pkgs.my-hello}/bin/my-hello"; }
+        { event = "before-sleep"; command = "${lock}/bin/my-hello"; }
 
       ];
     };
@@ -255,13 +309,13 @@ OR EDIT THIS ONE ACCORDING TO THE WIKI INSTRUCTIONS.
 # See https://wiki.hyprland.org/Configuring/Monitors/
 #
 # Main display only
-#monitor=eDP-1, 2560x1440@60, 0x0, 1.30
+monitor=eDP-1, 2560x1440@60, 0x0, 1.30
 #monitor=eDP-1, 1920x1080@60, 0x0, 1.0
 
 # 144hz monitor
-monitor=eDP-1, 2560x1440@60, 100x1080, 1.45 
+#monitor=eDP-1, 2560x1440@60, 100x1080, 1.45 
 #monitor=eDP-1, 1920x1080@60, 100x1080, 1.0 
-monitor=DP-1, 1920x1080@144, 0x0, 1.0 # On top
+#monitor=DP-1, 1920x1080@144, 0x0, 1.0 # On top
 #monitor=eDP-1,disable
 
 # 240hz monitor only
