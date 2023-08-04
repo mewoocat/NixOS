@@ -1,7 +1,9 @@
 #!/bin/sh
 
+# Old method of getting volume?  Doesn't work on nix install?
+#level=$(amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -1)
+level=$(amixer sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -1)
 
-level=$(amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -1)
 # Bluetooth headset no worky ?
 #level=$(amixer -D pulse sget Master | grep 'Mono:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -1)
 

@@ -8,9 +8,11 @@ set ts=4 sw=4
 set relativenumber
 
 " Settings tabs to space
-:set tabstop=4
-:set shiftwidth=4
+:set tabstop=2
+:set shiftwidth=2
 :set expandtab
+:set autoindent
+
 
 " Show hidden files by default in nerdtree
 let NERDTreeShowHidden=1

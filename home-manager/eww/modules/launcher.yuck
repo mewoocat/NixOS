@@ -2,10 +2,11 @@
 (defvar launcher_hover false)
 (defwidget launcher []
   (eventbox
-    ;;:timeout "0ms"
+    ;;:timeout "10000ms"
     :cursor "pointer"
     ;;:onclick "bash ~/.config/rofi/launch.sh &"
-    :onclick "eww open --toggle launcher &"
+    ;;:onclick "eww open --toggle launcher &"
+    :onclick "bash ~/.config/eww/scripts/launcher.sh &"
     :onhover "eww update launcher_hover=true"
     :onhoverlost "eww update launcher_hover=false"
     :width 80
