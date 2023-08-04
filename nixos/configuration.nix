@@ -66,8 +66,8 @@ in
     jack.enable = true;
   };
  
-
-
+  # Required for steam to run?
+  hardware.opengl.driSupport32Bit = true;
 
   # Required for gtk?
   programs.dconf.enable = true;
