@@ -10,12 +10,12 @@
         :space-evenly false
         ;;(sprite)
         ;;(weather)
-        ;;(storage)
-        ;;(cpu_usage)
-        ;;(cpu_temp)
-        ;;(memory)
+        (storage)
+        (cpu_usage)
+        (cpu_temp)
+        (memory)
 
-        ;;(label :text "|")
+        (label :text "|")
 
         (bluetooth)
         (wifi)

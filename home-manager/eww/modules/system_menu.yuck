@@ -16,7 +16,7 @@
               :class {system_menu_button_hover ? "con con-hover" : "con"}
               ;;:timeout "0.05s"
               :onclick "scripts/toggleSystemMenu.sh"
-              "";;""
+              "";;"            "
           )
         )
       )
