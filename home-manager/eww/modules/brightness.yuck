@@ -27,6 +27,7 @@
 )
 
 (defvar osd_mode "")
+(defvar isOSD false)
 
 ;; Brightness osd
 (defwindow brightnessOSD
@@ -41,18 +42,22 @@
   ;;:exclusive true
      
   ;;(brightness-slider)
-  (box
-    :class "osd-container"
-    ;;(brightness_slider)
-
+  (revealer
+    :reveal {isOSD}
+    :transition "slideup"
     (box
-      :class "osd-sliders"
-      :orientation "v"
-      (literal
-        :content {osd_mode == "brightness" ? "(brightness_slider)" : "(volume_slider)"}
-      )
+      :class "osd-container"
       ;;(brightness_slider)
-      ;;(volume_slider)
+
+      (box
+        :class "osd-sliders"
+        :orientation "v"
+        (literal
+          :content {osd_mode == "brightness" ? "(brightness_slider)" : "(volume_slider)"}
+        )
+        ;;(brightness_slider)
+        ;;(volume_slider)
+      )
     )
   )
 )

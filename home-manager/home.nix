@@ -67,9 +67,14 @@ in
 
     firefox
     obsidian
-    cinnamon.nemo
+
+    #cinnamon.nemo
+    #cinnamon.nemo-with-extensions
+    #gvfs # for network file browsing
+    #cifs-utils # for 3ds file system?
+
     webcord
-    obs-studio
+    #obs-studio
     onlyoffice-bin
 
     acpi
@@ -89,8 +94,11 @@ in
     swayidle
     wl-clipboard
 
+    eww-wayland
+
     glib
-    gsettings-desktop-schemas
+    gsettings-desktop-schemas # Don't need?
+    gnome.nixos-gsettings-overrides
 
     shotman
 
@@ -110,24 +118,19 @@ in
     apple-cursor
 
     gnome.gucharmap
-    rofi
+    #rofi
     wpgtk
-    lxappearance-gtk2
-    themechanger
-    
+    #lxappearance-gtk2
+    #themechanger
+  
     hyfetch
-
     vlc
-
-    what
-    huh
-
     coreutils
 
     steam
 
     qdirstat
-    themechanger
+    #themechanger
     qalculate-gtk
 
     gamescope
@@ -137,9 +140,35 @@ in
     #alsa-plugins 
     #alsa-utils
 
+    #libsForQt5.okular
+    libreoffice
+
+    mgba
+    xournalpp
+
+    tor-browser-bundle-bin
+    #virtualbox # Installing vbox here causes the permissions not to work 
+
+    #xdg-desktop-portal-hyprland # not needed?
+    #obs-studio-plugins.wlrobs
+
+    gcc
+
+    # Some programs may crash without a notification daemon running
+    dunst
+
+    #gnome.nautilus
+    pcmanfm
   ];
 
-
+  # Activation scripts 
+  home.activation = {
+  #Doesn'tWork.. Read home manager on home.activation 
+  #    initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  #      /home/exia/myNixOSConfig/home-manager/theme_bird/theme.sh -D /home/exia/Downloads/apple-imac-colorful-stock-retina-display-gradients-7680x3753-2278.jpg
+  #
+  #  '';
+  };
 
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -159,6 +188,11 @@ in
    ".config/kitty".source = ./kitty; 
    ".config/nvim".source = ./nvim;
    ".config/hypr".source = ./hypr;
+   ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/myNixOSConfig/home-manager/eww";
+   ".config/tmux".source = ./tmux;
+
+   # Add .themes dir with gtk theme
+
 
    ## Need to manually create .local/bin? 
    #".local/bin/lockScreen.sh" = {
@@ -202,16 +236,29 @@ in
 
 
 
-    programs.eww = {
-        enable = true;
-        configDir = ./eww;
-        package = pkgs.eww-wayland;
-    };
+    #programs.eww = {
+    #    enable = true;
+    #    #configDir = ./eww;
+    #    package = pkgs.eww-wayland;
+    #};
 
     #programs.steam.enable = true;
+
+  # export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
+  programs.bash = {
+    enable = true;
+    bashrcExtra = ''
+      . ~/.bashrc_backup
+      export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
+    '';
+  };
   
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
+  programs.obs-studio = {
+    enable = true;
+    plugins = [ pkgs.obs-studio-plugins.wlrobs ];
+  };
 
   programs.anyrun = {
     enable = true;
@@ -219,35 +266,59 @@ in
       plugins = [
         # An array of all the plugins you want, which either can be paths to the .so files, or their packages
         inputs.anyrun.packages.${pkgs.system}.applications
+        #inputs.anyrun.packages.${pkgs.system}.shell
+        #inputs.anyrun.packages.${pkgs.system}.dictionary
+        #inputs.anyrun.packages.${pkgs.system}.kidex
+        #inputs.anyrun.packages.${pkgs.system}.rink
         #./some_plugin.so
         #"${inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins}/lib/kidex"
+
       ];
       width = { fraction = 0.3; };
-      #position = "top";
-      #verticalOffset = { absolute = 0; };
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "overlay";
-      hidePluginInfo = false;
-      closeOnClick = false;
-      showResultsImmediately = false;
-      maxEntries = null;
+      hidePluginInfo = true;
+      closeOnClick = true;
+      showResultsImmediately = true;
+      maxEntries = 12;
+
+      # Options no longer exist?
+      #position = "top";
+      #verticalOffset = { absolute = 10; };
+      
     };
-    extraCss = ''
-      // css goes here 
+    extraCss = '' 
+
+      #entry {
+        margin-top: 100px;
+        padding: 16px;
+        border-radius: 18px;
+        background-color: rgba(0,0,0,0.9);
+      }
+
+      #window {
+        background: transparent;
+      }
+
     '';
 
-    extraConfigFiles."some-plugin.ron".text = ''
-      Config(
-        // for any other plugin
-        // this file will be put in ~/.config/anyrun/some-plugin.ron
-        // refer to docs of xdg.configFile for available options
-      )
+    extraConfigFiles."applications.ron".text = ''
+      // Also show the Desktop Actions defined in the desktop files, e.g. "New Window" from LibreWolf
+      desktop_actions: false,
+      max_entries: 10, 
+      // The terminal used for running terminal based desktop entries, if left as `None` a static list of terminals is used
+      // to determine what terminal to use.
+      terminal: Some("kitty"),
+    )
+
     '';
+
   };
 
 
 
+# GTK Config
 gtk = {
       enable = true;
       theme = {
@@ -266,6 +337,9 @@ gtk = {
         package = pkgs.kora-icon-theme;
       };
     };
+
+
+
 
   # From: https://www.reddit.com/r/NixOS/comments/nxnswt/cant_change_themes_on_wayland/
   # Doesn't fix gsettings schema issue?

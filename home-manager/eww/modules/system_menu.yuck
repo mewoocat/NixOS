@@ -64,8 +64,8 @@
       :spacing 10
       :space-evenly true
       ;; Weather
-      ;;(weather2)
-      ;;(box)
+      (weather2)
+      (box)
     )
 
     (box

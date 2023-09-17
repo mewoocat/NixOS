@@ -1,0 +1,27 @@
+ :F8\:9B\:6E\:A7\:23\:F8:ATT1115:Infra:48:540 Mbit/s:74:*** :WPA2
+ :BC\:98\:DF\:FF\:77\:9E:MOTO222E:Infra:1:260 Mbit/s:67:*** :WPA2
+ :D6\:AB\:CD\:12\:15\:03::Infra:48:130 Mbit/s:67:*** :WPA2
+ :C0\:36\:53\:C7\:73\:24:63bf00:Mesh:5:270 Mbit/s:60:*** :WPA3
+*:F8\:9B\:6E\:A7\:23\:FC:ATT1115:Infra:136:540 Mbit/s:58:*** :WPA2
+ :C0\:36\:53\:C7\:73\:26:Eaglesnest:Infra:5:270 Mbit/s:57:*** :WPA2
+ :C0\:36\:53\:C7\:73\:28::Infra:5:270 Mbit/s:57:*** :
+ :B4\:20\:46\:30\:4A\:25:Eaglesnest:Infra:161:270 Mbit/s:57:*** :WPA2
+ :B4\:20\:46\:30\:4A\:27::Infra:161:270 Mbit/s:57:*** :
+ :D0\:FC\:D0\:04\:F8\:64:ATTbQ4aEuG:Infra:11:260 Mbit/s:50:**  :WPA2
+ :A4\:E5\:7C\:6B\:DB\:49:ScentDevice-6B-DB-48:Infra:1:65 Mbit/s:49:**  :WPA2
+ :10\:93\:97\:31\:39\:30:Casa De Samper:Infra:1:195 Mbit/s:47:**  :WPA2
+ :C0\:36\:53\:C7\:73\:23:63bf00:Mesh:161:270 Mbit/s:47:**  :WPA3
+ :86\:69\:93\:D2\:5E\:5F:DIRECT-5F-HP ENVY Inspire 7200:Infra:149:117 Mbit/s:45:**  :WPA2
+ :C0\:36\:53\:C7\:73\:25:Eaglesnest:Infra:161:270 Mbit/s:45:**  :WPA2
+ :C0\:36\:53\:C7\:73\:27::Infra:161:270 Mbit/s:45:**  :
+ :84\:BB\:69\:96\:82\:C0:Rogue1:Infra:10:195 Mbit/s:35:**  :WPA2
+ :0A\:A7\:C0\:42\:3B\:B2:subutai:Infra:6:540 Mbit/s:32:**  :WPA2
+ :0A\:A7\:C0\:42\:3B\:B7::Infra:6:540 Mbit/s:32:**  :WPA2 802.1X
+ :86\:BB\:69\:96\:82\:C3:Rogue1:Infra:157:540 Mbit/s:32:**  :WPA2
+ :0A\:A7\:C0\:42\:3B\:B5::Infra:6:540 Mbit/s:30:*   :WPA2
+ :84\:BB\:69\:96\:82\:C3::Infra:157:540 Mbit/s:30:*   :WPA2
+ :06\:93\:97\:31\:39\:33:Casa De Samper:Infra:157:540 Mbit/s:30:*   :WPA2
+ :10\:93\:97\:31\:39\:33::Infra:157:540 Mbit/s:30:*   :WPA2
+ :BC\:98\:DF\:FF\:77\:9F:MOTO222E:Infra:36:540 Mbit/s:29:*   :WPA2
+ :CA\:99\:B2\:F8\:D5\:87::Infra:8:540 Mbit/s:27:*   :WPA2 WPA3
+ :C8\:99\:B2\:D8\:D5\:87:TMOBILE-D585:Infra:8:540 Mbit/s:27:*   :WPA2 WPA3

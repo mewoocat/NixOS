@@ -65,6 +65,14 @@ in
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
   };
+
+  #xdg.portal = {
+  #  enable = true;
+  #  extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  #  # pkgs.xdg-desktop-portal-gtk
+  #};
+
+  #services.openssh.enable = true;
  
   # Required for steam to run?
   hardware.opengl.driSupport32Bit = true;
@@ -73,6 +81,7 @@ in
   programs.dconf.enable = true;
 
   programs.light.enable = true;
+  programs.hyprland.enable = true;
 
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
   fonts.fontDir.enable = true;  
@@ -129,7 +138,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.exia = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       #firefox
       #tree
@@ -137,7 +146,9 @@ in
   };
 
 
-
+  virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

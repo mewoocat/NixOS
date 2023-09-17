@@ -27,4 +27,4 @@ export XDG_SESSION_DESKTOP=sway
 # New
 export GDK_BACKEND=wayland
 
-exec Hyprland
+#exec Hyprland

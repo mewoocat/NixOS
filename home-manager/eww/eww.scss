@@ -1,5 +1,7 @@
 
+//@use 'colors-default';
 @use 'colors';
+//@import "/home/exia/.config/colors.scss";
 
 * {
   all: unset; //Unsets everything so you can style everything from scratch
