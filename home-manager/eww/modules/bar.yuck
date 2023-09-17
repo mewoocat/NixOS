@@ -10,12 +10,12 @@
         :space-evenly false
         ;;(sprite)
         ;;(weather)
-        (storage)
-        (cpu_usage)
-        (cpu_temp)
-        (memory)
+        ;;(storage)
+        ;;(cpu_usage)
+        ;;(cpu_temp)
+        ;;(memory)
 
-        (label :text "|")
+        ;;(label :text "|")
 
         (bluetooth)
         (wifi)
@@ -33,7 +33,7 @@
 ;; Left widgets
 
 (deflisten windowName :initial "..." "bash ~/.config/eww/scripts/get-window-title")
-(deflisten windowIcon :initial "..." "bash ~/.config/eww/scripts/get-window-icon")
+;;(deflisten windowIcon :initial "..." "bash ~/.config/eww/scripts/get-window-icon")
 (defvar iconDir "/home/ghost/.icons/Reversal-blue/apps/scalable/")
 
 (defwidget left []
@@ -49,7 +49,7 @@
           :space-evenly false
           (image
             :class "window-icon"
-            :path "${iconDir}${windowIcon}"
+            ;;:path "${iconDir}${windowIcon}"
             :image-width 36
           )
           (label 

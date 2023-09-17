@@ -26,7 +26,7 @@ wallpaper_path="$HOME/.cache/wal/wal"
 theme_path="$HOME/.cache/wal/colors"
 
 wallpaper_light="/home/exia/Downloads/pexels-jesse-zheng-732547.jpg"
-wallpaper_dark="/home/exia/Downloads/pexels-jesse-zheng-732547.jpg"
+wallpaper_dark="/home/exia/Downloads/pexels-elias-tigiser-2757549.jpg"
 
 theme_colors="base16-3024"
 #theme_colors_dark="base16-google"
@@ -38,6 +38,7 @@ theme_colors_dark="base16-irblack"
 
 gtk_light_theme="Mojave-Light"
 gtk_dark_theme="Mojave-Dark"
+gtk_dark_theme="default"
 
 kitty_light="Github"
 kitty_dark="Dark Pastel"
@@ -98,6 +99,10 @@ function setEWWColors(){
     mode=$1
 
     # sed command from https://stackoverflow.com/questions/6022384/bash-tool-to-get-nth-line-from-a-file
+    #echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/eww/_colors.scss;
+    #echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
+
+    # New color file in different dir since .config/eww is read only
     echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/eww/_colors.scss;
     echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
 
@@ -200,7 +205,8 @@ function setLight(){
 function setDark(){
     # Includes setting the background to black in all cases
     #wal -b 000000 --backend colorz --theme $theme_colors_dark;
-    wal --backend colorz --theme $theme_colors_dark;
+    #wal --backend colorz --theme $theme_colors_dark;
+    wal --theme $theme_colors_dark;
     if [ false == false ]; then
         echo "theme false"
         gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
@@ -225,13 +231,14 @@ function setWallpaperDark(){
     else
         echo "not..."
         #wal --backend colorz -i $1;
-        wal  -i $1;
+        wal --saturate 1.0 -i $1;
     fi
     gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
     #swww img $1;
     setEWWColors dark;
     #killall eww && killall eww && eww open bar;
-    echo $1 > ~/.config/wallpaper;
+    #echo $1 > ~/.config/wallpaper;
+    setWallpaper $1;
     sleep 0.1 # Prevents the EWW reload from changing the colors to reset the theme_light variable
     eww update theme_light=false;
 }
@@ -254,6 +261,12 @@ function toggleTheme(){
     else
         setDark
     fi
+}
+
+function setWallpaper(){
+    #swww img -t "wave" --transition-step 10 $1;
+    swww img -t "simple" --transition-step 255 $1;
+    echo $1 > ~/.config/wallpaper;
 }
 
 theme=false

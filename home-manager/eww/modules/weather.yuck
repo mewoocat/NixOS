@@ -18,12 +18,20 @@
   "scripts/weather2.sh"
 )
 
+(defwidget weatherOffline []
+  (box
+    :valign "center"
+    :halign "center"
+    (label  
+      :text "Offline"
+    )
+  )
+)
+
 ;;     
 
-(defwidget weather2 []
+(defwidget weatherInfo []
   (box
-    :class "weather-container"
-    :height 138
     :orientation "v"
     (box
       :orientation "v"
@@ -48,6 +56,18 @@
       (label
         :text " ${weather_data.pressure}mb"
       )
+    )
+  )
+)
+
+(defwidget weather2 []
+  (box
+    :class "weather-container"
+    :height 138
+
+    (literal
+      :valign "center"
+      :content {weather_data.online ? "(weatherInfo)" : "(weatherOffline)"}
     )
   )
 )
