@@ -1,8 +1,6 @@
 ;; Extra icons
 ;; 
 
-;;(defpoll get_theme_light :interval "200ms" "cat theme_light")
-
 (defvar widgetSize 64)
 
 (defvar widgetSizeLarge 128)

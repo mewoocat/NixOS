@@ -40,7 +40,7 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];	
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-   vscodium
+  # vscodium
   ];
 
 
@@ -77,11 +77,15 @@ in
   # Required for steam to run?
   hardware.opengl.driSupport32Bit = true;
 
-  # Required for gtk?
-  programs.dconf.enable = true;
 
+  # Programs
+ 
+  programs.dconf.enable = true;  # Required for gtk?
   programs.light.enable = true;
   programs.hyprland.enable = true;
+
+
+
 
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
   fonts.fontDir.enable = true;  
@@ -96,9 +100,8 @@ in
   fonts.fonts = with pkgs; [
     nerdfonts
   ];
-
-
-  # networking.hostName = "nixos"; # Define your hostname.
+ 
+  networking.hostName = "scythe"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.

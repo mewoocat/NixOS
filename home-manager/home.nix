@@ -64,19 +64,15 @@ in
     #neovim
     vim
     kitty
-
     firefox
     obsidian
-
     #cinnamon.nemo
     #cinnamon.nemo-with-extensions
     #gvfs # for network file browsing
     #cifs-utils # for 3ds file system?
-
     webcord
     #obs-studio
     onlyoffice-bin
-
     acpi
     lm_sensors
     neofetch
@@ -93,9 +89,7 @@ in
     gtklock
     swayidle
     wl-clipboard
-
     eww-wayland
-
     glib
     gsettings-desktop-schemas # Don't need?
     gnome.nixos-gsettings-overrides
@@ -159,6 +153,8 @@ in
 
     #gnome.nautilus
     pcmanfm
+    #vscodium
+    vscode
   ];
 
   # Activation scripts 
