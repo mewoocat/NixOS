@@ -1,7 +1,7 @@
 
 ;; extra icons:  
-(deflisten workspace "./scripts/workspaces_f")
-(defwidget workspaces_f []
+(deflisten workspace "./scripts/workspaces")
+(defwidget workspaces []
   (eventbox
 		(box
 			:class "workspaces"
