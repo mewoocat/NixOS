@@ -41,7 +41,7 @@
         :halign "start"
         :space-evenly false
         (launcher)
-        (workspaces_f)
+        (workspaces)
         ;;(workspaces_test :halign "center" :vexpand true :hexpand false :orientation "h")
         ;;(label :text "         ")
         (box

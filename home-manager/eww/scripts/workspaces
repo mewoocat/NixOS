@@ -13,16 +13,29 @@ empty="#313244"
 # get initial focused workspace
 focusedws=$(hyprctl -j monitors | jaq -r '.[] | select(.focused == true) | .activeWorkspace.id')
 
+# Get all displayed workspaces
+displayedWS=$(hyprctl -j monitors | jaq -r '.[] | .activeWorkspace.id')
+
 declare -A o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0)
 declare -A monitormap
 declare -A workspaces
 
+# From: https://www.baeldung.com/linux/check-variable-exists-in-list
+function exists_in_list() {
+    LIST=$1
+    DELIMITER=$2
+    VALUE=$3
+    echo $LIST | tr "$DELIMITER" '\n' | grep -F -q -x "$VALUE"
+}
+
 # set color for each workspace
 status() {
+  displayedWS=$(hyprctl -j monitors | jaq -r '.[] | .activeWorkspace.id')
   if [ "${o[$1]}" -eq 1 ]; then
     mon=${monitormap[${workspaces[$1]}]}
 
-    if [ "$focusedws" -eq "$1" ]; then
+    #if [ "$focusedws" -eq "$1" ]; then
+    if exists_in_list "$displayedWS" " " $1; then
       #echo -n "${colors[$mon]}"
       echo -n "current"
     else
