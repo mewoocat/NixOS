@@ -40,7 +40,8 @@
     (box 
         :halign "start"
         :space-evenly false
-        (launcher)
+        ;;(launcher)
+        (system_menu_actual)
         (workspaces)
         ;;(workspaces_test :halign "center" :vexpand true :hexpand false :orientation "h")
         ;;(label :text "         ")

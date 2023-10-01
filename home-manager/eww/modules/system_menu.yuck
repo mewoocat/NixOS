@@ -12,15 +12,18 @@
         (box
           :class "button-box"
           (button
-              ;;:class "con"
-              :class {system_menu_button_hover ? "con con-hover" : "con"}
-              ;;:timeout "0.05s"
-              :onclick "scripts/toggleSystemMenu.sh"
-              "";;"            "
+            ;;:class "con"
+            :class {system_menu_button_hover ? "con con-hover" : "con"}
+            ;;:timeout "0.05s"
+            :onclick "scripts/toggleSystemMenu.sh"
+            (label
+              :class "icon"
+              :text ""  ;;"            "
+              :justify "left"
+            )
           )
         )
       )
-
 )
 
 (defvar power_reveal false)

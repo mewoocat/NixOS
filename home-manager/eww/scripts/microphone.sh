@@ -7,7 +7,7 @@ if (($level))
 then
     mute=false
     if (($level > 0)); then
-        icon=$(echo -e "")
+        icon=$(echo -e "")
     fi
 else
     mute=true

@@ -3,7 +3,7 @@
     :space-evenly false
     (label
       :text "${microphone.icon}"
-      :class {microphone.mute == "true" ? "mic off" : "mic"}
+      :class {microphone.mute == "true" ? "icon mic off" : "icon mic"}
       :style {microphone.mute == "true" ? "font-size: 28px;" : ""}
       :width 24
     )
