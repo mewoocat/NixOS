@@ -1,23 +1,37 @@
- :BC\:98\:DF\:FF\:77\:9E:MOTO222E:Infra:1:260 Mbit/s:82:****:WPA2
- :F8\:9B\:6E\:A7\:23\:F4:ATT1115:Infra:6:260 Mbit/s:80:*** :WPA2
- :B4\:20\:46\:30\:4A\:26:Eaglesnest:Infra:5:270 Mbit/s:77:*** :WPA2
- :B4\:20\:46\:30\:4A\:28::Infra:5:270 Mbit/s:75:*** :
- :B4\:20\:46\:30\:4A\:24:63bf00:Mesh:5:270 Mbit/s:70:*** :WPA3
- :C0\:36\:53\:C7\:73\:28::Infra:5:270 Mbit/s:70:*** :
- :C0\:36\:53\:C7\:73\:26:Eaglesnest:Infra:5:270 Mbit/s:69:*** :WPA2
- :A4\:E5\:7C\:6B\:DB\:49:ScentDevice-6B-DB-48:Infra:1:65 Mbit/s:65:*** :WPA2
- :C0\:36\:53\:C7\:73\:24:63bf00:Mesh:5:270 Mbit/s:65:*** :WPA3
- :D6\:AB\:CD\:12\:15\:03::Infra:48:130 Mbit/s:65:*** :WPA2
-*:F8\:9B\:6E\:A7\:23\:F8:ATT1115:Infra:48:540 Mbit/s:63:*** :WPA2
- :F8\:9B\:6E\:A7\:23\:FC:ATT1115:Infra:136:540 Mbit/s:60:*** :WPA2
- :CA\:99\:B2\:F8\:D5\:87::Infra:8:540 Mbit/s:37:**  :WPA2 WPA3
- :BC\:98\:DF\:FF\:77\:9F:MOTO222E:Infra:48:540 Mbit/s:37:**  :WPA2
- :C8\:99\:B2\:D8\:D5\:87:TMOBILE-D585:Infra:8:540 Mbit/s:35:**  :WPA2 WPA3
- :10\:93\:97\:31\:39\:30:Casa De Samper:Infra:1:195 Mbit/s:32:**  :WPA2
- :86\:69\:93\:D2\:5E\:5F:DIRECT-5F-HP ENVY Inspire 7200:Infra:149:117 Mbit/s:30:*   :WPA2
- :84\:BB\:69\:96\:82\:C3::Infra:157:540 Mbit/s:30:*   :WPA2
- :84\:BB\:69\:96\:82\:C0:Rogue1:Infra:10:195 Mbit/s:29:*   :WPA2
- :86\:BB\:69\:96\:82\:C3:Rogue1:Infra:157:540 Mbit/s:29:*   :WPA2
- :D0\:FC\:D0\:04\:F8\:6C:ATTbQ4aEuG:Infra:132:540 Mbit/s:22:*   :WPA2
- :06\:93\:97\:31\:39\:33:Casa De Samper:Infra:157:540 Mbit/s:20:*   :WPA2
- :10\:93\:97\:31\:39\:33::Infra:157:540 Mbit/s:20:*   :WPA2
+ :F8\:9B\:6E\:A7\:23\:F4:ATT1115:Infra:4:260 Mbit/s:87:▂▄▆█:WPA2
+ :B4\:20\:46\:30\:4A\:26:Eaglesnest:Infra:5:270 Mbit/s:74:▂▄▆_:WPA2
+ :B4\:20\:46\:30\:4A\:24:63bf00:Mesh:5:270 Mbit/s:74:▂▄▆_:WPA3
+ :BC\:98\:DF\:FF\:77\:9E:MOTO222E:Infra:11:260 Mbit/s:74:▂▄▆_:WPA2
+ :C0\:36\:53\:C7\:73\:26:Eaglesnest:Infra:5:270 Mbit/s:72:▂▄▆_:WPA2
+ :34\:98\:B5\:C7\:20\:6C:zae' world:Infra:11:195 Mbit/s:72:▂▄▆_:WPA2
+*:F8\:9B\:6E\:A7\:23\:F8:ATT1115:Infra:44:540 Mbit/s:70:▂▄▆_:WPA2
+ :B4\:20\:46\:30\:4A\:28::Infra:5:270 Mbit/s:69:▂▄▆_:
+ :D6\:AB\:CD\:12\:15\:03::Infra:153:130 Mbit/s:60:▂▄▆_:WPA2
+ :F8\:9B\:6E\:A7\:23\:FC:ATT1115:Infra:153:540 Mbit/s:59:▂▄▆_:WPA2
+ :34\:98\:B5\:C7\:20\:6D:Zae's world 5g:Infra:153:405 Mbit/s:59:▂▄▆_:WPA2
+ :C0\:36\:53\:C7\:73\:25:Eaglesnest:Infra:161:270 Mbit/s:50:▂▄__:WPA2
+ :C0\:36\:53\:C7\:73\:23:63bf00:Mesh:161:270 Mbit/s:50:▂▄__:WPA3
+ :C0\:36\:53\:C7\:73\:27::Infra:161:270 Mbit/s:50:▂▄__:
+ :BC\:98\:DF\:FF\:77\:9F:MOTO222E:Infra:48:540 Mbit/s:49:▂▄__:WPA2
+ :B4\:20\:46\:30\:4A\:25:Eaglesnest:Infra:161:270 Mbit/s:47:▂▄__:WPA2
+ :B4\:20\:46\:30\:4A\:23:63bf00:Mesh:161:270 Mbit/s:47:▂▄__:WPA3
+ :B4\:20\:46\:30\:4A\:27::Infra:161:270 Mbit/s:47:▂▄__:
+ :86\:BB\:69\:96\:82\:C3:Rogue1:Infra:157:540 Mbit/s:42:▂▄__:WPA2
+ :84\:BB\:69\:96\:82\:C3::Infra:157:540 Mbit/s:39:▂▄__:WPA2
+ :94\:8F\:CF\:14\:97\:D0:Pup Ranch:Infra:10:195 Mbit/s:37:▂▄__:WPA2
+ :68\:4A\:76\:C3\:F5\:86:scales:Infra:2:270 Mbit/s:35:▂▄__:WPA2
+ :A4\:E5\:7C\:6B\:DB\:49:ScentDevice-6B-DB-48:Infra:1:65 Mbit/s:32:▂▄__:WPA2
+ :10\:C4\:CA\:3D\:F1\:E4:ATT8EFNxUw:Infra:10:260 Mbit/s:32:▂▄__:WPA2
+ :68\:4A\:76\:C3\:F5\:85:scales:Infra:36:270 Mbit/s:29:▂___:WPA2
+ :60\:5F\:8D\:87\:47\:26:Gabrielle:Infra:5:270 Mbit/s:24:▂___:WPA2
+ :60\:5F\:8D\:87\:47\:29::Infra:5:270 Mbit/s:24:▂___:
+ :F8\:9B\:6E\:2F\:1C\:B8:Ash23:Infra:44:540 Mbit/s:22:▂___:WPA2
+ :F8\:F5\:32\:D5\:02\:93::Infra:60:540 Mbit/s:22:▂___:WPA2
+ :E6\:F5\:32\:D5\:02\:93:ATTmYzaays:Infra:60:540 Mbit/s:22:▂___:WPA2
+ :86\:8F\:CF\:14\:97\:D3:Pup Ranch:Infra:60:540 Mbit/s:22:▂___:WPA2
+ :AC\:8F\:A9\:9C\:A8\:1C:ATTdY7WyhE:Infra:157:540 Mbit/s:22:▂___:WPA2
+ :86\:96\:4E\:04\:A0\:B3:BEESTES:Infra:40:540 Mbit/s:20:▂___:WPA2
+ :94\:8F\:CF\:14\:97\:D3::Infra:60:540 Mbit/s:20:▂___:WPA2
+ :68\:4A\:76\:C3\:F5\:83:880984:Mesh:36:270 Mbit/s:19:▂___:WPA3
+ :88\:96\:4E\:04\:A0\:B3::Infra:40:540 Mbit/s:17:▂___:WPA2
+ :D0\:FC\:D0\:A4\:85\:C8:FBI Van 2:Infra:48:540 Mbit/s:17:▂___:WPA2

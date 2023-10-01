@@ -66,10 +66,19 @@ in
     kitty
     firefox
     obsidian
+
+    # File managers
     #cinnamon.nemo
+    #gnome.nautilus
     #cinnamon.nemo-with-extensions
+
+    xfce.thunar
+    deepin.dde-file-manager
+
+    
     #gvfs # for network file browsing
     #cifs-utils # for 3ds file system?
+    
     webcord
     #obs-studio
     onlyoffice-bin
@@ -151,10 +160,12 @@ in
     # Some programs may crash without a notification daemon running
     dunst
 
-    #gnome.nautilus
-    pcmanfm
-    #vscodium
-    vscode
+    vscodium
+    #vscode
+
+    inkscape
+
+    fontforge-gtk
   ];
 
   # Activation scripts 

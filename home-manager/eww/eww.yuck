@@ -24,5 +24,6 @@
 (include "modules/user.yuck")
 (include "modules/sprite.yuck")
 (include "modules/system_menu.yuck")
+(include "modules/system_menu_actual.yuck")
 (include "modules/bar.yuck")
 (include "modules/launcher2.yuck")
