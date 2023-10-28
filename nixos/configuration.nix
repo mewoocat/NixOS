@@ -52,6 +52,9 @@ in
   # For udiskie automount to work
   services.udisks2.enable = true;
 
+  # Required to show thumbnails in thunar
+  services.tumbler.enable = true; 
+
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
   sound.enable = false;
 
