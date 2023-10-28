@@ -161,11 +161,14 @@ in
     dunst
 
     vscodium
-    #vscode
 
     inkscape
 
     fontforge-gtk
+
+    unzip
+
+    nextcloud-client
   ];
 
   # Activation scripts 
@@ -389,7 +392,9 @@ gtk = {
 
     wayland.windowManager.hyprland = {
         enable = true;
-        xwayland.hidpi = true;
+        
+        # Not supported anymore
+        #xwayland.hidpi = true;
         #extraConfig = ''  '';
       };
 
