@@ -93,6 +93,7 @@
     (circular-progress
       :class "circular-progress circular-progress-temp stat temp-icon"
       :thickness 8
+      :start-at 75
       :value "${temp}"
     )
     ;;(cpu_usage)
@@ -129,6 +130,7 @@
           (circular-progress
             :class "circular-progress circular-progress-cpu stat"
             :thickness 8
+            :start-at 75
             :value "${EWW_CPU.avg}"
           )
           ;;(cpu_usage)
@@ -144,6 +146,7 @@
           (circular-progress
             :class "circular-progress circular-progress-mem stat"
             :thickness 8
+            :start-at 75
             :value "${memory}"
           )
           ;;(memory)

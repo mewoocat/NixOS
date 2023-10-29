@@ -1,18 +1,12 @@
 { config, pkgs, lib, inputs, ... }: let
-    #flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-
-    #hyprland = (import flake-compat {
-    # src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-    #}).defaultNix;
-
-      # Shell scripts
+  # Shell scripts
   #what = pkgs.writeShellScriptBin "lockScreen2" ''exec ${pkgs.gtklock}/bin/gtklock'';
   what = import ./scripts/lockScreen.nix { inherit pkgs; };
   
-   huh = pkgs.writeShellScriptBin "lockScreen3" ''
+  huh = pkgs.writeShellScriptBin "lockScreen3" ''
         echo "what";
         ${pkgs.gtklock}/bin/gtklock;
-    '';
+        '';
 
 in
 
@@ -60,32 +54,41 @@ in
         ${pkgs.gtklock}/bin/gtklock
     '')
 
+    # Core
     git
-    #neovim
     vim
     kitty
     firefox
-    obsidian
-
-    # File managers
-    #cinnamon.nemo
-    #gnome.nautilus
-    #cinnamon.nemo-with-extensions
-
     xfce.thunar
-    deepin.dde-file-manager
-
-    
-    #gvfs # for network file browsing
-    #cifs-utils # for 3ds file system?
-    
-    webcord
-    #obs-studio
-    onlyoffice-bin
-    acpi
-    lm_sensors
-    neofetch
+    neofetch hyfetch
     htop
+    vlc
+    steam
+    qdirstat
+    qalculate-gtk
+
+    # Programs
+    obsidian
+    webcord
+    onlyoffice-bin
+    gnome.gucharmap
+    vscodium
+    inkscape
+    fontforge-gtk
+    mgba
+    xournalpp
+    tor-browser-bundle-bin
+    nextcloud-client
+
+    # Appearance
+    liberation_ttf
+    arkpandora_ttf
+    apple-cursor
+
+    # Components + utilities
+    coreutils
+    acpi                # Battery
+    lm_sensors          # 
     light
     bluez
     swww
@@ -102,84 +105,37 @@ in
     glib
     gsettings-desktop-schemas # Don't need?
     gnome.nixos-gsettings-overrides
-
     shotman
-
     pywal
-
-    #killall?
     jaq
     gojq
     socat
     ripgrep
     jq
     bc
-
-    liberation_ttf
-    arkpandora_ttf
-
-    apple-cursor
-
-    gnome.gucharmap
-    #rofi
-    wpgtk
-    #lxappearance-gtk2
-    #themechanger
-  
-    hyfetch
-    vlc
-    coreutils
-
-    steam
-
-    qdirstat
-    #themechanger
-    qalculate-gtk
-
     gamescope
     wlsunset
-
+    gcc 
+    dunst # Some programs may crash without a notification daemon running
+    unzip
+  
+    # Inactive
+    #gvfs # for network file browsing
+    #cifs-utils # for 3ds file system?
+    #wpgtk
     #alsa-lib
     #alsa-plugins 
     #alsa-utils
-
-    #libsForQt5.okular
-    libreoffice
-
-    mgba
-    xournalpp
-
-    tor-browser-bundle-bin
-    #virtualbox # Installing vbox here causes the permissions not to work 
-
     #xdg-desktop-portal-hyprland # not needed?
     #obs-studio-plugins.wlrobs
 
-    gcc
 
-    # Some programs may crash without a notification daemon running
-    dunst
-
-    vscodium
-
-    inkscape
-
-    fontforge-gtk
-
-    unzip
-
-    nextcloud-client
   ];
 
   # Activation scripts 
   home.activation = {
-  #Doesn'tWork.. Read home manager on home.activation 
-  #    initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #      /home/exia/myNixOSConfig/home-manager/theme_bird/theme.sh -D /home/exia/Downloads/apple-imac-colorful-stock-retina-display-gradients-7680x3753-2278.jpg
-  #
-  #  '';
+    #Read home manager on home.activation 
   };
-
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -200,30 +156,9 @@ in
    ".config/hypr".source = ./hypr;
    ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/myNixOSConfig/home-manager/eww";
    ".config/tmux".source = ./tmux;
-
    # Add .themes dir with gtk theme
 
-
-   ## Need to manually create .local/bin? 
-   #".local/bin/lockScreen.sh" = {
-   #  executable = true;
-   #  recursive = true;
-   #  source = ./scripts/lockScreen.sh;
-   #};
-
   };
-
-
-#    lockScreenVar = stdenv.mkDerivation rec {
-#      name = "lockScreenName";
-#      # disable unpackPhase etc
-#      phases = "buildPhase";
-#      builder = ./scripts/lockScreen.sh;
-#      nativeBuildInputs = [ gtklock ];
-#      PATH = lib.makeBinPath nativeBuildInputs;
-#    };
-
-
 
   # You can also manage environment variables but you will have to manually
   # source
@@ -245,14 +180,9 @@ in
   };
 
 
+  # Programs
 
-    #programs.eww = {
-    #    enable = true;
-    #    #configDir = ./eww;
-    #    package = pkgs.eww-wayland;
-    #};
 
-    #programs.steam.enable = true;
 
   # export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
   programs.bash = {
@@ -327,76 +257,66 @@ in
   };
 
 
+  # Services
 
-# GTK Config
-gtk = {
+  # start swayidle as part of hyprland, not sway
+  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+  services.swayidle = {
+    enable = true; 
+    package = pkgs.swayidle;
+    #systemdTarget = "basic.target";
+    #extraArgs = [ pkgs ];
+    events = let
+      lock = (pkgs.writeShellScriptBin "my-hello" ''
+          wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
+          ${pkgs.gtklock}/bin/gtklock -t "%l:%M %P" -b $wallpaper;
+      '');
+
+    in
+    [
+      { event = "before-sleep"; command = "${lock}/bin/my-hello"; }
+
+    ];
+  };
+
+  services.udiskie = {
       enable = true;
-      theme = {
-        #name = "default";
-        
-        name = "WhiteSur-Dark";
-        package = pkgs.whitesur-gtk-theme;
-      };
-      cursorTheme = {
-        name = "macOS-BigSur";
-        package = pkgs.apple-cursor;
-        size = 24;
-      };
-      iconTheme = {
-      	name = "kora";
-        package = pkgs.kora-icon-theme;
-      };
+      automount = true;
+      tray = "never";
+  };
+
+
+  # GTK Config
+  gtk = {
+    enable = true;
+    theme = {
+      #name = "default";  
+      name = "WhiteSur-Dark";
+      package = pkgs.whitesur-gtk-theme;
     };
+    cursorTheme = {
+      name = "macOS-BigSur";
+      package = pkgs.apple-cursor;
+      size = 24;
+    };
+    iconTheme = {
+    	name = "kora";
+      package = pkgs.kora-icon-theme;
+    };
+  };
 
 
+  # Window manager
+  wayland.windowManager.hyprland = {
+      enable = true;
+  };
 
 
+  # GSettings setup??
   # From: https://www.reddit.com/r/NixOS/comments/nxnswt/cant_change_themes_on_wayland/
   # Doesn't fix gsettings schema issue?
   #xdg.systemDirs.data = [
   #  "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
   #  "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
   #]; 
-
-    # start swayidle as part of hyprland, not sway
-    systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
-
-    services.swayidle = {
-      enable = true; 
-      package = pkgs.swayidle;
-      #systemdTarget = "basic.target";
-      #extraArgs = [ pkgs ];
-      events = let
-        lock = (pkgs.writeShellScriptBin "my-hello" ''
-            wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
-            ${pkgs.gtklock}/bin/gtklock -t "%l:%M %P" -b $wallpaper;
-            #${pkgs.gtklock}/bin/gtklock -t "%l:%M %P";
-        '');
-
-      in
-      [
-        #{ event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock"; }
-        #{ event = "before-sleep"; command = "${pkgs.gtklock}/bin/gtklock -t \"%l:%M %P\""; }
-        #{ event = "before-sleep"; command = "${pkgs.my-hello}/bin/my-hello"; }
-        { event = "before-sleep"; command = "${lock}/bin/my-hello"; }
-
-      ];
-    };
-
-
-    services.udiskie = {
-        enable = true;
-        automount = true;
-        tray = "never";
-    };
-
-    wayland.windowManager.hyprland = {
-        enable = true;
-        
-        # Not supported anymore
-        #xwayland.hidpi = true;
-        #extraConfig = ''  '';
-      };
-
-
 }
