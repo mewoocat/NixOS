@@ -1,34 +1,31 @@
- :14\:EB\:B6\:13\:D3\:64:sledbet:Infra:10:270 Mbit/s:100:****:WPA2
-*:14\:EB\:B6\:13\:D3\:66:sledbet_5G:Infra:149:270 Mbit/s:100:****:WPA2
- :78\:D2\:94\:03\:52\:B9:NETGEAR81:Infra:9:195 Mbit/s:87:****:WPA2
- :02\:BF\:AF\:CD\:42\:A2::Infra:153:130 Mbit/s:74:*** :WPA2
- :78\:D2\:94\:03\:52\:B8:NETGEAR81-5G:Infra:153:405 Mbit/s:70:*** :WPA2
- :3C\:37\:86\:63\:40\:8E:NETGEAR02:Infra:4:195 Mbit/s:65:*** :WPA2
- :24\:F5\:A2\:6F\:0F\:84:SamIAm-guest:Infra:11:130 Mbit/s:62:*** :
- :24\:F5\:A2\:6F\:0F\:82:SamIAm:Infra:11:130 Mbit/s:62:*** :WPA1 WPA2
- :B4\:B0\:24\:54\:CC\:A6:AtomicSaur:Infra:5:270 Mbit/s:57:*** :WPA2
- :E8\:9F\:80\:73\:D7\:DD:Hot Cakes 5G:Infra:36:540 Mbit/s:55:**  :WPA2
- :5C\:A6\:E6\:33\:4D\:FA:Marsthedog:Infra:8:270 Mbit/s:54:**  :WPA2
- :3C\:37\:86\:63\:40\:8D:NETGEAR02-5G:Infra:153:405 Mbit/s:52:**  :WPA2
- :20\:0D\:B0\:69\:F4\:29:Hot Cakes-plus:Infra:2:270 Mbit/s:50:**  :WPA2
- :F4\:05\:95\:86\:FF\:61:SpectrumSetup-5B:Infra:11:540 Mbit/s:50:**  :WPA2
- :BA\:B0\:24\:54\:CC\:A7::Infra:48:270 Mbit/s:49:**  :WPA2
- :B4\:B0\:24\:54\:CC\:A7:AtomicSaur:Infra:48:270 Mbit/s:49:**  :WPA2
- :EA\:51\:77\:E2\:49\:AA::Infra:4:130 Mbit/s:47:**  :WPA2
- :62\:A6\:E6\:33\:4D\:FB::Infra:40:270 Mbit/s:47:**  :WPA2
- :5C\:A6\:E6\:33\:4D\:FB:Marsthedog:Infra:40:270 Mbit/s:47:**  :WPA2
- :E8\:9F\:80\:73\:D7\:DC:Hot Cakes:Infra:2:270 Mbit/s:44:**  :WPA2
- :98\:1E\:19\:3C\:63\:8E:MySpectrumWiFi88-2G:Infra:1:195 Mbit/s:40:**  :WPA2
- :24\:F5\:A2\:6F\:0F\:83:SamIAm:Infra:36:130 Mbit/s:37:**  :WPA1 WPA2
- :9C\:A2\:F4\:E2\:F6\:5F:Harrison's Pear-Fi:Infra:3:270 Mbit/s:34:**  :WPA2
- :98\:1E\:19\:3C\:63\:8F:MySpectrumWiFi88-5G:Infra:157:540 Mbit/s:34:**  :WPA2
- :F4\:05\:95\:86\:FF\:62:SpectrumSetup-5B:Infra:157:540 Mbit/s:32:**  :WPA2
- :78\:8C\:B5\:39\:D8\:52:Sam's wifi:Infra:157:270 Mbit/s:32:**  :WPA2
- :F4\:05\:95\:C5\:A9\:90:ThousandSunny:Infra:1:540 Mbit/s:30:*   :WPA2
- :00\:8E\:F2\:55\:50\:A0:Obi-WAN Kenobi:Infra:11:130 Mbit/s:30:*   :WPA2
- :0A\:05\:95\:86\:FF\:66:Spectrum Mobile:Infra:157:540 Mbit/s:30:*   :WPA2 802.1X
- :9A\:8C\:B5\:39\:D8\:54::Infra:157:270 Mbit/s:30:*   :WPA2
- :9C\:C9\:EB\:5C\:0D\:5F:NETGEAR65:Infra:9:130 Mbit/s:27:*   :WPA2
- :F4\:05\:95\:C5\:A9\:91:ThousandSunny:Infra:44:540 Mbit/s:19:*   :WPA2
- :62\:45\:B1\:F4\:DB\:90::Infra:161:0 Mbit/s:25:*   :WEP
- :62\:45\:B7\:D7\:6C\:01::Infra:44:0 Mbit/s:19:*   :WEP
+ :3E\:61\:95\:7C\:39\:B1:Strawberry:Infra:6:130 Mbit/s:100:▂▄▆█:WPA2
+*:3E\:61\:95\:7C\:39\:B1:Strawberry:Infra:6:130 Mbit/s:90:▂▄▆█:WPA2
+ :2A\:7E\:80\:E7\:E8\:54::Infra:36:130 Mbit/s:80:▂▄▆_:WPA2
+ :7A\:8C\:B5\:39\:B0\:F5::Infra:8:270 Mbit/s:70:▂▄▆_:WPA2
+ :7A\:8C\:B5\:39\:B0\:F6:NorthJacksonLaundry-Guest:Infra:8:270 Mbit/s:69:▂▄▆_:WPA1 WPA2
+ :2A\:7E\:80\:E8\:05\:4F::Infra:36:130 Mbit/s:67:▂▄▆_:WPA2
+ :BA\:AB\:62\:C1\:EF\:F7::Infra:36:130 Mbit/s:67:▂▄▆_:WPA2
+ :72\:8C\:B5\:39\:B0\:F3:NorthJacksonLaundry:Infra:157:270 Mbit/s:67:▂▄▆_:WPA2
+ :72\:8C\:B5\:39\:B0\:F4::Infra:157:270 Mbit/s:67:▂▄▆_:WPA2
+ :2A\:7E\:80\:E8\:05\:59::Infra:36:130 Mbit/s:65:▂▄▆_:WPA2
+ :2A\:7E\:80\:E8\:07\:59::Infra:36:130 Mbit/s:65:▂▄▆_:WPA2
+ :BA\:AB\:62\:C1\:F6\:A9::Infra:36:130 Mbit/s:64:▂▄▆_:WPA2
+ :7A\:8C\:B5\:39\:B0\:F4:NorthJacksonLaundry:Infra:8:270 Mbit/s:62:▂▄▆_:WPA2
+ :AA\:16\:9D\:02\:3E\:9F::Infra:36:130 Mbit/s:62:▂▄▆_:WPA2
+ :2A\:7E\:80\:E8\:05\:A0::Infra:36:130 Mbit/s:62:▂▄▆_:WPA2
+ :AA\:B5\:7C\:D8\:58\:A4::Infra:157:130 Mbit/s:62:▂▄▆_:WPA2
+ :62\:1D\:13\:47\:77\:79::Infra:149:270 Mbit/s:59:▂▄▆_:WPA2 WPA3
+ :2A\:7E\:80\:E8\:05\:53::Infra:36:130 Mbit/s:57:▂▄▆_:WPA2
+ :BA\:AB\:62\:D6\:9B\:B6::Infra:157:130 Mbit/s:55:▂▄__:WPA2
+ :2A\:7E\:80\:E7\:E8\:52::Infra:36:130 Mbit/s:52:▂▄__:WPA2
+ :2A\:7E\:80\:E8\:05\:9D::Infra:36:130 Mbit/s:42:▂▄__:WPA2
+ :1C\:BF\:CE\:F4\:B1\:D6:87d675b2:Infra:1:54 Mbit/s:39:▂▄__:WPA2
+ :1C\:BF\:CE\:F4\:D6\:8B:d2c6abc7:Infra:1:54 Mbit/s:37:▂▄__:WPA2
+ :1C\:BF\:CE\:F4\:B7\:01:badf95a6:Infra:1:0 Mbit/s:37:▂▄__:WPA2
+ :30\:23\:03\:6D\:40\:C7:ec design and print:Infra:6:270 Mbit/s:34:▂▄__:WPA1 WPA2
+ :B0\:A7\:B9\:25\:A3\:10:isi:Infra:11:130 Mbit/s:29:▂___:WPA1 WPA2
+ :2C\:EA\:DC\:EF\:6C\:32:Verizon_PFV6L7:Infra:6:540 Mbit/s:25:▂___:WPA2
+ :D8\:A7\:56\:9A\:E6\:6E:MySpectrumWiFi68-2G:Infra:11:195 Mbit/s:25:▂___:WPA2
+ :B0\:EA\:BC\:E2\:2F\:25:Strickland Brothers:Infra:6:260 Mbit/s:20:▂___:WPA2
+ :B0\:A7\:B9\:25\:A3\:11:isi:Infra:36:270 Mbit/s:20:▂___:WPA1 WPA2
+ :6C\:C2\:17\:55\:B8\:CF:HP-Print-CF-Officejet Pro 8620:Infra:6:0 Mbit/s:19:▂___:WPA2
