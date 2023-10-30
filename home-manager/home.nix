@@ -74,6 +74,7 @@ in
     gnome.gucharmap
     vscodium
     inkscape
+    gimp
     fontforge-gtk
     mgba
     xournalpp
@@ -118,9 +119,10 @@ in
     gcc 
     dunst # Some programs may crash without a notification daemon running
     unzip
+    gvfs # for network file browsing
+
   
     # Inactive
-    #gvfs # for network file browsing
     #cifs-utils # for 3ds file system?
     #wpgtk
     #alsa-lib

@@ -33,3 +33,4 @@ else
 fi
 
 echo "{\"icon\": \"${icon}\", \"bg\": \"${icon_bg}\", \"ssid\": \"${ssid}\", \"status\": \"${mode}\"}"
+
