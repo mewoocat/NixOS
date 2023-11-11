@@ -14,7 +14,7 @@
       (label
         :class "icon"
         :style "font-size: 24px;"
-        :text " "
+        :text " "
       )
       (label
         :text "Display"

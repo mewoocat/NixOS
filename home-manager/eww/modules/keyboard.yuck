@@ -16,7 +16,7 @@
         :class "icon"
         ;;:style "font-size: 44px;"
         :style "font-size: 30px;"
-        :text "󰌌"
+        :text ""
       )
     )
   )

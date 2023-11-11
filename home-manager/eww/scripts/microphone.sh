@@ -11,7 +11,7 @@ then
     fi
 else
     mute=true
-    icon=$(echo -e "")
+    icon=$(echo -e "")
 fi
 
 #echo -n $level

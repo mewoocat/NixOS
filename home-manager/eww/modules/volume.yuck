@@ -1,6 +1,5 @@
 
 (deflisten volumeL "./scripts/checkVolume.sh")
-(deflisten microphone "./scripts/checkMicrophone.sh")
 
 (defwidget volume_slider []
   (box

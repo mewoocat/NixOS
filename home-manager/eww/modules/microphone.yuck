@@ -1,10 +1,14 @@
+
+(deflisten microphone "./scripts/checkMicrophone.sh")
+
+
 (defwidget microphone_slider []
   (box
     :space-evenly false
     (label
       :text "${microphone.icon}"
       :class {microphone.mute == "true" ? "icon mic off" : "icon mic"}
-      :style {microphone.mute == "true" ? "font-size: 28px;" : ""}
+      ;;:style {microphone.mute == "true" ? "font-size: 28px;" : ""}
       :width 24
     )
     (eventbox

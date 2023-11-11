@@ -31,7 +31,7 @@
     :space-evenly false
     (label
       :class "icon temp-icon"
-      :text "♨  "
+      :text ""
     )
     (label
       :text "${temp}°C" 
@@ -99,7 +99,7 @@
     ;;(cpu_usage)
     (label
     :class "icon temp-icon"
-    :text "♨"
+    :text ""
   )
 
     )
