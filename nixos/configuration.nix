@@ -58,6 +58,9 @@ in
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
   sound.enable = false;
 
+  # Needed for gparted
+  security.polkit.enable = true;
+
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {
@@ -75,7 +78,11 @@ in
   #  # pkgs.xdg-desktop-portal-gtk
   #};
 
-  #services.openssh.enable = true;
+  services.openssh.enable = true;
+
+
+  # File file manager func.
+  services.gvfs.enable = true;
  
   # Required for steam to run?
   hardware.opengl.driSupport32Bit = true;
@@ -86,7 +93,12 @@ in
   programs.dconf.enable = true;  # Required for gtk?
   programs.light.enable = true;
   programs.hyprland.enable = true;
-
+  programs.thunar.enable = true;
+  programs.thunar.plugins = with pkgs.xfce; [
+    thunar-archive-plugin
+    thunar-volman
+  ];
+  programs.xfconf.enable = true;
 
 
 

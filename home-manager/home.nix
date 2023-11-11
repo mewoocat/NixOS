@@ -59,7 +59,8 @@ in
     vim
     kitty
     firefox
-    xfce.thunar
+    #xfce.thunar
+    cinnamon.nemo-with-extensions
     neofetch hyfetch
     htop
     vlc
@@ -80,6 +81,8 @@ in
     xournalpp
     tor-browser-bundle-bin
     nextcloud-client
+    gnome.gnome-disk-utility
+    bottles
 
     # Appearance
     liberation_ttf
@@ -312,6 +315,7 @@ in
   wayland.windowManager.hyprland = {
       enable = true;
   };
+
 
 
   # GSettings setup??
