@@ -78,7 +78,7 @@ in
   #  # pkgs.xdg-desktop-portal-gtk
   #};
 
-  services.openssh.enable = true;
+  #services.openssh.enable = true;
 
 
   # File file manager func.
@@ -94,6 +94,8 @@ in
   programs.light.enable = true;
   programs.hyprland.enable = true;
   programs.thunar.enable = true;
+
+  programs.file-roller.enable = true;  # Archive backend?
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
     thunar-volman
@@ -164,7 +166,7 @@ in
   };
 
 
-  virtualisation.docker.enable = true;
+  #virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.guest.enable = true;
 

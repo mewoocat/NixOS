@@ -17,7 +17,8 @@
   (eventbox
     :class "menu-button"
     :cursor "pointer"
-    :onclick "scripts/toggleWifiMenu.sh"
+    ;;:onclick "scripts/toggleWifiMenu.sh"
+    :onclick "scripts/toggleWifi.sh"
     :height {widgetSize}
     (box
       :space-evenly false

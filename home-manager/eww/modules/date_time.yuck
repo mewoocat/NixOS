@@ -14,7 +14,8 @@
     (box
       :class "button-box"
       (label
-        :class {time_hover ? "time-button time-button-hover" : "time-button"} 
+        ;;:class {time_hover ? "time-button time-button-hover" : "time-button"} 
+        :class "time-button"
         :text "${time}"
       )
     )

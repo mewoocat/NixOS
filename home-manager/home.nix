@@ -67,6 +67,7 @@ in
     steam
     qdirstat
     qalculate-gtk
+    gnome.eog
 
     # Programs
     obsidian
@@ -83,7 +84,8 @@ in
     nextcloud-client
     gnome.gnome-disk-utility
     bottles
-
+  
+    
     # Appearance
     liberation_ttf
     arkpandora_ttf
@@ -194,6 +196,7 @@ in
     enable = true;
     bashrcExtra = ''
       . ~/.bashrc_backup
+      # Fix for gsettings no schema
       export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
     '';
   };
@@ -314,6 +317,9 @@ in
   # Window manager
   wayland.windowManager.hyprland = {
       enable = true;
+      plugins = [
+        inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      ];
   };
 
 

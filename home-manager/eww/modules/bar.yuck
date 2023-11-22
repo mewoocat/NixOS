@@ -33,8 +33,9 @@
 ;; Left widgets
 
 (deflisten windowName :initial "..." "bash ~/.config/eww/scripts/get-window-title")
-;;(deflisten windowIcon :initial "..." "bash ~/.config/eww/scripts/get-window-icon")
-(defvar iconDir "/home/ghost/.icons/Reversal-blue/apps/scalable/")
+(deflisten windowIcon :initial "..." "bash ~/.config/eww/scripts/get-window-icon")
+;;(defvar iconDir "/home/ghost/.icons/Reversal-blue/apps/scalable/")
+(defvar iconDir "/home/exia/.nix-profile/share/icons/kora/apps/scalable")
 
 (defwidget left []
     (box 
@@ -50,8 +51,8 @@
           :space-evenly false
           (image
             :class "window-icon"
-            ;;:path "${iconDir}${windowIcon}"
-            :image-width 36
+            :path "${iconDir}/${windowIcon}"
+            :image-width 28
           )
           (label 
             :limit-width 100

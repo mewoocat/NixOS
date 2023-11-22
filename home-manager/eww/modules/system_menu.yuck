@@ -237,11 +237,11 @@
   :monitor 0
   :windowtype "normal"
   :focusable false
-  :geometry (geometry :x "8px"
-                      :y "8px"
+  :geometry (geometry :x "-16px"
+                      :y "0px"
                       :width "50px"
                       :height "0%"
-                      :anchor "top right")
+                      :anchor "center right")
   ;;(literal
   ;;  :content "${system_menu_open ? '(system_menu_items)' : '(wifi_list)'}"
   ;;)
@@ -255,7 +255,7 @@
 
   (revealer
     :reveal {system_menu_open}
-    :transition "slidedown"
+    :transition "slideright"
     :duration "150ms"
     (box
       :class "system-menu-container-base"

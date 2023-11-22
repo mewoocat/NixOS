@@ -1,7 +1,57 @@
 #!/bin/sh
-hyprctl activewindow -j | jq --raw-output .class 
-socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^activewindow>>' | stdbuf -o0 awk -F '>>|,' '{print $2}'
 
+# Old
+#hyprctl activewindow -j | jq --raw-output .class 
+#socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^activewindow>>' | stdbuf -o0 awk -F '>>|,' '{print $2}'
+
+
+# New
+# .desktop applications dir
+userApps="$HOME/.nix-profile/share/applications"
+
+# Found from `echo $XDG_DATA_DIRS`
+systemApps="/run/current-system/sw/share/applications"
+
+# Echos window name
+handle() {
+
+    class=$(hyprctl activewindow -j | jq --raw-output .class)
+    #awk -F '>>|,' '{print $2".svg"}'
+
+    if [[ "$class" == "null" ]]; then
+        iconName=""
+        echo "$iconName"
+        return 0
+    fi
+
+    userAppPath="$userApps/$class.desktop"
+
+    # If .desktop file exists in user apps
+    if test -f "$userAppPath"; then
+        # Get icon name from .desktop file
+        iconName=$(cat $userAppPath | grep -m 1 "^Name=*" | awk -F '=' '{print $2}')
+
+    # If .desktop file exists in system apps
+    elif test -f "$systemAppPath"; then
+        # Get icon name from .desktop file
+        iconName=$(cat $systemAppPath | grep -m 1 "^Name=*" | awk -F '=' '{print $2}')
+
+    # If no .desktop file exists
+    else
+        iconName="$class"
+    fi
+    
+    echo "$iconName"
+
+    return 0
+
+}
+
+# Initial call
+handle
+
+# Listens for Hyprland events and calls handle() on each one
+socat -U - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do handle "$line"; done
 
 
 
