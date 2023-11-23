@@ -9,10 +9,11 @@
   (eventbox
       :cursor "pointer"
       :onclick {calendarOpen ? "eww close calendar; eww update calendarOpen=false" : "eww open calendar; eww update calendarOpen=true"}
-      :onhover "eww update time_hover=true"
-      :onhoverlost "eww update time_hover=false"
+      ;;:onhover "eww update time_hover=true"
+      ;;:onhoverlost "eww update time_hover=false"
+      :class "time-button-box"
     (box
-      :class "button-box"
+      :class "time-button"
       (label
         ;;:class {time_hover ? "time-button time-button-hover" : "time-button"} 
         :class "time-button"

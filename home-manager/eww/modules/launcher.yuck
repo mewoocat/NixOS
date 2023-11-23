@@ -7,19 +7,13 @@
     ;;:onclick "bash ~/.config/rofi/launch.sh &"
     ;;:onclick "eww open --toggle launcher &"
     :onclick "bash ~/.config/eww/scripts/launcher.sh &"
-    :onhover "eww update launcher_hover=true"
-    :onhoverlost "eww update launcher_hover=false"
+    ;;:onhover "eww update launcher_hover=true"
+    ;;:onhoverlost "eww update launcher_hover=false"
     :width 80
     (box
       :class "button-box"
       (box
         :class "launcher-hover"
-        :class {launcher_hover ? "launcher launcher-hover" : "launcher"}
-        ;;:style {launcher_hover ? "background-color: #0f0f0f" : ""}
-        ;;:timeout "100ms"
-        ;;:onclick "bash ~/.config/rofi/launch.sh &"
-
-        ;;:onclick "~/.config/eww/scripts/toggleSystemMenu.sh"
         "";;"𝄞"
       )
     )

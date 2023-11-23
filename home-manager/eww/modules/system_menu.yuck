@@ -6,9 +6,10 @@
 (eventbox
         :cursor "pointer"
         :onclick "scripts/toggleSystemMenu.sh"
-        :onhover "eww update system_menu_button_hover=true"
-        :onhoverlost "eww update system_menu_button_hover=false"
+        ;;:onhover "eww update system_menu_button_hover=true"
+        ;;:onhoverlost "eww update system_menu_button_hover=false"
         :width 80
+        :class "sys-menu-box"
         (box
           :class "button-box"
           (button
@@ -237,10 +238,10 @@
   :monitor 0
   :windowtype "normal"
   :focusable false
-  :geometry (geometry :x "-16px"
+  :geometry (geometry :x "0px"
                       :y "0px"
                       :width "50px"
-                      :height "0%"
+                      :height "80%"
                       :anchor "center right")
   ;;(literal
   ;;  :content "${system_menu_open ? '(system_menu_items)' : '(wifi_list)'}"
@@ -257,6 +258,7 @@
     :reveal {system_menu_open}
     :transition "slideright"
     :duration "150ms"
+    :valign "center"
     (box
       :class "system-menu-container-base"
       (box
@@ -278,8 +280,6 @@
           :duration "200ms"
           (wifi_menu_container)
         )
-
-      
       )
     )
   )

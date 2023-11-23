@@ -102,15 +102,20 @@
 */
 
 .time-button{
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 12px;
+    padding-right: 12px;
     border-radius: 50px;
 }
 
-.time-button-hover{
-    color: colors.$fg;
-    background-color: rgb(colors.$fg_alt, 0.4);
+
+.time-button-box{
+    border-radius: 50px;
 }
+
+.time-button-box:hover{
+    background-color: rgb(colors.$fg_alt, 0.3);
+}
+
 
 .ws-button{
     border-radius: 50%;
@@ -154,10 +159,11 @@
     border-radius: 50px;
 }
 
-.con:hover{
+.sys-menu-box:hover{
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
     color: colors.$fg;
-    background-color: rgb(colors.$fg_alt, 0.4);
-}
+    background-color: rgb(colors.$fg_alt, 0.3);}
 
 
 
@@ -603,7 +609,7 @@ calendar{
     margin-left: 24px;
 }
 
-.launcher-container{
-    background-color: rgba(colors.$bg, 0.8);
-    border-radius: 20px;
+.launcher-container:hover{
+    background-color: rgb(colors.$fg_alt, 0.3);    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
