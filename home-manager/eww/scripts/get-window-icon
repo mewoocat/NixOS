@@ -28,6 +28,7 @@ handle() {
     # If no .desktop file exists
     else
         iconName="error"
+        iconName="gtk-about"
     fi
     
     echo "$iconName.svg"
