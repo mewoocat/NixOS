@@ -167,8 +167,8 @@ in
 
 
   #virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.guest.enable = true;
+  #virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.guest.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

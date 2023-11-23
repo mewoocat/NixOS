@@ -267,7 +267,7 @@ in
 
   # Services
 
-  # start swayidle as part of hyprland, not sway
+  # start as part of hyprland, not sway
   systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
   services.swayidle = {
     enable = true; 
