@@ -215,7 +215,7 @@ in
         # An array of all the plugins you want, which either can be paths to the .so files, or their packages
         inputs.anyrun.packages.${pkgs.system}.applications
         inputs.anyrun.packages.${pkgs.system}.shell
-        #inputs.anyrun.packages.${pkgs.system}.dictionary
+        inputs.anyrun.packages.${pkgs.system}.dictionary
         #inputs.anyrun.packages.${pkgs.system}.kidex
         #inputs.anyrun.packages.${pkgs.system}.rink
         #./some_plugin.so
@@ -223,6 +223,7 @@ in
 
       ];
       width = { fraction = 0.3; };
+      #height = { fraction = 0.4; };
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "overlay";
@@ -239,7 +240,7 @@ in
     extraCss = '' 
 
       #entry {
-        margin-top: 100px;
+        margin-top: 48px;
         padding: 16px;
         border-radius: 18px;
         background-color: rgba(0,0,0,0.9);
