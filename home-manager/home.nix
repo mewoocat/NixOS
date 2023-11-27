@@ -60,14 +60,14 @@ in
     kitty
     firefox
     #xfce.thunar
-    cinnamon.nemo-with-extensions
+    #cinnamon.nemo-with-extensions
     neofetch hyfetch
     htop
     vlc
     steam
-    qdirstat
     qalculate-gtk
     gnome.eog
+    gnome.gnome-disk-utility
 
     # Programs
     obsidian
@@ -82,8 +82,8 @@ in
     xournalpp
     tor-browser-bundle-bin
     nextcloud-client
-    gnome.gnome-disk-utility
     bottles
+    qdirstat
   
     
     # Appearance
@@ -111,7 +111,7 @@ in
     glib
     gsettings-desktop-schemas # Don't need?
     gnome.nixos-gsettings-overrides
-    shotman
+    sway-contrib.grimshot
     pywal
     jaq
     gojq
@@ -243,7 +243,7 @@ in
         margin-top: 48px;
         padding: 16px;
         border-radius: 18px;
-        background-color: rgba(0,0,0,0.9);
+        background-color: rgba(0,0,0,0.6);
       }
 
       #window {
