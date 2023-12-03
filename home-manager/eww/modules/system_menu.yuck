@@ -174,7 +174,7 @@
               :style "padding: 6px;"
               (eventbox
                 :class "power-button power-off"
-                :halign "end"
+                ;;:halign "end"
                 :cursor "pointer"
                 :width 36
                 :height 36
@@ -182,7 +182,7 @@
               )
               (eventbox
                 :class "power-button lock"
-                :halign "end"
+                ;;:halign "end"
                 :cursor "pointer"
                 :width 36
                 :height 36
@@ -191,7 +191,7 @@
               )
               (eventbox
                 :class "power-button restart"
-                :halign "end"
+                ;;:halign "end"
                 :cursor "pointer"
                 :width 36
                 :height 36
@@ -207,8 +207,8 @@
           :style "padding-top: 6px; padding-bottom: 6px;"
           (eventbox
             ;;:style "margin: 6px;"
-            :class "power-button"
-            ;;:halign "end"
+            :class "power-button icon"
+            :halign "end"
             :cursor "pointer"
             :width 36
             :height 36
@@ -217,7 +217,7 @@
             ;;:onhoverlost "eww update power_reveal=false"
             ;;:width 20
             ;;:height 20
-            "⏻"
+            ""
           )
         )
       )
