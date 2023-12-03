@@ -245,7 +245,7 @@ function setWallpaperDark(){
 
 function setWallpaperLight(){
     wal -l -i $1;
-    gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
+    gsettings set org.gnome.desktop.interface gtk-theme $gtk_light_theme;
     swww img $1;
     setEWWColors light;
     #killall eww && killall eww && eww open bar;
