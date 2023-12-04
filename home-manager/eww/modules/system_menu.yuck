@@ -173,30 +173,30 @@
               :spacing 4
               :style "padding: 6px;"
               (eventbox
-                :class "power-button power-off"
+                :class "power-button power-off icon"
                 ;;:halign "end"
                 :cursor "pointer"
                 :width 36
                 :height 36
-                "⏼"
+                ""
               )
               (eventbox
-                :class "power-button lock"
+                :class "power-button lock icon"
                 ;;:halign "end"
                 :cursor "pointer"
                 :width 36
                 :height 36
-                :onclick "~/.scripts/swaylockenv.sh"
+                :onclick "~/myNixOSConfig/home-manager/scripts/lockScreen.sh"
                 ""
               )
               (eventbox
-                :class "power-button restart"
+                :class "power-button restart icon"
                 ;;:halign "end"
                 :cursor "pointer"
                 :width 36
                 :height 36
                 (label
-                  :text ""
+                  :text ""
                 )
               )
               "|"
