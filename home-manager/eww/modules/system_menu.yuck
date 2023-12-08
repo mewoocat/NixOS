@@ -133,15 +133,9 @@
         :space-evenly false
         :spacing 8
         (box
-
-        ;;:height 62
-        :width 48
-          ;;:width 60
-          ;;:height 44
-        
+          :width 48
           :class "pfp"
           :halign "start"
-          
         )
         (label
           :halign "end"

@@ -261,7 +261,7 @@ in
       #[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
       #    . /usr/share/bash-completion/bash_completion
 
-      alias 8008="~/Projects/Scripts/RandomTerminalArt.sh ~/Downloads/p/"
+      alias 8008="~/Projects/Scripts/RandomTerminalArt.sh /run/media/exia/F47E-A2CF/"
 
       # Run initial programs
       #neofetch
