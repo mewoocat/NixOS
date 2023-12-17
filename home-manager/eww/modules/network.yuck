@@ -14,20 +14,24 @@
 (defvar wifiClickd true)
 
 (defwidget network_button []
-  (eventbox
-    :class "menu-button"
-    :cursor "pointer"
-    ;;:onclick "scripts/toggleWifiMenu.sh"
-    :onclick "scripts/toggleWifi.sh"
-    :height {widgetSize}
-    (box
-      :space-evenly false
-      :spacing 8
-      :class "menu-widget"
+  (box
+    :space-evenly true
+    :class "multi-menu-button"
+    (eventbox
+      :hexpand true
+      :class "menu-sub-button menu-sub-button-left"
+      :cursor "pointer"
+      :onclick "scripts/toggleWifi.sh"
+      :height {widgetSize}
       (wifi)
-      (label
-        :text "${wifi.ssid}"
-      )
+    )
+    (eventbox
+      :hexpand true
+      :class "menu-sub-button menu-sub-button-right"
+      :cursor "pointer"
+      :onclick "scripts/toggleWifiMenu.sh"
+      :height {widgetSize}
+      (label :text ">")
     )
   )
 )

@@ -366,6 +366,39 @@
     background-color: #ff0000;
 }
 
+.multi-menu-button{
+    //padding: 8px 14px 8px 14px;
+    //padding-left: 10px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: rgba(colors.$bg_alt, 0.2);;
+    //border-width: 2px;
+    //backgrounmenu-widgetd-color: rgba(colors.$bg, 0.7);
+    background-color: rgba(colors.$bg_alt, 0.6);
+
+    // from https://www.youtube.com/watch?v=92XyPflDwkE
+    //box-shadow: 10px 10px 10px -1px rgba(colors.$bg, 1.0), 
+    //            -10px -10px 10px -1px rgba(colors.$bg, 1.0);
+}
+
+.menu-sub-button{
+
+}
+.menu-sub-button-left{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-style: solid;
+}
+.menu-sub-button-right{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-style: solid;
+}
+.menu-sub-button:hover{
+    //color: #00ff00;
+    background-color: rgba(#666666, 1);
+}
+
 
 // Derived from: https://github.com/Axarva/dotfiles-2.0/blob/main/config/eww-1920/eww.scss
 // and https://github.com/janleigh/dotfiles/blob/master/cfg/eww/src/scss/control-center/rows/_third-row.scss

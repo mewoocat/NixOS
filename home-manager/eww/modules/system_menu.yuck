@@ -220,7 +220,6 @@
 )
 
 (defvar system_menu_open false)
-
 (defvar showWifi false)
 (defvar showMain true)
 
@@ -232,11 +231,12 @@
   :monitor 0
   :windowtype "normal"
   :focusable false
-  :geometry (geometry :x "0px"
-                      :y "0px"
-                      :width "50px"
-                      :height "80%"
-                      :anchor "center right")
+  :stacking "fg"
+  :geometry (geometry :x "10px"
+                      :y "10px"
+                      :width "2px" ;; Workaround: set to lowest width that can still allow the revealer to work but minimize the size of the window to an almost insignificant area so that its not capturing as many mouse clicks when system_menu is not visableb
+                      :height "100%"
+                      :anchor "top right")
   ;;(literal
   ;;  :content "${system_menu_open ? '(system_menu_items)' : '(wifi_list)'}"
   ;;)
@@ -252,7 +252,7 @@
     :reveal {system_menu_open}
     :transition "slideright"
     :duration "150ms"
-    :valign "center"
+    :valign "start"
     (box
       :class "system-menu-container-base"
       (box

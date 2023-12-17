@@ -6,8 +6,8 @@
 { config, pkgs, lib, ... }:
 let
   #home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
-in
-{
+
+in{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -37,7 +37,6 @@ in
   # idVendor and idProduct can be found by `cat /proc/bus/input/devices`
   # Disable touchscreen
   services.udev.extraRules = "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"04f3\", ATTRS{idProduct}==\"223c\", ATTR{authorized}=\"0\"";
-
 
   # Cachix for Hyprland
   nix.settings = {
@@ -115,6 +114,8 @@ in
   ];
   programs.xfconf.enable = true;
 
+  services.teamviewer.enable = true;
+
 
 
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
@@ -177,6 +178,16 @@ in
       #tree
     ];
   };
+
+  users.users.exia_testing = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      #firefox
+      #tree
+    ];
+  };
+
 
 
   #virtualisation.docker.enable = true;
