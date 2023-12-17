@@ -125,8 +125,13 @@ in
     dunst # Some programs may crash without a notification daemon running
     unzip
     gvfs # for network file browsing
+    openrgb-with-all-plugins
 
-  
+    # Games
+    duckstation
+    retroarchFull
+    
+
     # Inactive
     #cifs-utils # for 3ds file system?
     #wpgtk
@@ -263,6 +268,8 @@ in
 
       alias 8008="~/Projects/Scripts/RandomTerminalArt.sh /run/media/exia/F47E-A2CF/"
 
+      alias f="neowofetch --backend off"
+
       # Run initial programs
       #neofetch
 
@@ -394,7 +401,6 @@ in
         inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
       ];
   };
-
 
 
   # GSettings setup??
