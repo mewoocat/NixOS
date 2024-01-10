@@ -1,18 +1,23 @@
 ;; Network
+
 (defpoll wifi
     :interval "2s"
     "scripts/network.sh"
 )
 
-
+(defpoll wifi_scan
+  :interval "20s"
+  "./scripts/getWifiNetworks.sh"
+)
 
 (defvar wifi_menu_open false)
-
 (defvar ssid "")
 (defvar wifiFocused false)
-
 (defvar wifiClickd true)
+(defvar showWifi false)
 
+
+;; Wifi button for system menu
 (defwidget network_button []
   (box
     :space-evenly true
@@ -36,25 +41,21 @@
   )
 )
 
+;; Wifi ssid and icon
 (defwidget wifi []
   (overlay
     (label
       :class "wifi wifi-bg icon"
       :text "${wifi.bg}"
-      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
     )
     (label
       :class {wifi.status == "true" ? "wifi icon" : "wifi icon off"}
       :text "${wifi.icon}"
-      ;;:halign "end"       ;; Use this to fix dumbass spacing issue
     )
   )
 )
 
-(defpoll wifi_scan
-  :interval "5s"
-  "./scripts/getWifiNetworks.sh"
-)
+
 (defwidget wifi_list []
   (box
     :orientation "v"
@@ -62,8 +63,41 @@
     (label
       :text "${ssid}"
     )
+
+    ;; Current connected network
+    (box
+      :orientation "v"
+      :space-evenly false
+      (eventbox
+        ;;:class "wifi-network"
+        (box
+          :space-evenly false
+          :class "wifi-network-label"
+          :spacing 10 
+          (box
+            :halign "end"
+            :space-evenly false
+            :spacing 8
+            (wifi)
+            (label
+              :height 40
+              :halign "end"
+              :text "${wifi.ssid}" 
+            )
+          )
+        )
+      )
+    )
+
+    ;; Horizontal Line
+    (box
+      :height 2 
+      :class "horizontal-line"
+    )
+
+    ;; List of found networks
     (scroll
-      :height 240
+      :height 660
       (box
         :orientation "v"
         :spacing 0
@@ -75,27 +109,19 @@
             (eventbox
               :cursor "pointer"
               :class "wifi-network"
-              ;;:height 20
-              ;;:halign "start"
-              ;;:hexpand true
-              ;;:height 60
-              ;;:width 400
               :onclick {ssid == "" ? "eww update ssid='${network.ssid}'" : "eww update ssid=''"}
               (box
-                ;;:class ""
                 :space-evenly false
                 :class "wifi-network-label"
                 :spacing 10 
                 (overlay
                   (label
-                    :class "icon wifi-bg"
+                    :class "icon wifi wifi-bg"
                     :text "${network.icon_bg}"
-                    ;;:halign "end"       ;; Use this to fix dumbass spacing issue
                   )
                   (label
-                    :class "icon"
+                    :class "icon wifi"
                     :text "${network.icon}"
-                    ;;:halign "end"       ;; Use this to fix dumbass spacing issue
                   )
                 )
                 (label
@@ -106,12 +132,12 @@
                 )
               )
             )
+            ;; Password entry
             (revealer
               :reveal {network.ssid == ssid ? true : false}
               :height 0
               :transition "slidedown"
               :duration "100ms"
-              ;;:visible false 
               (box
                 :class "password-container"
                 :orientation "h"
@@ -140,7 +166,6 @@
   :cursor "pointer"
     (button
       :class "back-button"
-      :timeout "0.05s"
       :onclick "scripts/toggleWifiMenu.sh"
       :height 48
       :width 48
@@ -152,8 +177,7 @@
 (defwindow wifi_menu
   :monitor 0
   :windowtype "normal"
-  ;;:focusable {wifiFocused ? true : false}
-  :focusable true
+  :focusable false
   :geometry (geometry :x "1%"
                       :y "1%"
                       :width "22%"
@@ -165,7 +189,6 @@
     :spacing 8
     :class "system-menu-container-base"
     (centerbox
-      ;;:space-evenly false
       (box
         :space-evenly false
         (back_button)
@@ -207,12 +230,14 @@
 
 (defwidget wifi_menu_container []
   (box
+    :visible {showWifi}
+    :width 330
+    :height 660
     :orientation "v"
     :space-evenly false
     :spacing 8
     :class "system-menu-container-base"
     (centerbox
-      ;;:space-evenly false
       (box
         :space-evenly false
         (back_button)

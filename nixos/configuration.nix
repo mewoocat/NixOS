@@ -50,9 +50,10 @@ in{
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];	
   nixpkgs.config.allowUnfree = true;
+  
+
   environment.systemPackages = with pkgs; [
-  # vscodium
-    #obsidian
+    # package names
   ];
 
 
@@ -114,8 +115,6 @@ in{
   ];
   programs.xfconf.enable = true;
 
-  services.teamviewer.enable = true;
-
 
 
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
@@ -133,6 +132,7 @@ in{
   ];
  
   networking.hostName = "scythe"; # Define your hostname.
+  #networking.nameservers = [ "192.168.1.64" ];
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -141,6 +141,8 @@ in{
 #      psk = "9w8aay37";
 #    };
 #  };
+
+
 
   # Set your time zone.
   time.timeZone = "America/Chicago";

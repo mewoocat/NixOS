@@ -5,7 +5,8 @@ ssids=()
 statuses=()
 strengths=()
 icons=()
-nmcli -g common dev wifi list > ./networks.txt 
+
+nmcli -g common dev wifi list | awk -F':' '!seen[$8]++' > ./networks.txt # The awk command here will filter lines where the 8th field has been seen before
 
 # { "number": "1", "status": "test", "color": "current" }
 while read -r network
@@ -17,7 +18,7 @@ do
     if [ "$firstColumn" == "*" ]; then
         status="Connected"
     else
-        status="Disconnected"
+        status=""
     fi
 
     # Get ssid
@@ -49,11 +50,6 @@ do
         #icon=""
     fi
 
-    #icon="a"
-
-    #echo $icon;
-    #echo $icon_bg;
-
     exists=false
     for i in "${!ssids[@]}"
     do
@@ -71,7 +67,7 @@ do
     #echo "status of $ssid: $status"
 
     #if [[ $exists == false && $ssid != "" ]]
-    if [ true ]
+    if [[ $ssid != "" ]]
     then
         ssids+=("$ssid")
         statuses+=("$status")

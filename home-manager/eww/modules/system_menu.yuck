@@ -1,6 +1,9 @@
 
 
 (defvar system_menu_button_hover false)
+(defvar system_menu_open false)
+(defvar showMain true)
+(defvar power_reveal false)
 
 (defwidget system_menu_button []
 (eventbox
@@ -27,9 +30,6 @@
       )
 )
 
-(defvar power_reveal false)
-
-;; System menu
 
 (defwidget menu_button []
   (eventbox 
@@ -46,6 +46,8 @@
 
 (defwidget system_menu_items []
   (box
+    :visible {showMain}
+    ;;:width 330
     :class "system-menu-container"
     :orientation "v"
     :spacing 14
@@ -56,7 +58,6 @@
       (system_stats)
       (battery_stats_v2)
     )
-    ;;(battery_stats)
     (box
       :orientation "h"
       :spacing 10
@@ -94,26 +95,18 @@
     (box
       :orientation "h"
       :spacing 10
-      ;;:space-evenly false
       (network_button)
       (box
-        ;;:space-evenly false
         :spacing 10
-        ;;:width "100%"
         (bluetooth_button)
         (nightlight_button)
       )
     )
 
-
-
-    
-
     ;; Menu buttons row 2
     (box
       :orientation "h"
       :spacing 10
-      ;;:space-evenly false
       (box
         :spacing 10
         (keyboard_button)
@@ -124,10 +117,8 @@
 
     ;; Bottom row
     (centerbox
-      ;;:space-evenly false
       :class "menu-widget"
       :orientation "h"
-      ;;:height 72
       (box
         :orientation "h"
         :space-evenly false
@@ -140,7 +131,6 @@
         (label
           :halign "end"
           :text "${user}\\n@scythe" 
-          ;;:style "font-size: 16px;"
         )
       )
       ;;(eventbox
@@ -219,14 +209,6 @@
   )
 )
 
-(defvar system_menu_open false)
-(defvar showWifi false)
-(defvar showMain true)
-
-;;[exia@nixos ~]$ eww update showMain=false && eww update showWifi=true
-;;[exia@nixos ~]$ eww update showMain=true && eww update showWifi=false
-
-
 (defwindow system_menu
   :monitor 0
   :windowtype "normal"
@@ -237,43 +219,17 @@
                       :width "2px" ;; Workaround: set to lowest width that can still allow the revealer to work but minimize the size of the window to an almost insignificant area so that its not capturing as many mouse clicks when system_menu is not visableb
                       :height "100%"
                       :anchor "top right")
-  ;;(literal
-  ;;  :content "${system_menu_open ? '(system_menu_items)' : '(wifi_list)'}"
-  ;;)
-  ;;(eventbox
-    ;;:style "border-radius: 50px;"
-    ;;:onhover 
-    ;;:onhoverlost
-  
-  ;;)
-
 
   (revealer
     :reveal {system_menu_open}
-    :transition "slideright"
+    :transition "slideleft" ;; Using slidedown here seems to make system_menu take up the full width when not revealed
     :duration "150ms"
     :valign "start"
     (box
       :class "system-menu-container-base"
       (box
-        ;;(literal :content {showMain ? "(system_menu_items)" : "(label :text \"\")"})
-        ;;(literal :content {showWifi ? "(wifi_menu_container)" : "(label :text \"\")"})
-
-        (revealer
-          :reveal {showMain}
-          :visible {showMain}
-          :transition "sliderleft"
-          :duration "200ms"
-          (system_menu_items)
-        )
-
-        (revealer
-          :reveal {showWifi}
-          :visible {showWifi}
-          :transition "sliderleft"
-          :duration "200ms"
-          (wifi_menu_container)
-        )
+        (system_menu_items)
+        (wifi_menu_container)
       )
     )
   )

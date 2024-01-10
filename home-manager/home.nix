@@ -92,7 +92,7 @@ in
     apple-cursor
 
     # Components + utilities
-    coreutils
+    #coreutils # Collision with busybox 
     acpi                # Battery
     lm_sensors          # 
     light
@@ -121,15 +121,21 @@ in
     bc
     gamescope
     wlsunset
-    gcc 
+    #gcc # Enabling this causes collision with busybox  
     dunst # Some programs may crash without a notification daemon running
     unzip
     gvfs # for network file browsing
     openrgb-with-all-plugins
+    busybox
 
     # Games
     duckstation
     retroarchFull
+
+    # Unsorted
+    blueberry
+    dolphin-emu
+    p7zip
     
 
     # Inactive
@@ -267,7 +273,7 @@ in
       #[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
       #    . /usr/share/bash-completion/bash_completion
 
-      alias 8008="~/Projects/Scripts/RandomTerminalArt.sh /run/media/exia/F47E-A2CF/"
+      alias rta="~/Projects/Scripts/RandomTerminalArt.sh"
 
       alias f="neowofetch --backend off"
 
@@ -403,6 +409,11 @@ in
       ];
   };
 
+  # XDG
+  #xdg.desktopEntries.zettlr = {
+  #  name = "zettlr";
+  #  exec = "zettlr --disable-gpu --enable-features=UseOzonePlatform --ozone-platform=wayland";
+  #};
 
   # GSettings setup??
   # From: https://www.reddit.com/r/NixOS/comments/nxnswt/cant_change_themes_on_wayland/
