@@ -13,6 +13,7 @@ in
 {
   imports = [
     #hyprland.homeManagerModules.default
+    inputs.ags.homeManagerModules.default
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -95,7 +96,8 @@ in
     #coreutils # Collision with busybox 
     acpi                # Battery
     lm_sensors          # 
-    light
+    #light
+    brightnessctl
     bluez
     swww
     wirelesstools
@@ -122,11 +124,11 @@ in
     gamescope
     wlsunset
     #gcc # Enabling this causes collision with busybox  
-    dunst # Some programs may crash without a notification daemon running
+    #dunst # Some programs may crash without a notification daemon running
     unzip
     gvfs # for network file browsing
     openrgb-with-all-plugins
-    busybox
+    #busybox
 
     # Games
     duckstation
@@ -173,6 +175,7 @@ in
    ".config/nvim".source = ./nvim;
    ".config/hypr".source = ./hypr;
    ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/myNixOSConfig/home-manager/eww";
+   ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/myNixOSConfig/home-manager/ags";
    ".config/tmux".source = ./tmux;
    # Add .themes dir with gtk theme
 
@@ -351,6 +354,15 @@ in
 
   };
 
+  programs.ags = {
+    enable = true;
+
+    # null or path, leave as null if you don't want hm to manage the config
+    #configDir = ../ags;
+
+    # additional packages to add to gjs's runtime
+    extraPackages = [  ];
+  };
 
   # Services
 
@@ -379,7 +391,6 @@ in
       automount = true;
       tray = "never";
   };
-
 
   # GTK Config
   gtk = {

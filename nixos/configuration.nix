@@ -74,7 +74,7 @@ in{
   # Needed for gparted
   security.polkit.enable = true;
 
-  # rtkit is optional but recommended
+  #rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -93,6 +93,9 @@ in{
 
   #services.openssh.enable = true;
 
+  services.upower = {
+    enable = true;
+  };
 
   # File file manager func.
   services.gvfs.enable = true;

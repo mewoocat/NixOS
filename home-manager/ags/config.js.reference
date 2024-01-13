@@ -1,0 +1,98 @@
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import { interval, exec } from 'resource:///com/github/Aylur/ags/utils.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+
+const myLabel = Widget.Label({
+    label: 'some example content',
+});
+
+/*
+const myBar = Widget.Window({
+    name: 'bar',
+    anchor: ['left'],
+    child: myLabel,
+});
+*/
+/*
+function Bar(monitor = 0) {
+    const myLabel = Widget.Label({
+        label: 'some example content',
+    });
+
+    interval(1000, () => {
+        myLabel.label = exec('date');
+    });
+
+    const win = Widget.Window({
+        monitor,
+        name: `bar${monitor}`,
+        anchor: ['top', 'left', 'right'],
+        child: myLabel,
+    });
+
+    return win;
+}
+*/
+
+const date = Variable('', {
+    poll: [1000, 'date'],
+});
+
+const Bar = (monitor = 0) => Widget.Window({
+    monitor,
+    name: `bar${monitor}`,
+    anchor: ['bottom', 'left', 'right'],
+    //child: Widget.Label()
+    //    .poll(1000, label => label.label = exec('date')),
+    child: Widget.Label().bind('label', date),
+});
+
+// anytime myVariable.value changes
+// it will send a signal
+const myVariable = Variable(0);
+
+myVariable.connect('changed', ({ value }) => {
+    print('myVariable changed to ' + `${value}`);
+});
+/*
+const bar = Widget.Window({
+    name: 'bar',
+    child: Widget.Label()
+        .bind('label', myVariable, 'value', v => `value: ${v}`),
+});
+*/
+
+myVariable.value++
+myVariable.value++
+myVariable.value++
+
+const pactl = Variable({ count: 0, msg: '' }, {
+    listen: ['pactl subscribe', msg => ({
+        count: pactl.value.count + 1,
+        msg: msg,
+    })],
+});
+
+pactl.connect('changed', ({ value }) => {
+    print(value.msg, value.count);
+});
+
+const label = Widget.Label()
+    .bind('label', pactl, 'value', ({ count, msg }) => {
+        return `${msg} ${count}`;
+    });
+
+// widgets are GObjects too
+label.connect('notify::label', ({ label }) => {
+    print('label changed to ', label);
+});
+
+const batteryProgress = Widget.CircularProgress({
+    value: Battery.bind('percent').transform(p => p / 100),
+    child: Widget.Icon({
+        icon: Battery.bind('icon_name'),
+    }),
+});
+
+export default { windows: [Bar(0), Bar(1)] };

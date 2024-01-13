@@ -1,0 +1,65 @@
+window.bar {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}
+
+button {
+    min-width: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+}
+
+button:active {
+    background-color: @theme_selected_bg_color;
+}
+
+button:hover {
+    border-bottom: 3px solid @theme_fg_color;
+}
+
+label {
+    font-weight: bold;
+}
+
+.workspaces button.focused {
+    border-bottom: 3px solid @theme_selected_bg_color;
+}
+
+.client-title {
+    color: @theme_selected_bg_color;
+}
+
+.notification {
+    color: yellow;
+}
+
+progress,
+highlight {
+    min-height: 8px;
+}
+
+.ws-button{
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+
+/* Occupied needs to come before active */
+.occupied-ws{
+    color: orange;
+}
+
+.active-ws{
+    color: red;
+}
+
+.control-panel-container{
+    background-color: @theme_bg_color;
+    min-width: 360px;
+}
+
+.battery{
+
+}

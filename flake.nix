@@ -20,6 +20,9 @@
     # Anyrun
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
+
+    # AGS
+    ags.url = "github:Aylur/ags";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, anyrun, ... }: {
@@ -45,6 +48,7 @@
         modules = [ 
           hyprland.homeManagerModules.default
           anyrun.homeManagerModules.default
+          #ags.homeManagerModules.default
           {wayland.windowManager.hyprland.enable = true;}
           ./home-manager/home.nix 
         ];

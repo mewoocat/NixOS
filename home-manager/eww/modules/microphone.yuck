@@ -15,7 +15,7 @@
       :cursor "pointer"
       :hexpand true
       (scale
-        :class "volume-slider"
+        :class {microphone.mute == "true" ? "sliders mute" : "sliders"}
         :value "${microphone.level}"
         :min 0
         :max 101
