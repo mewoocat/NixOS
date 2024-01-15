@@ -1,13 +1,14 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
+// Import Modules
+import { BatteryLabel } from './Modules/battery.js';
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, make it a function
@@ -102,39 +103,6 @@ const Media = () => Widget.Button({
 
 
 
-const BatteryLabel = () => Widget.Box({
-    class_name: 'battery',
-    visible: Battery.bind('available'),
-    children: [
-
-        Widget.Overlay({
-            child:
-                Widget.Label({
-                    // Not sure what transform does here 
-                    label: Battery.bind('percent').transform(p => {
-                        return ""
-                    })
-                }),
-            overlays: [
-                Widget.Label({
-                    // Not sure what transform does here 
-                    label: Battery.bind('percent').transform(p => {
-                        return ""
-                    })
-                }),
-            ]
-        }),
-
-
-
-        Widget.Label({
-            // Not sure what transform does here 
-            label: Battery.bind('percent').transform(p => {
-                return p.toString()
-            })
-        }),
-    ],
-});
 
 
 // TODO The bind prop is deprecated change to using the .bind()
