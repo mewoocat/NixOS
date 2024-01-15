@@ -1,15 +1,16 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import { brightness } from './Modules/brightness.js';
+import { VolumeSlider } from './Modules/volume.js';
 
 
-
-const test = () => Widget.Box({
+const container = () => Widget.Box({
     class_name: "control-panel-container",
     spacing: 8,
+    vertical: true,
     children: [
-        Widget.Label({
-            label: "BBBBB"
-        }) 
+        brightness(),
+        VolumeSlider(),
     ],
 });
 
@@ -21,6 +22,6 @@ export const ControlPanel = (monitor = 0) => Widget.Window({
     anchor: ['top', 'right', 'bottom'],
     exclusivity: 'normal',
     child: Widget.Box({
-        children: [test()]
+        children: [container()]
     }),
 });

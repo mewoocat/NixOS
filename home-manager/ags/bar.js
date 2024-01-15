@@ -1,16 +1,13 @@
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
-//import Service from 'resource:///com/github/Aylur/ags/service.js';
 
-import Brightness from './Services/brightness.js'
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, make it a function
@@ -101,69 +98,9 @@ const Media = () => Widget.Button({
     }, 'player-changed'),
 });
 
-const Volume = () => Widget.Box({
-    class_name: 'volume',
-    css: 'min-width: 180px',
-    children: [
-        Widget.Icon().hook(Audio, self => {
-            if (!Audio.speaker)
-                return;
-
-            const category = {
-                101: 'overamplified',
-                67: 'high',
-                34: 'medium',
-                1: 'low',
-                0: 'muted',
-            };
-
-            const icon = Audio.speaker.is_muted ? 0 : [101, 67, 34, 1, 0].find(
-                threshold => threshold <= Audio.speaker.volume * 100);
-
-            self.icon = `audio-volume-${category[icon]}-symbolic`;
-        }, 'speaker-changed'),
-        Widget.Slider({
-            hexpand: true,
-            draw_value: false,
-            on_change: ({ value }) => Audio.speaker.volume = value,
-            setup: self => self.hook(Audio, () => {
-                self.value = Audio.speaker?.volume || 0;
-            }, 'speaker-changed'),
-        }),
-    ],
-});
 
 
-const brightness = () => Widget.Box({
-    class_name: 'brightness',
-    css: 'min-width: 180px',
-    children: [
-        Widget.Label({
-            //label: Brightness.bind('screen-value').transform(v => `${v}`),
-            setup: self => self.hook(Brightness, (self, screenValue) => {
-                // screenValue is the passed parameter from the 'screen-changed' signal
-               // self.label = screenValue ?? 0;
 
-                // NOTE:
-                // since hooks are run upon construction
-                // the passed screenValue will be undefined the first time
-
-                // all three are valid
-                //self.label = `${Brightness.screenValue}`;
-                //self.label = `${Brightness.screen_value}`;
-                //self.label = `${Brightness['screen-value']}`;
-                self.label = '*'
-
-            }, 'screen-changed'),
-        }),
-        Widget.Slider({
-            hexpand: true,
-            draw_value: false,
-            on_change: self => Brightness.screen_value = self.value,
-            value: Brightness.bind('screen-value'),
-        }),
-    ],
-});
 
 const BatteryLabel = () => Widget.Box({
     class_name: 'battery',
@@ -245,8 +182,8 @@ const Right = () => Widget.Box({
     spacing: 8,
     children: [
         //SysTray(), // See comments at func. declaration
-        brightness(),
-        Volume(),
+        //brightness(),
+        //Volume(),
         BatteryLabel(), 
         ControlPanel(),
     ],
