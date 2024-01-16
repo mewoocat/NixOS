@@ -18,9 +18,6 @@ button:hover {
     border-bottom: 3px solid @theme_fg_color;
 }
 
-label {
-    font-weight: bold;
-}
 
 .workspaces button.focused {
     border-bottom: 3px solid @theme_selected_bg_color;
@@ -37,6 +34,17 @@ label {
 progress,
 highlight {
     min-height: 8px;
+}
+
+
+*{
+    /*all: unset;*/
+}
+
+.bar{
+    font-family: "System-ui";
+    font-size: 16px;
+    /*color: #afafaf;*/
 }
 
 .ws-button{
@@ -61,5 +69,27 @@ highlight {
 }
 
 .battery{
+}
 
+.battery-bg{
+    color: white;
+}
+
+.battery-fg{
+    color: rgb(68, 236, 68);
+}
+
+.wifi-fg{
+    color: white;
+}
+
+.wifi-bg{
+    color: rgb(108, 108, 108);
+}
+
+.wifi-icon{
+}
+
+.icon{
+    font-size: 26px;
 }

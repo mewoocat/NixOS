@@ -37,6 +37,11 @@ in
   # environment.
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
+
+  # Fix for obsidian using electron 25 which is EOL
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
   home.packages = with pkgs; [
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -132,12 +137,13 @@ in
 
     # Games
     duckstation
-    retroarchFull
+    #retroarchFull # Error building
 
     # Unsorted
     blueberry
     dolphin-emu
     p7zip
+    cantarell-fonts
     
 
     # Inactive

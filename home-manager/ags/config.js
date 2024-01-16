@@ -3,6 +3,6 @@ import { bar } from './bar.js';
 import { ControlPanel } from './ControlPanel.js';
 
 export default {
-    style: '.config/ags/style.scss',
+    style: '.config/ags/style.css',
     windows: [applauncher, bar(), ControlPanel(),],
 };

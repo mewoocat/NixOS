@@ -9,6 +9,8 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
 // Import Modules
 import { BatteryLabel } from './Modules/battery.js';
+import { VolumeIcon } from './Modules/volume.js';
+import { WifiIcon } from './Modules/network.js';
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, make it a function
@@ -16,11 +18,12 @@ import { BatteryLabel } from './Modules/battery.js';
 
 const Launcher = () => Widget.Button({
     class_name: 'launcher',
+    cursor: "pointer",
     on_primary_click: () => execAsync('ags -t applauncher'),
     child:
         Widget.Label({
-            label: "A"
-        }) 
+            label: "Begin"
+        })
 });
 
 const dispatch = ws => Hyprland.sendMessage(`dispatch workspace ${ws}`);
@@ -119,10 +122,11 @@ const SysTray = () => Widget.Box({
 
 const ControlPanel = () => Widget.Button({
     class_name: 'launcher',
+    cursor: "pointer",
     on_primary_click: () => execAsync('ags -t ControlPanel'),
     child:
         Widget.Label({
-            label: "B"
+            label: ""
         }) 
 });
 
@@ -150,8 +154,8 @@ const Right = () => Widget.Box({
     spacing: 8,
     children: [
         //SysTray(), // See comments at func. declaration
-        //brightness(),
-        //Volume(),
+        WifiIcon(),
+        VolumeIcon(),
         BatteryLabel(), 
         ControlPanel(),
     ],
@@ -174,7 +178,7 @@ import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 // Does this just watch for css changes to then reload them?
 monitorFile(
-    `${App.configDir}/style.css`,
+    `${App.configDir}/style.scss`,
     function() {
         App.resetCss();
         App.applyCss(`${App.configDir}/style.css`);
