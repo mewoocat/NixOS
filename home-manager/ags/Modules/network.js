@@ -15,7 +15,6 @@ export const WifiIcon = () => Widget.Box({
             Widget.Label({
                 class_name: "wifi-fg",
                 label: Network.wifi.bind('strength').transform(p => {
-                    console.log(p)
                     if (p>75){
                         return ""
                     }
@@ -35,5 +34,28 @@ export const WifiIcon = () => Widget.Box({
             }),
           ]  
         })
+    ]
+})
+
+const WifiSSID = () => Widget.Box({
+    children:[
+        Widget.Label({
+            label: Network.wifi.bind("ssid")
+        }).hook(Network, label =>{
+            if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
+                label.label = Network.wifi.internet
+            }
+            else{
+                label.label = Network.wifi.ssid
+            }
+        })
+    ]
+})
+
+export const WifiButton = () => Widget.Box({
+    class_name: "wifi-button",
+    children:[
+        WifiIcon(),
+        WifiSSID(),
     ]
 })

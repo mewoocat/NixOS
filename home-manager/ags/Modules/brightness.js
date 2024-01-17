@@ -20,7 +20,7 @@ export const brightness = () => Widget.Box({
                 //self.label = `${Brightness.screenValue}`;
                 //self.label = `${Brightness.screen_value}`;
                 //self.label = `${Brightness['screen-value']}`;
-                self.label = '*'
+                self.label = ''
 
             }, 'screen-changed'),
         }),
