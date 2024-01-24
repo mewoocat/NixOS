@@ -14,7 +14,7 @@ const AppItem = app => Widget.Button({
     child: Widget.Box({
         children: [
             Widget.Icon({
-                //icon: app.icon_name || '',
+                icon: app.icon_name || '',
                 size: 42,
             }),
             Widget.Label({
@@ -65,6 +65,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     });
 
     return Widget.Box({
+        class_name: "applauncher",
         vertical: true,
         css: `margin: ${spacing * 2}px;`,
         children: [
@@ -100,8 +101,9 @@ export const applauncher = Widget.Window({
     popup: true,
     visible: false,
     focusable: true,
+    anchor: ['top', 'left'],
     child: Applauncher({
-        width: 500,
+        width: 300,
         height: 500,
         spacing: 12,
     }),

@@ -2,11 +2,10 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 
-export const BluetoothIcon = () => Widget.Box({
-    class_name: "bluetooth-icon icon",
-    children:[
-        //Widget.Label().hook(Audio, self => {
-        //}, 'speaker-changed'),
+export const BluetoothIcon = () => Widget.Button({
+    //class_name: "bluetooth-icon icon",
+    hexpand: true,
+    child:
         Widget.Label({
             label: Bluetooth.bind("enabled").transform(p => {
                 if (p){
@@ -16,6 +15,16 @@ export const BluetoothIcon = () => Widget.Box({
                     return "󰂲"
                 }
             }) 
-        })
-    ]
+        }),
 })
+
+export function ToggleBluetooth(){
+    console.log("bluetooth")
+    console.log(Bluetooth.enabled)
+    if(Bluetooth.enabled){
+        Bluetooth.enabled = false
+    }
+    else{
+        Bluetooth.enabled = true
+    }
+}

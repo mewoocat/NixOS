@@ -1,103 +1,122 @@
+* {
+  all: unset;
+  padding: 0px;
+  margin: 0px; }
+
 window.bar {
-    background-color: @theme_bg_color;
-    color: @theme_fg_color;
-}
+  background-color: rgba(0, 0, 0, 0.8); }
+
+.applauncher {
+  background-color: rgba(0, 0, 0, 0.8); }
 
 button {
-    min-width: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: transparent;
-}
-
-button:active {
-    background-color: @theme_selected_bg_color;
-}
+  background-color: transparent; }
 
 button:hover {
-    /*border-bottom: 3px solid @theme_fg_color;*/
-}
-
-
-.workspaces button.focused {
-    border-bottom: 3px solid @theme_selected_bg_color;
-}
+  /*border-bottom: 3px solid @theme_fg_color;*/
+  background-color: rgba(66, 66, 66, 0.4); }
 
 .client-title {
-    /*color: @theme_selected_bg_color;*/
-}
+  /*color: @theme_selected_bg_color;*/ }
 
 .notification {
-    color: yellow;
-}
+  color: yellow; }
 
 progress,
 highlight {
-    min-height: 8px;
-}
+  min-height: 8px; }
 
+* {
+  /*all: unset;*/ }
 
-*{
-    /*all: unset;*/
-}
+.bar {
+  font-family: "System-ui";
+  font-size: 16px; }
 
-.bar{
-    font-family: "System-ui";
-    font-size: 16px;
-}
+.bar-container {
+  /*padding: 10px;*/ }
 
-.bar-container{
-    /*padding: 10px;*/
-}
-
-.ws-button{
-    color: white;
-    padding: 8px;
-    border-radius: 8px;
-}
-
+.ws-button {
+  color: white;
+  padding: 8px;
+  border-radius: 8px; }
 
 /* Occupied needs to come before active */
-.occupied-ws{
-    color: orange;
-}
+.occupied-ws {
+  color: orange; }
 
-.active-ws{
-    color: red;
-}
+.active-ws {
+  color: red; }
 
-.control-panel-container{
-    background-color: @theme_bg_color;
-    min-width: 360px;
-    padding: 16px;
-}
+.control-panel-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  /*min-width: 280px;*/
+  padding: 16px; }
 
-.battery{
-}
+.control-panel-button {
+  background-color: rgba(66, 66, 66, 0.4);
+  margin: 4px;
+  padding: 8px;
+  border-radius: 8px; }
 
-.battery-bg{
-    color: white;
-}
+.battery-bg {
+  color: white; }
 
-.battery-fg{
-    color: rgb(68, 236, 68);
-}
+.battery-fg {
+  color: #44ec44; }
 
-.wifi-fg{
-    color: white;
-}
+.wifi-fg {
+  color: white; }
 
-.wifi-bg{
-    color: rgb(108, 108, 108);
-}
+.icon {
+  font-size: 22px; }
 
-.wifi-icon{
-}
+.launcher {
+  padding: 12px; }
 
-.icon{
-    font-size: 22px;
-}
+.dim {
+  color: #6c6c6c; }
 
-.launcher{
-    padding: 12px;
-}
+/*both of these could be replaced with dim?*/
+.wifi-bg {
+  color: #6c6c6c; }
+
+.volume-bg {
+  color: #6c6c6c; }
+
+/* The background */
+.sliders trough {
+  background-color: #212121;
+  border-radius: 20px;
+  /* Accounts for the extension of the highlight */
+  padding: 0 16px; }
+
+/* The highligh */
+.sliders highlight {
+  min-height: 32px;
+  min-width: 32px;
+  border-radius: 20px;
+  background-color: #44ec44;
+  /* Forces highlight to extend to match the slider positon  on the ends */
+  margin: 0 -16px; }
+
+/* The dot */
+.sliders slider {
+  min-height: 32px;
+  min-width: 32px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width: 1px;
+  border-color: black; }
+
+.battery-circle {
+  background-color: black;
+  color: lightgreen; }
+
+.system-stats-circular-progress {
+  background-color: black;
+  color: orangered;
+  font-size: 4px;
+  min-height: 24px; }

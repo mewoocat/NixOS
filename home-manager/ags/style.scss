@@ -1,0 +1,170 @@
+
+*{
+    all: unset;
+    padding: 0px;
+    margin: 0px;
+}
+
+window.bar {
+    background-color:rgba(0, 0, 0, 0.8);
+}
+
+.applauncher {
+    background-color:rgba(0, 0, 0, 0.8);
+}
+
+button {
+    background-color: transparent;
+}
+
+button:active {
+}
+
+button:hover {
+    /*border-bottom: 3px solid @theme_fg_color;*/
+
+    background-color:rgba(66, 66, 66, 0.4);
+    
+}
+
+
+.workspaces button.focused {
+}
+
+.client-title {
+    /*color: @theme_selected_bg_color;*/
+}
+
+.notification {
+    color: yellow;
+}
+
+progress,
+highlight {
+    min-height: 8px;
+}
+
+
+*{
+    /*all: unset;*/
+}
+
+.bar{
+    font-family: "System-ui";
+    font-size: 16px;
+}
+
+.bar-container{
+    /*padding: 10px;*/
+}
+
+.ws-button{
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+
+/* Occupied needs to come before active */
+.occupied-ws{
+    color: orange;
+}
+
+.active-ws{
+    color: red;
+}
+
+.control-panel-container{
+    background-color:rgba(0, 0, 0, 0.8);
+    border-radius: 16px;
+    /*min-width: 280px;*/
+    padding: 16px;
+}
+
+.control-panel-button{
+    background-color:rgba(66, 66, 66, 0.4);
+    margin: 4px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.battery{
+}
+
+.battery-bg{
+    color: white;
+}
+
+.battery-fg{
+    color: rgb(68, 236, 68);
+}
+
+.wifi-fg{
+    color: white;
+}
+
+
+.wifi-icon{
+}
+
+.icon{
+    font-size: 22px;
+}
+
+.launcher{
+    padding: 12px;
+}
+
+.dim{
+    color: rgb(108, 108, 108);
+}
+
+/*both of these could be replaced with dim?*/
+.wifi-bg{
+    color: rgb(108, 108, 108);
+}
+.volume-bg{
+    color: rgb(108, 108, 108);
+}
+
+
+/* The background */
+.sliders trough{
+  background-color: rgb(33, 33, 33);
+  border-radius: 20px;
+  /* Accounts for the extension of the highlight */
+  padding: 0 16px; 
+}
+
+/* The highligh */
+.sliders highlight{
+  min-height: 32px;
+  min-width: 32px;
+  border-radius: 20px;
+  background-color: rgb(68, 236, 68);
+  /* Forces highlight to extend to match the slider positon  on the ends */
+  margin: 0 -16px; 
+}
+
+/* The dot */
+.sliders slider{
+  min-height: 32px;
+  min-width: 32px;
+  border-radius: 20px;
+  background-color:rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+}
+
+.battery-circle{
+    background-color: black;
+    color: lightgreen;
+}
+
+.system-stats-circular-progress{
+    background-color: black;
+    color: orangered;
+    font-size: 4px;
+    min-height: 24px;
+}

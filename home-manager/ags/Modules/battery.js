@@ -4,6 +4,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 export const BatteryLabel = () => Widget.Box({
     visible: Battery.bind('available'),
+    hpack: "center",
     children: [
 
         Widget.Label({
@@ -57,3 +58,17 @@ export const BatteryLabel = () => Widget.Box({
 
     ],
 });
+
+
+export const BatteryCircle = () => Widget.CircularProgress({
+    class_name: "battery-circle",
+    value: Battery.bind("percent").transform(p => p / 100),
+})
+
+export const BatteryWidgetLarge = () => Widget.Overlay({
+    child:
+        BatteryCircle(),
+    overlays: [
+        BatteryLabel(),
+    ]
+})

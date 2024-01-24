@@ -4,7 +4,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
 export const brightness = () => Widget.Box({
     class_name: 'brightness',
-    css: 'min-width: 180px',
+    //css: 'min-width: 180px',
     children: [
         Widget.Label({
             //label: Brightness.bind('screen-value').transform(v => `${v}`),
@@ -25,7 +25,10 @@ export const brightness = () => Widget.Box({
             }, 'screen-changed'),
         }),
         Widget.Slider({
+            class_name: "sliders",
             hexpand: true,
+            //min: 1,
+            //max: 100,
             draw_value: false,
             on_change: self => Brightness.screen_value = self.value,
             value: Brightness.bind('screen-value'),

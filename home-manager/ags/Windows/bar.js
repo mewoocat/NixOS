@@ -1,7 +1,6 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
 // Import Modules
 import { BatteryLabel } from '../Modules/battery.js';
@@ -18,8 +17,11 @@ import { Notification } from '../Modules/notification.js';
 
 const ControlPanel = () => Widget.Button({
     class_name: 'launcher',
-    cursor: "pointer",
-    on_primary_click: () => execAsync('ags -t ControlPanel'),
+    //cursor: "pointer",
+    //on_primary_click: () => execAsync('ags -t ControlPanel'),
+    on_primary_click: () => {
+        execAsync('ags -t ControlPanel')
+    },
     child:
         Widget.Label({
             label: ""
