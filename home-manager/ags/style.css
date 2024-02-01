@@ -7,7 +7,9 @@ window.bar {
   background-color: rgba(0, 0, 0, 0.8); }
 
 .applauncher {
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  border-radius: 24px; }
 
 button {
   background-color: transparent; }
@@ -77,6 +79,9 @@ highlight {
 
 .dim {
   color: #6c6c6c; }
+
+.invisible {
+  opacity: 0; }
 
 /*both of these could be replaced with dim?*/
 .wifi-bg {

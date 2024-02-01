@@ -7,30 +7,33 @@ export const WifiIcon = () => Widget.Box({
     children:[
         Widget.Overlay({
           child:
-            Widget.Label({
-                class_name: "wifi-bg",
-                label: ""
+            Widget.Label().hook(Network, self => {
+                self.class_name = "dim"
+                self.toggleClassName('invisible', Network.wifi.strength < 0)
+                self.label = ""
             }),
           overlays: [
-            Widget.Label({
-                class_name: "wifi-fg",
-                label: Network.wifi.bind('strength').transform(p => {
-                    if (p>75){
-                        return ""
-                    }
-                    else if (p > 50){
-                        return ""
-                    }
-                    else if (p>25){
-                        return ""  
-                    }
-                    else if (p>=0){
-                        return ""
-                    }
-                    else {
-                        return ""
-                    }
-                })
+            Widget.Label().hook(Network, self => {
+                self.class_name = "wifi-fg"
+                self.toggleClassName('dim', Network.wifi.strength < 0)
+                var p = Network.wifi.strength
+                console.log(p)
+                if (p>75){
+                    self.label = ""
+                }
+                else if (p > 50){
+                    self.label = ""
+                }
+                else if (p>25){
+                    self.label = ""  
+                }
+                else if (p>=0){
+                    self.label = ""
+                }
+                else {
+                    self.label = ""
+                }
+
             }),
           ]  
         })

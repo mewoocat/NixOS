@@ -25,16 +25,26 @@
     ags.url = "github:Aylur/ags";
   };
 
+  # The `@` syntax here is used to alias the attribute set of the
+  # inputs's parameter, making it convenient to use inside the function. 
   outputs = inputs@{ self, nixpkgs, home-manager, hyprland, anyrun, ... }: {
 
     # NixOS system config
     nixosConfigurations = {
 
       # Razer blade stealth late 2016
-      "scythe" = nixpkgs.lib.nixosSystem {
+      scythe = nixpkgs.lib.nixosSystem {
+        # if nixpkgs.hostPlatform is set, which is probably is if you have a hardware-configuration.nix file, you do not need to use it
         #system = "x86_64-Linux";
         specialArgs = { inherit inputs; };
-        modules = [ ./nixos/configuration.nix ];
+        modules = [ ./hosts/scythe ./nixos/configuration.nix ];
+      };
+
+      # Ryzen 5 + GTX 1080 / RX 470 Desktop
+      obsidian = nixpkgs.lib.nixosSystem {
+        #system = "x86_64-Linux";
+        specialArgs = { inherit inputs; };
+        modules = [ ./hosts/obsidian ./nixos/configuration.nix ];
       };
 
     };
@@ -43,6 +53,18 @@
     homeConfigurations = {
 
       "exia@scythe" = home-manager.lib.homeManagerConfiguration {
+ 	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ 
+          hyprland.homeManagerModules.default
+          anyrun.homeManagerModules.default
+          #ags.homeManagerModules.default
+          {wayland.windowManager.hyprland.enable = true;}
+          ./home-manager/home.nix 
+        ];
+      };
+
+      "eXia@obsidian" = home-manager.lib.homeManagerConfiguration {
  	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ 

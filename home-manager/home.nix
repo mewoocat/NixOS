@@ -18,8 +18,8 @@ in
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "exia";
-  home.homeDirectory = "/home/exia";
+  home.username = "eXia";
+  home.homeDirectory = "/home/eXia";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -80,7 +80,7 @@ in
     webcord
     onlyoffice-bin
     gnome.gucharmap
-    vscodium
+    #vscodium
     inkscape
     gimp
     fontforge-gtk
@@ -133,7 +133,8 @@ in
     unzip
     gvfs # for network file browsing
     openrgb-with-all-plugins
-    #busybox
+    busybox
+    nmap
 
     # Games
     duckstation
@@ -145,6 +146,15 @@ in
     p7zip
     cantarell-fonts
     sassc
+    vial
+    (lutris.override {
+       extraPkgs = pkgs: [
+         # List package dependencies here
+         wine
+       ];
+    })
+
+    xonotic
     
 
     # Inactive
@@ -181,8 +191,8 @@ in
    ".config/kitty".source = ./kitty; 
    ".config/nvim".source = ./nvim;
    ".config/hypr".source = ./hypr;
-   ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/myNixOSConfig/home-manager/eww";
-   ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/myNixOSConfig/home-manager/ags";
+   ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/eww";
+   ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
    ".config/tmux".source = ./tmux;
    # Add .themes dir with gtk theme
 
@@ -295,6 +305,13 @@ in
       # Fix for gsettings no schema
       export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
     '';
+  };
+
+  programs.vscode = {
+    enable = true;
+    userSettings = {
+      "window.titleBarStyle" = "custom";
+    };
   };
   
   programs.neovim.enable = true;

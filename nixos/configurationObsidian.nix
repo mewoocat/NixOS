@@ -10,8 +10,7 @@ let
 in{
   imports =
     [ # Include the results of the hardware scan.
-      # No need to import hardware here since its imported in flake.nix
-      #./hardware-configuration.nix
+      ./hardware-configurationObsidian.nix
       #(import "${home-manager}/nixos")
     ];
 
@@ -31,8 +30,10 @@ in{
     #};
   };
 
-
-  # For Vial keyboards
+  # Disable device
+  # idVendor and idProduct can be found by `cat /proc/bus/input/devices`
+  # Disable touchscreen
+  #services.udev.extraRules = "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"04f3\", ATTRS{idProduct}==\"223c\", ATTR{authorized}=\"0\"";
   services.udev.extraRules = "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"users\", TAG+=\"uaccess\", TAG+=\"udev-acl\"";
 
   # Cachix for Hyprland
@@ -51,10 +52,7 @@ in{
 
   environment.systemPackages = with pkgs; [
     # package names
-    easyeffects
   ];
-
-  boot.supportedFilesystems = [ "ntfs" ];
 
 
   # Gtklock needs this for password to work
@@ -117,7 +115,6 @@ in{
     thunar-volman
   ];
   programs.xfconf.enable = true;
-  programs.noisetorch.enable = true;
 
 
 
@@ -188,6 +185,14 @@ in{
     ];
   };
 
+  users.users.exia_testing = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      #firefox
+      #tree
+    ];
+  };
 
 
 

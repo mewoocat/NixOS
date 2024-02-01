@@ -5,8 +5,8 @@ import { VolumeSlider } from '../Modules/volume.js';
 import { MicrophoneSlider } from '../Modules/microphone.js';
 import { WifiButton } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth } from '../Modules/bluetooth.js';
-import { BatteryLabel, BatteryCircle, BatteryWidgetLarge } from '../Modules/battery.js';
-import { cpuLabel, cpuProgress, ramLabel, tempLabel , storageLabel, SystemStatsWidgetLarge} from '../Modules/system_stats.js';
+import { BatteryWidgetLarge } from '../Modules/battery.js';
+import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
 
 
 // Make widget a formated button with action on click

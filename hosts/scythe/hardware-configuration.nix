@@ -12,6 +12,15 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = ["quiet" "button.lid_init_state=open" "intel_idle.max_cstate=1"];
+
+  # Disable device
+  # idVendor and idProduct can be found by `cat /proc/bus/input/devices`
+  # Disable touchscreen
+  services.udev.extraRules = "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"04f3\", ATTRS{idProduct}==\"223c\", ATTR{authorized}=\"0\"";
+
+
+  networking.hostName = "scythe"; # Define your hostname.
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/cb414339-cb4f-4c62-90ac-a9f9732ed657";

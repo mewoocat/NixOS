@@ -3,6 +3,7 @@ import { bar } from './Windows/bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
+import { forMonitors } from './utils.js';
 
 
 // main scss file
@@ -16,5 +17,5 @@ exec(`sassc ${scss} ${css}`)
 export default {
     style: css, 
     //style: `./style.css`,
-    windows: [applauncher, bar(), ControlPanel(),],
+    windows: [applauncher, forMonitors(bar), ControlPanel(),],
 };

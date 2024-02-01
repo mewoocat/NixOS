@@ -4,7 +4,7 @@ import Applications from 'resource:///com/github/Aylur/ags/service/applications.
 
 const WINDOW_NAME = 'applauncher';
 
-//@param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app
+/** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
     on_clicked: () => {
         App.closeWindow(WINDOW_NAME);
@@ -51,10 +51,12 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
         css: `margin-bottom: ${spacing}px;`,
 
         // to launch the first item on Enter
-        on_accept: () => {
+        on_accept: ({ text }) => {
+            applications = Applications.query(text || '');
             if (applications[0]) {
                 App.toggleWindow(WINDOW_NAME);
-                applications[0].attribute.app.launch();
+                console.log(applications[0].app)
+                applications[0].launch();
             }
         },
 
@@ -100,10 +102,11 @@ export const applauncher = Widget.Window({
     name: WINDOW_NAME,
     popup: true,
     visible: false,
-    focusable: true,
+    //focusable: true,
+    keymode: "exclusive",
     anchor: ['top', 'left'],
     child: Applauncher({
-        width: 300,
+        width: 360,
         height: 500,
         spacing: 12,
     }),

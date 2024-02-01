@@ -12,6 +12,7 @@ import { Launcher } from '../Modules/launcher.js';
 import { Clock } from '../Modules/datetime.js';
 import { ClientTitle, ClientIcon } from '../Modules/CurrentClient.js';
 import { Notification } from '../Modules/notification.js';
+import { MicrophoneIcon } from '../Modules/microphone.js';
 
 
 
@@ -51,6 +52,7 @@ const Right = () => Widget.Box({
     spacing: 8,
     children: [
         //SysTray(), // See comments at func. declaration
+        MicrophoneIcon(),
         BatteryLabel(), 
         BluetoothIcon(),
         WifiIcon(),
