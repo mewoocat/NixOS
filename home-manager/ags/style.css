@@ -15,7 +15,8 @@ button {
   background-color: transparent; }
 
 button:hover {
-  /*border-bottom: 3px solid @theme_fg_color;*/ }
+  /*border-bottom: 3px solid @theme_fg_color;*/
+  background-color: rgba(66, 66, 66, 0.4); }
 
 /* Workspaves */
 .test {
@@ -28,6 +29,9 @@ button:hover {
   min-height: 1.2rem;
   border-radius: 1.2rem;
   margin: 0rem 0.24rem; }
+
+.ws-button:hover {
+  background-color: rgba(217, 41, 14, 0); }
 
 .ws-button:hover > box {
   background-color: #d9290e; }

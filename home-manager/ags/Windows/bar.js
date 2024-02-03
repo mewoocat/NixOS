@@ -18,11 +18,7 @@ import { MicrophoneIcon } from '../Modules/microphone.js';
 
 const ControlPanel = () => Widget.Button({
     class_name: 'launcher',
-    //cursor: "pointer",
-    //on_primary_click: () => execAsync('ags -t ControlPanel'),
-    on_primary_click: () => {
-        execAsync('ags -t ControlPanel')
-    },
+    on_primary_click: () => execAsync('ags -t ControlPanel'),
     child:
         Widget.Label({
             label: ""
