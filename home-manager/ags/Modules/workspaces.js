@@ -8,17 +8,24 @@ export const Workspaces = () => Widget.EventBox({
     onScrollDown: () => dispatch('-1'),
     child: Widget.Box({
         children: Array.from({ length: 10 }, (_, i) => i + 1).map(i => Widget.Button({
-            cursor: "pointer",
-            class_name: 'ws-button',
+            class_name: "ws-button",
             attribute: i,
-            label: `${i}`,
+            // Keeps button from expanding to fit its container
+            //label: `${i}`,
             onClicked: () => dispatch(i),
-
-            setup: self => self.hook(Hyprland, () => {
-                // The "?" is used here to return "undefined" if the workspace doesn't exist
-                self.toggleClassName('occupied-ws', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
-                self.toggleClassName('active-ws', Hyprland.active.workspace.id === i);
+            child: Widget.Box({
+                class_name: "ws-indicator",
+               // vpack: "start",
+                vpack: "center",
+                hpack: "start",
+                setup: self => self.hook(Hyprland, () => {
+                    // The "?" is used here to return "undefined" if the workspace doesn't exist
+                    self.toggleClassName('occupied-ws', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
+                    self.toggleClassName('more-occupied-ws', (Hyprland.getWorkspace(i)?.windows || 0) > 1);
+                    self.toggleClassName('active-ws', Hyprland.active.workspace.id === i);
+                }),
             }),
+
         })),
 
         // remove this setup hook if you want fixed number of buttons

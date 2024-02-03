@@ -15,8 +15,32 @@ button {
   background-color: transparent; }
 
 button:hover {
-  /*border-bottom: 3px solid @theme_fg_color;*/
-  background-color: rgba(66, 66, 66, 0.4); }
+  /*border-bottom: 3px solid @theme_fg_color;*/ }
+
+/* Workspaves */
+.test {
+  border-radius: 16%; }
+
+.ws-indicator {
+  color: white;
+  background-color: dimgray;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  border-radius: 1.2rem;
+  margin: 0rem 0.24rem; }
+
+.ws-button:hover > box {
+  background-color: #d9290e; }
+
+/* Occupied needs to come before active */
+.occupied-ws {
+  background-color: orange; }
+
+.more-occupied-ws {
+  min-width: 2.4rem; }
+
+.active-ws {
+  background-color: #00ff6a; }
 
 .client-title {
   /*color: @theme_selected_bg_color;*/ }
@@ -37,18 +61,6 @@ highlight {
 
 .bar-container {
   /*padding: 10px;*/ }
-
-.ws-button {
-  color: white;
-  padding: 8px;
-  border-radius: 8px; }
-
-/* Occupied needs to come before active */
-.occupied-ws {
-  color: orange; }
-
-.active-ws {
-  color: red; }
 
 .control-panel-container {
   background-color: rgba(0, 0, 0, 0.8);
