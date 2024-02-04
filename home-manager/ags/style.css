@@ -12,9 +12,14 @@ window.bar {
   border-radius: 24px; }
 
 button {
-  background-color: transparent; }
+  background-color: transparent;
+  padding: 0.3rem; }
 
-button:hover {
+button > label {
+  padding: 0.5rem 1rem;
+  border-radius: 1rem; }
+
+button:hover > label {
   /*border-bottom: 3px solid @theme_fg_color;*/
   background-color: rgba(66, 66, 66, 0.4); }
 
@@ -29,6 +34,9 @@ button:hover {
   min-height: 1.2rem;
   border-radius: 1.2rem;
   margin: 0rem 0.24rem; }
+
+.ws-button {
+  padding: 0; }
 
 .ws-button:hover {
   background-color: rgba(217, 41, 14, 0); }
@@ -63,9 +71,6 @@ highlight {
   font-family: "System-ui";
   font-size: 16px; }
 
-.bar-container {
-  /*padding: 10px;*/ }
-
 .control-panel-container {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 16px;
@@ -88,10 +93,7 @@ highlight {
   color: white; }
 
 .icon {
-  font-size: 22px; }
-
-.launcher {
-  padding: 12px; }
+  font-size: 20px; }
 
 .dim {
   color: #6c6c6c; }

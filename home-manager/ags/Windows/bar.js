@@ -9,10 +9,10 @@ import { WifiIcon } from '../Modules/network.js';
 import { BluetoothIcon } from '../Modules/bluetooth.js';
 import { Workspaces } from '../Modules/workspaces.js';
 import { Launcher } from '../Modules/launcher.js';
-import { Clock } from '../Modules/datetime.js';
 import { ClientTitle, ClientIcon } from '../Modules/CurrentClient.js';
 import { Notification } from '../Modules/notification.js';
 import { MicrophoneIcon } from '../Modules/microphone.js';
+import { ActivityCenterButton } from './ActivityCenter.js';
 
 
 
@@ -39,7 +39,7 @@ const Left = () => Widget.Box({
 const Center = () => Widget.Box({
     spacing: 8,
     children: [
-        Clock(),
+        ActivityCenterButton(),
     ],
 });
 

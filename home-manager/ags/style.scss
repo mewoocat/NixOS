@@ -16,14 +16,19 @@ window.bar {
 
 button {
     background-color: transparent;
+    padding: 0.3rem; // Currently determines bar height
 }
 
 button:active {
 }
 
-button:hover {
-    /*border-bottom: 3px solid @theme_fg_color;*/
+button > label {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
 
+button:hover > label {
+    /*border-bottom: 3px solid @theme_fg_color;*/
     background-color:rgba(66, 66, 66, 0.4);
     
 }
@@ -48,6 +53,10 @@ button:hover {
     min-height: 1.2rem;
     border-radius: 1.2rem;
     margin: 0rem 0.24rem;
+}
+
+.ws-button{
+    padding: 0; // Remove default padding from buttons
 }
 
 .ws-button:hover{
@@ -100,7 +109,6 @@ highlight {
 }
 
 .bar-container{
-    /*padding: 10px;*/
 }
 
 
@@ -138,11 +146,10 @@ highlight {
 }
 
 .icon{
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .launcher{
-    padding: 12px;
 }
 
 .dim{
