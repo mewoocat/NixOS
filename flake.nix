@@ -52,7 +52,7 @@
     # Homemanager
     homeConfigurations = {
 
-      "exia@scythe" = home-manager.lib.homeManagerConfiguration {
+      "eXia@scythe" = home-manager.lib.homeManagerConfiguration {
  	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ 
