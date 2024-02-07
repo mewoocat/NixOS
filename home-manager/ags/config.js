@@ -6,16 +6,7 @@ import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { forMonitors } from './utils.js';
 import { ActivityCenter } from './Windows/ActivityCenter.js';
 import { NotificationPopup } from './Windows/NotificationPopup.js';
-
-import { execAsync, timeout } from 'resource:///com/github/Aylur/ags/utils.js';
-timeout(100, () => execAsync([
-    'notify-send',
-    'Notification Popup Example',
-    'Lorem ipsum dolor sit amet, qui minim labore adipisicing ' +
-    'minim sint cillum sint consectetur cupidatat.',
-    '-A', 'Cool!',
-    '-i', 'info-symbolic',
-]));
+import { Dock } from './Windows/Dock.js';
 
 
 // main scss file
@@ -26,8 +17,9 @@ const css = `${App.configDir}/style.css`
 
 exec(`sassc ${scss} ${css}`)
 
+// ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
 export default {
     style: css, 
     //style: `./style.css`,
-    windows: [applauncher, forMonitors(bar), ControlPanel(), ActivityCenter(), NotificationPopup,],
+    windows: [applauncher, ...forMonitors(bar), ControlPanel(), ActivityCenter(), NotificationPopup, /*Dock()*/],
 };

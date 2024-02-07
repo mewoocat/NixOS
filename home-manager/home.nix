@@ -219,8 +219,9 @@ in
 
   programs.vscode = {
     enable = true;
+
     userSettings = {
-      "window.titleBarStyle" = "custom";
+      "window.titleBarStyle" = "custom";      # Fixes crash on startup
     };
   };
   

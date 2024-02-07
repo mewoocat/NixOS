@@ -28,11 +28,17 @@ button > label {
 }
 
 button:hover > label {
-    /*border-bottom: 3px solid @theme_fg_color;*/
-    background-color:rgba(66, 66, 66, 0.4);
-    
+    background-color:rgba(66, 66, 66, 0.4);    
 }
 
+// Dock
+.dock-button > box {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
+.dock-button:hover > box {
+    background-color:rgba(66, 66, 66, 0.4);    
+}
 
 
 
@@ -90,7 +96,7 @@ button:hover > label {
 }
 
 .notification {
-    color: yellow;
+    color: rgb(255, 255, 255);
 }
 
 progress,
@@ -109,6 +115,12 @@ highlight {
 }
 
 .bar-container{
+}
+.container{
+    background-color:rgba(0, 0, 0, 0.8);
+    border-radius: 16px;
+    /*min-width: 280px;*/
+    padding: 16px;
 }
 
 
