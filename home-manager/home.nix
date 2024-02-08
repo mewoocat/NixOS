@@ -219,9 +219,15 @@ in
 
   programs.vscode = {
     enable = true;
+    extensions = with pkgs; [
+      vscode-extensions.cmschuetz12.wal 
+      vscode-extensions.bbenoist.nix
+      vscode-extensions.vscodevim.vim
+    ];
 
     userSettings = {
       "window.titleBarStyle" = "custom";      # Fixes crash on startup
+      "workbench.colorTheme" = "Wal";         # Set theme
     };
   };
   

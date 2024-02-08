@@ -15,11 +15,11 @@ button {
   background-color: transparent;
   padding: 0.3rem; }
 
-button > label {
+button > * {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
-button:hover > label {
+button:hover > * {
   background-color: rgba(66, 66, 66, 0.4); }
 
 .dock-button > box {
@@ -46,6 +46,9 @@ button:hover > label {
 
 .ws-button:hover {
   background-color: rgba(217, 41, 14, 0); }
+
+.ws-button > * {
+  padding: 0rem; }
 
 .ws-button:hover > box {
   background-color: #d9290e; }
@@ -76,6 +79,10 @@ highlight {
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
+
+.dock-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 32px; }
 
 .container {
   background-color: rgba(0, 0, 0, 0.8);

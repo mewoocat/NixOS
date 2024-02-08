@@ -7,7 +7,16 @@ import { WifiButton } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth } from '../Modules/bluetooth.js';
 import { BatteryWidgetLarge } from '../Modules/battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
+export const ControlPanelToggleButton = () => Widget.Button({
+    class_name: 'launcher',
+    on_primary_click: () => execAsync('ags -t ControlPanel'),
+    child:
+        Widget.Label({
+            label: ""
+        }) 
+});
 
 // Make widget a formated button with action on click
 function ControlPanelButton(widget, w, h, action) {

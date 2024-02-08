@@ -10,20 +10,10 @@ import { BluetoothIcon } from '../Modules/bluetooth.js';
 import { Workspaces } from '../Modules/workspaces.js';
 import { Launcher } from '../Modules/launcher.js';
 import { ClientTitle, ClientIcon } from '../Modules/CurrentClient.js';
-import { Notification } from '../Modules/notification.js';
 import { MicrophoneIcon } from '../Modules/microphone.js';
 import { ActivityCenterButton } from './ActivityCenter.js';
+import { ControlPanelToggleButton } from './ControlPanel.js';
 
-
-
-const ControlPanel = () => Widget.Button({
-    class_name: 'launcher',
-    on_primary_click: () => execAsync('ags -t ControlPanel'),
-    child:
-        Widget.Label({
-            label: ""
-        }) 
-});
 
 // layout of the bar
 const Left = () => Widget.Box({
@@ -53,7 +43,7 @@ const Right = () => Widget.Box({
         BluetoothIcon(),
         WifiIcon(),
         VolumeIcon(),
-        ControlPanel(),
+        ControlPanelToggleButton(),
     ],
 });
 

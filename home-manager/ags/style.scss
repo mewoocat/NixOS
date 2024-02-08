@@ -22,12 +22,12 @@ button {
 button:active {
 }
 
-button > label {
+button > * {
     padding: 0.5rem 1rem;
     border-radius: 1rem;
 }
 
-button:hover > label {
+button:hover > * {
     background-color:rgba(66, 66, 66, 0.4);    
 }
 
@@ -67,6 +67,12 @@ button:hover > label {
 
 .ws-button:hover{
     background-color: rgba(217, 41, 14, 0);
+}
+
+// Removes default properties for buttons
+.ws-button > * {
+    padding: 0rem;
+    //border-radius: 0rem;
 }
 
 .ws-button:hover > box{
@@ -115,6 +121,10 @@ highlight {
 }
 
 .bar-container{
+}
+.dock-container{
+    background-color:rgba(0, 0, 0, 0.6);
+    border-radius: 32px;
 }
 .container{
     background-color:rgba(0, 0, 0, 0.8);
