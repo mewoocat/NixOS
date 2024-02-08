@@ -10,7 +10,11 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ 
+    "kvm-intel"
+    "i2c-dev" # For openrgb
+    #"i2c-i801" # Also for openrgb (Not sure if needed)
+  ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = ["quiet" "button.lid_init_state=open" "intel_idle.max_cstate=1"];
 

@@ -53,6 +53,9 @@ in{
   ];
 
 
+  #for openrgb
+  services.udev.packages = [ pkgs.openrgb ];
+  hardware.i2c.enable = true;
 
   # Gtklock needs this for password to work
   security.pam.services.gtklock = {};

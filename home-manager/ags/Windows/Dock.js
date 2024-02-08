@@ -33,7 +33,7 @@ const clientList = Widget.Box({
 });
 
 export const Dock = (monitor = 0) => Widget.Window({
-    name: `Dock-${monitor}`, // name has to be unique
+    name: `Dock`, // name has to be unique
     class_name: 'bar',
     monitor,
     anchor: ['bottom', 'left', 'right'],

@@ -21,5 +21,5 @@ exec(`sassc ${scss} ${css}`)
 export default {
     style: css, 
     //style: `./style.css`,
-    windows: [applauncher, ...forMonitors(bar), ControlPanel(), ActivityCenter(), NotificationPopup, /*Dock()*/],
+    windows: [applauncher, ...forMonitors(bar), ControlPanel(), ActivityCenter(), NotificationPopup, Dock()],
 };

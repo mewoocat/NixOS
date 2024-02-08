@@ -10,17 +10,12 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ 
     "kvm-amd" 
-    "i2c-dev" # For openrgn
+    "i2c-dev" # For openrgb
     ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = ["quiet"];
 
   networking.hostName = "obsidian"; # Define your hostname.
-
-  #for openrgb
-  services.udev.packages = [ pkgs.openrgb ];
-  hardware.i2c.enable = true;
-
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/0737052e-e75f-40d2-8b85-728aaf24564b";
