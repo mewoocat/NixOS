@@ -11,6 +11,15 @@ window.bar {
   padding: 8px;
   border-radius: 24px; }
 
+.app-item:focus {
+  background-color: rgba(44, 44, 44, 0.8);
+  border-radius: 1rem; }
+
+.app-entry {
+  padding: 0.6rem;
+  background-color: rgba(44, 44, 44, 0.8);
+  border-radius: 1rem; }
+
 button {
   background-color: transparent;
   padding: 0.3rem; }
