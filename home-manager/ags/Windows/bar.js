@@ -5,28 +5,15 @@ import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 // Import Modules
 import { BatteryLabel } from '../Modules/battery.js';
 import { VolumeIcon } from '../Modules/volume.js';
-import { WifiIcon } from '../Modules/network.js';
+import { WifiIcon, EthernetIcon} from '../Modules/network.js';
 import { BluetoothIcon } from '../Modules/bluetooth.js';
 import { Workspaces } from '../Modules/workspaces.js';
 import { Launcher } from '../Modules/launcher.js';
-import { Clock } from '../Modules/datetime.js';
 import { ClientTitle, ClientIcon } from '../Modules/CurrentClient.js';
-import { Notification } from '../Modules/notification.js';
+import { MicrophoneIcon } from '../Modules/microphone.js';
+import { ActivityCenterButton } from './ActivityCenter.js';
+import { ControlPanelToggleButton } from './ControlPanel.js';
 
-
-
-const ControlPanel = () => Widget.Button({
-    class_name: 'launcher',
-    //cursor: "pointer",
-    //on_primary_click: () => execAsync('ags -t ControlPanel'),
-    on_primary_click: () => {
-        execAsync('ags -t ControlPanel')
-    },
-    child:
-        Widget.Label({
-            label: ""
-        }) 
-});
 
 // layout of the bar
 const Left = () => Widget.Box({
@@ -42,7 +29,7 @@ const Left = () => Widget.Box({
 const Center = () => Widget.Box({
     spacing: 8,
     children: [
-        Clock(),
+        ActivityCenterButton(),
     ],
 });
 
@@ -51,11 +38,13 @@ const Right = () => Widget.Box({
     spacing: 8,
     children: [
         //SysTray(), // See comments at func. declaration
-        BatteryLabel(), 
+        EthernetIcon(),
         BluetoothIcon(),
+        BatteryLabel(), 
+        MicrophoneIcon(),
         WifiIcon(),
         VolumeIcon(),
-        ControlPanel(),
+        ControlPanelToggleButton(),
     ],
 });
 

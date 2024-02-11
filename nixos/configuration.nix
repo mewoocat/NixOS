@@ -5,74 +5,69 @@
 
 { config, pkgs, lib, ... }:
 let
-  #home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
 
 in{
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      # No need to import hardware here since its imported in flake.nix
+      #./hardware-configuration.nix
       #(import "${home-manager}/nixos")
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
-  # Set kernel parameters
-  boot.kernelParams = ["quiet" "button.lid_init_state=open" "intel_idle.max_cstate=1"];
-
- environment.sessionVariables = {
+ environment = {
+  sessionVariables = {
     # Environment variables go here
     NIXOS_OZONE_WL = "1";
-};
-
-  environment.etc = {
+  };
+  etc = {
     # Example (not sure if this works for disabling touchscreen)
     #"modprobe.d/ELAN_Touchscreen.conf" = {
     #    text = "blacklist \"ELAN Touchscreen UNKNOWN\"";
     #};
   };
+ };
 
-  # Disable device
-  # idVendor and idProduct can be found by `cat /proc/bus/input/devices`
-  # Disable touchscreen
-  services.udev.extraRules = "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"04f3\", ATTRS{idProduct}==\"223c\", ATTR{authorized}=\"0\"";
 
-  # Cachix for Hyprland
   nix.settings = {
+    # Cachix for Hyprland
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+
+    experimental-features = [ "nix-command" "flakes" ];
   };
 
 
-  # Doesn't work?
-  #environment.variables.EDITOR = "neovim";
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];	
   nixpkgs.config.allowUnfree = true;
   
 
   environment.systemPackages = with pkgs; [
     # package names
+    easyeffects
+    polkit_gnome
+    gparted
   ];
 
+
+  #for openrgb
+  services.udev.packages = [ pkgs.openrgb ];
+  hardware.i2c.enable = true;
 
   # Gtklock needs this for password to work
   security.pam.services.gtklock = {};
   # https://github.com/NixOS/nixpkgs/issues/240886
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
 
-  # For udiskie automount to work
-  services.udisks2.enable = true;
-
-  # Required to show thumbnails in thunar
-  services.tumbler.enable = true; 
+  # Needed for gparted
+  security.polkit.enable = true;
 
   # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
   sound.enable = false;
 
-  # Needed for gparted
-  security.polkit.enable = true;
 
   #rtkit is optional but recommended
   security.rtkit.enable = true;
@@ -85,13 +80,17 @@ in{
     jack.enable = true;
   };
 
-  #xdg.portal = {
-  #  enable = true;
-  #  extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  #  # pkgs.xdg-desktop-portal-gtk
-  #};
 
-  #services.openssh.enable = true;
+  ### Services ###
+
+  # For udiskie automount to work
+  services.udisks2.enable = true;
+
+  # Required to show thumbnails in thunar
+  services.tumbler.enable = true; 
+
+  # For Vial keyboards
+  services.udev.extraRules = "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"users\", TAG+=\"uaccess\", TAG+=\"udev-acl\"";
 
   services.upower = {
     enable = true;
@@ -100,11 +99,9 @@ in{
   # File file manager func.
   services.gvfs.enable = true;
  
-  # Required for steam to run?
-  hardware.opengl.driSupport32Bit = true;
 
 
-  # Programs
+  ### Programs ###
  
   programs.dconf.enable = true;  # Required for gtk?
   programs.light.enable = true;
@@ -117,12 +114,16 @@ in{
     thunar-volman
   ];
   programs.xfconf.enable = true;
+  programs.noisetorch.enable = true;
+  programs.gnome-disks.enable = true;
 
 
 
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
   fonts.fontDir.enable = true;  
 
+  # Required for steam to run?
+  hardware.opengl.driSupport32Bit = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
     Policy = {
@@ -133,8 +134,26 @@ in{
   fonts.fonts = with pkgs; [
     nerdfonts
   ];
+
+  # Systemd
+  systemd = {
+    # Autostarts gnome polkit
+    # Needed for apps that require sudo permissions (i.e. gnome-disks)
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+    };
+  };
  
-  networking.hostName = "scythe"; # Define your hostname.
   #networking.nameservers = [ "192.168.1.64" ];
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -144,11 +163,6 @@ in{
 #      psk = "9w8aay37";
 #    };
 #  };
-
-  # Open ports for miracast
-  networking.firewall.allowedTCPPorts = [7236 7250];
-  networking.firewall.allowedUDPPorts = [7236 5353];
-
 
 
   # Set your time zone.
@@ -170,25 +184,8 @@ in{
   # services.xserver.enable = true;
 
 
-  
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.exia = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      #firefox
-      #tree
-    ];
-  };
-
-  users.users.exia_testing = {
+  users.users.eXia = {
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
@@ -199,9 +196,7 @@ in{
 
 
 
-  #virtualisation.docker.enable = true;
-  #virtualisation.virtualbox.host.enable = true;
-  #virtualisation.virtualbox.guest.enable = true;
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

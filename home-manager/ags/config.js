@@ -3,6 +3,10 @@ import { bar } from './Windows/bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
+import { forMonitors } from './utils.js';
+import { ActivityCenter } from './Windows/ActivityCenter.js';
+import { NotificationPopup } from './Windows/NotificationPopup.js';
+import { Dock } from './Windows/Dock.js';
 
 
 // main scss file
@@ -13,8 +17,9 @@ const css = `${App.configDir}/style.css`
 
 exec(`sassc ${scss} ${css}`)
 
+// ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
 export default {
     style: css, 
     //style: `./style.css`,
-    windows: [applauncher, bar(), ControlPanel(),],
+    windows: [applauncher, ...forMonitors(bar), ControlPanel(), ActivityCenter(), NotificationPopup, Dock()],
 };

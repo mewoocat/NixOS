@@ -1,4 +1,3 @@
-
 *{
     all: unset;
     padding: 0px;
@@ -11,32 +10,118 @@ window.bar {
 
 .applauncher {
     background-color:rgba(0, 0, 0, 0.8);
+    padding: 8px;
+    border-radius: 24px;
+}
+
+.app-item:focus {
+    background-color:rgba(44, 44, 44, 0.8);
+    border-radius: 1rem;
+}
+.app-entry {
+    padding: 0.6rem;
+    background-color:rgba(44, 44, 44, 0.8);
+    border-radius: 1rem;
 }
 
 button {
     background-color: transparent;
+    padding: 0.3rem; // Currently determines bar height
 }
 
 button:active {
 }
 
-button:hover {
-    /*border-bottom: 3px solid @theme_fg_color;*/
+button > * {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
 
-    background-color:rgba(66, 66, 66, 0.4);
-    
+button:hover > * {
+    background-color:rgba(66, 66, 66, 0.4);    
+}
+
+// Dock
+.dock-button > box {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
+.dock-button:hover > box {
+    background-color:rgba(66, 66, 66, 0.4);    
 }
 
 
-.workspaces button.focused {
+
+
+/* Workspaves */
+
+// Default inactive
+.ws-indicator{
+    background-color: dimgray;
+    border-radius: 1.2rem;
+    margin: 0rem 0.24rem;
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    transition: min-width 0.3s;
+    transition: min-height 0.3s;
 }
+
+.ws-inactive{
+    min-width: 0.6rem;
+    min-height: 0.6rem;
+}
+
+.ws-button{
+    padding: 0; // Remove default padding from ws buttons
+    min-width: 1.8rem;
+}
+
+// Removes default properties for buttons
+.ws-button > * {
+    padding: 0rem;
+    //border-radius: 0rem;
+}
+
+// On hover color
+.ws-button:hover > box{
+    background-color: rgb(217, 14, 41);
+}
+.ws-button:hover > .ws-inactive {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    transition: min-width 0.3s;
+    transition: min-height 0.3s;
+}
+
+.ws-button:hover > .ws-active{
+    min-width: 2.4rem;
+    min-height: 1.2rem;
+}
+
+
+/* Occupied needs to come before active */
+.ws-occupied{
+    background-color: rgb(255, 238, 126);
+}
+
+.ws-active{
+    background-color: rgb(40, 237, 142);
+    min-width: 2.4rem;
+    min-height: 1.2rem;
+}
+
+
+
+
+
+
 
 .client-title {
     /*color: @theme_selected_bg_color;*/
 }
 
 .notification {
-    color: yellow;
+    color: rgb(255, 255, 255);
 }
 
 progress,
@@ -55,24 +140,18 @@ highlight {
 }
 
 .bar-container{
-    /*padding: 10px;*/
+}
+.dock-container{
+    background-color:rgba(0, 0, 0, 0.6);
+    border-radius: 32px;
+}
+.container{
+    background-color:rgba(0, 0, 0, 0.8);
+    border-radius: 16px;
+    /*min-width: 280px;*/
+    padding: 16px;
 }
 
-.ws-button{
-    color: white;
-    padding: 8px;
-    border-radius: 8px;
-}
-
-
-/* Occupied needs to come before active */
-.occupied-ws{
-    color: orange;
-}
-
-.active-ws{
-    color: red;
-}
 
 .control-panel-container{
     background-color:rgba(0, 0, 0, 0.8);
@@ -108,15 +187,18 @@ highlight {
 }
 
 .icon{
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .launcher{
-    padding: 12px;
 }
 
 .dim{
     color: rgb(108, 108, 108);
+}
+
+.invisible{
+    opacity: 0;
 }
 
 /*both of these could be replaced with dim?*/

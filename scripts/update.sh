@@ -1,3 +1,3 @@
 # Not sure if this works or is best practice
-nix flake update ~/myNixOSConfig
+nix flake update ~/NixOS
 

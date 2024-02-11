@@ -5,9 +5,20 @@ import { VolumeSlider } from '../Modules/volume.js';
 import { MicrophoneSlider } from '../Modules/microphone.js';
 import { WifiButton } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth } from '../Modules/bluetooth.js';
-import { BatteryLabel, BatteryCircle, BatteryWidgetLarge } from '../Modules/battery.js';
-import { cpuLabel, cpuProgress, ramLabel, tempLabel , storageLabel, SystemStatsWidgetLarge} from '../Modules/system_stats.js';
+import { BatteryWidgetLarge } from '../Modules/battery.js';
+import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import options from '../options.js';
+console.log("large = " + options.large)
 
+export const ControlPanelToggleButton = () => Widget.Button({
+    class_name: 'launcher',
+    on_primary_click: () => execAsync('ags -t ControlPanel'),
+    child:
+        Widget.Label({
+            label: ""
+        }) 
+});
 
 // Make widget a formated button with action on click
 function ControlPanelButton(widget, w, h, action) {
@@ -17,8 +28,8 @@ function ControlPanelButton(widget, w, h, action) {
         hpack: "start",
         on_clicked: action,
         css: `
-            min-width: ${w}px;
-            min-height: ${h}px;
+            min-width: ${w}rem;
+            min-height: ${h}rem;
         `,
         child:
             widget
@@ -33,8 +44,8 @@ function ControlPanelBox(widget, w, h) {
         vpack: "start",
         hpack: "start",
         css: `
-            min-width: ${w}px;
-            min-height: ${h}px;
+            min-width: ${w}rem;
+            min-height: ${h}rem;
         `,
         child:
             widget
@@ -45,6 +56,7 @@ function ControlPanelBox(widget, w, h) {
 
 const container = () => Widget.Box({
     class_name: "control-panel-container",
+    css: `margin: 1rem;`,
     spacing: 8,
     vertical: true,
     children: [
@@ -55,11 +67,11 @@ const container = () => Widget.Box({
                 Widget.Box({
                     vertical: true,
                     children: [
-                        ControlPanelButton(WifiButton(), 128, 64, null),
-                        ControlPanelButton(BluetoothIcon(), 64, 64, ToggleBluetooth),
+                        ControlPanelButton(WifiButton(), options.large, options.small, null),
+                        ControlPanelButton(BluetoothIcon(), options.small, options.small, ToggleBluetooth),
                     ]
                 }),
-                ControlPanelButton(BatteryWidgetLarge(), 128, 128, null),
+                ControlPanelButton(BatteryWidgetLarge(), options.large, options.large, null),
            ]
         }),
         brightness(),
@@ -68,7 +80,7 @@ const container = () => Widget.Box({
 
         Widget.Box({
             children:[
-                ControlPanelBox(SystemStatsWidgetLarge(), 128, 128),
+                ControlPanelBox(SystemStatsWidgetLarge(), options.large, options.large),
             ]
         })
     ],

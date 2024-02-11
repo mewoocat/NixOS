@@ -1,11 +1,13 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const WINDOW_NAME = 'applauncher';
 
-//@param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app
+/** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
+    class_name: "app-item",
     on_clicked: () => {
         App.closeWindow(WINDOW_NAME);
         app.launch();
@@ -28,6 +30,28 @@ const AppItem = app => Widget.Button({
     }),
 });
 
+//
+const powerButtons = Widget.Box({
+    children: [
+        Widget.Button({
+            child: Widget.Label({label: "⏻"}),
+            on_primary_click: () => execAsync('shutdown now'),
+        }),
+        Widget.Button({
+            child: Widget.Label({label: ""}),
+            on_primary_click: () => execAsync('systemctl hibernate'),
+        }),
+        Widget.Button({
+            child: Widget.Label({label: "⏾"}),
+            on_primary_click: () => execAsync('systemctl suspend'),
+        }),
+        Widget.Button({
+            child: Widget.Label({label: ""}),
+            on_primary_click: () => execAsync('systemctl reboot'),
+        }),
+    ]
+})
+
 const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     // list of application buttons
     let applications = Applications.query('').map(AppItem);
@@ -47,14 +71,17 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 
     // search entry
     const entry = Widget.Entry({
+        class_name: "app-entry",
         hexpand: true,
         css: `margin-bottom: ${spacing}px;`,
 
         // to launch the first item on Enter
-        on_accept: () => {
+        on_accept: ({ text }) => {
+            applications = Applications.query(text || '');
             if (applications[0]) {
                 App.toggleWindow(WINDOW_NAME);
-                applications[0].attribute.app.launch();
+                console.log(applications[0].app)
+                applications[0].launch();
             }
         },
 
@@ -80,6 +107,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                 `,
                 child: list,
             }),
+            powerButtons,
         ],
         setup: self => self.hook(App, (_, windowName, visible) => {
             if (windowName !== WINDOW_NAME)
@@ -100,10 +128,11 @@ export const applauncher = Widget.Window({
     name: WINDOW_NAME,
     popup: true,
     visible: false,
-    focusable: true,
+    //focusable: true,
+    keymode: "exclusive",
     anchor: ['top', 'left'],
     child: Applauncher({
-        width: 300,
+        width: 360,
         height: 500,
         spacing: 12,
     }),

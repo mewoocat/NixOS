@@ -6,16 +6,15 @@ export const BluetoothIcon = () => Widget.Button({
     //class_name: "bluetooth-icon icon",
     hexpand: true,
     child:
-        Widget.Label({
-            label: Bluetooth.bind("enabled").transform(p => {
-                if (p){
-                    return "󰂯"
-                }
-                else{
-                    return "󰂲"
-                }
-            }) 
-        }),
+        Widget.Label().hook(Bluetooth, self  => {
+            self.toggleClassName("dim", !Bluetooth.enabled)
+            if(Bluetooth.enabled){
+                self.label = "󰂯"
+            }
+            else{
+                self.label = "󰂲"
+            }
+        })
 })
 
 export function ToggleBluetooth(){
