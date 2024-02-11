@@ -140,7 +140,13 @@ in
 
     # Games
     duckstation
-    #retroarchFull # Error building
+    (retroarch.override {
+      cores = with libretro; [
+        snes9x
+        #pcsx2
+      ];
+    })
+    pcsx2
 
     # Unsorted
     blueberry
@@ -160,6 +166,7 @@ in
     spotify
     btop
     
+    l3afpad
 
   ];
 
@@ -184,7 +191,7 @@ in
 
    ".config/kitty".source = ./kitty; 
    ".config/nvim".source = ./nvim;
-   ".config/hypr".source = ./hypr;
+   ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/./hypr";
    ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/eww";
    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
    ".config/tmux".source = ./tmux;
@@ -220,7 +227,7 @@ in
   programs.vscode = {
     enable = true;
     extensions = with pkgs; [
-      vscode-extensions.cmschuetz12.wal 
+      #vscode-extensions.cmschuetz12.wal 
       vscode-extensions.bbenoist.nix
       vscode-extensions.vscodevim.vim
     ];

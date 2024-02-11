@@ -5,7 +5,7 @@ import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 // Import Modules
 import { BatteryLabel } from '../Modules/battery.js';
 import { VolumeIcon } from '../Modules/volume.js';
-import { WifiIcon } from '../Modules/network.js';
+import { WifiIcon, EthernetIcon} from '../Modules/network.js';
 import { BluetoothIcon } from '../Modules/bluetooth.js';
 import { Workspaces } from '../Modules/workspaces.js';
 import { Launcher } from '../Modules/launcher.js';
@@ -38,9 +38,10 @@ const Right = () => Widget.Box({
     spacing: 8,
     children: [
         //SysTray(), // See comments at func. declaration
-        MicrophoneIcon(),
-        BatteryLabel(), 
+        EthernetIcon(),
         BluetoothIcon(),
+        BatteryLabel(), 
+        MicrophoneIcon(),
         WifiIcon(),
         VolumeIcon(),
         ControlPanelToggleButton(),

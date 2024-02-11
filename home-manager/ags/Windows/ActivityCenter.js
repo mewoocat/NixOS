@@ -7,9 +7,11 @@ import { NotificationWidget } from './NotificationPopup.js';
 import Media from '../Modules/Media.js';
 
 // More info https://aylur.github.io/ags-docs/config/subclassing-gtk-widgets/
-const calendar = new Gtk.Calendar({
+
+const calendar = Widget.Calendar({ 
     showDayNames: false,
     showHeading: true,
+    hpack: "center",
 });
 
 const mpris = await Service.import('mpris')
@@ -57,6 +59,11 @@ export const ActivityCenter = (monitor = 0) => Widget.Window({
     anchor: ['top', 'center'],
     exclusivity: 'normal',
     child: Widget.Box({
+        css: `
+            min-width: 40rem;
+            min-height: 20rem;
+            margin: 1rem;
+        `,
         children: [container()]
     }),
 });

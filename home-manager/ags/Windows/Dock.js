@@ -30,7 +30,7 @@ const clientList = Widget.Box({
     class_name: "dock-container",
     css: "min-height: 5rem;",
     css: "min-width: 6rem;",
-    vertical: true,
+    //vertical: true,
     children:
         // Returns the list of clients as buttons
         Hyprland.bind("clients").transform(clients => clients.map(client => {
@@ -43,9 +43,10 @@ const clientList = Widget.Box({
 export const Dock = (monitor = 0) => Widget.Window({
     name: `Dock`, // name has to be unique
     monitor,
-    //margins: [0,64,8,64],
-    margins: [8,0,8,8],
-    anchor: ['bottom', 'left', 'top'],
+    visible: false,
+    margins: [0,64,8,64],
+    //margins: [8,0,8,8],
+    anchor: ['bottom', 'left', 'right'],
     exclusivity: 'exclusive',
     child: clientList,
 });
