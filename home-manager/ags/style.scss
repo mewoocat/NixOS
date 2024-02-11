@@ -93,24 +93,21 @@ button:hover > * {
     transition: min-height 0.3s;
 }
 
+.ws-button:hover > .ws-active{
+    min-width: 2.4rem;
+    min-height: 1.2rem;
+}
+
 
 /* Occupied needs to come before active */
 .ws-occupied{
     background-color: rgb(255, 238, 126);
 }
 
-.ws-normal{
-    min-width: 1.2rem;
-    min-height: 1.2rem;
-}
-
 .ws-active{
     background-color: rgb(40, 237, 142);
     min-width: 2.4rem;
     min-height: 1.2rem;
-}
-
-.ws-large{
 }
 
 

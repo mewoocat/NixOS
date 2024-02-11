@@ -24,8 +24,6 @@ export const Workspaces = () => Widget.EventBox({
                     self.toggleClassName('ws-occupied', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
                     self.toggleClassName('ws-active', Hyprland.active.workspace.id === i);
                     self.toggleClassName('ws-large', (Hyprland.getWorkspace(i)?.windows || 0) > 1);
-                    //self.toggleClassName('ws-normal', (Hyprland.getWorkspace(i)?.windows || 0) === 1);
-                    //self.toggleClassName('ws-normal', Hyprland.active.workspace.id != i);
                 }),
             }),
 
