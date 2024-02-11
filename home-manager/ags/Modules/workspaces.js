@@ -17,12 +17,15 @@ export const Workspaces = () => Widget.EventBox({
                 class_name: "ws-indicator",
                // vpack: "start",
                 vpack: "center",
-                hpack: "start",
+                hpack: "center",
                 setup: self => self.hook(Hyprland, () => {
                     // The "?" is used here to return "undefined" if the workspace doesn't exist
-                    self.toggleClassName('occupied-ws', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
-                    self.toggleClassName('more-occupied-ws', (Hyprland.getWorkspace(i)?.windows || 0) > 1);
-                    self.toggleClassName('active-ws', Hyprland.active.workspace.id === i);
+                    self.toggleClassName('ws-inactive', (Hyprland.getWorkspace(i)?.windows || 0) === 0);
+                    self.toggleClassName('ws-occupied', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
+                    self.toggleClassName('ws-active', Hyprland.active.workspace.id === i);
+                    self.toggleClassName('ws-large', (Hyprland.getWorkspace(i)?.windows || 0) > 1);
+                    //self.toggleClassName('ws-normal', (Hyprland.getWorkspace(i)?.windows || 0) === 1);
+                    //self.toggleClassName('ws-normal', Hyprland.active.workspace.id != i);
                 }),
             }),
 

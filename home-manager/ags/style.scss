@@ -54,29 +54,26 @@ button:hover > * {
 
 
 /* Workspaves */
-.workspaces button.focused {
 
-}
-
-.test{
-    border-radius: 16%;
-}
-
+// Default inactive
 .ws-indicator{
-    color: white;
     background-color: dimgray;
-    min-width: 1.2rem;
-    min-height: 1.2rem;
     border-radius: 1.2rem;
     margin: 0rem 0.24rem;
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    transition: min-width 0.3s;
+    transition: min-height 0.3s;
+}
+
+.ws-inactive{
+    min-width: 0.6rem;
+    min-height: 0.6rem;
 }
 
 .ws-button{
-    padding: 0; // Remove default padding from buttons
-}
-
-.ws-button:hover{
-    background-color: rgba(217, 41, 14, 0);
+    padding: 0; // Remove default padding from ws buttons
+    min-width: 1.8rem;
 }
 
 // Removes default properties for buttons
@@ -85,22 +82,37 @@ button:hover > * {
     //border-radius: 0rem;
 }
 
+// On hover color
 .ws-button:hover > box{
-    background-color: rgb(217, 41, 14);
+    background-color: rgb(217, 14, 41);
 }
+.ws-button:hover > .ws-inactive {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    transition: min-width 0.3s;
+    transition: min-height 0.3s;
+}
+
 
 /* Occupied needs to come before active */
-.occupied-ws{
-    background-color: orange;
+.ws-occupied{
+    background-color: rgb(255, 238, 126);
 }
 
-.more-occupied-ws{
+.ws-normal{
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+}
+
+.ws-active{
+    background-color: rgb(40, 237, 142);
     min-width: 2.4rem;
+    min-height: 1.2rem;
 }
 
-.active-ws{
-    background-color: rgb(0, 255, 106);
+.ws-large{
 }
+
 
 
 

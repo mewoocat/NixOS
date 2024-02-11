@@ -39,38 +39,47 @@ button:hover > * {
   background-color: rgba(66, 66, 66, 0.4); }
 
 /* Workspaves */
-.test {
-  border-radius: 16%; }
-
 .ws-indicator {
-  color: white;
   background-color: dimgray;
+  border-radius: 1.2rem;
+  margin: 0rem 0.24rem;
   min-width: 1.2rem;
   min-height: 1.2rem;
-  border-radius: 1.2rem;
-  margin: 0rem 0.24rem; }
+  transition: min-width 0.3s;
+  transition: min-height 0.3s; }
+
+.ws-inactive {
+  min-width: 0.6rem;
+  min-height: 0.6rem; }
 
 .ws-button {
-  padding: 0; }
-
-.ws-button:hover {
-  background-color: rgba(217, 41, 14, 0); }
+  padding: 0;
+  min-width: 1.8rem; }
 
 .ws-button > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #d9290e; }
+  background-color: #d90e29; }
+
+.ws-button:hover > .ws-inactive {
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  transition: min-width 0.3s;
+  transition: min-height 0.3s; }
 
 /* Occupied needs to come before active */
-.occupied-ws {
-  background-color: orange; }
+.ws-occupied {
+  background-color: #ffee7e; }
 
-.more-occupied-ws {
-  min-width: 2.4rem; }
+.ws-normal {
+  min-width: 1.2rem;
+  min-height: 1.2rem; }
 
-.active-ws {
-  background-color: #00ff6a; }
+.ws-active {
+  background-color: #28ed8e;
+  min-width: 2.4rem;
+  min-height: 1.2rem; }
 
 .client-title {
   /*color: @theme_selected_bg_color;*/ }
