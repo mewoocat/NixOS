@@ -41,37 +41,42 @@ export const tempProgress = Widget.CircularProgress({
 });*/
 
 export const SystemStatsWidgetLarge = () => Widget.Box({
-    vertical: true,
-    hpack: "center",
-    vpack: "center",
+    hexpand: true,
     children: [
-        // CPU
         Widget.Box({
+            vertical: true,
+            hpack: "center",
+            vpack: "center",
             children: [
-                cpuProgress,
-                cpuLabel(),
+                // CPU
+                Widget.Box({
+                    children: [
+                        cpuProgress,
+                        cpuLabel(),
+                    ]
+                }),
+                // RAM
+                Widget.Box({
+                    children: [
+                        ramProgress,
+                        ramLabel(),
+                    ]
+                }),
+                // Storage
+                Widget.Box({
+                    children: [
+                        storageProgress,
+                        storageLabel(),
+                    ]
+                }),
+                // Temp
+                /*Widget.Box({
+                    children: [
+                        tempProgress,
+                        tempLabel(),
+                    ]
+                }),*/
             ]
         }),
-        // RAM
-        Widget.Box({
-            children: [
-                ramProgress,
-                ramLabel(),
-            ]
-        }),
-        // Storage
-        Widget.Box({
-            children: [
-                storageProgress,
-                storageLabel(),
-            ]
-        }),
-        // Temp
-        /*Widget.Box({
-            children: [
-                tempProgress,
-                tempLabel(),
-            ]
-        }),*/
     ]
 })

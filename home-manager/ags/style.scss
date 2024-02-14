@@ -1,4 +1,5 @@
 @import 'colors';
+$mediumOpacity: 0.85;
 
 *{
     all: unset;
@@ -157,28 +158,94 @@ highlight {
 
 
 .control-panel-container{
-    background-color: $bg;
+    background-color: rgba($bg, $mediumOpacity);
     border-radius: 16px;
     /*min-width: 280px;*/
-    padding: 1rem;
+    //padding: 0.4rem;
 }
 
 .control-panel-box{
-    background-color: $bg_alt;
-    padding: 0.4rem;
+    //padding: 0.4rem;
+}
+.control-panel-box > *{
     border-radius: 1rem;
+    background-color: rgba($bg_alt, $mediumOpacity);
 }
 
 .control-panel-button{
-    padding: 0.4rem;
+    //padding: 0.4rem;
 }
 
 .control-panel-button > * {
-    background-color:$bg_alt;
+    background-color: rgba($bg_alt, $mediumOpacity);
 }
 .control-panel-button:hover > * {
     background-color: $color1;
 }
+
+// Where control panel buttons/box share and edge with another, apply half the padding
+$paddingLarge: 0.8rem;
+$paddingBig: 0.8rem;
+$paddingSmall: 0.4rem;
+.top-right{
+    padding-left: $paddingBig;
+    padding-right: $paddingSmall;
+    padding-top: $paddingSmall;
+    padding-bottom: $paddingBig;
+}
+.top-left{
+
+    padding-left: $paddingSmall;
+    padding-right: $paddingBig;
+    padding-top: $paddingSmall;
+    padding-bottom: $paddingBig;
+}
+.bottom-right{
+    padding-left: $paddingBig;
+    padding-right: $paddingSmall;
+    padding-top: $paddingBig;
+    padding-bottom: $paddingSmall;
+
+}
+.bottom-left{
+    padding-left: $paddingSmall;
+    padding-right: $paddingBig;
+    padding-top: $paddingBig;
+    padding-bottom: $paddingSmall;
+
+}
+.right{
+    padding-left: $paddingBig;
+    padding-right: $paddingSmall;
+    padding-top: $paddingBig;
+    padding-bottom: $paddingBig;
+
+}
+.left{
+    padding-left: $paddingSmall;
+    padding-right: $paddingBig;
+    padding-top: $paddingBig;
+    padding-bottom: $paddingBig;
+
+}
+.top{
+    padding-left: $paddingBig;
+    padding-right: $paddingBig;
+    padding-top: $paddingSmall;
+    padding-bottom: $paddingBig;
+
+}
+.bottom{
+    padding-left: $paddingBig;
+    padding-right: $paddingBig;
+    padding-top: $paddingBig;
+    padding-bottom: $paddingSmall;
+
+}
+.noEdge{
+    padding: $paddingLarge;
+}
+
 
 .battery{
 }
@@ -228,13 +295,13 @@ highlight {
   background-color: $bg_alt;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
-  padding: 0 16px; 
+  padding: 4px 22px; 
 }
 
 /* The highligh */
 .sliders highlight{
-  min-height: 32px;
-  min-width: 32px;
+ // min-height: 32px;
+  //min-width: 32px;
   border-radius: 20px;
   background-color: $color1;
   /* Forces highlight to extend to match the slider positon  on the ends */

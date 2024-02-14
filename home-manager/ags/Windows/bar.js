@@ -62,13 +62,4 @@ export const bar = (monitor = 0) => Widget.Window({
     }),
 });
 
-import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
-// Does this just watch for css changes to then reload them?
-monitorFile(
-    `${App.configDir}/style.css`,
-    function() {
-        App.resetCss();
-        App.applyCss(`${App.configDir}/style.css`);
-    },
-);

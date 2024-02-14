@@ -23,9 +23,9 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 });
 
 // Make widget a formated button with action on click
-function ControlPanelButton(widget, w, h, action) {
+function ControlPanelButton(widget, w, h, action, edges) {
     const button = Widget.Button({
-        class_name: "control-panel-button",
+        class_name: `control-panel-button ${edges}`,
         on_clicked: action,
         css: `
             min-width: ${w}rem;
@@ -38,11 +38,9 @@ function ControlPanelButton(widget, w, h, action) {
 }
 
 // Make widget a formated box
-function ControlPanelBox(widget, w, h) {
+function ControlPanelBox(widget, w, h, edges) {
     const box = Widget.Box({
-        class_name: "control-panel-box",
-        vpack: "start",
-        hpack: "start",
+        class_name: `control-panel-box ${edges}`,
         css: `
             min-width: ${w}rem;
             min-height: ${h}rem;
@@ -66,16 +64,20 @@ const container = () => Widget.Box({
                 Widget.Box({
                     vertical: true,
                     children: [
-                        ControlPanelButton(WifiButton(), options.large, options.small, null),
                         Widget.Box({
                             children: [
-                                ControlPanelButton(BluetoothIcon(), options.small, options.small, ToggleBluetooth),
-                                ControlPanelButton(ThemeIcon(), options.small, options.small, null),
+                                ControlPanelButton(WifiButton(), options.large, options.small, null, "bottom"),
+                            ]
+                        }),
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(BluetoothIcon(), options.small, options.small, ToggleBluetooth, "top-right"),
+                                ControlPanelButton(ThemeIcon(), options.small, options.small, null, "top-left"),
                             ]
                         })
                     ]
                 }),
-                ControlPanelButton(BatteryWidgetLarge(), options.large, options.large, null),
+                ControlPanelBox(PowerIcon(), options.large, options.large, "left"),
            ]
         }),
 
@@ -85,20 +87,20 @@ const container = () => Widget.Box({
 
         Widget.Box({
             children:[
-                ControlPanelBox(SystemStatsWidgetLarge(), options.large, options.large),
+                ControlPanelBox(SystemStatsWidgetLarge(), options.large, options.large, "right"),
                 Widget.Box({
                     vertical: true,
                     children: [
                         Widget.Box({
                             children: [
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "bottom-right"),
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "bottom-left"),
                             ]
                         }),
                         Widget.Box({
                             children: [
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "top-right"),
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "top-left"),
                             ]
                         })
                     ]
@@ -113,7 +115,7 @@ export const ControlPanel = Widget.Window({
     name: `ControlPanel`,
     class_name: 'control-panel',
     visible: false,
-    keymode: "exclusive",
+    //keymode: "exclusive",
     popup: true,
     anchor: ['top', 'right'],
     exclusivity: 'normal',

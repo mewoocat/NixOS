@@ -2,23 +2,23 @@
   all: unset;
   padding: 0px;
   margin: 0px;
-  color: #eedda2; }
+  color: #c5dee3; }
 
 window.bar {
-  background-color: #13131c; }
+  background-color: #0d0c13; }
 
 .applauncher {
-  background-color: #13131c;
+  background-color: #0d0c13;
   padding: 8px;
   border-radius: 24px; }
 
 .app-item:focus {
-  background-color: #13131c;
+  background-color: #0d0c13;
   border-radius: 1rem; }
 
 .app-entry {
   padding: 0.6rem;
-  background-color: #13131c;
+  background-color: #0d0c13;
   border-radius: 1rem; }
 
 button {
@@ -30,14 +30,14 @@ button > * {
   border-radius: 1rem; }
 
 button:hover > * {
-  background-color: #3b3b44; }
+  background-color: #35343b; }
 
 .dock-button > box {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 .dock-button:hover > box {
-  background-color: #3b3b44; }
+  background-color: #35343b; }
 
 /* Workspaves */
 .ws-indicator {
@@ -61,7 +61,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #c80049; }
+  background-color: #941aff; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -75,10 +75,10 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #da003d; }
+  background-color: #ff5b89; }
 
 .ws-active {
-  background-color: #fc000c;
+  background-color: #ff7194;
   min-width: 2.4rem;
   min-height: 1.2rem; }
 
@@ -100,43 +100,89 @@ highlight {
   font-size: 16px; }
 
 .dock-container {
-  background-color: #13131c;
+  background-color: #0d0c13;
   border-radius: 32px; }
 
 .container {
-  background-color: #13131c;
+  background-color: #0d0c13;
   border-radius: 16px;
   /*min-width: 280px;*/
   padding: 16px; }
 
 .control-panel-container {
-  background-color: #13131c;
+  background-color: rgba(13, 12, 19, 0.85);
   border-radius: 16px;
-  /*min-width: 280px;*/
-  padding: 1rem; }
+  /*min-width: 280px;*/ }
 
-.control-panel-box {
-  background-color: #3b3b44;
-  padding: 0.4rem;
-  border-radius: 1rem; }
-
-.control-panel-button {
-  padding: 0.4rem; }
+.control-panel-box > * {
+  border-radius: 1rem;
+  background-color: rgba(53, 52, 59, 0.85); }
 
 .control-panel-button > * {
-  background-color: #3b3b44; }
+  background-color: rgba(53, 52, 59, 0.85); }
 
 .control-panel-button:hover > * {
-  background-color: #c80049; }
+  background-color: #941aff; }
+
+.top-right {
+  padding-left: 0.8rem;
+  padding-right: 0.4rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.8rem; }
+
+.top-left {
+  padding-left: 0.4rem;
+  padding-right: 0.8rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.8rem; }
+
+.bottom-right {
+  padding-left: 0.8rem;
+  padding-right: 0.4rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.4rem; }
+
+.bottom-left {
+  padding-left: 0.4rem;
+  padding-right: 0.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.4rem; }
+
+.right {
+  padding-left: 0.8rem;
+  padding-right: 0.4rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem; }
+
+.left {
+  padding-left: 0.4rem;
+  padding-right: 0.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem; }
+
+.top {
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.8rem; }
+
+.bottom {
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.4rem; }
+
+.noEdge {
+  padding: 0.8rem; }
 
 .battery-bg {
-  color: #eedda2; }
+  color: #c5dee3; }
 
 .battery-fg {
   color: #44ec44; }
 
 .wifi-fg {
-  color: #eedda2; }
+  color: #c5dee3; }
 
 .icon {
   font-size: 20px; }
@@ -156,17 +202,15 @@ highlight {
 
 /* The background */
 .sliders trough {
-  background-color: #3b3b44;
+  background-color: #35343b;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
-  padding: 0 16px; }
+  padding: 4px 22px; }
 
 /* The highligh */
 .sliders highlight {
-  min-height: 32px;
-  min-width: 32px;
   border-radius: 20px;
-  background-color: #c80049;
+  background-color: #941aff;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -16px; }
 
@@ -175,10 +219,10 @@ highlight {
   min-height: 32px;
   min-width: 32px;
   border-radius: 20px;
-  background-color: #fc000c;
+  background-color: #ff7194;
   border-style: solid;
   border-width: 1px;
-  border-color: #fc000c; }
+  border-color: #ff7194; }
 
 .battery-circle {
   background-color: black;
@@ -186,6 +230,6 @@ highlight {
 
 .system-stats-circular-progress {
   background-color: black;
-  color: #fc000c;
+  color: #ff7194;
   font-size: 4px;
   min-height: 24px; }
