@@ -33,7 +33,7 @@ const Center = () => Widget.Box({
     ],
 });
 
-const Right = () => Widget.Box({
+const Right = (monitor) => Widget.Box({
     hpack: 'end',
     spacing: 8,
     children: [
@@ -44,7 +44,7 @@ const Right = () => Widget.Box({
         MicrophoneIcon(),
         WifiIcon(),
         VolumeIcon(),
-        ControlPanelToggleButton(),
+        ControlPanelToggleButton(monitor),
     ],
 });
 
@@ -58,7 +58,7 @@ export const bar = (monitor = 0) => Widget.Window({
         class_name: "bar-container",
         start_widget: Left(),
         center_widget: Center(),
-        end_widget: Right(),
+        end_widget: Right(monitor),
     }),
 });
 

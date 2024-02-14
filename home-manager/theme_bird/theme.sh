@@ -7,7 +7,7 @@
 #
 # Effects
 #   Change Hyprland colors
-#   Change Eww colors
+#   Change ags colors
 #   Set wallpaper
 #
 #
@@ -95,16 +95,16 @@ darken_color() {
 
 
 # Notes:    Add new color called iconBG where is a darken/lightend version of fg
-function setEWWColors(){
+function setagsColors(){
     mode=$1
 
     # sed command from https://stackoverflow.com/questions/6022384/bash-tool-to-get-nth-line-from-a-file
-    #echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/eww/_colors.scss;
-    #echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
+    #echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/ags/_colors.scss;
+    #echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
 
-    # New color file in different dir since .config/eww is read only
-    echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/eww/_colors.scss;
-    echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
+    # New color file in different dir since .config/ags is read only
+    echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/ags/_colors.scss;
+    echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
 
     # Get theme variables 
     bg=$(sed '1q;d' ~/.cache/wal/colors | cut -c 2-)
@@ -112,45 +112,23 @@ function setEWWColors(){
 
     if [ $mode == "light" ]; then
         echo "hi"
-        echo "\$bg_alt: $(darken_color $bg 40);" >> ~/.config/eww/_colors.scss;
-        #echo "\$fg_alt: $(lighten_color $fg 100);" >> ~/.config/eww/_colors.scss;
-        echo "\$fg_alt: $(darken_color $bg 100);" >> ~/.config/eww/_colors.scss;
+        echo "\$bg_alt: $(darken_color $bg 40);" >> ~/.config/ags/_colors.scss;
+        #echo "\$fg_alt: $(lighten_color $fg 100);" >> ~/.config/ags/_colors.scss;
+        echo "\$fg_alt: $(darken_color $bg 100);" >> ~/.config/ags/_colors.scss;
     fi
 
     if [ $mode == "dark" ]; then
         echo "ho"
-        echo "\$bg_alt: $(lighten_color $bg 40);" >> ~/.config/eww/_colors.scss;
-        #echo "\$fg_alt: $(darken_color $fg 100);" >> ~/.config/eww/_colors.scss;
-        echo "\$fg_alt: $(lighten_color $bg 100);" >> ~/.config/eww/_colors.scss;
+        echo "\$bg_alt: $(lighten_color $bg 40);" >> ~/.config/ags/_colors.scss;
+        #echo "\$fg_alt: $(darken_color $fg 100);" >> ~/.config/ags/_colors.scss;
+        echo "\$fg_alt: $(lighten_color $bg 100);" >> ~/.config/ags/_colors.scss;
     fi
 
-    echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
-    echo "\$color2: $(sed '3q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
-    echo "\$color3: $(sed '4q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
-    echo "\$color4: $(sed '5q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
+    echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
+    echo "\$color2: $(sed '3q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
+    echo "\$color3: $(sed '4q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
+    echo "\$color4: $(sed '5q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
 
-
-    # Set rofi theme colors
-    # Global ignore from:  https://stackoverflow.com/questions/102049/how-do-i-escape-the-wildcard-asterisk-character-in-bash
-    
-    bg0="#${bg}8F"
-    fg0="#${fg}FF"
-
-    GLOBIGNORE="*"
-    text="* {
-    bg0:    $bg0;
-    bg1:    #2A2A2A;
-    bg2:    #3D3D3D80;
-    bg3:    #616161F2;
-    fg0:    $fg0;
-    fg1:    #FFFFFF;
-    fg2:    #969696;
-    fg3:    #3D3D3D;\n}\n@import \"rounded-common.rasi\"
-    "
-
-    echo -e "$text" > ~/.config/rofi/theme.rasi
-
-    #eww reload;
 }
 
 function setGtkColors(){
@@ -195,11 +173,10 @@ function setLight(){
     swww img $wallpaper_light;
     #    :width 500
     #    :width 500
-    setEWWColors light;
-    #killall eww && killall eww && eww open bar;
+    setagsColors light;
+    #killall ags && killall ags && ags open bar;
     echo $wallpaper_light > ~/.config/wallpaper;
-    sleep 0.1 # Prevents the EWW reload from changing the colors to reset the theme_light variable
-    eww update theme_light=true;
+    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setDark(){
@@ -213,17 +190,13 @@ function setDark(){
     fi
     #swww img $wallpaper_dark --transition-type outer;
     swww img $wallpaper_dark
-    echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/eww/_colors.scss;
-    setEWWColors dark;
-    #killall eww && killall eww && eww open bar;
+    echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
+    setagsColors dark;
     echo $wallpaper_dark > ~/.config/wallpaper;
-    sleep 0.1 # Prevents the EWW reload from changing the colors to reset the theme_light variable
-    eww update theme_light=false;
-
+    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setWallpaperDark(){
-    echo "here"
     bgBlack=$2
     if [ $bgBlack == true ]; then
         echo "blah blah...";
@@ -235,32 +208,19 @@ function setWallpaperDark(){
     fi
     gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
     #swww img $1;
-    setEWWColors dark;
-    #killall eww && killall eww && eww open bar;
+    setagsColors dark;
     #echo $1 > ~/.config/wallpaper;
     setWallpaper $1;
-    sleep 0.1 # Prevents the EWW reload from changing the colors to reset the theme_light variable
-    eww update theme_light=false;
+    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setWallpaperLight(){
     wal -l -i $1;
     gsettings set org.gnome.desktop.interface gtk-theme $gtk_light_theme;
     swww img $1;
-    setEWWColors light;
-    #killall eww && killall eww && eww open bar;
+    setagsColors light;
     echo $1 > ~/.config/wallpaper;
-    sleep 0.1 # Prevents the EWW reload from changing the colors to reset the theme_light variable
-    eww update theme_light=false;
-}
-
-# Toggle integration with EWW
-function toggleTheme(){
-    if [[ $(eww get theme_light) == "false" ]]; then
-        setLight
-    else
-        setDark
-    fi
+    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setWallpaper(){
@@ -340,10 +300,5 @@ if [ $theme == true ]; then
     gsettings set org.gnome.desktop.interface gtk-theme "default"
 
 fi
-#reset
-#
-#killall eww && killall eww && eww open bar
-
-eww reload
 
 exit 0

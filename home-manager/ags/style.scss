@@ -1,26 +1,29 @@
+@import 'colors';
+
 *{
     all: unset;
     padding: 0px;
     margin: 0px;
+    color: $fg
 }
 
 window.bar {
-    background-color:rgba(0, 0, 0, 0.8);
+    background-color: $bg;
 }
 
 .applauncher {
-    background-color:rgba(0, 0, 0, 0.8);
+    background-color: $bg;
     padding: 8px;
     border-radius: 24px;
 }
 
 .app-item:focus {
-    background-color:rgba(44, 44, 44, 0.8);
+    background-color: $bg;
     border-radius: 1rem;
 }
 .app-entry {
     padding: 0.6rem;
-    background-color:rgba(44, 44, 44, 0.8);
+    background-color: $bg;
     border-radius: 1rem;
 }
 
@@ -38,7 +41,7 @@ button > * {
 }
 
 button:hover > * {
-    background-color:rgba(66, 66, 66, 0.4);    
+    background-color: $bg_alt;
 }
 
 // Dock
@@ -47,7 +50,7 @@ button:hover > * {
     border-radius: 1rem;
 }
 .dock-button:hover > box {
-    background-color:rgba(66, 66, 66, 0.4);    
+    background-color: $bg_alt;    
 }
 
 
@@ -84,7 +87,7 @@ button:hover > * {
 
 // On hover color
 .ws-button:hover > box{
-    background-color: rgb(217, 14, 41);
+    background-color: $color1;
 }
 .ws-button:hover > .ws-inactive {
     min-width: 1.2rem;
@@ -101,11 +104,11 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied{
-    background-color: rgb(255, 238, 126);
+    background-color: $color2;
 }
 
 .ws-active{
-    background-color: rgb(40, 237, 142);
+    background-color: $color3;
     min-width: 2.4rem;
     min-height: 1.2rem;
 }
@@ -142,11 +145,11 @@ highlight {
 .bar-container{
 }
 .dock-container{
-    background-color:rgba(0, 0, 0, 0.6);
+    background-color: $bg;
     border-radius: 32px;
 }
 .container{
-    background-color:rgba(0, 0, 0, 0.8);
+    background-color: $bg;
     border-radius: 16px;
     /*min-width: 280px;*/
     padding: 16px;
@@ -154,24 +157,34 @@ highlight {
 
 
 .control-panel-container{
-    background-color:rgba(0, 0, 0, 0.8);
+    background-color: $bg;
     border-radius: 16px;
     /*min-width: 280px;*/
-    padding: 16px;
+    padding: 1rem;
+}
+
+.control-panel-box{
+    background-color: $bg_alt;
+    padding: 0.4rem;
+    border-radius: 1rem;
 }
 
 .control-panel-button{
-    background-color:rgba(66, 66, 66, 0.4);
-    margin: 4px;
-    padding: 8px;
-    border-radius: 8px;
+    padding: 0.4rem;
+}
+
+.control-panel-button > * {
+    background-color:$bg_alt;
+}
+.control-panel-button:hover > * {
+    background-color: $color1;
 }
 
 .battery{
 }
 
 .battery-bg{
-    color: white;
+    color: $fg;
 }
 
 .battery-fg{
@@ -179,7 +192,7 @@ highlight {
 }
 
 .wifi-fg{
-    color: white;
+    color: $fg;
 }
 
 
@@ -212,7 +225,7 @@ highlight {
 
 /* The background */
 .sliders trough{
-  background-color: rgb(33, 33, 33);
+  background-color: $bg_alt;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 0 16px; 
@@ -223,7 +236,7 @@ highlight {
   min-height: 32px;
   min-width: 32px;
   border-radius: 20px;
-  background-color: rgb(68, 236, 68);
+  background-color: $color1;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -16px; 
 }
@@ -233,10 +246,10 @@ highlight {
   min-height: 32px;
   min-width: 32px;
   border-radius: 20px;
-  background-color:rgba(0, 0, 0, 0);
+  background-color: $color3;
   border-style: solid;
   border-width: 1px;
-  border-color: black;
+  border-color: $color3;
 }
 
 .battery-circle{
@@ -246,7 +259,7 @@ highlight {
 
 .system-stats-circular-progress{
     background-color: black;
-    color: orangered;
+    color: $color3;
     font-size: 4px;
     min-height: 24px;
 }

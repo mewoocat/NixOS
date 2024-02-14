@@ -153,7 +153,7 @@ in
     dolphin-emu
     p7zip
     cantarell-fonts
-    sassc
+    sassc # For ags
     vial
     (lutris.override {
        extraPkgs = pkgs: [

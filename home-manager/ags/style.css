@@ -1,23 +1,24 @@
 * {
   all: unset;
   padding: 0px;
-  margin: 0px; }
+  margin: 0px;
+  color: #eedda2; }
 
 window.bar {
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: #13131c; }
 
 .applauncher {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #13131c;
   padding: 8px;
   border-radius: 24px; }
 
 .app-item:focus {
-  background-color: rgba(44, 44, 44, 0.8);
+  background-color: #13131c;
   border-radius: 1rem; }
 
 .app-entry {
   padding: 0.6rem;
-  background-color: rgba(44, 44, 44, 0.8);
+  background-color: #13131c;
   border-radius: 1rem; }
 
 button {
@@ -29,14 +30,14 @@ button > * {
   border-radius: 1rem; }
 
 button:hover > * {
-  background-color: rgba(66, 66, 66, 0.4); }
+  background-color: #3b3b44; }
 
 .dock-button > box {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 .dock-button:hover > box {
-  background-color: rgba(66, 66, 66, 0.4); }
+  background-color: #3b3b44; }
 
 /* Workspaves */
 .ws-indicator {
@@ -60,7 +61,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #d90e29; }
+  background-color: #c80049; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -74,10 +75,10 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #ffee7e; }
+  background-color: #da003d; }
 
 .ws-active {
-  background-color: #28ed8e;
+  background-color: #fc000c;
   min-width: 2.4rem;
   min-height: 1.2rem; }
 
@@ -99,35 +100,43 @@ highlight {
   font-size: 16px; }
 
 .dock-container {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: #13131c;
   border-radius: 32px; }
 
 .container {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #13131c;
   border-radius: 16px;
   /*min-width: 280px;*/
   padding: 16px; }
 
 .control-panel-container {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #13131c;
   border-radius: 16px;
   /*min-width: 280px;*/
-  padding: 16px; }
+  padding: 1rem; }
+
+.control-panel-box {
+  background-color: #3b3b44;
+  padding: 0.4rem;
+  border-radius: 1rem; }
 
 .control-panel-button {
-  background-color: rgba(66, 66, 66, 0.4);
-  margin: 4px;
-  padding: 8px;
-  border-radius: 8px; }
+  padding: 0.4rem; }
+
+.control-panel-button > * {
+  background-color: #3b3b44; }
+
+.control-panel-button:hover > * {
+  background-color: #c80049; }
 
 .battery-bg {
-  color: white; }
+  color: #eedda2; }
 
 .battery-fg {
   color: #44ec44; }
 
 .wifi-fg {
-  color: white; }
+  color: #eedda2; }
 
 .icon {
   font-size: 20px; }
@@ -147,7 +156,7 @@ highlight {
 
 /* The background */
 .sliders trough {
-  background-color: #212121;
+  background-color: #3b3b44;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 0 16px; }
@@ -157,7 +166,7 @@ highlight {
   min-height: 32px;
   min-width: 32px;
   border-radius: 20px;
-  background-color: #44ec44;
+  background-color: #c80049;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -16px; }
 
@@ -166,10 +175,10 @@ highlight {
   min-height: 32px;
   min-width: 32px;
   border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: #fc000c;
   border-style: solid;
   border-width: 1px;
-  border-color: black; }
+  border-color: #fc000c; }
 
 .battery-circle {
   background-color: black;
@@ -177,6 +186,6 @@ highlight {
 
 .system-stats-circular-progress {
   background-color: black;
-  color: orangered;
+  color: #fc000c;
   font-size: 4px;
   min-height: 24px; }

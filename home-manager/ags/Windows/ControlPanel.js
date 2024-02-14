@@ -7,13 +7,15 @@ import { WifiButton } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth } from '../Modules/bluetooth.js';
 import { BatteryWidgetLarge } from '../Modules/battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
+import { ThemeIcon } from '../Modules/theme.js'
+import { PowerIcon } from '../Modules/power.js';
+
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import options from '../options.js';
-console.log("large = " + options.large)
 
-export const ControlPanelToggleButton = () => Widget.Button({
+export const ControlPanelToggleButton = (monitor) => Widget.Button({
     class_name: 'launcher',
-    on_primary_click: () => execAsync('ags -t ControlPanel'),
+    on_primary_click: () => execAsync(`ags -t ControlPanel`),
     child:
         Widget.Label({
             label: ""
@@ -24,8 +26,6 @@ export const ControlPanelToggleButton = () => Widget.Button({
 function ControlPanelButton(widget, w, h, action) {
     const button = Widget.Button({
         class_name: "control-panel-button",
-        vpack: "start",
-        hpack: "start",
         on_clicked: action,
         css: `
             min-width: ${w}rem;
@@ -40,7 +40,7 @@ function ControlPanelButton(widget, w, h, action) {
 // Make widget a formated box
 function ControlPanelBox(widget, w, h) {
     const box = Widget.Box({
-        class_name: "control-panel-button", // Make this a box class?
+        class_name: "control-panel-box",
         vpack: "start",
         hpack: "start",
         css: `
@@ -61,19 +61,24 @@ const container = () => Widget.Box({
     vertical: true,
     children: [
         //Rows
-
         Widget.Box({
            children:[
                 Widget.Box({
                     vertical: true,
                     children: [
                         ControlPanelButton(WifiButton(), options.large, options.small, null),
-                        ControlPanelButton(BluetoothIcon(), options.small, options.small, ToggleBluetooth),
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(BluetoothIcon(), options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(ThemeIcon(), options.small, options.small, null),
+                            ]
+                        })
                     ]
                 }),
                 ControlPanelButton(BatteryWidgetLarge(), options.large, options.large, null),
            ]
         }),
+
         brightness(),
         VolumeSlider(),
         MicrophoneSlider(),
@@ -81,18 +86,35 @@ const container = () => Widget.Box({
         Widget.Box({
             children:[
                 ControlPanelBox(SystemStatsWidgetLarge(), options.large, options.large),
+                Widget.Box({
+                    vertical: true,
+                    children: [
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
+                            ]
+                        }),
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth),
+                            ]
+                        })
+                    ]
+                })
             ]
         })
     ],
 });
 
-export const ControlPanel = (monitor = 0) => Widget.Window({
-    name: `ControlPanel`, // name has to be unique
+export const ControlPanel = Widget.Window({
+    //name: `ControlPanel-${monitor}`, // name has to be unique
+    name: `ControlPanel`,
     class_name: 'control-panel',
     visible: false,
-    focusable: true,
+    keymode: "exclusive",
     popup: true,
-    monitor,
     anchor: ['top', 'right'],
     exclusivity: 'normal',
     child: Widget.Box({
