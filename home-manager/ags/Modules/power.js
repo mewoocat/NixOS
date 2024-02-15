@@ -1,9 +1,13 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
-export const PowerIcon = () => Widget.Button({
+export const PowerIcon = () => Widget.Box({
     hexpand: true,
+    vpack: "fill",
+    hpack: "fill",
     child:
         Widget.Label({
-            label: ""
+            vpack: "center",
+            hpack: "center",
+            //label: ""
         })
 })

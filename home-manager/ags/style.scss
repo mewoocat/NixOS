@@ -5,7 +5,7 @@ $mediumOpacity: 0.85;
     all: unset;
     padding: 0px;
     margin: 0px;
-    color: $fg
+    color: $fg;
 }
 
 window.bar {
@@ -186,7 +186,7 @@ highlight {
 // Where control panel buttons/box share and edge with another, apply half the padding
 $paddingLarge: 0.8rem;
 $paddingBig: 0.8rem;
-$paddingSmall: 0.4rem;
+$paddingSmall: 0.0rem;
 .top-right{
     padding-left: $paddingBig;
     padding-right: $paddingSmall;
@@ -295,7 +295,7 @@ $paddingSmall: 0.4rem;
   background-color: $bg_alt;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
-  padding: 4px 22px; 
+  padding: 4px 20px; 
 }
 
 /* The highligh */
@@ -305,13 +305,13 @@ $paddingSmall: 0.4rem;
   border-radius: 20px;
   background-color: $color1;
   /* Forces highlight to extend to match the slider positon  on the ends */
-  margin: 0 -16px; 
+  margin: 0 -14px; 
 }
 
 /* The dot */
 .sliders slider{
-  min-height: 32px;
-  min-width: 32px;
+  min-height: 28px;
+  min-width: 28px;
   border-radius: 20px;
   background-color: $color3;
   border-style: solid;

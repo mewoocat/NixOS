@@ -27,6 +27,8 @@ function ControlPanelButton(widget, w, h, action, edges) {
     const button = Widget.Button({
         class_name: `control-panel-button ${edges}`,
         on_clicked: action,
+        //hpack: "center",
+        //vpack: "center",
         css: `
             min-width: ${w}rem;
             min-height: ${h}rem;
@@ -41,7 +43,10 @@ function ControlPanelButton(widget, w, h, action, edges) {
 function ControlPanelBox(widget, w, h, edges) {
     const box = Widget.Box({
         class_name: `control-panel-box ${edges}`,
+        //hpack: "center",
+        //vpack: "center",
         css: `
+            background-color: #00ff00;
             min-width: ${w}rem;
             min-height: ${h}rem;
         `,
@@ -77,7 +82,7 @@ const container = () => Widget.Box({
                         })
                     ]
                 }),
-                ControlPanelBox(PowerIcon(), options.large, options.large, "left"),
+                ControlPanelBox(PowerIcon(), options.large, options.large, "noEdge"),
            ]
         }),
 
@@ -87,8 +92,9 @@ const container = () => Widget.Box({
 
         Widget.Box({
             children:[
-                ControlPanelBox(SystemStatsWidgetLarge(), options.large, options.large, "right"),
+                ControlPanelBox(PowerIcon(), options.large, options.large, "noEdge"),
                 Widget.Box({
+                    css: `background-color: #ff0000;`,
                     vertical: true,
                     children: [
                         Widget.Box({

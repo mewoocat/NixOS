@@ -2,6 +2,6 @@
 
 export default {
     // In rem
-    small: "5",
-    large: "10",
+    small: "4",
+    large: "8",
 }

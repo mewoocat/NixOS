@@ -2,23 +2,23 @@
   all: unset;
   padding: 0px;
   margin: 0px;
-  color: #c5dee3; }
+  color: #e5cbcb; }
 
 window.bar {
-  background-color: #0d0c13; }
+  background-color: #0E0D1A; }
 
 .applauncher {
-  background-color: #0d0c13;
+  background-color: #0E0D1A;
   padding: 8px;
   border-radius: 24px; }
 
 .app-item:focus {
-  background-color: #0d0c13;
+  background-color: #0E0D1A;
   border-radius: 1rem; }
 
 .app-entry {
   padding: 0.6rem;
-  background-color: #0d0c13;
+  background-color: #0E0D1A;
   border-radius: 1rem; }
 
 button {
@@ -30,14 +30,14 @@ button > * {
   border-radius: 1rem; }
 
 button:hover > * {
-  background-color: #35343b; }
+  background-color: #363542; }
 
 .dock-button > box {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 .dock-button:hover > box {
-  background-color: #35343b; }
+  background-color: #363542; }
 
 /* Workspaves */
 .ws-indicator {
@@ -61,7 +61,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #941aff; }
+  background-color: #00fb3b; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -75,10 +75,10 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #ff5b89; }
+  background-color: #ffad41; }
 
 .ws-active {
-  background-color: #ff7194;
+  background-color: #007ad2;
   min-width: 2.4rem;
   min-height: 1.2rem; }
 
@@ -100,62 +100,62 @@ highlight {
   font-size: 16px; }
 
 .dock-container {
-  background-color: #0d0c13;
+  background-color: #0E0D1A;
   border-radius: 32px; }
 
 .container {
-  background-color: #0d0c13;
+  background-color: #0E0D1A;
   border-radius: 16px;
   /*min-width: 280px;*/
   padding: 16px; }
 
 .control-panel-container {
-  background-color: rgba(13, 12, 19, 0.85);
+  background-color: rgba(14, 13, 26, 0.85);
   border-radius: 16px;
   /*min-width: 280px;*/ }
 
 .control-panel-box > * {
   border-radius: 1rem;
-  background-color: rgba(53, 52, 59, 0.85); }
+  background-color: rgba(54, 53, 66, 0.85); }
 
 .control-panel-button > * {
-  background-color: rgba(53, 52, 59, 0.85); }
+  background-color: rgba(54, 53, 66, 0.85); }
 
 .control-panel-button:hover > * {
-  background-color: #941aff; }
+  background-color: #00fb3b; }
 
 .top-right {
   padding-left: 0.8rem;
-  padding-right: 0.4rem;
-  padding-top: 0.4rem;
+  padding-right: 0rem;
+  padding-top: 0rem;
   padding-bottom: 0.8rem; }
 
 .top-left {
-  padding-left: 0.4rem;
+  padding-left: 0rem;
   padding-right: 0.8rem;
-  padding-top: 0.4rem;
+  padding-top: 0rem;
   padding-bottom: 0.8rem; }
 
 .bottom-right {
   padding-left: 0.8rem;
-  padding-right: 0.4rem;
+  padding-right: 0rem;
   padding-top: 0.8rem;
-  padding-bottom: 0.4rem; }
+  padding-bottom: 0rem; }
 
 .bottom-left {
-  padding-left: 0.4rem;
+  padding-left: 0rem;
   padding-right: 0.8rem;
   padding-top: 0.8rem;
-  padding-bottom: 0.4rem; }
+  padding-bottom: 0rem; }
 
 .right {
   padding-left: 0.8rem;
-  padding-right: 0.4rem;
+  padding-right: 0rem;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem; }
 
 .left {
-  padding-left: 0.4rem;
+  padding-left: 0rem;
   padding-right: 0.8rem;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem; }
@@ -163,26 +163,26 @@ highlight {
 .top {
   padding-left: 0.8rem;
   padding-right: 0.8rem;
-  padding-top: 0.4rem;
+  padding-top: 0rem;
   padding-bottom: 0.8rem; }
 
 .bottom {
   padding-left: 0.8rem;
   padding-right: 0.8rem;
   padding-top: 0.8rem;
-  padding-bottom: 0.4rem; }
+  padding-bottom: 0rem; }
 
 .noEdge {
   padding: 0.8rem; }
 
 .battery-bg {
-  color: #c5dee3; }
+  color: #e5cbcb; }
 
 .battery-fg {
   color: #44ec44; }
 
 .wifi-fg {
-  color: #c5dee3; }
+  color: #e5cbcb; }
 
 .icon {
   font-size: 20px; }
@@ -202,27 +202,27 @@ highlight {
 
 /* The background */
 .sliders trough {
-  background-color: #35343b;
+  background-color: #363542;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
-  padding: 4px 22px; }
+  padding: 4px 20px; }
 
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #941aff;
+  background-color: #00fb3b;
   /* Forces highlight to extend to match the slider positon  on the ends */
-  margin: 0 -16px; }
+  margin: 0 -14px; }
 
 /* The dot */
 .sliders slider {
-  min-height: 32px;
-  min-width: 32px;
+  min-height: 28px;
+  min-width: 28px;
   border-radius: 20px;
-  background-color: #ff7194;
+  background-color: #007ad2;
   border-style: solid;
   border-width: 1px;
-  border-color: #ff7194; }
+  border-color: #007ad2; }
 
 .battery-circle {
   background-color: black;
@@ -230,6 +230,6 @@ highlight {
 
 .system-stats-circular-progress {
   background-color: black;
-  color: #ff7194;
+  color: #007ad2;
   font-size: 4px;
   min-height: 24px; }
