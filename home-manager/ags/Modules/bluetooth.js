@@ -2,7 +2,9 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 
-export const BluetoothIcon = () => Widget.Label().hook(Bluetooth, self  => {
+export const BluetoothIcon = (edges) => Widget.Label().hook(Bluetooth, self  => {
+    self.class_name = `${edges}`,
+    console.log("edges" + edges)
     self.toggleClassName("dim", !Bluetooth.enabled)
     if(Bluetooth.enabled){
         self.label = "󰂯"

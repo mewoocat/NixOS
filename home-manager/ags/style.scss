@@ -173,7 +173,7 @@ highlight {
 }
 
 .control-panel-button{
-    //padding: 0.4rem;
+    padding: 0rem; // Disables default button padding
 }
 
 .control-panel-button > * {
@@ -184,66 +184,66 @@ highlight {
 }
 
 // Where control panel buttons/box share and edge with another, apply half the padding
-$paddingLarge: 0.8rem;
-$paddingBig: 0.8rem;
-$paddingSmall: 0.0rem;
+$marginLarge: 0.4rem;
+$marginBig: 0.4rem;  // Increasing beyond 0.8rem may cause buttons to no longer be square
+$marginSmall: 0.2rem; // 1/2 of marginBig
 .top-right{
-    padding-left: $paddingBig;
-    padding-right: $paddingSmall;
-    padding-top: $paddingSmall;
-    padding-bottom: $paddingBig;
+    margin-left: $marginBig;
+    margin-right: $marginSmall;
+    margin-top: $marginSmall;
+    margin-bottom: $marginBig;
 }
 .top-left{
 
-    padding-left: $paddingSmall;
-    padding-right: $paddingBig;
-    padding-top: $paddingSmall;
-    padding-bottom: $paddingBig;
+    margin-left: $marginSmall;
+    margin-right: $marginBig;
+    margin-top: $marginSmall;
+    margin-bottom: $marginBig;
 }
 .bottom-right{
-    padding-left: $paddingBig;
-    padding-right: $paddingSmall;
-    padding-top: $paddingBig;
-    padding-bottom: $paddingSmall;
+    margin-left: $marginBig;
+    margin-right: $marginSmall;
+    margin-top: $marginBig;
+    margin-bottom: $marginSmall;
 
 }
 .bottom-left{
-    padding-left: $paddingSmall;
-    padding-right: $paddingBig;
-    padding-top: $paddingBig;
-    padding-bottom: $paddingSmall;
+    margin-left: $marginSmall;
+    margin-right: $marginBig;
+    margin-top: $marginBig;
+    margin-bottom: $marginSmall;
 
 }
 .right{
-    padding-left: $paddingBig;
-    padding-right: $paddingSmall;
-    padding-top: $paddingBig;
-    padding-bottom: $paddingBig;
+    margin-left: $marginBig;
+    margin-right: $marginSmall;
+    margin-top: $marginBig;
+    margin-bottom: $marginBig;
 
 }
 .left{
-    padding-left: $paddingSmall;
-    padding-right: $paddingBig;
-    padding-top: $paddingBig;
-    padding-bottom: $paddingBig;
+    margin-left: $marginSmall;
+    margin-right: $marginBig;
+    margin-top: $marginBig;
+    margin-bottom: $marginBig;
 
 }
 .top{
-    padding-left: $paddingBig;
-    padding-right: $paddingBig;
-    padding-top: $paddingSmall;
-    padding-bottom: $paddingBig;
+    margin-left: $marginBig;
+    margin-right: $marginBig;
+    margin-top: $marginSmall;
+    margin-bottom: $marginBig;
 
 }
 .bottom{
-    padding-left: $paddingBig;
-    padding-right: $paddingBig;
-    padding-top: $paddingBig;
-    padding-bottom: $paddingSmall;
+    margin-left: $marginBig;
+    margin-right: $marginBig;
+    margin-top: $marginBig;
+    margin-bottom: $marginSmall;
 
 }
 .noEdge{
-    padding: $paddingLarge;
+    margin: $marginLarge;
 }
 
 
@@ -319,13 +319,17 @@ $paddingSmall: 0.0rem;
   border-color: $color3;
 }
 
+
+
 .battery-circle{
-    background-color: black;
+    background-color: $bg;
     color: lightgreen;
+
+    min-height: 64px;
 }
 
 .system-stats-circular-progress{
-    background-color: black;
+    background-color: $bg;
     color: $color3;
     font-size: 4px;
     min-height: 24px;

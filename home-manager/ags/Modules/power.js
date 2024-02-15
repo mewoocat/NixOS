@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
-export const PowerIcon = () => Widget.Box({
+export const PowerIcon = (edges) => Widget.Box({
+    class_name: `${edges}`,
     hexpand: true,
     vpack: "fill",
     hpack: "fill",
@@ -8,6 +9,6 @@ export const PowerIcon = () => Widget.Box({
         Widget.Label({
             vpack: "center",
             hpack: "center",
-            //label: ""
+            label: "p"
         })
 })

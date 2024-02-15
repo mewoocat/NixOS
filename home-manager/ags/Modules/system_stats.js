@@ -40,7 +40,8 @@ export const tempProgress = Widget.CircularProgress({
     value: cpu.bind()
 });*/
 
-export const SystemStatsWidgetLarge = () => Widget.Box({
+export const SystemStatsWidgetLarge = (edges) => Widget.Box({
+    class_name: `${edges}`,
     hexpand: true,
     children: [
         Widget.Box({

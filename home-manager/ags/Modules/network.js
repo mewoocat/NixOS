@@ -73,8 +73,8 @@ const WifiSSID = () => Widget.Box({
     ]
 })
 
-export const WifiButton = () => Widget.Box({
-    class_name: "wifi-button",
+export const WifiButton = (edges) => Widget.Box({
+    class_name: `wifi-button ${edges}`,
     hexpand: true,
     children:[
         WifiIcon(),

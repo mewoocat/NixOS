@@ -23,9 +23,9 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 });
 
 // Make widget a formated button with action on click
-function ControlPanelButton(widget, w, h, action, edges) {
+function ControlPanelButton(widget, w, h, action) {
     const button = Widget.Button({
-        class_name: `control-panel-button ${edges}`,
+        class_name: `control-panel-button`,
         on_clicked: action,
         //hpack: "center",
         //vpack: "center",
@@ -40,13 +40,12 @@ function ControlPanelButton(widget, w, h, action, edges) {
 }
 
 // Make widget a formated box
-function ControlPanelBox(widget, w, h, edges) {
+function ControlPanelBox(widget, w, h) {
     const box = Widget.Box({
-        class_name: `control-panel-box ${edges}`,
+        class_name: `control-panel-box`,
         //hpack: "center",
         //vpack: "center",
         css: `
-            background-color: #00ff00;
             min-width: ${w}rem;
             min-height: ${h}rem;
         `,
@@ -59,7 +58,10 @@ function ControlPanelBox(widget, w, h, edges) {
 
 const container = () => Widget.Box({
     class_name: "control-panel-container",
-    css: `margin: 1rem;`,
+    css: `
+        margin: 1rem;
+        padding: 0.5rem;
+    `,
     spacing: 8,
     vertical: true,
     children: [
@@ -71,18 +73,18 @@ const container = () => Widget.Box({
                     children: [
                         Widget.Box({
                             children: [
-                                ControlPanelButton(WifiButton(), options.large, options.small, null, "bottom"),
+                                ControlPanelButton(WifiButton("bottom"), options.large, options.small, null, ""),
                             ]
                         }),
                         Widget.Box({
                             children: [
-                                ControlPanelButton(BluetoothIcon(), options.small, options.small, ToggleBluetooth, "top-right"),
-                                ControlPanelButton(ThemeIcon(), options.small, options.small, null, "top-left"),
+                                ControlPanelButton(BluetoothIcon("top-right"), options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(ThemeIcon("top-left"), options.small, options.small, null),
                             ]
                         })
                     ]
                 }),
-                ControlPanelBox(PowerIcon(), options.large, options.large, "noEdge"),
+                ControlPanelBox(BatteryWidgetLarge("noEdge"), options.large, options.large),
            ]
         }),
 
@@ -92,21 +94,21 @@ const container = () => Widget.Box({
 
         Widget.Box({
             children:[
-                ControlPanelBox(PowerIcon(), options.large, options.large, "noEdge"),
+                ControlPanelBox(SystemStatsWidgetLarge("noEdge"), options.large, options.large),
                 Widget.Box({
-                    css: `background-color: #ff0000;`,
+                    //css: `background-color: #ff0000;`,
                     vertical: true,
                     children: [
                         Widget.Box({
                             children: [
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "bottom-right"),
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "bottom-left"),
+                                ControlPanelButton(PowerIcon("bottom-right"), options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(PowerIcon("bottom-left"), options.small, options.small, ToggleBluetooth, ""),
                             ]
                         }),
                         Widget.Box({
                             children: [
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "top-right"),
-                                ControlPanelButton(PowerIcon(), options.small, options.small, ToggleBluetooth, "top-left"),
+                                ControlPanelButton(PowerIcon("top-right"), options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(PowerIcon("top-left"), options.small, options.small, ToggleBluetooth, ""),
                             ]
                         })
                     ]

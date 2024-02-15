@@ -63,12 +63,19 @@ export const BatteryLabel = () => Widget.Box({
 export const BatteryCircle = () => Widget.CircularProgress({
     class_name: "battery-circle",
     value: Battery.bind("percent").transform(p => p / 100),
+    css: `min-width: 6rem;`,
 })
 
-export const BatteryWidgetLarge = () => Widget.Overlay({
-    child:
-        BatteryCircle(),
-    overlays: [
-        BatteryLabel(),
+export const BatteryWidgetLarge = (edges) => Widget.Box({ 
+    class_name: `${edges}`,
+    hexpand: true,
+    children: [
+        Widget.Overlay({
+            child:
+                BatteryCircle(),
+            overlays: [
+                BatteryLabel(),
+            ]
+        })
     ]
 })
