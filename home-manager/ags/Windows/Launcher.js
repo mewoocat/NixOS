@@ -122,6 +122,16 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     });
 };
 
+export const LauncherButton = () => Widget.Button({
+    class_name: 'launcher',
+    hpack: "start",
+    on_primary_click: () => execAsync('ags -t applauncher'),
+    child:
+        Widget.Label({
+            label: " "
+        })
+});
+
 // there needs to be only one instance
 export const applauncher = Widget.Window({
     name: WINDOW_NAME,
