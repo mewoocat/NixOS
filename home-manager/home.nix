@@ -235,7 +235,7 @@ in
 
     userSettings = {
       "window.titleBarStyle" = "custom";      # Fixes crash on startup
-      "workbench.colorTheme" = "Wal";         # Set theme
+      "workbench.colorTheme" = "Wal Bordered";         # Set theme
     };
   };
   

@@ -2,6 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 
 
+
 export const WifiIcon = () => Widget.Box({
     class_name: "wifi-icon icon",
     children:[
@@ -17,7 +18,6 @@ export const WifiIcon = () => Widget.Box({
                 self.class_name = "wifi-fg"
                 self.toggleClassName('dim', Network.wifi.strength < 0)
                 var p = Network.wifi.strength
-                console.log(p)
                 if (p>75){
                     self.label = ""
                 }
@@ -47,7 +47,6 @@ export const EthernetIcon = () => Widget.Box({
             self.class_name = "ethernet-icon"
             var status = Network.wired.internet
             self.toggleClassName('dim', status == "disconnected")
-            console.log("ethernet" + status)
             if (status == "disconnected"){
                 self.label = ""
             }

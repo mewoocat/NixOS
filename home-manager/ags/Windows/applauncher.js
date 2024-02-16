@@ -80,7 +80,6 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
             applications = Applications.query(text || '');
             if (applications[0]) {
                 App.toggleWindow(WINDOW_NAME);
-                console.log(applications[0].app)
                 applications[0].launch();
             }
         },

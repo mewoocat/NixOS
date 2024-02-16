@@ -36,3 +36,6 @@ export const storage = Variable(0, {
         .replace('%', '')
     ]
 });
+
+
+export const ControlPanelTab = Variable("child1", {})

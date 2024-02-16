@@ -34,7 +34,6 @@ const clientList = Widget.Box({
     children:
         // Returns the list of clients as buttons
         Hyprland.bind("clients").transform(clients => clients.map(client => {
-            console.log(client.class)
             return appButton(client)
         })
     )
