@@ -11,6 +11,7 @@ import { BatteryWidgetLarge } from '../Modules/battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
 import { ThemeIcon } from '../Modules/theme.js'
 import { PowerIcon } from '../Modules/power.js';
+import { Weather } from '../Modules/Weather.js';
 
 // Variables
 import { ControlPanelTab } from '../variables.js';
@@ -99,6 +100,7 @@ const container = () => Widget.Box({
         brightness(),
         VolumeSlider(),
         MicrophoneSlider(),
+        Weather(),
 
         Widget.Box({
             children:[
