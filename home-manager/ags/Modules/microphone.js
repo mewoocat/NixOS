@@ -21,7 +21,6 @@ export const MicrophoneIcon = () => Widget.Box({
 
 export const MicrophoneSlider = () => Widget.Box({
     class_name: 'microphone',
-    //css: 'min-width: 180px',
     children: [
         MicrophoneIcon(),
         Widget.Slider({

@@ -7,6 +7,10 @@
 window.bar {
   background-color: #000000; }
 
+.bar {
+  font-family: "System-ui";
+  font-size: 16px; }
+
 .applauncher {
   background-color: #000000;
   padding: 8px;
@@ -39,7 +43,10 @@ button:hover > * {
 .dock-button:hover > box {
   background-color: #282828; }
 
-/* Workspaves */
+.dock-container {
+  background-color: #000000;
+  border-radius: 32px; }
+
 .ws-indicator {
   background-color: dimgray;
   border-radius: 1.2rem;
@@ -82,32 +89,8 @@ button:hover > * {
   min-width: 2.4rem;
   min-height: 1.2rem; }
 
-.client-title {
-  /*color: @theme_selected_bg_color;*/ }
-
 .notification {
   color: white; }
-
-progress,
-highlight {
-  min-height: 8px; }
-
-* {
-  /*all: unset;*/ }
-
-.bar {
-  font-family: "System-ui";
-  font-size: 16px; }
-
-.dock-container {
-  background-color: #000000;
-  border-radius: 32px; }
-
-.container {
-  background-color: #000000;
-  border-radius: 16px;
-  /*min-width: 280px;*/
-  padding: 16px; }
 
 .control-panel-container {
   background-color: rgba(0, 0, 0, 0.85);
@@ -184,8 +167,10 @@ highlight {
 .battery-fg {
   color: #44ec44; }
 
-.wifi-fg {
-  color: #e29c9c; }
+.battery-circle {
+  background-color: #000000;
+  color: lightgreen;
+  min-height: 64px; }
 
 .icon {
   font-size: 20px; }
@@ -195,10 +180,6 @@ highlight {
 
 .invisible {
   opacity: 0; }
-
-/*both of these could be replaced with dim?*/
-.wifi-bg {
-  color: #6c6c6c; }
 
 .volume-bg {
   color: #6c6c6c; }
@@ -226,11 +207,6 @@ highlight {
   border-style: solid;
   border-width: 1px;
   border-color: #ff4d04; }
-
-.battery-circle {
-  background-color: #000000;
-  color: lightgreen;
-  min-height: 64px; }
 
 .system-stats-circular-progress {
   background-color: #000000;

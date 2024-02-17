@@ -8,10 +8,21 @@ $mediumOpacity: 0.85;
     color: $fg;
 }
 
+// Bar
+////////////////////////////////////////////////////////////////////////////
 window.bar {
     background-color: $bg;
 }
+.bar{
+    font-family: "System-ui";
+    font-size: 16px;
+}
 
+.bar-container{
+}
+
+// App Launcher
+////////////////////////////////////////////////////////////////////////////
 .applauncher {
     background-color: $bg;
     padding: 8px;
@@ -27,6 +38,9 @@ window.bar {
     background-color: $bg;
     border-radius: 1rem;
 }
+
+// Button
+////////////////////////////////////////////////////////////////////////////
 
 button {
     background-color: transparent;
@@ -46,6 +60,7 @@ button:hover > * {
 }
 
 // Dock
+////////////////////////////////////////////////////////////////////////////
 .dock-button > box {
     padding: 0.5rem 1rem;
     border-radius: 1rem;
@@ -53,11 +68,16 @@ button:hover > * {
 .dock-button:hover > box {
     background-color: $bg_alt;    
 }
+.dock-container{
+    background-color: $bg;
+    border-radius: 32px;
+}
 
 
 
 
-/* Workspaves */
+// Workspaves
+////////////////////////////////////////////////////////////////////////////
 
 // Default inactive
 .ws-indicator{
@@ -102,7 +122,6 @@ button:hover > * {
     min-height: 1.2rem;
 }
 
-
 /* Occupied needs to come before active */
 .ws-occupied{
     background-color: $color2;
@@ -117,46 +136,19 @@ button:hover > * {
 
 
 
-
-
-
-.client-title {
-    /*color: @theme_selected_bg_color;*/
-}
-
+// Notifications
+////////////////////////////////////////////////////////////////////////////
 .notification {
     color: rgb(255, 255, 255);
 }
 
-progress,
-highlight {
-    min-height: 8px;
-}
 
 
-*{
-    /*all: unset;*/
-}
-
-.bar{
-    font-family: "System-ui";
-    font-size: 16px;
-}
-
-.bar-container{
-}
-.dock-container{
-    background-color: $bg;
-    border-radius: 32px;
-}
-.container{
-    background-color: $bg;
-    border-radius: 16px;
-    /*min-width: 280px;*/
-    padding: 16px;
-}
 
 
+
+// Control Panel
+////////////////////////////////////////////////////////////////////////////
 .control-panel-container{
     background-color: rgba($bg, $mediumOpacity);
     border-radius: 16px;
@@ -247,9 +239,8 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 }
 
 
-.battery{
-}
-
+// Battery
+////////////////////////////////////////////////////////////////////////////
 .battery-bg{
     color: $fg;
 }
@@ -258,21 +249,21 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
     color: rgb(68, 236, 68);
 }
 
-.wifi-fg{
-    color: $fg;
+.battery-circle{
+    background-color: $bg;
+    color: lightgreen;
+
+    min-height: 64px;
 }
 
-
-.wifi-icon{
-}
-
+// Glyph Icons
+////////////////////////////////////////////////////////////////////////////
 .icon{
     font-size: 20px;
 }
 
-.launcher{
-}
-
+// Common
+////////////////////////////////////////////////////////////////////////////
 .dim{
     color: rgb(108, 108, 108);
 }
@@ -281,14 +272,14 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
     opacity: 0;
 }
 
-/*both of these could be replaced with dim?*/
-.wifi-bg{
-    color: rgb(108, 108, 108);
-}
+// Volume
+////////////////////////////////////////////////////////////////////////////
 .volume-bg{
     color: rgb(108, 108, 108);
 }
 
+// Sliders
+////////////////////////////////////////////////////////////////////////////
 
 /* The background */
 .sliders trough{
@@ -321,12 +312,9 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 
 
 
-.battery-circle{
-    background-color: $bg;
-    color: lightgreen;
 
-    min-height: 64px;
-}
+// System stats
+////////////////////////////////////////////////////////////////////////////
 
 .system-stats-circular-progress{
     background-color: $bg;

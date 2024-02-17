@@ -1,4 +1,4 @@
-import { applauncher } from './Windows/applauncher.js';
+import { applauncher } from './Windows/Launcher.js';
 import { bar } from './Windows/bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
@@ -10,10 +10,10 @@ import { Dock } from './Windows/Dock.js';
 
 
 // main scss file
-const scss = `${App.configDir}/style.scss`
+const scss = `${App.configDir}/Style/style.scss`
 
 // target css file
-const css = `${App.configDir}/style.css`
+const css = `${App.configDir}/Style/style.css`
 
 exec(`sassc ${scss} ${css}`)
 
@@ -25,14 +25,13 @@ monitorFile(
     function() {
         exec(`sassc ${scss} ${css}`)
         App.resetCss();
-        App.applyCss(`${App.configDir}/style.css`);
+        App.applyCss(`${App.configDir}/Style/style.css`);
     },
 );
 
-// ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
 export default {
     style: css, 
-    //style: `./style.css`,
     // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
+    // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
     windows: [applauncher, ...forMonitors(bar), ControlPanel, ActivityCenter(), NotificationPopup, Dock()],
 };

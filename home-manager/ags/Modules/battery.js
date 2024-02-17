@@ -8,7 +8,6 @@ export const BatteryLabel = () => Widget.Box({
     children: [
 
         Widget.Label({
-            // Not sure what transform does here 
             label: Battery.bind('percent').transform(p => {
                 return p.toString() + "% "
             })
@@ -20,7 +19,6 @@ export const BatteryLabel = () => Widget.Box({
             child:
                 Widget.Label({
                     class_name: "battery-bg",
-                    // Not sure what transform does here 
                     label: Battery.bind('charging').transform(p => {
                         if (p){
                             return ""
@@ -49,7 +47,6 @@ export const BatteryLabel = () => Widget.Box({
                             label.label = ""
                         }
                         else{
-                            //change color
                             label.label = ""
                         }
                     }, 'changed'),
@@ -63,10 +60,10 @@ export const BatteryLabel = () => Widget.Box({
 export const BatteryCircle = () => Widget.CircularProgress({
     class_name: "battery-circle",
     value: Battery.bind("percent").transform(p => p / 100),
-    css: `min-width: 6rem;`,
 })
 
 export const BatteryWidgetLarge = (edges) => Widget.Box({ 
+    //visible: Battery.bind('available'),
     class_name: `${edges}`,
     hexpand: true,
     children: [
