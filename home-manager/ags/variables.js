@@ -1,4 +1,5 @@
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 
 const divide = ([total, free]) => free / total;
 
@@ -39,3 +40,24 @@ export const storage = Variable(0, {
 
 
 export const ControlPanelTab = Variable("child1", {})
+
+
+var lat = "52.52"
+var lon = "13.41"
+//TODO add variables for units
+var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`
+
+// Get data from api
+async function getWeather(){
+    // await is needed to wait for the return of the data
+    const data = await Utils.fetch(url)
+        .then(res => res.json())
+        .catch(console.error)
+
+    print(data.current.temperature_2m)
+    return data
+}
+
+export const weather = Variable(getWeather(), {
+    poll: [400000, () => { return getWeather() }]
+})

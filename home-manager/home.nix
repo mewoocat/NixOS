@@ -168,6 +168,9 @@ in
     
     l3afpad
 
+    gthumb
+    zoxide
+
   ];
 
   # Activation scripts 

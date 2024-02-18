@@ -15,7 +15,7 @@ const appButton = (client = null) => Widget.Button({
                 Widget.Icon({
                     class_name: 'client-icon',
                     css: 'font-size: 3rem;',
-                    icon: client.class,
+                    //icon: client.class,
                 }),
                 /*
                 Widget.Label({

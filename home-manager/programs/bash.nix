@@ -84,6 +84,8 @@
       ######################################
       # Fix for gsettings no schema
       export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
+
+      eval "$(zoxide init bash)"
     '';
   };
 }

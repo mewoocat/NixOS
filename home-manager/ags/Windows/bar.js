@@ -38,7 +38,7 @@ const Right = (monitor) => Widget.Box({
     hpack: 'end',
     spacing: 8,
     children: [
-        SysTray(), 
+        //SysTray(), 
         EthernetIcon(),
         BluetoothIcon(),
         BatteryLabel(), 

@@ -103,31 +103,34 @@ function setagsColors(){
     #echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
 
     # New color file in different dir since .config/ags is read only
-    echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/ags/_colors.scss;
-    echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
+    echo "\$bg: $(sed '1q;d' ~/.cache/wal/colors);" > ~/.config/ags/Style/_colors.scss;
+    echo "\$fg: $(sed '16q;d' ~/.cache/wal/colors);" >> ~/.config/ags/Style/_colors.scss;
 
     # Get theme variables 
     bg=$(sed '1q;d' ~/.cache/wal/colors | cut -c 2-)
     fg=$(sed '16q;d' ~/.cache/wal/colors | cut -c 2-)
+    echo "bg $bg fg $fg"
 
     if [ $mode == "light" ]; then
         echo "hi"
-        echo "\$bg_alt: $(darken_color $bg 40);" >> ~/.config/ags/_colors.scss;
+        echo "\$bg_alt: $(darken_color $bg 40);" >> ~/.config/ags/Style/_colors.scss;
         #echo "\$fg_alt: $(lighten_color $fg 100);" >> ~/.config/ags/_colors.scss;
-        echo "\$fg_alt: $(darken_color $bg 100);" >> ~/.config/ags/_colors.scss;
+        echo "\$fg_alt: $(darken_color $bg 100);" >> ~/.config/ags/Style/_colors.scss;
     fi
 
     if [ $mode == "dark" ]; then
         echo "ho"
-        echo "\$bg_alt: $(lighten_color $bg 40);" >> ~/.config/ags/_colors.scss;
+        echo "$(lighten_color $bg 40)"
+        echo "$(lighten_color $bg 100)"
+        echo "\$bg_alt: $(lighten_color $bg 40);" >> ~/.config/ags/Style/_colors.scss;
         #echo "\$fg_alt: $(darken_color $fg 100);" >> ~/.config/ags/_colors.scss;
-        echo "\$fg_alt: $(lighten_color $bg 100);" >> ~/.config/ags/_colors.scss;
+        echo "\$fg_alt: $(lighten_color $bg 100);" >> ~/.config/ags/Style/_colors.scss;
     fi
 
-    echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
-    echo "\$color2: $(sed '3q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
-    echo "\$color3: $(sed '4q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
-    echo "\$color4: $(sed '5q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
+    echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/ags/Style/_colors.scss;
+    echo "\$color2: $(sed '3q;d' ~/.cache/wal/colors);" >> ~/.config/ags/Style/_colors.scss;
+    echo "\$color3: $(sed '4q;d' ~/.cache/wal/colors);" >> ~/.config/ags/Style/_colors.scss;
+    echo "\$color4: $(sed '5q;d' ~/.cache/wal/colors);" >> ~/.config/ags/Style/_colors.scss;
 
 }
 
