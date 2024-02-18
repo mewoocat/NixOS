@@ -7,6 +7,7 @@ import { forMonitors } from './utils.js';
 import { ActivityCenter } from './Windows/ActivityCenter.js';
 import { NotificationPopup } from './Windows/NotificationPopup.js';
 import { Dock } from './Windows/Dock.js';
+import { Lockscreen } from './Windows/Lockscreen.js';
 
 
 // main scss file
@@ -33,5 +34,5 @@ export default {
     style: css, 
     // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
     // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
-    windows: [applauncher, ...forMonitors(bar), ControlPanel, ActivityCenter(), NotificationPopup, /*Dock()*/],
+    windows: [applauncher, ...forMonitors(bar), Lockscreen(), ControlPanel, ActivityCenter(), NotificationPopup, /*Dock()*/],
 };

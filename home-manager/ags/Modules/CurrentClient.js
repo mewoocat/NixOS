@@ -10,7 +10,6 @@ export const ClientIcon = () => Widget.Icon({
     class_name: 'client-icon',
     }).bind('icon', Hyprland, 'active', p => {
         const icon = Utils.lookUpIcon(p.client.class)
-        print(p.client.class)
 
         //icon: Hyprland.active.client.bind("class"),
         if (icon) {

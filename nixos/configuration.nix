@@ -62,6 +62,9 @@ in{
   # https://github.com/NixOS/nixpkgs/issues/240886
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
 
+  # For AGS Screenlock
+  security.pam.services.ags = {};
+
   # Needed for gparted
   security.polkit.enable = true;
 
