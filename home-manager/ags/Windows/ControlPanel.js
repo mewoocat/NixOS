@@ -12,6 +12,7 @@ import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
 import { ThemeIcon } from '../Modules/theme.js'
 import { PowerIcon } from '../Modules/power.js';
 import { Weather } from '../Modules/Weather.js';
+import { NightlightIcon, ToggleNightlight } from '../Modules/nightlight.js';
 
 // Variables
 import { ControlPanelTab } from '../variables.js';
@@ -116,7 +117,7 @@ const container = () => Widget.Box({
                         Widget.Box({
                             children: [
                                 ControlPanelButton(PowerIcon(), "bottom-right", options.small, options.small, () => {execAsync(['bash', '-c', '/home/eXia/.config/hypr/scripts/gamemode.sh'])}, ""),
-                                ControlPanelButton(PowerIcon(), "bottom-left", options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(NightlightIcon(), "bottom-left", options.small, options.small, ToggleNightlight, ""),
                             ]
                         }),
                         Widget.Box({

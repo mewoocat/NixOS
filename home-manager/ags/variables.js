@@ -42,8 +42,14 @@ export const storage = Variable(0, {
 export const ControlPanelTab = Variable("child1", {})
 
 
-var lat = "52.52"
-var lon = "13.41"
+import App from 'resource:///com/github/Aylur/ags/app.js';
+// Read in user settings
+const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+
+var lat = data.lat
+print("lat: " + lat)
+var lon = data.lon
+print("lon: " + lon)
 //TODO add variables for units
 var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`
 

@@ -30,12 +30,13 @@ window.bar {
 }
 
 .app-item:focus {
-    background-color: $bg;
+    background-color: $bg-alt;
     border-radius: 1rem;
 }
+
 .app-entry {
     padding: 0.6rem;
-    background-color: $bg;
+    background-color: $bg-alt;
     border-radius: 1rem;
 }
 

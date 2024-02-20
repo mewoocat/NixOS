@@ -170,6 +170,7 @@ in
 
     gthumb
     zoxide
+    tmux
 
   ];
 
