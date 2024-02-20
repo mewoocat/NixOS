@@ -65,6 +65,9 @@ in{
   # For AGS Screenlock
   security.pam.services.ags = {};
 
+  # For Swaylock Screenlock
+  security.pam.services.swaylock = {};
+
   # Needed for gparted
   security.polkit.enable = true;
 

@@ -315,6 +315,17 @@ in
     # additional packages to add to gjs's runtime
     extraPackages = [  ];
   };
+  
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+  };
+
+
+
+
+
+
 
   # Services
 
@@ -328,7 +339,7 @@ in
     events = let
       lock = (pkgs.writeShellScriptBin "my-hello" ''
           wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
-          ${pkgs.gtklock}/bin/gtklock -t "%l:%M %P" -b $wallpaper;
+          ${pkgs.gtklock}/bin/gtklock -i -t "%l:%M %P" -b $wallpaper;
       '');
 
     in

@@ -32,7 +32,7 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 });
 
 // Make widget a formated button with action on click
-function ControlPanelButton(widget, w, h, action) {
+function ControlPanelButton(widget, edges, w, h, action) {
     const button = Widget.Button({
         class_name: `control-panel-button`,
         on_clicked: action,
@@ -43,7 +43,13 @@ function ControlPanelButton(widget, w, h, action) {
             min-height: ${h}rem;
         `,
         child:
-            widget
+            Widget.Box({
+                hexpand: true,
+                class_name: `${edges}`,
+                children: [
+                    widget
+                ]
+            })
     })
     return button;
 }
@@ -82,13 +88,13 @@ const container = () => Widget.Box({
                     children: [
                         Widget.Box({
                             children: [
-                                ControlPanelButton(WifiButton("bottom"), options.large, options.small, () => {ControlPanelTab.setValue("child2")}, ""),
+                                ControlPanelButton(WifiButton(), "bottom", options.large, options.small, () => {ControlPanelTab.setValue("child2")}, ""),
                             ]
                         }),
                         Widget.Box({
                             children: [
-                                ControlPanelButton(BluetoothIcon("top-right"), options.small, options.small, ToggleBluetooth),
-                                ControlPanelButton(ThemeIcon("top-left"), options.small, options.small, null),
+                                ControlPanelButton(BluetoothIcon(), "top-right", options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(ThemeIcon(), "top-left", options.small, options.small, null),
                             ]
                         })
                     ]
@@ -100,29 +106,33 @@ const container = () => Widget.Box({
         brightness(),
         VolumeSlider(),
         MicrophoneSlider(),
-        Weather(),
 
         Widget.Box({
             children:[
-                ControlPanelBox(SystemStatsWidgetLarge("noEdge"), options.large, options.large),
+                ControlPanelBox(Weather("noEdge"), options.large, options.large),
                 Widget.Box({
-                    //css: `background-color: #ff0000;`,
                     vertical: true,
                     children: [
                         Widget.Box({
                             children: [
-                                ControlPanelButton(PowerIcon("bottom-right"), options.small, options.small, () => {execAsync(['bash', '-c', '/home/eXia/.config/hypr/scripts/gamemode.sh'])}, ""),
-                                ControlPanelButton(PowerIcon("bottom-left"), options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(PowerIcon(), "bottom-right", options.small, options.small, () => {execAsync(['bash', '-c', '/home/eXia/.config/hypr/scripts/gamemode.sh'])}, ""),
+                                ControlPanelButton(PowerIcon(), "bottom-left", options.small, options.small, ToggleBluetooth, ""),
                             ]
                         }),
                         Widget.Box({
                             children: [
-                                ControlPanelButton(PowerIcon("top-right"), options.small, options.small, ToggleBluetooth, ""),
-                                ControlPanelButton(PowerIcon("top-left"), options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(PowerIcon(), "top-right", options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(PowerIcon(), "top-left", options.small, options.small, ToggleBluetooth, ""),
                             ]
                         })
                     ]
                 })
+            ]
+        }),
+
+        Widget.Box({
+            children:[
+                ControlPanelBox(SystemStatsWidgetLarge("noEdge"), options.large, options.large),
             ]
         })
     ],

@@ -252,8 +252,6 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 .battery-circle{
     background-color: $bg;
     color: lightgreen;
-
-    min-height: 64px;
 }
 
 // Glyph Icons
@@ -270,6 +268,10 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 
 .invisible{
     opacity: 0;
+}
+
+.control-panel-widget-large{
+    padding: 0.4rem;
 }
 
 // Volume

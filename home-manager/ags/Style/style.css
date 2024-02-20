@@ -169,8 +169,7 @@ button:hover > * {
 
 .battery-circle {
   background-color: #0a0a0e;
-  color: lightgreen;
-  min-height: 64px; }
+  color: lightgreen; }
 
 .icon {
   font-size: 20px; }
@@ -180,6 +179,9 @@ button:hover > * {
 
 .invisible {
   opacity: 0; }
+
+.control-panel-widget-large {
+  padding: 0.4rem; }
 
 .volume-bg {
   color: #6c6c6c; }
