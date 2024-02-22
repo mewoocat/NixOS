@@ -10,10 +10,16 @@
 #   Change ags colors
 #   Set wallpaper
 #
-#
-# Applicaitons that do not respect theme change
-#   Discord - Requires restart
-#   Startpage?
+
+# Features
+#   Set Wallpaper       
+#   Set colorscheme
+        # AGS
+        # GTK
+        # Terminal
+        # ...
+#   Set wallpaper and colorscheme from wallpaper (dark/light)
+
 
 # from https://github.com/AmadeusWM/dotfiles-hyprland/blob/main/themes/apatheia/scripts/wallpaper
 # swww img -t any --transition-bezier 0.0,0.0,1.0,1.0 --transition-duration .8 --transition-step 255 --transition-fps 60
@@ -25,12 +31,6 @@ wallpaper=$(cat $HOME/.cache/wal/wal)
 wallpaper_path="$HOME/.cache/wal/wal"
 theme_path="$HOME/.cache/wal/colors"
 
-wallpaper_light="/home/exia/Downloads/pexels-jesse-zheng-732547.jpg"
-wallpaper_dark="/home/exia/Downloads/pexels-elias-tigiser-2757549.jpg"
-
-theme_colors="base16-3024"
-#theme_colors_dark="base16-google"
-#theme_colors_lightk="base16-chalk"
 #theme_colors_dark=~/.config/wal/custom/theme_1.json
 #theme_colors_light=~/.config/wal/custom/theme_2.json
 theme_colors_light="base16-irblack"
@@ -38,10 +38,7 @@ theme_colors_dark="base16-irblack"
 
 gtk_light_theme="Mojave-Light"
 gtk_dark_theme="Mojave-Dark"
-gtk_dark_theme="default"
 
-kitty_light="Github"
-kitty_dark="Dark Pastel"
 
 theme=false;
 
@@ -112,18 +109,12 @@ function setagsColors(){
     echo "bg $bg fg $fg"
 
     if [ $mode == "light" ]; then
-        echo "hi"
         echo "\$bg_alt: $(darken_color $bg 40);" >> ~/.config/ags/Style/_colors.scss;
-        #echo "\$fg_alt: $(lighten_color $fg 100);" >> ~/.config/ags/_colors.scss;
         echo "\$fg_alt: $(darken_color $bg 100);" >> ~/.config/ags/Style/_colors.scss;
     fi
 
     if [ $mode == "dark" ]; then
-        echo "ho"
-        echo "$(lighten_color $bg 40)"
-        echo "$(lighten_color $bg 100)"
         echo "\$bg_alt: $(lighten_color $bg 40);" >> ~/.config/ags/Style/_colors.scss;
-        #echo "\$fg_alt: $(darken_color $fg 100);" >> ~/.config/ags/_colors.scss;
         echo "\$fg_alt: $(lighten_color $bg 100);" >> ~/.config/ags/Style/_colors.scss;
     fi
 
@@ -165,7 +156,6 @@ function setRofiColors(){
     "
 
     echo -e "$text" > ~/.config/rofi/theme.rasi
-
 }
 
 
@@ -174,56 +164,39 @@ function setLight(){
     wal -l --theme $theme_colors_light; 
     gsettings set org.gnome.desktop.interface gtk-theme $gtk_light_theme;
     swww img $wallpaper_light;
-    #    :width 500
-    #    :width 500
     setagsColors light;
-    #killall ags && killall ags && ags open bar;
     echo $wallpaper_light > ~/.config/wallpaper;
-    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setDark(){
-    # Includes setting the background to black in all cases
-    #wal -b 000000 --backend colorz --theme $theme_colors_dark;
-    #wal --backend colorz --theme $theme_colors_dark;
     wal --theme $theme_colors_dark;
-    if [ false == false ]; then
-        echo "theme false"
-        gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
-    fi
+    gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
     #swww img $wallpaper_dark --transition-type outer;
     swww img $wallpaper_dark
     echo "\$color1: $(sed '2q;d' ~/.cache/wal/colors);" >> ~/.config/ags/_colors.scss;
     setagsColors dark;
     echo $wallpaper_dark > ~/.config/wallpaper;
-    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setWallpaperDark(){
     bgBlack=$2
-    if [ $bgBlack == true ]; then
-        echo "blah blah...";
+    if [[ $bgBlack == true ]]; then
         wal -i $1 -b 000000;
     else
-        echo "not..."
         #wal --backend colorz -i $1;
         wal --saturate 1.0 -i $1;
     fi
+    setGtkColors
     gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark_theme;
-    #swww img $1;
     setagsColors dark;
-    #echo $1 > ~/.config/wallpaper;
     setWallpaper $1;
-    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
 }
 
 function setWallpaperLight(){
     wal -l -i $1;
     gsettings set org.gnome.desktop.interface gtk-theme $gtk_light_theme;
-    swww img $1;
     setagsColors light;
-    echo $1 > ~/.config/wallpaper;
-    sleep 0.1 # Prevents the ags reload from changing the colors to reset the theme_light variable
+    setWallpaper $1
 }
 
 function setWallpaper(){
@@ -239,15 +212,10 @@ bgBlack=false
 while getopts W:i:bwldt:B:TL:D:Gx flag
 do
     case "${flag}" in
-        # New
-        #i)  hyprctl hyprctl unload all; hyprctl hyprpaper preload ${OPTARG}; hyprctl hyprpaper wallpaper "eDP-1,${OPTARG}" ; hyprctl hyprpaper wallpaper "DP-1,${OPTARG}"; > /dev/null; theme=false;;
-
+        
         # Set wallpaper path in a file for compatibility between file types
         i) swww img ${OPTARG} ; echo "${OPTARG}" > ~/.config/wallpaper ;;
 
-		# set wallpaper and theme
-        #i) wal -i ${OPTARG}; > /dev/null ; theme=true ;;
-		
 		# set wallpaper and theme with black bg
         b) bgBlack=true ;;
 		

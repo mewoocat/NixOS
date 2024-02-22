@@ -1,0 +1,16 @@
+[config]
+set_wallpaper = true
+wallpaper_tool = 'Swww'
+prefix = '@'
+swww_options = [
+    "--transition-type",
+    "center",
+]
+
+[config.reload_apps_list]
+kitty = true
+gtk_theme = true
+
+[templates.ags]
+input_path = "~/NixOS/home-manager/matugen/ags.scss"
+output_path = "~/.config/ags/Style/_colors.scss"

@@ -14,6 +14,7 @@ in
   imports = [
     #hyprland.homeManagerModules.default
     inputs.ags.homeManagerModules.default
+    #inputs.matugen.homeManagerModules.default
     programs/bash.nix
   ];
 
@@ -172,6 +173,8 @@ in
     zoxide
     tmux
 
+    inputs.matugen.packages.x86_64-linux.default
+
   ];
 
   # Activation scripts 
@@ -321,8 +324,6 @@ in
     enable = true;
     package = pkgs.swaylock-effects;
   };
-
-
 
 
 

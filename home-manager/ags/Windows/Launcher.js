@@ -59,6 +59,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     // container holding the buttons
     const list = Widget.Box({
         vertical: true,
+        class_name: "app-list",
         children: applications,
         spacing,
     });
@@ -85,10 +86,27 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
         },
 
         // filter out the list
-        on_change: ({ text }) => applications.forEach(item => {
-            item.visible = item.attribute.app.match(text);
-        }),
+        on_change: ({ text }) => {
+            var foundFirst = false
+            applications.forEach(item => {
+                item.visible = item.attribute.app.match(text);
+                if (item.visible == true && foundFirst == false){
+                    foundFirst = true
+                    //print("found first: " + item)
+                    //item.toggleClassName("first-item", true)
+                    //item.class_name = "first-item"
+                }
+            })
+        },
     });
+
+
+    // Highlight first item when entry is selected
+    // 'notify::"property"' is a event that gobjects send for each property
+    // https://gjs-docs.gnome.org/gtk30~3.0/gtk.widget
+    entry.on('notify::has-focus', ({ hasFocus }) => {
+        list.toggleClassName("first-item", hasFocus)
+    })
 
     return Widget.Box({
         class_name: "applauncher",

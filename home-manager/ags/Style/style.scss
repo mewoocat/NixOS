@@ -5,13 +5,13 @@ $mediumOpacity: 0.85;
     all: unset;
     padding: 0px;
     margin: 0px;
-    color: $fg;
+    color: $on_surface;
 }
 
 // Bar
 ////////////////////////////////////////////////////////////////////////////
 window.bar {
-    background-color: $bg;
+    background-color: $surface;
 }
 .bar{
     font-family: "System-ui";
@@ -24,19 +24,29 @@ window.bar {
 // App Launcher
 ////////////////////////////////////////////////////////////////////////////
 .applauncher {
-    background-color: $bg;
+    background-color: $surface;
     padding: 8px;
     border-radius: 24px;
 }
 
 .app-item:focus {
-    background-color: $bg-alt;
+    background-color: $surface_bright;
     border-radius: 1rem;
+}
+
+.app-item:first-child{
+    //background-color: $surface_bright;
 }
 
 .app-entry {
     padding: 0.6rem;
-    background-color: $bg-alt;
+    background-color: $surface_bright;
+    border-radius: 1rem;
+}
+
+// First item in list of applications
+.first-item > button:first-child{
+    background-color: $surface_bright;
     border-radius: 1rem;
 }
 
@@ -57,7 +67,7 @@ button > * {
 }
 
 button:hover > * {
-    background-color: $bg_alt;
+    background-color: $surface;
 }
 
 // Dock
@@ -67,10 +77,10 @@ button:hover > * {
     border-radius: 1rem;
 }
 .dock-button:hover > box {
-    background-color: $bg_alt;    
+    background-color: $surface;    
 }
 .dock-container{
-    background-color: $bg;
+    background-color: $surface;
     border-radius: 32px;
 }
 
@@ -109,7 +119,7 @@ button:hover > * {
 
 // On hover color
 .ws-button:hover > box{
-    background-color: $color1;
+    background-color: $primary;
 }
 .ws-button:hover > .ws-inactive {
     min-width: 1.2rem;
@@ -125,11 +135,11 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied{
-    background-color: $color2;
+    background-color: $secondary;
 }
 
 .ws-active{
-    background-color: $color3;
+    background-color: $tertiary;
     min-width: 2.4rem;
     min-height: 1.2rem;
 }
@@ -151,7 +161,7 @@ button:hover > * {
 // Control Panel
 ////////////////////////////////////////////////////////////////////////////
 .control-panel-container{
-    background-color: rgba($bg, $mediumOpacity);
+    background-color: rgba($surface, $mediumOpacity);
     border-radius: 16px;
     /*min-width: 280px;*/
     //padding: 0.4rem;
@@ -162,7 +172,7 @@ button:hover > * {
 }
 .control-panel-box > *{
     border-radius: 1rem;
-    background-color: rgba($bg_alt, $mediumOpacity);
+    background-color: rgba($surface, $mediumOpacity);
 }
 
 .control-panel-button{
@@ -170,10 +180,10 @@ button:hover > * {
 }
 
 .control-panel-button > * {
-    background-color: rgba($bg_alt, $mediumOpacity);
+    background-color: rgba($surface, $mediumOpacity);
 }
 .control-panel-button:hover > * {
-    background-color: $color1;
+    background-color: $primary;
 }
 
 // Where control panel buttons/box share and edge with another, apply half the padding
@@ -243,7 +253,7 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 // Battery
 ////////////////////////////////////////////////////////////////////////////
 .battery-bg{
-    color: $fg;
+    color: $on_surface;
 }
 
 .battery-fg{
@@ -251,7 +261,7 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 }
 
 .battery-circle{
-    background-color: $bg;
+    background-color: $surface;
     color: lightgreen;
 }
 
@@ -286,7 +296,7 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 
 /* The background */
 .sliders trough{
-  background-color: $bg_alt;
+  background-color: $surface;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; 
@@ -297,7 +307,7 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
  // min-height: 32px;
   //min-width: 32px;
   border-radius: 20px;
-  background-color: $color1;
+  background-color: $primary;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; 
 }
@@ -307,10 +317,10 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: $color3;
+  background-color: $tertiary;
   border-style: solid;
   border-width: 1px;
-  border-color: $color3;
+  border-color: $tertiary;
 }
 
 
@@ -320,8 +330,8 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 ////////////////////////////////////////////////////////////////////////////
 
 .system-stats-circular-progress{
-    background-color: $bg;
-    color: $color3;
+    background-color: $surface;
+    color: $tertiary;
     font-size: 4px;
     min-height: 24px;
 }
@@ -329,5 +339,5 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 
 // Lockscreen
 .lockscreen {
-    background-color: $bg;
+    background-color: $surface;
 }

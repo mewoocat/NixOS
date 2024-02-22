@@ -23,6 +23,13 @@
 
     # AGS
     ags.url = "github:Aylur/ags";
+
+    # Matugen
+    matugen = {
+      url = "github:/InioX/Matugen";
+      # If you need a specific version:
+      #ref = "refs/tags/matugen-v0.10.0"
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the
