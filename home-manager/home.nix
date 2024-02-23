@@ -175,6 +175,10 @@ in
 
     inputs.matugen.packages.x86_64-linux.default
 
+    # Gui display settings
+    nwg-displays
+    wlr-randr
+
   ];
 
   # Activation scripts 
@@ -379,10 +383,29 @@ in
 
   # Window manager
   wayland.windowManager.hyprland = {
-      enable = true;
-      plugins = [
-        inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-      ];
+    enable = true;
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      # inputs.hycov.packages.${pkgs.system}.hycov # Has build failure
+    ];
+    /*
+    extraConfig = ''
+      bind = ALT,tab,hycov:toggleoverview
+      bind=ALT,left,hycov:movefocus,l
+      bind=ALT,right,hycov:movefocus,r
+      bind=ALT,up,hycov:movefocus,u
+      bind=ALT,down,hycov:movefocus,d
+
+      plugin {
+          hycov {
+            overview_gappo = 60 #gaps width from screen
+            overview_gappi = 24 #gaps width from clients
+            hotarea_size = 10 #hotarea size in bottom left,10x10
+            enable_hotarea = 1 # enable mouse cursor hotarea
+          }
+      }
+    '';
+    */
   };
 
   # XDG

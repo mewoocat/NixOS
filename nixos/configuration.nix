@@ -106,7 +106,6 @@ in{
   services.gvfs.enable = true;
  
 
-
   ### Programs ###
  
   programs.dconf.enable = true;  # Required for gtk?

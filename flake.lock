@@ -80,6 +80,26 @@
         "type": "github"
       }
     },
+    "hycov": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1708389842,
+        "narHash": "sha256-L7/xpfqHi4vugxy0rfGntX5SOEmOpzO1wlPA+bZzoLk=",
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "rev": "6baf4d3040cb62c2c5f7fc8b9d794bde70d545d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "type": "github"
+      }
+    },
     "hyprland": {
       "inputs": {
         "hyprland-protocols": "hyprland-protocols",
@@ -256,6 +276,7 @@
         "ags": "ags",
         "anyrun": "anyrun",
         "home-manager": "home-manager",
+        "hycov": "hycov",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "matugen": "matugen",
