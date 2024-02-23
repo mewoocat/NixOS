@@ -120,7 +120,7 @@ in
     eww-wayland
     glib
     gsettings-desktop-schemas # Don't need?
-    gnome.nixos-gsettings-overrides
+    gnome.nixos-gsettings-overrides # This is used instead
     sway-contrib.grimshot
     pywal
     jaq
