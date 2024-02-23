@@ -8,6 +8,13 @@ $mediumOpacity: 0.85;
     color: $on_surface;
 }
 
+
+.container{
+    background-color: $surface;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
 // Bar
 ////////////////////////////////////////////////////////////////////////////
 window.bar {
@@ -18,8 +25,6 @@ window.bar {
     font-size: 16px;
 }
 
-.bar-container{
-}
 
 // App Launcher
 ////////////////////////////////////////////////////////////////////////////
@@ -67,7 +72,7 @@ button > * {
 }
 
 button:hover > * {
-    background-color: $surface;
+    background-color: $surface_bright;
 }
 
 // Dock
@@ -77,7 +82,7 @@ button:hover > * {
     border-radius: 1rem;
 }
 .dock-button:hover > box {
-    background-color: $surface;    
+    background-color: $surface_bright;
 }
 .dock-container{
     background-color: $surface;
@@ -172,7 +177,7 @@ button:hover > * {
 }
 .control-panel-box > *{
     border-radius: 1rem;
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($surface_bright, $mediumOpacity);
 }
 
 .control-panel-button{
@@ -180,7 +185,7 @@ button:hover > * {
 }
 
 .control-panel-button > * {
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($surface_bright, $mediumOpacity);
 }
 .control-panel-button:hover > * {
     background-color: $primary;
@@ -340,4 +345,35 @@ $marginSmall: 0.2rem; // 1/2 of marginBig
 // Lockscreen
 .lockscreen {
     background-color: $surface;
+}
+
+// Calendar
+// Derived from Phocus GTK theme
+// Wher docs?
+calendar {
+  //background: #141414;
+}
+calendar.button {
+  //background: #1c1c1c;
+  //color: rgba(255, 255, 255, 0.34);
+}
+calendar.button:hover {
+  color: rgba(213, 25, 25, 0.87);
+}
+calendar.button:disabled {
+  color: rgba(255, 255, 255, 0.06);
+}
+calendar.header {
+  //background: #1c1c1c;
+}
+calendar.highlight {
+  color: rgba(255, 255, 255, 0.34);
+}
+calendar:selected {
+  color: white;
+  border-radius: 0.5em;
+  background: #7154f2;
+}
+calendar:indeterminate {
+  color: rgba(116, 116, 116, 0.776);
 }

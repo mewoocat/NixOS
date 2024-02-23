@@ -32,11 +32,19 @@ const players = Widget.Box({
 const container = () => Widget.Box({
     class_name: "control-panel-container",
     spacing: 8,
-    vertical: true,
     children: [
-        calendar,
-        players,
-        NotificationWidget,
+        Widget.Box({
+            children:[
+                calendar,
+            ]
+        }),
+        Widget.Box({
+            vertical: true,
+            children: [
+                players,
+                NotificationWidget,
+            ]
+        })
         //Media(), //Borked :(
     ],
 });
@@ -59,6 +67,7 @@ export const ActivityCenter = (monitor = 0) => Widget.Window({
     anchor: ['top', 'center'],
     exclusivity: 'normal',
     child: Widget.Box({
+        class_name: "container",
         css: `
             min-width: 40rem;
             min-height: 20rem;

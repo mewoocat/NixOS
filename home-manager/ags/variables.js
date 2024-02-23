@@ -67,3 +67,12 @@ async function getWeather(){
 export const weather = Variable(getWeather(), {
     poll: [400000, () => { return getWeather() }]
 })
+
+
+export const user = Variable("...", {
+    poll: [60000, 'whoami', out => out]
+});
+
+export const uptime = Variable("...", {
+    poll: [60000, 'uptime', out => out.split(',')[0]]
+});

@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
+import { user, uptime } from '../variables.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const WINDOW_NAME = 'applauncher';
@@ -49,6 +50,25 @@ const powerButtons = Widget.Box({
             child: Widget.Label({label: ""}),
             on_primary_click: () => execAsync('systemctl reboot'),
         }),
+    ]
+})
+
+const UserInfo = Widget.Box({
+    spacing: 4,
+    children:[
+        Widget.Label({
+            label: user.bind(),
+        }),
+        Widget.Label({
+            label: uptime.bind(),
+        }),
+        Widget.Icon({
+            css: `
+                border-radius: 1rem;
+            `,
+            icon: "/home/eXia/ArchBackup/Pictures/zero.jpeg",
+            size: 24,
+        })
     ]
 })
 
@@ -125,6 +145,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                 child: list,
             }),
             powerButtons,
+            UserInfo,
         ],
         setup: self => self.hook(App, (_, windowName, visible) => {
             if (windowName !== WINDOW_NAME)
