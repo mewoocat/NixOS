@@ -2,6 +2,8 @@
 
 state=$(hyprctl getoption general:gaps_out | grep int | awk '{print $2}')
 
+echo "$state"
+
 if [[ "$state" -gt 0 ]]
 then
     hyprctl keyword general:gaps_out 0

@@ -80,7 +80,7 @@
           hyprland.homeManagerModules.default
           anyrun.homeManagerModules.default
           #ags.homeManagerModules.default
-          {wayland.windowManager.hyprland.enable = true;}
+          #{wayland.windowManager.hyprland.enable = true;}
           ./home-manager/home.nix 
         ];
       };
