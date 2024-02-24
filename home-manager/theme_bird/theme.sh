@@ -3,22 +3,31 @@
 # Inputs
 #   Wallpaper
 #   Color theme file
-#   Dark / Light?
+#   Dark / Light
 #
+# Options
+#   
 # Effects
-#   Change Hyprland colors
-#   Change ags colors
+#   Upate Hyprland colors
+#   Update AGS colors
+#   Update terminal colors
+#   Update GTK colors
 #   Set wallpaper
 #
-
 # Features
-#   Set Wallpaper       
+#   Set wallpaper       
 #   Set colorscheme
-        # AGS
-        # GTK
-        # Terminal
-        # ...
-#   Set wallpaper and colorscheme from wallpaper (dark/light)
+#
+
+#   Usage
+#       theme.sh [inputs] [options]
+#   Inputs
+#       -w | --wallpaper    
+#       -c | --color-scheme
+#   Options
+#       -l | --light
+#       -d | --dark
+
 
 
 # from https://github.com/AmadeusWM/dotfiles-hyprland/blob/main/themes/apatheia/scripts/wallpaper
@@ -31,8 +40,6 @@ wallpaper=$(cat $HOME/.cache/wal/wal)
 wallpaper_path="$HOME/.cache/wal/wal"
 theme_path="$HOME/.cache/wal/colors"
 
-#theme_colors_dark=~/.config/wal/custom/theme_1.json
-#theme_colors_light=~/.config/wal/custom/theme_2.json
 theme_colors_light="base16-irblack"
 theme_colors_dark="base16-irblack"
 
