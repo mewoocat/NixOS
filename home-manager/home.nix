@@ -146,6 +146,7 @@ in
     (retroarch.override {
       cores = with libretro; [
         snes9x
+        pcsx-rearmed
         #pcsx2
       ];
     })
