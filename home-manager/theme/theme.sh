@@ -63,10 +63,14 @@ function setColors(){
     #   Wal
     matugen image $wallpaper --mode "$mode" -t scheme-fruit-salad --show-colors
 
+    # Debugging...
     echo "gtk = $gtkTheme"
+    echo "mode = $mode"
 
-    gsettings set org.gnome.desktop.interface gtk-theme phocus
+    #gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
+    #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3' && gsettings set org.gnome.desktop.interface color-scheme 'default'
+    #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' && gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     # AGS *should* auto detect the changes to it's color file
 
     # Responsible for:
@@ -79,31 +83,27 @@ function setColors(){
 function setWallpaperTheme(){
     wallpaper=$1
     mode=$2 # Light/Dark
+    echo "mode = $mode aaaa"
     # Set wallpaper
     setWallpaper $wallpaper
     # Set colorscheme
     setColors $wallpaper $mode
 }
 
-mode="dark"
 # get input flags
-while getopts w:ldh flag
+while getopts l:d:h flag
 do
     case "${flag}" in
-        
-
     
-        l) mode="light" ;;
+        l) setWallpaperTheme ${OPTARG} "light" ;;
 
-        d) mode="dark" ;;
+        d) setWallpaperTheme ${OPTARG} "dark" ;;
 
-        # Set wallpaper and theme from wallpaper
-        w) setWallpaperTheme ${OPTARG} $mode ;;
+        # Set wallpaper only
+        #w)  ;;
 
         h) usage ;;
 
-
-		
     esac
 done
 

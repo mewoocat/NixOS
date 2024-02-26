@@ -22,7 +22,7 @@ import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 // Does this just watch for css changes to then reload them?
 monitorFile(
-    `${App.configDir}/_colors.scss`,
+    `${App.configDir}/Style/_colors.scss`,
     function() {
         exec(`sassc ${scss} ${css}`)
         App.resetCss();
