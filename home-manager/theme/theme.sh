@@ -1,34 +1,120 @@
 #!/bin/sh
 
-# Inputs
-#   Wallpaper
-#   Color theme file
-#   Dark / Light
-#
-# Options
-#   
-# Effects
-#   Upate Hyprland colors
-#   Update AGS colors
-#   Update terminal colors
-#   Update GTK colors
-#   Set wallpaper
-#
-# Features
-#   Set wallpaper       
-#   Set colorscheme
-#
-
-#   Usage
-#       theme.sh [inputs] [options]
-#   Inputs
-#       -w | --wallpaper    
-#       -c | --color-scheme
-#   Options
-#       -l | --light
-#       -d | --dark
 
 
+
+function usage(){
+    echo " Inputs"
+    echo "   Wallpaper"
+    echo "   Color theme file"
+    echo "   Dark / Light"
+    echo ""
+    echo " Options"
+    echo "   "
+    echo " Effects"
+    echo "   Upate Hyprland colors"
+    echo "   Update AGS colors"
+    echo "   Update terminal colors"
+    echo "   Update GTK colors"
+    echo "   Set wallpaper"
+    echo ""
+    echo " Features"
+    echo "   Set wallpaper       "
+    echo "   Set colorscheme"
+    echo ""
+    echo "   Usage"
+    echo "       theme.sh [inputs] [options]"
+    echo "   Inputs"
+    echo "       -w | --wallpaper         "
+    echo "       -c | --color-scheme     (If no color scheme is provided, one will be generated from the wallpaper)"
+    echo "   Options"
+    echo "       -d | --dark             (Default)"
+    echo "       -l | --light"
+}
+
+#walColors="Path/to/color/file/generated/by/matugen"
+gtkThemeLight="adw-gtk3"
+gtkThemeDark="adw-gtk3-dark"
+
+
+# Usage: setWallpaper $wallpaper
+function setWallpaper(){
+    swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
+    echo $1 > ~/.config/wallpaper;                          # Cache path to wallpaper
+}
+
+
+function setColors(){
+    wallpaper=$1
+    mode=$2
+
+    if [[ $mode == "dark" ]];
+    then
+        gtkTheme=$gtkThemeDark
+        walMode=""
+    else
+        gtkTheme=$gtkThemeLight
+        walMode="-l"
+    fi
+
+    # Responsible for:
+    #   GTK
+    #   AGS
+    #   Wal
+    matugen image $wallpaper --mode "$mode" -t scheme-fruit-salad --show-colors
+
+    echo "gtk = $gtkTheme"
+
+    gsettings set org.gnome.desktop.interface gtk-theme phocus
+    gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
+    # AGS *should* auto detect the changes to it's color file
+
+    # Responsible for:
+    #   Kitty
+    #   VSCode
+    wal $walMode -n -i $wallpaper                                               # Set wal theme from matugen
+
+}
+
+function setWallpaperTheme(){
+    wallpaper=$1
+    mode=$2 # Light/Dark
+    # Set wallpaper
+    setWallpaper $wallpaper
+    # Set colorscheme
+    setColors $wallpaper $mode
+}
+
+mode="dark"
+# get input flags
+while getopts w:ldh flag
+do
+    case "${flag}" in
+        
+
+    
+        l) mode="light" ;;
+
+        d) mode="dark" ;;
+
+        # Set wallpaper and theme from wallpaper
+        w) setWallpaperTheme ${OPTARG} $mode ;;
+
+        h) usage ;;
+
+
+		
+    esac
+done
+
+
+exit 0
+
+
+
+
+# Legacy
+#########################################################################################################################
 
 # from https://github.com/AmadeusWM/dotfiles-hyprland/blob/main/themes/apatheia/scripts/wallpaper
 # swww img -t any --transition-bezier 0.0,0.0,1.0,1.0 --transition-duration .8 --transition-step 255 --transition-fps 60
@@ -99,7 +185,7 @@ darken_color() {
 
 
 # Notes:    Add new color called iconBG where is a darken/lightend version of fg
-function setagsColors(){
+function setagsColorsWal(){
     mode=$1
 
     # sed command from https://stackoverflow.com/questions/6022384/bash-tool-to-get-nth-line-from-a-file
@@ -133,7 +219,6 @@ function setagsColors(){
 }
 
 function setGtkColors(){
-    mode=$1
 
     path="/home/ghost/.themes/default/gtk-3.0/pywal-colors.css"
 
@@ -146,23 +231,6 @@ function setGtkColors(){
     fg=$(sed '16q;d' ~/.cache/wal/colors | cut -c 2-)
     
 
-}
-
-function setRofiColors(){
-    # Global ignore from:  https://stackoverflow.com/questions/102049/how-do-i-escape-the-wildcard-asterisk-character-in-bash
-    GLOBIGNORE="*"
-    text="* {
-    bg0:    #212121F2;
-    bg1:    #2A2A2A;
-    bg2:    #3D3D3D80;
-    bg3:    #616161F2;
-    fg0:    #E6E6E6;
-    fg1:    #FFFFFF;
-    fg2:    #969696;
-    fg3:    #3D3D3D;\n}\n@import \"rounded-common.rasi\"
-    "
-
-    echo -e "$text" > ~/.config/rofi/theme.rasi
 }
 
 
@@ -206,14 +274,11 @@ function setWallpaperLight(){
     setWallpaper $1
 }
 
-function setWallpaper(){
-    #swww img -t "wave" --transition-step 10 $1;
-    swww img -t "simple" --transition-step 255 $1;
-    echo $1 > ~/.config/wallpaper;
-}
-
 theme=false
 bgBlack=false
+
+
+
 
 # get input flags
 while getopts W:i:bwldt:B:TL:D:Gx flag
@@ -227,7 +292,6 @@ do
         b) bgBlack=true ;;
 		
 		# set wallpaper only
-        #w) > $wallpaper_path && echo ${OPTARG} >> $wallpaper_path ; theme=false ;;
         w) currentWallpaper=$(cat ~/.config/wallpaper) && swww img "$currentWallpaper" ; theme=false ;;
         # w) > $wallpaper_path && echo "$(pwd)/${OPTARG}" >> $wallpaper_path ; theme=false ;;
         #
@@ -260,6 +324,8 @@ do
 done
 
 currentWallpaper=$(cat ~/.config/wallpaper)
+
+
 # From https://www.reddit.com/r/swaywm/comments/gx1rbf/fancy_custom_swaylock_background_image/
 #convert -filter Gaussian -resize 20% -blur 0x2.5 -resize 500% $currentWallpaper ~/.config/lockscreen.png
 #convert $currentWallpaper -filter Gaussian -blur 0x8 ~/.config/lockscreen.png
@@ -278,5 +344,3 @@ if [ $theme == true ]; then
     gsettings set org.gnome.desktop.interface gtk-theme "default"
 
 fi
-
-exit 0

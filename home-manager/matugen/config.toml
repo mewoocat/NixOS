@@ -14,3 +14,8 @@ gtk_theme = true
 [templates.ags]
 input_path = "~/NixOS/home-manager/matugen/ags.scss"
 output_path = "~/.config/ags/Style/_colors.scss"
+
+
+[templates.gtk]
+input_path = "~/NixOS/home-manager/matugen/gtk.css"
+output_path = "~/.cache/gtk.css"

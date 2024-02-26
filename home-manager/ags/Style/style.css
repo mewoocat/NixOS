@@ -2,36 +2,36 @@
   all: unset;
   padding: 0px;
   margin: 0px;
-  color: #e6e1e9; }
+  color: #dee3e6; }
 
 .container {
-  background-color: #141318;
+  background-color: #0f1416;
   border-radius: 1rem;
   padding: 1rem; }
 
 window.bar {
-  background-color: #141318; }
+  background-color: #0f1416; }
 
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
 
 .applauncher {
-  background-color: #141318;
+  background-color: #0f1416;
   padding: 8px;
   border-radius: 24px; }
 
 .app-item:focus {
-  background-color: #3a383e;
+  background-color: #353a3d;
   border-radius: 1rem; }
 
 .app-entry {
   padding: 0.6rem;
-  background-color: #3a383e;
+  background-color: #353a3d;
   border-radius: 1rem; }
 
 .first-item > button:first-child {
-  background-color: #3a383e;
+  background-color: #353a3d;
   border-radius: 1rem; }
 
 button {
@@ -43,17 +43,17 @@ button > * {
   border-radius: 1rem; }
 
 button:hover > * {
-  background-color: #3a383e; }
+  background-color: #353a3d; }
 
 .dock-button > box {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 .dock-button:hover > box {
-  background-color: #3a383e; }
+  background-color: #353a3d; }
 
 .dock-container {
-  background-color: #141318;
+  background-color: #0f1416;
   border-radius: 32px; }
 
 .ws-indicator {
@@ -77,7 +77,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #cbbeff; }
+  background-color: #88d1ec; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -91,10 +91,10 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #cac3dc; }
+  background-color: #b3cad5; }
 
 .ws-active {
-  background-color: #edb8cc;
+  background-color: #c3c3eb;
   min-width: 2.4rem;
   min-height: 1.2rem; }
 
@@ -102,22 +102,22 @@ button:hover > * {
   color: white; }
 
 .control-panel-container {
-  background-color: rgba(20, 19, 24, 0.85);
+  background-color: rgba(15, 20, 22, 0.85);
   border-radius: 16px;
   /*min-width: 280px;*/ }
 
 .control-panel-box > * {
   border-radius: 1rem;
-  background-color: rgba(58, 56, 62, 0.85); }
+  background-color: rgba(53, 58, 61, 0.85); }
 
 .control-panel-button {
   padding: 0rem; }
 
 .control-panel-button > * {
-  background-color: rgba(58, 56, 62, 0.85); }
+  background-color: rgba(53, 58, 61, 0.85); }
 
 .control-panel-button:hover > * {
-  background-color: #cbbeff; }
+  background-color: #88d1ec; }
 
 .top-right {
   margin-left: 0.4rem;
@@ -171,13 +171,13 @@ button:hover > * {
   margin: 0.4rem; }
 
 .battery-bg {
-  color: #e6e1e9; }
+  color: #dee3e6; }
 
 .battery-fg {
   color: #44ec44; }
 
 .battery-circle {
-  background-color: #141318;
+  background-color: #0f1416;
   color: lightgreen; }
 
 .icon {
@@ -197,7 +197,7 @@ button:hover > * {
 
 /* The background */
 .sliders trough {
-  background-color: #141318;
+  background-color: #0f1416;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; }
@@ -205,7 +205,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #cbbeff;
+  background-color: #88d1ec;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -214,19 +214,19 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #edb8cc;
+  background-color: #c3c3eb;
   border-style: solid;
   border-width: 1px;
-  border-color: #edb8cc; }
+  border-color: #c3c3eb; }
 
 .system-stats-circular-progress {
-  background-color: #141318;
-  color: #edb8cc;
+  background-color: #0f1416;
+  color: #c3c3eb;
   font-size: 4px;
   min-height: 24px; }
 
 .lockscreen {
-  background-color: #141318; }
+  background-color: #0f1416; }
 
 calendar.button:hover {
   color: rgba(213, 25, 25, 0.87); }

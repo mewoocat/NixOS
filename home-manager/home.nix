@@ -181,6 +181,8 @@ in
     # Gui display settings
     nwg-displays
     wlr-randr
+    nwg-look
+    gradience
 
   ];
 
@@ -210,6 +212,7 @@ in
    ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/eww";
    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
    ".config/tmux".source = ./tmux;
+   ".config/matugen".source = ./matugen;
    # Add .themes dir with gtk theme
 
   };
@@ -368,7 +371,7 @@ in
   gtk = {
     enable = true;
     theme = {
-      #name = "default";  
+      #name = "adw-gtk3";  
       name = "WhiteSur-Dark";
       package = pkgs.whitesur-gtk-theme;
     };
