@@ -184,6 +184,9 @@ in
     nwg-look
     gradience
 
+    openvpn
+    osu-lazer-bin
+    rpcs3
   ];
 
   # Activation scripts 

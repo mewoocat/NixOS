@@ -135,6 +135,11 @@ in{
       AutoEnable = "false";
     };
   };
+
+
+  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver.daemon.enable = true;
+  
   
   fonts.fonts = with pkgs; [
     nerdfonts
