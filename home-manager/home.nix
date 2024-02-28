@@ -202,21 +202,16 @@ in
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-
    ".config/kitty".source = ./kitty; 
    ".config/nvim".source = ./nvim;
-  # ".config/hypr".source = ./hypr;
-   #".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/hypr";
    ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/eww";
    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
    ".config/tmux".source = ./tmux;
    ".config/matugen".source = ./matugen;
-   # Add .themes dir with gtk theme
+
+   # Themes
+   ".local/share/themes/adw-gtk3".source = ./theme/adw-gtk3;
+   ".local/share/themes/adw-gtk3-dark".source = ./theme/adw-gtk3-dark;
 
   };
 
