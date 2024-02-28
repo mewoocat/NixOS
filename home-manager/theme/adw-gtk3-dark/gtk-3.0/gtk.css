@@ -1,3 +1,6 @@
+@import "../../../../../.cache/gtk.css";
+
+/*
 @define-color blue_1 #99c1f1;
 @define-color blue_2 #62a0ea;
 @define-color blue_3 #3584e4;
@@ -85,6 +88,8 @@
 @define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
 @define-color incognito_bg_color #1c2438;
 @define-color new_title_bg_color #303030;
+*/
+
 * { padding: 0; -GtkToolButton-icon-spacing: 4; -GtkTextView-error-underline-color: @error_bg_color; -GtkScrolledWindow-scrollbar-spacing: 0; -GtkToolItemGroup-expander-size: 11; -GtkWidget-text-handle-width: 20; -GtkWidget-text-handle-height: 24; -GtkDialog-button-spacing: 4; -GtkDialog-action-area-border: 0; outline-color: alpha(currentColor,0.3); outline-style: dashed; outline-offset: -3px; outline-width: 1px; -gtk-outline-radius: 4px; -gtk-secondary-caret-color: @accent_bg_color; }
 
 .background { color: @window_fg_color; background-color: @window_bg_color; }

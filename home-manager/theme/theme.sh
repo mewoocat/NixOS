@@ -67,7 +67,7 @@ function setColors(){
     echo "gtk = $gtkTheme"
     echo "mode = $mode"
 
-    #gsettings set org.gnome.desktop.interface gtk-theme phocus
+    gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
     #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3' && gsettings set org.gnome.desktop.interface color-scheme 'default'
     #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' && gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
