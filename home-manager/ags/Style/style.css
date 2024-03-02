@@ -2,22 +2,22 @@
   all: unset;
   padding: 0px;
   margin: 0px;
-  color: #e6e0ef; }
+  color: #e7e0ef; }
 
 .container {
-  background-color: #14121c;
+  background-color: #15121c;
   border-radius: 1rem;
   padding: 1rem; }
 
 window.bar {
-  background-color: #14121c; }
+  background-color: #15121c; }
 
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
 
 .applauncher {
-  background-color: #14121c;
+  background-color: #15121c;
   padding: 8px;
   border-radius: 24px; }
 
@@ -53,7 +53,7 @@ button:hover > * {
   background-color: #3b3743; }
 
 .dock-container {
-  background-color: #14121c;
+  background-color: #15121c;
   border-radius: 32px; }
 
 .ws-indicator {
@@ -77,7 +77,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #94ccff; }
+  background-color: #96ccff; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -91,10 +91,10 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #99ccfa; }
+  background-color: #9bcbfb; }
 
 .ws-active {
-  background-color: #cdbdff;
+  background-color: #cebdfe;
   min-width: 2.4rem;
   min-height: 1.2rem; }
 
@@ -102,9 +102,8 @@ button:hover > * {
   color: white; }
 
 .control-panel-container {
-  background-color: rgba(20, 18, 28, 0.85);
-  border-radius: 16px;
-  /*min-width: 280px;*/ }
+  background-color: rgba(21, 18, 28, 0.85);
+  border-radius: 16px; }
 
 .control-panel-box > * {
   border-radius: 1rem;
@@ -117,7 +116,7 @@ button:hover > * {
   background-color: rgba(59, 55, 67, 0.85); }
 
 .control-panel-button:hover > * {
-  background-color: #94ccff; }
+  background-color: #96ccff; }
 
 .top-right {
   margin-left: 0.4rem;
@@ -171,13 +170,13 @@ button:hover > * {
   margin: 0.4rem; }
 
 .battery-bg {
-  color: #e6e0ef; }
+  color: #e7e0ef; }
 
 .battery-fg {
   color: #44ec44; }
 
 .battery-circle {
-  background-color: #14121c;
+  background-color: #15121c;
   color: lightgreen; }
 
 .icon {
@@ -197,7 +196,7 @@ button:hover > * {
 
 /* The background */
 .sliders trough {
-  background-color: #14121c;
+  background-color: #15121c;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; }
@@ -205,7 +204,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #94ccff;
+  background-color: #96ccff;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -214,19 +213,19 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #cdbdff;
+  background-color: #cebdfe;
   border-style: solid;
   border-width: 1px;
-  border-color: #cdbdff; }
+  border-color: #cebdfe; }
 
 .system-stats-circular-progress {
-  background-color: #14121c;
-  color: #cdbdff;
+  background-color: #15121c;
+  color: #cebdfe;
   font-size: 4px;
   min-height: 24px; }
 
 .lockscreen {
-  background-color: #14121c; }
+  background-color: #15121c; }
 
 calendar.button:hover {
   color: rgba(213, 25, 25, 0.87); }

@@ -47,6 +47,5 @@ export const Lockscreen = (monitor = 0) => Widget.Window({
     anchor: ['top', 'bottom', 'left', 'right'],
     exclusivity: 'exclusive',
     keymode: 'on-demand', //set to 'exclusive'
-    popup: true,
     child: contents,
 });

@@ -1,5 +1,7 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 // Modules
 import { brightness } from '../Modules/brightness.js';
@@ -13,24 +15,11 @@ import { ThemeIcon } from '../Modules/theme.js'
 import { PowerIcon } from '../Modules/power.js';
 import { Weather } from '../Modules/Weather.js';
 import { NightlightIcon, ToggleNightlight } from '../Modules/nightlight.js';
+import options from '../options.js';
 
 // Variables
 import { ControlPanelTab } from '../variables.js';
 
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import options from '../options.js';
-
-export const ControlPanelToggleButton = (monitor) => Widget.Button({
-    class_name: 'launcher',
-    on_primary_click: () => {
-        execAsync(`ags -t ControlPanel`)
-        ControlPanelTab.setValue("child1")
-    },
-    child:
-        Widget.Label({
-            label: ""
-        }) 
-});
 
 // Make widget a formated button with action on click
 function ControlPanelButton(widget, edges, w, h, action) {
@@ -173,16 +162,54 @@ const stack = Widget.Stack({
 })
 
 
+const isOpen = Variable(false)
+
+const content = Widget.Box({
+    css: 'padding: 1px;',
+    child: Widget.Revealer({
+        revealChild: isOpen.bind(),
+        transitionDuration: 100,
+        transition: "slide_down",
+        child: stack,
+    })
+})
+
+//content.bind('revealChild', isOpen, 'value', p => p)
+
+function toggleControlPanel(){
+    ControlPanelTab.setValue("child1")
+    console.log(isOpen.value)
+    if (isOpen.value == false){
+        isOpen.value = true
+    }
+    else{
+        isOpen.value = false
+    }
+}
+
+// Set function as global so that it can be ran via cli
+globalThis['toggleControlPanel'] = toggleControlPanel
+
+export const ControlPanelToggleButton = (monitor) => Widget.Button({
+    class_name: 'launcher',
+    on_primary_click: () => {
+        //execAsync(`ags -t ControlPanel`)
+        toggleControlPanel()
+    },
+    child:
+        Widget.Label({
+            label: ""
+        }) 
+});
+
 export const ControlPanel = Widget.Window({
     //name: `ControlPanel-${monitor}`, // name has to be unique
     name: `ControlPanel`,
     class_name: 'control-panel',
-    visible: false,
+    visible: true,
     //keymode: "exclusive",
-    popup: true,
     anchor: ['top', 'right'],
     exclusivity: 'normal',
-    child: Widget.Box({
-        children: [stack]
-    }),
+    child: content,
 });
+

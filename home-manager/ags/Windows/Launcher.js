@@ -66,7 +66,7 @@ const UserInfo = Widget.Box({
             css: `
                 border-radius: 1rem;
             `,
-            icon: "/home/eXia/ArchBackup/Pictures/zero.jpeg",
+            //icon: "/home/eXia/ArchBackup/Pictures/zero.jpeg",
             size: 24,
         })
     ]
@@ -174,9 +174,9 @@ export const LauncherButton = () => Widget.Button({
 // there needs to be only one instance
 export const applauncher = Widget.Window({
     name: WINDOW_NAME,
-    popup: true,
     visible: false,
     //focusable: true,
+    popup: true,
     keymode: "exclusive",
     anchor: ['top', 'left'],
     child: Applauncher({
@@ -184,4 +184,5 @@ export const applauncher = Widget.Window({
         height: 500,
         spacing: 12,
     }),
+    //setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
 });

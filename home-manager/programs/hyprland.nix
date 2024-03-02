@@ -233,7 +233,7 @@
         bind = $mainMod, TAB, changegroupactive, f	
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
-        bind = $mainMod, M, exec, ags -t ControlPanel
+        bind = $mainMod, M, exec, ags -r "toggleControlPanel()"
         bind = $mainMod, D, exec, ags -t Dock
         bind = $mainMod, A, exec, ags -t ActivityCenter
         bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 
@@ -303,22 +303,6 @@
         exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 
-     # #plugin = ${inputs.hycov.packages.${pkgs.system}.hycov}/lib/libhycov.so
-     # bind = ALT,tab,hycov:toggleoverview
-     # bind = ALT,left,hycov:movefocus,l
-     # bind = ALT,right,hycov:movefocus,r
-     # bind = ALT,up,hycov:movefocus,u
-     # bind = ALT,down,hycov:movefocus,d
-
-
-     # plugin {
-     #     hycov {
-     #       overview_gappo = 60 #gaps width from screen
-     #       overview_gappi = 24 #gaps width from clients
-     #       hotarea_size = 10 #hotarea size in bottom left,10x10
-     #       enable_hotarea = 1 # enable mouse cursor hotarea
-     #     }
-     # }
     '';
     
   };

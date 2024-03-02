@@ -31,10 +31,6 @@
       #ref = "refs/tags/matugen-v0.10.0"
     };
 
-    hycov={
-      url = "github:DreamMaoMao/hycov";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 #
 #
@@ -48,7 +44,7 @@
 #
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function. 
-  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, anyrun, hycov, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, anyrun, ... }: {
 
     # NixOS system config
     nixosConfigurations = {
