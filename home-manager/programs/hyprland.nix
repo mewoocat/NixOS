@@ -226,13 +226,13 @@
         bind = $mainMod, V, togglefloating, 
         bind = $mainMod, P, pseudo, # dwindle
         bind = $mainMod, J, togglesplit, # dwindle
-        bind = $mainMod, X, exec, ags -t applauncher
         bind = $mainMod, F, fullscreen
         bind = ,Print, exec, grimshot copy area
         bind = $mainMod, T, togglegroup	
         bind = $mainMod, TAB, changegroupactive, f	
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
+        bind = $mainMod, X, exec, ags -t applauncher
         bind = $mainMod, M, exec, ags -r "toggleControlPanel()"
         bind = $mainMod, D, exec, ags -t Dock
         bind = $mainMod, A, exec, ags -t ActivityCenter

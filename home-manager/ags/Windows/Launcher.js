@@ -3,6 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import { user, uptime } from '../variables.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { isLauncherOpen } from '../variables.js';
 
 const WINDOW_NAME = 'applauncher';
 
@@ -72,6 +73,7 @@ const UserInfo = Widget.Box({
     ]
 })
 
+
 const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     // list of application buttons
     let applications = Applications.query('').map(AppItem);
@@ -129,47 +131,72 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     })
 
     return Widget.Box({
-        class_name: "applauncher",
-        vertical: true,
-        css: `margin: ${spacing * 2}px;`,
-        children: [
-            entry,
+        css: `padding: 1px;`,
+        child: Widget.Revealer({
+            revealChild: false,
+            transitionDuration: 300,
+            transition: 'slider_down',
+            setup: self => {
+                self.hook(App, (self, windowName, visible) => {
+                    /*
+                    if (visible){
+                        self.revealChild = visible
+                    }
+                    else{
+                        self.revealChild = !visible
+                    }
+                    */
+                   if (windowName === "applauncher"){
+                        self.revealChild = visible
+                   }
+                }, 'window-toggled')
+            },
+            child: Widget.Box({
+                class_name: "applauncher",
+                vertical: true,
+                css: `margin: ${spacing * 2}px;`,
+                children: [
+                    entry,
 
-            // wrap the list in a scrollable
-            Widget.Scrollable({
-                hscroll: 'never',
-                css: `
-                    min-width: ${width}px;
-                    min-height: ${height}px;
-                `,
-                child: list,
-            }),
-            powerButtons,
-            UserInfo,
-        ],
-        setup: self => self.hook(App, (_, windowName, visible) => {
-            if (windowName !== WINDOW_NAME)
-                return;
+                    // wrap the list in a scrollable
+                    Widget.Scrollable({
+                        hscroll: 'never',
+                        css: `
+                            min-width: ${width}px;
+                            min-height: ${height}px;
+                        `,
+                        child: list,
+                    }),
+                    powerButtons,
+                    UserInfo,
+                ],
+                setup: self => self.hook(App, (_, windowName, visible) => {
+                    if (windowName !== WINDOW_NAME)
+                        return;
 
-            // when the applauncher shows up
-            if (visible) {
-                repopulate();
-                entry.text = '';
-                entry.grab_focus();
-            }
-        }),
-    });
+                    // when the applauncher shows up
+                    if (visible) {
+                        repopulate();
+                        entry.text = '';
+                        entry.grab_focus();
+                    }
+                }),
+            })
+        })
+    })
 };
 
 export const LauncherButton = () => Widget.Button({
     class_name: 'launcher',
     hpack: "start",
-    on_primary_click: () => execAsync('ags -t applauncher'),
+    on_primary_click: () => execAsync(`ags -t applauncher`), //toggleLauncherWindow(),
     child:
         Widget.Label({
             label: " "
         })
 });
+
+
 
 // there needs to be only one instance
 export const applauncher = Widget.Window({
@@ -177,6 +204,7 @@ export const applauncher = Widget.Window({
     visible: false,
     //focusable: true,
     popup: true,
+    layer: "overlay",
     keymode: "exclusive",
     anchor: ['top', 'left'],
     child: Applauncher({
@@ -184,5 +212,20 @@ export const applauncher = Widget.Window({
         height: 500,
         spacing: 12,
     }),
-    //setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
+    //TODO: setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
 });
+
+export function toggleLauncherWindow(){
+    console.log(isLauncherOpen.value)
+    if (isLauncherOpen.value == false){
+        applauncher.keymode = "exclusive"
+        isLauncherOpen.value = true
+    }
+    else{
+        isLauncherOpen.value = false
+        applauncher.keymode = "none"
+    }
+}
+
+// Set function as global so that it can be ran via cli
+globalThis['toggleLauncherWindow'] = toggleLauncherWindow

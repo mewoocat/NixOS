@@ -1,4 +1,4 @@
-ty to github.com/Aylur :)
+ty to Aylur and kotontrion:)
 
 Dependencies
 - `brightnessctl`

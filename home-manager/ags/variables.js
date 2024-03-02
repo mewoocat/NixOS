@@ -76,3 +76,10 @@ export const user = Variable("...", {
 export const uptime = Variable("...", {
     poll: [60000, 'uptime', out => out.split(',')[0]]
 });
+
+
+// Window states
+export const isLauncherOpen = Variable(false)
+
+
+
