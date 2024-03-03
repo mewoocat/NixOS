@@ -1,4 +1,5 @@
-# NixOS
+# NixOS (LEGACY)
+** This branch contains the eww config which is now deprecated**
 
 ### Installation
 
