@@ -2,12 +2,13 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 
 // Modules
 import { brightness } from '../Modules/brightness.js';
 import { VolumeSlider } from '../Modules/volume.js';
 import { MicrophoneSlider } from '../Modules/microphone.js';
-import { WifiButton } from '../Modules/network.js';
+import { WifiButton, WifiSSID, WifiIcon } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth } from '../Modules/bluetooth.js';
 import { BatteryWidgetLarge } from '../Modules/battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
@@ -61,7 +62,7 @@ function ControlPanelBox(widget, w, h) {
 }
 
 
-const container = () => Widget.Box({
+const mainContainer = () => Widget.Box({
     class_name: "control-panel-container",
     css: `
         margin: 1rem;
@@ -93,9 +94,17 @@ const container = () => Widget.Box({
            ]
         }),
 
-        brightness(),
-        VolumeSlider(),
-        MicrophoneSlider(),
+        Widget.Box({
+            class_name: "control-panel-audio-box",
+            vertical: true,
+            spacing: 8,
+            children: [
+                brightness(),
+                VolumeSlider(),
+                MicrophoneSlider(),
+            ]
+        }),
+        
 
         Widget.Box({
             children:[
@@ -129,7 +138,7 @@ const container = () => Widget.Box({
 });
 
 
-const tab1 = () => Widget.Box({
+const networkContainer = () => Widget.Box({
     class_name: "control-panel-container",
     css: `
         margin: 1rem;
@@ -138,20 +147,32 @@ const tab1 = () => Widget.Box({
     spacing: 8,
     vertical: true,
     children: [
-        brightness(),
-        VolumeSlider(),
-        MicrophoneSlider(),
+        //Rows
+        Widget.Box({
+            children: [
+                WifiIcon(),
+                WifiSSID()
+            ]
+        }),
 
+        Widget.Scrollable({
+            css: `
+                min-height: 400px;
+            `,
+            child:
+                Widget.Label({label: "Found Networks"})  
+        })
     ],
 });
+
 
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 // Container
 const stack = Widget.Stack({
     // Tabs
     children: {
-        'child1': container(),
-        'child2': Widget.Label('second child'),
+        'child1': mainContainer(),
+        'child2': networkContainer(),
     },
     transition: "over_left",
 
@@ -162,39 +183,29 @@ const stack = Widget.Stack({
 })
 
 
-const isOpen = Variable(false)
 
 const content = Widget.Box({
     css: 'padding: 1px;',
     child: Widget.Revealer({
-        revealChild: isOpen.bind(),
-        transitionDuration: 100,
+        revealChild: false,
+        transitionDuration: 150,
         transition: "slide_down",
+        setup: self => {
+            self.hook(App, (self, windowName, visible) => {
+                if (windowName === "ControlPanel"){
+                    self.revealChild = visible
+                    ControlPanelTab.setValue("child1")
+                }
+            }, 'window-toggled')
+        },
         child: stack,
     })
 })
 
-//content.bind('revealChild', isOpen, 'value', p => p)
-
-function toggleControlPanel(){
-    ControlPanelTab.setValue("child1")
-    console.log(isOpen.value)
-    if (isOpen.value == false){
-        isOpen.value = true
-    }
-    else{
-        isOpen.value = false
-    }
-}
-
-// Set function as global so that it can be ran via cli
-globalThis['toggleControlPanel'] = toggleControlPanel
-
 export const ControlPanelToggleButton = (monitor) => Widget.Button({
     class_name: 'launcher',
     on_primary_click: () => {
-        //execAsync(`ags -t ControlPanel`)
-        toggleControlPanel()
+        execAsync(`ags -t ControlPanel`)
     },
     child:
         Widget.Label({
@@ -206,7 +217,7 @@ export const ControlPanel = Widget.Window({
     //name: `ControlPanel-${monitor}`, // name has to be unique
     name: `ControlPanel`,
     class_name: 'control-panel',
-    visible: true,
+    visible: false,
     //keymode: "exclusive",
     anchor: ['top', 'right'],
     exclusivity: 'normal',

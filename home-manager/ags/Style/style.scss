@@ -175,7 +175,7 @@ button:hover > * {
 }
 .control-panel-box > *{
     border-radius: 1rem;
-    background-color: rgba($surface_bright, $mediumOpacity);
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 
 .control-panel-button{
@@ -183,10 +183,16 @@ button:hover > * {
 }
 
 .control-panel-button > * {
-    background-color: rgba($surface_bright, $mediumOpacity);
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 .control-panel-button:hover > * {
     background-color: $primary;
+}
+
+.control-panel-audio-box {
+    border-radius: 1rem;
+    padding: 0.4rem;
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 
 // Where control panel buttons/box share and edge with another, apply half the padding

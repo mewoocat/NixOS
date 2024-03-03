@@ -32,6 +32,11 @@ monitorFile(
 
 export default {
     style: css, 
+    closeWindowDelay: {
+        "ControlPanel":     150, // milliseconds
+        "applauncher":      150, // milliseconds
+        "ActivityCenter":   150, // milliseconds
+    },
     // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
     // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
     windows: [applauncher, ...forMonitors(bar), Lockscreen(), ControlPanel, ActivityCenter(), NotificationPopup, /*Dock()*/],

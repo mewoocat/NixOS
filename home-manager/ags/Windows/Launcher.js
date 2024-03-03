@@ -129,36 +129,55 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
     })
 
     return Widget.Box({
-        class_name: "applauncher",
-        vertical: true,
-        css: `margin: ${spacing * 2}px;`,
-        children: [
-            entry,
+        css: 'padding: 1px;', //Gives box a defined size when revealer is showing anything
+        child:
+            Widget.Revealer({
+                revealChild: false,
+                transitionDuration: 150,
+                transition: "slide_down",
+                setup: self => {
+                    self.hook(App, (self, windowName, visible) => {
+                        if (windowName === "applauncher"){
+                            self.revealChild = visible
+                        }
+                    }, 'window-toggled')
+                },
+                child:
 
-            // wrap the list in a scrollable
-            Widget.Scrollable({
-                hscroll: 'never',
-                css: `
-                    min-width: ${width}px;
-                    min-height: ${height}px;
-                `,
-                child: list,
-            }),
-            powerButtons,
-            UserInfo,
-        ],
-        setup: self => self.hook(App, (_, windowName, visible) => {
-            if (windowName !== WINDOW_NAME)
-                return;
+                    Widget.Box({
+                        class_name: "applauncher",
+                        vertical: true,
+                        css: `margin: ${spacing * 2}px;`,
+                        children: [
+                            entry,
 
-            // when the applauncher shows up
-            if (visible) {
-                repopulate();
-                entry.text = '';
-                entry.grab_focus();
-            }
-        }),
-    });
+                            // wrap the list in a scrollable
+                            Widget.Scrollable({
+                                hscroll: 'never',
+                                css: `
+                                    min-width: ${width}px;
+                                    min-height: ${height}px;
+                                `,
+                                child: list,
+                            }),
+                            powerButtons,
+                            UserInfo,
+                        ],
+                        setup: self => self.hook(App, (_, windowName, visible) => {
+                            if (windowName !== WINDOW_NAME)
+                                return;
+
+                            // when the applauncher shows up
+                            if (visible) {
+                                repopulate();
+                                entry.text = '';
+                                entry.grab_focus();
+                            }
+                        }),
+                    })
+            })
+    })
+    
 };
 
 export const LauncherButton = () => Widget.Button({

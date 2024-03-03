@@ -6,6 +6,7 @@ import Gtk from 'gi://Gtk';
 import { NotificationWidget } from './NotificationPopup.js';
 import Media from '../Modules/Media.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
 
 // More info https://aylur.github.io/ags-docs/config/subclassing-gtk-widgets/
 
@@ -48,9 +49,16 @@ const container = () => Widget.Box({
     `,
     child:
         Widget.Revealer({
-            revealChild: isOpenA.bind(),
-            transitionDuration: 100,
+            revealChild: false,
+            transitionDuration: 150,
             transition: 'slide_down',
+            setup: self => {
+                self.hook(App, (self, windowName, visible) => {
+                    if (windowName === "ActivityCenter"){
+                        self.revealChild = visible
+                    }
+                }, 'window-toggled')
+            },
 
             child:
                 Widget.Box({
@@ -82,9 +90,7 @@ const container = () => Widget.Box({
 
 export const ActivityCenterButton = () => Widget.Button({
     class_name: 'launcher',
-    on_primary_click: () => {
-        toggleReveal()
-    },
+    on_primary_click: () => execAsync('ags -t ActivityCenter'),
     child:
         Clock()
 });
@@ -92,7 +98,7 @@ export const ActivityCenterButton = () => Widget.Button({
 export const ActivityCenter = (monitor = 0) => Widget.Window({
     name: `ActivityCenter`, // name has to be unique
     class_name: 'control-panel',
-    visible: true,
+    visible: false,
     focusable: true,
     monitor,
     anchor: ['top', 'center'],

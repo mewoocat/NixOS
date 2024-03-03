@@ -27,7 +27,7 @@
         workspace = 1, monitor:DP-3, default:true
         workspace = 2, monitor:DP-3
         workspace = 3, monitor:DP-3
-        workspace = 4, monitor:DP-3
+        workspace = 4, monitor:DP-3, gapsin:0, gapsout:0, rounding:0
         workspace = 5, monitor:DP-3
         workspace = 6, monitor:DVI-D-1, default:true
         workspace = 7, monitor:DVI-D-1
@@ -226,14 +226,14 @@
         bind = $mainMod, V, togglefloating, 
         bind = $mainMod, P, pseudo, # dwindle
         bind = $mainMod, J, togglesplit, # dwindle
-        bind = $mainMod, X, exec, ags -t applauncher
         bind = $mainMod, F, fullscreen
         bind = ,Print, exec, grimshot copy area
         bind = $mainMod, T, togglegroup	
         bind = $mainMod, TAB, changegroupactive, f	
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
-        bind = $mainMod, M, exec, ags -r "toggleControlPanel()"
+        bind = $mainMod, X, exec, ags -t applauncher
+        bind = $mainMod, M, exec, ags -t ControlPanel
         bind = $mainMod, D, exec, ags -t Dock
         bind = $mainMod, A, exec, ags -t ActivityCenter
         bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 

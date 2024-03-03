@@ -57,7 +57,7 @@ export const EthernetIcon = () => Widget.Box({
     ]
 })
 
-const WifiSSID = () => Widget.Box({
+export const WifiSSID = () => Widget.Box({
     children:[
         Widget.Label({
             label: Network.wifi.bind("ssid"),
