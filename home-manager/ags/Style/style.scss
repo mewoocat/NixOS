@@ -35,7 +35,7 @@ window.bar {
 }
 
 .app-item:focus {
-    background-color: $surface_bright;
+    background-color: rgba($outline_variant, 1);
     border-radius: 1rem;
 }
 
@@ -45,13 +45,13 @@ window.bar {
 
 .app-entry {
     padding: 0.6rem;
-    background-color: $surface_bright;
+    background-color: rgba($outline_variant, 1);
     border-radius: 1rem;
 }
 
 // First item in list of applications
 .first-item > button:first-child{
-    background-color: $surface_bright;
+    background-color: rgba($outline_variant, 1);
     border-radius: 1rem;
 }
 
@@ -168,6 +168,9 @@ button:hover > * {
 .control-panel-container{
     background-color: rgba($surface, $mediumOpacity);
     border-radius: 16px;
+    border-color: rgba(88, 88, 88, 0.42);
+    border-width: 1px;
+    border-style: solid;
 }
 
 .control-panel-box{

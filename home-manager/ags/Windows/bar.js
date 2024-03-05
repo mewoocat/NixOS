@@ -36,7 +36,7 @@ const Center = () => Widget.Box({
 
 const Right = (monitor) => Widget.Box({
     hpack: 'end',
-    spacing: 8,
+    spacing: 12,
     children: [
         SysTray(), 
         EthernetIcon(),
