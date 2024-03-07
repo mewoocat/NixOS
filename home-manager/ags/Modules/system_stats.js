@@ -21,16 +21,22 @@ export const storageLabel = () => Widget.Label({
 
 export const cpuProgress = Widget.CircularProgress({
     class_name: "system-stats-circular-progress",
+    start_at: 0.25,
+    rounded: true,
     value: cpu.bind()
 });
 
 export const ramProgress = Widget.CircularProgress({
     class_name: "system-stats-circular-progress",
+    start_at: 0.25,
+    rounded: true,
     value: ram.bind()
 });
 
 export const storageProgress = Widget.CircularProgress({
     class_name: "system-stats-circular-progress",
+    start_at: 0.25,
+    rounded: true,
     value: storage.bind().transform(p => p / 100)
 });
 

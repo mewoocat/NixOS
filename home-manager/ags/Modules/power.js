@@ -9,6 +9,6 @@ export const PowerIcon = (edges) => Widget.Box({
         Widget.Label({
             vpack: "center",
             hpack: "center",
-            label: "p"
+            label: ""
         })
 })

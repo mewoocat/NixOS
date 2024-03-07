@@ -154,8 +154,13 @@ button:hover > * {
 
 // Notifications
 ////////////////////////////////////////////////////////////////////////////
+
 .notification {
     color: rgb(255, 255, 255);
+    background-color: $surface;
+    border-radius: 1rem;
+    min-width: 12rem;
+    min-height: 4rem;
 }
 
 
@@ -383,4 +388,8 @@ calendar:selected {
 }
 calendar:indeterminate {
   color: rgba(116, 116, 116, 0.776);
+}
+
+.active-button{
+    background-color: red;
 }

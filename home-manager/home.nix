@@ -72,6 +72,7 @@ in
     firefox
     #xfce.thunar
     #cinnamon.nemo-with-extensions
+    gnome.nautilus
     neofetch hyfetch
     htop
     vlc
@@ -382,6 +383,16 @@ in
       package = pkgs.kora-icon-theme;
     };
   };
+
+  # QT Config (BROKEN)
+  #qt = {
+  #  enable = true;
+  #  platformTheme = "gtk";
+  #  style = {
+  #    package = pkgs.adwaita-qt;
+  #    name = "adwaita-dark";
+  #  };
+  #};
 
 
   # XDG
