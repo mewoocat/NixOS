@@ -110,11 +110,18 @@ button:hover > * {
 .ws-inactive{
     min-width: 0.6rem;
     min-height: 0.6rem;
+    label{
+        font-size: 0rem;
+    }
 }
 
 .ws-button{
     padding: 0; // Remove default padding from ws buttons
     min-width: 1.8rem;
+    label{
+        font-size: 0rem;
+        color: $surface;
+    }
 }
 
 // Removes default properties for buttons
@@ -141,13 +148,24 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied{
-    background-color: $secondary;
+    //background-color: $secondary; //TODO
+    background-color: orangered;
+    label{
+        min-width: 1.2rem;
+        min-height: 1.2rem;
+        font-size: 0.8rem;
+    }
 }
 
 .ws-active{
     background-color: $tertiary;
     min-width: 2.4rem;
     min-height: 1.2rem;
+    label{
+        min-width: 2.4rem;
+        min-height: 1.2rem;
+        font-size: 0.8rem;
+    }
 }
 
 

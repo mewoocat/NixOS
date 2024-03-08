@@ -2,36 +2,36 @@
   all: unset;
   padding: 0px;
   margin: 0px;
-  color: #e6e0ef; }
+  color: #f9ddd3; }
 
 .container {
-  background-color: #14121c;
+  background-color: #1e100b;
   border-radius: 1rem;
   padding: 1rem; }
 
 window.bar {
-  background-color: #14121c; }
+  background-color: #1e100b; }
 
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
 
 .applauncher {
-  background-color: #14121c;
+  background-color: #1e100b;
   padding: 8px;
   border-radius: 24px; }
 
 .app-item:focus {
-  background-color: #484458;
+  background-color: #5d4035;
   border-radius: 1rem; }
 
 .app-entry {
   padding: 0.6rem;
-  background-color: #484458;
+  background-color: #5d4035;
   border-radius: 1rem; }
 
 .first-item > button:first-child {
-  background-color: #484458;
+  background-color: #5d4035;
   border-radius: 1rem; }
 
 button {
@@ -43,17 +43,17 @@ button > * {
   border-radius: 1rem; }
 
 button:hover > * {
-  background-color: #3a3843; }
+  background-color: #47352f; }
 
 .dock-button > box {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 .dock-button:hover > box {
-  background-color: #3a3843; }
+  background-color: #47352f; }
 
 .dock-container {
-  background-color: #14121c;
+  background-color: #1e100b;
   border-radius: 32px; }
 
 .ws-indicator {
@@ -68,16 +68,21 @@ button:hover > * {
 .ws-inactive {
   min-width: 0.6rem;
   min-height: 0.6rem; }
+  .ws-inactive label {
+    font-size: 0rem; }
 
 .ws-button {
   padding: 0;
   min-width: 1.8rem; }
+  .ws-button label {
+    font-size: 0rem;
+    color: #1e100b; }
 
 .ws-button > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #90cdff; }
+  background-color: #ffafd6; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -91,22 +96,30 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #98ccf9; }
+  background-color: orangered; }
+  .ws-occupied label {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    font-size: 0.8rem; }
 
 .ws-active {
-  background-color: #cbbeff;
+  background-color: #ffb598;
   min-width: 2.4rem;
   min-height: 1.2rem; }
+  .ws-active label {
+    min-width: 2.4rem;
+    min-height: 1.2rem;
+    font-size: 0.8rem; }
 
 .notification {
   color: white;
-  background-color: #14121c;
+  background-color: #1e100b;
   border-radius: 1rem;
   min-width: 12rem;
   min-height: 4rem; }
 
 .control-panel-container {
-  background-color: rgba(20, 18, 28, 0.85);
+  background-color: rgba(30, 16, 11, 0.85);
   border-radius: 16px;
   border-color: rgba(88, 88, 88, 0.42);
   border-width: 1px;
@@ -123,25 +136,25 @@ button:hover > * {
 */
 .control-panel-button {
   padding: 0rem;
-  background-color: rgba(15, 13, 23, 0.85);
+  background-color: rgba(24, 11, 6, 0.85);
   border-radius: 1rem; }
 
 .control-panel-button:hover {
-  background-color: #3a3843; }
+  background-color: #47352f; }
 
 .control-panel-audio-box {
   border-radius: 1rem;
   padding: 0.4rem;
-  background-color: rgba(15, 13, 23, 0.85); }
+  background-color: rgba(24, 11, 6, 0.85); }
 
 .battery-bg {
-  color: #e6e0ef; }
+  color: #f9ddd3; }
 
 .battery-fg {
   color: #44ec44; }
 
 .battery-circle {
-  background-color: #14121c;
+  background-color: #1e100b;
   color: lightgreen; }
 
 .icon {
@@ -161,7 +174,7 @@ button:hover > * {
 
 /* The background */
 .sliders trough {
-  background-color: #14121c;
+  background-color: #1e100b;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; }
@@ -169,7 +182,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #90cdff;
+  background-color: #ffafd6;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -178,19 +191,19 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #cbbeff;
+  background-color: #ffb598;
   border-style: solid;
   border-width: 1px;
-  border-color: #cbbeff; }
+  border-color: #ffb598; }
 
 .system-stats-circular-progress {
-  background-color: #14121c;
-  color: #cbbeff;
+  background-color: #1e100b;
+  color: #ffb598;
   font-size: 4px;
   min-height: 24px; }
 
 .lockscreen {
-  background-color: #14121c; }
+  background-color: #1e100b; }
 
 calendar.button:hover {
   color: rgba(213, 25, 25, 0.87); }
@@ -213,5 +226,5 @@ calendar:indeterminate {
   background-color: red; }
 
 .weather {
-  background-color: rgba(15, 13, 23, 0.85);
+  background-color: rgba(24, 11, 6, 0.85);
   border-radius: 1rem; }

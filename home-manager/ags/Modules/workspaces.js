@@ -11,13 +11,18 @@ export const Workspaces = () => Widget.EventBox({
             class_name: "ws-button",
             attribute: i,
             // Keeps button from expanding to fit its container
-            //label: `${i}`,
             onClicked: () => dispatch(i),
             child: Widget.Box({
                 class_name: "ws-indicator",
                // vpack: "start",
                 vpack: "center",
                 hpack: "center",
+                children: [
+                    Widget.Label({
+                        label: `${i}`,
+                        justification: "center",
+                    })
+                ],
                 setup: self => self.hook(Hyprland, () => {
                     // The "?" is used here to return "undefined" if the workspace doesn't exist
                     self.toggleClassName('ws-inactive', (Hyprland.getWorkspace(i)?.windows || 0) === 0);
