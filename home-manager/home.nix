@@ -72,6 +72,7 @@ in
     firefox
     #xfce.thunar
     #cinnamon.nemo-with-extensions
+    gnome.nautilus
     neofetch hyfetch
     htop
     vlc
@@ -119,9 +120,8 @@ in
     gtklock
     swayidle
     wl-clipboard
-    eww-wayland
     glib
-    gsettings-desktop-schemas # Don't need?
+    #gsettings-desktop-schemas # Don't need?
     gnome.nixos-gsettings-overrides # This is used instead
     sway-contrib.grimshot
     pywal
@@ -383,6 +383,16 @@ in
       package = pkgs.kora-icon-theme;
     };
   };
+
+  # QT Config (BROKEN)
+  #qt = {
+  #  enable = true;
+  #  platformTheme = "gtk";
+  #  style = {
+  #    package = pkgs.adwaita-qt;
+  #    name = "adwaita-dark";
+  #  };
+  #};
 
 
   # XDG

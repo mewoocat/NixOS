@@ -1,10 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { weather } from '../variables.js'
 
-
-
-
-
 export const Weather = (edges) => Widget.Box({
     class_name: `${edges}`,
     children: [
@@ -18,7 +14,7 @@ export const Weather = (edges) => Widget.Box({
                     css: `
                         font-size: 1.4rem;
                     `,
-                    label: weather.bind().transform(weather => weather.current.temperature_2m.toString() + weather.current_units.temperature_2m.toString()),
+                    label: weather.bind().transform(weather => Math.round(weather.current.temperature_2m).toString() + weather.current_units.temperature_2m.toString()),
                 }),
                 // Status
                 Widget.Label({

@@ -35,7 +35,7 @@ window.bar {
 }
 
 .app-item:focus {
-    background-color: $surface_bright;
+    background-color: rgba($outline_variant, 1);
     border-radius: 1rem;
 }
 
@@ -45,13 +45,13 @@ window.bar {
 
 .app-entry {
     padding: 0.6rem;
-    background-color: $surface_bright;
+    background-color: rgba($outline_variant, 1);
     border-radius: 1rem;
 }
 
 // First item in list of applications
 .first-item > button:first-child{
-    background-color: $surface_bright;
+    background-color: rgba($outline_variant, 1);
     border-radius: 1rem;
 }
 
@@ -72,6 +72,7 @@ button > * {
 }
 
 button:hover > * {
+    //background-color: $surface_bright;
     background-color: $surface_bright;
 }
 
@@ -154,8 +155,13 @@ button:hover > * {
 
 // Notifications
 ////////////////////////////////////////////////////////////////////////////
+
 .notification {
     color: rgb(255, 255, 255);
+    background-color: $surface;
+    border-radius: 1rem;
+    min-width: 12rem;
+    min-height: 4rem;
 }
 
 
@@ -168,6 +174,9 @@ button:hover > * {
 .control-panel-container{
     background-color: rgba($surface, $mediumOpacity);
     border-radius: 16px;
+    border-color: rgba(88, 88, 88, 0.42);
+    border-width: 1px;
+    border-style: solid;
 }
 
 .control-panel-box{
@@ -175,18 +184,25 @@ button:hover > * {
 }
 .control-panel-box > *{
     border-radius: 1rem;
-    background-color: rgba($surface_bright, $mediumOpacity);
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 
-.control-panel-button{
+.control-panel-button > *{
     padding: 0rem; // Disables default button padding
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
+    border-radius: 1rem;
+    min-width: 100px;
+    min-height: 100px;
 }
 
-.control-panel-button > * {
-    background-color: rgba($surface_bright, $mediumOpacity);
+.control-panel-button:hover > *{
+    background-color: #00ff0f;
 }
-.control-panel-button:hover > * {
-    background-color: $primary;
+
+.control-panel-audio-box {
+    border-radius: 1rem;
+    padding: 0.4rem;
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 
 // Where control panel buttons/box share and edge with another, apply half the padding
@@ -374,4 +390,8 @@ calendar:selected {
 }
 calendar:indeterminate {
   color: rgba(116, 116, 116, 0.776);
+}
+
+.active-button{
+    background-color: red;
 }

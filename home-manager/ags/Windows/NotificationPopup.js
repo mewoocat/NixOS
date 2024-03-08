@@ -115,13 +115,15 @@ export const NotificationWidget = Widget.Box({
 export const NotificationPopup = Widget.Window({
     name: 'notifications',
     anchor: ['bottom', 'right'],
-    css: 'background-color: #000000',
+    //css: 'background-color: #000000',
     child: Widget.Box({
+        css: `padding: 1px;`,
         children: [
-            Widget.Label({label: "close all"}),
+            //Widget.Label({label: "close all"}),
             Widget.Box({
                 class_name: 'notifications',
                 vertical: true,
+                spacing: 10,
                 children: Notifications.bind('popups').transform(popups => {
                     return popups.map(Notification);
                 }),
