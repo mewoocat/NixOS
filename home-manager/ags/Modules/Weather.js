@@ -1,8 +1,12 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { weather } from '../variables.js'
 
-export const Weather = (edges) => Widget.Box({
-    class_name: `${edges}`,
+export const Weather = (w, h) => Widget.Box({
+    class_name: "weather",
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
     children: [
         Widget.Box({
             vertical: true,

@@ -178,7 +178,7 @@ button:hover > * {
     border-width: 1px;
     border-style: solid;
 }
-
+/*
 .control-panel-box{
     //padding: 0.4rem;
 }
@@ -186,86 +186,21 @@ button:hover > * {
     border-radius: 1rem;
     background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
-
-.control-panel-button > *{
+*/
+.control-panel-button{
     padding: 0rem; // Disables default button padding
     background-color: rgba($surface_container_lowest, $mediumOpacity);
     border-radius: 1rem;
-    min-width: 100px;
-    min-height: 100px;
 }
 
-.control-panel-button:hover > *{
-    background-color: #00ff0f;
+.control-panel-button:hover{
+    background-color: $surface_bright;
 }
 
 .control-panel-audio-box {
     border-radius: 1rem;
     padding: 0.4rem;
     background-color: rgba($surface_container_lowest, $mediumOpacity);
-}
-
-// Where control panel buttons/box share and edge with another, apply half the padding
-$marginLarge: 0.4rem;
-$marginBig: 0.4rem;  // Increasing beyond 0.8rem may cause buttons to no longer be square
-$marginSmall: 0.2rem; // 1/2 of marginBig
-.top-right{
-    margin-left: $marginBig;
-    margin-right: $marginSmall;
-    margin-top: $marginSmall;
-    margin-bottom: $marginBig;
-}
-.top-left{
-
-    margin-left: $marginSmall;
-    margin-right: $marginBig;
-    margin-top: $marginSmall;
-    margin-bottom: $marginBig;
-}
-.bottom-right{
-    margin-left: $marginBig;
-    margin-right: $marginSmall;
-    margin-top: $marginBig;
-    margin-bottom: $marginSmall;
-
-}
-.bottom-left{
-    margin-left: $marginSmall;
-    margin-right: $marginBig;
-    margin-top: $marginBig;
-    margin-bottom: $marginSmall;
-
-}
-.right{
-    margin-left: $marginBig;
-    margin-right: $marginSmall;
-    margin-top: $marginBig;
-    margin-bottom: $marginBig;
-
-}
-.left{
-    margin-left: $marginSmall;
-    margin-right: $marginBig;
-    margin-top: $marginBig;
-    margin-bottom: $marginBig;
-
-}
-.top{
-    margin-left: $marginBig;
-    margin-right: $marginBig;
-    margin-top: $marginSmall;
-    margin-bottom: $marginBig;
-
-}
-.bottom{
-    margin-left: $marginBig;
-    margin-right: $marginBig;
-    margin-top: $marginBig;
-    margin-bottom: $marginSmall;
-
-}
-.noEdge{
-    margin: $marginLarge;
 }
 
 
@@ -394,4 +329,11 @@ calendar:indeterminate {
 
 .active-button{
     background-color: red;
+}
+
+
+// Weather
+.weather{
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
+    border-radius: 1rem;
 }

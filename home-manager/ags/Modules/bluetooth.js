@@ -21,9 +21,11 @@ export function ToggleBluetooth(){
     }
 }
 
-export const BluetoothButton = () => Widget.EventBox({
+export const BluetoothButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
-    child: Widget.Button({
-            child: BluetoothIcon(),
-        })
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
+    child: BluetoothIcon(),
 })

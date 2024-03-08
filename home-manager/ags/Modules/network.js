@@ -73,15 +73,17 @@ export const WifiSSID = () => Widget.Box({
     ]
 })
 
-export const WifiButton = () => Widget.Box({
+export const WifiButton = (w, h) => Widget.Button({
     class_name: `control-panel-button`,
     css: `
-        min-width: 4rem;
-        min-height: 4rem;
+        min-width: ${w}rem;
+        min-height: ${h}rem;
     `,
     hexpand: true,
-    children:[
-        WifiIcon(),
-        WifiSSID(),
-    ]
+    child: Widget.Box({
+        children:[
+            WifiIcon(),
+            WifiSSID(),
+        ]
+    }),
 })
