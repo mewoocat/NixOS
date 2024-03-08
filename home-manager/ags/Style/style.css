@@ -116,14 +116,15 @@ button:hover > * {
   border-radius: 1rem;
   background-color: rgba(15, 13, 23, 0.85); }
 
-.control-panel-button {
-  padding: 0rem; }
-
 .control-panel-button > * {
-  background-color: rgba(15, 13, 23, 0.85); }
+  padding: 0rem;
+  background-color: rgba(15, 13, 23, 0.85);
+  border-radius: 1rem;
+  min-width: 100px;
+  min-height: 100px; }
 
 .control-panel-button:hover > * {
-  background-color: #90cdff; }
+  background-color: #00ff0f; }
 
 .control-panel-audio-box {
   border-radius: 1rem;

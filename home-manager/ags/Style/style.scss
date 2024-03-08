@@ -72,6 +72,7 @@ button > * {
 }
 
 button:hover > * {
+    //background-color: $surface_bright;
     background-color: $surface_bright;
 }
 
@@ -186,15 +187,16 @@ button:hover > * {
     background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 
-.control-panel-button{
+.control-panel-button > *{
     padding: 0rem; // Disables default button padding
+    background-color: rgba($surface_container_lowest, $mediumOpacity);
+    border-radius: 1rem;
+    min-width: 100px;
+    min-height: 100px;
 }
 
-.control-panel-button > * {
-    background-color: rgba($surface_container_lowest, $mediumOpacity);
-}
-.control-panel-button:hover > * {
-    background-color: $primary;
+.control-panel-button:hover > *{
+    background-color: #00ff0f;
 }
 
 .control-panel-audio-box {

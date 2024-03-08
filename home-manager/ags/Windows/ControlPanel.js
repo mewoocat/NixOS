@@ -21,16 +21,6 @@ import options from '../options.js';
 // Variables
 import { ControlPanelTab } from '../variables.js';
 
-
-import Gtk from 'gi://Gtk'
-const grid = new Gtk.Grid()
-grid.attach(WifiButton(), 1, 1, 1, 1)
-grid.attach(WifiButton(), 2, 1, 1, 1)
-grid.attach(WifiButton(), 3, 1, 1, 1)
-grid.attach(WifiButton(), 4, 1, 1, 1)
-
-
-
 // Make widget a formated button with action on click
 function ControlPanelButton(widget, edges, w, h, action) {
     const button = Widget.Button({
@@ -79,7 +69,71 @@ const mainContainer = () => Widget.Box({
     `,
     spacing: 8,
     vertical: true,
-    child: grid,
+    children: [
+        //Rows
+        Widget.Box({
+           children:[
+                Widget.Box({
+                    vertical: true,
+                    children: [
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(WifiButton(), "bottom", options.large, options.small, () => {ControlPanelTab.setValue("child2")}, ""),
+                            ]
+                        }),
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(BluetoothIcon(), "top-right", options.small, options.small, ToggleBluetooth),
+                                ControlPanelButton(ThemeIcon(), "top-left", options.small, options.small, null),
+                            ]
+                        })
+                    ]
+                }),
+                ControlPanelBox(BatteryWidgetLarge("noEdge"), options.large, options.large),
+           ]
+        }),
+
+        Widget.Box({
+            class_name: "control-panel-audio-box",
+            vertical: true,
+            spacing: 8,
+            children: [
+                brightness(),
+                VolumeSlider(),
+                MicrophoneSlider(),
+            ]
+        }),
+        
+
+        Widget.Box({
+            children:[
+                ControlPanelBox(Weather("noEdge"), options.large, options.large),
+                Widget.Box({
+                    vertical: true,
+                    children: [
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(PowerIcon(), "bottom-right", options.small, options.small, () => {execAsync(['bash', '-c', '/home/eXia/.config/hypr/scripts/gamemode.sh'])}, ""),
+                                ControlPanelButton(NightlightIcon(), "bottom-left", options.small, options.small, ToggleNightlight, ""),
+                            ]
+                        }),
+                        Widget.Box({
+                            children: [
+                                ControlPanelButton(PowerIcon(), "top-right", options.small, options.small, ToggleBluetooth, ""),
+                                ControlPanelButton(PowerIcon(), "top-left", options.small, options.small, ToggleBluetooth, ""),
+                            ]
+                        })
+                    ]
+                })
+            ]
+        }),
+
+        Widget.Box({
+            children:[
+                ControlPanelBox(SystemStatsWidgetLarge("noEdge"), options.large, options.large),
+            ]
+        })
+    ],
 });
 
 
