@@ -401,6 +401,27 @@ in
   #  exec = "zettlr --disable-gpu --enable-features=UseOzonePlatform --ozone-platform=wayland";
   #};
 
+  xdg.desktopEntries = {
+    obsidian = {
+      name = "Obsidian :)";
+      exec = "obsidian --disable-gpu %u";
+      categories = [ "Office" ];
+      comment = "Knowledge base";
+      icon = "obsidian";
+      mimeType = [ "x-scheme-handler/obsidian" ];
+      type = "Application";
+    };
+
+    webcord = {
+      name = "Webcord :)";
+      exec = "Webcord --disable-gpu";
+      categories = [ "Network" "InstantMessaging" ];
+      comment = "A Discord and SpaceBar electron-based client implemented without Discord API";
+      icon = "webcord";
+      type = "Application";
+    };
+  };
+
   # GSettings setup??
   # From: https://www.reddit.com/r/NixOS/comments/nxnswt/cant_change_themes_on_wayland/
   # Doesn't fix gsettings schema issue?
