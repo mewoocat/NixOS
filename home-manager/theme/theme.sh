@@ -9,8 +9,6 @@ function usage(){
     echo "   Color theme file"
     echo "   Dark / Light"
     echo ""
-    echo " Options"
-    echo "   "
     echo " Effects"
     echo "   Upate Hyprland colors"
     echo "   Update AGS colors"
@@ -23,11 +21,10 @@ function usage(){
     echo "   Set colorscheme"
     echo ""
     echo "   Usage"
-    echo "       theme.sh [inputs] [options]"
-    echo "   Inputs"
-    echo "       -w | --wallpaper         "
-    echo "       -c | --color-scheme     (If no color scheme is provided, one will be generated from the wallpaper)"
+    echo "       theme.sh [options] [mode] wallpaper"
     echo "   Options"
+    echo "       -c | --color-scheme     (If no color scheme is provided, one will be generated from the wallpaper)"
+    echo "   Modes"
     echo "       -d | --dark             (Default)"
     echo "       -l | --light"
 }
@@ -77,7 +74,7 @@ function setColors(){
     #   Kitty
     #   VSCode
     matuBG=$(cat .config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
-    wal $walMode -n -i $wallpaper -b $matuBG 
+    wal $walMode -n -i $wallpaper -b $matuBG --saturate 1 
 
 }
 
