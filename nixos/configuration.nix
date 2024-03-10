@@ -112,12 +112,12 @@ in{
   programs.light.enable = true;
   programs.hyprland.enable = true;
   programs.thunar.enable = true;
-
-  programs.file-roller.enable = true;  # Archive backend?
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
     thunar-volman
   ];
+  programs.file-roller.enable = true;  # Archive backend?
+
   programs.xfconf.enable = true;
   programs.noisetorch.enable = true;
   programs.gnome-disks.enable = true;

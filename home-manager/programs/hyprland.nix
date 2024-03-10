@@ -126,14 +126,18 @@
         }
 
         misc {
-        force_default_wallpaper = 0
-        disable_hyprland_logo = true
+            force_default_wallpaper = 0
+            disable_hyprland_logo = true
         }
 
         # Pseudo tiles all windows?
         # Having these on causes (XWayland?) appplications to open dialog boxes in center of screen, e.g. gimp
         #windowrule=pseudo,.*?
         #windowrule=center,.*?
+
+        windowrulev2 = float,workspace:5
+        windowrulev2 = size 50% 50%,workspace:5
+        windowrulev2 = move onscreen cursor -20% -20%, workspace:5
 
         # Blurs anyrun
         blurls=anyrun

@@ -71,8 +71,8 @@ in
     kitty
     firefox
     #xfce.thunar
-    #cinnamon.nemo-with-extensions
-    gnome.nautilus
+    cinnamon.nemo-with-extensions
+    #gnome.nautilus
     neofetch hyfetch
     htop
     vlc
@@ -368,11 +368,11 @@ in
   # GTK Config
   gtk = {
     enable = true;
-    theme = {
-      #name = "adw-gtk3";  
-      name = "WhiteSur-Dark";
-      package = pkgs.whitesur-gtk-theme;
-    };
+    #theme = {
+    #  #name = "adw-gtk3";  
+    #  name = "WhiteSur-Dark";
+    #  package = pkgs.whitesur-gtk-theme;
+    #};
     cursorTheme = {
       name = "macOS-BigSur";
       package = pkgs.apple-cursor;
@@ -414,7 +414,7 @@ in
 
     webcord = {
       name = "Webcord :)";
-      exec = "Webcord --disable-gpu";
+      exec = "webcord --disable-gpu";
       categories = [ "Network" "InstantMessaging" ];
       comment = "A Discord and SpaceBar electron-based client implemented without Discord API";
       icon = "webcord";
