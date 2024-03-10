@@ -204,7 +204,7 @@ export const applauncher = Widget.Window({
     keymode: "exclusive",
     anchor: ['top', 'left'],
     child: Applauncher({
-        width: 360,
+        width: 340,
         height: 500,
         spacing: 12,
     }),

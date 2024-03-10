@@ -10,15 +10,20 @@ $mediumOpacity: 0.85;
 
 
 .container{
-    background-color: $surface;
     border-radius: 1rem;
     padding: 1rem;
 }
 
+/*
+window:has(menu){
+
+}
+*/
+
 // Bar
 ////////////////////////////////////////////////////////////////////////////
 window.bar {
-    background-color: $surface;
+    background-color: rgba($surface, $mediumOpacity);
 }
 .bar{
     font-family: "System-ui";
@@ -29,9 +34,12 @@ window.bar {
 // App Launcher
 ////////////////////////////////////////////////////////////////////////////
 .applauncher {
-    background-color: $surface;
+    background-color: rgba($surface, $mediumOpacity);
     padding: 8px;
-    border-radius: 24px;
+    border-radius: 1.2rem;
+    border-color: rgba(88, 88, 88, 0.42);
+    border-width: 1px;
+    border-style: solid;
 }
 
 .app-item:focus {
@@ -86,7 +94,7 @@ button:hover > * {
     background-color: $surface_bright;
 }
 .dock-container{
-    background-color: $surface;
+    background-color: rgba($surface, $mediumOpacity);
     border-radius: 32px;
 }
 
@@ -176,7 +184,7 @@ button:hover > * {
 
 .notification {
     color: rgb(255, 255, 255);
-    background-color: $surface;
+    background-color: rgba($surface, $mediumOpacity);
     border-radius: 1rem;
     min-width: 12rem;
     min-height: 4rem;
@@ -210,6 +218,7 @@ button:hover > * {
     background-color: rgba($surface_container_lowest, $mediumOpacity);
     border-radius: 1rem;
 }
+
 
 .control-panel-button:hover{
     background-color: $surface_bright;
@@ -352,6 +361,23 @@ calendar:indeterminate {
 
 // Weather
 .weather{
-    background-color: rgba($surface_container_lowest, $mediumOpacity);
+    //background-color: rgba($surface_container_lowest, $mediumOpacity);
     border-radius: 1rem;
+}
+
+
+// Systray + other context menus?
+menu{
+    background-color: rgba($surface, $mediumOpacity);
+    border-radius: 1rem;
+    padding: 0.4rem;
+}
+
+menuitem {
+    border-radius: 0.4rem;
+    padding: 0.4rem;
+}
+
+menuitem:hover{
+    background-color: $surface_bright;
 }

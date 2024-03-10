@@ -414,7 +414,7 @@ in
 
     webcord = {
       name = "Webcord :)";
-      exec = "Webcord --disable-gpu";
+      exec = "webcord --disable-gpu";
       categories = [ "Network" "InstantMessaging" ];
       comment = "A Discord and SpaceBar electron-based client implemented without Discord API";
       icon = "webcord";

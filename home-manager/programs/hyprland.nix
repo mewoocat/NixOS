@@ -163,10 +163,14 @@
         decoration {
             rounding = 14
             blur {
-            enabled = true
-            size = 4
-            passes = 4
-            new_optimizations = true
+                enabled = true
+                size = 4
+                passes = 4
+                new_optimizations = true
+
+                # Blur popups
+                popups = true
+                popups_ignorealpha = 0.2
             }
 
             drop_shadow = true

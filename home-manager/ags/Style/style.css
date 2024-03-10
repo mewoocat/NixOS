@@ -5,21 +5,28 @@
   color: #e2e2e2; }
 
 .container {
-  background-color: #131313;
   border-radius: 1rem;
   padding: 1rem; }
 
+/*
+window:has(menu){
+
+}
+*/
 window.bar {
-  background-color: #131313; }
+  background-color: rgba(19, 19, 19, 0.85); }
 
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
 
 .applauncher {
-  background-color: #131313;
+  background-color: rgba(19, 19, 19, 0.85);
   padding: 8px;
-  border-radius: 24px; }
+  border-radius: 1.2rem;
+  border-color: rgba(88, 88, 88, 0.42);
+  border-width: 1px;
+  border-style: solid; }
 
 .app-item:focus {
   background-color: #474747;
@@ -53,7 +60,7 @@ button:hover > * {
   background-color: #393939; }
 
 .dock-container {
-  background-color: #131313;
+  background-color: rgba(19, 19, 19, 0.85);
   border-radius: 32px; }
 
 .ws-indicator {
@@ -113,7 +120,7 @@ button:hover > * {
 
 .notification {
   color: white;
-  background-color: #131313;
+  background-color: rgba(19, 19, 19, 0.85);
   border-radius: 1rem;
   min-width: 12rem;
   min-height: 4rem; }
@@ -226,5 +233,16 @@ calendar:indeterminate {
   background-color: red; }
 
 .weather {
-  background-color: rgba(14, 14, 14, 0.85);
   border-radius: 1rem; }
+
+menu {
+  background-color: rgba(19, 19, 19, 0.85);
+  border-radius: 1rem;
+  padding: 0.4rem; }
+
+menuitem {
+  border-radius: 0.4rem;
+  padding: 0.4rem; }
+
+menuitem:hover {
+  background-color: #393939; }
