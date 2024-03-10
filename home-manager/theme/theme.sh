@@ -61,7 +61,7 @@ function setColors(){
     #   GTK
     #   AGS
     #   Wal
-    matugen image $wallpaper --mode "$mode" -t scheme-fruit-salad --show-colors
+    matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
 
     # Debugging...
     echo "gtk = $gtkTheme"
@@ -76,7 +76,8 @@ function setColors(){
     # Responsible for:
     #   Kitty
     #   VSCode
-    wal $walMode -n -i $wallpaper                                               # Set wal theme from matugen
+    matuBG=$(cat .config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
+    wal $walMode -n -i $wallpaper -b $matuBG 
 
 }
 

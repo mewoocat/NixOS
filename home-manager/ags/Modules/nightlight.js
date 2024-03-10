@@ -26,7 +26,18 @@ export const NightlightIcon = () => Widget.Box({
     }),
 })
 
-export async function ToggleNightlight(){
-    
+export async function ToggleNightlight(){ 
     execAsync(['bash', '-c', 'pkill wlsunset; if [ $? -ne 0 ]; then wlsunset; fi']).catch(logError);
 }
+
+export const NightLightButton = (w, h) => Widget.Button({
+    class_name: `control-panel-button`,
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
+    on_primary_click: () => {
+        ToggleNightlight()
+    },
+    child: NightlightIcon(),
+})

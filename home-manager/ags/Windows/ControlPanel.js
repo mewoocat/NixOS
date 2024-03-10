@@ -15,7 +15,7 @@ import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
 import { ThemeIcon } from '../Modules/theme.js'
 import { PowerIcon } from '../Modules/power.js';
 import { Weather } from '../Modules/Weather.js';
-import { NightlightIcon, ToggleNightlight } from '../Modules/nightlight.js';
+import { NightLightButton, NightlightIcon, ToggleNightlight } from '../Modules/nightlight.js';
 import options from '../options.js';
 
 // Variables
@@ -48,7 +48,12 @@ grid.attach(sliders, 1,2,2,1)
 
 // Row 3
 grid.attach(Weather(options.large, options.large), 1, 3, 1, 1)
-grid.attach(Weather(options.large, options.large), 2, 3, 1, 1)
+const grid3B = new Gtk.Grid()
+grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
+grid3B.attach(NightLightButton(options.small, options.small), 1, 2, 1, 1)
+grid3B.attach(NightLightButton(options.small, options.small), 2, 1, 1, 1)
+grid3B.attach(NightLightButton(options.small, options.small), 2, 2, 1, 1)
+grid.attach(grid3B, 2, 3, 1, 1)
 
 
 
