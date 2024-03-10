@@ -2,36 +2,36 @@
   all: unset;
   padding: 0px;
   margin: 0px;
-  color: #f9ddd3; }
+  color: #e2e2e2; }
 
 .container {
-  background-color: #1e100b;
+  background-color: #131313;
   border-radius: 1rem;
   padding: 1rem; }
 
 window.bar {
-  background-color: #1e100b; }
+  background-color: #131313; }
 
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
 
 .applauncher {
-  background-color: #1e100b;
+  background-color: #131313;
   padding: 8px;
   border-radius: 24px; }
 
 .app-item:focus {
-  background-color: #5d4035;
+  background-color: #474747;
   border-radius: 1rem; }
 
 .app-entry {
   padding: 0.6rem;
-  background-color: #5d4035;
+  background-color: #474747;
   border-radius: 1rem; }
 
 .first-item > button:first-child {
-  background-color: #5d4035;
+  background-color: #474747;
   border-radius: 1rem; }
 
 button {
@@ -43,17 +43,17 @@ button > * {
   border-radius: 1rem; }
 
 button:hover > * {
-  background-color: #47352f; }
+  background-color: #393939; }
 
 .dock-button > box {
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 .dock-button:hover > box {
-  background-color: #47352f; }
+  background-color: #393939; }
 
 .dock-container {
-  background-color: #1e100b;
+  background-color: #131313;
   border-radius: 32px; }
 
 .ws-indicator {
@@ -76,13 +76,13 @@ button:hover > * {
   min-width: 1.8rem; }
   .ws-button label {
     font-size: 0rem;
-    color: #1e100b; }
+    color: #131313; }
 
 .ws-button > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #ffafd6; }
+  background-color: #ffb598; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -103,7 +103,7 @@ button:hover > * {
     font-size: 0.8rem; }
 
 .ws-active {
-  background-color: #ffb598;
+  background-color: #d4c78e;
   min-width: 2.4rem;
   min-height: 1.2rem; }
   .ws-active label {
@@ -113,13 +113,13 @@ button:hover > * {
 
 .notification {
   color: white;
-  background-color: #1e100b;
+  background-color: #131313;
   border-radius: 1rem;
   min-width: 12rem;
   min-height: 4rem; }
 
 .control-panel-container {
-  background-color: rgba(30, 16, 11, 0.85);
+  background-color: rgba(19, 19, 19, 0.85);
   border-radius: 16px;
   border-color: rgba(88, 88, 88, 0.42);
   border-width: 1px;
@@ -136,25 +136,25 @@ button:hover > * {
 */
 .control-panel-button {
   padding: 0rem;
-  background-color: rgba(24, 11, 6, 0.85);
+  background-color: rgba(14, 14, 14, 0.85);
   border-radius: 1rem; }
 
 .control-panel-button:hover {
-  background-color: #47352f; }
+  background-color: #393939; }
 
 .control-panel-audio-box {
   border-radius: 1rem;
   padding: 0.4rem;
-  background-color: rgba(24, 11, 6, 0.85); }
+  background-color: rgba(14, 14, 14, 0.85); }
 
 .battery-bg {
-  color: #f9ddd3; }
+  color: #e2e2e2; }
 
 .battery-fg {
   color: #44ec44; }
 
 .battery-circle {
-  background-color: #1e100b;
+  background-color: #131313;
   color: lightgreen; }
 
 .icon {
@@ -174,7 +174,7 @@ button:hover > * {
 
 /* The background */
 .sliders trough {
-  background-color: #1e100b;
+  background-color: #131313;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; }
@@ -182,7 +182,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #ffafd6;
+  background-color: #ffb598;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -191,19 +191,19 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #ffb598;
+  background-color: #d4c78e;
   border-style: solid;
   border-width: 1px;
-  border-color: #ffb598; }
+  border-color: #d4c78e; }
 
 .system-stats-circular-progress {
-  background-color: #1e100b;
-  color: #ffb598;
+  background-color: #131313;
+  color: #d4c78e;
   font-size: 4px;
   min-height: 24px; }
 
 .lockscreen {
-  background-color: #1e100b; }
+  background-color: #131313; }
 
 calendar.button:hover {
   color: rgba(213, 25, 25, 0.87); }
@@ -226,5 +226,5 @@ calendar:indeterminate {
   background-color: red; }
 
 .weather {
-  background-color: rgba(24, 11, 6, 0.85);
+  background-color: rgba(14, 14, 14, 0.85);
   border-radius: 1rem; }
