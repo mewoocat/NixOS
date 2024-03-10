@@ -61,7 +61,7 @@ function setColors(){
     #   GTK
     #   AGS
     #   Wal
-    matugen image $wallpaper --mode "$mode" -t scheme-fruit-salad --show-colors
+    matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
 
     # Debugging...
     echo "gtk = $gtkTheme"
