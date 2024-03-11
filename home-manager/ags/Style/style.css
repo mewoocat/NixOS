@@ -144,7 +144,8 @@ button:hover > * {
 .control-panel-button {
   padding: 0rem;
   background-color: rgba(14, 14, 14, 0.85);
-  border-radius: 1rem; }
+  border-radius: 1rem;
+  margin: 0.2rem; }
 
 .control-panel-button:hover {
   background-color: #393939; }
@@ -152,6 +153,7 @@ button:hover > * {
 .control-panel-audio-box {
   border-radius: 1rem;
   padding: 0.4rem;
+  margin: 0.2rem;
   background-color: rgba(14, 14, 14, 0.85); }
 
 .battery-bg {
@@ -186,6 +188,9 @@ button:hover > * {
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; }
 
+.sliders trough:hover > slider {
+  background-color: #e2e2e2; }
+
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
@@ -202,6 +207,9 @@ button:hover > * {
   border-style: solid;
   border-width: 1px;
   border-color: #d4c78e; }
+
+.sliders slider:hover {
+  background-color: #e2e2e2; }
 
 .system-stats-circular-progress {
   background-color: #131313;

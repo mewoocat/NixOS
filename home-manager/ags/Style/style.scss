@@ -217,6 +217,7 @@ button:hover > * {
     padding: 0rem; // Disables default button padding
     background-color: rgba($surface_container_lowest, $mediumOpacity);
     border-radius: 1rem;
+    margin: 0.2rem;
 }
 
 
@@ -227,6 +228,7 @@ button:hover > * {
 .control-panel-audio-box {
     border-radius: 1rem;
     padding: 0.4rem;
+    margin: 0.2rem;
     background-color: rgba($surface_container_lowest, $mediumOpacity);
 }
 
@@ -283,6 +285,11 @@ button:hover > * {
   padding: 4px 20px; 
 }
 
+.sliders trough:hover > slider{
+  background-color: $on_surface;
+}
+
+
 /* The highligh */
 .sliders highlight{
  // min-height: 32px;
@@ -302,6 +309,10 @@ button:hover > * {
   border-style: solid;
   border-width: 1px;
   border-color: $tertiary;
+}
+
+.sliders slider:hover{
+  background-color: $on_surface;
 }
 
 
