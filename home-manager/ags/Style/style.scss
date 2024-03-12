@@ -1,5 +1,6 @@
 @import 'colors';
-$mediumOpacity: 0.85;
+$mediumOpacity: 0.65;
+$lowOpacity: 0.85;
 
 *{
     all: unset;
@@ -87,8 +88,10 @@ button:hover > * {
 // Dock
 ////////////////////////////////////////////////////////////////////////////
 .dock-button > box {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.4rem;
     border-radius: 1rem;
+    min-width: 4rem;
+    min-height: 4rem;
 }
 .dock-button:hover > box {
     background-color: $surface_bright;
@@ -215,9 +218,9 @@ button:hover > * {
 */
 .control-panel-button{
     padding: 0rem; // Disables default button padding
-    background-color: rgba($surface_container_lowest, $mediumOpacity);
+    background-color: rgba($surface_container_lowest, $lowOpacity);
     border-radius: 1rem;
-    //margin: 0.2rem;
+    margin: 0.2rem;
 }
 
 
@@ -229,7 +232,7 @@ button:hover > * {
     border-radius: 1rem;
     padding: 0.4rem;
     margin: 0.2rem;
-    background-color: rgba($surface_container_lowest, $mediumOpacity);
+    background-color: rgba($surface_container_lowest, $lowOpacity);
 }
 
 

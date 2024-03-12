@@ -14,14 +14,14 @@ window:has(menu){
 }
 */
 window.bar {
-  background-color: rgba(19, 19, 19, 0.85); }
+  background-color: rgba(19, 19, 19, 0.65); }
 
 .bar {
   font-family: "System-ui";
   font-size: 16px; }
 
 .applauncher {
-  background-color: rgba(19, 19, 19, 0.85);
+  background-color: rgba(19, 19, 19, 0.65);
   padding: 8px;
   border-radius: 1.2rem;
   border-color: rgba(88, 88, 88, 0.42);
@@ -53,14 +53,16 @@ button:hover > * {
   background-color: #393939; }
 
 .dock-button > box {
-  padding: 0.5rem 1rem;
-  border-radius: 1rem; }
+  padding: 0.4rem 0.4rem;
+  border-radius: 1rem;
+  min-width: 4rem;
+  min-height: 4rem; }
 
 .dock-button:hover > box {
   background-color: #393939; }
 
 .dock-container {
-  background-color: rgba(19, 19, 19, 0.85);
+  background-color: rgba(19, 19, 19, 0.65);
   border-radius: 32px; }
 
 .ws-indicator {
@@ -89,7 +91,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #ffb59a; }
+  background-color: #ffb598; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -110,7 +112,7 @@ button:hover > * {
     font-size: 0.8rem; }
 
 .ws-active {
-  background-color: #d5c78e;
+  background-color: #d4c78e;
   min-width: 2.4rem;
   min-height: 1.2rem; }
   .ws-active label {
@@ -120,13 +122,13 @@ button:hover > * {
 
 .notification {
   color: white;
-  background-color: rgba(19, 19, 19, 0.85);
+  background-color: rgba(19, 19, 19, 0.65);
   border-radius: 1rem;
   min-width: 12rem;
   min-height: 4rem; }
 
 .control-panel-container {
-  background-color: rgba(19, 19, 19, 0.85);
+  background-color: rgba(19, 19, 19, 0.65);
   border-radius: 16px;
   border-color: rgba(88, 88, 88, 0.42);
   border-width: 1px;
@@ -144,7 +146,8 @@ button:hover > * {
 .control-panel-button {
   padding: 0rem;
   background-color: rgba(14, 14, 14, 0.85);
-  border-radius: 1rem; }
+  border-radius: 1rem;
+  margin: 0.2rem; }
 
 .control-panel-button:hover {
   background-color: #393939; }
@@ -193,7 +196,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #ffb59a;
+  background-color: #ffb598;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -202,17 +205,17 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #d5c78e;
+  background-color: #d4c78e;
   border-style: solid;
   border-width: 1px;
-  border-color: #d5c78e; }
+  border-color: #d4c78e; }
 
 .sliders slider:hover {
   background-color: #e2e2e2; }
 
 .system-stats-circular-progress {
   background-color: #131313;
-  color: #d5c78e;
+  color: #d4c78e;
   font-size: 4px;
   min-height: 24px; }
 
@@ -240,7 +243,7 @@ calendar:indeterminate {
   background-color: red; }
 
 menu {
-  background-color: rgba(19, 19, 19, 0.85);
+  background-color: rgba(19, 19, 19, 0.65);
   border-radius: 1rem;
   padding: 0.4rem; }
 

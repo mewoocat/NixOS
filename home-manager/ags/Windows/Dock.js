@@ -15,26 +15,29 @@ const appButton = (client = null) => Widget.Button({
                 Widget.Icon({
                     class_name: 'client-icon',
                     css: 'font-size: 3rem;',
-                    //icon: client.class,
+                    icon: client.class,
                 }),
-                /*
+                
                 Widget.Label({
                     label: client.class,
+                    truncate: 'end',
+                    maxWidthChars: 8,
                 })
-                */
+                
             ]
         })
 });
 
 const clientList = Widget.Box({
     class_name: "dock-container",
-    css: "min-height: 5rem;",
-    css: "min-width: 6rem;",
+    css: "min-height: 6rem;",
     //vertical: true,
     children:
         // Returns the list of clients as buttons
         Hyprland.bind("clients").transform(clients => clients.map(client => {
-            return appButton(client)
+            if (client.class != ""){
+                return appButton(client)
+            }
         })
     )
 });
@@ -43,7 +46,7 @@ export const Dock = (monitor = 0) => Widget.Window({
     name: `Dock`, // name has to be unique
     monitor,
     visible: false,
-    margins: [0,64,8,64],
+    margins: [4,64,4,64],
     //margins: [8,0,8,8],
     anchor: ['bottom', 'left', 'right'],
     exclusivity: 'exclusive',

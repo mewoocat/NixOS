@@ -12,11 +12,13 @@ import { WifiButton, WifiSSID, WifiIcon } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/bluetooth.js';
 import { BatteryWidget } from '../Modules/battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
-import { ThemeIcon } from '../Modules/theme.js'
+import { ThemeButton } from '../Modules/theme.js'
+import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/power.js';
 import { Weather } from '../Modules/Weather.js';
-import { NightLightButton, NightlightIcon, ToggleNightlight } from '../Modules/nightlight.js';
+import { NightLightButton } from '../Modules/nightlight.js';
 import options from '../options.js';
+import { CloseOnClickAway } from '../Common.js';
 
 // Variables
 import { ControlPanelTab } from '../variables.js';
@@ -51,8 +53,8 @@ grid.attach(Weather(options.large, options.large), 1, 3, 1, 1)
 const grid3B = new Gtk.Grid()
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
-grid3B.attach(NightLightButton(options.small, options.small), 2, 1, 1, 1)
-grid3B.attach(NightLightButton(options.small, options.small), 2, 2, 1, 1)
+grid3B.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
+grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
@@ -162,20 +164,22 @@ const stack = Widget.Stack({
 
 const content = Widget.Box({
     css: 'padding: 1px;',
-    child: Widget.Revealer({
-        revealChild: false,
-        transitionDuration: 150,
-        transition: "slide_down",
-        setup: self => {
-            self.hook(App, (self, windowName, visible) => {
-                if (windowName === "ControlPanel"){
-                    self.revealChild = visible
-                    ControlPanelTab.setValue("child1")
-                }
-            }, 'window-toggled')
-        },
-        child: stack,
-    })
+    children: [
+        Widget.Revealer({
+            revealChild: false,
+            transitionDuration: 150,
+            transition: "slide_down",
+            setup: self => {
+                self.hook(App, (self, windowName, visible) => {
+                    if (windowName === "ControlPanel"){
+                        self.revealChild = visible
+                        ControlPanelTab.setValue("child1")
+                    }
+                }, 'window-toggled')
+            },
+            child: stack,
+        })
+    ],
 })
 
 export const ControlPanelToggleButton = (monitor) => Widget.Button({
@@ -197,6 +201,6 @@ export const ControlPanel = Widget.Window({
     //keymode: "exclusive",
     anchor: ['top', 'right'],
     exclusivity: 'normal',
-    child: content,
+    child: CloseOnClickAway("ControlPanel", content)
 });
 

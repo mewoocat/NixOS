@@ -16,15 +16,6 @@ const NightLightState = Variable(false, {
     }],
 })
 
-export const NightlightIcon = () => Widget.Box({
-    child:
-        Widget.Label({
-            label: ""
-        }),
-    setup: self => self.hook(NightLightState, () => {
-        self.toggleClassName("active-button", NightLightState.value)
-    }),
-})
 
 export async function ToggleNightlight(){ 
     execAsync(['bash', '-c', 'pkill wlsunset; if [ $? -ne 0 ]; then wlsunset; fi']).catch(logError);
@@ -39,5 +30,10 @@ export const NightLightButton = (w, h) => Widget.Button({
     on_primary_click: () => {
         ToggleNightlight()
     },
-    child: NightlightIcon(),
+    child: Widget.Label({
+        label: ""
+    }),
+    setup: self => self.hook(NightLightState, () => {
+        self.toggleClassName("active-button", NightLightState.value)
+    }),
 })
