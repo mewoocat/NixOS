@@ -34,7 +34,7 @@ function LookupWeatherCode(code){
 }
 
 export const Weather = (w, h) => Widget.Box({
-    class_name: "weather",
+    class_name: "control-panel-button",
     css: `
         min-width: ${w}rem;
         min-height: ${h}rem;

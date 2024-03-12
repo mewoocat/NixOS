@@ -217,7 +217,7 @@ button:hover > * {
     padding: 0rem; // Disables default button padding
     background-color: rgba($surface_container_lowest, $mediumOpacity);
     border-radius: 1rem;
-    margin: 0.2rem;
+    //margin: 0.2rem;
 }
 
 
@@ -252,6 +252,7 @@ button:hover > * {
 ////////////////////////////////////////////////////////////////////////////
 .icon{
     font-size: 20px;
+    //color: rgb(83, 18, 18);
 }
 
 // Common
@@ -373,7 +374,7 @@ calendar:indeterminate {
 // Weather
 .weather{
     //background-color: rgba($surface_container_lowest, $mediumOpacity);
-    border-radius: 1rem;
+    //border-radius: 1rem;
 }
 
 

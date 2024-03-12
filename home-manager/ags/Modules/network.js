@@ -40,7 +40,7 @@ export const WifiIcon = () => Widget.Box({
     ]
 })
 
-export const EthernetIcon = () => Widget.Box({
+export const EthernetIconLabel = () => Widget.Box({
     class_name: "icon",
     children:[
         Widget.Label().hook(Network, self => {
@@ -55,6 +55,21 @@ export const EthernetIcon = () => Widget.Box({
             }
         }),
     ]
+})
+
+export const EthernetIcon = () => Widget.Icon({
+    class_name: "icon",
+    icon: "network-wired-offline-symbolic"
+
+}).hook(Network, self => {
+    var status = Network.wired.internet
+    self.toggleClassName('dim', status == "disconnected")
+    if (status == "disconnected"){
+        self.icon = "network-wired-offline-symbolic"
+    }
+    else {
+        self.icon = "network-wired-symbolic"
+    }
 })
 
 export const WifiSSID = () => Widget.Box({

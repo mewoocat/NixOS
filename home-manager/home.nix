@@ -187,6 +187,8 @@ in
     openvpn
     osu-lazer-bin
     rpcs3
+
+    pantheon.elementary-iconbrowser
   ];
 
   # Activation scripts 

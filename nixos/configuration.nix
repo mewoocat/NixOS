@@ -104,6 +104,8 @@ in{
 
   # File file manager func.
   services.gvfs.enable = true;
+
+  services.power-profiles-daemon.enable = true;
  
 
   ### Programs ###
