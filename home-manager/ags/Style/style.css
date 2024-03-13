@@ -91,7 +91,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #ffb598; }
+  background-color: #ffb59e; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -112,7 +112,7 @@ button:hover > * {
     font-size: 0.8rem; }
 
 .ws-active {
-  background-color: #d4c78e;
+  background-color: #d7c68d;
   min-width: 2.4rem;
   min-height: 1.2rem; }
   .ws-active label {
@@ -196,7 +196,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #ffb598;
+  background-color: #ffb59e;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -205,17 +205,17 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #d4c78e;
+  background-color: #d7c68d;
   border-style: solid;
   border-width: 1px;
-  border-color: #d4c78e; }
+  border-color: #d7c68d; }
 
 .sliders slider:hover {
   background-color: #e2e2e2; }
 
 .system-stats-circular-progress {
   background-color: #131313;
-  color: #d4c78e;
+  color: #d7c68d;
   font-size: 4px;
   min-height: 24px; }
 

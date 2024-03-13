@@ -199,7 +199,8 @@ export const ControlPanel = Widget.Window({
     class_name: 'control-panel',
     visible: false,
     //keymode: "exclusive",
-    anchor: ['top', 'right'],
+    //anchor: ['top', 'right'],
+    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content)
 });
