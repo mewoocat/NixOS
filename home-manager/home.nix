@@ -68,8 +68,10 @@ in
     # Core
     git
     vim
+    lunarvim
     kitty
     firefox
+    floorp
     #xfce.thunar
     cinnamon.nemo-with-extensions
     #gnome.nautilus
@@ -187,8 +189,8 @@ in
     openvpn
     osu-lazer-bin
     rpcs3
+    fastfetch
 
-    pantheon.elementary-iconbrowser
   ];
 
   # Activation scripts 
@@ -205,11 +207,13 @@ in
     # ".screenrc".source = dotfiles/screenrc;
 
    ".config/kitty".source = ./kitty; 
-   ".config/nvim".source = ./nvim;
+   ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/nvim";
    ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/eww";
    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
    ".config/tmux".source = ./tmux;
    ".config/matugen".source = ./matugen;
+   ".config/btop".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/btop";
+   ".config/lvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/lvim";
 
    # Themes
    ".local/share/themes/adw-gtk3".source = ./theme/adw-gtk3;

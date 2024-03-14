@@ -34,7 +34,7 @@ window.bar {
 
 .app-entry {
   padding: 0.6rem;
-  background-color: #474747;
+  background-color: black;
   border-radius: 1rem; }
 
 .first-item > button:first-child {
@@ -91,7 +91,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #ffb59e; }
+  background-color: #d1bcff; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -112,7 +112,7 @@ button:hover > * {
     font-size: 0.8rem; }
 
 .ws-active {
-  background-color: #d7c68d;
+  background-color: #f0b8c6;
   min-width: 2.4rem;
   min-height: 1.2rem; }
   .ws-active label {
@@ -196,7 +196,7 @@ button:hover > * {
 /* The highligh */
 .sliders highlight {
   border-radius: 20px;
-  background-color: #ffb59e;
+  background-color: #d1bcff;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -205,17 +205,17 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: #d7c68d;
+  background-color: #f0b8c6;
   border-style: solid;
   border-width: 1px;
-  border-color: #d7c68d; }
+  border-color: #f0b8c6; }
 
 .sliders slider:hover {
   background-color: #e2e2e2; }
 
 .system-stats-circular-progress {
   background-color: #131313;
-  color: #d7c68d;
+  color: #f0b8c6;
   font-size: 4px;
   min-height: 24px; }
 

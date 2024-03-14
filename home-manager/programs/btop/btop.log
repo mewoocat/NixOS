@@ -1,0 +1,7 @@
+
+2024/03/13 (09:57:17) | ===> btop++ v.1.3.2
+2024/03/13 (09:57:17) | ERROR: Couldn't determine terminal size of "STDOUT_FILENO"!
+2024/03/13 (09:57:17) | ERROR: Couldn't determine terminal size of "/dev/tty"!
+
+2024/03/13 (17:50:19) | ===> btop++ v.1.3.2
+2024/03/13 (17:50:19) | ERROR: Couldn't determine terminal size of "STDOUT_FILENO"!
