@@ -184,13 +184,17 @@ button:hover > * {
 
 // Notifications
 ////////////////////////////////////////////////////////////////////////////
+.notifications {
+  margin: 1rem;
+}
 
 .notification {
     color: rgb(255, 255, 255);
     background-color: rgba($surface, $mediumOpacity);
     border-radius: 1rem;
-    min-width: 12rem;
+    min-width: 16rem;
     min-height: 4rem;
+    padding: 1rem;
 }
 
 

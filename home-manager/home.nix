@@ -1,21 +1,16 @@
 { config, pkgs, lib, inputs, ... }: let
   # Shell scripts
   #what = pkgs.writeShellScriptBin "lockScreen2" ''exec ${pkgs.gtklock}/bin/gtklock'';
-  what = import ./scripts/lockScreen.nix { inherit pkgs; };
-  
+  what = import ./scripts/lockScreen.nix { inherit pkgs; }; 
   huh = pkgs.writeShellScriptBin "lockScreen3" ''
         echo "what";
         ${pkgs.gtklock}/bin/gtklock;
         '';
-
-
 in
 
 {
   imports = [
-    #hyprland.homeManagerModules.default
     inputs.ags.homeManagerModules.default
-    #inputs.matugen.homeManagerModules.default
     programs/bash.nix
     programs/hyprland.nix
   ];
@@ -133,7 +128,6 @@ in
     ripgrep
     jq
     bc
-    gamescope
     wlsunset
     #gcc # Enabling this causes collision with busybox  
     #dunst # Some programs may crash without a notification daemon running
@@ -143,32 +137,14 @@ in
     busybox
     nmap
 
-    # Games
-    duckstation
-    (retroarch.override {
-      cores = with libretro; [
-        snes9x
-        pcsx-rearmed
-        #pcsx2
-      ];
-    })
-    pcsx2
 
     # Unsorted
     blueberry
-    dolphin-emu
     p7zip
     cantarell-fonts
     sassc # For ags
     vial
-    (lutris.override {
-       extraPkgs = pkgs: [
-         # List package dependencies here
-         wine
-       ];
-    })
 
-    xonotic
     spotify
     btop
     
@@ -187,8 +163,6 @@ in
     gradience
 
     openvpn
-    osu-lazer-bin
-    rpcs3
     fastfetch
 
   ];
@@ -259,15 +233,6 @@ in
       "workbench.colorTheme" = "Wal Bordered";         # Set theme
     };
   };
-  
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    plugins = [
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-    ];
-  };
-
 
   programs.obs-studio = {
     enable = true;
@@ -409,11 +374,6 @@ in
 
 
   # XDG
-  #xdg.desktopEntries.zettlr = {
-  #  name = "zettlr";
-  #  exec = "zettlr --disable-gpu --enable-features=UseOzonePlatform --ozone-platform=wayland";
-  #};
-
   xdg.desktopEntries = {
     obsidian = {
       name = "Obsidian :)";
@@ -435,11 +395,4 @@ in
     };
   };
 
-  # GSettings setup??
-  # From: https://www.reddit.com/r/NixOS/comments/nxnswt/cant_change_themes_on_wayland/
-  # Doesn't fix gsettings schema issue?
-  #xdg.systemDirs.data = [
-  #  "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
-  #  "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
-  #]; 
 }

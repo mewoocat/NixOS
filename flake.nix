@@ -11,11 +11,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+    #hyprland.url = "github:hyprwm/Hyprland";
+    #hyprland-plugins = {
+    #  url = "github:hyprwm/hyprland-plugins";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
 
     # Anyrun
     anyrun.url = "github:Kirottu/anyrun";
@@ -32,19 +32,10 @@
     };
 
   };
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function. 
-  outputs = inputs@{ self, nixpkgs, home-manager, hyprland, anyrun, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, anyrun, ... }: {
 
     # NixOS system config
     nixosConfigurations = {
@@ -73,11 +64,9 @@
  	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ 
-          hyprland.homeManagerModules.default
           anyrun.homeManagerModules.default
-          #ags.homeManagerModules.default
-          #{wayland.windowManager.hyprland.enable = true;}
           ./home-manager/home.nix 
+          ./home-manager/gameLite.nix
         ];
       };
 
@@ -85,11 +74,9 @@
  	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
         modules = [ 
-          hyprland.homeManagerModules.default
           anyrun.homeManagerModules.default
-          #ags.homeManagerModules.default
-          {wayland.windowManager.hyprland.enable = true;}
           ./home-manager/home.nix 
+          ./home-manager/game.nix
         ];
       };
 

@@ -3,7 +3,7 @@
   # Window manager
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    #package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     plugins = [
       #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
       #inputs.hycov.packages.${pkgs.system}.hycov
@@ -152,8 +152,11 @@
         blurls=ActivityCenter
         layerrule = ignorezero, ActivityCenter # Removes sharp corner from bluring on rounded corners
 
-        blurls=Dock
-        layerrule = ignorezero, Dock # Removes sharp corner from bluring on rounded corners
+        blurls=dock
+        layerrule = ignorezero, dock # removes sharp corner from bluring on rounded corners
+
+        blurls=notifications
+        layerrule = ignorezero, notifications # removes sharp corner from bluring on rounded corners
 
 
 
