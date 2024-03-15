@@ -1,5 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { cpu, ram, /*temp,*/ storage } from '../variables.js';
+import { uptime } from '../variables.js';
 
 export const cpuLabel = () => Widget.Label({
     label: cpu.bind().transform(value => " " + Math.round(value*100).toString() + "%"),
@@ -88,6 +89,14 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
                     ]
                 }),*/
             ]
+        }),
+        Widget.Box({
+            children: [
+
+                Widget.Label({
+                    label: uptime.bind(),
+                }),
+            ],
         }),
     ]
 })

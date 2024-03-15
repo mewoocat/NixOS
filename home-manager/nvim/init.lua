@@ -76,12 +76,13 @@ vim.opt.wrap = true
 vim.opt.clipboard = "unnamedplus" -- External clipboard support
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.mouse = ""
 
 -- Tab config
-vim.opt.tabstop = 2 -- A TAB character looks like 2 spaces
+vim.opt.tabstop = 4 -- A TAB character looks like 2 spaces
 vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.opt.softtabstop = 2 -- Number of spaces inserted instead of a TAB character
-vim.opt.shiftwidth = 2 -- Number of spaces inserted when indenting
+vim.opt.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
+vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
 -- Mappings
 --------------------------------------------------------------
@@ -90,6 +91,7 @@ vim.keymap.set('n', '<leader>o', builtin.find_files, {})
 vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>n', ":bnext<cr>", {})
 vim.keymap.set('n', '<leader>b', ":bprev<cr>", {})
+vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable middle mouse paste
 
 -- Theme
 --------------------------------------------------------------
