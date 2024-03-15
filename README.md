@@ -1,6 +1,14 @@
 # NixOS
 
 ### Installation
+### Info
+- OS: NixOS
+- WM: Hyprland
+- Widgets: AGS
+- Shell: Bash
+- Editor: nvim + VSCode
+- Theme: pywal + matugen
+
 
 ### Usage
 
@@ -14,7 +22,6 @@
 ##### Rebuild HomeManager
 `home-manager switch --flake ~/NixOS#eXia@scythe`
 `home-manager switch --flake ~/NixOS#eXia@obsidian`
-
 
 ### Screenshots
 ![Example](https://github.com/mewoocat/NixOS/blob/main/desktop.png)

@@ -233,15 +233,19 @@
         bind = $mainMod, TAB, changegroupactive, f	
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
+        bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 
+        bind = $mainMod, G, exec, ~/.config/hypr/scripts/toggleGaps.sh
+
+        # AGS
         bind = $mainMod, X, exec, ags -t applauncher
         bind = $mainMod, M, exec, ags -t ControlPanel
         bind = $mainMod, D, exec, ags -t Dock
         bind = $mainMod, A, exec, ags -t ActivityCenter
-        bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 
-        bind = $mainMod, G, exec, ~/.config/hypr/scripts/toggleGaps.sh
 
+        # Function keys
         bind = $mainMod, F1, exec, ~/.config/hypr/scripts/gamemode.sh # Toggle gamemode / animations
         bind = $mainMod, F2, exec, pkill ags && ags
+        bind = $mainMod, F3, exec, ~/Nixos/scripts/laptopMonitor.sh
 
 
         #bind = $mainMod_SHIFT, R, exec, hyprctl reload

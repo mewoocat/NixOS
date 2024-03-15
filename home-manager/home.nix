@@ -260,8 +260,15 @@ in
     };
   };
   
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    plugins = [
+      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+    ];
+  };
+
+
   programs.obs-studio = {
     enable = true;
     plugins = [ pkgs.obs-studio-plugins.wlrobs ];
