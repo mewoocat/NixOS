@@ -91,6 +91,7 @@ button:hover > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
+  background-color: #ffb59a; }
   background-color: #5dd5fb; }
 
 .ws-button:hover > .ws-inactive {

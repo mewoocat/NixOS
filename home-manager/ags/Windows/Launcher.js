@@ -54,24 +54,31 @@ const powerButtons = Widget.Box({
     ]
 })
 
+
+const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+var pfp = data.pfp
+print(`AAAAAAAAAAAAAAAAAA: ${pfp}`)
+
 const UserInfo = Widget.Box({
     spacing: 4,
     children:[
+        Widget.Box({
+            css: `
+                background-position: center;
+                border-radius: 100%;
+                min-width: 3rem;
+                min-height: 3rem;
+                background-size: cover;
+                background-image: url("/home/eXia/Downloads/Capture.PNG");
+            `,
+        }),
         Widget.Label({
             label: user.bind(),
         }),
-        Widget.Label({
-            label: uptime.bind(),
-        }),
-        Widget.Icon({
-            css: `
-                border-radius: 1rem;
-            `,
-            //icon: "/home/eXia/ArchBackup/Pictures/zero.jpeg",
-            size: 24,
-        })
     ]
 })
+
+print(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${App.configDir}`)
 
 
 const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
@@ -150,6 +157,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                         class_name: "applauncher",
                         vertical: true,
                         css: `margin: ${spacing * 2}px;`,
+                        spacing: 8,
                         children: [
                             entry,
 
@@ -162,8 +170,16 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                                 `,
                                 child: list,
                             }),
-                            powerButtons,
-                            UserInfo,
+                            Widget.CenterBox({  
+                                css: `
+                                    padding: 1.2rem;
+                                    background-color: #0f0f0f;
+                                    border-radius: 1rem;
+                                `,
+                                startWidget: UserInfo,
+                                centerWidget: Widget.Label(''),
+                                endWidget: powerButtons,
+                            })
                         ],
                         setup: self => self.hook(App, (_, windowName, visible) => {
                             if (windowName !== WINDOW_NAME)
