@@ -90,10 +90,10 @@
 
     packages.x86_64-linux = {
       # Output nixvim + config as package
-      nvim = nixvim.legacyPackages."".makeNixvim {
+      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
         colorschemes.gruvbox.enable = true;
       };
-      default = nvim;
+      #default = nvim;
     };
   };
 }
