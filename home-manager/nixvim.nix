@@ -1,3 +1,4 @@
+# A set that contains the nixvim config
 {
-    colorschemes.catppuccin.enable = true;
+    colorschemes.gruvbox.enable = true;
 }

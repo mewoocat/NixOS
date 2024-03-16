@@ -12,6 +12,14 @@
 
 ### Usage
 
+##### NeoVim config
+`nix run github:mewoocat/NixOS#nvim`
+or 
+`nix run github:mewoocat/NixOS#nvim --refresh` to refresh the cache
+
+
+
+
 ##### Update
 `nix flake update ~/NixOS`
 
