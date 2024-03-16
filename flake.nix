@@ -88,31 +88,12 @@
 
     };
 
-    # Output nixvim + config as package
-    nvim = flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
-
-      perSystem = {
-        pkgs,
-        system,
-        ...
-      }: let
-        nixvim' = nixvim.legacyPackages."${system}";
-        nvim = nixvim'.makeNixvim {
-          colorschemes.gruvbox.enable = true;
-        };
-      in {
-        packages = {
-          inherit nvim;
-          default = nvim;
-        };
+    packages.x86_64-linux = {
+      # Output nixvim + config as package
+      nvim = nixvim.legacyPackages."".makeNixvim {
+        colorschemes.gruvbox.enable = true;
       };
+      default = nvim;
     };
-
   };
 }
