@@ -30,7 +30,9 @@
     (lutris.override {
        extraPkgs = pkgs: [
          # List package dependencies here
-         wine
+         #wine
+         #wine-wayland
+         wineWowPackages.stable
        ];
     })
 

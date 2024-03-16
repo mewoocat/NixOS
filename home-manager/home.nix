@@ -11,9 +11,12 @@ in
 {
   imports = [
     inputs.ags.homeManagerModules.default
+    inputs.nixvim.homeManagerModules.nixvim
+    
     programs/bash.nix
     programs/hyprland.nix
-  ];
+    ./nvim
+ ];
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -165,6 +168,7 @@ in
     openvpn
     fastfetch
 
+
   ];
 
   # Activation scripts 
@@ -181,8 +185,6 @@ in
     # ".screenrc".source = dotfiles/screenrc;
 
    ".config/kitty".source = ./kitty; 
-   ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/nvim";
-   ".config/eww".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/eww";
    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
    ".config/tmux".source = ./tmux;
    ".config/matugen".source = ./matugen;
@@ -309,6 +311,11 @@ in
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
+  };
+
+  programs.nixvim = {
+    enable = true;
+    colorschemes.gruvbox.enable = true;
   };
 
 

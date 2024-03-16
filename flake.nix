@@ -31,11 +31,17 @@
       #ref = "refs/tags/matugen-v0.10.0"
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function. 
-  outputs = inputs@{ self, nixpkgs, home-manager, anyrun, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, anyrun, nixvim, flake-parts, ... }:
+  {
 
     # NixOS system config
     nixosConfigurations = {
@@ -80,6 +86,32 @@
         ];
       };
 
+    };
+
+    # Output nixvim + config as package
+    nvim = flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+
+      perSystem = {
+        pkgs,
+        system,
+        ...
+      }: let
+        nixvim' = nixvim.legacyPackages."${system}";
+        nvim = nixvim'.makeNixvim {
+          colorschemes.gruvbox.enable = true;
+        };
+      in {
+        packages = {
+          inherit nvim;
+          default = nvim;
+        };
+      };
     };
 
   };
