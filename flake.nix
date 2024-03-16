@@ -41,6 +41,9 @@
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function. 
   outputs = inputs@{ self, nixpkgs, home-manager, anyrun, nixvim, flake-parts, ... }:
+  let
+    nvimConfig = import ./home-manager/nixvim.nix;
+  in
   {
 
     # NixOS system config
@@ -90,10 +93,7 @@
 
     packages.x86_64-linux = {
       # Output nixvim + config as package
-      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
-        colorschemes.gruvbox.enable = true;
-      };
-      #default = nvim;
+      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim nvimConfig;
     };
   };
 }

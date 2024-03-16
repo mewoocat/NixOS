@@ -6,6 +6,7 @@
         echo "what";
         ${pkgs.gtklock}/bin/gtklock;
         '';
+  nvimConfig = import ./nixvim.nix;
 in
 
 {
@@ -315,8 +316,7 @@ in
 
   programs.nixvim = {
     enable = true;
-    colorschemes.gruvbox.enable = true;
-  };
+  } // nvimConfig; 
 
 
 
