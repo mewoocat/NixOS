@@ -3,7 +3,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
 
 in{
@@ -126,6 +126,13 @@ in{
   programs.noisetorch.enable = true;
   programs.gnome-disks.enable = true;
   programs.kdeconnect.enable = true;
+  # add extra compatibility tools to your STEAM_EXTRA_COMPAT_TOOLS_PATHS
+  programs.steam = {
+    enable = true;
+    extraCompatPackages = [
+      inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+    ];
+  };
 
 
 
@@ -134,6 +141,8 @@ in{
 
   # Required for steam to run?
   hardware.opengl.driSupport32Bit = true;
+
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
     Policy = {

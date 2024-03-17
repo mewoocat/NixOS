@@ -19,6 +19,13 @@ in
     ./nvim
  ];
 
+    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfreePredicate = (pkg: true);
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-25.9.0" # Fix for obsidian using electron 25 which is EOL
+      "electron-19.1.9" # For balena etcher
+    ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "eXia";
@@ -38,13 +45,6 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = (pkg: true);
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0" # Fix for obsidian using electron 25 which is EOL
-    "electron-19.1.9" # For balena etcher
-  ];
 
   home.packages = with pkgs; [
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -169,6 +169,7 @@ in
     openvpn
     fastfetch
 
+    gnome.gnome-calendar
 
   ];
 

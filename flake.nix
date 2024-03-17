@@ -7,6 +7,7 @@
     #home-manager.inputs.nixpkgs.follows = "nixpkgs";
     
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -36,6 +37,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    
+
   };
 
   # The `@` syntax here is used to alias the attribute set of the
@@ -61,7 +65,23 @@
       obsidian = nixpkgs.lib.nixosSystem {
         #system = "x86_64-Linux";
         specialArgs = { inherit inputs; };
-        modules = [ ./hosts/obsidian ./nixos/configuration.nix ];
+        modules = [ 
+          ./hosts/obsidian
+          ./nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.eXia = {
+              imports = [
+                anyrun.homeManagerModules.default
+                ./home-manager/home.nix
+                ./home-manager/game.nix
+              ];
+            };
+          }
+          ];
       };
 
     };

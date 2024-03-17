@@ -32,7 +32,7 @@ Install nix
 `sudo nixos-rebuild switch --flake /home/eXia/NixOS#scythe`
 `sudo nixos-rebuild switch --flake /home/eXia/NixOS#obsidian`
 
-##### Rebuild HomeManager
+##### Rebuild HomeManager (Deprecated)
 `home-manager switch --flake ~/NixOS#eXia@scythe`
 `home-manager switch --flake ~/NixOS#eXia@obsidian`
 
