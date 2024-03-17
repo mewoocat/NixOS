@@ -53,8 +53,10 @@ in{
   ];
 
 
-  #for openrgb
-  services.udev.packages = [ pkgs.openrgb ];
+  services.udev.packages = [ 
+    pkgs.openrgb
+    pkgs.dolphinEmu   
+  ];
   hardware.i2c.enable = true;
 
   # Gtklock needs this for password to work

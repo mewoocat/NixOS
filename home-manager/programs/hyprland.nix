@@ -132,6 +132,9 @@
         windowrulev2 = size 50% 50%,workspace:5
         windowrulev2 = move onscreen cursor -20% -20%, workspace:5
 
+        # Fix steam popup issue
+        windowrulev2 = minsize 1 1, title:^(steam)$, class:^(steam)$
+
         # Blurs anyrun
         blurls=anyrun
         layerrule = ignorealpha 0.5, anyrun # This only blurs the search box portion instead the whole layer which covers the whole screen

@@ -13,9 +13,14 @@
 ### Usage
 
 ##### Run NeoVim config
+
+Install nix
+`sh <(curl -L https://nixos.org/nix/install) --daemon`
+`export NIX_CONFIG="experimental-features = nix-command flakes"`
+
 `nix run github:mewoocat/NixOS#nvim`
-or 
-`nix run github:mewoocat/NixOS#nvim --refresh` to refresh the cache
+
+`nix profile install github:mewoocat/NixOS#nvim`
 
 
 

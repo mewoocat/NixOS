@@ -33,6 +33,7 @@
          #wine
          #wine-wayland
          wineWowPackages.stable
+         winetricks
        ];
     })
 
