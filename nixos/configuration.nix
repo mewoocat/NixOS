@@ -135,7 +135,6 @@ in{
   };
 
 
-
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
   fonts.fontDir.enable = true;  
 
