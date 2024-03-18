@@ -36,7 +36,7 @@
          winetricks
        ];
     })
-
+    inputs.nix-gaming.packages.${pkgs.system}.viper
 
   ];
 

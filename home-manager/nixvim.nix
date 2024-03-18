@@ -1,6 +1,7 @@
 # A set that contains the nixvim config
 {
     #colorschemes.gruvbox.enable = true;
+    colorschemes.oxocarbon.enable = true;
 
     extraConfigLuaPre = ''
 
@@ -13,6 +14,18 @@
         vim.opt.number = true
         vim.opt.relativenumber = true
         vim.opt.mouse = ""
+        --vim.opt.termguicolors = true
+        --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+        -- Disables kitty padding on entry and enables on exit
+        vim.cmd [[
+        augroup kitty_mp
+          autocmd!
+          au VimLeave * if !empty($KITTY_WINDOW_ID) | :silent !kitty @ set-spacing padding=default margin=default
+          au VimEnter * if !empty($KITTY_WINDOW_ID) | :silent !kitty @ set-spacing padding=0 margin=0
+        augroup END
+        ]]
 
         -- Tab config
         vim.opt.tabstop = 4 -- A TAB character looks like 2 spaces

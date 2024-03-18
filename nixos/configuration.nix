@@ -130,7 +130,7 @@ in{
   programs.steam = {
     enable = true;
     extraCompatPackages = [
-      inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+      inputs.nix-gaming.packages.${pkgs.system}.proton-ge # Doesn't seem to work
     ];
   };
 
@@ -247,10 +247,10 @@ in{
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  #networking.firewall.allowedTCPPorts = [ 3216 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false; #TODO test if turning this back on breaks tf2
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
