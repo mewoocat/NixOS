@@ -7,6 +7,7 @@ import { NotificationWidget } from './NotificationPopup.js';
 import Media from '../Modules/Media.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import { CloseOnClickAway } from '../Common.js';
 
 // More info https://aylur.github.io/ags-docs/config/subclassing-gtk-widgets/
 
@@ -101,7 +102,7 @@ export const ActivityCenter = (monitor = 0) => Widget.Window({
     visible: false,
     focusable: true,
     monitor,
-    anchor: ['top', 'center'],
+    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',
-    child: container(),
+    child: CloseOnClickAway("ActivityCenter", container(), "top-center"),
 });

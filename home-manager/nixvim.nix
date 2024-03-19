@@ -46,5 +46,7 @@
         treesitter.enable = true;
         bufferline.enable = true;
         neo-tree.enable = true;
+        indent-blankline.enable = true;
+        airline.enable = true;
     };
 }

@@ -4,6 +4,7 @@ import Applications from 'resource:///com/github/Aylur/ags/service/applications.
 import { user, uptime } from '../variables.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { isLauncherOpen } from '../variables.js';
+import { CloseOnClickAway } from '../Common.js';
 
 const WINDOW_NAME = 'applauncher';
 
@@ -218,26 +219,12 @@ export const applauncher = Widget.Window({
     popup: true,
     layer: "overlay",
     keymode: "exclusive",
-    anchor: ['top', 'left'],
-    child: Applauncher({
+    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    child: CloseOnClickAway(WINDOW_NAME, Applauncher({
         width: 340,
         height: 500,
         spacing: 12,
-    }),
+    }), "top-left"),
     //TODO: setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
 });
 
-export function toggleLauncherWindow(){
-    console.log(isLauncherOpen.value)
-    if (isLauncherOpen.value == false){
-        applauncher.keymode = "exclusive"
-        isLauncherOpen.value = true
-    }
-    else{
-        isLauncherOpen.value = false
-        applauncher.keymode = "none"
-    }
-}
-
-// Set function as global so that it can be ran via cli
-globalThis['toggleLauncherWindow'] = toggleLauncherWindow
