@@ -216,6 +216,7 @@ in
     NIXOS_OZONE_WL = "1";
     SDL_VIDEODRIVER="wayland";
     QT_QPA_PLATFORM="wayland;xcb";
+    DEFAULT_BROWSER = "firefox"; # Doesn't seem to work
   };
 
 
@@ -401,6 +402,17 @@ in
       icon = "webcord";
       type = "Application";
     };
+  };
+
+  xdg.mimeApps.defaultApplications = {
+
+    # Set default browser 
+    # Not sure if this is working
+    "text/html" = "firefox";
+    "x-scheme-handler/http" = "firefox";
+    "x-scheme-handler/https" = "firefox";
+    "x-scheme-handler/about" = "firefox";
+    "x-scheme-handler/unknown" = "firefox";
   };
 
 }

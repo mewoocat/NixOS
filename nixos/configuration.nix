@@ -154,7 +154,7 @@ in{
   hardware.opentabletdriver.daemon.enable = true;
   
   
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     nerdfonts
   ];
 
@@ -246,11 +246,11 @@ in{
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  # Firewall
+  networking.firewall.enable = true;
   # Open ports in the firewall.
   #networking.firewall.allowedTCPPorts = [ 3216 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false; #TODO test if turning this back on breaks tf2
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

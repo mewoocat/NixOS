@@ -1,4 +1,0 @@
-hi vim
-hi vim
-hi vim
-hi vim
