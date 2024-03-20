@@ -274,6 +274,8 @@ button:hover > * {
 
 .control-panel-widget-large{
     padding: 0.4rem;
+    background-color: rgba($surface_container_lowest, $lowOpacity);
+    border-radius: 1rem;
 }
 
 // Volume

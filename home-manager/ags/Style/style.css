@@ -182,7 +182,9 @@ button:hover > * {
   opacity: 0; }
 
 .control-panel-widget-large {
-  padding: 0.4rem; }
+  padding: 0.4rem;
+  background-color: rgba(14, 14, 14, 0.85);
+  border-radius: 1rem; }
 
 .volume-bg {
   color: #6c6c6c; }

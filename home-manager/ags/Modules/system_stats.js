@@ -57,8 +57,10 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
     children: [
         Widget.Box({
             vertical: true,
+            hexpand: true,
             hpack: "center",
             vpack: "center",
+            spacing: 4,
             children: [
                 // CPU
                 Widget.Box({
@@ -90,7 +92,11 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
                 }),*/
             ]
         }),
+        /*
         Widget.Box({
+            hpack: "center",
+            vpack: "center",
+            hexpand: true,
             children: [
 
                 Widget.Label({
@@ -98,5 +104,6 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
                 }),
             ],
         }),
+        */
     ]
 })

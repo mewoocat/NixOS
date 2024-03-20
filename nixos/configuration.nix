@@ -130,7 +130,7 @@ in{
   programs.steam = {
     enable = true;
     extraCompatPackages = [
-      inputs.nix-gaming.packages.${pkgs.system}.proton-ge # Doesn't seem to work
+      pkgs.proton-ge-bin
     ];
   };
 

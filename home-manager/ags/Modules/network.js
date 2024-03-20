@@ -77,6 +77,7 @@ export const WifiSSID = () => Widget.Box({
         Widget.Label({
             label: Network.wifi.bind("ssid"),
             truncate: "end",
+            maxWidthChars: 8,
         }).hook(Network, label =>{
             if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
                 label.label = Network.wifi.internet
