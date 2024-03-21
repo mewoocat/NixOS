@@ -218,9 +218,9 @@ export const applauncher = Widget.Window({
     //focusable: true,
     popup: true,
     layer: "overlay",
-    //keymode: "exclusive",
-    anchor: ["top", "bottom", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    child: CloseOnClickAway("", Applauncher({
+    keymode: "exclusive",
+    anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    child: CloseOnClickAway(WINDOW_NAME, Applauncher({
         width: 340,
         height: 500,
         spacing: 12,

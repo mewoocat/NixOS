@@ -25,7 +25,12 @@ const appButton = (client = null) => Widget.Button({
                 })
                 
             ]
-        })
+        }),
+    setup: (self) => {
+        self.hook(Hyprland, () => {
+            self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
+        }, 'event')
+    }
 });
 
 const clientList = Widget.Box({

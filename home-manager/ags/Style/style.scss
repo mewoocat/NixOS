@@ -93,6 +93,12 @@ button:hover > * {
     min-width: 4rem;
     min-height: 4rem;
 }
+.dock-button-current label{
+    color: green;
+}
+.dock-button-current > box{
+    background-color: $surface_bright;
+}
 .dock-button:hover > box {
     background-color: $surface_bright;
 }
