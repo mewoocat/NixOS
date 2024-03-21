@@ -77,7 +77,7 @@ in
     neofetch hyfetch
     htop
     vlc
-    steam
+    #steam
     qalculate-gtk
     gnome.eog
     #gnome.gnome-disk-utility
@@ -404,15 +404,56 @@ in
     };
   };
 
-  xdg.mimeApps.defaultApplications = {
+  # These are the applications that were in .config/mimeapps.list before HM started managing them
+  /*
+    [Default Applications]
+    image/jpeg=org.gnome.eog.desktop
+    application/x-zerosize=org.gnome.eog.desktop
+    image/png=org.gnome.eog.desktop
+    application/zip=org.freedesktop.Xwayland.desktop
+    text/plain=l3afpad.desktop
 
-    # Set default browser 
-    # Not sure if this is working
+    [Added Associations]
+    image/jpeg=code.desktop;gimp.desktop;org.gnome.eog.desktop;
+    video/mp4=org.gnome.gThumb.desktop;vlc.desktop;org.gnome.eog.desktop;
+    application/x-zerosize=gimp.desktop;org.gnome.eog.desktop;
+    application/x-theme=l3afpad.desktop;
+    image/png=org.gnome.eog.desktop;
+    application/zip=org.freedesktop.Xwayland.desktop;
+    text/markdown=l3afpad.desktop;
+    text/plain=l3afpad.desktop;
+
+  */
+
+  xdg.mime.enable = true;
+  xdg.mimeApps.enable = true;
+
+  # Not needed?
+  /*
+  xdg.mimeApps.associations.added = {
     "text/html" = "firefox";
     "x-scheme-handler/http" = "firefox";
     "x-scheme-handler/https" = "firefox";
     "x-scheme-handler/about" = "firefox";
     "x-scheme-handler/unknown" = "firefox";
+  };
+  */
+  xdg.mimeApps.defaultApplications = {
+
+    # Set default browser 
+    # Not sure if this is working
+    "text/html" = ["firefox.desktop"];
+    "x-scheme-handler/http" = ["firefox.desktop"];
+    "x-scheme-handler/https" = ["firefox.desktop"];
+    "x-scheme-handler/about" = ["firefox.desktop"];
+    "x-scheme-handler/unknown" = ["firefox.desktop"];
+    "application/x-extension-htm" = ["firefox.desktop"];
+    "application/x-extension-html" = ["firefox.desktop"];
+    "application/x-extension-shtml" = ["firefox.desktop"];
+    "application/x-extension-xht" = ["firefox.desktop"];
+    "application/x-extension-xhtml" = ["firefox.desktop"];
+    "application/xhtml+xml" = ["firefox.desktop"];
+    "x-scheme-handler/ftp" = ["firefox.desktop"];
   };
 
 }

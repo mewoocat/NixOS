@@ -58,7 +58,7 @@ grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
-grid.attach(SystemStatsWidgetLarge(options.large, options.large), 1, 4, 2, 1)
+grid.attach(SystemStatsWidgetLarge(options.large, options.large), 1, 4, 1, 1)
 
 
 
