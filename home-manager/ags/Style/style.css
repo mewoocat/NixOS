@@ -259,3 +259,15 @@ menuitem {
 
 menuitem:hover {
   background-color: #393939; }
+
+scrollbar {
+  min-width: 12px; }
+
+scrollbar.overlay-indicator {
+  background-color: black;
+  border-radius: 1rem; }
+
+scrollbar.vertical slider {
+  min-width: 12px;
+  border-radius: 1rem;
+  background-color: green; }
