@@ -68,7 +68,6 @@ export const weather = Variable(getWeather(), {
     poll: [400000, () => { return getWeather() }]
 })
 
-
 export const user = Variable("...", {
     poll: [60000, 'whoami', out => out]
 });

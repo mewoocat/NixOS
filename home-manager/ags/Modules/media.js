@@ -1,7 +1,6 @@
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
-export const Media = () => Widget.Button({
+const NotWorking = () => Widget.Button({
     class_name: 'media',
     on_primary_click: () => Mpris.getPlayer('')?.playPause(),
     on_scroll_up: () => Mpris.getPlayer('')?.next(),
@@ -15,3 +14,18 @@ export const Media = () => Widget.Button({
         }
     }, 'player-changed'),
 });
+
+const mpris = await Service.import('mpris')
+
+/** @param {import('types/service/mpris').MprisPlayer} player */
+const Player = player => Widget.Button({
+    onClicked: () => player.playPause(),
+    child: Widget.Label().hook(player, label => {
+        const { track_artists, track_title } = player;
+        label.label = `${track_artists.join(', ')} - ${track_title}`;
+    }),
+})
+
+export const Media = Widget.Box({
+    children: mpris.bind('players').transform(p => p.map(Player))
+})
