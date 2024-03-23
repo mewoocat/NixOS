@@ -1,6 +1,6 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { Clock } from '../Modules/datetime.js';
+import { Clock, Calendar } from '../Modules/datetime.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk';
 import { NotificationWidget } from './NotificationPopup.js';
@@ -9,40 +9,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { CloseOnClickAway } from '../Common.js';
 
-// More info https://aylur.github.io/ags-docs/config/subclassing-gtk-widgets/
 
-const calendar = Widget.Calendar({ 
-    showDayNames: false,
-    showHeading: true,
-    hpack: "center",
-});
-
-const mpris = await Service.import('mpris')
-
-/** @param {import('types/service/mpris').MprisPlayer} player */
-const Player = player => Widget.Button({
-    onClicked: () => player.playPause(),
-    child: Widget.Label().hook(player, label => {
-        const { track_artists, track_title } = player;
-        label.label = `${track_artists.join(', ')} - ${track_title}`;
-    }),
-})
-
-const players = Widget.Box({
-    children: mpris.bind('players').transform(p => p.map(Player))
-})
-
-const isOpenA = Variable(false)
-
-function toggleReveal(){
-    console.log(isOpenA.value)
-    if (isOpenA.value == false){
-        isOpenA.value = true
-    }
-    else{
-        isOpenA.value = false
-    }
-}
 
 const container = () => Widget.Box({
     css: `
@@ -72,17 +39,16 @@ const container = () => Widget.Box({
                     children: [
                         Widget.Box({
                             children:[
-                                calendar,
+                                Calendar,
                             ]
                         }),
                         Widget.Box({
                             vertical: true,
                             children: [
-                                players,
+                                Media,
                                 NotificationWidget,
                             ]
                         })
-                        //Media(), //Borked :(
                     ],
                 })
         })

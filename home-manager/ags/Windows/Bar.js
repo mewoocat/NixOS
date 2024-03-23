@@ -49,7 +49,7 @@ const Right = (monitor) => Widget.Box({
     ],
 });
 
-export const bar = (monitor = 0) => Widget.Window({
+export const Bar = (monitor = 0) => Widget.Window({
     name: `bar-${monitor}`, // name has to be unique
     class_name: 'bar',
     monitor,

@@ -7,3 +7,11 @@ export const Clock = () => Widget.Label({
         .poll(1000, self => execAsync(['date', '+%B %e   %l:%M %P'])
             .then(date => self.label = date)),
 });
+
+
+// More info https://aylur.github.io/ags-docs/config/subclassing-gtk-widgets/ ?
+export const Calendar = Widget.Calendar({ 
+    showDayNames: false,
+    showHeading: true,
+    hpack: "center",
+});
