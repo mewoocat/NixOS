@@ -3,7 +3,7 @@
   # Window manager
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     plugins = [
       #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
       #inputs.hycov.packages.${pkgs.system}.hycov
@@ -14,21 +14,10 @@
         #source = ~/.cache/hypr/monitors.conf
 
         # Monitors
-        monitor=DP-3,1920x1080@144,0x0,1
-        monitor=DVI-D-1,preferred,1920x0,1
         monitor=,preferred,auto,1
 
         # Workspace rules
-        workspace = 1, monitor:DP-3, default:true
-        workspace = 2, monitor:DP-3
-        workspace = 3, monitor:DP-3
-        workspace = 4, monitor:DP-3, gapsin:0, gapsout:0, rounding:0
-        workspace = 5, monitor:DP-3
-        workspace = 6, monitor:DVI-D-1, default:true
-        workspace = 7, monitor:DVI-D-1
-        workspace = 8, monitor:DVI-D-1
-        workspace = 9, monitor:DVI-D-1
-        workspace = 10, monitor:DVI-D-1
+        #...
 
         # Plugins
         #plugin = /nix/store/m8v9nhx6r7zzqxkhzv5jkzi7ws42hiim-hyprbars-0.1/lib/libhyprbars.so 
@@ -52,7 +41,7 @@
 
         exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
-        exec-once=~/NixOS/scripts/startup.sh
+        #exec-once=~/NixOS/scripts/startup.sh
 
         # Set GTK cursor in nwg-look
         # Set Hyprland cursors

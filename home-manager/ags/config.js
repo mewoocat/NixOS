@@ -10,6 +10,12 @@ import { Dock } from './Windows/Dock.js';
 import { Lockscreen } from './Windows/Lockscreen.js';
 
 
+// GDK Display
+import Gdk from 'gi://Gdk'
+const display = new Gdk.Display()
+print("display" + display)
+
+
 // main scss file
 const scss = `${App.configDir}/Style/style.scss`
 
@@ -39,5 +45,6 @@ export default {
     },
     // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
     // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
-    windows: [applauncher, ...forMonitors(bar), Lockscreen(), ControlPanel, ActivityCenter(), NotificationPopup, Dock()],
+    windows: [applauncher, /*...forMonitors(bar)*/ bar(1), Lockscreen(), ControlPanel, ActivityCenter(), NotificationPopup, Dock()],
+
 };

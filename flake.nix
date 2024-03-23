@@ -28,6 +28,8 @@
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
+
+    hyprland.url = "github:hyprwm/Hyprland";
     
 
   };
