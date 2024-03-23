@@ -58,7 +58,6 @@ const powerButtons = Widget.Box({
 
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 var pfp = data.pfp
-print(`AAAAAAAAAAAAAAAAAA: ${pfp}`)
 
 const UserInfo = Widget.Box({
     spacing: 4,
@@ -78,8 +77,6 @@ const UserInfo = Widget.Box({
         }),
     ]
 })
-
-print(`AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ${App.configDir}`)
 
 
 const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {

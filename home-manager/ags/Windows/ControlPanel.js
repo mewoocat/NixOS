@@ -3,12 +3,13 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 
 // Modules
 import { brightness } from '../Modules/brightness.js';
 import { VolumeSlider } from '../Modules/volume.js';
 import { MicrophoneSlider } from '../Modules/microphone.js';
-import { WifiButton, WifiSSID, WifiIcon } from '../Modules/network.js';
+import { WifiButton, WifiSSID, WifiIcon, WifiList } from '../Modules/network.js';
 import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/bluetooth.js';
 import { BatteryWidget } from '../Modules/battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
@@ -134,17 +135,15 @@ const networkContainer = () => Widget.Box({
         }),
 
         Widget.Scrollable({
-            css: `
-                min-height: 400px;
-            `,
             child:
                 Widget.Label({label: "Found Networks"})  
-        })
+        }),
+
+        WifiList(),
     ],
 });
 
 
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 // Container
 const stack = Widget.Stack({
     // Tabs
@@ -194,12 +193,9 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 });
 
 export const ControlPanel = Widget.Window({
-    //name: `ControlPanel-${monitor}`, // name has to be unique
     name: `ControlPanel`,
     class_name: 'control-panel',
     visible: false,
-    //keymode: "exclusive",
-    //anchor: ['top', 'right'],
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right")

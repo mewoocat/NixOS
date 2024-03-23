@@ -1,5 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
+import { ControlPanelTab } from '../variables.js';
 
 
 
@@ -96,10 +97,37 @@ export const WifiButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
     `,
     hexpand: true,
+    onClicked: () => ControlPanelTab.setValue("child2"),
     child: Widget.Box({
         children:[
             WifiIcon(),
             WifiSSID(),
         ]
     }),
+})
+
+const network = ap => Widget.Button({
+    child: Widget.Label({
+        label: ap.ssid,
+    })
+})
+
+Network.wifi.scan()
+var networks = Network.wifi.accessPoints.map(network)
+var net = Network.wifi.accessPoints
+print("nets --___---------------__-_-----_______----_")
+for (let i = 0; i < net.length; i++){
+    print(net[i].ssid)
+}
+
+
+
+export const WifiList = () => Widget.Scrollable({
+    css: `
+        min-height: 400px;
+    `,
+    child: Widget.Box({
+        vertical: true,
+        children: networks,
+    })
 })
