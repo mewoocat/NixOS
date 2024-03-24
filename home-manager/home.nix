@@ -171,6 +171,8 @@ in
 
     gnome.gnome-calendar
 
+    inputs.self.packages.x86_64-linux.nvim # Install nvim package exported in flake
+
   ];
 
   # Activation scripts 
@@ -316,9 +318,11 @@ in
     package = pkgs.swaylock-effects;
   };
 
+/*
   programs.nixvim = {
     enable = true;
   } // nvimConfig; 
+*/
 
 
 

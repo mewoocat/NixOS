@@ -38,7 +38,8 @@
   # inputs's parameter, making it convenient to use inside the function. 
   outputs = inputs@{ self, nixpkgs, home-manager, anyrun, nixvim, ... }:
   let
-    nvimConfig = import ./home-manager/nixvim.nix;
+    #nvimConfig = import ./home-manager/nixvim.nix;
+ 	pkgs = nixpkgs.legacyPackages.x86_64-linux;
   in
   {
 
@@ -66,6 +67,7 @@
                 ./home-manager/gameLite.nix
               ];
             };
+            #home-manger.home.packages = [ self.packages.x86_64-linux.nvim ];
           }
         ];
       };
@@ -123,7 +125,7 @@
     packages.x86_64-linux = {
       # Output nixvim + config as package
       # Imports the nixvim set
-      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./home-manager/nixvim.nix);
+      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./home-manager/nixvim.nix {pkgs = pkgs;});
     };
   };
 }

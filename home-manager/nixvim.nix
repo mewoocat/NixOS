@@ -1,9 +1,19 @@
 # A set that contains the nixvim config
+
+
+{pkgs}:
 {
     #colorschemes.gruvbox.enable = true;
-    colorschemes.oxocarbon.enable = true;
+    #colorschemes.oxocarbon.enable = true;
+
+    extraPlugins = [
+        pkgs.vimPlugins.pywal-nvim
+    ];
 
     extraConfigLuaPre = ''
+        -- Setup pywal
+        local pywal = require('pywal')
+        pywal.setup()
 
         vim.g.mapleader = " " -- Set leader to space
 
@@ -19,6 +29,8 @@
         --vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
         -- Disables kitty padding on entry and enables on exit
+        -- Only needed when settings a specific theme since the padding in kitty will not match the bg color
+        --[[
         vim.cmd [[
         augroup kitty_mp
           autocmd!
@@ -26,6 +38,7 @@
           au VimEnter * if !empty($KITTY_WINDOW_ID) | :silent !kitty @ set-spacing padding=0 margin=0
         augroup END
         ]]
+        --]]
 
         -- Tab config
         vim.opt.tabstop = 4 -- A TAB character looks like 2 spaces
