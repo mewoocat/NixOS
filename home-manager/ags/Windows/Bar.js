@@ -1,19 +1,17 @@
-import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 // Import Modules
-import { BatteryLabel } from '../Modules/battery.js';
-import { VolumeIcon } from '../Modules/volume.js';
-import { WifiIcon, EthernetIcon} from '../Modules/network.js';
-import { BluetoothIcon } from '../Modules/bluetooth.js';
-import { Workspaces } from '../Modules/workspaces.js';
+import { BatteryLabel } from '../Modules/Battery.js';
+import { VolumeIcon } from '../Modules/Volume.js';
+import { WifiIcon, EthernetIcon} from '../Modules/Network.js';
+import { BluetoothIcon } from '../Modules/Bluetooth.js';
+import { Workspaces } from '../Modules/Workspaces.js';
 import { LauncherButton } from '../Windows/Launcher.js';
 import { ClientTitle, ClientIcon } from '../Modules/CurrentClient.js';
-import { MicrophoneIcon } from '../Modules/microphone.js';
+import { MicrophoneIcon } from '../Modules/Microphone.js';
 import { ActivityCenterButton } from './ActivityCenter.js';
 import { ControlPanelToggleButton } from './ControlPanel.js';
-import { SysTray } from '../Modules/systray.js'
+import { SysTray } from '../Modules/Systray.js'
 
 
 // layout of the bar

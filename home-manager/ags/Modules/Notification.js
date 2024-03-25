@@ -1,3 +1,5 @@
+// TODO: Delete this file?
+
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 

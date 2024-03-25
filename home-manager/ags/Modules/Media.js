@@ -1,151 +1,31 @@
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js'
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
-const FALLBACK_ICON = 'audio-x-generic-symbolic';
-const PLAY_ICON = 'media-playback-start-symbolic';
-const PAUSE_ICON = 'media-playback-pause-symbolic';
-const PREV_ICON = 'media-skip-backward-symbolic';
-const NEXT_ICON = 'media-skip-forward-symbolic';
+const NotWorking = () => Widget.Button({
+    class_name: 'media',
+    on_primary_click: () => Mpris.getPlayer('')?.playPause(),
+    on_scroll_up: () => Mpris.getPlayer('')?.next(),
+    on_scroll_down: () => Mpris.getPlayer('')?.previous(),
+    child: Widget.Label('-').hook(Mpris, self => {
+        if (Mpris.players[0]) {
+            const { track_artists, track_title } = Mpris.players[0];
+            self.label = `${track_artists.join(', ')} - ${track_title}`;
+        } else {
+            self.label = 'Nothing is playing';
+        }
+    }, 'player-changed'),
+});
 
-/** @param {number} length */
-function lengthStr(length) {
-    const min = Math.floor(length / 60);
-    const sec = Math.floor(length % 60);
-    const sec0 = sec < 10 ? '0' : '';
-    return `${min}:${sec0}${sec}`;
-}
+const mpris = await Service.import('mpris')
 
 /** @param {import('types/service/mpris').MprisPlayer} player */
-const Player = player => {
-    const img = Widget.Box({
-        class_name: 'img',
-        vpack: 'start',
-        css: player.bind('cover_path').transform(p => `
-            background-image: url('${p}');
-        `),
-    });
+const Player = player => Widget.Button({
+    onClicked: () => player.playPause(),
+    child: Widget.Label().hook(player, label => {
+        const { track_artists, track_title } = player;
+        label.label = `${track_artists.join(', ')} - ${track_title}`;
+    }),
+})
 
-    const title = Widget.Label({
-        class_name: 'title',
-        wrap: true,
-        hpack: 'start',
-        label: player.bind('track_title'),
-    });
-
-    const artist = Widget.Label({
-        class_name: 'artist',
-        wrap: true,
-        hpack: 'start',
-        label: player.bind('track_artists').transform(a => a.join(', ')),
-    });
-
-    const positionSlider = Widget.Slider({
-        class_name: 'position',
-        draw_value: false,
-        on_change: ({ value }) => player.position = value * player.length,
-        setup: self => {
-            const update = () => {
-                self.visible = player.length > 0;
-                self.value = player.position / player.length;
-            };
-            self.hook(player, update);
-            self.hook(player, update, 'position');
-            self.poll(1000, update);
-        },
-    });
-
-    const positionLabel = Widget.Label({
-        class_name: 'position',
-        hpack: 'start',
-        setup: self => {
-            const update = (_, time) => {
-                self.label = lengthStr(time || player.position)
-                self.visible = player.length > 0;
-            };
-
-            self.hook(player, update, 'position');
-            self.poll(1000, update);
-        },
-    });
-
-    const lengthLabel = Widget.Label({
-        class_name: 'length',
-        hpack: 'end',
-        visible: player.bind('length').transform(l => l > 0),
-        label: player.bind('length').transform(lengthStr),
-    });
-
-    const icon = Widget.Icon({
-        class_name: 'icon',
-        hexpand: true,
-        hpack: 'end',
-        vpack: 'start',
-        tooltip_text: player.identity || '',
-        icon: player.bind('entry').transform(entry => {
-            const name = `${entry}-symbolic`;
-            return Utils.lookUpIcon(name) ? name : FALLBACK_ICON;
-        }),
-    });
-
-    const playPause = Widget.Button({
-        class_name: 'play-pause',
-        on_clicked: () => player.playPause(),
-        visible: player.bind('can_play'),
-        child: Widget.Icon({
-            icon: player.bind('play_back_status').transform(s => {
-                switch (s) {
-                    case 'Playing': return PAUSE_ICON;
-                    case 'Paused':
-                    case 'Stopped': return PLAY_ICON;
-                }
-            }),
-        }),
-    });
-
-    const prev = Widget.Button({
-        on_clicked: () => player.previous(),
-        visible: player.bind('can_go_prev'),
-        child: Widget.Icon(PREV_ICON),
-    });
-
-    const next = Widget.Button({
-        on_clicked: () => player.next(),
-        visible: player.bind('can_go_next'),
-        child: Widget.Icon(NEXT_ICON),
-    });
-
-    return Widget.Box(
-        { class_name: 'player' },
-        img,
-        Widget.Box(
-            {
-                vertical: true,
-                hexpand: true,
-            },
-            Widget.Box([
-                title,
-                icon,
-            ]),
-            artist,
-            Widget.Box({ vexpand: true }),
-            positionSlider,
-            Widget.CenterBox({
-                start_widget: positionLabel,
-                center_widget: Widget.Box([
-                    prev,
-                    playPause,
-                    next,
-                ]),
-                end_widget: lengthLabel,
-            }),
-        ),
-    );
-}
-
-export default () => Widget.Box({
-    vertical: true,
-    css: 'padding: 1px', // small hack to make sure it is visible
-    visible: Mpris.bind('players').transform(p => p.length > 0),
-    children: Mpris.bind('players').transform(p => p.map(Player)),
-});
+export const Media = Widget.Box({
+    children: mpris.bind('players').transform(p => p.map(Player))
+})

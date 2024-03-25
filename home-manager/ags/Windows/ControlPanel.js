@@ -6,18 +6,18 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 
 // Modules
-import { brightness } from '../Modules/brightness.js';
-import { VolumeSlider } from '../Modules/volume.js';
-import { MicrophoneSlider } from '../Modules/microphone.js';
-import { WifiButton, WifiSSID, WifiIcon, WifiList } from '../Modules/network.js';
-import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/bluetooth.js';
-import { BatteryWidget } from '../Modules/battery.js';
-import { SystemStatsWidgetLarge} from '../Modules/system_stats.js';
-import { ThemeButton } from '../Modules/theme.js'
+import { brightness } from '../Modules/Display.js';
+import { VolumeSlider } from '../Modules/Volume.js';
+import { MicrophoneSlider } from '../Modules/Microphone.js';
+import { WifiButton, WifiSSID, WifiIcon, WifiList } from '../Modules/Network.js';
+import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
+import { BatteryWidget } from '../Modules/Battery.js';
+import { SystemStatsWidgetLarge} from '../Modules/SystemStats.js';
+import { ThemeButton } from '../Modules/Theme.js'
 import { DisplayButton } from '../Modules/Display.js';
-import { PowerProfilesButton } from '../Modules/power.js';
+import { PowerProfilesButton } from '../Modules/Power.js';
 import { Weather } from '../Modules/Weather.js';
-import { NightLightButton } from '../Modules/nightlight.js';
+import { NightLightButton } from '../Modules/NightLight.js';
 import options from '../options.js';
 import { CloseOnClickAway } from '../Common.js';
 
@@ -34,7 +34,7 @@ const grid1A = new Gtk.Grid()
 grid1A.attach(WifiButton(options.large, options.small), 1, 1, 2, 1)
 grid1A.attach(BluetoothButton(options.large, options.small), 1, 2, 2, 1)
 grid.attach(grid1A, 1, 1, 1, 1)
-grid.attach(BatteryWidget(0,0), 2, 1, 1, 1)
+grid.attach(SystemStatsWidgetLarge(options.large, options.large), 2, 1, 1, 1)
 
 // Row 2
 const sliders = Widget.Box({
@@ -59,7 +59,7 @@ grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
-grid.attach(SystemStatsWidgetLarge(options.large, options.large), 1, 4, 1, 1)
+grid.attach(BatteryWidget(options.large, options.large), 1, 4, 1, 1)
 
 
 

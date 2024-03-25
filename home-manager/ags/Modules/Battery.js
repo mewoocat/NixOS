@@ -65,7 +65,6 @@ export const BatteryCircle = () => Widget.CircularProgress({
 })
 
 export const BatteryWidget = (w, h) => Widget.Box({ 
-    //visible: Battery.bind('available'),
 
     css: `
         min-width: ${w}rem;
@@ -74,6 +73,7 @@ export const BatteryWidget = (w, h) => Widget.Box({
     class_name: `control-panel-widget-large`,
     children: [
         Widget.Overlay({
+            visible: Battery.bind('available'),
             hexpand: true,
             child:
                 BatteryCircle(),
