@@ -9,7 +9,6 @@ $lowOpacity: 0.85;
     color: $on_surface;
 }
 
-
 .container{
     border-radius: 1rem;
     padding: 1rem;
@@ -88,7 +87,7 @@ button:hover > * {
 // Dock
 ////////////////////////////////////////////////////////////////////////////
 .dock-button > box {
-    padding: 0.4rem 0.4rem;
+    padding: 0.6rem 0.6rem;
     border-radius: 1rem;
     min-width: 4rem;
     min-height: 4rem;
@@ -104,7 +103,7 @@ button:hover > * {
 }
 .dock-container{
     background-color: rgba($surface, $mediumOpacity);
-    border-radius: 32px;
+    //border-radius: 32px;
 }
 
 
@@ -412,7 +411,7 @@ menuitem:hover{
 
 // Scrollbars
 scrollbar {
-    min-width: 12px;
+    min-width: 8px;
 }
 
 scrollbar.overlay-indicator{
@@ -421,7 +420,7 @@ scrollbar.overlay-indicator{
 }
 
 scrollbar.vertical slider{
-    min-width: 12px;
+    min-width: 8px;
     border-radius: 1rem;
     background-color: green;
 }

@@ -136,17 +136,14 @@
         blurls=ControlPanel
         layerrule = ignorezero, ControlPanel # Removes sharp corner from bluring on rounded corners
 
-        blurls=bar-0
-        blurls=bar-1
-        blurls=bar-2
-        blurls=bar-3
-        blurls=bar-4
+        blurls=bar
+        layerrule = ignorezero, bar # Removes sharp corner from bluring on rounded corners
 
         blurls=ActivityCenter
         layerrule = ignorezero, ActivityCenter # Removes sharp corner from bluring on rounded corners
 
-        blurls=dock
-        layerrule = ignorezero, dock # removes sharp corner from bluring on rounded corners
+        blurls=Dock
+        layerrule = ignorezero, Dock # removes sharp corner from bluring on rounded corners
 
         blurls=notifications
         layerrule = ignorezero, notifications # removes sharp corner from bluring on rounded corners

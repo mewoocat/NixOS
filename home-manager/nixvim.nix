@@ -1,19 +1,44 @@
-# A set that contains the nixvim config
+#  A set that contains the nixvim config
 
 
 {pkgs}:
 {
+   
     #colorschemes.gruvbox.enable = true;
     #colorschemes.oxocarbon.enable = true;
 
     extraPlugins = [
         pkgs.vimPlugins.pywal-nvim
+        pkgs.vimPlugins.wal-vim # borked
+        pkgs.vimPlugins.barbar-nvim
+	pkgs.vimPlugins.guess-indent-nvim
     ];
 
-    extraConfigLuaPre = ''
+    extraConfigVim = ''
+        colorscheme pywal 
+    '';
+
+    plugins = {
+       telescope.enable = true;
+       treesitter.enable = true;
+   #    bufferline.enable = true; # Breaks pulling colors from terminal instead of pywal
+       neo-tree.enable = true;
+   #    indent-blankline.enable = true;
+       airline.enable = true;
+    };
+
+    extraConfigLua = ''
+    
+        require('guess-indent').setup {}
+
+        vim.opt.termguicolors = true
+
         -- Setup pywal
-        local pywal = require('pywal')
-        pywal.setup()
+        --local pywal = require('pywal')
+        --pywal.setup()
+        --vim.cmd.colorscheme = "pywal"
+        --vim.opt.termguicolors = true
+        --vim.opt.background = "dark"
 
         vim.g.mapleader = " " -- Set leader to space
 
@@ -40,6 +65,12 @@
         ]]
         --]]
 
+        --vim.cmd(autocmd BufWritePost ~/.cache/wal/colors-wal.vim :source ~/.config/nvim/init.lua)
+    --vim.api.nvim_create_autocmd({"BufWritePost"}, {
+     --   pattern = {"/home/eXia/.cache/wal/colors-wal.vim"},
+     --  command = ":source /home/eXia/.config/nvim/init.lua",
+    --})
+
         -- Tab config
         vim.opt.tabstop = 4 -- A TAB character looks like 2 spaces
         vim.opt.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
@@ -52,14 +83,7 @@
         vim.keymap.set('n', '<leader>n', ":bnext<cr>", {})
         vim.keymap.set('n', '<leader>b', ":bprev<cr>", {})
         vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable middle mouse paste
+
     '';
 
-    plugins = {
-        telescope.enable = true;
-        treesitter.enable = true;
-        bufferline.enable = true;
-        neo-tree.enable = true;
-        indent-blankline.enable = true;
-        airline.enable = true;
-    };
 }

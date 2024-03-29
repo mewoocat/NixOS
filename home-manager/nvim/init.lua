@@ -1,5 +1,7 @@
 
 
+--local pywal = require('pywal')
+--pywal.setup()
 
 vim.g.mapleader = " " -- Set leader to space
 
@@ -19,7 +21,7 @@ vim.opt.shiftwidth = 4 -- Number of spaces inserted when indenting
 
 -- Mappings
 --------------------------------------------------------------
-vim.keymap.set('n', "<Leader>e", ":Neotree toggle<cr>")
+vim.keymap.set('n', "<Leader>w", ":Neotree toggle<cr>")
 vim.keymap.set('n', '<leader>n', ":bnext<cr>", {})
 vim.keymap.set('n', '<leader>b', ":bprev<cr>", {})
 vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable middle mouse paste
@@ -29,3 +31,4 @@ vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable
 -- I think only one of these should be enabled at a time
 vim.cmd.colorscheme = "pywal"
 --vim.opt.termguicolors = true
+

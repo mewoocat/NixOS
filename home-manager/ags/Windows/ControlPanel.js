@@ -62,6 +62,16 @@ grid.attach(grid3B, 2, 3, 1, 1)
 grid.attach(BatteryWidget(options.large, options.large), 1, 4, 1, 1)
 
 
+const BackButton = () => Widget.Button({
+    class_name: `control-panel-button`,
+    hexpand: true,
+    onClicked: () => ControlPanelTab.setValue("main"),
+    child: Widget.Label({
+        label: "Back",
+    })
+})
+
+
 
 // Make widget a formated button with action on click
 function ControlPanelButton(widget, edges, w, h, action) {
@@ -127,6 +137,7 @@ const networkContainer = () => Widget.Box({
     vertical: true,
     children: [
         //Rows
+        BackButton(),
         Widget.Box({
             children: [
                 WifiIcon(),
@@ -148,8 +159,8 @@ const networkContainer = () => Widget.Box({
 const stack = Widget.Stack({
     // Tabs
     children: {
-        'child1': mainContainer(),
-        'child2': networkContainer(),
+        'main': mainContainer(),
+        'network': networkContainer(),
     },
     transition: "over_left",
 
@@ -172,7 +183,7 @@ const content = Widget.Box({
                 self.hook(App, (self, windowName, visible) => {
                     if (windowName === "ControlPanel"){
                         self.revealChild = visible
-                        ControlPanelTab.setValue("child1")
+                        ControlPanelTab.setValue("main")
                     }
                 }, 'window-toggled')
             },

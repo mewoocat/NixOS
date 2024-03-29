@@ -3,32 +3,52 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import { ControlPanelTab } from '../variables.js';
 
 
-
-export const WifiIcon = () => Widget.Box({
+// isConnected: bool // ap: AcessPoint Object //
+export const WifiIcon = (isConnected, ap) => Widget.Box({
     class_name: "wifi-icon icon",
     children:[
         Widget.Overlay({
           child:
             Widget.Label().hook(Network, self => {
                 self.class_name = "dim"
-                self.toggleClassName('invisible', Network.wifi.strength < 0)
+
+                // If network is connected
+                if (isConnected) {
+                    self.toggleClassName('invisible', Network.wifi.strength < 0)
+                }
+                // Or an access point
+                else {
+                    self.toggleClassName('invisible', ap.strength < 0)
+                }
+
                 self.label = ""
             }),
           overlays: [
             Widget.Label().hook(Network, self => {
                 self.class_name = "wifi-fg"
-                self.toggleClassName('dim', Network.wifi.strength < 0)
-                var p = Network.wifi.strength
-                if (p>75){
+                var strength = -1
+
+                // If network is connected
+                if (isConnected) {
+                    strength = Network.wifi.strength
+                }
+                // Or an access point
+                else {
+                    strength = ap.strength
+                }
+
+                self.toggleClassName('dim', strength < 0)
+
+                if (strength>75){
                     self.label = ""
                 }
-                else if (p > 50){
+                else if (strength > 50){
                     self.label = ""
                 }
-                else if (p>25){
+                else if (strength>25){
                     self.label = ""  
                 }
-                else if (p>=0){
+                else if (strength>=0){
                     self.label = ""
                 }
                 else {
@@ -97,18 +117,23 @@ export const WifiButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
     `,
     hexpand: true,
-    onClicked: () => ControlPanelTab.setValue("child2"),
+    onClicked: () => ControlPanelTab.setValue("network"),
     child: Widget.Box({
         children:[
-            WifiIcon(),
+            WifiIcon(true, null),
             WifiSSID(),
         ]
     }),
 })
 
-const network = ap => Widget.Button({
-    child: Widget.Label({
-        label: ap.ssid,
+const network = ap => Widget.Button({ 
+    child: Widget.Box({
+        children: [
+            WifiIcon(false, ap),
+            Widget.Label({
+                label: ap.ssid,
+            })
+        ],
     })
 })
 
