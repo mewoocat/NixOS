@@ -19,6 +19,10 @@
       cores = with libretro; [
         snes9x
         pcsx-rearmed
+        mgba
+        citra
+        dolphin
+        mupen64plus
         #pcsx2
       ];
     })

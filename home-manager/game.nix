@@ -19,14 +19,6 @@
     xonotic
     osu-lazer-bin
 
-    (retroarch.override {
-      cores = with libretro; [
-        snes9x
-        pcsx-rearmed
-        #pcsx2
-      ];
-    })
-
     (lutris.override {
        extraPkgs = pkgs: [
          # List package dependencies here

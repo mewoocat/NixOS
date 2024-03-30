@@ -1,0 +1,20 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Armored Core - Last Raven Portable (Japan).iso",
+      "label": "Armored Core - Last Raven Portable (Japan) (v1.02)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULJM-05611|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    }
+  ]
+}

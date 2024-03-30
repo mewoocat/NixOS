@@ -1,0 +1,76 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Gundam Battle Assault (USA)/Gundam Battle Assault (USA).cue",
+      "label": "Gundam Battle Assault (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "SLUS-01226|serial",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Gundam Battle Assault 2 (USA)/Gundam Battle Assault 2 (USA).cue",
+      "label": "Gundam Battle Assault 2 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "SLUS-01418|serial",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Mega Man 8 (USA)/Mega Man 8 (USA).cue",
+      "label": "Mega Man 8 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "SLUS-00453|serial",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Mega Man X4 (USA).bin",
+      "label": "Mega Man X4 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "84774766|crc",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Mega Man X4 (USA)/Mega Man X4 (USA).cue",
+      "label": "Mega Man X4 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "SLUS-00561|serial",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Mega Man X5 (USA)/Mega Man X5 (USA).cue",
+      "label": "Mega Man X5 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "SLUS-01334|serial",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Tony Hawk's Pro Skater (USA).bin",
+      "label": "Tony Hawk's Pro Skater (USA)",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
+      "crc32": "A44EE32B|crc",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/N64/Tony Hawk's Pro Skater 4 (USA).bin",
+      "label": "Tony Hawk's Pro Skater 4 (USA)",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
+      "crc32": "41EEFD0B|crc",
+      "db_name": "Sony - PlayStation.lpl"
+    }
+  ]
+}

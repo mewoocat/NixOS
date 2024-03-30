@@ -1,0 +1,60 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Donkey Kong (World) (Rev 1) (SGB Enhanced).gb",
+      "label": "Donkey Kong (World) (Rev 1) (SGB Enhanced)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "F777A5D8|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GB/gunmanclive.gb",
+      "label": "Gunman Clive (World) (Demo) (Aftermarket) (Unl)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "11F5FDED|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Kirby's Pinball Land (USA, Europe).gb",
+      "label": "Kirby's Pinball Land (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "31CB6526|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GB/Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (CGB+SGB Enhanced).gb",
+      "label": "Pokemon - Yellow Version - Special Pikachu Edition (USA, Europe) (CGB+SGB Enhanced)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "7D527D62|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GB/Tetris (World) (Rev 1).gb",
+      "label": "Tetris (World) (Rev 1)",
+      "core_path": "/nix/store/r10nv469r4pyp5iqhxpc3795lc2ha0d7-libretro-mgba-unstable-2024-02-28/lib/retroarch/cores/mgba_libretro.so",
+      "core_name": "Nintendo - Game Boy Advance (mGBA)",
+      "crc32": "46DF91AD|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GB/X (Japan).gb",
+      "label": "X (Japan)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "75E1D268|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    }
+  ]
+}

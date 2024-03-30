@@ -1,6 +1,7 @@
 -- Setup pywal
 --local pywal = require('pywal')
 --pywal.setup()
+vim.cmd.colorscheme = "pywal"
 
 -- Setup neogit
 local neogit = require('neogit')

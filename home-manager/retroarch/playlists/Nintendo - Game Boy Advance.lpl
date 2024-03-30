@@ -1,0 +1,564 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Pokemon Pinball - Ruby & Sapphire (USA).gba",
+      "label": "Pokemon Pinball - Ruby & Sapphire (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "B992A3C0|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Pokemon - LeafGreen Version (USA).gba",
+      "label": "Pokemon - LeafGreen Version (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "D69C96CC|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Pokemon - FireRed Version (USA, Europe) (Rev 1).gba",
+      "label": "Pokemon - FireRed Version (USA, Europe) (Rev 1)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "84EE4776|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Pokemon - Aurora Ticket Distribution (USA) (Kiosk).gba",
+      "label": "Pokemon - Aurora Ticket Distribution (USA) (Kiosk)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "24C80FA6|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Phantasy Star Collection (USA).gba",
+      "label": "Phantasy Star Collection (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "E5A7FE17|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Donkey Kong Country 2 (USA).gba",
+      "label": "Donkey Kong Country 2 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "11417FC1|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Donkey Kong Country (USA).gba",
+      "label": "Donkey Kong Country (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "12F7A968|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Classic NES Series - Pac-Man (USA, Europe).gba",
+      "label": "Classic NES Series - Pac-Man (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "C28DF82F|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Classic NES Series - Dr. Mario (USA, Europe).gba",
+      "label": "Classic NES Series - Dr. Mario (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "934E1F1D|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Castlevania - Aria of Sorrow (USA).gba",
+      "label": "Castlevania - Aria of Sorrow (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "35536183|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/BOBBEE TEC_ABTE.gba",
+      "label": "Quake (USA) (Proto)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "10E16DD4|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Bionicle Heroes (USA) (En,Fr,De,Es,It,Da).gba",
+      "label": "Bionicle Heroes (USA) (En,Fr,De,Es,It,Da)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "F4FAFCCF|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Bionicle - Maze of Shadows (USA).gba",
+      "label": "Bionicle - Maze of Shadows (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "3FE09C34|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1805 - Final Fantasy I & II - Dawn of Souls (U)(Independent).gba",
+      "label": "Final Fantasy I & II - Dawn of Souls (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "1B39CDAB|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Mother 3 (Tr).gba",
+      "label": "Mother 3 (Japan) [T-En by Chewy, Jeffman and Tomato]",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "8A3BC5A8|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Mobile Suit Gundam Seed - Battle Assault (USA).gba",
+      "label": "Mobile Suit Gundam Seed - Battle Assault (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "180D1491|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Megaman - Battle Network 2 (USA).gba",
+      "label": "Megaman - Battle Network 2 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "6D961F82|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Megaman - Battle Network (USA).gba",
+      "label": "Megaman - Battle Network (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "1D347971|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Megaman - Battle Chip Challenge (USA).gba",
+      "label": "Megaman - Battle Chip Challenge (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "26BE44FD|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Megaman & Bass (USA).gba",
+      "label": "Megaman & Bass (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "EEA68C2E|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Mario Kart - Super Circuit (USA).gba",
+      "label": "Mario Kart - Super Circuit (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ED316E37|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Mario & Luigi - Superstar Saga (USA).gba",
+      "label": "Mario & Luigi - Superstar Saga (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "E718D850|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/LEGO Star Wars II - The Original Trilogy (USA).gba",
+      "label": "LEGO Star Wars II - The Original Trilogy (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "DA1E9444|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/LEGO Star Wars - The Video Game (USA, Europe) (En,Fr,De,Es,It,Nl,Da).gba",
+      "label": "LEGO Star Wars - The Video Game (USA, Europe) (En,Fr,De,Es,It,Nl,Da)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "AEABFA5F|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/LEGO Racers 2 (USA) (En,Fr).gba",
+      "label": "LEGO Racers 2 (USA) (En,Fr)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "E13B63AD|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/LEGO Island 2 - The Brickster's Revenge (USA) (En,Fr).gba",
+      "label": "LEGO Island 2 - The Brickster's Revenge (USA) (En,Fr)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "3F513CBF|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Guilty Gear X - Advance Edition (USA).gba",
+      "label": "Guilty Gear X - Advance Edition (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "70DB3F96|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Golden Sun (USA, Europe).gba",
+      "label": "Golden Sun (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "E1FB68E8|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Fire Emblem - The Binding Blade (T).gba",
+      "label": "Fire Emblem - Fuuin no Tsurugi (Japan) [T-En by Gringe]",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "99B8B6D7|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Famicom Mini 30 - SD Gundam World - Gachapon Senshi Scramble Wars (Japan).gba",
+      "label": "Famicom Mini 30 - SD Gundam World - Gachapon Senshi Scramble Wars (Japan)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "BA78D1EE|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Famicom Mini - Kidou Senshi Z Gundam - Hot Scramble (Japan) (Promo).gba",
+      "label": "Famicom Mini - Kidou Senshi Z Gundam - Hot Scramble (Japan) (Promo)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "07A73D0A|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/F-Zero - Maximum Velocity (USA, Europe).gba",
+      "label": "F-Zero - Maximum Velocity (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "BD5E9798|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/F-Zero - Maximum Velocity (USA, Europe)/F-Zero - Maximum Velocity (USA, Europe).gba",
+      "label": "F-Zero - Maximum Velocity (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "BD5E9798|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/F-Zero - GP Legend (USA).gba",
+      "label": "F-Zero - GP Legend (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "781AAB58|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Doom II (USA).gba",
+      "label": "Doom II (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "C885D9E9|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Doom (USA, Europe).gba",
+      "label": "Doom (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "58C641B3|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Donkey Kong Country 3 (USA).gba",
+      "label": "Donkey Kong Country 3 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "FE03E5AF|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Zone of the Enders - The Fist of Mars (USA).gba",
+      "label": "Zone of the Enders - The Fist of Mars (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "24244415|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Yggdra Union - We'll Never Fight Alone (USA).gba",
+      "label": "Yggdra Union - We'll Never Fight Alone (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "3BFA68F7|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/V-Rally 3 (USA) (En,Fr,Es).gba",
+      "label": "V-Rally 3 (USA) (En,Fr,Es)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "D3AE3D37|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Tony Hawk's Pro Skater 4 (USA, Europe).gba",
+      "label": "Tony Hawk's Pro Skater 4 (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "8CB0AA77|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Tony Hawk's Pro Skater 3 (USA, Europe).gba",
+      "label": "Tony Hawk's Pro Skater 3 (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "F669A368|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Tony Hawk's Pro Skater 3 (USA, Europe)/Tony Hawk's Pro Skater 3 (USA, Europe).gba",
+      "label": "Tony Hawk's Pro Skater 3 (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "F669A368|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Tony Hawk's Pro Skater 2 (USA, Europe).gba",
+      "label": "Tony Hawk's Pro Skater 2 (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "812DC57A|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Street Fighter Alpha 3 (USA).gba",
+      "label": "Street Fighter Alpha 3 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "80B707C2|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Star X (USA) (En,Fr,De,Es,It,Nl).gba",
+      "label": "Star X (USA) (En,Fr,De,Es,It,Nl)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "8B02B2B1|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Sigma Star Saga (USA, Europe).gba",
+      "label": "Sigma Star Saga (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "A8B80A7C|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/SD Gundam G Generation Advance (Japan).gba",
+      "label": "SD Gundam G Generation Advance (Japan)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "7DAF215C|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/SD Gundam Force (USA).gba",
+      "label": "SD Gundam Force (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "68B21289|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Robotech - The Macross Saga (USA, Europe) (En,Fr,De,Es,It,Nl).gba",
+      "label": "Robotech - The Macross Saga (USA, Europe) (En,Fr,De,Es,It,Nl)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "325A6596|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Pokemon_Mystery_Dungeon_-_Red_Rescue_Team.gba",
+      "label": "Pokemon Mystery Dungeon - Red Rescue Team (USA, Australia)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "DD0AC86C|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Bionicle - Matoran Adventures (USA, Europe) (En,Fr,De,Es,It,Nl,Sv,Da).gba",
+      "label": "Bionicle - Matoran Adventures (USA, Europe) (En,Fr,De,Es,It,Nl,Sv,Da)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "DAEC2264|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Bionicle (USA).gba",
+      "label": "Bionicle (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "C38F3530|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Battle Picross (World) (Unl).gba",
+      "label": "Battle Picross (World) (Unl)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "7F36D6F0|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/Advance Wars 2 - Black Hole Rising (USA).gba",
+      "label": "Advance Wars 2 - Black Hole Rising (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "5AD0E571|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/2689 - Final Fantasy VI Advance (U)(Xenophobia).gba",
+      "label": "Final Fantasy VI Advance (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "D708F5AB|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/2166 - Megaman Zero 4 (U).gba",
+      "label": "Megaman Zero 4 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "7EE24793|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1865 - The Legend of Zelda - The Minish Cap (U)(DCS).gba",
+      "label": "Legend of Zelda, The - The Minish Cap (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ABCEBBB1|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1865 - Legend of Zelda, The - The Minish Cap (U).gba",
+      "label": "Legend of Zelda, The - The Minish Cap (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ABCEBBB1|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1702 - Megaman Zero 3 (U).gba",
+      "label": "Megaman Zero 3 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "2784F3F2|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1695 - Pokemon Fire Red (U)(Independent).gba",
+      "label": "Pokemon - FireRed Version (USA, Europe) (Rev 1)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "84EE4776|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1691 - Pokemon - Leaf Green Version (E).gba",
+      "label": "Pokemon - LeafGreen Version (USA, Europe) (Rev 1)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "DAFFECEC|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1649 - Pokemon Emerald (J)(Independent).gba",
+      "label": "Pocket Monsters - Emerald (Japan)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "4881F3F8|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1574 - Fire Emblem (E)(Rising Sun).gba",
+      "label": "Fire Emblem (Europe) (En,Fr,De)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "4A805ED1|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1228 - Megaman Zero 2 (E).gba",
+      "label": "Megaman Zero 2 (Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "29A14B59|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/1207 - Megaman Zero 2 (U)(Eurasia).gba",
+      "label": "Megaman Zero 2 (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "CE1E37BB|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/0898 - Pokemon - Sapphire Version (U).gba",
+      "label": "Pokemon - Sapphire Version (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "554DEDC4|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/0690 - Metroid - Fusion (U)(GBANow).gba",
+      "label": "Metroid Fusion (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "6C75479C|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GBA/0588 - Megaman Zero (UE).gba",
+      "label": "Megaman Zero (USA, Europe)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "9707D2A1|crc",
+      "db_name": "Nintendo - Game Boy Advance.lpl"
+    }
+  ]
+}

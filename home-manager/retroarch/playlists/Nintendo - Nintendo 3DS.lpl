@@ -1,0 +1,20 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/mnt/files/Games/Roms/3DS/Animal_Crossing_New_Leaf_USA.3ds",
+      "label": "Animal Crossing - New Leaf (USA) (En,Fr,Es)",
+      "core_path": "/nix/store/3bjwaqh5y8y65amxsdjsx5z0rv59z5w0-libretro-citra-unstable-2024-01-24/lib/retroarch/cores/citra_libretro.so",
+      "core_name": "Nintendo - 3DS (Citra)",
+      "crc32": "F59BC880|crc",
+      "db_name": "Nintendo - Nintendo 3DS.lpl"
+    }
+  ]
+}
