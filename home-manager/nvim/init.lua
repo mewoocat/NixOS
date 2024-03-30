@@ -45,3 +45,4 @@ vim.keymap.set('n', '<leader>n', ":bnext<cr>", {})
 vim.keymap.set('n', '<leader>b', ":bprev<cr>", {})
 vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable middle mouse paste
 vim.keymap.set('n', '<leader>g', ":Neogit<cr>", {})
+vim.keymap.set('n', '<leader>w', ":bd<cr>")

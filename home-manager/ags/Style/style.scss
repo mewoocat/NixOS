@@ -114,7 +114,7 @@ button:hover > * {
 
 // Default inactive
 .ws-indicator{
-    background-color: dimgray;
+    background-color: dimgray; //Todo
     border-radius: 1.2rem;
     margin: 0rem 0.24rem;
     min-width: 1.2rem;
@@ -164,23 +164,24 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied{
-    //background-color: $secondary; //TODO
-    background-color: orangered;
+    background-color: $primary_container;
     label{
         min-width: 1.2rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
+        color: $on_primary_container;
     }
 }
 
 .ws-active{
-    background-color: $tertiary;
+    background-color: $primary;
     min-width: 2.4rem;
     min-height: 1.2rem;
     label{
         min-width: 2.4rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
+        color: $surface;
     }
 }
 
@@ -324,6 +325,8 @@ button:hover > * {
   border-style: solid;
   border-width: 1px;
   border-color: $tertiary;
+
+  box-shadow: 0px 0px 4px $surface;
 }
 
 .sliders slider:hover{
