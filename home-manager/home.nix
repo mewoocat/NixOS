@@ -406,6 +406,14 @@ in
       icon = "webcord";
       type = "Application";
     };
+
+    vesktop = {
+      name = "Vesktop :)";
+      exec = "vesktop --disable-gpu";
+      categories = [ "Network" "InstantMessaging" "Chat" ];
+      icon = "vesktop";
+      type = "Application";
+    };
   };
 
   # These are the applications that were in .config/mimeapps.list before HM started managing them

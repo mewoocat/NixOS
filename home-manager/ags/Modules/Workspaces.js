@@ -43,3 +43,16 @@ export const Workspaces = () => Widget.EventBox({
         */
     }),
 });
+
+export const SpecialWorkspace = () => Widget.Label({
+    label: "test", 
+}).hook(Hyprland, self => {
+    print(Hyprland.active.workspace.id)
+    if (Hyprland.active.workspace.id == -99){
+        self.label = "special"
+    }
+    else {
+        self.label = "not"
+    }
+})
+

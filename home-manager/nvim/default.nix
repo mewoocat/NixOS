@@ -38,6 +38,10 @@
         plugin = indent-blankline-nvim;
         config = toLua "require(\"ibl\").setup()";
       }
+      {
+        plugin = neogit;
+        config = "";
+      }
     ];
     extraLuaConfig = ''
         ${builtins.readFile ./init.lua}

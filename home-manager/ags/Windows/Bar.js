@@ -5,7 +5,7 @@ import { BatteryLabel } from '../Modules/Battery.js';
 import { VolumeIcon } from '../Modules/Volume.js';
 import { WifiIcon, EthernetIcon} from '../Modules/Network.js';
 import { BluetoothIcon } from '../Modules/Bluetooth.js';
-import { Workspaces } from '../Modules/Workspaces.js';
+import { Workspaces, SpecialWorkspace } from '../Modules/Workspaces.js';
 import { LauncherButton } from '../Windows/Launcher.js';
 import { ClientTitle, ClientIcon } from '../Modules/CurrentClient.js';
 import { MicrophoneIcon } from '../Modules/Microphone.js';
@@ -22,6 +22,7 @@ const Left = () => Widget.Box({
         Workspaces(),
         ClientIcon(),
         ClientTitle(),
+        //SpecialWorkspace(),
     ],
 });
 

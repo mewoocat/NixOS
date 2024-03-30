@@ -2,6 +2,10 @@
 --local pywal = require('pywal')
 --pywal.setup()
 
+-- Setup neogit
+local neogit = require('neogit')
+neogit.setup {}
+
 vim.g.mapleader = " " -- Set leader to space
 
 -- Options
@@ -39,3 +43,4 @@ vim.keymap.set('n', "<Leader>e", ":Neotree toggle<cr>")
 vim.keymap.set('n', '<leader>n', ":bnext<cr>", {})
 vim.keymap.set('n', '<leader>b', ":bprev<cr>", {})
 vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable middle mouse paste
+vim.keymap.set('n', '<leader>g', ":Neogit<cr>", {})
