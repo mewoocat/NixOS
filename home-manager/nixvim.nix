@@ -1,17 +1,13 @@
 #  A set that contains the nixvim config
 
-
 {pkgs}:
 {
-   
     #colorschemes.gruvbox.enable = true;
     #colorschemes.oxocarbon.enable = true;
 
     extraPlugins = [
         pkgs.vimPlugins.pywal-nvim
-        pkgs.vimPlugins.wal-vim # borked
         pkgs.vimPlugins.barbar-nvim
-	pkgs.vimPlugins.guess-indent-nvim
     ];
 
     extraConfigVim = ''
@@ -19,19 +15,17 @@
     '';
 
     plugins = {
-       telescope.enable = true;
-       treesitter.enable = true;
-   #    bufferline.enable = true; # Breaks pulling colors from terminal instead of pywal
-       neo-tree.enable = true;
-   #    indent-blankline.enable = true;
-       airline.enable = true;
+        telescope.enable = true;
+        treesitter.enable = true;
+        #bufferline.enable = true; # Breaks pulling colors from terminal instead of pywal
+        neo-tree.enable = true;
+        indent-blankline.enable = true;
+        airline.enable = true;
     };
 
     extraConfigLua = ''
-    
-        require('guess-indent').setup {}
 
-        vim.opt.termguicolors = true
+        --vim.opt.termguicolors = true
 
         -- Setup pywal
         --local pywal = require('pywal')

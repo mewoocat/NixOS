@@ -7,11 +7,12 @@
     toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n"; # Run lua file as vimscript
   in
   {
-    enable = false;
+    enable = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
+    coc.enable = true;
     plugins = with pkgs.vimPlugins; [
       {
         plugin = nvim-treesitter.withAllGrammars;
@@ -32,6 +33,10 @@
       {
         plugin = pywal-nvim;
         config = "";
+      } 
+      {
+        plugin = indent-blankline-nvim;
+        config = toLua "require(\"ibl\").setup()";
       }
     ];
     extraLuaConfig = ''

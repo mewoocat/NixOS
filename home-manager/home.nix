@@ -159,7 +159,7 @@ in
     zoxide
     tmux
 
-    inputs.matugen.packages.x86_64-linux.default
+    #inputs.matugen.packages.x86_64-linux.default
 
     # Gui display settings
     nwg-displays
