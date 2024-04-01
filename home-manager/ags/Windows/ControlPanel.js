@@ -16,7 +16,6 @@ import { SystemStatsWidgetLarge} from '../Modules/SystemStats.js';
 import { ThemeButton } from '../Modules/Theme.js'
 import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
-import { Weather } from '../Modules/Weather.js';
 import { NightLightButton } from '../Modules/NightLight.js';
 import options from '../options.js';
 import { CloseOnClickAway } from '../Common.js';
@@ -50,7 +49,7 @@ const sliders = Widget.Box({
 grid.attach(sliders, 1,2,2,1)
 
 // Row 3
-grid.attach(Weather(options.large, options.large), 1, 3, 1, 1)
+grid.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
 const grid3B = new Gtk.Grid()
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
@@ -59,7 +58,6 @@ grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
-grid.attach(BatteryWidget(options.large, options.large), 1, 4, 1, 1)
 
 
 const BackButton = () => Widget.Button({
@@ -114,7 +112,7 @@ function ControlPanelBox(widget, w, h) {
 
 
 const mainContainer = () => Widget.Box({
-    class_name: "control-panel-container",
+    class_name: "container",
     css: `
         margin: 1rem;
         padding: 0.5rem;
@@ -128,7 +126,7 @@ const mainContainer = () => Widget.Box({
 
 
 const networkContainer = () => Widget.Box({
-    class_name: "control-panel-container",
+    class_name: "container",
     css: `
         margin: 1rem;
         padding: 0.5rem;

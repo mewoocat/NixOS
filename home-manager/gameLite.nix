@@ -23,6 +23,7 @@
         citra
         dolphin
         mupen64plus
+        ppsspp
         #pcsx2
       ];
     })

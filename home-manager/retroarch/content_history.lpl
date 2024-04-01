@@ -9,6 +9,30 @@
   "sort_mode": 2,
   "items": [
     {
+      "path": "/mnt/files/Games/Roms/PSP/Mega Man - Maverick Hunter X (USA).iso",
+      "label": "Mega Man - Maverick Hunter X (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10068|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/OutRun 2006 - Coast 2 Coast (USA).iso",
+      "label": "OutRun 2006 - Coast 2 Coast (USA) (v1.03)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10064|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Star Wars - Battlefront II (USA).iso",
+      "label": "Star Wars - Battlefront II (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10053|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
       "path": "/mnt/files/Games/Roms/Wii/mk wii.iso",
       "label": "Mario Kart Wii (USA)",
       "core_path": "/nix/store/x7zh2zzc9fv4flkrwmxvwyiqcry7py9z-libretro-dolphin-unstable-2022-12-17/lib/retroarch/cores/dolphin_libretro.so",

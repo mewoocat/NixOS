@@ -2,13 +2,18 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { Clock, Calendar } from '../Modules/DateTime.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import Gtk from 'gi://Gtk';
 import { NotificationWidget } from './Notification.js';
 import { Media } from '../Modules/Media.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { CloseOnClickAway } from '../Common.js';
+import { Weather } from '../Modules/Weather.js';
 
+
+import Gtk from 'gi://Gtk';
+const grid = new Gtk.Grid()
+grid.attach(Calendar, 1, 1, 1, 1)
+grid.attach(Weather(12, 12), 1, 2, 1, 1)
 
 
 const container = () => Widget.Box({
@@ -27,10 +32,9 @@ const container = () => Widget.Box({
                     }
                 }, 'window-toggled')
             },
-
             child:
                 Widget.Box({
-                    class_name: "control-panel-container",
+                    class_name: "container",
                     css: `
                         min-width: 600px;
                         padding: 1rem;
@@ -38,11 +42,16 @@ const container = () => Widget.Box({
                     spacing: 8,
                     children: [
                         Widget.Box({
-                            children:[
-                                Calendar,
-                            ]
+                            hpack: "start",
+                            hexpand: false,
+                            css: `
+                            `,
+                            children: [
+                                grid,
+                            ],
                         }),
                         Widget.Box({
+                            hexpand: true,
                             vertical: true,
                             children: [
                                 Media,

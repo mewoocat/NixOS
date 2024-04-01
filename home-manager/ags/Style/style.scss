@@ -2,6 +2,8 @@
 $mediumOpacity: 0.65;
 $lowOpacity: 0.85;
 
+// Common
+////////////////////////////////////////////////////////////////////////////
 *{
     all: unset;
     padding: 0px;
@@ -10,8 +12,11 @@ $lowOpacity: 0.85;
 }
 
 .container{
+    background-color: rgba($surface, $mediumOpacity);
     border-radius: 1rem;
-    padding: 1rem;
+    border-color: rgba(64, 64, 64, 0.42);
+    border-width: 1px;
+    border-style: solid;
 }
 
 /*
@@ -210,13 +215,6 @@ button:hover > * {
 
 // Control Panel
 ////////////////////////////////////////////////////////////////////////////
-.control-panel-container{
-    background-color: rgba($surface, $mediumOpacity);
-    border-radius: 16px;
-    border-color: rgba(88, 88, 88, 0.42);
-    border-width: 1px;
-    border-style: solid;
-}
 /*
 .control-panel-box{
     //padding: 0.4rem;

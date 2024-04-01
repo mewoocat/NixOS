@@ -108,6 +108,9 @@ in{
   services.gvfs.enable = true;
 
   services.power-profiles-daemon.enable = true;
+
+  services.avahi.enable = true; # Needed for Moonlight / Sunshine
+  services.avahi.publish.userServices = true;
  
 
   ### Programs ###
@@ -247,10 +250,16 @@ in{
   # services.openssh.enable = true;
 
   # Firewall
-  networking.firewall.enable = true;
-  # Open ports in the firewall.
-  #networking.firewall.allowedTCPPorts = [ 3216 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall = {
+    enable = true;
+    # Open ports in the firewall.
+    #networking.firewall.allowedTCPPorts = [ 3216 ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    allowedTCPPorts = [ 47984 47989 47990 48010 ];
+    allowedUDPPortRanges = [
+      { from = 47998; to = 48000; }
+    ];
+};
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

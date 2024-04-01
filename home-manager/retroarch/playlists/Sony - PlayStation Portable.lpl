@@ -11,9 +11,105 @@
     {
       "path": "/mnt/files/Games/Roms/PSP/Armored Core - Last Raven Portable (Japan).iso",
       "label": "Armored Core - Last Raven Portable (Japan) (v1.02)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULJM-05611|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Bakugan - Defenders of the Core (USA) (En,Fr).iso",
+      "label": "Bakugan Battle Brawlers - Defenders of the Core (USA) (En,Fr)",
       "core_path": "DETECT",
       "core_name": "DETECT",
-      "crc32": "ULJM-05611|serial",
+      "crc32": "ULUS-10536|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Cube (USA).iso",
+      "label": "Cube (USA) (v1.01)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10223|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Dead or Alive - Paradise (USA) (En,Ja,Fr,De).iso",
+      "label": "Dead or Alive - Paradise (USA) (v1.01)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10521|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Gran Turismo (USA) (En,Fr,Es) (v2.00).iso",
+      "label": "Gran Turismo (USA) (En,Fr,Es)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "UCUS-98632|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/LEGO Star Wars II - The Original Trilogy (USA).iso",
+      "label": "LEGO Star Wars II - The Original Trilogy (USA) (v1.01)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10155|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Mega Man - Maverick Hunter X (USA).iso",
+      "label": "Mega Man - Maverick Hunter X (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10068|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Mortal Kombat - Unchained (USA).iso",
+      "label": "Mortal Kombat - Unchained (USA) (v1.03)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10102|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/OutRun 2006 - Coast 2 Coast (USA).iso",
+      "label": "OutRun 2006 - Coast 2 Coast (USA) (v1.03)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10064|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Star Wars - Battlefront II (USA).iso",
+      "label": "Star Wars - Battlefront II (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10053|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Tekken 6 (USA) (En,Ja,Fr,De,Es,It,Ko,Ru).iso",
+      "label": "Tekken 6 (USA) (En,Fr,De,Es,It,Ru)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10466|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Tony Hawk's Underground 2 Remix (USA).iso",
+      "label": "Tony Hawk's Underground 2 Remix (USA) (v1.01)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10014|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Yggdra Union (USA).iso",
+      "label": "Yggdra Union - We'll Never Fight Alone (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "ULUS-10368|serial",
       "db_name": "Sony - PlayStation Portable.lpl"
     }
   ]

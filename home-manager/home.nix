@@ -6,6 +6,11 @@
         echo "what";
         ${pkgs.gtklock}/bin/gtklock;
         '';
+
+  # Theme packaging
+  src = builtins.readFile ./theme/theme.sh;
+  theme = pkgs.writeShellScriptBin "theme" src;
+
   nvimConfig = import ./nixvim.nix;
 in
 
@@ -69,9 +74,6 @@ in
     vim
     lunarvim
     kitty
-    firefox
-    floorp
-    #xfce.thunar
     cinnamon.nemo-with-extensions
     #gnome.nautilus
     neofetch hyfetch
@@ -174,6 +176,7 @@ in
 
     inputs.self.packages.x86_64-linux.nvim # Install nvim package exported in flake
 
+    theme # Created from local shell script
 
   ];
 
@@ -327,6 +330,21 @@ in
   };
 
 
+  programs.firefox = {
+    enable = true;
+    profiles.default = {
+      isDefault = true;
+      settings = {
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Enable userChrome.css
+      };
+      userChrome = ''
+        #TabsToolbar
+        {
+            visibility: collapse;
+        }
+      '';
+    };
+  };
 
 
   # Services
