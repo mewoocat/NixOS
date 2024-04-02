@@ -1,17 +1,4 @@
 { config, pkgs, lib, inputs, ... }: let
-  # Shell scripts
-  #what = pkgs.writeShellScriptBin "lockScreen2" ''exec ${pkgs.gtklock}/bin/gtklock'';
-  what = import ./scripts/lockScreen.nix { inherit pkgs; }; 
-  huh = pkgs.writeShellScriptBin "lockScreen3" ''
-        echo "what";
-        ${pkgs.gtklock}/bin/gtklock;
-        '';
-
-  # Theme packaging
-  src = builtins.readFile ./theme/theme.sh;
-  theme = pkgs.writeShellScriptBin "theme" src;
-
-  nvimConfig = import ./nixvim.nix;
 in
 
 {
@@ -22,6 +9,7 @@ in
     programs/bash.nix
     programs/hyprland.nix
     ./nvim
+    ./packages.nix
  ];
 
   # Home Manager needs a bit of information about you and the paths it should
