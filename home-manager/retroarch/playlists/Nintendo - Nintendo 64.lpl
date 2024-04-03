@@ -9,15 +9,15 @@
   "sort_mode": 0,
   "items": [
     {
-      "path": "/mnt/files/Games/Roms/N64/F-Zero X (USA).z64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/F-Zero X (USA).z64",
       "label": "F-Zero X (USA)",
-      "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
-      "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
       "crc32": "0B561FBA|crc",
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Legend of Zelda, The - Majora's Mask (USA).n64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Legend of Zelda, The - Majora's Mask (USA).n64",
       "label": "Legend of Zelda, The - Majora's Mask (USA)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -25,7 +25,7 @@
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Legend of Zelda, The - Ocarina of Time (USA).n64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Legend of Zelda, The - Ocarina of Time (USA).n64",
       "label": "Legend of Zelda, The - Ocarina of Time (USA)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -33,7 +33,7 @@
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Perfect Dark (USA) (Rev 1).z64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Perfect Dark (USA) (Rev 1).z64",
       "label": "Perfect Dark (USA) (Rev 1)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -41,15 +41,15 @@
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Star Fox 64 (USA) (Rev 1).z64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Star Fox 64 (USA) (Rev 1).z64",
       "label": "Star Fox 64 (USA) (Rev 1)",
-      "core_path": "DETECT",
-      "core_name": "DETECT",
+      "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
+      "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",
       "crc32": "B1B5FC46|crc",
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Tony Hawk's Pro Skater (USA).n64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Tony Hawk's Pro Skater (USA).n64",
       "label": "Tony Hawk's Pro Skater (USA)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -57,7 +57,7 @@
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Tony Hawk's Pro Skater 2 (USA).n64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Tony Hawk's Pro Skater 2 (USA).n64",
       "label": "Tony Hawk's Pro Skater 2 (USA)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -65,7 +65,7 @@
       "db_name": "Nintendo - Nintendo 64.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/N64/Wetrix (USA) (En,Fr,De,Es,It,Nl).z64",
+      "path": "/run/media/eXia/SANDISK_32G/N64/Wetrix (USA) (En,Fr,De,Es,It,Nl).z64",
       "label": "Wetrix (USA) (En,Fr,De,Es,It,Nl)",
       "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
       "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",

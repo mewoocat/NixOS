@@ -9,19 +9,11 @@
   "sort_mode": 0,
   "items": [
     {
-      "path": "/mnt/files/Games/Roms/PS1/Mobile Suit Gundam - Federation vs. Zeon (USA).iso",
+      "path": "/run/media/eXia/SANDISK_32G/PS1/Mobile Suit Gundam - Federation vs. Zeon (USA).iso",
       "label": "Mobile Suit Gundam - Federation vs. Zeon (USA)",
-      "core_path": "DETECT",
-      "core_name": "DETECT",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
       "crc32": "SLUS-20382|serial",
-      "db_name": "Sony - PlayStation 2.lpl"
-    },
-    {
-      "path": "/mnt/files/Games/Roms/PS2/Battle Assault 3 featuring Gundam Seed (USA)/Battle Assault 3 featuring Gundam Seed (USA).cue",
-      "label": "Battle Assault 3 featuring Gundam Seed (USA)",
-      "core_path": "DETECT",
-      "core_name": "DETECT",
-      "crc32": "SLUS-20929|serial",
       "db_name": "Sony - PlayStation 2.lpl"
     }
   ]

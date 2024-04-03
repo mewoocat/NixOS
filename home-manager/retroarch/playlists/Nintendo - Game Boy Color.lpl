@@ -9,15 +9,7 @@
   "sort_mode": 0,
   "items": [
     {
-      "path": "/mnt/files/Games/Roms/GBC/Pokemon Picross (Japan) (Proto).gbc",
-      "label": "Pokemon Picross (Japan) (Proto)",
-      "core_path": "DETECT",
-      "core_name": "DETECT",
-      "crc32": "CF647F4B|crc",
-      "db_name": "Nintendo - Game Boy Color.lpl"
-    },
-    {
-      "path": "/mnt/files/Games/Roms/GBC/Megaman X4 (Taiwan) (En) (Rumble Version) (Unl).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBC/Megaman X4 (Taiwan) (En) (Rumble Version) (Unl).gbc",
       "label": "Megaman X4 (Taiwan) (En) (Rumble Version) (Unl)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -25,7 +17,7 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBC/Mega Man Xtreme 2 (USA, Europe).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBC/Mega Man Xtreme 2 (USA, Europe).gbc",
       "label": "Mega Man Xtreme 2 (USA, Europe)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -33,7 +25,7 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBC/Mega Man Xtreme (USA, Europe) (GB Compatible).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBC/Mega Man Xtreme (USA, Europe) (GB Compatible).gbc",
       "label": "Mega Man Xtreme (USA, Europe) (GB Compatible)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -41,7 +33,23 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBA/Pokemon Pinball (USA, Australia) (Rumble Version) (SGB Enhanced) (GB Compatible).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBC/Pokemon Picross (Japan) (Proto).gbc",
+      "label": "Pokemon Picross (Japan) (Proto)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "CF647F4B|crc",
+      "db_name": "Nintendo - Game Boy Color.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/GBA/Shantae (USA).gbc",
+      "label": "Shantae (USA)",
+      "core_path": "DETECT",
+      "core_name": "DETECT",
+      "crc32": "E994B59B|crc",
+      "db_name": "Nintendo - Game Boy Color.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/GBA/Pokemon Pinball (USA, Australia) (Rumble Version) (SGB Enhanced) (GB Compatible).gbc",
       "label": "Pokemon Pinball (USA, Australia) (Rumble Version) (SGB Enhanced) (GB Compatible)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -49,7 +57,7 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBA/Pokemon - Crystal Version (USA, Europe) (Rev 1).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBA/Pokemon - Crystal Version (USA, Europe) (Rev 1).gbc",
       "label": "Pokemon - Crystal Version (USA, Europe) (Rev 1)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -57,7 +65,7 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBA/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBA/Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible).gbc",
       "label": "Legend of Zelda, The - Link's Awakening DX (USA, Europe) (Rev 2) (SGB Enhanced) (GB Compatible)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -65,7 +73,7 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBA/Galaga - Destination Earth (USA).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBA/Galaga - Destination Earth (USA).gbc",
       "label": "Galaga - Destination Earth (USA)",
       "core_path": "DETECT",
       "core_name": "DETECT",
@@ -73,19 +81,11 @@
       "db_name": "Nintendo - Game Boy Color.lpl"
     },
     {
-      "path": "/mnt/files/Games/Roms/GBA/Tetris DX (World) (SGB Enhanced) (GB Compatible).gbc",
+      "path": "/run/media/eXia/SANDISK_32G/GBA/Tetris DX (World) (SGB Enhanced) (GB Compatible).gbc",
       "label": "Tetris DX (World) (SGB Enhanced) (GB Compatible)",
       "core_path": "DETECT",
       "core_name": "DETECT",
       "crc32": "69989152|crc",
-      "db_name": "Nintendo - Game Boy Color.lpl"
-    },
-    {
-      "path": "/mnt/files/Games/Roms/GBA/Shantae (USA).gbc",
-      "label": "Shantae (USA)",
-      "core_path": "DETECT",
-      "core_name": "DETECT",
-      "crc32": "E994B59B|crc",
       "db_name": "Nintendo - Game Boy Color.lpl"
     }
   ]
