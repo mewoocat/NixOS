@@ -21,7 +21,7 @@
   # Disable device
   # idVendor and idProduct can be found by `cat /proc/bus/input/devices`
   # Disable touchscreen
-  services.udev.extraRules = "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"04f3\", ATTRS{idProduct}==\"223c\", ATTR{authorized}=\"0\"";
+  #services.udev.extraRules = "SUBSYSTEM==\"usb\", ATTRS{idVendor}==\"04f3\", ATTRS{idProduct}==\"223c\", ATTR{authorized}=\"0\"";
 
 
   networking.hostName = "scythe"; # Define your hostname.

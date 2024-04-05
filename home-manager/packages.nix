@@ -154,6 +154,7 @@ in
 
     theme # Created from local shell script
     rhythmbox
+    bookworm
 
   ];
 
