@@ -96,31 +96,6 @@
       };
     };
 
-    # Homemanager standalone (Depreciated)
-    homeConfigurations = {
-
-      "eXia@scythe" = home-manager.lib.homeManagerConfiguration {
- 	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs; };
-        modules = [ 
-          anyrun.homeManagerModules.default
-          ./home-manager/home.nix 
-          ./home-manager/gameLite.nix
-        ];
-      };
-
-      "eXia@obsidian" = home-manager.lib.homeManagerConfiguration {
- 	      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs; };
-        modules = [ 
-          anyrun.homeManagerModules.default
-          ./home-manager/home.nix 
-          ./home-manager/game.nix
-        ];
-      };
-
-    };
-
     # Outputted packages
     packages.x86_64-linux = {
       # Output nixvim + config as package
