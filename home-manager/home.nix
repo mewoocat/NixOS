@@ -187,12 +187,7 @@ in
       settings = {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Enable userChrome.css
       };
-      userChrome = ''
-        #TabsToolbar
-        {
-            visibility: collapse;
-        }
-      '';
+      userChrome = builtins.readFile ./programs/firefox/userChrome.css;
     };
   };
 

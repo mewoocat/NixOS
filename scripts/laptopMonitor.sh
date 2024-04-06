@@ -1,8 +1,8 @@
 #/bin/sh
 
 # Set internal display
-#hyprctl keyword monitor eDP-1,2560x1440@60,0x0,1.66667
-hyprctl keyword monitor eDP-1,1280x720@60,0x0,1.0
+hyprctl keyword monitor eDP-1,2560x1440@60,0x0,1.66667
+#hyprctl keyword monitor eDP-1,1280x720@60,0x0,1.0
 
 hyprctl keyword workspace 1, monitor:$primary, default:true
 hyprctl keyword workspace 2, monitor:$primary

@@ -151,6 +151,7 @@ in
     theme # Created from local shell script
     rhythmbox
     bookworm
+    gnome.libgnome-keyring
 
 
   ];

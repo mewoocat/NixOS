@@ -1,9 +1,9 @@
 -- Setup pywal
 --------------------------------------------------------------
---local pywal = require('pywal')
---pywal.setup()
+local pywal = require('pywal')
+pywal.setup()
 vim.cmd.colorscheme = "pywal"
---vim.cmd("colorscheme pywal") -- Appears to require theme reload for syntax colors
+vim.cmd("colorscheme pywal") -- Appears to require theme reload for syntax colors
 ---- DO I even need pywal for syncing terminal (pywal) colors with nvim???
 
 -- Setup neogit
@@ -73,3 +73,25 @@ vim.keymap.set('n', '<leader>b', ":bprev<cr>", {})
 vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable middle mouse paste
 vim.keymap.set('n', '<leader>g', ":Neogit<cr>", {})
 vim.keymap.set('n', '<leader>w', ":bd<cr>")
+
+vim.cmd("nnoremap <silent> <esc><esc> :nohlsearch<CR>")
+
+--vim.cmd("autocmd BufWritePost ~/.cache/wal/colors-wal.vim :source ~/.config/nvim/init.lua")
+--vim.api.nvim_create_autocmd({"BufWritePost"}, {
+--    pattern = {"/home/eXia/.cache/wal/colors-wal.vim"},
+--    --command = ":source /home/eXia/.config/nvim/init.lua",
+--    command = ":colorscheme pywal",
+--})
+
+-- Define a function to set the colorscheme to pywal
+local function set_pywal_colorscheme()
+    vim.cmd('colorscheme pywal')
+end
+
+-- Set up an autocmd to trigger the function when the specific file is written
+vim.cmd([[
+    augroup AutoPywal
+        autocmd!
+        autocmd BufWritePost /home/eXia/.cache/wal/colors-wal.vim lua set_pywal_colorscheme()
+    augroup END
+]])
