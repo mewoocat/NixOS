@@ -48,7 +48,6 @@ in
    ".config/tmux".source = ./programs/tmux;
    ".config/matugen".source = ./programs/matugen;
    ".config/btop".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/btop";
-   ".config/lvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/lvim";
    ".config/retroarch".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/retroarch";
 
    # Themes
