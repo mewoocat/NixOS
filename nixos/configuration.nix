@@ -112,6 +112,7 @@ in{
   services.avahi.enable = true; # Needed for Moonlight / Sunshine
   services.avahi.publish.userServices = true;
  
+  services.envfs.enable = true; # Populate /usr/bin with binaries
 
   ### Programs ###
  

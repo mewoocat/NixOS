@@ -51,11 +51,9 @@ in
     lunarvim
     kitty
     cinnamon.nemo-with-extensions
-    #gnome.nautilus
     neofetch hyfetch
     htop
     vlc
-    #steam
     qalculate-gtk
     gnome.eog
     #gnome.gnome-disk-utility
@@ -64,6 +62,7 @@ in
     obsidian
     webcord
     vesktop
+    xdg-utils # needed for discord/vesktop to open web links in default browser
     onlyoffice-bin
     gnome.gucharmap
     #vscodium
@@ -77,6 +76,7 @@ in
     bottles
     qdirstat
     ascii-image-converter 
+    gh
     
     # Appearance
     liberation_ttf
@@ -87,7 +87,6 @@ in
     #coreutils # Collision with busybox 
     acpi                # Battery
     lm_sensors          # 
-    #light
     brightnessctl
     bluez
     swww
@@ -101,8 +100,7 @@ in
     swayidle
     wl-clipboard
     glib
-    #gsettings-desktop-schemas # Don't need?
-    gnome.nixos-gsettings-overrides # This is used instead
+    gnome.nixos-gsettings-overrides # For gsettings theming
     sway-contrib.grimshot
     pywal
     jaq
@@ -112,8 +110,6 @@ in
     jq
     bc
     wlsunset
-    #gcc # Enabling this causes collision with busybox  
-    #dunst # Some programs may crash without a notification daemon running
     unzip
     gvfs # for network file browsing
     openrgb-with-all-plugins
@@ -155,6 +151,7 @@ in
     theme # Created from local shell script
     rhythmbox
     bookworm
+
 
   ];
 

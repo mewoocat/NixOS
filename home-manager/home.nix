@@ -320,7 +320,7 @@ in
   };
   */
   xdg.mimeApps.defaultApplications = {
-
+    /*
     # Set default browser 
     # Not sure if this is working
     "text/html" = ["firefox.desktop"];
@@ -335,6 +335,14 @@ in
     "application/x-extension-xhtml" = ["firefox.desktop"];
     "application/xhtml+xml" = ["firefox.desktop"];
     "x-scheme-handler/ftp" = ["firefox.desktop"];
+    */
+
+
+    "image/png" = ["org.gnome.gThumb.desktop"];
+    "image/jpeg" = ["org.gnome.gThumb.desktop"];
+    "application/pdf" = [ "firefox.desktop" ];
+    "x-scheme-handler/http" = ["firefox.desktop"];
+    "x-scheme-handler/https" = ["firefox.desktop"];
   };
 
 }

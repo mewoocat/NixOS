@@ -2,11 +2,11 @@
 --------------------------------------------------------------
 --local pywal = require('pywal')
 --pywal.setup()
---vim.cmd.colorscheme = "pywal"
+vim.cmd.colorscheme = "pywal"
 --vim.cmd("colorscheme pywal") -- Appears to require theme reload for syntax colors
 ---- DO I even need pywal for syncing terminal (pywal) colors with nvim???
--- Setup neogit
 
+-- Setup neogit
 --------------------------------------------------------------
 local neogit = require('neogit')
 neogit.setup {}

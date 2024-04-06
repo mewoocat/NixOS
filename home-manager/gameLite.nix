@@ -14,6 +14,7 @@
     gamescope
     duckstation
     osu-lazer-bin
+    prismlauncher # Minecraft
 
     (retroarch.override {
       cores = with libretro; [
