@@ -43,10 +43,10 @@ in
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
 
-   ".config/kitty".source = ./kitty; 
+   ".config/kitty".source = ./programs/kitty; 
    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/ags";
-   ".config/tmux".source = ./tmux;
-   ".config/matugen".source = ./matugen;
+   ".config/tmux".source = ./programs/tmux;
+   ".config/matugen".source = ./programs/matugen;
    ".config/btop".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/btop";
    ".config/lvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/lvim";
    ".config/retroarch".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/retroarch";
