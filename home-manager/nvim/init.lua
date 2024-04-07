@@ -1,3 +1,9 @@
+
+-- Globals
+--------------------------------------------------------------
+vim.g.mapleader = " " -- Set leader to space
+
+
 -- Setup pywal
 --------------------------------------------------------------
 --local pywal = require('pywal')
@@ -34,7 +40,6 @@ keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
 
-vim.g.mapleader = " " -- Set leader to space
 
 -- Options
 --------------------------------------------------------------
@@ -44,8 +49,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = ""
 --vim.opt.termguicolors = true
---vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
---vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Disables kitty padding on entry and enables on exit
 -- Only needed when settings a specific theme since the padding in kitty will not match the bg color
@@ -59,12 +62,6 @@ augroup END
 ]]
 --]]
 
---vim.cmd [[
---augroup AutoPywal
---  autocmd!
---  au BufWritePost ~/.cache/wal/colors-wal.vim colorscheme pywal
---augroup END
---]]
 
 -- Tab config
 vim.opt.tabstop = 4 -- A TAB character looks like 2 spaces
@@ -83,6 +80,8 @@ vim.keymap.set('n', '<leader>w', ":bd<cr>")
 
 vim.cmd("nnoremap <silent> <esc><esc> :nohlsearch<CR>")
 
+-- Testing
+--------------------------------------------------------------
 --vim.cmd("autocmd BufWritePost ~/.cache/wal/colors-wal.vim :source ~/.config/nvim/init.lua")
 --vim.api.nvim_create_autocmd({"BufWritePost"}, {
 --    pattern = {"/home/eXia/.cache/wal/colors-wal.vim"},
@@ -95,3 +94,9 @@ vim.cmd("nnoremap <silent> <esc><esc> :nohlsearch<CR>")
 --    vim.cmd('colorscheme pywal')
 --end
 
+--vim.cmd [[
+--augroup AutoPywal
+--  autocmd!
+--  au BufWritePost ~/.cache/wal/colors-wal.vim colorscheme pywal
+--augroup END
+--]]
