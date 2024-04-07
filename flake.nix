@@ -100,7 +100,7 @@
     packages.x86_64-linux = {
       # Output nixvim + config as package
       # Imports the nixvim set
-      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./home-manager/nixvim.nix {pkgs = pkgs;});
+      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./nixvim.nix {pkgs = pkgs;});
     };
   };
 }

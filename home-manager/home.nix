@@ -7,9 +7,10 @@ in
     inputs.nixvim.homeManagerModules.nixvim
     
     programs/bash.nix
-    programs/hyprland.nix
-    ./nvim
+    programs/hyprland/hyprland.nix
+    ./programs/nvim
     ./packages.nix
+    ./programs/firefox
  ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -179,16 +180,6 @@ in
   };
 
 
-  programs.firefox = {
-    enable = true;
-    profiles.default = {
-      isDefault = true;
-      settings = {
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true; # Enable userChrome.css
-      };
-      userChrome = builtins.readFile ./programs/firefox/userChrome.css;
-    };
-  };
 
 
   # Services
