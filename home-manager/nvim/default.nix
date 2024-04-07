@@ -35,6 +35,10 @@
         config = "";
       } 
       {
+        plugin = wal-vim;
+        config = "";
+      } 
+      {
         plugin = indent-blankline-nvim;
         config = toLua "require(\"ibl\").setup()";
       }

@@ -12,10 +12,10 @@ kitty = true
 gtk_theme = true
 
 [templates.ags]
-input_path = "~/NixOS/home-manager/matugen/ags.scss"
+input_path = "~/NixOS/home-manager/programs/matugen/ags.scss"
 output_path = "~/.config/ags/Style/_colors.scss"
 
 
 [templates.gtk]
-input_path = "~/NixOS/home-manager/matugen/gtk.css"
+input_path = "~/NixOS/home-manager/programs/matugen/gtk.css"
 output_path = "~/.cache/gtk.css"
