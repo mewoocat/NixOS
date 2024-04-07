@@ -10,7 +10,7 @@
         '';
 
   # Theme packaging
-  src = builtins.readFile ./theme/theme.sh;
+  src = builtins.readFile ./programs/theme/theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
   nvimConfig = import ./nixvim.nix;

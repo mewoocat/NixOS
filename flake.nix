@@ -64,7 +64,7 @@
               imports = [
                 anyrun.homeManagerModules.default
                 ./home-manager/home.nix
-                ./home-manager/gameLite.nix
+                ./home-manager/programs/game/gameLite.nix
               ];
             };
             #home-manger.home.packages = [ self.packages.x86_64-linux.nvim ];
@@ -88,7 +88,7 @@
               imports = [
                 anyrun.homeManagerModules.default
                 ./home-manager/home.nix
-                ./home-manager/game.nix
+                ./home-manager/programs/game/game.nix
               ];
             };
           }

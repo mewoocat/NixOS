@@ -26,8 +26,7 @@ Install nix
 `nix flake update ~/NixOS`
 
 ##### Rebuild NixOS
-`sudo nixos-rebuild switch --flake /home/eXia/NixOS#scythe`
-`sudo nixos-rebuild switch --flake /home/eXia/NixOS#obsidian`
+`sudo nixos-rebuild switch --flake /home/eXia/NixOS#$(hostname)`
 
 ### Screenshots
-![Example](https://github.com/mewoocat/NixOS/blob/main/desktop.png)
+![Example](https://github.com/mewoocat/NixOS/blob/main/desktop-2.png)
