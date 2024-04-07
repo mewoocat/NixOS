@@ -43,7 +43,7 @@ keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r
 --------------------------------------------------------------
 local builtin = require('telescope.builtin') -- Import telescope functions
 vim.keymap.set('n', '<leader>o', builtin.find_files, {})
-vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>f', builtin.live_grep, {})
 
 
 
@@ -55,6 +55,7 @@ vim.opt.clipboard = "unnamedplus" -- External clipboard support
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = ""
+
 --vim.opt.termguicolors = true
 
 -- Disables kitty padding on entry and enables on exit
@@ -85,7 +86,7 @@ vim.keymap.set({ "n", "v", "o", "c", "i" }, "<MiddleMouse>", "<Nop>") -- Disable
 vim.keymap.set('n', '<leader>g', ":Neogit<cr>", {})
 vim.keymap.set('n', '<leader>w', ":bd<cr>")
 
-vim.cmd("nnoremap <silent> <esc><esc> :nohlsearch<CR>")
+--vim.cmd("nnoremap <silent> <esc><esc> :nohlsearch<CR><esc>")
 
 -- Testing
 --------------------------------------------------------------

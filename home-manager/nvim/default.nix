@@ -1,6 +1,13 @@
 { config, pkgs, lib, inputs, ... }: 
 
+
 {
+  
+  # Store lua files out of store so that they can be edited without rebuild
+  home.file = {
+   ".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/nvim/lua";
+  };
+
   programs.neovim = 
   let
     toLua = str: "lua << EOF\n${str}\nEOF\n"; # Run lua string as vimscript
@@ -20,7 +27,7 @@
       }
       {
         plugin = telescope-nvim;
-        config = toLuaFile ./telescope.lua;
+        #config = toLuaFile ./telescope.lua;
       }
       {
         plugin = bufferline-nvim;
@@ -47,8 +54,10 @@
         config = "";
       }
     ];
+    # Import out of store lua files
+    # Lua files HAVE to be in a lua/ dir and HAVE to be imported with just the name not the extension
     extraLuaConfig = ''
-        ${builtins.readFile ./init.lua}
+	    require('setup')
     '';
   };
 }
