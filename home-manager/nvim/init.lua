@@ -39,6 +39,13 @@ keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 -- <C-g>u breaks current undo, please make your own choice
 keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
+-- Setup telescope
+--------------------------------------------------------------
+local builtin = require('telescope.builtin') -- Import telescope functions
+vim.keymap.set('n', '<leader>o', builtin.find_files, {})
+vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
+
+
 
 
 -- Options
