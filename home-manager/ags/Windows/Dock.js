@@ -2,12 +2,47 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
-const focusClient = ({address}) => Hyprland.sendMessage(`dispatch focuswindow address:${address}`)
+
+const minimizedWorkspace = 98
+
+const focusClient = (client) => {
+
+    console.log("CLIENT:")
+    console.log(client)
+
+    // If maximized
+    if (client.workspace.id != minimizedWorkspace){ 
+        console.log("maximized" + client.address) 
+        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWorkspace},address:${client.address}`)
+    }
+    // If minimized
+    else{
+        Hyprland.messageAsync(`dispatch movetoworkspacesilent 1,address:${client.address}`)
+        console.log("minimized")
+    }
+    
+    // Focus window
+    //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
+}
+
+const Client = (client = null) => Widget.Box({
+    
+    // Attributes
+    attribute: {
+        returnWS: client.workspace,
+    },
+
+
+    
+})
+
 
 const appButton = (client = null) => Widget.Button({
     class_name: "dock-button",
     tooltip_text: client.class,
     on_primary_click: () => focusClient(client),
+
+
     child:
         Widget.Box({
             vertical: true,

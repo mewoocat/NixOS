@@ -108,3 +108,8 @@ vim.keymap.set('n', '<leader>w', ":bd<cr>")
 --  au BufWritePost ~/.cache/wal/colors-wal.vim colorscheme pywal
 --augroup END
 --]]
+
+
+-- Testing this at the end since it seems that after launching nvim, i have to
+-- set the colorscheme to wal for all elements to take effect
+vim.cmd.colorscheme = "wal"
