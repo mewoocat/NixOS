@@ -2,25 +2,41 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 
-const minimizedWorkspace = 98
+const prefix = "100"  // Identifier for minimized workspace
 
-var minimized = []
+function getMinimizedWS(maximizedWS){
+    return parseInt(prefix + maximizedWS)
+}
+
+function getMaximizedWS(minimizedWS){
+    return parseInt(minimizedWS.toString().substring(prefix.length))
+}
+
+function isMinimized(ws){
+    ws = ws.toString()
+    if (ws.length > 3 || ws.slice(0, prefix.length) == prefix){
+        return true 
+    }
+    else{
+        return false
+    }
+}
+
 
 const focusClient = (client) => {
 
     console.log("CLIENT:")
     console.log(client)
 
-    // If maximized
-    if (client.workspace.id != minimizedWorkspace){ 
-        console.log("maximized" + client.address) 
-        minimized.push(client)
-        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWorkspace},address:${client.address}`)
-    }
     // If minimized
+    if (isMinimized(client.workspace.id)){ 
+        var maximizedWS = getMaximizedWS(client.workspace.id)
+        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${maximizedWS},address:${client.address}`)
+    }
+    // If maximized
     else{
-        Hyprland.messageAsync(`dispatch movetoworkspacesilent 1,address:${client.address}`)
-        console.log("minimized")
+        var minimizedWS = getMinimizedWS(client.workspace.id)
+        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS},address:${client.address}`)
     }
     
     // Focus window
@@ -97,8 +113,7 @@ const clientList = Widget.Scrollable({
             
         }).hook(Hyprland, self => {
             //check if ws is empty
-            var allClients = Hyprland.clients.concat(minimized)
-            self.children = allClients.filter(client => client.class != "" && client.workspace.id === Hyprland.active.workspace.id).map(client => {
+            self.children = Hyprland.clients.filter(client => client.class != "" && (client.workspace.id === Hyprland.active.workspace.id || client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id))).map(client => {
                 return appButton(client)
             })
         })
