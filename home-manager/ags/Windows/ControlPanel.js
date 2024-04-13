@@ -112,7 +112,6 @@ function ControlPanelBox(widget, w, h) {
 
 
 const mainContainer = () => Widget.Box({
-    class_name: "container",
     css: `
         margin: 1rem;
         padding: 0.5rem;
@@ -126,7 +125,6 @@ const mainContainer = () => Widget.Box({
 
 
 const networkContainer = () => Widget.Box({
-    class_name: "container",
     css: `
         margin: 1rem;
         padding: 0.5rem;
@@ -171,6 +169,7 @@ const stack = Widget.Stack({
 
 
 const content = Widget.Box({
+    class_name: 'toggle-window',
     css: 'padding: 1px;',
     children: [
         Widget.Revealer({
@@ -203,7 +202,6 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 
 export const ControlPanel = Widget.Window({
     name: `ControlPanel`,
-    class_name: 'control-panel',
     visible: false,
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',

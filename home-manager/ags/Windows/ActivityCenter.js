@@ -34,7 +34,8 @@ const container = () => Widget.Box({
             },
             child:
                 Widget.Box({
-                    class_name: "container",
+
+                    class_name: 'toggle-window',
                     css: `
                         min-width: 600px;
                         padding: 1rem;
@@ -73,7 +74,6 @@ export const ActivityCenterButton = () => Widget.Button({
 
 export const ActivityCenter = (monitor = 0) => Widget.Window({
     name: `ActivityCenter`, // name has to be unique
-    class_name: 'control-panel',
     visible: false,
     focusable: true,
     monitor,

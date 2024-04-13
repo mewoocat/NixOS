@@ -152,9 +152,9 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                 child:
 
                     Widget.Box({
-                        class_name: "applauncher",
+                        class_name: "toggle-window",
                         vertical: true,
-                        css: `margin: ${spacing * 2}px;`,
+//                        css: `margin: ${spacing * 2}px;`,
                         spacing: 8,
                         children: [
                             entry,
@@ -171,9 +171,9 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                             Widget.CenterBox({  
                                 css: `
                                     padding: 1.2rem;
-                                    background-color: #0f0f0f;
                                     border-radius: 1rem;
                                 `,
+                                class_name: "container",
                                 startWidget: UserInfo,
                                 centerWidget: Widget.Label(''),
                                 endWidget: powerButtons,

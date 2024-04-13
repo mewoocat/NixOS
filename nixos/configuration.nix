@@ -256,6 +256,8 @@ in{
     # Open ports in the firewall.
     #networking.firewall.allowedTCPPorts = [ 3216 ];
     # networking.firewall.allowedUDPPorts = [ ... ];
+    
+    # For sunshine/moonlight
     allowedTCPPorts = [ 47984 47989 47990 48010 ];
     allowedUDPPortRanges = [
       { from = 47998; to = 48000; }

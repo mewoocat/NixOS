@@ -14,9 +14,16 @@ $lowOpacity: 0.85;
 .container{
     background-color: rgba($surface, $mediumOpacity);
     border-radius: 1rem;
+    background-color: rgba($surface_container_lowest, $lowOpacity);
+}
+
+.toggle-window{
+    background-color: rgba($surface, $mediumOpacity);
+    border-radius: 1rem;
     border-color: rgba(64, 64, 64, 0.42);
     border-width: 1px;
     border-style: solid;
+    margin: 1rem;
 }
 
 /*
@@ -27,10 +34,8 @@ window:has(menu){
 
 // Bar
 ////////////////////////////////////////////////////////////////////////////
-window.bar {
+.bar-window{
     background-color: rgba($surface, $mediumOpacity);
-}
-.bar{
     font-family: "System-ui";
     font-size: 16px;
 }
@@ -58,7 +63,7 @@ window.bar {
 
 .app-entry {
     padding: 0.6rem;
-    background-color: rgba($scrim, 1);
+    background-color: rgba($surface_container_lowest, 1);
     border-radius: 1rem;
 }
 
@@ -154,6 +159,9 @@ button:hover > * {
 // On hover color
 .ws-button:hover > box{
     background-color: $primary;
+    label{
+        color: $surface; 
+    }
 }
 .ws-button:hover > .ws-inactive {
     min-width: 1.2rem;
