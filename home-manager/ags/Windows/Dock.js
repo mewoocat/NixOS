@@ -1,9 +1,10 @@
-
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 
 const minimizedWorkspace = 98
+
+var minimized = []
 
 const focusClient = (client) => {
 
@@ -13,6 +14,7 @@ const focusClient = (client) => {
     // If maximized
     if (client.workspace.id != minimizedWorkspace){ 
         console.log("maximized" + client.address) 
+        minimized.push(client)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWorkspace},address:${client.address}`)
     }
     // If minimized
@@ -31,9 +33,7 @@ const Client = (client = null) => Widget.Box({
     attribute: {
         returnWS: client.workspace,
     },
-
-
-    
+ 
 })
 
 
@@ -97,21 +97,12 @@ const clientList = Widget.Scrollable({
             
         }).hook(Hyprland, self => {
             //check if ws is empty
-
-            self.children = Hyprland.clients.filter(client => client.class != "" && client.workspace.id === Hyprland.active.workspace.id).map(client => {
+            var allClients = Hyprland.clients.concat(minimized)
+            self.children = allClients.filter(client => client.class != "" && client.workspace.id === Hyprland.active.workspace.id).map(client => {
                 return appButton(client)
             })
         })
 
-        /* This hook is borked as it stops updating if no clients are in the current workspace
-        .hook(Hyprland, self => {
-            //check if ws is empty
-
-            self.children = Hyprland.clients.filter(client => client.workspace.id === Hyprland.active.workspace.id).map(client => {
-                return appButton(client)
-            })
-        })
-        */
 })
 
 export const Dock = (monitor = 0) => Widget.Window({
