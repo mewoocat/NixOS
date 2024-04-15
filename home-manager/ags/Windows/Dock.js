@@ -32,15 +32,17 @@ const focusClient = (client) => {
     if (isMinimized(client.workspace.id)){ 
         var maximizedWS = getMaximizedWS(client.workspace.id)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${maximizedWS},address:${client.address}`)
+        // Focus window
+        //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
+        Hyprland.messageAsync(`dispatch alterzorder top,address:${client.address}`)
     }
+    
     // If maximized
     else{
         var minimizedWS = getMinimizedWS(client.workspace.id)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS},address:${client.address}`)
     }
     
-    // Focus window
-    //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
 }
 
 const Client = (client = null) => Widget.Box({

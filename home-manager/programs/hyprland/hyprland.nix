@@ -7,6 +7,7 @@
     plugins = [
       #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
       #inputs.hycov.packages.${pkgs.system}.hycov
+      inputs.hyprspace.packages.${pkgs.system}.Hyprspace
     ];
     
     extraConfig = ''
@@ -112,6 +113,8 @@
             force_default_wallpaper = 0
             disable_hyprland_logo = true
         }
+
+        debug:disable_logs = false
 
         # Pseudo tiles all windows?
         # Having these on causes (XWayland?) appplications to open dialog boxes in center of screen, e.g. gimp
@@ -223,7 +226,8 @@
         bind = $mainMod, F, fullscreen
         bind = ,Print, exec, grimshot copy area
         bind = $mainMod, T, togglegroup	
-        bind = $mainMod, TAB, changegroupactive, f	
+        #bind = $mainMod, TAB, changegroupactive, f	
+        bind = $mainMod, TAB, overview:toggle
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
         bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 

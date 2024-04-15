@@ -30,6 +30,10 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprspace = {
+        url = github:KZDKM/Hyprspace;
+        inputs.hyprland.follows = "hyprland";
+    };
     
 
   };
