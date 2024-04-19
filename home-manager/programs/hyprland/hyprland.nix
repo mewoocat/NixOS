@@ -7,7 +7,7 @@
     plugins = [
       #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
       #inputs.hycov.packages.${pkgs.system}.hycov
-      inputs.hyprspace.packages.${pkgs.system}.Hyprspace
+      #inputs.hyprspace.packages.${pkgs.system}.Hyprspace # Fails to load on my "working" flake.lock
     ];
     
     extraConfig = ''
@@ -227,7 +227,7 @@
         bind = ,Print, exec, grimshot copy area
         bind = $mainMod, T, togglegroup	
         #bind = $mainMod, TAB, changegroupactive, f	
-        bind = $mainMod, TAB, overview:toggle
+        #bind = $mainMod, TAB, overview:toggle
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
         bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 

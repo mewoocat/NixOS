@@ -37,8 +37,6 @@ const container = () => Widget.Box({
 
                     class_name: 'toggle-window',
                     css: `
-                        min-width: 600px;
-                        padding: 1rem;
                     `,
                     spacing: 8,
                     children: [
