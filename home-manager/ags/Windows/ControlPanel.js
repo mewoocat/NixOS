@@ -199,7 +199,7 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 export const ControlPanel = Widget.Window({
     name: `ControlPanel`,
     visible: false,
-    anchor: ["top", "bottom", "right"/*, "left"*/], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right")
 });
