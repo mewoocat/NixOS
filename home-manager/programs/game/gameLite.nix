@@ -15,6 +15,7 @@
     duckstation
     osu-lazer-bin
     prismlauncher # Minecraft
+    mangohud
 
     (retroarch.override {
       cores = with libretro; [

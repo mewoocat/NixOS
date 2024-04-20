@@ -84,7 +84,7 @@ in
     apple-cursor
 
     # Components + utilities
-    #coreutils # Collision with busybox 
+    coreutils # Collision with busybox 
     acpi                # Battery
     lm_sensors          # 
     brightnessctl
@@ -113,7 +113,7 @@ in
     unzip
     gvfs # for network file browsing
     openrgb-with-all-plugins
-    busybox
+    #busybox
     nmap
 
 
