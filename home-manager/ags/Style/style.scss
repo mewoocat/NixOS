@@ -27,10 +27,20 @@ $lowOpacity: 0.85;
 }
 
 tooltip{
-    padding: 1.2rem
+    padding: 1.2rem;
     border-radius: 1rem;
     background-color: rgba($surface_container_lowest, $lowOpacity);
 }
+
+separator{
+    background-color: $on_surface; 
+    border-radius: 1rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    margin-right: 0.6rem;
+    min-width: 0.05rem
+}
+
 
 /*
 window:has(menu){

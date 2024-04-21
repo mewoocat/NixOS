@@ -38,6 +38,9 @@ const Right = (monitor) => Widget.Box({
     spacing: 12,
     children: [
         SysTray(), 
+        Widget.Separator({
+            vertical: true,
+        }),
         EthernetIcon(),
         BluetoothIcon(),
         BatteryLabel(), 
