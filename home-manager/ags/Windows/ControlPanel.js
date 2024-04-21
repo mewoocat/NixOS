@@ -123,6 +123,7 @@ const mainContainer = () => Widget.Box({
 const networkContainer = () => Widget.Box({
     class_name: 'toggle-window',
     vertical: true,
+    vexpand: false,
     children: [
         //Rows
         BackButton(),
