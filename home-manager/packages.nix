@@ -115,6 +115,7 @@ in
     openrgb-with-all-plugins
     #busybox
     nmap
+    dig
 
 
     # Unsorted

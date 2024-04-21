@@ -57,7 +57,7 @@ const Client = (client = null) => Widget.Box({
 
 const appButton = (client = null) => Widget.Button({
     class_name: "dock-button",
-    tooltip_text: client.class,
+    tooltip_text: client.title,
     on_primary_click: () => focusClient(client),
 
 
