@@ -149,8 +149,9 @@ for (let i = 0; i < net.length; i++){
 
 export const WifiList = () => Widget.Scrollable({
     css: `
-        min-height: 400px;
+        min-height: 300px;
     `,
+    //vexpand: true,
     child: Widget.Box({
         vertical: true,
         children: networks,

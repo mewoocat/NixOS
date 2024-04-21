@@ -112,7 +112,7 @@ function ControlPanelBox(widget, w, h) {
 
 
 const mainContainer = () => Widget.Box({
-    spacing: 8,
+    class_name: 'toggle-window',
     vertical: true,
     children: [
         grid,
@@ -121,7 +121,7 @@ const mainContainer = () => Widget.Box({
 
 
 const networkContainer = () => Widget.Box({
-    spacing: 8,
+    class_name: 'toggle-window',
     vertical: true,
     children: [
         //Rows
@@ -145,7 +145,6 @@ const networkContainer = () => Widget.Box({
 
 // Container
 const stack = Widget.Stack({
-    //class_name: 'toggle-window',
     // Tabs
     children: {
         'main': mainContainer(),
@@ -176,7 +175,6 @@ const content = Widget.Box({
                 }, 'window-toggled')
             },
             child: Widget.Box({
-                class_name: 'toggle-window',
                 children: [
                     stack,
                 ],
@@ -199,7 +197,8 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 export const ControlPanel = Widget.Window({
     name: `ControlPanel`,
     visible: false,
-    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top", "bottom", "right"], // Debug mode
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right")
 });
