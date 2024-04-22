@@ -34,7 +34,10 @@
         url = github:KZDKM/Hyprspace;
         inputs.hyprland.follows = "hyprland";
     };
-    
+   
+    # My nvim config
+    myNvim.url = "github:mewoocat/nvim-nix";
+
 
   };
 

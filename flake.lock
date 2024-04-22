@@ -444,6 +444,24 @@
         "type": "github"
       }
     },
+    "myNvim": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1713755708,
+        "narHash": "sha256-dDX0Gx014Jg2x4kZDWlMIbqv+eesY4NhURFMNCq18yM=",
+        "owner": "mewoocat",
+        "repo": "nvim-nix",
+        "rev": "4a21b191fd5e761abb199922eaa5073229e60d3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mewoocat",
+        "repo": "nvim-nix",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -468,7 +486,7 @@
     "nix-gaming": {
       "inputs": {
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1710810847,
@@ -552,6 +570,22 @@
     },
     "nixpkgs_4": {
       "locked": {
+        "lastModified": 1712439257,
+        "narHash": "sha256-aSpiNepFOMk9932HOax0XwNxbA38GOUVOiXfUVPOrck=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ff0dbd94265ac470dda06a657d5fe49de93b4599",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
+      "locked": {
         "lastModified": 1710701596,
         "narHash": "sha256-v4lsAi3vE/sEWg0G8AydMjs3NTHlsNw8K01xw06cKLg=",
         "owner": "NixOS",
@@ -566,7 +600,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1710631334,
         "narHash": "sha256-rL5LSYd85kplL5othxK5lmAtjyMOBg390sGBTb3LRMM=",
@@ -644,8 +678,9 @@
         "hyprland": "hyprland",
         "hyprspace": "hyprspace",
         "matugen": "matugen",
+        "myNvim": "myNvim",
         "nix-gaming": "nix-gaming",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "nixvim": "nixvim"
       }
     },

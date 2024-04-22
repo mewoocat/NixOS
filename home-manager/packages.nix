@@ -147,7 +147,9 @@ in
 
     gnome.gnome-calendar
 
-    inputs.self.packages.x86_64-linux.nvim # Install nvim package exported in flake
+    #inputs.self.packages.x86_64-linux.nvim # Install nvim package exported in flake
+
+    inputs.myNvim.packages.x86_64-linux.default
 
     theme # Created from local shell script
     rhythmbox
