@@ -1,6 +1,8 @@
 { config, pkgs, lib, inputs, ... }: 
 
 {
+  # nvim config with hotreload support for lua config
+  # (inactive)
   
   # Store lua files out of store so that they can be edited without rebuild
   home.file = {
@@ -13,7 +15,7 @@
     toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n"; # Run lua file as vimscript
   in
   {
-    enable = true;
+    enable = false;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
