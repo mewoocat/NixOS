@@ -23,7 +23,10 @@ Install nix
 `nix profile install github:mewoocat/NixOS#nvim`
 
 ##### Update
+All inputs
 `nix flake update ~/NixOS`
+A particular input
+`nix flake lock --update-input input_name`
 
 ##### Rebuild NixOS
 `sudo nixos-rebuild switch --flake /home/eXia/NixOS#$(hostname)`
