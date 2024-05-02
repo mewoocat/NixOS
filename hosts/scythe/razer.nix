@@ -8,5 +8,5 @@
         openrazer-daemon # Backend
         polychromatic # Frontend
     ];
-    users.users.eXia = { extraGroups = [ "openrazer" ]; };
+    users.users.eXia.extraGroups = [ "openrazer" "plugdev" ];
 }
