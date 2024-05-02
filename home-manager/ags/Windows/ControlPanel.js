@@ -7,7 +7,7 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 
 // Modules
 import { brightness } from '../Modules/Display.js';
-import { VolumeSlider } from '../Modules/Volume.js';
+import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneSlider } from '../Modules/Microphone.js';
 import { WifiButton, WifiSSID, WifiIcon, WifiList } from '../Modules/Network.js';
 import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
@@ -143,6 +143,18 @@ const networkContainer = () => Widget.Box({
     ],
 });
 
+const audioContainer = () => Widget.Box({
+    class_name: 'toggle-window',
+    vertical: true,
+    vexpand: false,
+    children: [
+        VolumeMenu(), 
+        Widget.Label({
+            label: "test",
+        }),
+    ],
+})
+
 
 // Container
 const stack = Widget.Stack({
@@ -150,6 +162,7 @@ const stack = Widget.Stack({
     children: {
         'main': mainContainer(),
         'network': networkContainer(),
+        'audio': audioContainer(),
     },
     transition: "over_left",
 

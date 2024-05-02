@@ -1,52 +1,56 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import { ControlPanelTab } from '../variables.js';
 
-export const VolumeIcon = () => Widget.Box({
-    class_name: "volume-icon icon",
-    children:[
-        Widget.Overlay({
-            //TODO Running a hook on both of these labels might be unnecessary
-            child:
-                Widget.Label().hook(Audio, self => {
-                    self.class_name = "volume-bg"
-                    if (Audio.speaker.is_muted){
-                        self.label = ""
-                    }
-                    else{
-                        self.label = ""
-                    }
-                
-                }, 'speaker-changed'),
+export const VolumeIcon = () => Widget.Button({
+    onClicked: () => ControlPanelTab.setValue("audio"),
+    child: Widget.Box({
+        class_name: "volume-icon icon",
+        children:[
+            Widget.Overlay({
+                //TODO Running a hook on both of these labels might be unnecessary
+                child:
+                    Widget.Label().hook(Audio, self => {
+                        self.class_name = "volume-bg"
+                        if (Audio.speaker.is_muted){
+                            self.label = ""
+                        }
+                        else{
+                            self.label = ""
+                        }
+                    
+                    }, 'speaker-changed'),
 
-            overlays: [
-                Widget.Label().hook(Audio, self => {
-                    if (!Audio.speaker)
-                        return;
+                overlays: [
+                    Widget.Label().hook(Audio, self => {
+                        if (!Audio.speaker)
+                            return;
 
-                    var icon = "vol-err";
+                        var icon = "vol-err";
 
-                    if (Audio.speaker.is_muted){
-                        icon = "" // Only base icon of overlay is displayed
-                    }
-                    else if(Audio.speaker.volume > 0.75){
-                        icon = ""
-                    }
-                    else if(Audio.speaker.volume > 0.50){
-                        icon = ""
-                    }
-                    else if(Audio.speaker.volume > 0.25){
-                        icon = ""
-                    }
-                    else{
-                        icon = ""
-                    }
+                        if (Audio.speaker.is_muted){
+                            icon = "" // Only base icon of overlay is displayed
+                        }
+                        else if(Audio.speaker.volume > 0.75){
+                            icon = ""
+                        }
+                        else if(Audio.speaker.volume > 0.50){
+                            icon = ""
+                        }
+                        else if(Audio.speaker.volume > 0.25){
+                            icon = ""
+                        }
+                        else{
+                            icon = ""
+                        }
 
-                    self.label = icon;
-                }, 'speaker-changed'),
-            ]
-        })
-    ]
+                        self.label = icon;
+                    }, 'speaker-changed'),
+                ]
+            })
+        ]
+    })
 })
 
 export const VolumeSlider = () => Widget.Box({
@@ -65,3 +69,26 @@ export const VolumeSlider = () => Widget.Box({
         }),
     ],
 });
+
+
+// Volume menu
+export const VolumeMenu = () => Widget.Box({
+    vertical: true,
+    children: [
+        // Output devices
+        Widget.Label({
+            label: Audio.speaker.bind("description"),
+        }),
+        Widget.Label({
+    
+        }).hook(Audio, self => {
+            self.label = Audio.speaker.stream.port
+        }, "changed"),
+
+    ],
+})
+
+
+
+
+
