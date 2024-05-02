@@ -6,7 +6,7 @@
   
   # Store lua files out of store so that they can be edited without rebuild
   home.file = {
-   ".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/nvim/lua";
+   #".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/nvim/lua";
   };
 
   programs.neovim = 
