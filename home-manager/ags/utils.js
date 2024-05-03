@@ -15,7 +15,7 @@ export function range(length, start = 1) {
   * @returns {Array<import('types/widgets/window').default>}
   */
 export function forMonitors(widget) {
-    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
+    const n = Gdk.Display.get_default()?.get_n_monitors() || 0;
     // Creates a new array from the array of monitor numbers using the widget as a function for each number
     return range(n, 0).map(widget).flat(1);
 }

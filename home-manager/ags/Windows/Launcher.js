@@ -218,7 +218,6 @@ export const applauncher = Widget.Window({
     name: WINDOW_NAME,
     visible: false,
     //focusable: true,
-    popup: true,
     layer: "overlay",
     keymode: "exclusive",
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
@@ -229,4 +228,5 @@ export const applauncher = Widget.Window({
     }), "top-left"),
     //TODO: setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
 });
+applauncher.keybind("Escape", () => App.closeWindow(WINDOW_NAME))
 

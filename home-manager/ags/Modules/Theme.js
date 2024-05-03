@@ -10,6 +10,5 @@ export const ThemeButton = (w, h) => Widget.Button({
     child:
         Widget.Label({
             label: " ",
-            justification: "justify",
         })
 })
