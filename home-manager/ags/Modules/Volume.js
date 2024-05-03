@@ -72,30 +72,21 @@ export const VolumeSlider = () => Widget.Box({
     ],
 });
 
-
-const ComboBox = Widget.subclass(Gtk.ComboBox)
-const DeviceList = new Gtk.ListStore()
-DeviceList.set_column_types([GObj.TYPE_STRING])
-//Seems to be adding the items but the text color is the same as the bg color :/
-DeviceList.set_value(DeviceList.append(), 0, "aaaaaa") 
-DeviceList.set_value(DeviceList.append(), 0, "bbbbbb") 
-DeviceList.set_value(DeviceList.append(), 0, "bbbbbb") 
-DeviceList.set_value(DeviceList.append(), 0, "bbbbbb") 
-
-const OutputDevices = ComboBox({
-    class_name: "combobox",
-    model: DeviceList,
+const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
+const OutputDevices = ComboBoxText({})
+OutputDevices.on("changed", self => {
+    print(OutputDevices.get_active_id())
 })
-
-const ohlordholy = Widget.subclass(Gtk.ComboBoxText)
-const ohlord = ohlordholy({})
-ohlord.append("first", "second")
-ohlord.append_text("bbb")
-ohlord.set_active_id("first")
-ohlord.on("changed", self => {
-    print("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-    print(ohlord.get_active_id())
-})
+OutputDevices.hook(Audio, self => {
+    self.remove_all()
+    // Set combobox with output devices
+    for( let i = 0; i < Audio.speakers.length; i++ ){ 
+        let device = Audio.speakers[i]
+        print(device)
+        self.append(device.name, device.description)
+    }
+    OutputDevices.set_active_id(Audio.speaker.name)
+}, "changed")
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
@@ -115,7 +106,6 @@ export const VolumeMenu = () => Widget.Box({
         }, "changed"),
 
         OutputDevices,
-        ohlord,
     ],
 })
 
