@@ -2,6 +2,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Gtk from 'gi://Gtk'
+import GObj from 'gi://GObject'
 import { ControlPanelTab } from '../variables.js';
 
 export const VolumeIcon = () => Widget.Button({
@@ -74,7 +75,7 @@ export const VolumeSlider = () => Widget.Box({
 
 const ComboBox = Widget.subclass(Gtk.ComboBox)
 const DeviceList = new Gtk.ListStore()
-
+DeviceList.set_column_types([GObj.TYPE_STRING])
 //Seems to be adding the items but the text color is the same as the bg color :/
 DeviceList.set_value(DeviceList.append(), 0, "aaaaaa") 
 DeviceList.set_value(DeviceList.append(), 0, "bbbbbb") 
@@ -82,8 +83,13 @@ DeviceList.set_value(DeviceList.append(), 0, "bbbbbb")
 DeviceList.set_value(DeviceList.append(), 0, "bbbbbb") 
 
 const OutputDevices = ComboBox({
+    class_name: "combobox",
     model: DeviceList,
 })
+
+const ohlord = new Gtk.ComboBoxText()
+ohlord.append_text("aaa")
+ohlord.append_text("bbb")
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
@@ -102,7 +108,8 @@ export const VolumeMenu = () => Widget.Box({
             self.label = "Port: " + Audio.speaker.stream.port
         }, "changed"),
 
-        OutputDevices
+        OutputDevices,
+        ohlord,
     ],
 })
 

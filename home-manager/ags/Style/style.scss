@@ -450,3 +450,25 @@ scrollbar.vertical slider{
     background-color: $surface_bright;
 }
 
+
+combobox {
+    box.linked{
+
+        button.combo{
+            box{
+                cellview{
+
+                    color: red;
+                    background-color: green;
+                }
+            }
+        }
+    }
+    window.popup{
+
+    }
+
+    color: red;
+    background-color: green;
+}
+
