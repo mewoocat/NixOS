@@ -451,24 +451,3 @@ scrollbar.vertical slider{
 }
 
 
-combobox {
-    box.linked{
-
-        button.combo{
-            box{
-                cellview{
-
-                    color: red;
-                    background-color: green;
-                }
-            }
-        }
-    }
-    window.popup{
-
-    }
-
-    color: red;
-    background-color: green;
-}
-

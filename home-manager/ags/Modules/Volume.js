@@ -87,9 +87,15 @@ const OutputDevices = ComboBox({
     model: DeviceList,
 })
 
-const ohlord = new Gtk.ComboBoxText()
-ohlord.append_text("aaa")
+const ohlordholy = Widget.subclass(Gtk.ComboBoxText)
+const ohlord = ohlordholy({})
+ohlord.append("first", "second")
 ohlord.append_text("bbb")
+ohlord.set_active_id("first")
+ohlord.on("changed", self => {
+    print("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    print(ohlord.get_active_id())
+})
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
