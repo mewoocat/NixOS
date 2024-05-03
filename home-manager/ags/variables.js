@@ -59,8 +59,6 @@ async function getWeather(){
     const data = await Utils.fetch(url)
         .then(res => res.json())
         .catch(console.error)
-
-    print(data.current.temperature_2m)
     return data
 }
 

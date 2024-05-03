@@ -25,8 +25,8 @@ function isMinimized(ws){
 
 const focusClient = (client) => {
 
-    console.log("CLIENT:")
-    console.log(client)
+    //console.log("CLIENT:")
+    //console.log(client)
 
     // If minimized
     if (isMinimized(client.workspace.id)){ 

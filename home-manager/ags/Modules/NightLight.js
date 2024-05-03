@@ -6,7 +6,6 @@ const NightLightState = Variable(false, {
     // Check if wlsunset is running
     // Bash command outputs 0 if yes or 1 if no
     poll: [1000, 'bash -c "pidof wlsunset > /dev/null; echo $?"', out => {
-        console.log("out: " + out)
         if (out == 0){
             return true
         }

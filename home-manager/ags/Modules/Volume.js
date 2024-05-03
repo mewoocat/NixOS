@@ -75,14 +75,13 @@ export const VolumeSlider = () => Widget.Box({
 const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
 const OutputDevices = ComboBoxText({})
 OutputDevices.on("changed", self => {
-    print(OutputDevices.get_active_id())
+    //print(OutputDevices.get_active_id())
 })
 OutputDevices.hook(Audio, self => {
     self.remove_all()
     // Set combobox with output devices
     for( let i = 0; i < Audio.speakers.length; i++ ){ 
         let device = Audio.speakers[i]
-        print(device)
         self.append(device.name, device.description)
     }
     OutputDevices.set_active_id(Audio.speaker.name)

@@ -140,9 +140,8 @@ const network = ap => Widget.Button({
 Network.wifi.scan()
 var networks = Network.wifi.accessPoints.map(network)
 var net = Network.wifi.accessPoints
-print("nets --___---------------__-_-----_______----_")
 for (let i = 0; i < net.length; i++){
-    print(net[i].ssid)
+    //print(net[i].ssid)
 }
 
 

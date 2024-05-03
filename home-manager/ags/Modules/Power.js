@@ -8,7 +8,6 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
     `,
     on_clicked: () => {
-        print("power" + powerProfiles.active_profile)
         switch (powerProfiles.active_profile) {
             case 'power-saver':
                 powerProfiles.active_profile = 'performance';
@@ -26,7 +25,6 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
             size: 22,
             setup: self => {
                 self.hook(powerProfiles, self => {
-                    print("poweri     " + powerProfiles.active_profile)
                     if (powerProfiles.active_profile === "performance"){
                         self.icon = "power-profile-performance-symbolic-rtl" 
                         self.css = "color: red;"
