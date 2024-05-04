@@ -217,7 +217,6 @@ export const LauncherButton = () => Widget.Button({
 export const applauncher = Widget.Window({
     name: WINDOW_NAME,
     visible: false,
-    //focusable: true,
     layer: "overlay",
     keymode: "exclusive",
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 

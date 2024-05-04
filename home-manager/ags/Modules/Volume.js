@@ -101,7 +101,12 @@ export const VolumeMenu = () => Widget.Box({
         // Port 
         Widget.Label({
         }).hook(Audio, self => {
-            self.label = "Port: " + Audio.speaker.stream.port
+            try{
+                self.label = "Port: " + Audio.speaker.stream.port
+            }
+            catch{
+               self.label = "No port found" 
+            }
         }, "changed"),
 
         OutputDevices,

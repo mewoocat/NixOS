@@ -13,7 +13,7 @@ import { ControlPanel } from './Windows/ControlPanel.js';
 // GDK Display
 import Gdk from 'gi://Gdk'
 const display = new Gdk.Display()
-print("display" + display)
+//print("display" + display)
 
 
 // main scss file

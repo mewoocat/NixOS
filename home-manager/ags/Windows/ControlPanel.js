@@ -129,7 +129,7 @@ const networkContainer = () => Widget.Box({
         BackButton(),
         Widget.Box({
             children: [
-                WifiIcon(),
+                WifiIcon(true, null),
                 WifiSSID()
             ]
         }),

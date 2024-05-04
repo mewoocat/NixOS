@@ -17,7 +17,7 @@ export const WifiIcon = (isConnected, ap) => Widget.Box({
                     self.toggleClassName('invisible', Network.wifi.strength < 0)
                 }
                 // Or an access point
-                else {
+                else if (ap != null) {
                     self.toggleClassName('invisible', ap.strength < 0)
                 }
 
@@ -33,7 +33,7 @@ export const WifiIcon = (isConnected, ap) => Widget.Box({
                     strength = Network.wifi.strength
                 }
                 // Or an access point
-                else {
+                else if (ap != null) {
                     strength = ap.strength
                 }
 
@@ -117,7 +117,9 @@ export const WifiButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
     `,
     hexpand: true,
-    onClicked: () => ControlPanelTab.setValue("network"),
+    onClicked: () => {
+        ControlPanelTab.setValue("network")
+    },
     child: Widget.Box({
         children:[
             WifiIcon(true, null),
@@ -138,12 +140,7 @@ const network = ap => Widget.Button({
 })
 
 Network.wifi.scan()
-var networks = Network.wifi.accessPoints.map(network)
-var net = Network.wifi.accessPoints
-for (let i = 0; i < net.length; i++){
-    //print(net[i].ssid)
-}
-
+//var networks = Network.wifi.accessPoints.map(network)
 
 
 export const WifiList = () => Widget.Scrollable({
@@ -153,6 +150,15 @@ export const WifiList = () => Widget.Scrollable({
     vexpand: true,
     child: Widget.Box({
         vertical: true,
-        children: networks,
-    })
+        children: [],
+    }).hook(Network, self => {
+        try{
+            var networks = Network.wifi.accessPoints.map(network)
+        }
+        catch{ 
+            var networks = []
+        }
+        self.children = networks
+    }, "changed")
+
 })

@@ -73,7 +73,7 @@ export const ActivityCenterButton = () => Widget.Button({
 export const ActivityCenter = (monitor = 0) => Widget.Window({
     name: `ActivityCenter`, // name has to be unique
     visible: false,
-    focusable: true,
+    //focusable: true,
     monitor,
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',
