@@ -46,71 +46,10 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 // Read in user settings
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 
-/*
-const defaultData = JSON.parse(`
-{
-  "latitude": 0,
-  "longitude": 0,
-  "generationtime_ms": 0.,
-  "utc_offset_seconds": 0,
-  "timezone": "GMT",
-  "timezone_abbreviation": "GMT",
-  "elevation": 326,
-  "current_units": {
-    "time": "iso8601",
-    "interval": "seconds",
-    "temperature_2m": "°F",
-    "apparent_temperature": "°F",
-    "precipitation": "inch",
-    "weather_code": "wmo code",
-    "relative_humidity_2m": "%"
-  },
-  "current": {
-    "time": "2024-05-03T23:15",
-    "interval": 900,
-    "temperature_2m": 71.6,
-    "apparent_temperature": 74.8,
-    "precipitation": 0,
-    "weather_code": 3,
-    "relative_humidity_2m": 83
-  },
-  "daily_units": {
-    "time": "iso8601",
-    "temperature_2m_max": "°F",
-    "temperature_2m_min": "°F"
-  },
-  "daily": {
-    "time": [
-      "2024-05-03",
-      "2024-05-04",
-      "2024-05-05",
-      "2024-05-06",
-      "2024-05-07",
-      "2024-05-08",
-      "2024-05-09"
-    ],
-    "temperature_2m_max": [
-      78.8,
-      73.5,
-      80,
-      75.2,
-      77.2,
-      83.3,
-      80.9
-    ],
-    "temperature_2m_min": [
-      66,
-      64.2,
-      59.9,
-      61.3,
-      64,
-      65.6,
-      68.2
-    ]
-  }
-}
-`)
-*/
+
+///////////////////////////////////
+//  Weather
+///////////////////////////////////
 
 var lat = data.lat
 print("lat: " + lat)
@@ -119,6 +58,38 @@ print("lon: " + lon)
 //TODO add variables for units
 var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`
 print(url)
+
+/*
+WMO Weather interpretation codes (WW)
+Code 	Description
+0 	Clear sky
+1, 2, 3 	Mainly clear, partly cloudy, and overcast
+45, 48 	Fog and depositing rime fog
+51, 53, 55 	Drizzle: Light, moderate, and dense intensity
+56, 57 	Freezing Drizzle: Light and dense intensity
+61, 63, 65 	Rain: Slight, moderate and heavy intensity
+66, 67 	Freezing Rain: Light and heavy intensity
+71, 73, 75 	Snow fall: Slight, moderate, and heavy intensity
+77 	Snow grains
+80, 81, 82 	Rain showers: Slight, moderate, and violent
+85, 86 	Snow showers slight and heavy
+95 * 	Thunderstorm: Slight or moderate
+96, 99 * 	Thunderstorm with slight and heavy hail
+*/
+function LookupWeatherCode(code){
+    switch(code) {
+        case 0:
+            return "Clear sky"
+        case 1:
+            return "Mostly clear"
+        case 2:
+            return "Partly cloudy"
+        case 3:
+            return "Overcast"
+        default:
+            return "Unknown"
+    } 
+}
 
 // Get data from api
 async function getWeather(){
@@ -132,6 +103,66 @@ async function getWeather(){
 export const weather = Variable(null, {
     poll: [400000, () => { return getWeather() }]
 })
+
+// Current temp
+export const currentTemp = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        return Math.round(weather.current.temperature_2m).toString() + weather.current_units.temperature_2m.toString()
+    }
+    else{
+        return "0"
+    }
+}) 
+
+// Hi temp
+export const hiTemp = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        return "hi: " + weather.daily.temperature_2m_max[0].toString() + weather.current_units.temperature_2m.toString()
+    }
+    else{
+        return "0"
+    }
+}) 
+
+// Lo temp
+export const loTemp = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        return "lo: " + weather.daily.temperature_2m_min[0].toString() + weather.current_units.temperature_2m.toString()
+    }
+    else{
+        return "0"
+    }
+}) 
+
+// status
+export const weatherStatus = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        return LookupWeatherCode(weather.current.weather_code)
+    }
+    else{
+        return "0"
+    }
+}) 
+
+// Precipitation
+export const precipitation = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        return " " + weather.current.precipitation.toString() + "%"
+    }
+    else{
+        return "0"
+    }
+}) 
+
+// Humidity
+export const humidity = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        return " " + weather.current.relative_humidity_2m.toString() + "%"
+    }
+    else{
+        return "0"
+    }
+}) 
 
 export const user = Variable("...", {
     poll: [60000, 'whoami', out => out]
