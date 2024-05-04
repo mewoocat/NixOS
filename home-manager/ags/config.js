@@ -34,7 +34,7 @@ monitorFile(
     },
 );
 
-export default {
+App.config({
     style: css, 
     closeWindowDelay: {
         "ControlPanel":     150, // milliseconds
@@ -46,11 +46,12 @@ export default {
     windows: [
         applauncher, 
         //...forMonitors(Bar), 
-        Bar(1),
+        Bar(),
         Lockscreen(), 
         ControlPanel,
         ActivityCenter(),
         NotificationPopup, 
         Dock()
     ],
-};
+});
+

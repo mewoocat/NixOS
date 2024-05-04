@@ -153,12 +153,12 @@ export const WifiList = () => Widget.Scrollable({
         children: [],
     }).hook(Network, self => {
         try{
-            var networks = Network.wifi.accessPoints.map(network)
+            //var networks = Network.wifi.accessPoints.map(network)
         }
         catch{ 
-            var networks = []
+            //var networks = []
         }
-        self.children = networks
+        //self.children = networks
     }, "changed")
 
 })

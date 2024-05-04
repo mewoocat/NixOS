@@ -35,7 +35,7 @@ export const storage = Variable(0, {
 });
 
 
-export const ControlPanelTab = Variable("child1", {})
+export const ControlPanelTab = Variable("main", {})
 
 
 import App from 'resource:///com/github/Aylur/ags/app.js';
@@ -88,11 +88,19 @@ function LookupWeatherCode(code){
 
 // Get data from api
 async function getWeather(){
-    // await is needed to wait for the return of the data
-    const data = await Utils.fetch(url)
-        .then(res => res.json())
-        .catch(console.error)
-    return data
+    // Try to make request to weather api
+    try {
+        // await is needed to wait for the return of the data
+        const data = await Utils.fetch(url)
+            .then(res => res.json())
+            //.catch(console.error)
+        return data
+    }
+
+    // If request fails
+    catch{
+        return null
+    }
 }
 
 export const weather = Variable(null, {
