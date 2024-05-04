@@ -11,6 +11,10 @@ $lowOpacity: 0.85;
     color: $on_surface;
 }
 
+.test{
+    color: red;
+}
+
 .container{
     border-radius: 1rem;
     background-color: rgba($surface_container_lowest, $lowOpacity);
@@ -47,6 +51,20 @@ window:has(menu){
 
 }
 */
+
+.dim{
+    color: rgb(108, 108, 108);
+}
+
+.invisible{
+    opacity: 0;
+}
+
+.control-panel-widget-large{
+    padding: 0.4rem;
+    background-color: rgba($surface_container_lowest, $lowOpacity);
+    border-radius: 1rem;
+}
 
 // Bar
 ////////////////////////////////////////////////////////////////////////////
@@ -131,8 +149,6 @@ button:hover > * {
     background-color: rgba($surface, $mediumOpacity);
     //border-radius: 32px;
 }
-
-
 
 
 // Workspaves
@@ -239,15 +255,6 @@ button:hover > * {
 
 // Control Panel
 ////////////////////////////////////////////////////////////////////////////
-/*
-.control-panel-box{
-    //padding: 0.4rem;
-}
-.control-panel-box > *{
-    border-radius: 1rem;
-    background-color: rgba($surface_container_lowest, $mediumOpacity);
-}
-*/
 .control-panel-button{
     padding: 0rem; // Disables default button padding
     background-color: rgba($surface_container_lowest, $lowOpacity);
@@ -290,27 +297,6 @@ button:hover > * {
     //color: rgb(83, 18, 18);
 }
 
-// Common
-////////////////////////////////////////////////////////////////////////////
-.dim{
-    color: rgb(108, 108, 108);
-}
-
-.invisible{
-    opacity: 0;
-}
-
-.control-panel-widget-large{
-    padding: 0.4rem;
-    background-color: rgba($surface_container_lowest, $lowOpacity);
-    border-radius: 1rem;
-}
-
-// Volume
-////////////////////////////////////////////////////////////////////////////
-.volume-bg{
-    color: rgb(108, 108, 108);
-}
 
 // Sliders
 ////////////////////////////////////////////////////////////////////////////
@@ -370,11 +356,13 @@ button:hover > * {
 
 
 // Lockscreen
+////////////////////////////////////////////////////////////////////////////
 .lockscreen {
     background-color: $surface;
 }
 
 // Calendar
+////////////////////////////////////////////////////////////////////////////
 // Derived from Phocus GTK theme
 // Wher docs?
 calendar {
@@ -411,6 +399,7 @@ calendar:indeterminate {
 
 
 // Weather
+////////////////////////////////////////////////////////////////////////////
 .weather{
     //background-color: rgba($surface_container_lowest, $mediumOpacity);
     //border-radius: 1rem;
@@ -418,6 +407,7 @@ calendar:indeterminate {
 
 
 // Systray + other context menus?
+////////////////////////////////////////////////////////////////////////////
 menu{
     background-color: rgba($surface, $mediumOpacity);
     border-radius: 1rem;
@@ -435,6 +425,7 @@ menuitem:hover{
 
 
 // Scrollbars
+////////////////////////////////////////////////////////////////////////////
 scrollbar {
     min-width: 8px;
 }
