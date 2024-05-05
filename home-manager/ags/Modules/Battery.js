@@ -4,6 +4,9 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 export const BatteryLabel = () => Widget.Box({
     visible: Battery.bind('available'),
+    tooltip_text: Battery.bind('time-remaining').as(v => `Time remaining: ${v}`),
+    //tooltip_text: `${Battery.bind('time-remaining')}`, // This doesn't work
+
     hpack: "center",
     children: [
 

@@ -11,7 +11,6 @@ export const VolumeIcon = () => Widget.Button({
         class_name: "volume-icon icon",
         children:[
             Widget.Overlay({
-                // NOT WORKING????????
                 pass_through: true,
                 //TODO Running a hook on both of these labels might be unnecessary
                 child:
