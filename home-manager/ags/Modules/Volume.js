@@ -11,7 +11,8 @@ export const VolumeIcon = () => Widget.Button({
         class_name: "volume-icon icon",
         children:[
             Widget.Overlay({
-                //TODO: Need to pass through input 
+                // NOT WORKING????????
+                pass_through: true,
                 //TODO Running a hook on both of these labels might be unnecessary
                 child:
                     Widget.Label().hook(Audio, self => {
@@ -26,7 +27,9 @@ export const VolumeIcon = () => Widget.Button({
                     }, 'speaker-changed'),
 
                 overlays: [
-                    Widget.Label().hook(Audio, self => {
+                    Widget.Label({
+                        
+                    }).hook(Audio, self => {
                         if (!Audio.speaker)
                             return;
 
