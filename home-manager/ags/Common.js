@@ -63,3 +63,11 @@ export function CloseOnClickAway(windowName, content, layout) {
         console.log("Error: Invalid layout for CloseOnClickAway()")
     }
 }
+
+export function SecToHourAndMin(seconds){
+    var minutesRaw = Math.floor(seconds / 60) 
+    var minutes = minutesRaw % 60
+    var hours = Math.floor(minutesRaw / 60) 
+    return `${hours} hours, and ${minutes} minutes`
+}
+
