@@ -141,7 +141,7 @@ const network = ap => Widget.Button({
 
 Network.wifi.scan()
 //var networks = Network.wifi.accessPoints.map(network)
-
+var networks = []
 
 export const WifiList = () => Widget.Scrollable({
     css: `
@@ -151,14 +151,13 @@ export const WifiList = () => Widget.Scrollable({
     child: Widget.Box({
         vertical: true,
         children: [],
-    }).hook(Network, self => {
+    }).poll(60000, self => {
         try{
-            //var networks = Network.wifi.accessPoints.map(network)
+            networks = Network.wifi.accessPoints.map(network)
         }
         catch{ 
-            //var networks = []
+            networks = []
         }
-        //self.children = networks
-    }, "changed")
-
+        self.children = networks
+    })
 })
