@@ -1,5 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { cpu, ram, /*temp,*/ storage } from '../variables.js';
+import { cpu, ram, temp, storage } from '../variables.js';
 import { uptime } from '../variables.js';
 
 export const cpuLabel = () => Widget.Label({
@@ -10,10 +10,9 @@ export const ramLabel = () => Widget.Label({
     label: ram.bind().transform(value => " " + Math.round(value*100).toString() + "%"),
 })
 
-/*
 export const tempLabel = () => Widget.Label({
-    label: temp.bind().transform(value => " " + Math.round(value).toString() + "°C"),
-})*/
+    label: temp.bind().transform(value => " " + value.toString() + "°C"),
+})
 
 export const storageLabel = () => Widget.Label({
     label: storage.bind().transform(value => "  " + value + "%"),
@@ -41,11 +40,12 @@ export const storageProgress = Widget.CircularProgress({
     value: storage.bind().transform(p => p / 100)
 });
 
-/*
 export const tempProgress = Widget.CircularProgress({
     class_name: "system-stats-circular-progress",
-    value: cpu.bind()
-});*/
+    start_at: 0.25,
+    rounded: true,
+    value: temp.bind().as(v => v / 100)
+});
 
 export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
     class_name: "control-panel-button", // The reason this doesn't highlight on hover is because it's a box not a button
@@ -84,12 +84,12 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
                     ]
                 }),
                 // Temp
-                /*Widget.Box({
+                Widget.Box({
                     children: [
                         tempProgress,
                         tempLabel(),
                     ]
-                }),*/
+                }),
             ]
         }),
         /*

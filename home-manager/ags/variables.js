@@ -15,14 +15,9 @@ export const ram = Variable(0, {
 });
 
 // Cpu temp
-/*
-export const temp = Variable(0, {
-    poll: [2000, 'sensors', out => out.split('\n')
-        .find(line => line.includes('Package'))
-        .split(/\s+/)[3]
-        .slice(1,-2)
+export const temp = Variable(-1, {
+    poll: [6000, ['bash', '-c', "fastfetch --packages-disabled nix --logo none --cpu-temp | grep 'CPU:' | rev | cut -d ' ' -f1 | cut -c 4- | rev"], out => Math.round(out)
 ]});
-*/
 
 // Percent of storage used on '/' drive
 //TODO -t ext4 is a workaround the "df: /run/user/1000/doc: Operation not permitted" error which is returning a non zero value which might be causing it not to work
