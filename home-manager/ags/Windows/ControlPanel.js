@@ -198,7 +198,7 @@ const content = Widget.Box({
 })
 
 export const ControlPanelToggleButton = (monitor) => Widget.Button({
-    class_name: 'launcher',
+    class_name: 'launcher normal-button',
     on_primary_click: () => {
         execAsync(`ags -t ControlPanel`)
     },

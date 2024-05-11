@@ -6,6 +6,7 @@ import GObj from 'gi://GObject'
 import { ControlPanelTab } from '../variables.js';
 
 export const VolumeIcon = () => Widget.Button({
+    class_name: "normal-button",
     onClicked: () => ControlPanelTab.setValue("audio"),
     child: Widget.Box({
         class_name: "volume-icon icon",

@@ -129,6 +129,7 @@ export const WifiButton = (w, h) => Widget.Button({
 })
 
 const network = ap => Widget.Button({ 
+    class_name: "normal-button",
     child: Widget.Box({
         children: [
             WifiIcon(false, ap),

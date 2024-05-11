@@ -107,9 +107,9 @@ window:has(menu){
     border-radius: 1rem;
 }
 
-// Button
+// Buttons
 ////////////////////////////////////////////////////////////////////////////
-
+/*
 button {
     background-color: transparent;
     padding: 0.3rem; // Currently determines bar height
@@ -124,7 +124,25 @@ button > * {
 }
 
 button:hover > * {
-    //background-color: $surface_bright;
+    background-color: $surface_bright;
+}
+*/
+
+// Normal Button
+.normal-button {
+    background-color: transparent;
+    padding: 0.3rem; // Currently determines bar height
+}
+
+.normal-button:active {
+}
+
+.normal-button > * {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
+
+.normal-button:hover > * {
     background-color: $surface_bright;
 }
 

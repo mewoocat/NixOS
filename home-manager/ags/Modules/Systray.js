@@ -5,6 +5,7 @@ import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 export const SysTray = () => Widget.Box({
     children: SystemTray.bind('items').transform(items => {
         return items.map(item => Widget.Button({
+            class_name: "normal-button",
             child: Widget.Icon().bind('icon', item, 'icon'),
             on_primary_click: (_, event) => item.activate(event),
             on_secondary_click: (_, event) => item.openMenu(event),

@@ -10,7 +10,7 @@ const WINDOW_NAME = 'applauncher';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
-    class_name: "app-item",
+    class_name: "app-item normal-button",
     on_clicked: () => {
         App.closeWindow(WINDOW_NAME);
         app.launch();
@@ -37,18 +37,22 @@ const AppItem = app => Widget.Button({
 const powerButtons = Widget.Box({
     children: [
         Widget.Button({
+            class_name: "normal-button",
             child: Widget.Label({label: "⏻"}),
             on_primary_click: () => execAsync('shutdown now'),
         }),
         Widget.Button({
+            class_name: "normal-button",
             child: Widget.Label({label: ""}),
             on_primary_click: () => execAsync('systemctl hibernate'),
         }),
         Widget.Button({
+            class_name: "normal-button",
             child: Widget.Label({label: "⏾"}),
             on_primary_click: () => execAsync('systemctl suspend'),
         }),
         Widget.Button({
+            class_name: "normal-button",
             child: Widget.Label({label: ""}),
             on_primary_click: () => execAsync('systemctl reboot'),
         }),
@@ -197,7 +201,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 };
 
 export const LauncherButton = () => Widget.Button({
-    class_name: 'launcher',
+    class_name: 'launcher normal-button',
     hpack: "start",
     on_primary_click: () => execAsync(`ags -t applauncher`), //toggleLauncherWindow(),
     child:

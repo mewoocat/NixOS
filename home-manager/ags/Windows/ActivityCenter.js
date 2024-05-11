@@ -64,7 +64,7 @@ const container = () => Widget.Box({
 
 
 export const ActivityCenterButton = () => Widget.Button({
-    class_name: 'launcher',
+    class_name: 'launcher normal-button',
     on_primary_click: () => execAsync('ags -t ActivityCenter'),
     child:
         Clock()

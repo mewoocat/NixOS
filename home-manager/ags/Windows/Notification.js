@@ -58,6 +58,7 @@ export const Notification = n => {
     const actions = Widget.Box({
         class_name: 'actions',
         children: n.actions.map(({ id, label }) => Widget.Button({
+            class_name: "normal-button",
             class_name: 'action-button',
             on_clicked: () => n.invoke(id),
             hexpand: true,
@@ -93,6 +94,7 @@ export const NotificationWidget = Widget.Box({
     vertical: true,
     children: [
         Widget.Button({
+            class_name: "normal-button",
             on_primary_click: () => Notifications.clear(),
             child: Widget.Label({label: "close all"}),
         }),
