@@ -97,6 +97,7 @@ OutputDevices.hook(Audio, self => {
     OutputDevices.set_active_id(Audio.speaker.id.toString())
 }, "speaker-changed")
 
+
 // Mic stuff
 //const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
 const inputDevices = ComboBoxText({
