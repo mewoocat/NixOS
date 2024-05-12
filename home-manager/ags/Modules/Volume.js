@@ -77,7 +77,9 @@ export const VolumeSlider = () => Widget.Box({
 });
 
 const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
-const OutputDevices = ComboBoxText({})
+const OutputDevices = ComboBoxText({
+    class_name: "normal-button",
+})
 OutputDevices.on("changed", self => {
     //print(OutputDevices.get_active_id())
 })
@@ -89,6 +91,24 @@ OutputDevices.hook(Audio, self => {
         self.append(device.name, device.description)
     }
     OutputDevices.set_active_id(Audio.speaker.name)
+}, "changed")
+
+// Mic stuff
+//const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
+const inputDevices = ComboBoxText({
+    class_name: "normal-button",
+})
+inputDevices.on("changed", self => {
+    //print(inputDevices.get_active_id())
+})
+inputDevices.hook(Audio, self => {
+    self.remove_all()
+    // Set combobox with output devices
+    for( let i = 0; i < Audio.microphones.length; i++ ){ 
+        let device = Audio.microphones[i]
+        self.append(device.name, device.description)
+    }
+    inputDevices.set_active_id(Audio.microphone.name)
 }, "changed")
 
 // Volume menu
@@ -114,6 +134,8 @@ export const VolumeMenu = () => Widget.Box({
         }, "changed"),
 
         OutputDevices,
+
+        inputDevices,
     ],
 })
 
