@@ -431,16 +431,17 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1709492670,
-        "narHash": "sha256-gj92Im1uim9cIDs67sBV/KFfqp2BYB16+ha5hwyqXOs=",
+        "lastModified": 1711657889,
+        "narHash": "sha256-4VX7Rt+ftEH8nwg59eT7TsvHYUf8/euUmwh/JLc4rLc=",
         "owner": "InioX",
-        "repo": "Matugen",
-        "rev": "e278b4f425c38a33357fe6085e8cd16a5ad4f938",
+        "repo": "matugen",
+        "rev": "566277529dadc2b149a8bd8b9859ea791ecdef26",
         "type": "github"
       },
       "original": {
         "owner": "InioX",
-        "repo": "Matugen",
+        "ref": "v2.2.0",
+        "repo": "matugen",
         "type": "github"
       }
     },

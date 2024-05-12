@@ -81,17 +81,21 @@ const OutputDevices = ComboBoxText({
     class_name: "normal-button",
 })
 OutputDevices.on("changed", self => {
-    //print(OutputDevices.get_active_id())
+    var streamID = OutputDevices.get_active_id()
+    if (streamID == undefined){
+        streamID = 1
+    }
+    Audio.speaker = Audio.getStream(parseInt(streamID))
 })
 OutputDevices.hook(Audio, self => {
     self.remove_all()
     // Set combobox with output devices
     for( let i = 0; i < Audio.speakers.length; i++ ){ 
         let device = Audio.speakers[i]
-        self.append(device.name, device.stream.port)
+        self.append(device.id.toString(), device.stream.port)
     }
-    OutputDevices.set_active_id(Audio.speaker.name)
-}, "changed")
+    OutputDevices.set_active_id(Audio.speaker.id.toString())
+}, "speaker-changed")
 
 // Mic stuff
 //const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
@@ -99,17 +103,21 @@ const inputDevices = ComboBoxText({
     class_name: "normal-button",
 })
 inputDevices.on("changed", self => {
-    //print(inputDevices.get_active_id())
+    var streamID = inputDevices.get_active_id()
+    if (streamID == undefined){
+        streamID = 1
+    }
+    Audio.microphone = Audio.getStream(parseInt(streamID))
 })
 inputDevices.hook(Audio, self => {
     self.remove_all()
     // Set combobox with output devices
     for( let i = 0; i < Audio.microphones.length; i++ ){ 
         let device = Audio.microphones[i]
-        self.append(device.name, device.stream.port)
+        self.append(device.id.toString(), device.stream.port)
     }
-    inputDevices.set_active_id(Audio.microphone.name)
-}, "changed")
+    inputDevices.set_active_id(Audio.microphone.id.toString())
+}, "microphone-changed")
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({

@@ -19,7 +19,8 @@
 
     # Matugen
     matugen = {
-      url = "github:/InioX/Matugen";
+      url = "github:InioX/matugen?ref=v2.2.0";
+
     };
 
     nixvim = {
