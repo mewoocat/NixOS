@@ -88,7 +88,7 @@ OutputDevices.hook(Audio, self => {
     // Set combobox with output devices
     for( let i = 0; i < Audio.speakers.length; i++ ){ 
         let device = Audio.speakers[i]
-        self.append(device.name, device.description)
+        self.append(device.name, device.stream.port)
     }
     OutputDevices.set_active_id(Audio.speaker.name)
 }, "changed")
@@ -106,7 +106,7 @@ inputDevices.hook(Audio, self => {
     // Set combobox with output devices
     for( let i = 0; i < Audio.microphones.length; i++ ){ 
         let device = Audio.microphones[i]
-        self.append(device.name, device.description)
+        self.append(device.name, device.stream.port)
     }
     inputDevices.set_active_id(Audio.microphone.name)
 }, "changed")
