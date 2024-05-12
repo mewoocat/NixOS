@@ -331,7 +331,6 @@ button:hover > * {
   background-color: $on_surface;
 }
 
-
 /* The highligh */
 .sliders highlight{
  // min-height: 32px;
@@ -459,4 +458,15 @@ scrollbar.vertical slider{
     background-color: $surface_bright;
 }
 
+// Combobox
+////////////////////////////////////////////////////////////////////////////
 
+button.combo {
+    background-color: $surface;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
+
+button.combo:hover {
+    background-color: $surface_bright;
+}

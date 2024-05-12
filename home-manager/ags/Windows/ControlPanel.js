@@ -61,7 +61,7 @@ grid.attach(grid3B, 2, 3, 1, 1)
 
 
 const BackButton = () => Widget.Button({
-    class_name: `control-panel-button`,
+    class_name: `normal-button`,
     hexpand: true,
     onClicked: () => ControlPanelTab.setValue("main"),
     child: Widget.Label({
@@ -148,10 +148,8 @@ const audioContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
+        BackButton(),
         VolumeMenu(), 
-        Widget.Label({
-            label: "test",
-        }),
     ],
 })
 

@@ -78,7 +78,7 @@ export const VolumeSlider = () => Widget.Box({
 
 const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
 const OutputDevices = ComboBoxText({
-    class_name: "normal-button",
+    //class_name: "normal-button",
 })
 OutputDevices.on("changed", self => {
     var streamID = OutputDevices.get_active_id()
@@ -101,7 +101,7 @@ OutputDevices.hook(Audio, self => {
 // Mic stuff
 //const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
 const inputDevices = ComboBoxText({
-    class_name: "normal-button",
+    //class_name: "normal-button",
 })
 inputDevices.on("changed", self => {
     var streamID = inputDevices.get_active_id()
@@ -123,27 +123,8 @@ inputDevices.hook(Audio, self => {
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
     vertical: true,
-    children: [
-
-        // Output device
-        Widget.Label({
-        }).hook(Audio, self => {
-            self.label = "Output device: " + Audio.speaker.description
-        }, "changed"),
-
-        // Port 
-        Widget.Label({
-        }).hook(Audio, self => {
-            try{
-                self.label = "Port: " + Audio.speaker.stream.port
-            }
-            catch{
-               self.label = "No port found" 
-            }
-        }, "changed"),
-
+    children: [ 
         OutputDevices,
-
         inputDevices,
     ],
 })
