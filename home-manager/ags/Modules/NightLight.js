@@ -17,7 +17,7 @@ const NightLightState = Variable(false, {
 
 
 export async function ToggleNightlight(){ 
-    execAsync(['bash', '-c', 'pkill wlsunset; if [ $? -ne 0 ]; then wlsunset; fi']).catch(logError);
+    execAsync(['bash', '-c', 'pkill wlsunset; if [ $? -ne 0 ]; then wlsunset -T 4010; fi']).catch(logError);
 }
 
 export const NightLightButton = (w, h) => Widget.Button({
