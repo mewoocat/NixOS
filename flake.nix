@@ -3,7 +3,6 @@
   
   inputs = {
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    #home-manager.url = "github:nix-community/home-manager/release-23.05";
     
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -21,11 +20,6 @@
     matugen = {
       url = "github:InioX/matugen?ref=v2.2.0";
 
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -103,12 +97,4 @@
         ];
       };
     };
-
-    # Outputted packages
-    packages.x86_64-linux = {
-      # Output nixvim + config as package
-      # Imports the nixvim set
-      nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./nixvim.nix {pkgs = pkgs;});
-    };
-  };
 }
