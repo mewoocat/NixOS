@@ -20,60 +20,51 @@ const container = () => Widget.Box({
     css: `
         padding: 1px;
     `,
-    child:
-        Widget.Revealer({
-            revealChild: false,
-            transitionDuration: 150,
-            transition: 'slide_down',
-            setup: self => {
-                self.hook(App, (self, windowName, visible) => {
-                    if (windowName === "ActivityCenter"){
-                        self.revealChild = visible
-                    }
-                }, 'window-toggled')
-            },
-            child:
+    child: Widget.Revealer({
+        revealChild: false,
+        transitionDuration: 150,
+        transition: 'slide_down',
+        setup: self => {
+            self.hook(App, (self, windowName, visible) => {
+                if (windowName === "ActivityCenter"){
+                    self.revealChild = visible
+                }
+            }, 'window-toggled')
+        },
+        child: Widget.Box({
+            class_name: 'toggle-window',
+            spacing: 8,
+            children: [
                 Widget.Box({
-
-                    class_name: 'toggle-window',
-                    css: `
-                    `,
-                    spacing: 8,
+                    hpack: "start",
+                    hexpand: false,
                     children: [
-                        Widget.Box({
-                            hpack: "start",
-                            hexpand: false,
-                            css: `
-                            `,
-                            children: [
-                                grid,
-                            ],
-                        }),
-                        Widget.Box({
-                            hexpand: true,
-                            vertical: true,
-                            children: [
-                                Media,
-                                NotificationWidget,
-                            ]
-                        })
+                        grid,
                     ],
+                }),
+                Widget.Box({
+                    hexpand: true,
+                    vertical: true,
+                    children: [
+                        Media,
+                        NotificationWidget,
+                    ]
                 })
+            ],
         })
+    })
 });
 
 
 export const ActivityCenterButton = () => Widget.Button({
     class_name: 'launcher normal-button',
     on_primary_click: () => execAsync('ags -t ActivityCenter'),
-    child:
-        Clock()
+    child: Clock()
 });
 
 export const ActivityCenter = (monitor = 0) => Widget.Window({
     name: `ActivityCenter`, // name has to be unique
     visible: false,
-    //focusable: true,
     monitor,
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     exclusivity: 'normal',

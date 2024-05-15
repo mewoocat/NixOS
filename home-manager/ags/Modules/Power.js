@@ -20,24 +20,23 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
                 break;
         };
     },
-    child:
-        Widget.Icon({
-            size: 22,
-            setup: self => {
-                self.hook(powerProfiles, self => {
-                    if (powerProfiles.active_profile === "performance"){
-                        self.icon = "power-profile-performance-symbolic-rtl" 
-                        self.css = "color: red;"
-                    }
-                    else if (powerProfiles.active_profile === "balanced"){
-                        self.icon = "power-profile-balanced-rtl-symbolic" 
-                        self.css = "color: orange;"
-                    }
-                    else {
-                        self.icon = "power-profile-power-saver-rtl-symbolic"
-                        self.css = "color: green;"
-                    }
-                })
-            }
-        })
+    child: Widget.Icon({
+        size: 22,
+        setup: self => {
+            self.hook(powerProfiles, self => {
+                if (powerProfiles.active_profile === "performance"){
+                    self.icon = "power-profile-performance-symbolic-rtl" 
+                    self.css = "color: red;"
+                }
+                else if (powerProfiles.active_profile === "balanced"){
+                    self.icon = "power-profile-balanced-rtl-symbolic" 
+                    self.css = "color: orange;"
+                }
+                else {
+                    self.icon = "power-profile-power-saver-rtl-symbolic"
+                    self.css = "color: green;"
+                }
+            })
+        }
+    })
 })

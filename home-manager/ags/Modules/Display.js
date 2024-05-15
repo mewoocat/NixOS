@@ -7,10 +7,9 @@ export const DisplayButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
         font-size: 22px;
     `,
-    child:
-        Widget.Icon({
-            icon: "preferences-desktop-display-symbolic",
-        })
+    child: Widget.Icon({
+        icon: "preferences-desktop-display-symbolic",
+    })
 })
 
 import Brightness from '../Services/Brightness.js'

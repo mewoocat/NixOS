@@ -8,8 +8,7 @@ export const WifiIcon = (isConnected, ap) => Widget.Box({
     class_name: "wifi-icon icon",
     children:[
         Widget.Overlay({
-          child:
-            Widget.Label().hook(Network, self => {
+            child: Widget.Label().hook(Network, self => {
                 self.class_name = "dim"
 
                 // If network is connected
@@ -23,40 +22,40 @@ export const WifiIcon = (isConnected, ap) => Widget.Box({
 
                 self.label = ""
             }),
-          overlays: [
-            Widget.Label().hook(Network, self => {
-                self.class_name = "wifi-fg"
-                var strength = -1
+            overlays: [
+                Widget.Label().hook(Network, self => {
+                    self.class_name = "wifi-fg"
+                    var strength = -1
 
-                // If network is connected
-                if (isConnected) {
-                    strength = Network.wifi.strength
-                }
-                // Or an access point
-                else if (ap != null) {
-                    strength = ap.strength
-                }
+                    // If network is connected
+                    if (isConnected) {
+                        strength = Network.wifi.strength
+                    }
+                    // Or an access point
+                    else if (ap != null) {
+                        strength = ap.strength
+                    }
 
-                self.toggleClassName('dim', strength < 0)
+                    self.toggleClassName('dim', strength < 0)
 
-                if (strength>75){
-                    self.label = ""
-                }
-                else if (strength > 50){
-                    self.label = ""
-                }
-                else if (strength>25){
-                    self.label = ""  
-                }
-                else if (strength>=0){
-                    self.label = ""
-                }
-                else {
-                    self.label = ""
-                }
+                    if (strength>75){
+                        self.label = ""
+                    }
+                    else if (strength > 50){
+                        self.label = ""
+                    }
+                    else if (strength>25){
+                        self.label = ""  
+                    }
+                    else if (strength>=0){
+                        self.label = ""
+                    }
+                    else {
+                        self.label = ""
+                    }
 
-            }),
-          ]  
+                }),
+            ]  
         })
     ]
 })

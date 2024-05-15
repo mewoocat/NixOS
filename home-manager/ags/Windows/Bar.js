@@ -52,7 +52,6 @@ const Right = (monitor) => Widget.Box({
 });
 
 export const Bar = (monitor = 0) => Widget.Window({
-    //name: `bar-${monitor}`, // name has to be unique
     name: `bar`,
     class_name: 'bar-window',
     monitor,

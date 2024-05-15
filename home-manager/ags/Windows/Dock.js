@@ -25,9 +25,6 @@ function isMinimized(ws){
 
 const focusClient = (client) => {
 
-    //console.log("CLIENT:")
-    //console.log(client)
-
     // If minimized
     if (isMinimized(client.workspace.id)){ 
         var maximizedWS = getMaximizedWS(client.workspace.id)
@@ -45,13 +42,11 @@ const focusClient = (client) => {
     
 }
 
-const Client = (client = null) => Widget.Box({
-    
+const Client = (client = null) => Widget.Box({ 
     // Attributes
     attribute: {
         returnWS: client.workspace,
-    },
- 
+    }, 
 })
 
 
@@ -59,8 +54,6 @@ const appButton = (client = null) => Widget.Button({
     class_name: "dock-button",
     tooltip_text: client.title,
     on_primary_click: () => focusClient(client),
-
-
     child:
         Widget.Box({
             vertical: true,
@@ -88,38 +81,17 @@ const appButton = (client = null) => Widget.Button({
 
 const clientList = Widget.Scrollable({
     hscroll: "never",
-    child:
-        Widget.Box({
-            class_name: "dock-container",
-            css: "min-height: 6rem;",
-            css: "min-width: 6rem;",
-            vertical: true,
-            
-            //children:
-                // Returns the list of clients as buttons
-                /*
-                Hyprland.bind("clients").transform(clients => clients.map(client => {
-                    if (client.class != "" && client.workspace.id == Hyprland.active.workspace.id){
-                        return appButton(client)
-                    }
-                }))
-                */
-
-                /* This has same issue as hook below
-                Utils.watch([], Hyprland, "event", (clients) => {
-                    return Hyprland.clients.filter(client => client.class != "" && client.workspace.id === Hyprland.active.workspace.id).map(client => {
-                        return appButton(client)
-                    })
-                })
-                */
-            
-        }).hook(Hyprland, self => {
-            //check if ws is empty
-            self.children = Hyprland.clients.filter(client => client.class != "" && (client.workspace.id === Hyprland.active.workspace.id || client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id))).map(client => {
-                return appButton(client)
-            })
+    child: Widget.Box({
+        class_name: "dock-container",
+        css: "min-height: 6rem;",
+        css: "min-width: 6rem;",
+        vertical: true,
+    }).hook(Hyprland, self => {
+        //check if ws is empty
+        self.children = Hyprland.clients.filter(client => client.class != "" && (client.workspace.id === Hyprland.active.workspace.id || client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id))).map(client => {
+            return appButton(client)
         })
-
+    })
 })
 
 export const Dock = (monitor = 0) => Widget.Window({

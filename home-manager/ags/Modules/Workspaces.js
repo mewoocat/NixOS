@@ -14,7 +14,7 @@ export const Workspaces = () => Widget.EventBox({
             onClicked: () => dispatch(i),
             child: Widget.Box({
                 class_name: "ws-indicator",
-               // vpack: "start",
+                // vpack: "start",
                 vpack: "center",
                 hpack: "center",
                 children: [
@@ -33,14 +33,6 @@ export const Workspaces = () => Widget.EventBox({
             }),
 
         })),
-
-        // remove this setup hook if you want fixed number of buttons
-        // Not working
-        /*
-        setup: self => self.hook(Hyprland, () => box.children.forEach(btn => {
-            btn.visible = Hyprland.workspaces.some(ws => ws.id === btn.attribute);
-        })),
-        */
     }),
 });
 

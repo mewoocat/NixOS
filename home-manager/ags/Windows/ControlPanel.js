@@ -17,11 +17,14 @@ import { ThemeButton } from '../Modules/Theme.js'
 import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
 import { NightLightButton } from '../Modules/NightLight.js';
-import options from '../options.js';
 import { CloseOnClickAway } from '../Common.js';
 
 // Variables
 import { ControlPanelTab } from '../variables.js';
+
+// Options
+import options from '../options.js';
+
 
 import Gtk from 'gi://Gtk'
 const grid = new Gtk.Grid()
@@ -58,8 +61,6 @@ grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
-
-
 const BackButton = () => Widget.Button({
     class_name: `normal-button`,
     hexpand: true,
@@ -69,15 +70,11 @@ const BackButton = () => Widget.Button({
     })
 })
 
-
-
 // Make widget a formated button with action on click
 function ControlPanelButton(widget, edges, w, h, action) {
     const button = Widget.Button({
         class_name: `control-panel-button`,
         on_clicked: action,
-        //hpack: "center",
-        //vpack: "center",
         css: `
             min-width: ${w}rem;
             min-height: ${h}rem;
@@ -98,8 +95,6 @@ function ControlPanelButton(widget, edges, w, h, action) {
 function ControlPanelBox(widget, w, h) {
     const box = Widget.Box({
         class_name: `control-panel-box`,
-        //hpack: "center",
-        //vpack: "center",
         css: `
             min-width: ${w}rem;
             min-height: ${h}rem;
@@ -200,10 +195,9 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
     on_primary_click: () => {
         execAsync(`ags -t ControlPanel`)
     },
-    child:
-        Widget.Label({
-            label: ""
-        }) 
+    child: Widget.Label({
+        label: ""
+    }) 
 });
 
 export const ControlPanel = Widget.Window({

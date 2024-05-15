@@ -19,40 +19,38 @@ export const BatteryLabel = () => Widget.Box({
 
         Widget.Overlay({
             class_name: "battery icon",
-            child:
-                Widget.Label({
-                    class_name: "battery-bg",
-                    label: Battery.bind('charging').transform(p => {
-                        if (p){
-                            return ""
-                        }
-                        return ""
-                    })
-                }),
+            child: Widget.Label({
+                class_name: "battery-bg",
+                label: Battery.bind('charging').transform(p => {
+                    if (p){
+                        return ""
+                    }
+                    return ""
+                })
+            }),
             overlays: [
                 Widget.Label({
                     class_name: "battery-fg"
-                    })
-                    .hook(Battery, label => {
-                        if (Battery.charging){
-                            label.label = ""
-                        }
-                        else if (Battery.percent > 80){
-                            label.label = ""
-                        }
-                        else if (Battery.percent> 60){
-                            label.label = ""
-                        }
-                        else if (Battery.percent > 40){
-                            label.label = ""
-                        }
-                        else if (Battery.percent > 20){
-                            label.label = ""
-                        }
-                        else{
-                            label.label = ""
-                        }
-                    }, 'changed'),
+                }).hook(Battery, label => {
+                    if (Battery.charging){
+                        label.label = ""
+                    }
+                    else if (Battery.percent > 80){
+                        label.label = ""
+                    }
+                    else if (Battery.percent> 60){
+                        label.label = ""
+                    }
+                    else if (Battery.percent > 40){
+                        label.label = ""
+                    }
+                    else if (Battery.percent > 20){
+                        label.label = ""
+                    }
+                    else{
+                        label.label = ""
+                    }
+                }, 'changed'),
             ]
         }),
 

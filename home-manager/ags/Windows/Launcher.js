@@ -33,7 +33,7 @@ const AppItem = app => Widget.Button({
     }),
 });
 
-//
+// Power buttons
 const powerButtons = Widget.Box({
     children: [
         Widget.Button({
@@ -141,78 +141,72 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
 
     return Widget.Box({
         css: 'padding: 1px;', //Gives box a defined size when revealer is showing anything
-        child:
-            Widget.Revealer({
-                revealChild: false,
-                transitionDuration: 150,
-                transition: "slide_down",
-                setup: self => {
-                    self.hook(App, (self, windowName, visible) => {
-                        if (windowName === "applauncher"){
-                            self.revealChild = visible
-                        }
-                    }, 'window-toggled')
-                },
-                child:
+        child: Widget.Revealer({
+            revealChild: false,
+            transitionDuration: 150,
+            transition: "slide_down",
+            setup: self => {
+                self.hook(App, (self, windowName, visible) => {
+                    if (windowName === "applauncher"){
+                        self.revealChild = visible
+                    }
+                }, 'window-toggled')
+            },
+            child: Widget.Box({
+                class_name: "toggle-window",
+                vertical: true,
+                spacing: 8,
+                children: [
+                    entry,
 
-                    Widget.Box({
-                        class_name: "toggle-window",
-                        vertical: true,
-//                        css: `margin: ${spacing * 2}px;`,
-                        spacing: 8,
-                        children: [
-                            entry,
-
-                            // wrap the list in a scrollable
-                            Widget.Scrollable({
-                                hscroll: 'never',
-                                css: `
-                                    min-width: ${width}px;
-                                    min-height: ${height}px;
-                                `,
-                                child: list,
-                            }),
-                            Widget.CenterBox({  
-                                css: `
-                                    padding: 1.2rem;
-                                    border-radius: 1rem;
-                                `,
-                                class_name: "container",
-                                startWidget: UserInfo,
-                                centerWidget: Widget.Label(''),
-                                endWidget: powerButtons,
-                            })
-                        ],
-                        setup: self => self.hook(App, (_, windowName, visible) => {
-                            if (windowName !== WINDOW_NAME)
-                                return;
-
-                            // when the applauncher shows up
-                            if (visible) {
-                                repopulate();
-                                entry.text = '';
-                                entry.grab_focus();
-                            }
-                        }),
+                    // wrap the list in a scrollable
+                    Widget.Scrollable({
+                        hscroll: 'never',
+                        css: `
+                            min-width: ${width}px;
+                            min-height: ${height}px;
+                        `,
+                        child: list,
+                    }),
+                    Widget.CenterBox({  
+                        css: `
+                            padding: 1.2rem;
+                            border-radius: 1rem;
+                        `,
+                        class_name: "container",
+                        startWidget: UserInfo,
+                        centerWidget: Widget.Label(''),
+                        endWidget: powerButtons,
                     })
+                ],
+                setup: self => self.hook(App, (_, windowName, visible) => {
+                    if (windowName !== WINDOW_NAME)
+                        return;
+
+                    // when the applauncher shows up
+                    if (visible) {
+                        repopulate();
+                        entry.text = '';
+                        entry.grab_focus();
+                    }
+                }),
             })
+        })
     })
-    
 };
 
 export const LauncherButton = () => Widget.Button({
     class_name: 'launcher normal-button',
     hpack: "start",
     on_primary_click: () => execAsync(`ags -t applauncher`), //toggleLauncherWindow(),
-    child:
-        /*
-        Widget.Label({
-            label: " "
-        })
-        */
-        Widget.Icon({
-            icon: 'distributor-logo-nixos',
-        }),
+    child: Widget.Icon({
+        icon: 'distributor-logo-nixos',
+    }),
+    /*
+    child: Widget.Label({
+        label: " "
+    })
+    */
 });
 
 
