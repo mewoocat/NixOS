@@ -9,7 +9,7 @@ export const VolumeIcon = () => Widget.Button({
     class_name: "normal-button",
     onClicked: () => ControlPanelTab.setValue("audio"),
     child: Widget.Box({
-        class_name: "volume-icon icon",
+        class_name: "icon",
         children:[
             Widget.Overlay({
                 pass_through: true,

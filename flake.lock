@@ -450,11 +450,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1714093865,
-        "narHash": "sha256-febK7Giy/H6HvJDrHG5i6UqGF0LZ8XimHbDTe95D9H4=",
+        "lastModified": 1715635556,
+        "narHash": "sha256-trLpjwxaC0QW68uByse5RNSmhiy8ieIoqXmKgJd5yuA=",
         "owner": "mewoocat",
         "repo": "nvim-nix",
-        "rev": "87fb9a66b99fea0b49082876dd964464939f18df",
+        "rev": "623d84f0e2689daa1306bb9b33a38175d3fd3229",
         "type": "github"
       },
       "original": {
