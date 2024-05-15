@@ -149,15 +149,10 @@ button:hover > * {
 ////////////////////////////////////////////////////////////////////////////
 .dock-button > box {
     padding: 0.6rem 0.6rem;
+    margin: 0.4rem;
     border-radius: 1rem;
     min-width: 4rem;
     min-height: 4rem;
-}
-.dock-button-current label{
-    color: green;
-}
-.dock-button-current > box{
-    background-color: $surface_bright;
 }
 .dock-button:hover > box {
     background-color: $surface_bright;
