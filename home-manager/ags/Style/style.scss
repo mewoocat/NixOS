@@ -45,7 +45,6 @@ separator{
     min-width: 0.05rem
 }
 
-
 /*
 window:has(menu){
 
@@ -166,6 +165,16 @@ button:hover > * {
 .dock-container{
     background-color: rgba($surface, $mediumOpacity);
     //border-radius: 32px;
+}
+.dock-app-indicator{
+    min-width: 0.4rem;
+    min-height: 0.4rem;
+    border-radius: 1rem;
+    margin-right: 0.6rem;
+    background-color: rgba(0,0,0,0);
+}
+.dock-app-indicator-active{
+    background-color: $on_surface;
 }
 
 

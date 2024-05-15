@@ -54,29 +54,35 @@ const appButton = (client = null) => Widget.Button({
     class_name: "dock-button",
     tooltip_text: client.title,
     on_primary_click: () => focusClient(client),
-    child:
-        Widget.Box({
-            vertical: true,
-            children: [
-                Widget.Icon({
-                    class_name: 'client-icon',
-                    css: 'font-size: 3rem;',
-                    icon: client.class,
-                }),
-                
-                Widget.Label({
-                    label: client.class,
-                    truncate: 'end',
-                    maxWidthChars: 8,
-                })
-                
-            ]
-        }),
-    setup: (self) => {
-        self.hook(Hyprland, () => {
-            self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
-        }, 'event')
-    }
+    child: Widget.Box({
+        vertical: true,
+        children: [
+            Widget.Box({
+                children: [
+                    Widget.Box({
+                        class_name: "dock-app-indicator",
+                        vpack: "center",
+                        setup: (self) => {
+                            self.hook(Hyprland, () => {
+                                //self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
+                                self.toggleClassName("dock-app-indicator-active", Hyprland.active.client.address === client.address)
+                            }, 'event')
+                        }
+                    }),
+                    Widget.Icon({
+                        class_name: 'client-icon',
+                        css: 'font-size: 3rem;',
+                        icon: client.class,
+                    }),         
+                ],
+            }),
+            Widget.Label({
+                label: client.class,
+                truncate: 'end',
+                maxWidthChars: 8,
+            })                
+        ],
+    }),
 });
 
 const clientList = Widget.Scrollable({

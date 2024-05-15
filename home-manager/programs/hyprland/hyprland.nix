@@ -304,6 +304,11 @@
         # For screen sharing?
         exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
+        bind = $mainMod, U, togglespecialworkspace, magic
+        bind = $mainMod, U, movetoworkspace, +0
+        bind = $mainMod, U, togglespecialworkspace, magic
+        bind = $mainMod, U, movetoworkspace, special:magic
+        bind = $mainMod, U, togglespecialworkspace, magic
 
     '';
     

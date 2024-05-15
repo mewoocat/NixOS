@@ -95,8 +95,4 @@
     package = pkgs.swaylock-effects;
   };
 
-
-  programs.nixvim = {
-    enable = false;
-  };
 }

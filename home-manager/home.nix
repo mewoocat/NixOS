@@ -4,7 +4,6 @@ in
 {
   imports = [
     inputs.ags.homeManagerModules.default
-    inputs.nixvim.homeManagerModules.nixvim
     
     ./programs/default.nix
     ./programs/nvim

@@ -13,8 +13,6 @@
   src = builtins.readFile ./programs/theme/theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
-  nvimConfig = import ./nixvim.nix;
-
 in
 {
   nixpkgs.config.allowUnfree = true;
