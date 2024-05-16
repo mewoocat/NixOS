@@ -131,7 +131,8 @@ in
   # QT Config (BROKEN)
   qt = {
     enable = true;
-    style.name = "kvantum";
+    #style.name = "kvantum";
+
     platformTheme = "qtct";
   };
 

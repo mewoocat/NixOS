@@ -156,9 +156,11 @@ in
 
     #qgnomeplatform
     #qgnomeplatform-qt6
-    libsForQt5.qtstyleplugin-kvantum
-    qt6Packages.qtstyleplugin-kvantum
-
+    #libsForQt5.qtstyleplugin-kvantum
+    #qt6Packages.qtstyleplugin-kvantum
+    #lxqt.lxqt-config
+    libsForQt5.qt5ct
+    qt6Packages.qt6ct
   ];
 
 }
