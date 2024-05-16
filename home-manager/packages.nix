@@ -154,6 +154,10 @@ in
     bookworm
     gnome.libgnome-keyring
 
+    #qgnomeplatform
+    #qgnomeplatform-qt6
+    libsForQt5.qtstyleplugin-kvantum
+    qt6Packages.qtstyleplugin-kvantum
 
   ];
 

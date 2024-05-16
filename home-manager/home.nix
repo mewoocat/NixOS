@@ -75,6 +75,8 @@ in
     SDL_VIDEODRIVER="wayland";
     QT_QPA_PLATFORM="wayland;xcb";
     DEFAULT_BROWSER = "firefox"; # Doesn't seem to work
+    
+    #QT_QPA_PLATFORMTHEME="gnome"; # For qgnomeplatform-qt6
   };
 
 
@@ -127,14 +129,11 @@ in
   };
 
   # QT Config (BROKEN)
-  #qt = {
-  #  enable = true;
-  #  platformTheme = "gtk";
-  #  style = {
-  #    package = pkgs.adwaita-qt;
-  #    name = "adwaita-dark";
-  #  };
-  #};
+  qt = {
+    enable = true;
+    style.name = "kvantum";
+    platformTheme = "qtct";
+  };
 
 
   # XDG
