@@ -40,7 +40,8 @@ gtkThemeDark="adw-gtk3-dark"
 # Usage: setWallpaper $wallpaper
 function setWallpaper(){
     swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
-    echo $1 > ~/.config/wallpaper;                          # Cache path to wallpaper
+    #echo $1 > ~/.config/wallpaper;                         # Cache path to wallpaper
+    cp $1 ~/.cache/wallpaper;                              # Cache wallpaper    
 }
 
 

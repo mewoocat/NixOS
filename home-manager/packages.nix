@@ -162,6 +162,9 @@ in
 
     libsForQt5.qt5ct
     qt6Packages.qt6ct
+
+    # For Nextcloud client 
+    gnome.gnome-keyring
   ];
 
 }
