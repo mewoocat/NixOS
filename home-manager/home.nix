@@ -109,6 +109,14 @@ in
       tray = "never";
   };
 
+  # Doesn't spawn systray so i dont like
+  #services.nextcloud-client.enable = true;
+  #services.nextcloud-client.startInBackground = true;
+
+
+
+  # Theme 
+
   # GTK Config
   gtk = {
     enable = true;

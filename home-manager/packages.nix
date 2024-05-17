@@ -164,7 +164,7 @@ in
     qt6Packages.qt6ct
 
     # For Nextcloud client 
-    gnome.gnome-keyring
+    #gnome.gnome-keyring
   ];
 
 }

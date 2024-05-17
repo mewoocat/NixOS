@@ -117,6 +117,9 @@ in{
  
   services.envfs.enable = true; # Populate /usr/bin with binaries
 
+  # For Nextcloud client
+  services.gnome.gnome-keyring.enable = true;
+
   ### Programs ###
  
   programs.dconf.enable = true;  # Required for gtk?

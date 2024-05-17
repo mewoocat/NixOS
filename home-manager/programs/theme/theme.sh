@@ -35,6 +35,8 @@ gtkThemeDark="adw-gtk3-dark"
 
 # TODO: Check if qt5ct and qt6ct dir's exist in .config and if not, run and kill each to generate the configs 
 # This is needed to be able to modify the color setting
+# Also need to generate the config file with the colorscheme variable
+# This normally would get generated when the first theme is applied
 
 
 # Usage: setWallpaper $wallpaper
