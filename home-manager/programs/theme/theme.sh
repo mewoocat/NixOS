@@ -53,17 +53,16 @@ function setColors(){
         gtkTheme=$gtkThemeDark
         walMode=""
         # Set QT theme
-        # For the line(s) in the file that contain "/share/qt5ct/colors/" replace "airy" with "darker"
-        sed -i '/share\/qt5ct\/colors\// s/airy/darker/' ~/.config/qt5ct/qt5ct.conf
-        sed -i '/share\/qt6ct\/colors\// s/airy/darker/' ~/.config/qt6ct/qt6ct.conf
+        # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
+        sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
+        sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt6ct/qt6ct.conf
 
     else
         gtkTheme=$gtkThemeLight
         walMode="-l"
         # Set QT theme
-        # For the line(s) in the file that contain "/share/qt5ct/colors/" replace "darker" with "airy"
-        sed -i '/share\/qt5ct\/colors\// s/darker/airy/' ~/.config/qt5ct/qt5ct.conf
-        sed -i '/share\/qt6ct\/colors\// s/darker/airy/' ~/.config/qt6ct/qt6ct.conf
+        # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
+        sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/airy\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
     fi
 
     # Responsible for:
