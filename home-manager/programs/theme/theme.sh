@@ -33,6 +33,9 @@ function usage(){
 gtkThemeLight="adw-gtk3"
 gtkThemeDark="adw-gtk3-dark"
 
+# TODO: Check if qt5ct and qt6ct dir's exist in .config and if not, run and kill each to generate the configs 
+# This is needed to be able to modify the color setting
+
 
 # Usage: setWallpaper $wallpaper
 function setWallpaper(){
@@ -49,9 +52,18 @@ function setColors(){
     then
         gtkTheme=$gtkThemeDark
         walMode=""
+        # Set QT theme
+        # For the line(s) in the file that contain "/share/qt5ct/colors/" replace "airy" with "darker"
+        sed -i '/share\/qt5ct\/colors\// s/airy/darker/' ~/.config/qt5ct/qt5ct.conf
+        sed -i '/share\/qt6ct\/colors\// s/airy/darker/' ~/.config/qt6ct/qt6ct.conf
+
     else
         gtkTheme=$gtkThemeLight
         walMode="-l"
+        # Set QT theme
+        # For the line(s) in the file that contain "/share/qt5ct/colors/" replace "darker" with "airy"
+        sed -i '/share\/qt5ct\/colors\// s/darker/airy/' ~/.config/qt5ct/qt5ct.conf
+        sed -i '/share\/qt6ct\/colors\// s/darker/airy/' ~/.config/qt6ct/qt6ct.conf
     fi
 
     # Responsible for:
@@ -64,6 +76,7 @@ function setColors(){
     echo "gtk = $gtkTheme"
     echo "mode = $mode"
 
+    # Reload GTK theme
     gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
     #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3' && gsettings set org.gnome.desktop.interface color-scheme 'default'
