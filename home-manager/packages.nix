@@ -124,7 +124,6 @@ in
     spotify
     btop 
     l3afpad
-
     gthumb
     zoxide
     tmux
