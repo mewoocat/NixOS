@@ -117,6 +117,7 @@ in
     # AGS
     sassc
     wf-recorder
+    slurp # Used to select screen in wf-recorder
 
     # Unsorted
     blueberry

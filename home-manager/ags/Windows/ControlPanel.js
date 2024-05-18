@@ -18,6 +18,7 @@ import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
 import { NightLightButton } from '../Modules/NightLight.js';
 import { CloseOnClickAway } from '../Common.js';
+import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 
 // Variables
 import { ControlPanelTab } from '../variables.js';
@@ -57,7 +58,8 @@ const grid3B = new Gtk.Grid()
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
 grid3B.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
-grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
+//grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
+grid3B.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
