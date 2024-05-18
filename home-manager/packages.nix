@@ -127,7 +127,6 @@ in
     gthumb
     zoxide
     tmux
-
     inputs.matugen.packages.x86_64-linux.default
 
     # Gui display settings
