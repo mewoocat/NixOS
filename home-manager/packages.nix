@@ -115,12 +115,16 @@ in
     nmap
     dig
 
+    # AGS
+    sassc
+    wf-recorder
 
     # Unsorted
     blueberry
     p7zip
     cantarell-fonts
-    sassc # For ags
+
+
     vial
 
     spotify
