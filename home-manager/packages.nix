@@ -122,8 +122,7 @@ in
     sassc # For ags
     vial
     spotify
-    btop
-    
+    btop 
     l3afpad
 
     gthumb
