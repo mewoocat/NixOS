@@ -134,7 +134,6 @@ in
     wlr-randr
     nwg-look
     gradience
-
     openvpn
     fastfetch
 
