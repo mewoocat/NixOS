@@ -121,7 +121,6 @@ in
     cantarell-fonts
     sassc # For ags
     vial
-
     spotify
     btop
     
