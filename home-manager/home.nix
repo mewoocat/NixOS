@@ -230,6 +230,7 @@ in
 
     "image/png" = ["org.gnome.gThumb.desktop"];
     "image/jpeg" = ["org.gnome.gThumb.desktop"];
+    "video/mp4" = ["org.gnome.gThumb.desktop;"];
     "application/pdf" = [ "firefox.desktop" ];
     "x-scheme-handler/http" = ["firefox.desktop"];
     "x-scheme-handler/https" = ["firefox.desktop"];
