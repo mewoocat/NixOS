@@ -44,7 +44,7 @@ in
     '')
 
     # Core
-    git
+    #git
     vim
     lunarvim
     kitty
