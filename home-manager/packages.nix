@@ -44,9 +44,8 @@ in
     '')
 
     # Core
-    git
-    vim
-    lunarvim
+    #vim
+    #lunarvim
     kitty
     cinnamon.nemo-with-extensions
     neofetch hyfetch
@@ -126,16 +125,12 @@ in
 
 
     vial
-
     spotify
-    btop
-    
+    btop 
     l3afpad
-
     gthumb
     zoxide
     tmux
-
     inputs.matugen.packages.x86_64-linux.default
 
     # Gui display settings
@@ -143,7 +138,6 @@ in
     wlr-randr
     nwg-look
     gradience
-
     openvpn
     fastfetch
 
@@ -156,7 +150,6 @@ in
     theme # Created from local shell script
     rhythmbox
     bookworm
-    gnome.libgnome-keyring
 
     #qgnomeplatform
     #qgnomeplatform-qt6
