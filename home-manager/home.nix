@@ -100,7 +100,6 @@ in
     in
     [
       { event = "before-sleep"; command = "${lock}/bin/my-hello"; }
-
     ];
   };
 
