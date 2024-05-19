@@ -109,7 +109,6 @@ function ControlPanelBox(widget, w, h) {
 
 
 const mainContainer = () => Widget.Box({
-    class_name: 'toggle-window',
     vertical: true,
     children: [
         grid,
@@ -118,7 +117,6 @@ const mainContainer = () => Widget.Box({
 
 
 const networkContainer = () => Widget.Box({
-    class_name: 'toggle-window',
     vertical: true,
     vexpand: false,
     children: [
@@ -141,7 +139,6 @@ const networkContainer = () => Widget.Box({
 });
 
 const audioContainer = () => Widget.Box({
-    class_name: 'toggle-window',
     vertical: true,
     vexpand: false,
     children: [
@@ -170,6 +167,7 @@ const stack = Widget.Stack({
 
 
 const content = Widget.Box({
+    class_name: "toggle-window",
     children: [
         Widget.Revealer({
             revealChild: false,
