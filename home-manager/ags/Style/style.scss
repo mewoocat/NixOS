@@ -273,7 +273,7 @@ button:hover > * {
 // Control Panel
 ////////////////////////////////////////////////////////////////////////////
 .control-panel-button{
-    padding: 0rem; // Disables default button padding
+    //padding: 0rem; // Disables default button padding
     background-color: rgba($surface_container_lowest, $lowOpacity);
     border-radius: 1rem;
     margin: 0.2rem;
@@ -281,6 +281,12 @@ button:hover > * {
 
 .control-panel-button:hover{
     background-color: $surface_bright;
+}
+
+
+// This is used to provide padding for content within a control panel button
+.control-panel-button-content{
+    padding: 0.4rem;
 }
 
 .control-panel-audio-box {

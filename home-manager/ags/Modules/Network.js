@@ -120,6 +120,7 @@ export const WifiButton = (w, h) => Widget.Button({
         ControlPanelTab.setValue("network")
     },
     child: Widget.Box({
+        class_name: "control-panel-button-content",
         children:[
             WifiIcon(true, null),
             WifiSSID(),
