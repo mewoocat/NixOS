@@ -92,7 +92,8 @@ in
     #extraArgs = [ pkgs ];
     events = let
       lock = (pkgs.writeShellScriptBin "my-hello" ''
-          wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
+          #wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
+          wallpaper=~/.cache/wallpaper
           ${pkgs.gtklock}/bin/gtklock -i -t "%l:%M %P" -b $wallpaper;
       '');
 

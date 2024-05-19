@@ -59,11 +59,6 @@ window:has(menu){
     opacity: 0;
 }
 
-.control-panel-widget-large{
-    padding: 0.4rem;
-    background-color: rgba($surface_container_lowest, $lowOpacity);
-    border-radius: 1rem;
-}
 
 // Bar
 ////////////////////////////////////////////////////////////////////////////
@@ -284,7 +279,6 @@ button:hover > * {
     margin: 0.2rem;
 }
 
-
 .control-panel-button:hover{
     background-color: $surface_bright;
 }
@@ -296,6 +290,12 @@ button:hover > * {
     background-color: rgba($surface_container_lowest, $lowOpacity);
 }
 
+.control-panel-widget-large{
+    padding: 0.4rem;
+    background-color: rgba($surface_container_lowest, $lowOpacity);
+    border-radius: 1rem;
+    margin: 0.2rem;
+}
 
 // Battery
 ////////////////////////////////////////////////////////////////////////////

@@ -230,7 +230,7 @@
         #bind = $mainMod, TAB, overview:toggle
         bind = $mainMod_SHIFT, TAB, changegroupactive, b
         bind = $mainMod_SHIFT, T, moveoutofgroup	
-        bind = $mainMod, L, exec, wallpaper=$(cat ~/.config/wallpaper) && gtklock -i -t "%l:%M %P" -b $wallpaper; 
+        bind = $mainMod, L, exec, gtklock -i -t "%l:%M %P" -b ~/.cache/wallpaper; 
         bind = $mainMod, G, exec, ~/.config/hypr/scripts/toggleGaps.sh
 
         # AGS

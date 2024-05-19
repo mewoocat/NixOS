@@ -71,7 +71,7 @@ export const BatteryWidget = (w, h) => Widget.Box({
         min-width: ${w}rem;
         min-height: ${h}rem;
     `,
-    class_name: `control-panel-widget-large`,
+    class_name: `control-panel-button`,
     children: [
         Widget.Overlay({
             visible: Battery.bind('available'),
