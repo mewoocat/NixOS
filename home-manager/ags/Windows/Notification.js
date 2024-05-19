@@ -90,9 +90,16 @@ export const Notification = n => {
     });
 };
 
-export const NotificationWidget = Widget.Box({
+export const NotificationWidget = (w,h) => Widget.Box({
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
     vertical: true,
     children: [
+        Widget.Label({
+            label: "Notifications",
+        }),
         Widget.Button({
             class_name: "normal-button",
             on_primary_click: () => Notifications.clear(),
@@ -101,7 +108,7 @@ export const NotificationWidget = Widget.Box({
         Widget.Scrollable({
             hscroll: 'never',
             vscroll: 'always',
-            css: 'min-height: 200px;',
+            //css: 'min-height: 200px;',
             child: Widget.Box({
                 class_name: 'notifications',
                 vertical: true,

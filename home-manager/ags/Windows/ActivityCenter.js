@@ -9,14 +9,17 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { CloseOnClickAway } from '../Common.js';
 import { Weather } from '../Modules/Weather.js';
 
-
+//grid.attach(Widget, col, row, width, height)
 import Gtk from 'gi://Gtk';
 const grid = new Gtk.Grid()
 grid.attach(Calendar, 1, 1, 1, 1)
 grid.attach(Weather(12, 12), 1, 2, 1, 1)
+grid.attach(NotificationWidget(24,12), 2, 1, 1, 1)
+grid.attach(Media, 2, 2, 1, 1)
 
 
 const container = () => Widget.Box({
+    class_name: "",
     css: `
         padding: 1px;
     `,
@@ -35,6 +38,8 @@ const container = () => Widget.Box({
             class_name: 'toggle-window',
             spacing: 8,
             children: [
+                grid,
+                /*
                 Widget.Box({
                     hpack: "start",
                     hexpand: false,
@@ -50,6 +55,7 @@ const container = () => Widget.Box({
                         NotificationWidget,
                     ]
                 })
+                */
             ],
         })
     })
