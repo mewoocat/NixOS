@@ -25,6 +25,8 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland.url = "github:hyprwm/Hyprland";
+    # Temp fix
+    #hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprspace = {
         url = github:KZDKM/Hyprspace;
         inputs.hyprland.follows = "hyprland";
