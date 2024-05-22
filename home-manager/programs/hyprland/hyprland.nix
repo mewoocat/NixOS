@@ -16,6 +16,7 @@
 
         # Monitors
         monitor=,preferred,auto,1
+        monitor=Unknown-1,disable # Fix ghost monitor
 
         # Workspace rules
         #...
