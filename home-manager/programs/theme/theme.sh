@@ -89,7 +89,7 @@ function setColors(){
     #   Kitty
     #   VSCode
     matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
-    wal $walMode -n -i $wallpaper -b $matuBG --saturate 1 
+    wal $walMode -n -i $wallpaper -b $matuBG --saturate 0.4
 
 }
 
