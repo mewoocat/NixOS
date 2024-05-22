@@ -5,10 +5,25 @@
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
       ./nvidia.nix
+      #./amd.nix
+      #./amdHardwareExample.nix
     ];
+  
+  # Causes random xorg display manager to show on boot and login no worky
+  #services.xserver.enable = true;
+  #services.xserver.videoDrivers = ["amdgpu"];
+
+  # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+
+  };
+
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+
   boot.kernelModules = [ 
     "kvm-amd" 
     "i2c-dev" # For openrgb

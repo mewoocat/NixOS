@@ -3,10 +3,11 @@
   
   inputs = {
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11"; 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
+    #home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Anyrun
@@ -24,7 +25,13 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    #hyprland.url = "github:hyprwm/Hyprland";
+    # Temp fix
+    #hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland = {
+        url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.40.0&submodules=1";
+        inputs.nixpkgs.follows = "nixpkgs"; # Fix for amd card ?
+    };
     hyprspace = {
         url = github:KZDKM/Hyprspace;
         inputs.hyprland.follows = "hyprland";

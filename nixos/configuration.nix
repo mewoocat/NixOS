@@ -46,7 +46,14 @@ in{
 
 
   nixpkgs.config.allowUnfree = true;
+
+  # For Nvidia 555
+  #nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
   
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
 
   environment.systemPackages = with pkgs; [
     # package names
@@ -143,6 +150,9 @@ in{
       pkgs.proton-ge-bin
     ];
   };
+
+ # For overclocking
+ programs.corectrl.enable = true;
 
 
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak

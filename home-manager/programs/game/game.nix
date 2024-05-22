@@ -28,7 +28,7 @@
          winetricks
        ];
     })
-    inputs.nix-gaming.packages.${pkgs.system}.viper
+    #inputs.nix-gaming.packages.${pkgs.system}.viper
 
     sunshine
   ];
