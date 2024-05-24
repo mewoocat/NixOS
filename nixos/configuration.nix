@@ -8,10 +8,10 @@ let
 
 in{
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       # No need to import hardware here since its imported in flake.nix
       #./hardware-configuration.nix
-      #(import "${home-manager}/nixos")
+      ./ios.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
