@@ -42,14 +42,30 @@ gtkThemeDark="adw-gtk3-dark"
 # Usage: setWallpaper $wallpaper
 function setWallpaper(){
     swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
-    #echo $1 > ~/.config/wallpaper;                         # Cache path to wallpaper
-    cp $1 ~/.cache/wallpaper;                              # Cache wallpaper    
+    cp $1 ~/.cache/wallpaper;                               # Cache wallpaper
 }
 
 
 function setColors(){
     wallpaper=$1
     mode=$2
+    colorscheme=$3
+
+    # Use provided colorscheme
+    # ~/.config/wal/colorschemes/  light or dark
+
+    # Generate base16 colorscheme from wallpaper
+    # Located at ~/.cache/wal/colors
+    if [[ $colorscheme == "" ]]; then
+        wal -st -i $wallpaper 
+        colorFile=~/.cache/wal/colors
+    else
+        colorFile=~/.config/wal/colorschemes/$mode/$colorscheme
+    fi
+
+    #matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
+    # Get 3rd color
+    accentColor=$(cat ~/.cache/wal/colors | sed -n 5p | cut -c 2-)
 
     if [[ $mode == "dark" ]];
     then
@@ -59,7 +75,6 @@ function setColors(){
         # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
         sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
         sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt6ct/qt6ct.conf
-
     else
         gtkTheme=$gtkThemeLight
         walMode="-l"
@@ -72,7 +87,9 @@ function setColors(){
     #   GTK
     #   AGS
     #   Wal
-    matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
+    # Generate matugen colors from wallpaper
+    #matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
+    matugen color $accentColor --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
 
     # Debugging...
     echo "gtk = $gtkTheme"
@@ -81,36 +98,44 @@ function setColors(){
     # Reload GTK theme
     gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
-    #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3' && gsettings set org.gnome.desktop.interface color-scheme 'default'
-    #gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' && gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-    # AGS *should* auto detect the changes to it's color file
 
     # Responsible for:
     #   Kitty
     #   VSCode
     matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
-    wal $walMode -n -i $wallpaper -b $matuBG --saturate 0.4
-
+    #wal $walMode -n -i $wallpaper -b $matuBG --saturate 0.4
+    wal $walMode -n -f $colorFile -b $matuBG --saturate 0.4
 }
 
 function setWallpaperTheme(){
     wallpaper=$1
     mode=$2 # Light/Dark
-    echo "mode = $mode aaaa"
+    colorscheme=$3
+
     # Set wallpaper
     setWallpaper $wallpaper
+
     # Set colorscheme
-    setColors $wallpaper $mode
+    setColors $wallpaper $mode 
+
+
 }
+
+
+# Initial values
+mode=""
+colorscheme=""
 
 # get input flags
 while getopts l:d:h flag
 do
     case "${flag}" in
     
-        l) setWallpaperTheme ${OPTARG} "light" ;;
+        l) wallpaper=${OPTARG}; mode="light" ;;
 
-        d) setWallpaperTheme ${OPTARG} "dark" ;;
+        d) wallpaper=${OPTARG}; mode="dark" ;;
+
+        c) colorscheme=${OPTARG} ;;
 
         # Set wallpaper only
         #w)  ;;
@@ -119,6 +144,8 @@ do
 
     esac
 done
+
+setWallpaperTheme $wallpaper $mode $colorscheme
 
 
 exit 0
@@ -382,3 +409,6 @@ if [ $theme == true ]; then
     gsettings set org.gnome.desktop.interface gtk-theme "default"
 
 fi
+
+##################################################################################################
+# End of legacy config
