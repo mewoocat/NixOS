@@ -53,8 +53,6 @@ function setColors(){
 
 
     #matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
-    # Get 3rd color
-    accentColor=$(cat ~/.cache/wal/colors | sed -n 5p | cut -c 2-)
 
     # Determine mode (light/dark)
     if [[ $mode == "dark" ]];
@@ -82,6 +80,11 @@ function setColors(){
         colorFile=~/.config/wal/colorschemes/$mode/$colorscheme
     fi
 
+    # Get 3rd color
+    accentColor=$(cat ~/.cache/wal/colors | sed -n 5p | cut -c 2-)
+
+    echo "Colorscheme = $colorscheme"
+
     # Responsible for:
     #   GTK
     #   AGS
@@ -103,6 +106,7 @@ function setColors(){
     #   VSCode
     matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
     #wal $walMode -n -i $wallpaper -b $matuBG --saturate 0.4
+    echo "$colorFile"
     wal $walMode -n -f $colorFile -b $matuBG --saturate 0.4
 }
 
@@ -126,7 +130,7 @@ mode=""
 colorscheme=""
 
 # get input flags
-while getopts l:d:h flag
+while getopts l:d:c:h flag
 do
     case "${flag}" in
     
