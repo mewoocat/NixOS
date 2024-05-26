@@ -29,7 +29,7 @@ A particular input
 `nix flake lock --update-input input_name`
 
 ##### Rebuild NixOS
-`sudo nixos-rebuild switch --flake /home/eXia/NixOS#$(hostname)`
+`sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)`
 
 ### Screenshots
 ![Example](https://github.com/mewoocat/NixOS/blob/main/desktop-2.png)

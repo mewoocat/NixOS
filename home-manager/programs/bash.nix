@@ -63,6 +63,7 @@
       alias lock='/home/exia/myNixOSConfig/home-manager/scripts/lockScreen.sh'
       alias vi='nvim'
       alias tmux='tmux -2' # Makes tmux assume 256 bit colors which fixed color issue with vim within tmux
+      alias rebuild='sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)'
 
       # Fixes kitty ssh issue
       alias ssh="kitty +kitten ssh"
