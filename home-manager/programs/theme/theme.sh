@@ -51,22 +51,12 @@ function setColors(){
     mode=$2
     colorscheme=$3
 
-    # Use provided colorscheme
-    # ~/.config/wal/colorschemes/  light or dark
-
-    # Generate base16 colorscheme from wallpaper
-    # Located at ~/.cache/wal/colors
-    if [[ $colorscheme == "" ]]; then
-        wal -st -i $wallpaper 
-        colorFile=~/.cache/wal/colors
-    else
-        colorFile=~/.config/wal/colorschemes/$mode/$colorscheme
-    fi
 
     #matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
     # Get 3rd color
     accentColor=$(cat ~/.cache/wal/colors | sed -n 5p | cut -c 2-)
 
+    # Determine mode (light/dark)
     if [[ $mode == "dark" ]];
     then
         gtkTheme=$gtkThemeDark
@@ -83,13 +73,22 @@ function setColors(){
         sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/airy\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
     fi
 
+    # Generate base16 colorscheme from wallpaper
+    if [[ $colorscheme == "" ]]; then
+        wal $walMode -st -i $wallpaper 
+        colorFile=~/.cache/wal/colors
+    # Use provided colorscheme
+    else
+        colorFile=~/.config/wal/colorschemes/$mode/$colorscheme
+    fi
+
     # Responsible for:
     #   GTK
     #   AGS
     #   Wal
     # Generate matugen colors from wallpaper
     #matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
-    matugen color $accentColor --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
+    matugen color hex $accentColor --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
 
     # Debugging...
     echo "gtk = $gtkTheme"
@@ -116,7 +115,7 @@ function setWallpaperTheme(){
     setWallpaper $wallpaper
 
     # Set colorscheme
-    setColors $wallpaper $mode 
+    setColors $wallpaper $mode $colorscheme
 
 
 }
