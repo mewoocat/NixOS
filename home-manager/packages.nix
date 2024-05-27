@@ -99,7 +99,10 @@ in
     glib
     gnome.nixos-gsettings-overrides # For gsettings theming
     sway-contrib.grimshot
+
     pywal
+    colorz
+
     jaq
     gojq
     socat
