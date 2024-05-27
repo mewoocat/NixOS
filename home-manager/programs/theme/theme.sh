@@ -81,7 +81,8 @@ function setColors(){
     fi
 
     # Get 3rd color
-    accentColor=$(cat ~/.cache/wal/colors | sed -n 5p | cut -c 2-)
+    accentColor=$(cat ~/.cache/wal/colors | sed -n 3p | cut -c 2-)
+    echo "Accent: $accentColor"
 
     echo "Colorscheme = $colorscheme"
 

@@ -55,6 +55,8 @@ in
    ".local/share/themes/adw-gtk3".source = ./programs/theme/adw-gtk3;
    ".local/share/themes/adw-gtk3-dark".source = ./programs/theme/adw-gtk3-dark;
 
+   ".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/wal";
+
   };
 
   # You can also manage environment variables but you will have to manually
