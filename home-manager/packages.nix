@@ -101,7 +101,7 @@ in
     sway-contrib.grimshot
 
     pywal
-    colorz
+    wallust
 
     jaq
     gojq

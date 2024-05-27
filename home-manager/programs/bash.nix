@@ -94,6 +94,9 @@
         ./startup.sh
       fi
 
+      # Set terminal with wallust colors
+      cat ~/.cache/wallust/sequences
+
     '';
   };
 }
