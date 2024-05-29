@@ -122,19 +122,14 @@ in
   # GTK Config
   gtk = {
     enable = true;
-    #theme = {
-    #  #name = "adw-gtk3";  
-    #  name = "WhiteSur-Dark";
-    #  package = pkgs.whitesur-gtk-theme;
-    #};
     cursorTheme = {
       name = "macOS-BigSur";
       package = pkgs.apple-cursor;
       size = 24;
     };
     iconTheme = {
-    	name = "kora";
-      package = pkgs.kora-icon-theme;
+        name = "kora";
+        package = pkgs.kora-icon-theme;
     };
   };
 

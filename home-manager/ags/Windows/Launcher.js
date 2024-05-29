@@ -23,6 +23,9 @@ const AppItem = app => Widget.Button({
                 size: 42,
             }),
             Widget.Label({
+                css: `
+                    margin: 0.4rem;
+                `,
                 class_name: 'title',
                 label: app.name,
                 xalign: 0,
@@ -35,25 +38,34 @@ const AppItem = app => Widget.Button({
 
 // Power buttons
 const powerButtons = Widget.Box({
+    hpack: "end",
     children: [
         Widget.Button({
-            class_name: "normal-button",
-            child: Widget.Label({label: "⏻"}),
+            class_name: "power-button",
+            vpack: "center",
+            //child: Widget.Label({label: "", justification: "center"}),
+            child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
             on_primary_click: () => execAsync('shutdown now'),
         }),
         Widget.Button({
-            class_name: "normal-button",
-            child: Widget.Label({label: ""}),
+            class_name: "power-button",
+            vpack: "center",
+            //child: Widget.Label({label: ""}),
+            child: Widget.Icon({icon: "system-hibernate-symbolic", size: 20}),
             on_primary_click: () => execAsync('systemctl hibernate'),
         }),
         Widget.Button({
-            class_name: "normal-button",
-            child: Widget.Label({label: "⏾"}),
+            class_name: "power-button",
+            vpack: "center",
+            //child: Widget.Label({label: "⏾"}),
+            child: Widget.Icon({icon: "system-suspend-symbolic", size: 20}),
             on_primary_click: () => execAsync('systemctl suspend'),
         }),
         Widget.Button({
-            class_name: "normal-button",
-            child: Widget.Label({label: ""}),
+            class_name: "power-button",
+            vpack: "center",
+            //child: Widget.Label({label: ""}),
+            child: Widget.Icon({icon: "system-restart-symbolic", size: 20}),
             on_primary_click: () => execAsync('systemctl reboot'),
         }),
     ]
@@ -215,6 +227,7 @@ export const applauncher = Widget.Window({
     layer: "overlay",
     keymode: "exclusive",
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    //anchor: ["top", "left"], // Debugging
     child: CloseOnClickAway(WINDOW_NAME, Applauncher({
         width: 340,
         height: 500,

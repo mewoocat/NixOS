@@ -148,6 +148,18 @@ button:hover > * {
     background-color: $surface_bright;
 }
 
+// Power Button
+
+.power-button > * {
+    padding: 0.4rem;
+    border-radius: 1rem;
+}
+
+.power-button:hover > * {
+    background-color: $surface_bright;
+}
+
+
 // Dock
 ////////////////////////////////////////////////////////////////////////////
 .dock-button > box {
