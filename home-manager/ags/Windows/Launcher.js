@@ -10,7 +10,7 @@ const WINDOW_NAME = 'applauncher';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
-    class_name: "app-item normal-button",
+    class_name: "app-button",
     on_clicked: () => {
         App.closeWindow(WINDOW_NAME);
         app.launch();
@@ -83,7 +83,7 @@ const UserInfo = Widget.Box({
 })
 
 
-const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
+const Applauncher = ({ width = 440, height = 500, spacing = 0 }) => {
     // list of application buttons
     let applications = Applications.query('').map(AppItem);
 
@@ -92,7 +92,7 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
         vertical: true,
         class_name: "app-list",
         children: applications,
-        spacing,
+        spacing: 4,
     });
 
     // repopulate the box, so the most frequent apps are on top of the list
@@ -123,9 +123,6 @@ const Applauncher = ({ width = 500, height = 500, spacing = 12 }) => {
                 item.visible = item.attribute.app.match(text);
                 if (item.visible == true && foundFirst == false){
                     foundFirst = true
-                    //print("found first: " + item)
-                    //item.toggleClassName("first-item", true)
-                    //item.class_name = "first-item"
                 }
             })
         },

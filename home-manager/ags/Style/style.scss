@@ -80,15 +80,21 @@ window:has(menu){
     border-style: solid;
 }
 
-.app-item:focus {
-    background-color: rgba($outline_variant, 1);
+
+// App launcher button
+.app-button{
+    padding: 0.4rem;
     border-radius: 1rem;
+    margin-right: 0.8rem;
+}
+.app-button:hover {
+    background-color: $surface_bright;
+}
+.app-button:focus {
+    background-color: $surface_bright;
 }
 
-.app-item:first-child{
-    //background-color: $surface_bright;
-}
-
+// Search entry
 .app-entry {
     padding: 0.6rem;
     background-color: rgba($surface_container_lowest, 1);
@@ -97,9 +103,11 @@ window:has(menu){
 
 // First item in list of applications
 .first-item > button:first-child{
-    background-color: rgba($outline_variant, 1);
+    //background-color: rgba($outline_variant, 1);
+    background-color: $surface_bright;
     border-radius: 1rem;
 }
+
 
 // Buttons
 ////////////////////////////////////////////////////////////////////////////
@@ -419,10 +427,14 @@ calendar:selected {
 calendar:indeterminate {
   color: rgba(116, 116, 116, 0.776);
 }
+calendar.day-number.button{
+    color: red;
+}
 
 .active-button{
     background-color: red;
 }
+
 
 
 // Weather
@@ -454,7 +466,8 @@ menuitem:hover{
 // Scrollbars
 ////////////////////////////////////////////////////////////////////////////
 scrollbar {
-    min-width: 8px;
+    min-width: 4px;
+    margin: 0px;
 }
 
 scrollbar.overlay-indicator{
@@ -463,7 +476,7 @@ scrollbar.overlay-indicator{
 }
 
 scrollbar.vertical slider{
-    min-width: 8px;
+    min-width: 4px;
     border-radius: 1rem;
     background-color: $surface_bright;
 }

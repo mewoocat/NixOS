@@ -209,7 +209,8 @@ in{
 
 
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  #time.timeZone = "America/Chicago";
+  time.timeZone = "America/Denver";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
