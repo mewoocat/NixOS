@@ -8,7 +8,7 @@ export const ThemeButton = (w, h) => Widget.Button({
         font-size: 22px;
     `,
     child:
-        Widget.Label({
-            label: " ",
+        Widget.Icon({
+            icon: "org.gnome.Settings-color-symbolic",
         })
 })

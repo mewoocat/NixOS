@@ -29,8 +29,9 @@ export const NightLightButton = (w, h) => Widget.Button({
     on_primary_click: () => {
         ToggleNightlight()
     },
-    child: Widget.Label({
-        label: ""
+    child: Widget.Icon({
+        class_name: "icon",
+        icon: `nightlight-symbolic`,
     }),
     setup: self => self.hook(NightLightState, () => {
         self.toggleClassName("active-button", NightLightState.value)

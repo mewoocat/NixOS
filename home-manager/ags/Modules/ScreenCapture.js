@@ -13,15 +13,11 @@ export const ScreenRecordButton = (w, h) => Widget.Button({
         // Stops screen recorder if running
         execAsync(['bash', '-c', 'pkill wf-recorder; if [ $? -ne 0 ]; then wf-recorder -f ~/Screenrecordings/recording_"$(date +\'%b-%d-%Y-%I:%M:%S-%P\')".mp4 -g "$(slurp)" --pixel-format yuv420p; fi']).catch(logError);
     },
-    /*
     child: Widget.Icon({
         size: 22,
+        icon: "media-record-symbolic",
         setup: self => {
-
+            
         }
-    })
-    */ 
-    child: Widget.Label({
-        label: "",
     })
 })
