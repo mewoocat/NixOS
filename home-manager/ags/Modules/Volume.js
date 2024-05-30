@@ -5,6 +5,8 @@ import Gtk from 'gi://Gtk'
 import GObj from 'gi://GObject'
 import { ControlPanelTab } from '../variables.js';
 
+import { GPUTemp } from '../variables.js';
+
 export const VolumeIcon = () => Widget.Button({
     class_name: "normal-button",
     onClicked: () => ControlPanelTab.setValue("audio"),
@@ -30,6 +32,8 @@ export const VolumeIcon = () => Widget.Button({
                     Widget.Label({
                         
                     }).hook(Audio, self => {
+
+                        print("gpu " + GPUTemp.value)
                         if (!Audio.speaker)
                             return;
 

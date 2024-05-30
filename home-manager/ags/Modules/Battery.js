@@ -3,6 +3,16 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 import { SecToHourAndMin } from '../Common.js'; 
 
+
+import { GPUTemp } from '../variables.js';
+
+export const GPUCircle = () => Widget.CircularProgress({
+    class_name: "battery-circle",
+    start_at: 0.25,
+    rounded: true,
+    value: GPUTemp.bind().transform(p => p),
+})
+
 export const BatteryLabel = () => Widget.Box({
     visible: Battery.bind('available'),
     tooltip_text: Battery.bind('time-remaining').as(v => `Time remaining: ${SecToHourAndMin(v)}`),
@@ -32,6 +42,7 @@ export const BatteryLabel = () => Widget.Box({
                 Widget.Label({
                     class_name: "battery-fg"
                 }).hook(Battery, label => {
+                    print("bat: " + Battery.energy)
                     if (Battery.charging){
                         label.label = ""
                     }
@@ -57,7 +68,6 @@ export const BatteryLabel = () => Widget.Box({
     ],
 });
 
-
 export const BatteryCircle = () => Widget.CircularProgress({
     class_name: "battery-circle",
     start_at: 0.25,
@@ -78,6 +88,15 @@ export const BatteryWidget = (w, h) => Widget.Box({
             hexpand: true,
             child:
                 BatteryCircle(),
+            overlays: [
+                BatteryLabel(),
+            ]
+        }),
+        Widget.Overlay({
+            visible: !Battery.bind('available'),
+            hexpand: true,
+            child:
+                GPUCircle(),
             overlays: [
                 BatteryLabel(),
             ]

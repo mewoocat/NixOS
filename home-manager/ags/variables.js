@@ -3,6 +3,11 @@ import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 
 const divide = ([total, free]) => free / total;
 
+export const GPUTemp = Variable(0, {
+    poll: [1000, ['bash', '-c', "gpustat | grep '\[0\]' | cut -d '|' -f 2 | cut -d ',' -f 1 | cut -c -3"], out => Math.round(parseInt(out))/100]
+    //poll: [1000, ['bash', '-c', ""], out => Math.round(parseInt(out))/100]
+})
+
 export const cpu = Variable(0, {
     poll: [1000, ['bash', '-c', "top -bn 1 | awk '/Cpu/{print 100-$8}'"], out => Math.round(out)/100]
 })
