@@ -77,9 +77,11 @@ export const Weather = (w, h) => Widget.Box({
             ],
         }).hook(weatherStatus, self => {
             // Update weather widget background based on current weather status
+            /*
             self.css = `
                 background-image: url("${App.configDir}/assets/${weatherStatus.value}.jpg");
             `;
+            */
         }, "changed"),
     ]
 })

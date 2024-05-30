@@ -17,11 +17,14 @@ import Brightness from '../Services/Brightness.js'
 export const brightness = () => Widget.Box({
     class_name: 'brightness',
     children: [
-        Widget.Label({
-            setup: self => self.hook(Brightness, (self, screenValue) => {
-                self.label = ''
-
-            }, 'screen-changed'),
+        Widget.Button({
+            class_name: "normal-button",
+            child: Widget.Label({
+                class_name: "icon",
+                setup: self => self.hook(Brightness, (self, screenValue) => {
+                    self.label = ''
+                }, 'screen-changed'),
+            }), 
         }),
         Widget.Slider({
             class_name: "sliders",
