@@ -116,6 +116,7 @@ in
     #busybox
     nmap
     dig
+    libnotify
 
     # AGS
     sassc

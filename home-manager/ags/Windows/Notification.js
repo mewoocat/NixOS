@@ -4,9 +4,14 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
+    print(app_entry)
+    print(app_icon)
+    /*
     if (image) {
         return Widget.Box({
             css: `
+                min-width: 2rem;
+                min-height: 2rem;
                 background-image: url("${image}");
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -14,6 +19,7 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
             `,
         });
     }
+    */
 
     let icon = 'dialog-information-symbolic';
     if (lookUpIcon(app_icon))
@@ -22,13 +28,16 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
     if (app_entry && lookUpIcon(app_entry))
         icon = app_entry;
 
-    return Widget.Icon(icon);
+    return Widget.Icon({
+        size: 48, 
+        icon: icon,
+    });
 };
 
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 export const Notification = n => {
     const icon = Widget.Box({
-        vpack: 'start',
+        //vpack: 'start',
         class_name: 'icon',
         child: NotificationIcon(n),
     });
@@ -108,7 +117,8 @@ export const NotificationWidget = (w,h) => Widget.Box({
         Widget.Scrollable({
             hscroll: 'never',
             vscroll: 'always',
-            //css: 'min-height: 200px;',
+            css: 'min-height: 140px;',
+            vexpand: true,
             child: Widget.Box({
                 class_name: 'notifications',
                 vertical: true,
@@ -124,7 +134,6 @@ export const NotificationWidget = (w,h) => Widget.Box({
 export const NotificationPopup = Widget.Window({
     name: 'notifications',
     anchor: ['bottom', 'right'],
-    //css: 'background-color: #000000',
     child: Widget.Box({
         css: `padding: 1px;`,
         children: [

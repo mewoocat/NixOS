@@ -14,8 +14,8 @@ import Gtk from 'gi://Gtk';
 const grid = new Gtk.Grid()
 grid.attach(Calendar, 1, 1, 1, 1)
 grid.attach(Weather(12, 12), 1, 2, 1, 1)
-grid.attach(NotificationWidget(24,12), 2, 1, 1, 1)
-grid.attach(Media, 2, 2, 1, 1)
+//grid.attach(NotificationWidget(24,12), 2, 1, 1, 1)
+//grid.attach(Media, 2, 2, 1, 1)
 
 
 const container = () => Widget.Box({
@@ -37,25 +37,10 @@ const container = () => Widget.Box({
         child: Widget.Box({
             class_name: 'toggle-window',
             spacing: 8,
+            vexpand: false,
             children: [
                 grid,
-                /*
-                Widget.Box({
-                    hpack: "start",
-                    hexpand: false,
-                    children: [
-                        grid,
-                    ],
-                }),
-                Widget.Box({
-                    hexpand: true,
-                    vertical: true,
-                    children: [
-                        Media,
-                        NotificationWidget,
-                    ]
-                })
-                */
+                NotificationWidget(24,12),
             ],
         })
     })
@@ -72,7 +57,8 @@ export const ActivityCenter = (monitor = 0) => Widget.Window({
     name: `ActivityCenter`, // name has to be unique
     visible: false,
     monitor,
-    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top"], // Debug
     exclusivity: 'normal',
     child: CloseOnClickAway("ActivityCenter", container(), "top-center"),
 });
