@@ -46,7 +46,7 @@
 @define-color dark_4 #241f31;
 @define-color dark_5 #000000;
 
-@define-color accent_bg_color {{colors.on_surface.default.hex}}; /* Selected */
+@define-color accent_bg_color {{colors.on_primary.default.hex}};/* Selected */
 @define-color accent_fg_color {{colors.primary.default.hex}};
 @define-color accent_color {{colors.primary.default.hex}};
 @define-color destructive_bg_color rgba(255, 0, 0, 0.6);
