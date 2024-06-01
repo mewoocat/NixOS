@@ -61,7 +61,7 @@ function setQtTheme(){
 
     # Set QT theme
     # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
-    sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/$qtTheme\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf 
+    sed -i "/color_scheme_path=/ s/colors\/.*\.conf/colors\/$qtTheme\.conf/g" ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf 
 }
 
 function setColors(){
@@ -69,63 +69,37 @@ function setColors(){
     mode=$2
     colorscheme=$3
 
-
-    #matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
+ 
+    setQtTheme $mode
 
     # Determine mode (light/dark)
     if [[ $mode == "dark" ]];
     then
         gtkTheme=$gtkThemeDark
-        walMode=""
-        # Set QT theme
-        # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
-        sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
+        mode=""
     else
         gtkTheme=$gtkThemeLight
-        walMode="-l"
-        # Set QT theme
-        # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "airy"
-        sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/airy\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
+        mode="-l"
     fi
-
-    # Generate base16 colorscheme from wallpaper
-    if [[ $colorscheme == "" ]]; then
-        wal $walMode -st -i $wallpaper 
-        colorFile=~/.cache/wal/colors
-    # Use provided colorscheme
-    else
-        colorFile=~/.config/wal/colorschemes/$mode/$colorscheme
-    fi
-
-    # Get 3rd color
-    accentColor=$(cat ~/.cache/wal/colors | sed -n 3p | cut -c 2-)
-    echo "Accent: $accentColor"
-
-    echo "Colorscheme = $colorscheme"
-
-    # Responsible for:
-    #   GTK
-    #   AGS
-    #   Wal
-    # Generate matugen colors from wallpaper
-    #matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
-    matugen color hex $accentColor --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
 
     # Debugging...
     echo "gtk = $gtkTheme"
     echo "mode = $mode"
 
+    # Process base16 colorscheme
+    # Wallust sets terminal colorscheme and generates templates
+    #
+    # Generate colorscheme from wallpaper
+    if [[ $colorscheme == "" ]]; then
+        wallust $wallpaper
+    # Use provided colorscheme
+    else
+        wallust cs $colorscheme  
+    fi
+
     # Reload GTK theme
     gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
-
-    # Responsible for:
-    #   Kitty
-    #   VSCode
-    matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
-    #wal $walMode -n -i $wallpaper -b $matuBG --saturate 0.4
-    echo "$colorFile"
-    wal $walMode -n -f $colorFile -b $matuBG --saturate 0.4
 }
 
 function setWallpaperTheme(){
@@ -200,6 +174,12 @@ exit 0
 
 
 # Legacy
+#########################################################################################################################
+
+    # Generate matugen colors from wallpaper
+    #matugen image $wallpaper --mode "$mode" --show-colors --contrast 0 -t scheme-rainbow
+    #matugen color hex $accentColor --mode "$mode" --contrast 0 -t scheme-rainbow # --show-colors
+    #matuBG=$(cat ~/.config/ags/Style/_colors.scss | grep "\$surface:" | cut -d ' ' -f2 | head -c -2)
 #########################################################################################################################
 
 # from https://github.com/AmadeusWM/dotfiles-hyprland/blob/main/themes/apatheia/scripts/wallpaper
