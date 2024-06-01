@@ -1,13 +1,15 @@
 # NixOS
 
+My personal NixOS system
+
 ### Installation
+
 ### Info
-- OS: NixOS
 - WM: Hyprland
 - Widgets: AGS
 - Shell: Bash
 - Editor: nvim + VSCode
-- Theme: pywal + matugen
+- Theme: wallust
 
 
 ### Usage
@@ -26,7 +28,7 @@ Install nix
 All inputs
 `nix flake update ~/NixOS`
 A particular input
-`nix flake lock --update-input input_name`
+`nix flake update input_name`
 
 ##### Rebuild NixOS
 `sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)`
