@@ -1,5 +1,13 @@
 
 
-{{background}}
-$bg0: {{background | lighten(0.3)}};
+$bg0: {{background}};
+$bg1: {{background | lighten(0.2)}};
+$bg2: {{background | lighten(0.4)}};
+$bg3: {{background | lighten(0.6)}};
 
+$fg: {{foreground}};
+
+$accent0: {{color2}};
+$accent1: {{color3}};
+$accent2: {{color4}};
+$accent3: {{color5}};

@@ -8,7 +8,7 @@ $lowOpacity: 0.85;
     all: unset;
     padding: 0px;
     margin: 0px;
-    color: $on_surface;
+    color: $fg;
 }
 
 .test{
@@ -17,11 +17,11 @@ $lowOpacity: 0.85;
 
 .container{
     border-radius: 1rem;
-    background-color: rgba($surface_container_lowest, $lowOpacity);
+    background-color: rgba($bg0, $lowOpacity);
 }
 
 .toggle-window{
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($bg1, $mediumOpacity);
     border-radius: 1rem;
     border-color: rgba(64, 64, 64, 0.42);
     border-width: 1px;
@@ -33,11 +33,11 @@ $lowOpacity: 0.85;
 tooltip{
     padding: 1.2rem;
     border-radius: 1rem;
-    background-color: rgba($surface_container_lowest, $lowOpacity);
+    background-color: rgba($bg0, $lowOpacity);
 }
 
 separator{
-    background-color: $on_surface; 
+    background-color: $fg; 
     border-radius: 1rem;
     margin-top: 0.6rem;
     margin-bottom: 0.6rem;
@@ -63,7 +63,7 @@ window:has(menu){
 // Bar
 ////////////////////////////////////////////////////////////////////////////
 .bar-window{
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($bg1, $mediumOpacity);
     font-family: "System-ui";
     font-size: 16px;
 }
@@ -72,7 +72,7 @@ window:has(menu){
 // App Launcher
 ////////////////////////////////////////////////////////////////////////////
 .applauncher {
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($bg1, $mediumOpacity);
     padding: 8px;
     border-radius: 1.2rem;
     border-color: rgba(88, 88, 88, 0.42);
@@ -88,23 +88,23 @@ window:has(menu){
     margin-right: 0.8rem;
 }
 .app-button:hover {
-    background-color: $surface_bright;
+    background-color: $accent1;
 }
 .app-button:focus {
-    background-color: $surface_bright;
+    background-color: $accent1;
 }
 
 // Search entry
 .app-entry {
     padding: 0.6rem;
-    background-color: rgba($surface_container_lowest, 1);
+    background-color: rgba($bg0, 1);
     border-radius: 1rem;
 }
 
 // First item in list of applications
 .first-item > button:first-child{
     //background-color: rgba($outline_variant, 1);
-    background-color: $surface_bright;
+    background-color: $accent1;
     border-radius: 1rem;
 }
 
@@ -145,7 +145,7 @@ button:hover > * {
 }
 
 .normal-button:hover > * {
-    background-color: $surface_bright;
+    background-color: $bg3;
 }
 
 // Power Button
@@ -156,7 +156,7 @@ button:hover > * {
 }
 
 .power-button:hover > * {
-    background-color: $surface_bright;
+    background-color: $bg3;
 }
 
 
@@ -170,10 +170,10 @@ button:hover > * {
     min-height: 4rem;
 }
 .dock-button:hover > box {
-    background-color: $surface_bright;
+    background-color: $bg3;
 }
 .dock-container{
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($bg1, $mediumOpacity);
     //border-radius: 32px;
 }
 .dock-app-indicator{
@@ -184,7 +184,7 @@ button:hover > * {
     background-color: rgba(0,0,0,0);
 }
 .dock-app-indicator-active{
-    background-color: $on_surface;
+    background-color: $fg;
 }
 
 
@@ -215,7 +215,7 @@ button:hover > * {
     min-width: 1.8rem;
     label{
         font-size: 0rem;
-        color: $surface;
+        color: $bg3;
     }
 }
 
@@ -227,9 +227,9 @@ button:hover > * {
 
 // On hover color
 .ws-button:hover > box{
-    background-color: $primary;
+    background-color: $accent2;
     label{
-        color: $surface; 
+        color: $fg; 
     }
 }
 .ws-button:hover > .ws-inactive {
@@ -246,24 +246,24 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied{
-    background-color: $primary_container;
+    background-color: $accent3;
     label{
         min-width: 1.2rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
-        color: $on_primary_container;
+        color: $bg0;
     }
 }
 
 .ws-active{
-    background-color: $primary;
+    background-color: $accent3;
     min-width: 2.4rem;
     min-height: 1.2rem;
     label{
         min-width: 2.4rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
-        color: $surface;
+        color: $fg;
     }
 }
 
@@ -278,7 +278,7 @@ button:hover > * {
 
 .notification {
     color: rgb(255, 255, 255);
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($bg0, $mediumOpacity);
     border-radius: 1rem;
     min-width: 16rem;
     min-height: 4rem;
@@ -294,13 +294,13 @@ button:hover > * {
 ////////////////////////////////////////////////////////////////////////////
 .control-panel-button{
     //padding: 0rem; // Disables default button padding
-    background-color: rgba($surface_container_lowest, $lowOpacity);
+    background-color: rgba($bg0, $lowOpacity);
     border-radius: 1rem;
     margin: 0.2rem;
 }
 
 .control-panel-button:hover{
-    background-color: $surface_bright;
+    background-color: $accent3;
 }
 
 
@@ -313,12 +313,12 @@ button:hover > * {
     border-radius: 1rem;
     padding: 0.4rem;
     margin: 0.2rem;
-    background-color: rgba($surface_container_lowest, $lowOpacity);
+    background-color: rgba($bg0, $lowOpacity);
 }
 
 .control-panel-widget-large{
     padding: 0.4rem;
-    background-color: rgba($surface_container_lowest, $lowOpacity);
+    background-color: rgba($bg0, $lowOpacity);
     border-radius: 1rem;
     margin: 0.2rem;
 }
@@ -326,7 +326,7 @@ button:hover > * {
 // Battery
 ////////////////////////////////////////////////////////////////////////////
 .battery-bg{
-    color: $on_surface;
+    color: $fg;
 }
 
 .battery-fg{
@@ -334,7 +334,7 @@ button:hover > * {
 }
 
 .battery-circle{
-    background-color: $surface;
+    background-color: $bg1;
     color: lightgreen;
 }
 
@@ -343,7 +343,7 @@ button:hover > * {
 .icon{
     font-size: 20px;
     //color: rgb(83, 18, 18);
-    color: $on_surface;
+    color: $fg;
 }
 
 
@@ -352,14 +352,14 @@ button:hover > * {
 
 /* The background */
 .sliders trough{
-  background-color: $surface;
+  background-color: $bg1;
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; 
 }
 
 .sliders trough:hover > slider{
-  background-color: $on_surface;
+  background-color: $bg0;
 }
 
 /* The highligh */
@@ -367,7 +367,7 @@ button:hover > * {
  // min-height: 32px;
   //min-width: 32px;
   border-radius: 20px;
-  background-color: $primary;
+  background-color: $bg1;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; 
 }
@@ -377,16 +377,16 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: $tertiary;
+  background-color: $accent2;
   border-style: solid;
   border-width: 1px;
-  border-color: $tertiary;
+  border-color: $accent3;
 
-  box-shadow: 0px 0px 4px $surface;
+  box-shadow: 0px 0px 4px $bg0;
 }
 
 .sliders slider:hover{
-  background-color: $on_surface;
+  background-color: $bg3;
 }
 
 
@@ -396,8 +396,8 @@ button:hover > * {
 ////////////////////////////////////////////////////////////////////////////
 
 .system-stats-circular-progress{
-    background-color: $surface;
-    color: $tertiary;
+    background-color: $bg0;
+    color: $accent3;
     font-size: 4px;
     min-height: 24px;
 }
@@ -406,7 +406,7 @@ button:hover > * {
 // Lockscreen
 ////////////////////////////////////////////////////////////////////////////
 .lockscreen {
-    background-color: $surface;
+    background-color: $bg1;
 }
 
 // Calendar
@@ -453,7 +453,7 @@ calendar.day-number.button{
 // Weather
 ////////////////////////////////////////////////////////////////////////////
 .weather{
-    //background-color: rgba($surface_container_lowest, $mediumOpacity);
+    //background-color: rgba($bg0, $mediumOpacity);
     //border-radius: 1rem;
 }
 
@@ -461,7 +461,7 @@ calendar.day-number.button{
 // Systray + other context menus?
 ////////////////////////////////////////////////////////////////////////////
 menu {
-    background-color: rgba($surface, $mediumOpacity);
+    background-color: rgba($bg0, $mediumOpacity);
     border-radius: 1rem;
     padding: 0.4rem;
 }
@@ -472,7 +472,7 @@ menuitem {
 }
 
 menuitem:hover{
-    background-color: $surface_bright;
+    background-color: $bg3;
 }
 
 
@@ -491,18 +491,18 @@ scrollbar.overlay-indicator{
 scrollbar.vertical slider{
     min-width: 4px;
     border-radius: 1rem;
-    background-color: $surface_bright;
+    background-color: $bg3;
 }
 
 // Combobox
 ////////////////////////////////////////////////////////////////////////////
 
 button.combo {
-    background-color: $surface;
+    background-color: $bg0;
     padding: 0.5rem 1rem;
     border-radius: 1rem;
 }
 
 button.combo:hover {
-    background-color: $surface_bright;
+    background-color: $bg3;
 }

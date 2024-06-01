@@ -22,7 +22,7 @@ backend = "resized"
 #  * labfast  - Variant of lab that avoids floating arithmetic thus faster operations but
 #                not that much precise result Images that work on lab labmixed could not
 #                have enough colors for labfast
-color_space = "lab"
+color_space = "lch"
 
 # Difference between similar colors, used by the colorspace:
 #  1          Not perceptible by human eyes.
@@ -96,8 +96,8 @@ palette = "dark"
 #alacritty.dst = '~/.config/alacritty/alacritty.toml'
 
 ags.src = 'ags'
-ags.dst = '~/.config/ags/test.scss'
-ags.pywal = false
+ags.dst = '~/.config/ags/Style/_colors.scss'
+#ags.pywal = false #idk what this does
 
 # REMINDER Variables and methods that can be used with templating:
 #  wallpaper:  The full path to the current wallpaper, colorscheme file or the name of the theme in use.
