@@ -50,6 +50,9 @@ in
    ".config/matugen".source = ./programs/matugen;
    ".config/btop".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/btop";
    ".config/retroarch".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/retroarch";
+   # Doesn't actually seem to make it a symlink??
+   #".config/wallust".source = config.lib.file.mkOutOfStoreSymlink ./programs/wallust;
+   ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/wallust";
 
    # Themes
    ".local/share/themes/adw-gtk3".source = ./programs/theme/adw-gtk3;

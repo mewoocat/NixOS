@@ -1,2 +1,5 @@
-blah blah  {color3} aagldglak
+
+
+{{background}}
+$bg0: {{background | lighten(0.3)}};
 
