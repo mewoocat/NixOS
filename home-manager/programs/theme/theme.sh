@@ -78,7 +78,8 @@ function setColors(){
         gtkTheme=$gtkThemeDark
         mode=""
     else
-        gtkTheme=$gtkThemeLight
+        #gtkTheme=$gtkThemeLight
+        gtkTheme=$gtkThemeDark # Testing using same gtk theme for light and dark
         mode="-l"
     fi
 
@@ -91,10 +92,10 @@ function setColors(){
     #
     # Generate colorscheme from wallpaper
     if [[ $colorscheme == "" ]]; then
-        wallust $wallpaper
+        ./wallust-3.0.0-beta-x86_64-unknown-linux-musl-with-assets/wallust run $wallpaper
     # Use provided colorscheme
     else
-        wallust cs $colorscheme  
+        ./wallust-3.0.0-beta-x86_64-unknown-linux-musl-with-assets/wallust cs $colorscheme  
     fi
 
     # Reload GTK theme
