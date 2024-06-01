@@ -1,7 +1,8 @@
 
 
-$bg0: {{background}};
-$bg1: {{background | lighten(0.2)}};
+$bg0: {{background | lighten(0.4)}};
+{# Might need to conditionally darken/light based on pallete #}
+$bg1: {{background | lighten(0.0)}};
 $bg2: {{background | lighten(0.3)}};
 $bg3: {{background | lighten(0.4)}};
 
