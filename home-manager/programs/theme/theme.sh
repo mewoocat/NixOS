@@ -43,8 +43,26 @@ gtkThemeDark="adw-gtk3-dark"
 function setWallpaper(){
     swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
     cp $1 ~/.cache/wallpaper;                               # Cache wallpaper
+
 }
 
+# Set QT theme
+# Takes in a mode (light/dark)
+function setQtTheme(){
+    mode=$1
+    qtTheme=""
+
+    if [[ $mode == "light" ]];
+    then
+        qtTheme="airy"
+    else
+        qtTheme="darker"
+    fi
+
+    # Set QT theme
+    # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
+    sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/$qtTheme\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf 
+}
 
 function setColors(){
     wallpaper=$1
@@ -62,12 +80,11 @@ function setColors(){
         # Set QT theme
         # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
         sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
-        sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/darker\.conf/g' ~/.config/qt6ct/qt6ct.conf
     else
         gtkTheme=$gtkThemeLight
         walMode="-l"
         # Set QT theme
-        # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "darker"
+        # For the line(s) in the file that contain "color_scheme_path=" replace text between "colors/" and ".conf" with "airy"
         sed -i '/color_scheme_path=/ s/colors\/.*\.conf/colors\/airy\.conf/g' ~/.config/qt5ct/qt5ct.conf ~/.config/qt6ct/qt6ct.conf
     fi
 
