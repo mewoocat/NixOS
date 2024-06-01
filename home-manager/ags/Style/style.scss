@@ -1,6 +1,6 @@
 @import 'colors';
 $mediumOpacity: 0.65;
-$lowOpacity: 0.85;
+$lowOpacity: 0.45;
 
 // Common
 ////////////////////////////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ button:hover > * {
 }
 
 .normal-button:hover > * {
-    background-color: $bg3;
+    background-color: $bg1;
 }
 
 // Power Button
@@ -359,7 +359,7 @@ button:hover > * {
 }
 
 .sliders trough:hover > slider{
-  background-color: $bg0;
+  background-color: $bg3;
 }
 
 /* The highligh */
@@ -367,7 +367,7 @@ button:hover > * {
  // min-height: 32px;
   //min-width: 32px;
   border-radius: 20px;
-  background-color: $bg1;
+  background-color: $accent1;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; 
 }
@@ -377,16 +377,16 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: $accent2;
+  background-color: $accent3;
   border-style: solid;
-  border-width: 1px;
+  border-width: 0px;
   border-color: $accent3;
 
   box-shadow: 0px 0px 4px $bg0;
 }
 
 .sliders slider:hover{
-  background-color: $bg3;
+  background-color: $bg2;
 }
 
 
