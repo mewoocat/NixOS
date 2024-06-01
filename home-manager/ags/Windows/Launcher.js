@@ -116,6 +116,7 @@ const Applauncher = ({ width = 440, height = 500, spacing = 0 }) => {
     // search entry
     const entry = Widget.Entry({
         class_name: "app-entry",
+        placeholder_text: "Search...",
         hexpand: true,
         css: `margin-bottom: ${spacing}px;`,
 

@@ -101,7 +101,7 @@ in
     sway-contrib.grimshot
 
     pywal
-    wallust
+    #wallust # Older version
 
     jaq
     gojq

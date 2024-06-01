@@ -17,11 +17,11 @@ $lowOpacity: 0.45;
 
 .container{
     border-radius: 1rem;
-    background-color: rgba($bg0, $lowOpacity);
+    background-color: rgba($bg1, $lowOpacity);
 }
 
 .toggle-window{
-    background-color: rgba($bg1, $mediumOpacity);
+    background-color: rgba($bg0, $mediumOpacity);
     border-radius: 1rem;
     border-color: rgba(64, 64, 64, 0.42);
     border-width: 1px;
@@ -63,7 +63,7 @@ window:has(menu){
 // Bar
 ////////////////////////////////////////////////////////////////////////////
 .bar-window{
-    background-color: rgba($bg1, $mediumOpacity);
+    background-color: rgba($bg0, $mediumOpacity);
     font-family: "System-ui";
     font-size: 16px;
 }
@@ -72,7 +72,7 @@ window:has(menu){
 // App Launcher
 ////////////////////////////////////////////////////////////////////////////
 .applauncher {
-    background-color: rgba($bg1, $mediumOpacity);
+    background-color: rgba($bg0, $mediumOpacity);
     padding: 8px;
     border-radius: 1.2rem;
     border-color: rgba(88, 88, 88, 0.42);
@@ -97,7 +97,7 @@ window:has(menu){
 // Search entry
 .app-entry {
     padding: 0.6rem;
-    background-color: rgba($bg0, 1);
+    background-color: rgba($bg1, $lowOpacity);
     border-radius: 1rem;
 }
 
@@ -173,7 +173,7 @@ button:hover > * {
     background-color: $bg3;
 }
 .dock-container{
-    background-color: rgba($bg1, $mediumOpacity);
+    background-color: rgba($bg0, $mediumOpacity);
     //border-radius: 32px;
 }
 .dock-app-indicator{
@@ -188,7 +188,7 @@ button:hover > * {
 }
 
 
-// Workspaves
+// Workspaces
 ////////////////////////////////////////////////////////////////////////////
 
 // Default inactive
@@ -227,7 +227,7 @@ button:hover > * {
 
 // On hover color
 .ws-button:hover > box{
-    background-color: $accent2;
+    background-color: $accent3;
     label{
         color: $fg; 
     }
@@ -246,12 +246,12 @@ button:hover > * {
 
 /* Occupied needs to come before active */
 .ws-occupied{
-    background-color: $accent3;
+    background-color: $accent1;
     label{
         min-width: 1.2rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
-        color: $bg0;
+        color: $fg;
     }
 }
 
@@ -263,7 +263,7 @@ button:hover > * {
         min-width: 2.4rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
-        color: $fg;
+        color: $bg0;
     }
 }
 
@@ -294,7 +294,7 @@ button:hover > * {
 ////////////////////////////////////////////////////////////////////////////
 .control-panel-button{
     //padding: 0rem; // Disables default button padding
-    background-color: rgba($bg0, $lowOpacity);
+    background-color: rgba($bg1, $lowOpacity);
     border-radius: 1rem;
     margin: 0.2rem;
 }
@@ -313,7 +313,7 @@ button:hover > * {
     border-radius: 1rem;
     padding: 0.4rem;
     margin: 0.2rem;
-    background-color: rgba($bg0, $lowOpacity);
+    background-color: rgba($bg1, $lowOpacity);
 }
 
 .control-panel-widget-large{
