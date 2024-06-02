@@ -801,7 +801,7 @@ treeview.view header button:disabled { border-color: @window_bg_color; backgroun
 
 treeview.view header button:last-child { border-right-style: none; }
 
-menubar, .menubar { -GtkWidget-window-dragging: true; padding: 0; }
+menubar, .menubar { -GtkWidget-window-dragging: true; padding: 0; background-color: @window_bg_color; }
 
 menubar:backdrop, .menubar:backdrop { background-color: @window_bg_color; }
 

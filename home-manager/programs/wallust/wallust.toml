@@ -117,10 +117,10 @@ palette = "dark"
 # Where `var` can be colors from `color0` to `color15`, `background`, `foreground` and `cursor`.
 
 
-ags.src = 'ags'
+ags.src = 'ags.scss'
 ags.dst = '~/.config/ags/Style/_colors.scss'
 #ags.pywal = false #idk what this does
 
-gtk.src = 'gtk'
+gtk.src = 'gtk.css'
 gtk.dst = '~/.cache/gtk.css'
 #ags.pywal = false #idk what this does
