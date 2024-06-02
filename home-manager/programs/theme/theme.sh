@@ -1,32 +1,18 @@
 #!/bin/sh
 
 
-
-
 function usage(){
-    echo " Inputs"
-    echo "   Wallpaper"
-    echo "   Color theme file"
-    echo "   Dark / Light"
-    echo ""
-    echo " Effects"
-    echo "   Upate Hyprland colors"
-    echo "   Update AGS colors"
-    echo "   Update terminal colors"
-    echo "   Update GTK colors"
-    echo "   Set wallpaper"
-    echo ""
-    echo " Features"
-    echo "   Set wallpaper       "
-    echo "   Set colorscheme"
     echo ""
     echo "   Usage"
-    echo "       theme.sh [options] [mode] wallpaper"
-    echo "   Options"
+    echo "       theme.sh <param> <arg> <Options>"
+    echo "   Params"
     echo "       -c | --color-scheme     (If no color scheme is provided, one will be generated from the wallpaper)"
-    echo "   Modes"
+    echo "       -p | --pallets          Select one of the wallust pallets (Defaults to dark)"
     echo "       -d | --dark             (Default)"
     echo "       -l | --light"
+    echo "   Options"
+    echo "       -h | --help             Print this message"
+    echo ""
 }
 
 #walColors="Path/to/color/file/generated/by/matugen"
@@ -73,13 +59,11 @@ function setColors(){
     setQtTheme $mode
 
     # Determine mode (light/dark)
-    if [[ $mode == "dark" ]];
+    if [[ $mode == *"light"* ]];
     then
-        gtkTheme=$gtkThemeDark
-        #mode=""
-    else
         gtkTheme=$gtkThemeLight
-        #mode="-l"
+    else
+        gtkTheme=$gtkThemeDark
     fi
 
     # Debugging...
@@ -94,6 +78,7 @@ function setColors(){
         ~/NixOS/home-manager/programs/theme/wallust-3.0.0-beta-x86_64-unknown-linux-musl-with-assets/wallust run $wallpaper -p $mode
     # Use provided colorscheme
     else
+        colorscheme=~/.config/wal/colorschemes/$mode/$colorscheme.json
         ~/NixOS/home-manager/programs/theme/wallust-3.0.0-beta-x86_64-unknown-linux-musl-with-assets/wallust cs $colorscheme  
     fi
 
@@ -120,20 +105,18 @@ function setWallpaperTheme(){
 # Initial values
 mode=""
 colorscheme=""
+mode="dark"
 
 # get input flags
-while getopts l:d:c:h flag
+while getopts w:c:p:h flag
 do
     case "${flag}" in
-    
-        l) wallpaper=${OPTARG}; mode="light" ;;
 
-        d) wallpaper=${OPTARG}; mode="dark" ;;
+        w) wallpaper=${OPTARG}; ;;
 
         c) colorscheme=${OPTARG} ;;
 
-        # Set wallpaper only
-        #w)  ;;
+        p) mode=${OPTARG} ;;
 
         h) usage ;;
 

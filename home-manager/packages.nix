@@ -128,6 +128,8 @@ in
     p7zip
     cantarell-fonts
 
+    python312Packages.gpustat # for AGS
+
 
     vial
     spotify

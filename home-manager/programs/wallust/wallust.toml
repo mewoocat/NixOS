@@ -31,7 +31,7 @@ color_space = "lab"
 #  2 - 10     Perceptible at a glance.
 #  11 - 49    Colors are more similar than opposite
 #  100        Colors are exact opposite
-#threshold = 20
+#threshold = 40
 
 # NOTE: All palettes will fill 16 colors (from color0 to color15), 16 color
 #       variations are the 'ilusion' of more colors by opaquing color1 to color5.

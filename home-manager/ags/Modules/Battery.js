@@ -11,6 +11,19 @@ export const GPUCircle = () => Widget.CircularProgress({
     start_at: 0.25,
     rounded: true,
     value: GPUTemp.bind().transform(p => p),
+
+})
+
+export const GPULabel = () => Widget.Box({
+    hpack: "center",
+    children: [
+        Widget.Icon({
+            icon: "freon-gpu-temperature-symbolic",
+        }),
+        Widget.Label({
+            label: GPUTemp.bind().transform(p => " " + p * 100 + "°C"),
+        }),
+    ],
 })
 
 export const BatteryLabel = () => Widget.Box({
@@ -98,7 +111,7 @@ export const BatteryWidget = (w, h) => Widget.Box({
             child:
                 GPUCircle(),
             overlays: [
-                BatteryLabel(),
+                GPULabel(),
             ]
         })
     ]
