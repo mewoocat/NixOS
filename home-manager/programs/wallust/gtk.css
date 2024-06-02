@@ -45,9 +45,9 @@
 @define-color dark_4 #241f31;
 @define-color dark_5 #000000;
 
-@define-color accent_bg_color {{color3}}; /* Selected */
+@define-color accent_bg_color {{color4}}; /* Selected */
 @define-color accent_fg_color {{foreground}};
-@define-color accent_color {{color3}};
+@define-color accent_color {{color4}};
 @define-color destructive_bg_color #ff0000;
 @define-color destructive_fg_color #ffff00;
 @define-color destructive_color #ff00ff;
@@ -60,16 +60,16 @@
 @define-color error_bg_color @red_4;
 @define-color error_fg_color {{foreground}};
 @define-color error_color #ff7b63;
-@define-color window_bg_color rgba({{background | rgb}}, 0.4); /* BG */
+@define-color window_bg_color rgba({{background | rgb}}, 0.6); /* BG */
 @define-color window_fg_color {{foreground}};
-@define-color view_bg_color rgba({{background | rgb}}, 0.6);
+@define-color view_bg_color rgba({{background | rgb}}, 0.0);
 @define-color view_fg_color {{foreground}};
 @define-color headerbar_bg_color rgba({{background | rgb}}, 0.6);
 @define-color headerbar_fg_color {{foreground}};
 @define-color headerbar_border_color white;
 @define-color headerbar_backdrop_color rgba({{background | rgb}}, 0.6);
 @define-color headerbar_shade_color rgba({{background | rgb}}, 0.36);
-@define-color headerbar_darker_shade_color #ff0000;
+@define-color headerbar_darker_shade_color rgba({{background | rgb}}, 0.6);
 @define-color sidebar_bg_color rgba({{background | rgb}}, 0.6);
 @define-color sidebar_fg_color {{foreground}};
 @define-color sidebar_backdrop_color rgba({{background | rgb}}, 0.30);
