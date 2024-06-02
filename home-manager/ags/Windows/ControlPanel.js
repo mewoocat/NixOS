@@ -65,7 +65,7 @@ grid.attach(grid3B, 2, 3, 1, 1)
 // Row 4
 const BackButton = () => Widget.Button({
     class_name: `normal-button`,
-    hexpand: true,
+    //hexpand: true,
     onClicked: () => ControlPanelTab.setValue("main"),
     child: Widget.Label({
         label: "Back",
@@ -121,12 +121,15 @@ const networkContainer = () => Widget.Box({
     vexpand: false,
     children: [
         //Rows
-        BackButton(),
-        Widget.Box({
-            children: [
-                WifiIcon(true, null),
-                WifiSSID()
-            ]
+        // Header
+        Widget.CenterBox({
+            startWidget: Widget.Box({
+                children: [
+                    WifiIcon(true, null),
+                    WifiSSID()
+                ],
+            }),
+            endWidget: BackButton(),
         }),
 
         Widget.Scrollable({
@@ -156,7 +159,7 @@ const stack = Widget.Stack({
         'network': networkContainer(),
         'audio': audioContainer(),
     },
-    transition: "over_left",
+    //transition: "over_left",
 
     // Select which tab to show
     setup: self => self.hook(ControlPanelTab, () => {
@@ -203,8 +206,8 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 export const ControlPanel = Widget.Window({
     name: `ControlPanel`,
     visible: false,
-    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    //anchor: ["top", "bottom", "right"], // Debug mode
+    //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top", "bottom", "right"], // Debug mode
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right")
 });

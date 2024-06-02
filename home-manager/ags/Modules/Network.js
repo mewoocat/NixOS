@@ -97,7 +97,7 @@ export const WifiSSID = () => Widget.Box({
         Widget.Label({
             label: Network.wifi.bind("ssid"),
             truncate: "end",
-            maxWidthChars: 8,
+            //maxWidthChars: 8,
         }).hook(Network, label =>{
             if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
                 label.label = Network.wifi.internet
@@ -128,15 +128,28 @@ export const WifiButton = (w, h) => Widget.Button({
     }),
 })
 
+export const WifiSecurity = () => Widget.Icon({
+    //TODO
+    //visibility: 
+    icon: "lock-symbolic",
+})
+
+
 const network = ap => Widget.Button({ 
     class_name: "normal-button",
-    child: Widget.Box({
-        children: [
-            WifiIcon(false, ap),
-            Widget.Label({
-                label: ap.ssid,
-            })
-        ],
+    
+    child: Widget.CenterBox({
+        startWidget: Widget.Label({
+            hpack: "start",
+            label: ap.ssid
+        }),
+        endWidget: Widget.Box({
+            hpack: "end",
+            children: [
+                WifiSecurity(),
+                WifiIcon(false, ap),
+            ],
+        }),
     })
 })
 
@@ -152,9 +165,10 @@ export const WifiList = () => Widget.Scrollable({
     child: Widget.Box({
         vertical: true,
         children: [],
-    }).poll(60000, self => {
+    }).poll(10000, self => {
         try{
-            networks = Network.wifi.accessPoints.map(network)
+            //TODO: Sort not working
+            networks = Network.wifi.accessPoints.sort((a, b) => {a.strength - b.strength}).map(network)
         }
         catch{ 
             networks = []

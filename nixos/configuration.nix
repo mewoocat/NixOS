@@ -60,6 +60,10 @@ in{
     easyeffects
     polkit_gnome
     gparted
+
+    qemu
+    quickemu
+
   ];
 
 
