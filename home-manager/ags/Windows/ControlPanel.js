@@ -141,6 +141,30 @@ const networkContainer = () => Widget.Box({
     ],
 });
 
+const APConnectContainer = (ap) => Widget.Box({
+    vertical: true,
+    vexpand: false,
+    children: [
+        //Rows
+        // Header
+        Widget.CenterBox({
+            startWidget: Widget.Box({
+                children: [
+                    WifiIcon(true, null),
+                ],
+            }),
+            endWidget: BackButton(),
+        }),
+
+        Widget.Scrollable({
+            child:
+                Widget.Label({label: "Found Networks"})  
+        }),
+
+        WifiList(),
+    ],
+});
+
 const audioContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
