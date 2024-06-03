@@ -97,6 +97,8 @@
       # Set terminal with wallust colors
       cat ~/.cache/wallust/sequences
 
+      alias fastfetch="fastfetch --logo none"
+
     '';
   };
 }
