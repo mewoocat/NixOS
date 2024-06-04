@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import { ControlPanelTab, APInfoVisible, CurrentAP } from '../variables.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 
 
 // isConnected: bool // ap: AcessPoint Object //
@@ -160,13 +161,30 @@ const network = (ap) => Widget.Button({
 })
 
 export const APInfo = () => Widget.Box({
-
+    vertical: true,
     children: [
         Widget.Label().hook(CurrentAP, self => {
             self.label = CurrentAP.value.ssid
         }),
         Widget.Label({ label: "Frequency: " + CurrentAP.value.frequency || "N/A" }),
-        Widget.Entry(),
+
+        // Delete connection
+        // nmcli connection delete <ssid>
+
+        // Password entry
+        Widget.Entry({
+            class_name: "app-entry",
+            placeholder_text: "Password",
+            hexpand: true,
+            visibility: false,
+            on_accept: ({ text }) => {
+                let ssid = CurrentAP.value.ssid
+                let password = text
+                print(ssid)
+                print(password)
+                execAsync(`nmcli dev wifi connect ${ssid} password ${password}`) 
+            },
+        }),
     ]
 })
 
