@@ -9,7 +9,7 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneSlider } from '../Modules/Microphone.js';
-import { WifiButton, WifiSSID, WifiIcon, WifiList } from '../Modules/Network.js';
+import { WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge} from '../Modules/SystemStats.js';
@@ -21,7 +21,7 @@ import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 
 // Variables
-import { ControlPanelTab } from '../variables.js';
+import { ControlPanelTab, APInfoVisible } from '../variables.js';
 
 // Options
 import options from '../options.js';
@@ -131,17 +131,25 @@ const networkContainer = () => Widget.Box({
             }),
             endWidget: BackButton(),
         }),
-
-        Widget.Scrollable({
-            child:
-                Widget.Label({label: "Found Networks"})  
-        }),
-
-        WifiList(),
+        //WifiList(),
+        Widget.Box({
+            vexpand: true,
+            vertical: true,
+            setup: self => {
+                self.hook(APInfoVisible, self => {
+                    if (APInfoVisible.value == true){
+                        self.children = [ APInfo() ] 
+                    }
+                    else{
+                        self.children = [ WifiList() ]
+                    }
+                })
+            },
+        })
     ],
-});
+})
 
-const APConnectContainer = (ap) => Widget.Box({
+const networkAPContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
@@ -151,19 +159,14 @@ const APConnectContainer = (ap) => Widget.Box({
             startWidget: Widget.Box({
                 children: [
                     WifiIcon(true, null),
+                    WifiSSID()
                 ],
             }),
             endWidget: BackButton(),
         }),
-
-        Widget.Scrollable({
-            child:
-                Widget.Label({label: "Found Networks"})  
-        }),
-
-        WifiList(),
+        APInfo(),
     ],
-});
+})
 
 const audioContainer = () => Widget.Box({
     vertical: true,
@@ -182,6 +185,7 @@ const stack = Widget.Stack({
         'main': mainContainer(),
         'network': networkContainer(),
         'audio': audioContainer(),
+        'ap': networkAPContainer(),
     },
     //transition: "over_left",
 

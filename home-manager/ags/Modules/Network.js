@@ -1,6 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import { ControlPanelTab } from '../variables.js';
+import { ControlPanelTab, APInfoVisible } from '../variables.js';
 
 
 // isConnected: bool // ap: AcessPoint Object //
@@ -137,7 +137,10 @@ export const WifiSecurity = () => Widget.Icon({
 
 const network = ap => Widget.Button({ 
     class_name: "normal-button",
-    
+    onPrimaryClick: () => {
+        APInfoVisible.value = true
+        //ControlPanelTab.setValue("ap"),
+    }, 
     child: Widget.CenterBox({
         startWidget: Widget.Label({
             hpack: "start",
@@ -151,6 +154,13 @@ const network = ap => Widget.Button({
             ],
         }),
     })
+})
+
+export const APInfo = (ap) => Widget.Box({
+    children: [
+        Widget.Label({ label: "name"}),
+        Widget.Entry(),
+    ]
 })
 
 Network.wifi.scan()

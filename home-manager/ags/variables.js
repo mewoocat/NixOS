@@ -36,6 +36,7 @@ export const storage = Variable(0, {
 
 
 export const ControlPanelTab = Variable("main", {})
+export const APInfoVisible = Variable(false, {})
 
 
 import App from 'resource:///com/github/Aylur/ags/app.js';
