@@ -30,6 +30,16 @@ $lowOpacity: 0.45;
     margin: 1rem;
 }
 
+.round-left{
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.round-right{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
 tooltip{
     padding: 1.2rem;
     border-radius: 1rem;
@@ -299,7 +309,16 @@ button:hover > * {
     margin: 0.2rem;
 }
 
+.control-panel-sub-button{
+    margin: 0.2rem;
+}
+
+
 .control-panel-button:hover{
+    background-color: $accent3;
+}
+
+.control-panel-sub-button:hover{
     background-color: $accent3;
 }
 

@@ -37,11 +37,14 @@ export const storage = Variable(0, {
 
 export const ControlPanelTab = Variable("main", {})
 export const APInfoVisible = Variable(false, {})
+export const BluetoothInfoVisible = Variable(false, {})
 
 
 // Holds current wifi access point selected
 export const CurrentAP = Variable({}, {})
 
+// Holds current bluetooth access point selected
+export const CurrentDevice = Variable({}, {})
 
 import App from 'resource:///com/github/Aylur/ags/app.js';
 // Read in user settings

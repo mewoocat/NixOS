@@ -11,7 +11,7 @@ import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneSlider } from '../Modules/Microphone.js';
 import { RefreshWifi, WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
+import { BluetoothMenu, BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton } from '../Modules/Theme.js'
@@ -193,6 +193,15 @@ const audioContainer = () => Widget.Box({
     ],
 })
 
+const bluetoothContainer = () => Widget.Box({
+    vertical: true,
+    vexpand: false,
+    children: [
+        BackButton(),
+        BluetoothMenu(),
+    ],
+})
+
 
 // Container
 const stack = Widget.Stack({
@@ -200,8 +209,9 @@ const stack = Widget.Stack({
     children: {
         'main': mainContainer(),
         'network': networkContainer(),
-        'audio': audioContainer(),
         'ap': networkAPContainer(),
+        'audio': audioContainer(),
+        'bluetooth': bluetoothContainer(),
     },
     //transition: "over_left",
 
