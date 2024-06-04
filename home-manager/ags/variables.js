@@ -39,6 +39,10 @@ export const ControlPanelTab = Variable("main", {})
 export const APInfoVisible = Variable(false, {})
 
 
+// Holds current wifi access point selected
+export const CurrentAP = Variable({}, {})
+
+
 import App from 'resource:///com/github/Aylur/ags/app.js';
 // Read in user settings
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))

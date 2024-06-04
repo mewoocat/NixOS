@@ -66,7 +66,10 @@ grid.attach(grid3B, 2, 3, 1, 1)
 const BackButton = () => Widget.Button({
     class_name: `normal-button`,
     //hexpand: true,
-    onClicked: () => ControlPanelTab.setValue("main"),
+    onClicked: () => {
+        ControlPanelTab.setValue("main")
+        APInfoVisible.value = false
+    },
     child: Widget.Label({
         label: "Back",
     })
