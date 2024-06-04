@@ -2,6 +2,20 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
+
+function isScreenRecordingOn() {
+    // Check if wf-recorder is running
+    // Bash command outputs 0 if yes or 1 if no
+    let state = exec('bash -c "pidof wf-recorder > /dev/null; echo $?"')
+    if (state == "0"){
+        return true
+    }
+    else{
+        return false
+    }
+}
+
+
 export const ScreenRecordButton = (w, h) => Widget.Button({
     class_name: `control-panel-button`,
     css: `
@@ -11,7 +25,9 @@ export const ScreenRecordButton = (w, h) => Widget.Button({
     on_clicked: () => {
         // Starts screen recorder if not running
         // Stops screen recorder if running
+        self.toggleClassName("active-button", !isScreenRecordingOnOn()) // Toggles active indicator
         execAsync(['bash', '-c', 'mkdir ~/Screenrecordings; pkill wf-recorder; if [ $? -ne 0 ]; then wf-recorder -f ~/Screenrecordings/recording_"$(date +\'%b-%d-%Y-%I:%M:%S-%P\')".mp4 -g "$(slurp)" --pixel-format yuv420p; fi']).catch(logError);
+
     },
     child: Widget.Icon({
         size: 22,

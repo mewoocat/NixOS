@@ -4,27 +4,6 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import { SecToHourAndMin } from '../Common.js'; 
 
 
-import { GPUTemp } from '../variables.js';
-
-export const GPUCircle = () => Widget.CircularProgress({
-    class_name: "battery-circle",
-    start_at: 0.25,
-    rounded: true,
-    value: GPUTemp.bind().transform(p => p),
-
-})
-
-export const GPULabel = () => Widget.Box({
-    hpack: "center",
-    children: [
-        Widget.Icon({
-            icon: "freon-gpu-temperature-symbolic",
-        }),
-        Widget.Label({
-            label: GPUTemp.bind().transform(p => " " + p * 100 + "°C"),
-        }),
-    ],
-})
 
 export const BatteryLabel = () => Widget.Box({
     visible: Battery.bind('available'),
@@ -105,14 +84,5 @@ export const BatteryWidget = (w, h) => Widget.Box({
                 BatteryLabel(),
             ]
         }),
-        Widget.Overlay({
-            visible: !Battery.bind('available'),
-            hexpand: true,
-            child:
-                GPUCircle(),
-            overlays: [
-                GPULabel(),
-            ]
-        })
     ]
 })

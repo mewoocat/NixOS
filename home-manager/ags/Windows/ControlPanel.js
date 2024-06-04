@@ -4,6 +4,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 // Modules
 import { brightness } from '../Modules/Display.js';
@@ -12,7 +13,7 @@ import { MicrophoneSlider } from '../Modules/Microphone.js';
 import { WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
-import { SystemStatsWidgetLarge} from '../Modules/SystemStats.js';
+import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton } from '../Modules/Theme.js'
 import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
@@ -53,7 +54,14 @@ const sliders = Widget.Box({
 grid.attach(sliders, 1,2,2,1)
 
 // Row 3
-grid.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
+
+if (Battery.available){
+    grid.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
+}
+else{
+    grid.attach(GPUWidget(options.large, options.large), 1, 3, 1, 1)
+}
+
 const grid3B = new Gtk.Grid()
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)

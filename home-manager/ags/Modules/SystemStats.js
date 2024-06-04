@@ -107,3 +107,45 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
         */
     ]
 })
+
+// GPU
+import { GPUTemp } from '../variables.js';
+
+export const GPUCircle = () => Widget.CircularProgress({
+    class_name: "battery-circle",
+    start_at: 0.25,
+    rounded: true,
+    value: GPUTemp.bind().transform(p => p),
+
+})
+
+export const GPULabel = () => Widget.Box({
+    hpack: "center",
+    children: [
+        Widget.Icon({
+            icon: "freon-gpu-temperature-symbolic",
+        }),
+        Widget.Label({
+            label: GPUTemp.bind().transform(p => " " + p * 100 + "°C"),
+        }),
+    ],
+})
+
+export const GPUWidget = (w, h) => Widget.Box({ 
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
+    class_name: `control-panel-button`,
+    children: [
+        Widget.Overlay({
+            hexpand: true,
+            child:
+                GPUCircle(),
+            overlays: [
+                GPULabel(),
+            ]
+        })
+    ]
+})
+
