@@ -10,7 +10,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneSlider } from '../Modules/Microphone.js';
-import { WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
+import { RefreshWifi, WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
@@ -140,7 +140,12 @@ const networkContainer = () => Widget.Box({
                     WifiSSID()
                 ],
             }),
-            endWidget: BackButton(),
+            endWidget: Widget.Box({
+                children: [
+                    BackButton(),
+                    RefreshWifi(),
+                ],
+            }),
         }),
         //WifiList(),
         Widget.Box({

@@ -3,6 +3,20 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import { ControlPanelTab, APInfoVisible, CurrentAP } from '../variables.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 
+// Globals
+var networks = []
+
+// Not sure if this works
+export const RefreshWifi = (ap) => Widget.Button({ 
+    class_name: "normal-button",
+    onPrimaryClick: () => {
+        networks = []
+        Network.wifi.scan()
+    }, 
+    child: Widget.Icon({
+        icon: "view-refresh-symbolic",
+    }),
+})
 
 // isConnected: bool // ap: AcessPoint Object //
 export const WifiIcon = (isConnected, ap) => Widget.Box({
@@ -167,6 +181,7 @@ export const APInfo = () => Widget.Box({
             self.label = CurrentAP.value.ssid
         }),
         Widget.Label({ label: "Frequency: " + CurrentAP.value.frequency || "N/A" }),
+        Widget.Label({ label: "Strength: " + CurrentAP.value.strength || "N/A" }),
 
         // Delete connection
         // nmcli connection delete <ssid>
@@ -188,9 +203,8 @@ export const APInfo = () => Widget.Box({
     ]
 })
 
-Network.wifi.scan()
+//Network.wifi.scan()
 //var networks = Network.wifi.accessPoints.map(network)
-var networks = []
 
 export const WifiList = () => Widget.Scrollable({
     css: `
@@ -203,7 +217,8 @@ export const WifiList = () => Widget.Scrollable({
     }).poll(10000, self => {
         try{
             //TODO: Sort not working
-            networks = Network.wifi.accessPoints.sort((a, b) => {a.strength - b.strength}).map(network)
+            //networks = Network.wifi.accessPoints.sort((a, b) => {a.strength - b.strength}).map(network)
+            networks = Network.wifi.accessPoints.filter((ap) => ap.ssid != Network.wifi.ssid).map(network) // Filter out connected ap
         }
         catch{ 
             networks = []
@@ -211,3 +226,24 @@ export const WifiList = () => Widget.Scrollable({
         self.children = networks
     })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
