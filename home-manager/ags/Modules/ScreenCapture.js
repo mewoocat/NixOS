@@ -22,12 +22,15 @@ export const ScreenRecordButton = (w, h) => Widget.Button({
         min-width: ${w}rem;
         min-height: ${h}rem;
     `,
-    on_clicked: () => {
+    on_clicked: (self) => {
+        // Adjust indicator
+        let isRecording = isScreenRecordingOn()
+        self.toggleClassName("active-button", !isRecording) // Toggles active indicator
+        self.toggleClassName("recording", !isRecording) // Toggles active indicator
+
         // Starts screen recorder if not running
         // Stops screen recorder if running
-        self.toggleClassName("active-button", !isScreenRecordingOnOn()) // Toggles active indicator
         execAsync(['bash', '-c', 'mkdir ~/Screenrecordings; pkill wf-recorder; if [ $? -ne 0 ]; then wf-recorder -f ~/Screenrecordings/recording_"$(date +\'%b-%d-%Y-%I:%M:%S-%P\')".mp4 -g "$(slurp)" --pixel-format yuv420p; fi']).catch(logError);
-
     },
     child: Widget.Icon({
         size: 22,
