@@ -111,7 +111,8 @@ export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
 // GPU
 import { GPUTemp } from '../variables.js';
 
-export const GPUCircle = () => Widget.CircularProgress({
+export const GPUCircle = (w, h) => Widget.CircularProgress({
+    hpack: "center",
     class_name: "battery-circle",
     start_at: 0.25,
     rounded: true,

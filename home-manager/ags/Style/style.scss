@@ -334,6 +334,8 @@ button:hover > * {
 }
 
 .battery-circle{
+    min-width: 7.2rem;
+    min-height: 7.2rem;
     background-color: $bg1;
     color: lightgreen;
 }
@@ -399,7 +401,7 @@ button:hover > * {
     background-color: $bg0;
     color: $accent3;
     font-size: 4px;
-    min-height: 24px;
+    min-height: 22px;
 }
 
 

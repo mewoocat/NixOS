@@ -68,7 +68,6 @@ export const BatteryCircle = () => Widget.CircularProgress({
 })
 
 export const BatteryWidget = (w, h) => Widget.Box({ 
-
     css: `
         min-width: ${w}rem;
         min-height: ${h}rem;
