@@ -106,13 +106,15 @@ export const NotificationWidget = (w,h) => Widget.Box({
     `,
     vertical: true,
     children: [
-        Widget.Label({
-            label: "Notifications",
-        }),
-        Widget.Button({
-            class_name: "normal-button",
-            on_primary_click: () => Notifications.clear(),
-            child: Widget.Label({label: "close all"}),
+        Widget.CenterBox({
+            startWidget: Widget.Label({
+                label: "Notifications",
+            }),
+            endWidget: Widget.Button({
+                class_name: "normal-button",
+                on_primary_click: () => Notifications.clear(),
+                child: Widget.Label({label: "close all"}),
+            }),
         }),
         Widget.Scrollable({
             hscroll: 'never',

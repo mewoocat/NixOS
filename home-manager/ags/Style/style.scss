@@ -438,11 +438,10 @@ calendar {
   //background: #141414;
 }
 calendar.button {
-  //background: #1c1c1c;
-  //color: rgba(255, 255, 255, 0.34);
+  border-radius: 1rem;
 }
 calendar.button:hover {
-  color: rgba(213, 25, 25, 0.87);
+  background-color: $bg1;
 }
 calendar.button:disabled {
   color: rgba(255, 255, 255, 0.06);
@@ -456,7 +455,7 @@ calendar.highlight {
 calendar:selected {
   color: white;
   border-radius: 0.5em;
-  background: #7154f2;
+  background: $accent1;
 }
 calendar:indeterminate {
   color: rgba(116, 116, 116, 0.776);
