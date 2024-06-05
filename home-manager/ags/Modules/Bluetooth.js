@@ -6,16 +6,19 @@ import { ControlPanelTab } from '../variables.js';
 
 var devices = []
 
-export const BluetoothIcon = () => Widget.Icon().hook(Bluetooth, self  => {
-    self.toggleClassName("dim", !Bluetooth.enabled)
-    self.size = 16
-    if(Bluetooth.enabled){
-        self.icon = "bluetooth-active-symbolic" //"󰂯"
-    }
-    else{
-        self.icon = "bluetooth-disabled-symbolic" //"󰂲"
-    }
+export const BluetoothIcon = () => Widget.Button({
+    class_name: "normal-button",
+    child: Widget.Icon().hook(Bluetooth, self  => {
+        self.toggleClassName("dim", !Bluetooth.enabled)
+        if(Bluetooth.enabled){
+            self.icon = "bluetooth-active-symbolic" //"󰂯"
+        }
+        else{
+            self.icon = "bluetooth-disabled-symbolic" //"󰂲"
+        }
+    }),
 })
+
 
 export function ToggleBluetooth(){
     if(Bluetooth.enabled){

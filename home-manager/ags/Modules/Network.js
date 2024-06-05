@@ -19,60 +19,63 @@ export const RefreshWifi = (ap) => Widget.Button({
 })
 
 // isConnected: bool // ap: AcessPoint Object //
-export const WifiIcon = (isConnected, ap) => Widget.Box({
-    class_name: "wifi-icon icon",
-    children:[
-        Widget.Overlay({
-            child: Widget.Label().hook(Network, self => {
-                self.class_name = "dim"
-
-                // If network is connected
-                if (isConnected) {
-                    self.toggleClassName('invisible', Network.wifi.strength < 0)
-                }
-                // Or an access point
-                else if (ap != null) {
-                    self.toggleClassName('invisible', ap.strength < 0)
-                }
-
-                self.label = ""
-            }),
-            overlays: [
-                Widget.Label().hook(Network, self => {
-                    self.class_name = "wifi-fg"
-                    var strength = -1
+export const WifiIcon = (isConnected, ap) => Widget.Button({
+    //class_name: "normal-button",
+    child: Widget.Box({
+        class_name: "wifi-icon icon",
+        children:[
+            Widget.Overlay({
+                child: Widget.Label().hook(Network, self => {
+                    self.class_name = "dim"
 
                     // If network is connected
                     if (isConnected) {
-                        strength = Network.wifi.strength
+                        self.toggleClassName('invisible', Network.wifi.strength < 0)
                     }
                     // Or an access point
                     else if (ap != null) {
-                        strength = ap.strength
+                        self.toggleClassName('invisible', ap.strength < 0)
                     }
 
-                    self.toggleClassName('dim', strength < 0)
-
-                    if (strength>75){
-                        self.label = ""
-                    }
-                    else if (strength > 50){
-                        self.label = ""
-                    }
-                    else if (strength>25){
-                        self.label = ""  
-                    }
-                    else if (strength>=0){
-                        self.label = ""
-                    }
-                    else {
-                        self.label = ""
-                    }
-
+                    self.label = ""
                 }),
-            ]  
-        })
-    ]
+                overlays: [
+                    Widget.Label().hook(Network, self => {
+                        self.class_name = "wifi-fg"
+                        var strength = -1
+
+                        // If network is connected
+                        if (isConnected) {
+                            strength = Network.wifi.strength
+                        }
+                        // Or an access point
+                        else if (ap != null) {
+                            strength = ap.strength
+                        }
+
+                        self.toggleClassName('dim', strength < 0)
+
+                        if (strength>75){
+                            self.label = ""
+                        }
+                        else if (strength > 50){
+                            self.label = ""
+                        }
+                        else if (strength>25){
+                            self.label = ""  
+                        }
+                        else if (strength>=0){
+                            self.label = ""
+                        }
+                        else {
+                            self.label = ""
+                        }
+
+                    }),
+                ]  
+            })
+        ]
+    })
 })
 
 export const EthernetIconLabel = () => Widget.Box({
@@ -92,6 +95,7 @@ export const EthernetIconLabel = () => Widget.Box({
     ]
 })
 
+
 export const EthernetIcon = () => Widget.Icon({
     class_name: "icon",
     icon: "network-wired-offline-symbolic"
@@ -104,6 +108,19 @@ export const EthernetIcon = () => Widget.Icon({
     }
     else {
         self.icon = "network-wired-symbolic"
+    }
+})
+
+// Shows ethernet if connected else shows wifi
+export const NetworkIndicator = () => Widget.Box({
+    class_name: "normal-button",
+}).hook(Network, self => {
+    let status = Network.wired.internet
+    if (status == "connected" ){
+        self.children = [ EthernetIcon() ]
+    }
+    else{
+        self.children = [ WifiIcon(true, null) ]
     }
 })
 

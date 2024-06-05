@@ -3,7 +3,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 // Import Modules
 import { BatteryLabel } from '../Modules/Battery.js';
 import { VolumeIcon } from '../Modules/Volume.js';
-import { WifiIcon, EthernetIcon} from '../Modules/Network.js';
+import { WifiIcon, EthernetIcon, NetworkIndicator } from '../Modules/Network.js';
 import { BluetoothIcon } from '../Modules/Bluetooth.js';
 import { Workspaces, SpecialWorkspace } from '../Modules/Workspaces.js';
 import { LauncherButton } from '../Windows/Launcher.js';
@@ -35,17 +35,17 @@ const Center = () => Widget.Box({
 
 const Right = (monitor) => Widget.Box({
     hpack: 'end',
-    spacing: 12,
+    spacing: 0,
     children: [
         SysTray(), 
         Widget.Separator({
             vertical: true,
         }),
-        EthernetIcon(),
-        BluetoothIcon(),
         BatteryLabel(), 
         MicrophoneIcon(),
-        WifiIcon(true, null),
+        //WifiIcon(true, null),
+        NetworkIndicator(),
+        BluetoothIcon(),
         VolumeIcon(),
         ControlPanelToggleButton(monitor),
     ],
