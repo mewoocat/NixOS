@@ -98,6 +98,7 @@ export const EthernetIconLabel = () => Widget.Box({
 
 export const EthernetIcon = () => Widget.Icon({
     class_name: "icon",
+    size: 20,
     icon: "network-wired-offline-symbolic"
 
 }).hook(Network, self => {

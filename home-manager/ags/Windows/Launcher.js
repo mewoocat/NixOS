@@ -52,7 +52,7 @@ const UserInfo = Widget.Box({
                 min-width: 3rem;
                 min-height: 3rem;
                 background-size: cover;
-                background-image: url("/home/eXia/Downloads/Capture.PNG");
+                background-image: url("${App.configDir}/../../.cache/ags/pfp");
             `,
         }),
         Widget.Label({
@@ -62,7 +62,7 @@ const UserInfo = Widget.Box({
 })
 
 
-const Applauncher = ({ width = 440, height = 500, spacing = 0 }) => {
+const Applauncher = ({ width = 300, height = 500, spacing = 0 }) => {
     // list of application buttons
     let applications = Applications.query('').map(AppItem);
 
@@ -147,7 +147,7 @@ const Applauncher = ({ width = 440, height = 500, spacing = 0 }) => {
                     }),
                     Widget.CenterBox({  
                         css: `
-                            padding: 1.2rem;
+                            padding: 0.8rem;
                             border-radius: 1rem;
                         `,
                         class_name: "container",
@@ -197,8 +197,6 @@ export const applauncher = Widget.Window({
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
     //anchor: ["top", "left"], // Debugging
     child: CloseOnClickAway(WINDOW_NAME, Applauncher({
-        width: 340,
-        height: 500,
         spacing: 12,
     }), "top-left"),
     //TODO: setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
