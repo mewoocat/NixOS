@@ -5,6 +5,7 @@ import { user, uptime } from '../variables.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { isLauncherOpen } from '../variables.js';
 import { CloseOnClickAway } from '../Common.js';
+import { powerButtons } from '../Modules/Power.js';
 
 const WINDOW_NAME = 'applauncher';
 
@@ -36,40 +37,6 @@ const AppItem = app => Widget.Button({
     }),
 });
 
-// Power buttons
-const powerButtons = Widget.Box({
-    hpack: "end",
-    children: [
-        Widget.Button({
-            class_name: "power-button",
-            vpack: "center",
-            //child: Widget.Label({label: "", justification: "center"}),
-            child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
-            on_primary_click: () => execAsync('shutdown now'),
-        }),
-        Widget.Button({
-            class_name: "power-button",
-            vpack: "center",
-            //child: Widget.Label({label: ""}),
-            child: Widget.Icon({icon: "system-hibernate-symbolic", size: 20}),
-            on_primary_click: () => execAsync('systemctl hibernate'),
-        }),
-        Widget.Button({
-            class_name: "power-button",
-            vpack: "center",
-            //child: Widget.Label({label: "⏾"}),
-            child: Widget.Icon({icon: "system-suspend-symbolic", size: 20}),
-            on_primary_click: () => execAsync('systemctl suspend'),
-        }),
-        Widget.Button({
-            class_name: "power-button",
-            vpack: "center",
-            //child: Widget.Label({label: ""}),
-            child: Widget.Icon({icon: "system-restart-symbolic", size: 20}),
-            on_primary_click: () => execAsync('systemctl reboot'),
-        }),
-    ]
-})
 
 
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))

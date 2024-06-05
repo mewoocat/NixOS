@@ -112,17 +112,23 @@ export const EthernetIcon = () => Widget.Icon({
 })
 
 // Shows ethernet if connected else shows wifi
-export const NetworkIndicator = () => Widget.Box({
+export const NetworkIndicator = () => Widget.Button({
     class_name: "normal-button",
 }).hook(Network, self => {
     let status = Network.wired.internet
     if (status == "connected" ){
-        self.children = [ EthernetIcon() ]
+        self.child = EthernetIcon()
     }
     else{
-        self.children = [ WifiIcon(true, null) ]
+        self.child = WifiIcon(true, null)
     }
-})
+
+    // Need to show the child since widget are hidden by default 
+    // and widget is added after the Button's initlization.
+    // This is not needed with the Box as it automatically shows new widgets
+    self.child.visible = true
+    //self.show_all() // ^
+}) 
 
 export const WifiSSID = () => Widget.Box({
     children:[
