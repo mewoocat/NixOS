@@ -127,7 +127,7 @@ export const GPULabel = () => Widget.Box({
             icon: "freon-gpu-temperature-symbolic",
         }),
         Widget.Label({
-            label: GPUTemp.bind().transform(p => " " + p * 100 + "°C"),
+            label: GPUTemp.bind().transform(p => " " + Math.round(p * 100) + "°C"),
         }),
     ],
 })
