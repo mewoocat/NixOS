@@ -62,7 +62,7 @@
 @define-color error_color #ff7b63;
 @define-color window_bg_color rgba({{background | rgb}}, 0.6); /* BG */
 @define-color window_fg_color {{foreground}};
-@define-color view_bg_color rgba({{background | rgb}}, 0.0);
+@define-color view_bg_color rgba({{background | rgb}}, 0.6);
 @define-color view_fg_color {{foreground}};
 @define-color headerbar_bg_color rgba({{background | rgb}}, 0.6);
 @define-color headerbar_fg_color {{foreground}};

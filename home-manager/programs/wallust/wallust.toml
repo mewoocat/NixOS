@@ -1,3 +1,70 @@
+# wallust v3.0.*-BETA
+#
+# THIS IS A SAMPLE AND EASY TO COMPREHEND CONFIG, for more info:
+#    `man wallust.5` or check the wiki in the repo
+#
+# You can copy this file to ~/.config/wallust/wallust.toml
+
+# -- global space -- # values below can be overwritten by command line flags
+
+# How the image is parse, in order to get the colors:
+# full - resized - wal - thumb -  fastresize - kmeans
+backend = "wal"
+
+# What color space to use to produce and select the most prominent colors:
+# lab - labmixed - lch - lchmixed
+color_space = "lab"
+
+# Use the most prominent colors in a way that makes sense, a scheme color palette:
+# dark - dark16 - darkcomp - darkcomp16
+# light - light16 - lightcomp - lightcomp16
+# harddark - harddark16 - harddarkcomp - harddarkcomp16
+# softdark - softdark16 - softdarkcomp - softdarkcomp16
+# softlight - softlight16 - softlightcomp - softlightcomp16
+palette = "dark"
+
+# Ensures a "readable contrast" (OPTIONAL, disabled by default)
+# Should only be enabled when you notice an unreadable contrast frequently happening
+# with your images. The reference color for the contrast is the background color.
+check_contrast = true
+
+# Color saturation, between [1% and 100%] (OPTIONAL, disabled by default)
+# usually something higher than 50 increases the saturation and below
+# decreases it (on a scheme with strong and vivid colors)
+saturation = 50
+
+# Alpha value for templating, by default 100 (no other use whatsoever)
+#alpha = 100
+
+[templates]
+# NOTE: prefer '' over "" for paths, avoids escaping.
+# template: A relative path that points to a file where wallust.toml is located, usually at `~/.config/wallust/`.
+# target: Absolute path in which to place a file with generated templated values.
+# If one is a directory, the other one NEEDS to also be one, one line example below
+# zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
+
+ags.src = 'ags.scss'
+ags.dst = '~/.config/ags/Style/_colors.scss'
+#ags.pywal = false #idk what this does
+
+gtk.src = 'gtk.css'
+gtk.dst = '~/.cache/gtk.css'
+#ags.pywal = false #idk what this does
+
+
+
+
+
+
+
+
+
+
+
+
+#########################################################################################
+
+
 # wallust 2.9.0-d.*
 # -- global space -- #
 # values below can be overwritten by command line flags
@@ -13,7 +80,7 @@
 #  * kmeans     - Kmeans is an algo that divides and picks pixels all around the image
 #                  Requires more tweaking and more in depth testing but for the most part
 #                  it just werks
-backend = "resized"
+#backend = "resized"
 
 # What color space to use to produce and select the most prominent colors:
 #  * lab      - Uses Cie L a b color space
@@ -23,7 +90,7 @@ backend = "resized"
 #                not that much precise result Images that work on lab labmixed could not
 #                have enough colors for labfast
 #color_space = "lch"
-color_space = "lab"
+#color_space = "lab"
 
 # Difference between similar colors, used by the colorspace:
 #  1          Not perceptible by human eyes.
@@ -60,7 +127,7 @@ color_space = "lab"
 #  * softlightcomp   - softlight with complementary colors
 #  * softlightcomp16 - softlight with complementary colors with colors
 
-palette = "dark"
+#palette = "dark"
 #palette = "light"
 
 # This field chooses a method to use when the gathered colors aren't enough:
@@ -81,7 +148,7 @@ palette = "dark"
 # Alpha value for templating, by default 100 (no other use whatsoever)
 #alpha = 100
 
-[templates]
+#[templates]
 # template: A relative path that points to a file where wallust.toml is located, usually at `~/.config/wallust/`
 # target: Absolute path in which to place a file with generated templated values
 # NOTE: prefer '' over "" for paths, avoids escaping.
@@ -117,10 +184,4 @@ palette = "dark"
 # Where `var` can be colors from `color0` to `color15`, `background`, `foreground` and `cursor`.
 
 
-ags.src = 'ags.scss'
-ags.dst = '~/.config/ags/Style/_colors.scss'
-#ags.pywal = false #idk what this does
 
-gtk.src = 'gtk.css'
-gtk.dst = '~/.cache/gtk.css'
-#ags.pywal = false #idk what this does
