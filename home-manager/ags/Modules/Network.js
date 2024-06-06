@@ -12,12 +12,16 @@ export const RefreshWifi = (ap) => Widget.Button({
     onPrimaryClick: () => {
         networks = []
         Network.wifi.scan()
+
+        print(Network.wifi.iconName)
     }, 
     child: Widget.Icon({
         icon: "view-refresh-symbolic",
     }),
 })
 
+// Font glyph backup
+/*
 // isConnected: bool // ap: AcessPoint Object //
 export const WifiIcon = (isConnected, ap) => Widget.Button({
     //class_name: "normal-button",
@@ -77,6 +81,26 @@ export const WifiIcon = (isConnected, ap) => Widget.Button({
         ]
     })
 })
+*/
+
+export const WifiIcon = (isConnected, ap) => Widget.Button({
+    class_name: "normal-button", 
+    child: Widget.Icon({
+        size: 16,
+    }).hook(Network, self => {
+
+        // If network is connected
+        if (isConnected) {
+            self.toggleClassName('invisible', Network.wifi.strength < 0)
+        }
+        // Or an access point
+        else if (ap != null) {
+            self.toggleClassName('invisible', ap.strength < 0)
+        }
+
+        self.icon = Network.wifi.iconName
+    }),
+})
 
 export const EthernetIconLabel = () => Widget.Box({
     class_name: "icon",
@@ -113,15 +137,14 @@ export const EthernetIcon = () => Widget.Icon({
 })
 
 // Shows ethernet if connected else shows wifi
-export const NetworkIndicator = () => Widget.Button({
-    class_name: "normal-button",
+export const NetworkIndicator = () => Widget.Box({
 }).hook(Network, self => {
     let status = Network.wired.internet
     if (status == "connected" ){
-        self.child = EthernetIcon()
+        self.children = [ EthernetIcon() ]
     }
     else{
-        self.child = WifiIcon(true, null)
+        self.children = [ WifiIcon(true, null) ]
     }
 
     // Need to show the child since widget are hidden by default 
