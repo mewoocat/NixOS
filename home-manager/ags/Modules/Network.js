@@ -83,23 +83,20 @@ export const WifiIcon = (isConnected, ap) => Widget.Button({
 })
 */
 
-export const WifiIcon = (isConnected, ap) => Widget.Button({
-    class_name: "normal-button", 
-    child: Widget.Icon({
-        size: 16,
-    }).hook(Network, self => {
+export const WifiIcon = (isConnected, ap) => Widget.Icon({
+    size: 16,
+}).hook(Network, self => {
 
-        // If network is connected
-        if (isConnected) {
-            self.toggleClassName('invisible', Network.wifi.strength < 0)
-        }
-        // Or an access point
-        else if (ap != null) {
-            self.toggleClassName('invisible', ap.strength < 0)
-        }
+    // If network is connected
+    if (isConnected) {
+        self.toggleClassName('invisible', Network.wifi.strength < 0)
+    }
+    // Or an access point
+    else if (ap != null) {
+        self.toggleClassName('invisible', ap.strength < 0)
+    }
 
-        self.icon = Network.wifi.iconName
-    }),
+    self.icon = Network.wifi.iconName
 })
 
 export const EthernetIconLabel = () => Widget.Box({
@@ -202,6 +199,7 @@ const network = (ap) => Widget.Button({
     onPrimaryClick: () => {
         APInfoVisible.value = true
         //ControlPanelTab.setValue("ap"),
+        print(ap.strength)
 
         // Set ap point info
         CurrentAP.value = ap 
@@ -214,6 +212,7 @@ const network = (ap) => Widget.Button({
         endWidget: Widget.Box({
             hpack: "end",
             children: [
+                Widget.Label({label: ap.strength.toString()}),
                 WifiSecurity(),
                 WifiIcon(false, ap),
             ],
@@ -265,7 +264,10 @@ export const WifiList = () => Widget.Scrollable({
         try{
             //TODO: Sort not working
             //networks = Network.wifi.accessPoints.sort((a, b) => {a.strength - b.strength}).map(network)
-            networks = Network.wifi.accessPoints.filter((ap) => ap.ssid != Network.wifi.ssid).map(network) // Filter out connected ap
+            networks = Network.wifi.accessPoints
+                .filter((ap) => ap.ssid != Network.wifi.ssid) // Filter out connected ap
+                .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
+                .map(network) 
         }
         catch{ 
             networks = []

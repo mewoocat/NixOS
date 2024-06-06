@@ -1,4 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import { ControlPanelTab } from '../variables.js';
 
 export const ThemeButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
@@ -7,8 +8,22 @@ export const ThemeButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
         font-size: 22px;
     `,
-    child:
-        Widget.Icon({
-            icon: "org.gnome.Settings-color-symbolic",
-        })
+
+    on_primary_click: () => { 
+        ControlPanelTab.setValue("theme")
+    },
+    child: Widget.Icon({
+        icon: "org.gnome.Settings-color-symbolic",
+    })
 })
+
+export const ThemeMenu = () => Widget.Box({
+    children: [
+        Widget.FileChooserButton({
+            onFileSet: ({ uri }) => {
+                print(uri)
+            },
+        })
+    ]
+})
+

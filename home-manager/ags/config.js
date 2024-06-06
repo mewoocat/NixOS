@@ -6,7 +6,7 @@ import { ActivityCenter } from './Windows/ActivityCenter.js';
 import { NotificationPopup } from './Windows/Notification.js';
 import { Dock } from './Windows/Dock.js';
 import { Lockscreen } from './Windows/Lockscreen.js';
-import { applauncher } from './Windows/Launcher.js';
+import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 
@@ -48,7 +48,7 @@ App.config({
     // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
     // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
     windows: [
-        applauncher, 
+        Launcher, 
         //...forMonitors(Bar), 
         Bar(),
         Lockscreen(), 

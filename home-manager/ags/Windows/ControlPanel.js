@@ -14,7 +14,7 @@ import { RefreshWifi, WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '..
 import { BluetoothMenu, BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
-import { ThemeButton } from '../Modules/Theme.js'
+import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
 import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
 import { NightLightButton } from '../Modules/NightLight.js';
@@ -202,6 +202,14 @@ const bluetoothContainer = () => Widget.Box({
     ],
 })
 
+const ThemeContainer = () => Widget.Box({
+    vertical: true,
+    vexpand: false,
+    children: [
+        BackButton(),
+        ThemeMenu(),
+    ],
+})
 
 // Container
 const stack = Widget.Stack({
@@ -212,6 +220,7 @@ const stack = Widget.Stack({
         'ap': networkAPContainer(),
         'audio': audioContainer(),
         'bluetooth': bluetoothContainer(),
+        'theme': ThemeContainer(),
     },
     //transition: "over_left",
 

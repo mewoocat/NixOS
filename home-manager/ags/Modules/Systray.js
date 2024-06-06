@@ -36,10 +36,11 @@ export const SysTray = () => Widget.Box({
                 size: 20,
                 // This animation no work 
                 css: isSystrayVisible.bind().as(visible => {
-                    `
-                        -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
-                        transition: -gtk-icon-transform 2s;
-                    `
+                    // Rotate GTK Icon
+                    return `
+                            -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
+                            transition: -gtk-icon-transform 0.5s;
+                            `
                 }),
             }),
         }),

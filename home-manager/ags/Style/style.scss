@@ -385,7 +385,7 @@ button:hover > * {
 }
 
 .sliders trough:hover > slider{
-  background-color: $bg3;
+  background-color: $accent3;
 }
 
 /* The highligh */
@@ -403,16 +403,16 @@ button:hover > * {
   min-height: 28px;
   min-width: 28px;
   border-radius: 20px;
-  background-color: $accent3;
+  background-color: $accent1;
   border-style: solid;
   border-width: 0px;
-  border-color: $accent3;
+  border-color: $accent1;
 
   box-shadow: 0px 0px 4px $bg0;
 }
 
 .sliders slider:hover{
-  background-color: $bg2;
+  background-color: $accent3;
 }
 
 
