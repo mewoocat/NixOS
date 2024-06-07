@@ -83,6 +83,7 @@ export const WifiIcon = (isConnected, ap) => Widget.Button({
 })
 */
 
+
 export const WifiIcon = (isConnected, ap) => Widget.Icon({
     size: 16,
 }).hook(Network, self => {
@@ -97,7 +98,9 @@ export const WifiIcon = (isConnected, ap) => Widget.Icon({
     }
 
     self.icon = Network.wifi.iconName
+    
 })
+
 
 export const EthernetIconLabel = () => Widget.Box({
     class_name: "icon",
@@ -168,7 +171,7 @@ export const WifiSSID = () => Widget.Box({
     ]
 })
 
-export const WifiButton = (w, h) => Widget.Button({
+export const WifiPanelButton = (w, h) => Widget.Button({
     class_name: `control-panel-button`,
     css: `
         min-width: ${w}rem;

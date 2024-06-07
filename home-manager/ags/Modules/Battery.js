@@ -1,8 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
-
 import { SecToHourAndMin } from '../Common.js'; 
-
 
 
 export const BatteryLabel = () => Widget.Box({
@@ -11,14 +9,14 @@ export const BatteryLabel = () => Widget.Box({
 
     hpack: "center",
     children: [
-
+        // Percent
         Widget.Label({
             label: Battery.bind('percent').transform(p => {
                 return p.toString() + "% "
             })
         }),
 
-
+        //Icon
         Widget.Overlay({
             class_name: "battery icon",
             child: Widget.Label({

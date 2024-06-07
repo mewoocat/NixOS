@@ -1,5 +1,5 @@
 @import 'colors';
-$mediumOpacity: 0.65;
+$mediumOpacity: 0.80;
 $lowOpacity: 0.45;
 
 // Common
@@ -309,7 +309,7 @@ button:hover > * {
 ////////////////////////////////////////////////////////////////////////////
 .control-panel-button{
     //padding: 0rem; // Disables default button padding
-    background-color: rgba($bg1, $lowOpacity);
+    background-color: rgba($bg1, $mediumOpacity);
     border-radius: 1rem;
     margin: 0.2rem;
 }
@@ -337,12 +337,12 @@ button:hover > * {
     border-radius: 1rem;
     padding: 0.4rem;
     margin: 0.2rem;
-    background-color: rgba($bg1, $lowOpacity);
+    background-color: rgba($bg1, $mediumOpacity);
 }
 
 .control-panel-widget-large{
     padding: 0.4rem;
-    background-color: rgba($bg0, $lowOpacity);
+    background-color: rgba($bg1, $lowOpacity);
     border-radius: 1rem;
     margin: 0.2rem;
 }
@@ -360,7 +360,7 @@ button:hover > * {
 .battery-circle{
     min-width: 7.2rem;
     min-height: 7.2rem;
-    background-color: $bg1;
+    background-color: $bg0;
     color: lightgreen;
 }
 
@@ -378,7 +378,7 @@ button:hover > * {
 
 /* The background */
 .sliders trough{
-  background-color: $bg1;
+  background-color: rgba($bg0,$lowOpacity);
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; 
@@ -530,4 +530,12 @@ button.combo {
 
 button.combo:hover {
     background-color: $bg3;
+}
+
+
+// Systray
+.systray{
+    background-color: $bg2;
+    margin: 0.2rem;
+    border-radius: 1rem;
 }

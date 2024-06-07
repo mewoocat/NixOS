@@ -10,8 +10,8 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneSlider } from '../Modules/Microphone.js';
-import { RefreshWifi, WifiButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { BluetoothMenu, BluetoothIcon, ToggleBluetooth, BluetoothButton } from '../Modules/Bluetooth.js';
+import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
+import { BluetoothStatus, BluetoothMenu, BluetoothIcon, ToggleBluetooth, BluetoothPanelButton } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
@@ -35,8 +35,8 @@ const grid = new Gtk.Grid()
 
 // Row 1
 const grid1A = new Gtk.Grid()
-grid1A.attach(WifiButton(options.large, options.small), 1, 1, 2, 1)
-grid1A.attach(BluetoothButton(options.large, options.small), 1, 2, 2, 1)
+grid1A.attach(WifiPanelButton(options.large, options.small), 1, 1, 2, 1)
+grid1A.attach(BluetoothPanelButton(options.large, options.small), 1, 2, 2, 1)
 grid.attach(grid1A, 1, 1, 1, 1)
 grid.attach(SystemStatsWidgetLarge(options.large, options.large), 2, 1, 1, 1)
 
@@ -197,7 +197,10 @@ const bluetoothContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        BackButton(),
+        Widget.CenterBox({
+            startWidget: BluetoothStatus(),
+            endWidget: BackButton(),
+        }),
         BluetoothMenu(),
     ],
 })

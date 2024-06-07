@@ -2,26 +2,28 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 
-export const MicrophoneIcon = () => Widget.Button({
+export const MicrophoneIcon = () => Widget.Icon({
+    size: 20,
+    icon: "audio-input-microphone-high-symbolic",
+}).hook(Audio, self => {
+    if (Audio.microphone.is_muted){
+        self.icon = "audio-input-microphone-muted-symbolic"
+    }
+    else{
+        self.icon = "audio-input-microphone-high-symbolic"
+    } 
+}, 'microphone-changed')
+
+export const MicrophoneButton = () => Widget.Button({
     class_name: "normal-button",
-    child: Widget.Label({
-        class_name: "icon",
-    }).hook(Audio, self => {
-        if (Audio.microphone.is_muted){
-            self.class_name = "dim"
-            self.label = ""
-        }
-        else{
-            self.label = ""
-            self.class_name = ""
-        } 
-    }, 'microphone-changed'),
+    child: MicrophoneIcon(),
 })
+
 
 export const MicrophoneSlider = () => Widget.Box({
     class_name: 'microphone',
     children: [
-        MicrophoneIcon(),
+        MicrophoneButton(),
         Widget.Slider({
             class_name: "sliders",
             hexpand: true,

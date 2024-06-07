@@ -35,17 +35,11 @@ const Center = () => Widget.Box({
 
 const Right = (monitor) => Widget.Box({
     hpack: 'end',
-    spacing: 0,
+    spacing: 24,
     children: [
         SysTray(), 
-        /*
-        Widget.Separator({
-            vertical: true,
-        }),
-        */
         BatteryLabel(), 
         MicrophoneIcon(),
-        //WifiIcon(true, null),
         NetworkIndicator(),
         BluetoothIcon(),
         VolumeIcon(),

@@ -6,17 +6,14 @@ import { ControlPanelTab } from '../variables.js';
 
 var devices = []
 
-export const BluetoothIcon = () => Widget.Button({
-    class_name: "normal-button",
-    child: Widget.Icon().hook(Bluetooth, self  => {
-        self.toggleClassName("dim", !Bluetooth.enabled)
-        if(Bluetooth.enabled){
-            self.icon = "bluetooth-active-symbolic" //"󰂯"
-        }
-        else{
-            self.icon = "bluetooth-disabled-symbolic" //"󰂲"
-        }
-    }),
+export const BluetoothIcon = () => Widget.Icon().hook(Bluetooth, self  => {
+    self.toggleClassName("dim", !Bluetooth.enabled)
+    if(Bluetooth.enabled){
+        self.icon = "bluetooth-active-symbolic" //"󰂯"
+    }
+    else{
+        self.icon = "bluetooth-disabled-symbolic" //"󰂲"
+    }
 })
 
 
@@ -29,7 +26,7 @@ export function ToggleBluetooth(){
     }
 }
 
-export const BluetoothButton = (w, h) => Widget.Box({
+export const BluetoothPanelButton = (w, h) => Widget.Box({
     class_name: "control-panel-button",
     css: `
         min-width: ${w}rem;
@@ -59,25 +56,32 @@ export const BluetoothButton = (w, h) => Widget.Box({
 })
 
 
-
-const device = (d) => Widget.Button({ 
-    class_name: "normal-button",
-    onPrimaryClick: () => {
-        BluetoothInfoVisible.value = true
-        CurrentDevice.value = d
-    }, 
-    child: Widget.CenterBox({
-        startWidget: Widget.Label({
-            hpack: "start",
-            label: d.name
-        }),
-        endWidget: Widget.Box({
-            hpack: "end",
-            children: [
-            ],
-        }),
+function device(d){
+    if (d.name == null){
+        return null
+    }
+    return Widget.Button({ 
+        class_name: "normal-button",
+        onPrimaryClick: () => {
+            BluetoothInfoVisible.value = true
+            CurrentDevice.value = d
+        }, 
+        child: Widget.CenterBox({
+            startWidget: Widget.Label({
+                hpack: "start",
+                label: d.name
+            }),
+            endWidget: Widget.Box({
+                hpack: "end",
+                children: [
+                    Widget.Icon({
+                        icon: d.iconName + '-symbolic',
+                    }),
+                ],
+            }),
+        })
     })
-})
+}
 
 export const BluetoothMenu = () => Widget.Scrollable({
     css: `
@@ -86,22 +90,35 @@ export const BluetoothMenu = () => Widget.Scrollable({
     vexpand: true,
     child: Widget.Box({
         vertical: true,
-        children: [],
-    }).poll(10000, self => {
-        try{ 
-            devices = Bluetooth.devices.map(device)
-        }
-        catch{ 
-            devices = []
-        }
-        self.children = devices
+    }).hook(Bluetooth, self => {
+        self.children = Bluetooth.devices.map(device)
     })
 })
 
 
+export const BluetoothConnectedDevices = () => Widget.Scrollable({
+    css: `
+        min-height: 100px;
+    `,
+    vexpand: true,
+    child: Widget.Box({
+        vertical: true,
+    }).hook(Bluetooth, self => {
+        self.children = Bluetooth.connectedDevices.map(device)
+    })
+})
 
+export const eBluetoothMenu = () => Widget.Box({
+    children: [
+        //BluetoothConnectedDevices(),
+        BluetoothDevices(),
+    ],
+})
 
-
+export const BluetoothStatus = () => Widget.Label({
+    //label: Bluetooth.connectedDevices.as(d => d.length + "connected")
+    label: "Status",
+})
 
 
 
