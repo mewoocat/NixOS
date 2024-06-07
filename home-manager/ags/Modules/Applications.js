@@ -81,7 +81,7 @@ const list = Widget.Box({
 
 // wrap the list in a scrollable
 const appScroller = Widget.Scrollable({
-    vexpand: true,
+    css: `min-height: 400px;`,
     hscroll: 'never',
     child: list,
 })
@@ -94,7 +94,7 @@ function repopulate() {
 
 // App searcher and list
 export const AppLauncher = (WINDOW_NAME) => Widget.Box({
-    vexpand: true,
+    //vexpand: true,
     vertical: true,
     children: [
         entry,

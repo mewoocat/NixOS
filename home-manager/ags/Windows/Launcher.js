@@ -14,7 +14,7 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
     transition: "slide_down",
     setup: self => {
         self.hook(App, (self, windowName, visible) => {
-            if (windowName === "applauncher"){
+            if (windowName === WINDOW_NAME){
                 self.revealChild = visible
             }
         }, 'window-toggled')
@@ -61,11 +61,9 @@ export const Launcher = Widget.Window({
     layer: "overlay",
     keymode: "exclusive",
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    //anchor: ["top", "left"], // Debugging
+    //anchor: ["top", "left", "bottom"], // Debugging // idk why removing bottom from here causes the window to not open 
     child: CloseOnClickAway(WINDOW_NAME, Content({
         spacing: 12,
     }), "top-left"),
     //TODO: setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
 });
-Launcher.keybind("Escape", () => App.closeWindow(WINDOW_NAME))
-

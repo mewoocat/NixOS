@@ -8,7 +8,7 @@ const buttonRevealer = Widget.Revealer({
     transition: 'slide_left',
     revealChild: isSystrayVisible.bind(),
     child: Widget.Box({
-        class_name: "systray";
+        class_name: "systray",
         children: SystemTray.bind('items').transform(items => {
             return items.map(item => Widget.Button({
                 class_name: "normal-button",
