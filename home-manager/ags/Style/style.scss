@@ -148,14 +148,14 @@ button:hover > * {
 // Normal Button
 .normal-button {
     background-color: transparent;
-    padding: 0.32rem; // Currently determines bar height
+    padding: 0.28rem; // Currently determines bar height
 }
 
 .normal-button:active {
 }
 
 .normal-button > * {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 1rem;
 }
 

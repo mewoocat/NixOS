@@ -202,8 +202,6 @@ const network = (ap) => Widget.Button({
     onPrimaryClick: () => {
         APInfoVisible.value = true
         //ControlPanelTab.setValue("ap"),
-        print(ap.strength)
-
         // Set ap point info
         CurrentAP.value = ap 
     }, 
