@@ -11,7 +11,7 @@ import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneSlider } from '../Modules/Microphone.js';
 import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { BluetoothStatus, BluetoothMenu, BluetoothIcon, ToggleBluetooth, BluetoothPanelButton } from '../Modules/Bluetooth.js';
+import { BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
@@ -201,7 +201,8 @@ const bluetoothContainer = () => Widget.Box({
             startWidget: BluetoothStatus(),
             endWidget: BackButton(),
         }),
-        BluetoothMenu(),
+        BluetoothDevices(),
+        BluetoothConnectedDevices(),
     ],
 })
 
