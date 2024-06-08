@@ -4,17 +4,13 @@ import { ControlPanelTab, APInfoVisible, CurrentAP } from '../variables.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 
 // Globals
-var networks = []
 var apPassword = ""
 
 // Not sure if this works
 export const RefreshWifi = (ap) => Widget.Button({ 
     class_name: "normal-button",
     onPrimaryClick: () => {
-        networks = []
         Network.wifi.scan()
-
-        print(Network.wifi.iconName)
     }, 
     child: Widget.Icon({
         icon: "view-refresh-symbolic",
@@ -89,17 +85,14 @@ export const WifiIcon = (isConnected, ap) => Widget.Icon({
     size: 16,
 }).hook(Network, self => {
 
-    // If network is connected
-    if (isConnected) {
-        self.toggleClassName('invisible', Network.wifi.strength < 0)
+    // If access point
+    if (ap != null) {
+        self.icon = ap.iconName
     }
-    // Or an access point
-    else if (ap != null) {
-        self.toggleClassName('invisible', ap.strength < 0)
-    }
-
-    self.icon = Network.wifi.iconName
-    
+    // If cuurently connected network
+    else{
+        self.icon = Network.wifi.iconName
+    } 
 })
 
 
@@ -258,6 +251,24 @@ const network = (ap) => Widget.Button({
     })
 })
 
+// Password entry
+const passwordEntry = Widget.Entry({
+    class_name: "app-entry",
+    placeholder_text: "Password",
+    hexpand: true,
+    visibility: false,
+    on_accept: (self) => {
+        let ssid = CurrentAP.value.ssid
+        let password = self.text
+        execAsync(`nmcli dev wifi connect ${ssid} password ${password}`)
+        self.text = "" 
+    },
+    // Set password to use with connect button
+    on_change: ({ text }) => {
+        apPassword = text
+    },
+})
+
 export const APInfo = () => Widget.Box({
     vertical: true,
     children: [
@@ -268,32 +279,14 @@ export const APInfo = () => Widget.Box({
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "BSSID: " + CurrentAP.value.bssid.toString()}),
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
 
-        // Password entry
-        Widget.Entry({
-            class_name: "app-entry",
-            placeholder_text: "Password",
-            hexpand: true,
-            visibility: false,
-            on_accept: ({ text }) => {
-                let ssid = CurrentAP.value.ssid
-                let password = text
-                print(ssid)
-                print(password)
-                execAsync(`nmcli dev wifi connect ${ssid} password ${password}`) 
-            },
-
-            // Set password to use with connect button
-            on_change: ({ text }) => {
-                apPassword = text
-            },
-        }),
-
+        passwordEntry,
         // Connect button
         Widget.Button({
             class_name: "normal-button",
             onPrimaryClick: () => { 
                 let ssid = CurrentAP.value.ssid
                 execAsync(`nmcli dev wifi connect ${ssid} password ${apPassword}`) 
+                passwordEntry.text = ""
             },
             child: Widget.Label({
                 label: "Connect"

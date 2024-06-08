@@ -97,17 +97,24 @@ window:has(menu){
 
 
 // App launcher button
-.app-button{
+.app-button {
     padding: 0.4rem;
     border-radius: 1rem;
     margin-right: 0.8rem;
 }
 .app-button:hover {
     background-color: $accent1;
+    label {
+        color: $bg0; 
+    }
 }
 .app-button:focus {
     background-color: $accent1;
+    label {
+        color: $bg0; 
+    }
 }
+
 
 // Search entry
 .app-entry {
@@ -121,6 +128,9 @@ window:has(menu){
     //background-color: rgba($outline_variant, 1);
     background-color: $accent1;
     border-radius: 1rem;
+    label {
+        color: $bg0; 
+    }
 }
 
 
@@ -266,7 +276,7 @@ button:hover > * {
         min-width: 1.2rem;
         min-height: 1.2rem;
         font-size: 0.8rem;
-        color: $fg;
+        color: $bg0;
     }
 }
 

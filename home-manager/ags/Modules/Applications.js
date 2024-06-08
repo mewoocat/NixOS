@@ -18,10 +18,7 @@ const AppItem = app => Widget.Button({
                 size: 42,
             }),
             Widget.Label({
-                css: `
-                    margin: 0.4rem;
-                `,
-                class_name: 'title',
+                //class_name: 'app-button-label',
                 label: app.name,
                 xalign: 0,
                 vpack: 'center',

@@ -65,5 +65,5 @@ export const Launcher = Widget.Window({
     child: CloseOnClickAway(WINDOW_NAME, Content({
         spacing: 12,
     }), "top-left"),
-    //TODO: setup: self =>  self.keybind("Escape", () => App.closeWindow("window-name"))
+    setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME))
 });

@@ -9,9 +9,11 @@ $bg3: {{background | lighten(0.4)}};
 $fg: {{foreground}};
 
 $accent0: {{color2}};
+$onAccent0: {{color2 | complementary}};
 $accent0darker: {{color2 | darken(0.4)}};
 
 $accent1: {{color3}};
+$onAccent1: {{color3 | complementary}};
 $accent2: {{color4}};
 $accent3: {{color5}};
 $accent3darker: {{color5 | darken(0.4)}};
