@@ -228,6 +228,9 @@ export const APInfo = () => Widget.Box({
         Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "SSID: " + CurrentAP.value.ssid.toString()}),
         Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Frequency: " + CurrentAP.value.frequency.toString()}),
         Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Strength: " + CurrentAP.value.strength.toString()}),
+        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Address: " + CurrentAP.value.address.toString()}),
+        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "BSSID: " + CurrentAP.value.bssid.toString()}),
+        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
 
         // Password entry
         Widget.Entry({
@@ -275,7 +278,7 @@ export const APInfo = () => Widget.Box({
     ]
 })
 
-export const WifiList = () => Widget.Scrollable({
+export const WifiListAvailable = () => Widget.Scrollable({
     css: `
         min-height: 100px;
     `,
@@ -289,6 +292,17 @@ export const WifiList = () => Widget.Scrollable({
                 .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
                 .map(network) 
     })
+})
+
+export const WifiList = () => Widget.Box({
+    vertical: true,
+    children: [
+        Widget.Box({
+        }).hook(Network, self => {
+            self.children = [ network(Network.wifi) ]
+        }),
+        WifiListAvailable(),
+    ]
 })
 
 
