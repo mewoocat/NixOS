@@ -198,6 +198,43 @@ export const WifiSecurity = () => Widget.Icon({
 })
 
 
+const currentNetwork = () => Widget.Button({ 
+    visible: Network.wifi.bind("internet").as(v => {
+        if (v != "disconnected"){
+            return true
+        }
+        return false
+    }),
+    class_name: "normal-button",
+    onPrimaryClick: () => {
+        // Set ap point info
+        CurrentAP.value = Network.wifi
+        // Set tab
+        ControlPanelTab.setValue("ap")
+    }, 
+    child: Widget.CenterBox({
+        startWidget: Widget.Box({
+            children: [
+                Widget.Label({
+                    css: "color: green; font-size: 20px;",
+                    label: "✓ ",
+                }),
+                Widget.Label({
+                    hpack: "start",
+                    label: Network.wifi.bind("ssid"),
+                }),
+            ]
+        }),
+        endWidget: Widget.Box({
+            hpack: "end",
+            children: [
+                WifiSecurity(),
+                WifiIcon(false, Network.wifi),
+            ],
+        }),
+    })
+})
+
 const network = (ap) => Widget.Button({ 
     class_name: "normal-button",
     onPrimaryClick: () => {
@@ -214,7 +251,6 @@ const network = (ap) => Widget.Button({
         endWidget: Widget.Box({
             hpack: "end",
             children: [
-                Widget.Label({label: ap.strength.toString()}),
                 WifiSecurity(),
                 WifiIcon(false, ap),
             ],
@@ -228,9 +264,9 @@ export const APInfo = () => Widget.Box({
         Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "SSID: " + CurrentAP.value.ssid.toString()}),
         Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Frequency: " + CurrentAP.value.frequency.toString()}),
         Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Strength: " + CurrentAP.value.strength.toString()}),
-        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Address: " + CurrentAP.value.address.toString()}),
-        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "BSSID: " + CurrentAP.value.bssid.toString()}),
-        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
+        //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Address: " + CurrentAP.value.address.toString()}),
+        //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "BSSID: " + CurrentAP.value.bssid.toString()}),
+        //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
 
         // Password entry
         Widget.Entry({
@@ -297,9 +333,13 @@ export const WifiListAvailable = () => Widget.Scrollable({
 export const WifiList = () => Widget.Box({
     vertical: true,
     children: [
-        Widget.Box({
-        }).hook(Network, self => {
-            self.children = [ network(Network.wifi) ]
+        currentNetwork(),
+        Widget.Separator({
+            css: `
+                color: red;
+                background-color: green;
+            `,
+            vertical: false,
         }),
         WifiListAvailable(),
     ]

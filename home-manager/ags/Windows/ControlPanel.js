@@ -131,23 +131,11 @@ const networkContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        //Rows
-        // Header
         Widget.CenterBox({
-            startWidget: Widget.Box({
-                children: [
-                    WifiIcon(true, null),
-                    WifiSSID()
-                ],
-            }),
-            endWidget: Widget.Box({
-                children: [
-                    RefreshWifi(),
-                    BackButton(),
-                ],
-            }),
+            hexpand: true,
+            startWidget: RefreshWifi(),
+            endWidget: BackButton(),
         }),
-        //WifiList(),
         Widget.Box({
             vexpand: true,
             vertical: true,
@@ -169,17 +157,7 @@ const networkAPContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        //Rows
-        // Header
-        Widget.CenterBox({
-            startWidget: Widget.Box({
-                children: [
-                    WifiIcon(true, null),
-                    WifiSSID()
-                ],
-            }),
-            endWidget: BackButton("network"),
-        }),
+        BackButton("network"),
         APInfo(),
     ],
 })
