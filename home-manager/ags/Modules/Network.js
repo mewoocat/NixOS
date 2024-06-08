@@ -5,6 +5,7 @@ import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 
 // Globals
 var networks = []
+var apPassword = ""
 
 // Not sure if this works
 export const RefreshWifi = (ap) => Widget.Button({ 
@@ -200,12 +201,10 @@ export const WifiSecurity = () => Widget.Icon({
 const network = (ap) => Widget.Button({ 
     class_name: "normal-button",
     onPrimaryClick: () => {
-        APInfoVisible.value = true
-        //ControlPanelTab.setValue("ap"),
-        print(ap.strength)
-
         // Set ap point info
         CurrentAP.value = ap 
+        // Set tab
+        ControlPanelTab.setValue("ap")
     }, 
     child: Widget.CenterBox({
         startWidget: Widget.Label({
@@ -226,14 +225,9 @@ const network = (ap) => Widget.Button({
 export const APInfo = () => Widget.Box({
     vertical: true,
     children: [
-        Widget.Label().hook(CurrentAP, self => {
-            self.label = CurrentAP.value.ssid
-        }),
-        Widget.Label({ label: "Frequency: " + CurrentAP.value.frequency || "N/A" }),
-        Widget.Label({ label: "Strength: " + CurrentAP.value.strength || "N/A" }),
-
-        // Delete connection
-        // nmcli connection delete <ssid>
+        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "SSID: " + CurrentAP.value.ssid.toString()}),
+        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Frequency: " + CurrentAP.value.frequency.toString()}),
+        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Strength: " + CurrentAP.value.strength.toString()}),
 
         // Password entry
         Widget.Entry({
@@ -248,12 +242,38 @@ export const APInfo = () => Widget.Box({
                 print(password)
                 execAsync(`nmcli dev wifi connect ${ssid} password ${password}`) 
             },
+
+            // Set password to use with connect button
+            on_change: ({ text }) => {
+                apPassword = text
+            },
         }),
+
+        // Connect button
+        Widget.Button({
+            class_name: "normal-button",
+            onPrimaryClick: () => { 
+                let ssid = CurrentAP.value.ssid
+                execAsync(`nmcli dev wifi connect ${ssid} password ${apPassword}`) 
+            },
+            child: Widget.Label({
+                label: "Connect"
+            })
+        }),
+
+        // Delete connection
+        Widget.Button({
+            class_name: "normal-button",
+            onPrimaryClick: () => { 
+                let ssid = CurrentAP.value.ssid
+                execAsync(`nmcli connection delete ${ssid}`) 
+            },
+            child: Widget.Label({
+                label: "Remove"
+            })
+        })
     ]
 })
-
-//Network.wifi.scan()
-//var networks = Network.wifi.accessPoints.map(network)
 
 export const WifiList = () => Widget.Scrollable({
     css: `
@@ -263,19 +283,11 @@ export const WifiList = () => Widget.Scrollable({
     child: Widget.Box({
         vertical: true,
         children: [],
-    }).poll(10000, self => {
-        try{
-            //TODO: Sort not working
-            //networks = Network.wifi.accessPoints.sort((a, b) => {a.strength - b.strength}).map(network)
-            networks = Network.wifi.accessPoints
+    }).hook(Network, self => {
+        self.children = Network.wifi.accessPoints
                 .filter((ap) => ap.ssid != Network.wifi.ssid) // Filter out connected ap
                 .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
                 .map(network) 
-        }
-        catch{ 
-            networks = []
-        }
-        self.children = networks
     })
 })
 

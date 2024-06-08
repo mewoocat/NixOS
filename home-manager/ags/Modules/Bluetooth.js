@@ -108,13 +108,6 @@ export const BluetoothConnectedDevices = () => Widget.Scrollable({
     })
 })
 
-export const eBluetoothMenu = () => Widget.Box({
-    children: [
-        //BluetoothConnectedDevices(),
-        BluetoothDevices(),
-    ],
-})
-
 export const BluetoothStatus = () => Widget.Label({
     //label: Bluetooth.connectedDevices.as(d => d.length + "connected")
     label: "Status",

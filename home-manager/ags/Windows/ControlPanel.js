@@ -71,11 +71,11 @@ grid3B.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
-const BackButton = () => Widget.Button({
+const BackButton = (dst = "main") => Widget.Button({
     class_name: `normal-button`,
     //hexpand: true,
     onClicked: () => {
-        ControlPanelTab.setValue("main")
+        ControlPanelTab.setValue(dst)
         APInfoVisible.value = false
     },
     child: Widget.Label({
@@ -142,8 +142,8 @@ const networkContainer = () => Widget.Box({
             }),
             endWidget: Widget.Box({
                 children: [
-                    BackButton(),
                     RefreshWifi(),
+                    BackButton(),
                 ],
             }),
         }),
@@ -178,7 +178,7 @@ const networkAPContainer = () => Widget.Box({
                     WifiSSID()
                 ],
             }),
-            endWidget: BackButton(),
+            endWidget: BackButton("network"),
         }),
         APInfo(),
     ],
@@ -225,7 +225,7 @@ const stack = Widget.Stack({
         'bluetooth': bluetoothContainer(),
         'theme': ThemeContainer(),
     },
-    //transition: "over_left",
+    transition: "slide_left_right",
 
     // Select which tab to show
     setup: self => self.hook(ControlPanelTab, () => {
