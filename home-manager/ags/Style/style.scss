@@ -46,13 +46,10 @@ tooltip{
     background-color: rgba($bg0, $lowOpacity);
 }
 
-separator{
+.horizontal-separator{
+    min-height: 2px;
     background-color: $fg; 
     border-radius: 1rem;
-    margin-top: 0.6rem;
-    margin-bottom: 0.6rem;
-    margin-right: 0.6rem;
-    min-width: 0.05rem
 }
 
 /*

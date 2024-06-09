@@ -349,10 +349,7 @@ export const WifiList = () => Widget.Box({
     children: [
         currentNetwork(),
         Widget.Separator({
-            css: `
-                min-height: 4px;
-                background-color: green;
-            `,
+            class_name: "horizontal-separator",
             vertical: false,
         }),
         WifiListAvailable(),
