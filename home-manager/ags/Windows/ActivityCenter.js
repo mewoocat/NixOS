@@ -32,6 +32,19 @@ const container = () => Widget.Box({
                 if (windowName === "ActivityCenter"){
                     self.revealChild = visible
                 }
+
+                // Reset calendar date to today
+                execAsync(['date', '+%e %m %Y'])
+                    .then(date => {
+                        date = date.split(" ")
+                        const day = date[0]
+                        const month = date[1] - 1 // Because the month is zero indexed
+                        const year = date[2]
+                        Calendar.select_day(day) // Reset the selected day
+                        Calendar.select_month(month, year) // Reset the selected month and year
+                    })
+                    .catch(err => print(err))
+
             }, 'window-toggled')
         },
         child: Widget.Box({
