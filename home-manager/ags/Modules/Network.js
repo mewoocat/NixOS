@@ -251,6 +251,13 @@ const network = (ap) => Widget.Button({
     })
 })
 
+const connectError = Widget.Label({
+    css: `color: red;`,
+    wrap: true,
+    maxWidthChars: 24,
+    label: "Connection Failed: Invalid password or network failure"
+}).on("realize", self => self.visble = false)
+
 // Password entry
 const passwordEntry = Widget.Entry({
     class_name: "app-entry",
@@ -261,11 +268,14 @@ const passwordEntry = Widget.Entry({
         let ssid = CurrentAP.value.ssid
         let password = self.text
         execAsync(`nmcli dev wifi connect ${ssid} password ${password}`)
+            //.then(out => print(out))
+            .catch(err => print(err));
         self.text = "" 
     },
     // Set password to use with connect button
     on_change: ({ text }) => {
         apPassword = text
+        print("changed")
     },
 })
 
@@ -280,6 +290,7 @@ export const APInfo = () => Widget.Box({
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
 
         passwordEntry,
+        connectError, 
         // Connect button
         Widget.Button({
             class_name: "normal-button",
@@ -317,9 +328,9 @@ export const WifiListAvailable = () => Widget.Scrollable({
         children: [],
     }).hook(Network, self => {
         self.children = Network.wifi.accessPoints
-                .filter((ap) => ap.ssid != Network.wifi.ssid) // Filter out connected ap
-                .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
-                .map(network) 
+            .filter((ap) => ap.ssid != Network.wifi.ssid) // Filter out connected ap
+            .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
+            .map(network) 
     })
 })
 
@@ -329,7 +340,7 @@ export const WifiList = () => Widget.Box({
         currentNetwork(),
         Widget.Separator({
             css: `
-                color: red;
+                min-height: 4px;
                 background-color: green;
             `,
             vertical: false,
