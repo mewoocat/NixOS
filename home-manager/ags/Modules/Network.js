@@ -233,6 +233,8 @@ const network = (ap) => Widget.Button({
     onPrimaryClick: () => {
         // Set ap point info
         CurrentAP.value = ap 
+        // Hide error 
+        connectError.visible = false 
         // Set tab
         ControlPanelTab.setValue("ap")
     }, 
@@ -251,12 +253,25 @@ const network = (ap) => Widget.Button({
     })
 })
 
+function ConnectToAP(ssid, password){
+
+    execAsync(`nmcli dev wifi connect ${ssid} password ${password}`)
+        //.then(out => print(out))
+        .catch(err => {
+            print(err)
+            connectError.visible = true
+        });
+}
+
 const connectError = Widget.Label({
     css: `color: red;`,
     wrap: true,
     maxWidthChars: 24,
     label: "Connection Failed: Invalid password or network failure"
-}).on("realize", self => self.visble = false)
+}).on("realize", self => self.visible = false) // Set label as invisible by default since 
+                                               // adding it to a box will automatically make
+                                               // it visible even if the property says false for visible
+
 
 // Password entry
 const passwordEntry = Widget.Entry({
@@ -265,17 +280,13 @@ const passwordEntry = Widget.Entry({
     hexpand: true,
     visibility: false,
     on_accept: (self) => {
-        let ssid = CurrentAP.value.ssid
-        let password = self.text
-        execAsync(`nmcli dev wifi connect ${ssid} password ${password}`)
-            //.then(out => print(out))
-            .catch(err => print(err));
+        ConnectToAP(CurrentAP.value.ssid, self.text)
         self.text = "" 
     },
     // Set password to use with connect button
     on_change: ({ text }) => {
+        connectError.visible = false // Hide error when typing a new password
         apPassword = text
-        print("changed")
     },
 })
 
@@ -295,8 +306,7 @@ export const APInfo = () => Widget.Box({
         Widget.Button({
             class_name: "normal-button",
             onPrimaryClick: () => { 
-                let ssid = CurrentAP.value.ssid
-                execAsync(`nmcli dev wifi connect ${ssid} password ${apPassword}`) 
+                ConnectToAP(CurrentAP.value.ssid, apPassword)
                 passwordEntry.text = ""
             },
             child: Widget.Label({
