@@ -28,6 +28,7 @@ Install nix
 All inputs
 `nix flake update ~/NixOS`
 A particular input
+`nix flake lock --update-input input_name`
 `nix flake update input_name`
 
 ##### Rebuild NixOS
