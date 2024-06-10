@@ -10,6 +10,7 @@ import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 
+
 // GDK Display
 import Gdk from 'gi://Gdk'
 const display = new Gdk.Display()
@@ -18,7 +19,6 @@ const display = new Gdk.Display()
 // Add icons in assets to icon set
 import Gtk from 'gi://Gtk';
 Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
-
 
 // main scss file
 const scss = `${App.configDir}/Style/style.scss`

@@ -9,7 +9,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 // Modules
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
-import { MicrophoneSlider } from '../Modules/Microphone.js';
+import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
 import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
@@ -162,12 +162,21 @@ const networkAPContainer = () => Widget.Box({
     ],
 })
 
-const audioContainer = () => Widget.Box({
+const volumeContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
         BackButton(),
         VolumeMenu(), 
+    ],
+})
+
+const microphoneContainer = () => Widget.Box({
+    vertical: true,
+    vexpand: false,
+    children: [
+        BackButton(),
+        MicrophoneMenu(), 
     ],
 })
 
@@ -200,7 +209,8 @@ const stack = Widget.Stack({
         'main': mainContainer(),
         'network': networkContainer(),
         'ap': networkAPContainer(),
-        'audio': audioContainer(),
+        'volume': volumeContainer(),
+        'microphone': microphoneContainer(),
         'bluetooth': bluetoothContainer(),
         'theme': ThemeContainer(),
     },

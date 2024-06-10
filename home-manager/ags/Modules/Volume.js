@@ -61,7 +61,7 @@ export const VolumeIcon = () => Widget.Box({
 
 export const VolumeButton = () => Widget.Button({
     class_name: "normal-button",
-    onClicked: () => ControlPanelTab.setValue("audio"),
+    onClicked: () => ControlPanelTab.setValue("volume"),
     child: VolumeIcon(),
 })
 
@@ -82,7 +82,8 @@ export const VolumeSlider = () => Widget.Box({
     ],
 });
 
-const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
+//const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
+import { ComboBoxText } from '../Global.js';
 const OutputDevices = ComboBoxText({
     //class_name: "normal-button",
 })
@@ -104,34 +105,19 @@ OutputDevices.hook(Audio, self => {
 }, "speaker-changed")
 
 
-// Mic stuff
-//const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
-const inputDevices = ComboBoxText({
-    //class_name: "normal-button",
-})
-inputDevices.on("changed", self => {
-    var streamID = inputDevices.get_active_id()
-    if (streamID == undefined){
-        streamID = 1
-    }
-    Audio.microphone = Audio.getStream(parseInt(streamID))
-})
-inputDevices.hook(Audio, self => {
-    self.remove_all()
-    // Set combobox with output devices
-    for( let i = 0; i < Audio.microphones.length; i++ ){ 
-        let device = Audio.microphones[i]
-        self.append(device.id.toString(), device.stream.port)
-    }
-    inputDevices.set_active_id(Audio.microphone.id.toString())
-}, "microphone-changed")
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
     vertical: true,
     children: [ 
+        Widget.Label({
+            label: "Outputs",
+            hpack: "start",
+        }),
+        Widget.Separator({
+            class_name: "horizontal-separator",
+        }),
         OutputDevices,
-        inputDevices,
     ],
 })
 
