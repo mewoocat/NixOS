@@ -13,6 +13,9 @@
   src = builtins.readFile ./programs/theme/theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
+  # Wallust packaging
+  wallust = pkgs.callPackage ./programs/wallust.nix {};
+
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -132,7 +135,6 @@ in
 
 
     vial
-    spotify
     btop 
     l3afpad
     gthumb
@@ -169,6 +171,12 @@ in
 
     # For Nextcloud client 
     #gnome.gnome-keyring
+
+    wallust # Self packaged
+
+    spotifywm
+    spotify-tray
+
   ];
 
 }

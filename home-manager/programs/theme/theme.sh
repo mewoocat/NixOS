@@ -75,11 +75,11 @@ function setColors(){
     #
     # Generate colorscheme from wallpaper
     if [[ $colorscheme == "" ]]; then
-        ~/NixOS/home-manager/programs/theme/wallust-3.0.0-beta-x86_64-unknown-linux-musl-with-assets/wallust run $wallpaper -p $mode
+        wallust run $wallpaper -p $mode
     # Use provided colorscheme
     else
         colorscheme=~/.config/wal/colorschemes/$mode/$colorscheme.json
-        ~/NixOS/home-manager/programs/theme/wallust-3.0.0-beta-x86_64-unknown-linux-musl-with-assets/wallust cs $colorscheme  
+        wallust cs $colorscheme  
     fi
 
     # Reload GTK theme
