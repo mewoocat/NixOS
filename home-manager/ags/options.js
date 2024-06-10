@@ -5,3 +5,5 @@ export default {
     small: "4",
     large: "8",
 }
+
+

@@ -27,6 +27,8 @@ import { ControlPanelTab, APInfoVisible } from '../variables.js';
 // Options
 import options from '../options.js';
 
+const WINDOW_NAME = "ControlPanel"
+
 
 import Gtk from 'gi://Gtk'
 const grid = new Gtk.Grid()
@@ -224,47 +226,43 @@ const stack = Widget.Stack({
 
 
 
-const content = Widget.Box({
-    class_name: "toggle-window",
-    children: [
-        Widget.Revealer({
-            revealChild: false,
-            transitionDuration: 150,
-            transition: "slide_down",
-            setup: self => {
-                self.hook(App, (self, windowName, visible) => {
-                    if (windowName === "ControlPanel"){
-                        self.revealChild = visible
-                        ControlPanelTab.setValue("main")
-                    }
-                }, 'window-toggled')
-            },
-            child: Widget.Box({
-                children: [
-                    stack,
-                ],
-            }),
-        })
-    ],
+const content = Widget.Revealer({
+    revealChild: false,
+    transitionDuration: 150,
+    transition: "slide_down",
+    setup: self => {
+        self.hook(App, (self, windowName, visible) => {
+            if (windowName === "ControlPanel"){
+                self.revealChild = visible
+                ControlPanelTab.setValue("main")
+            }
+        }, 'window-toggled')
+    },
+    child: Widget.Box({
+        class_name: "toggle-window",
+        children: [
+            stack,
+        ],
+    }),
 })
 
 export const ControlPanelToggleButton = (monitor) => Widget.Button({
     class_name: 'launcher normal-button',
-    on_primary_click: () => {
-        execAsync(`ags -t ControlPanel`)
-    },
+    on_primary_click: () => execAsync(`ags -t ControlPanel`),
     child: Widget.Label({
         label: ""
     }) 
 });
 
 export const ControlPanel = Widget.Window({
-    name: `ControlPanel`,
+    name: WINDOW_NAME,
     visible: false,
+    layer: "overlay",
     keymode: "exclusive",
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     //anchor: ["top", "bottom", "right"], // Debug mode
     exclusivity: 'normal',
-    child: CloseOnClickAway("ControlPanel", content, "top-right")
+    child: CloseOnClickAway("ControlPanel", content, "top-right"),
+    setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME)),
 });
 

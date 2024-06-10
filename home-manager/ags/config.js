@@ -1,6 +1,6 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
-import { forMonitors } from './utils.js';
+import { forMonitors } from './Common.js';
 import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 import { ActivityCenter } from './Windows/ActivityCenter.js';
 import { NotificationPopup } from './Windows/Notification.js';

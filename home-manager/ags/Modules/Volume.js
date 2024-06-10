@@ -82,11 +82,8 @@ export const VolumeSlider = () => Widget.Box({
     ],
 });
 
-//const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
 import { ComboBoxText } from '../Global.js';
-const OutputDevices = ComboBoxText({
-    //class_name: "normal-button",
-})
+const OutputDevices = ComboBoxText({})
 OutputDevices.on("changed", self => {
     var streamID = OutputDevices.get_active_id()
     if (streamID == undefined){
@@ -105,6 +102,37 @@ OutputDevices.hook(Audio, self => {
 }, "speaker-changed")
 
 
+function appVolume(app){
+    return Widget.Box({
+        children: [
+            Widget.Label(app.name),
+            Widget.Slider({
+                class_name: "sliders",
+                hexpand: true,
+                draw_value: false,
+                on_change: ({ value }) => app.volume = value,
+                setup: self => self.hook(Audio, () => {
+                    self.value = app?.volume || 0;
+                }, 'speaker-changed'),
+            }),
+        ]
+    })
+}
+
+// Mixer
+const mixer = Widget.Scrollable({
+    css: 'min-height: 100px',
+    child: Widget.Box({
+        vertical: true,
+    }).hook(Audio, self => {
+        print(Audio.apps)
+        self.children = Audio.apps.map(appVolume)
+    }),
+    setup: self => {
+        self.show_all()
+    } 
+})
+
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
@@ -118,6 +146,15 @@ export const VolumeMenu = () => Widget.Box({
             class_name: "horizontal-separator",
         }),
         OutputDevices,
+
+        Widget.Label({
+            label: "Mixer",
+            hpack: "start",
+        }),
+        Widget.Separator({
+            class_name: "horizontal-separator",
+        }),
+        mixer,
     ],
 })
 
