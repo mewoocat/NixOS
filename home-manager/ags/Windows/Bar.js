@@ -1,7 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
 // Import Modules
-import { BatteryLabel } from '../Modules/Battery.js';
+import { BatteryLabel, BatteryBarButton } from '../Modules/Battery.js';
 import { VolumeIcon } from '../Modules/Volume.js';
 import { WifiIcon, EthernetIcon, NetworkIndicator } from '../Modules/Network.js';
 import { BluetoothIcon } from '../Modules/Bluetooth.js';
@@ -37,6 +37,7 @@ const Right = (monitor) => Widget.Box({
     hpack: 'end',
     spacing: 24,
     children: [
+        //BatteryBarButton(),
         SysTray(), 
         BatteryLabel(), 
         MicrophoneIcon(),

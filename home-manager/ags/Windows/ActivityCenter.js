@@ -71,7 +71,7 @@ export const ActivityCenter = (monitor = 0) => Widget.Window({
     visible: false,
     monitor,
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    anchor: ["top"], // Debug
+    //anchor: ["top"], // Debug
     exclusivity: 'normal',
     child: CloseOnClickAway("ActivityCenter", container(), "top-center"),
 });

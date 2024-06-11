@@ -58,6 +58,7 @@ export const BatteryLabel = () => Widget.Box({
     ],
 });
 
+
 export const BatteryCircle = () => Widget.CircularProgress({
     class_name: "battery-circle",
     start_at: 0.25,
@@ -82,4 +83,18 @@ export const BatteryWidget = (w, h) => Widget.Box({
             ]
         }),
     ]
+})
+
+const batteryMenu = Widget.Menu({
+    children: [
+        Widget.MenuItem({
+            child: BatteryCircle(),
+        }),
+    ],
+})
+
+export const BatteryBarButton = () => Widget.Button({
+    class_name: "normal-button",
+    child: BatteryLabel(),
+    on_primary_click: (_, event) => batteryMenu.popup_at_pointer(event),
 })
