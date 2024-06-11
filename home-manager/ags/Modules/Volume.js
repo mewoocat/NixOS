@@ -3,6 +3,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Gtk from 'gi://Gtk'
 import GObj from 'gi://GObject'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { ControlPanelTab } from '../variables.js';
 
 import { GPUTemp } from '../variables.js';
@@ -103,6 +104,7 @@ OutputDevices.hook(Audio, self => {
 
 
 function appVolume(app){
+    //const level = Variable(app.volume)
     return Widget.Box({
         children: [
             Widget.Label(app.name),
@@ -111,9 +113,7 @@ function appVolume(app){
                 hexpand: true,
                 draw_value: false,
                 on_change: ({ value }) => app.volume = value,
-                setup: self => self.hook(Audio, () => {
-                    self.value = app?.volume || 0;
-                }, 'speaker-changed'),
+                value: app.bind("volume"),
             }),
         ]
     })
@@ -124,13 +124,8 @@ const mixer = Widget.Scrollable({
     css: 'min-height: 100px',
     child: Widget.Box({
         vertical: true,
-    }).hook(Audio, self => {
-        print(Audio.apps)
-        self.children = Audio.apps.map(appVolume)
-    }),
-    setup: self => {
-        self.show_all()
-    } 
+        children: Audio.bind("apps").as(v => v.map(appVolume))
+    })
 })
 
 
@@ -147,6 +142,14 @@ export const VolumeMenu = () => Widget.Box({
         }),
         OutputDevices,
 
+        Widget.Label({
+            label: "Master",
+            hpack: "start",
+        }),
+        Widget.Separator({
+            class_name: "horizontal-separator",
+        }),
+        VolumeSlider(),
         Widget.Label({
             label: "Mixer",
             hpack: "start",
