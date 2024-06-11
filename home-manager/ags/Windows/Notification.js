@@ -99,6 +99,7 @@ export const Notification = n => {
     });
 };
 
+import { dndToggle } from '../Modules/Notification.js'
 export const NotificationWidget = (w,h) => Widget.Box({
     css: `
         min-width: ${w}rem;
@@ -110,6 +111,7 @@ export const NotificationWidget = (w,h) => Widget.Box({
             startWidget: Widget.Label({
                 label: "Notifications",
             }),
+            centerWidget: dndToggle,
             endWidget: Widget.Button({
                 class_name: "normal-button",
                 on_primary_click: () => Notifications.clear(),
