@@ -14,4 +14,16 @@ export const Calendar = Widget.Calendar({
     showDayNames: false,
     showHeading: true,
     hpack: "center",
+    vpack: "center",
 });
+
+export const CalendarContainer = (w, h) => Widget.Box({
+    class_name: "control-panel-button",
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
+    children: [
+        Calendar,
+    ],
+})

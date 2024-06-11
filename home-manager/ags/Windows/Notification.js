@@ -118,6 +118,7 @@ export const NotificationWidget = (w,h) => Widget.Box({
                 child: Widget.Label({label: "close all"}),
             }),
         }),
+        Widget.Separator({class_name: "horizontal-separator"}),
         Widget.Scrollable({
             hscroll: 'never',
             vscroll: 'always',
@@ -128,6 +129,11 @@ export const NotificationWidget = (w,h) => Widget.Box({
                 vertical: true,
                 spacing: 8,
                 children: Notifications.bind('notifications').transform(notifications => {
+                    print("notif = " + notifications.length)
+                    if (notifications.length == 0){
+                        print("empty")
+                        return [ Widget.Label("All caught up :)") ]
+                    }
                     return notifications.map(Notification).reverse();
                 }),
             }),
