@@ -11,7 +11,7 @@ import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
 import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices } from '../Modules/Bluetooth.js';
+import { BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
@@ -195,6 +195,18 @@ const bluetoothContainer = () => Widget.Box({
     ],
 })
 
+const bluetoothDevice = () => Widget.Box({
+    vertical: true,
+    vexpand: false,
+    children: [
+        Widget.CenterBox({
+            startWidget: BluetoothStatus(),
+            endWidget: BackButton("bluetooth"),
+        }),
+        BluetoothDevice()
+    ],
+})
+
 const ThemeContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
@@ -214,6 +226,7 @@ const stack = Widget.Stack({
         'volume': volumeContainer(),
         'microphone': microphoneContainer(),
         'bluetooth': bluetoothContainer(),
+        'bluetoothDevice': bluetoothDevice(),
         'theme': ThemeContainer(),
     },
     transition: "slide_left_right",

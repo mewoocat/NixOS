@@ -23,3 +23,12 @@ export const ClientIcon = () => Widget.Icon({
             return "AppImageLauncher" 
         }
 })
+
+export const ToggleScratchpad = () => Widget.Button({
+    class_name: "normal-button",
+    on_primary_click: () => Hyprland.messageAsync(`dispatch togglespecialworkspace`),
+    child: Widget.Icon({
+        size: 20,
+        icon: "focus-windows-symbolic",
+    })
+})

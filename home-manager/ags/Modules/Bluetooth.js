@@ -2,7 +2,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 
-import { ControlPanelTab, BluetoothInfoVisible } from '../variables.js';
+import { ControlPanelTab, CurrentDevice } from '../variables.js';
 
 var devices = []
 
@@ -71,8 +71,9 @@ function device(d){
     return Widget.Button({ 
         class_name: "normal-button",
         onPrimaryClick: () => {
-            BluetoothInfoVisible.value = true
             CurrentDevice.value = d
+
+            ControlPanelTab.setValue("bluetoothDevice")
         }, 
         child: Widget.CenterBox({
             startWidget: Widget.Label({
@@ -139,7 +140,6 @@ export const BluetoothConnectedDevices = () => Widget.Box({
     
 
 export const BluetoothStatus = () => Widget.Box({
-
     children: [
         BluetoothButton(),
         Widget.Label({
@@ -156,6 +156,28 @@ export const BluetoothStatus = () => Widget.Box({
     ]
 })
 
+
+export const BluetoothDevice = () => Widget.Box({
+    vertical: true,
+    children: [
+        Widget.Label({
+            hpack: "start",
+            label: CurrentDevice.bind().as(d => d.name),
+        }),
+        Widget.Separator({class_name: "horizontal-separator"}),
+        Widget.Button({
+            class_name: "normal-button",
+            onPrimaryClick: () => { 
+                let device = Bluetooth.getDevice(CurrentDevice.value.address)
+                device.setConnection(true)
+                //CurrentDevice.value.setConnection(true)
+            },
+            child: Widget.Label({
+                label: "Connect"
+            })
+        }),
+    ]
+})
 
 
 
