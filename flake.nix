@@ -16,6 +16,7 @@
 
     # AGS
     ags.url = "github:Aylur/ags";
+    #ags.url = "github:mewoocat/ags-testing";
 
     # Matugen
     matugen = {
