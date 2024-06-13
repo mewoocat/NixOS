@@ -66,6 +66,17 @@ window:has(menu){
     opacity: 0;
 }
 
+switch{
+    //min-height: 0.6rem;
+    border-radius: 1rem;
+    background-color: $bg1;
+}
+
+switch slider {
+    border-radius: 1rem;
+    background-color: $accent1;
+}
+
 
 // Bar
 ////////////////////////////////////////////////////////////////////////////

@@ -177,6 +177,9 @@ in
     spotifywm
     spotify-tray
 
+    gnome.gnome-bluetooth_1_0
+    blueman
+
   ];
 
 }

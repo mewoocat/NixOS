@@ -142,6 +142,12 @@ export const BluetoothConnectedDevices = () => Widget.Box({
 export const BluetoothStatus = () => Widget.Box({
     children: [
         BluetoothButton(),
+        Widget.Switch({
+            vpack: "center",
+            //active: Bluetooth.bind("enabled"), // Causes switch to flicker
+            onActivate: ({ active }) => Bluetooth.enabled = active,
+        }),
+        /*
         Widget.Label({
             label: Bluetooth.bind("connectedDevices").as(d => {
                 if (d.length > 0){
@@ -153,6 +159,7 @@ export const BluetoothStatus = () => Widget.Box({
             })
             //label: "Status",
         }),
+        */
     ]
 })
 
@@ -160,6 +167,7 @@ export const BluetoothStatus = () => Widget.Box({
 export const BluetoothDevice = () => Widget.Box({
     vertical: true,
     children: [
+        Widget.Switch(),
         Widget.Label({
             hpack: "start",
             label: CurrentDevice.bind().as(d => d.name),
