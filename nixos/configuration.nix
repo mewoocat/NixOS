@@ -102,6 +102,9 @@ in{
     jack.enable = true;
   };
 
+  programs.coolercontrol.enable = true;
+  programs.coolercontrol.nvidiaSupport = true;
+
 
   ### Services ###
 

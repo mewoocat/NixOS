@@ -144,8 +144,13 @@ export const BluetoothStatus = () => Widget.Box({
         BluetoothButton(),
         Widget.Switch({
             vpack: "center",
-            //active: Bluetooth.bind("enabled"), // Causes switch to flicker
-            onActivate: ({ active }) => Bluetooth.enabled = active,
+            active: Bluetooth.bind("enabled"), // Causes switch to flicker
+            //onActivate: ({ active }) => Bluetooth.enabled = active,
+            setup: (self) => {
+                self.on("notify::active", () => {
+                    Bluetooth.enabled = self.active
+                })
+            },
         }),
         /*
         Widget.Label({
