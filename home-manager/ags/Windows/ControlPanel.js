@@ -192,6 +192,7 @@ const bluetoothContainer = () => Widget.Box({
         }),
         BluetoothDevices(),
         BluetoothConnectedDevices(),
+
     ],
 })
 

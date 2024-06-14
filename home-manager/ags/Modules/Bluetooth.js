@@ -84,9 +84,6 @@ function device(d){
             endWidget: Widget.Box({
                 hpack: "end",
                 children: [
-                    Widget.Switch({
-                        active: d.connected,
-                    }),
                     Widget.Icon({
                         icon: d.iconName + '-symbolic',
                     }),
@@ -156,6 +153,8 @@ export const BluetoothStatus = () => Widget.Box({
                     Bluetooth.enabled = self.active
                 })
                 */
+                
+                // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
                 self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
             },
         }),
