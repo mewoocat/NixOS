@@ -150,15 +150,7 @@ export const BluetoothStatus = () => Widget.Box({
         BluetoothButton(),
         Widget.Switch({
             vpack: "center",
-            //active: Bluetooth.bind("enabled"), // Causes switch to flicker
-            //onActivate: ({ active }) => Bluetooth.enabled = active,
             setup: (self) => {
-                /*
-                self.on("notify::active", () => {
-                    Bluetooth.enabled = self.active
-                })
-                */
-                
                 // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
                 self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
             },

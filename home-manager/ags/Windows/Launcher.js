@@ -50,6 +50,7 @@ export const LauncherButton = () => Widget.Button({
     hpack: "start",
     on_primary_click: () => execAsync(`ags -t applauncher`), //toggleLauncherWindow(),
     child: Widget.Icon({
+        size: 20,
         icon: 'distributor-logo-nixos',
     }),
 });
