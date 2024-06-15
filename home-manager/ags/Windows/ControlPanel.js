@@ -1,9 +1,7 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 // Modules
@@ -26,6 +24,7 @@ import { ControlPanelTab, APInfoVisible } from '../variables.js';
 
 // Options
 import options from '../options.js';
+import icons from '../icons.js';
 
 const WINDOW_NAME = "ControlPanel"
 
@@ -99,7 +98,7 @@ const bottom = Widget.Box({
             },
             child: Widget.Icon({
                 size: 20,
-                icon: "preferences-system-symbolic",
+                icon: icons.settings,
             })
         })
     ],
