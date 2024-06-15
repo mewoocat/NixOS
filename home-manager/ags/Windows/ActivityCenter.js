@@ -2,7 +2,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { Clock, Calendar, CalendarContainer } from '../Modules/DateTime.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import { NotificationWidget } from './Notification.js';
+import { NotificationWidget } from '../Modules/Notification.js';
 import { Media } from '../Modules/Media.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';

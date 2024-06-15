@@ -3,7 +3,7 @@ import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { forMonitors } from './Common.js';
 import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 import { ActivityCenter } from './Windows/ActivityCenter.js';
-import { NotificationPopup } from './Windows/Notification.js';
+import { NotificationPopup } from './Windows/NotificationPopups.js';
 import { Dock } from './Windows/Dock.js';
 import { Lockscreen } from './Windows/Lockscreen.js';
 import { Launcher } from './Windows/Launcher.js';
