@@ -73,6 +73,41 @@ grid3B.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
 // Row 4
+
+const bottom = Widget.Box({
+    css: `
+        min-height: 32px;
+    `,
+    class_name: "container",
+    children: [
+        Widget.Button({
+            class_name: "normal-button",
+            on_primary_click: () => {
+                Utils.subprocess(
+                    // command to run, in an array just like execAsync
+                    ['bash', '-c', `${App.ConfigDir}/Windows/Settings.js`],
+
+                    // callback when the program outputs something to stdout
+                    (output) => print(output),
+
+                    // callback on error
+                    (err) => logError(err),
+
+                    // optional widget parameter
+                    // if the widget is destroyed the subprocess is forced to quit
+                    //widget,
+                )
+            },
+            child: Widget.Icon({
+                size: 20,
+                icon: "preferences-system-symbolic",
+            })
+        })
+    ],
+})
+grid.attach(bottom, 1,4,2,1)
+
+
 const BackButton = (dst = "main") => Widget.Button({
     class_name: `normal-button`,
     //hexpand: true,
