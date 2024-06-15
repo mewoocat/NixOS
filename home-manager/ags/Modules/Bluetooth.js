@@ -181,7 +181,12 @@ export const BluetoothDevice = () => Widget.Box({
         }),
         Widget.Label({
             hpack: "start",
-            label: CurrentDevice.bind().as(d => "Paired? " + d.paired.toString()),
+            label: CurrentDevice.bind().as(d => {
+                if (d.paired != null){
+                    return "Paired? " + d.paired.toString()
+                }
+                return "Paired? N/A"
+            }),
         }),
         Widget.Separator({class_name: "horizontal-separator"}),
         Widget.Button({

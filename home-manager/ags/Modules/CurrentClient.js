@@ -3,7 +3,12 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 export const ClientTitle = () => Widget.Label({
     class_name: 'client-title',
-    label: Hyprland.active.client.bind('class').as(v => v[0].toUpperCase() + v.slice(1)),
+    label: Hyprland.active.client.bind('class').as(v => {
+        if (v.length > 0){
+            return v[0].toUpperCase() + v.slice(1)
+        }
+        return ""
+    }),
 });
 
 export const ClientIcon = () => Widget.Icon({

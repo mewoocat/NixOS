@@ -58,7 +58,9 @@ inputDevices.hook(Audio, self => {
         let device = Audio.microphones[i]
         self.append(device.id.toString(), device.stream.port)
     }
-    inputDevices.set_active_id(Audio.microphone.id.toString())
+    if (Audio.microphone.id != null){
+        inputDevices.set_active_id(Audio.microphone.id.toString())
+    }
 }, "microphone-changed")
 
 // Volume menu

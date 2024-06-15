@@ -229,9 +229,27 @@ const passwordEntry = Widget.Entry({
 export const APInfo = () => Widget.Box({
     vertical: true,
     children: [
-        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "SSID: " + CurrentAP.value.ssid.toString()}),
-        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Frequency: " + CurrentAP.value.frequency.toString()}),
-        Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Strength: " + CurrentAP.value.strength.toString()}),
+        Widget.Label({
+            hpack: "start",
+            label: CurrentAP.bind().as(v => {
+                if (v.ssid != null) { return "SSID: " + v.ssid.toString()}
+                return "SSID: N/A"
+            }),
+        }),
+        Widget.Label({
+            hpack: "start",
+            label: CurrentAP.bind().as(v => {
+                if (v.frequency != null) { return "SSID: " + v.frequency.toString()}
+                return "Frequency: N/A"
+            }),
+        }),
+        Widget.Label({
+            hpack: "start",
+            label: CurrentAP.bind().as(v => {
+                if (v.strength != null) { return "Strength: " + v.strength.toString()}
+                return "SSID: N/A"
+            }),
+        }),
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Address: " + CurrentAP.value.address.toString()}),
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "BSSID: " + CurrentAP.value.bssid.toString()}),
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
