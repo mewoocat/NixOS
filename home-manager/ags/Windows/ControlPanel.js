@@ -85,13 +85,13 @@ const bottom = Widget.Box({
             on_primary_click: () => {
                 Utils.subprocess(
                     // command to run, in an array just like execAsync
-                    ['bash', '-c', `${App.ConfigDir}/Windows/Settings.js`],
+                    ['bash', '-c', `${App.configDir}/Windows/Settings.js`],
 
                     // callback when the program outputs something to stdout
                     (output) => print(output),
 
                     // callback on error
-                    (err) => logError(err),
+                    (err) => print("Error: " + err),
 
                     // optional widget parameter
                     // if the widget is destroyed the subprocess is forced to quit
