@@ -3,6 +3,12 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 
 const WINDOW_NAME = 'applauncher';
 
+// repopulate the box, so the most frequent apps are on top of the list
+function repopulate() {
+    applications = Applications.query('').map(AppItem);
+    list.children = applications;
+}
+
 /** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
 const AppItem = app => Widget.Button({
     class_name: "app-button",
@@ -37,12 +43,14 @@ const entry = Widget.Entry({
     css: `margin-bottom: 8px;`,
 
     // to launch the first item on Enter
-    on_accept: ({ text }) => {
-        applications = Applications.query(text || '');
+    on_accept: (self) => {
+        applications = Applications.query(self.text || '');
         if (applications[0]) {
             App.toggleWindow(WINDOW_NAME); //Todo: get name from const
             applications[0].launch();
         }
+        repopulate()
+        self.text = ""
     },
 
     // filter out the list
@@ -60,9 +68,11 @@ const entry = Widget.Entry({
 // Highlight first item when entry is selected
 // 'notify::"property"' is a event that gobjects send for each property
 // https://gjs-docs.gnome.org/gtk30~3.0/gtk.widget
+/*
 entry.on('notify::has-focus', ({ hasFocus }) => {
     list.toggleClassName("first-item", hasFocus)
 })
+*/
 
 
 // list of application buttons
@@ -83,11 +93,7 @@ const appScroller = Widget.Scrollable({
     child: list,
 })
 
-// repopulate the box, so the most frequent apps are on top of the list
-function repopulate() {
-    applications = Applications.query('').map(AppItem);
-    list.children = applications;
-}
+
 
 // App searcher and list
 export const AppLauncher = (WINDOW_NAME) => Widget.Box({
