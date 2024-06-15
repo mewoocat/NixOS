@@ -2,6 +2,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 
+import GObject from 'gi://GObject'
 import { ControlPanelTab, CurrentDevice } from '../variables.js';
 
 var devices = []
@@ -149,12 +150,17 @@ export const BluetoothStatus = () => Widget.Box({
         BluetoothButton(),
         Widget.Switch({
             vpack: "center",
-            active: Bluetooth.bind("enabled"), // Causes switch to flicker
+            //active: Bluetooth.bind("enabled"), // Causes switch to flicker
             //onActivate: ({ active }) => Bluetooth.enabled = active,
             setup: (self) => {
+                /*
                 self.on("notify::active", () => {
                     Bluetooth.enabled = self.active
                 })
+                */
+                
+                // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
+                self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
             },
         }),
         /*
@@ -177,7 +183,6 @@ export const BluetoothStatus = () => Widget.Box({
 export const BluetoothDevice = () => Widget.Box({
     vertical: true,
     children: [
-        Widget.Switch(),
         Widget.Label({
             hpack: "start",
             label: CurrentDevice.bind().as(d => d.name),
