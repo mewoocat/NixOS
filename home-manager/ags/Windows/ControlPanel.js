@@ -190,8 +190,8 @@ const bluetoothContainer = () => Widget.Box({
             startWidget: BluetoothStatus(),
             endWidget: BackButton(),
         }),
-        BluetoothDevices(),
         BluetoothConnectedDevices(),
+        BluetoothDevices(),
     ],
 })
 

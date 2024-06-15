@@ -72,7 +72,6 @@ function device(d){
         class_name: "normal-button",
         onPrimaryClick: () => {
             CurrentDevice.value = d
-
             ControlPanelTab.setValue("bluetoothDevice")
         }, 
         child: Widget.CenterBox({
@@ -107,17 +106,24 @@ export const BluetoothDevices = () => Widget.Box({
             child: Widget.Box({
                 vertical: true,
             }).hook(Bluetooth, self => {
-                self.children = Bluetooth.devices.map(device)
+                self.children = Bluetooth.devices
+                    .filter((d) => d.connected == false)
+                    .map(device)
             })
         })
-
     ]
-})
-    
+}) 
 
 
 export const BluetoothConnectedDevices = () => Widget.Box({
     vertical: true,
+    // Hides this widget if no devices are connected
+    visible: Bluetooth.bind("connectedDevices").as(v => {
+        if (v.length > 0){
+            return true
+        }
+        return false
+    }),
     children: [
         Widget.Label({
             hpack: "start",
@@ -125,9 +131,8 @@ export const BluetoothConnectedDevices = () => Widget.Box({
         }),
         Widget.Scrollable({
             css: `
-                min-height: 100px;
+                min-height: 32px;
             `,
-            vexpand: true,
             child: Widget.Box({
                 vertical: true,
             }).hook(Bluetooth, self => {
@@ -177,6 +182,10 @@ export const BluetoothDevice = () => Widget.Box({
             hpack: "start",
             label: CurrentDevice.bind().as(d => d.name),
         }),
+        Widget.Label({
+            hpack: "start",
+            label: CurrentDevice.bind().as(d => "Paired? " + d.paired.toString()),
+        }),
         Widget.Separator({class_name: "horizontal-separator"}),
         Widget.Button({
             class_name: "normal-button",
@@ -187,6 +196,18 @@ export const BluetoothDevice = () => Widget.Box({
             },
             child: Widget.Label({
                 label: "Connect"
+            })
+        }),
+        Widget.Button({
+            class_name: "normal-button",
+            onPrimaryClick: () => { 
+                let device = Bluetooth.getDevice(CurrentDevice.value.address)
+                print(device.name)
+                print(device.paired)
+                device.paired = false
+            },
+            child: Widget.Label({
+                label: "Remove"
             })
         }),
     ]
