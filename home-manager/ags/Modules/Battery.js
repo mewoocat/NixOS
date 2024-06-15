@@ -32,7 +32,7 @@ export const BatteryLabel = () => Widget.Box({
                 Widget.Label({
                     class_name: "battery-fg"
                 }).hook(Battery, label => {
-                    print("bat: " + Battery.energy)
+                    //print("bat: " + Battery.energy + " W")
                     if (Battery.charging){
                         label.label = ""
                     }

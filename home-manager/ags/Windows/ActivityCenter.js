@@ -3,20 +3,15 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { Clock, Calendar, CalendarContainer } from '../Modules/DateTime.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { NotificationWidget } from '../Modules/Notification.js';
-import { Media } from '../Modules/Media.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { CloseOnClickAway } from '../Common.js';
 import { Weather } from '../Modules/Weather.js';
 
-//grid.attach(Widget, col, row, width, height)
 import Gtk from 'gi://Gtk';
+// Usage: grid.attach(Widget, col, row, width, height)
 const grid = new Gtk.Grid()
 grid.attach(CalendarContainer(12, 12), 1, 1, 1, 1)
 grid.attach(Weather(12, 12), 1, 2, 1, 1)
-//grid.attach(NotificationWidget(24,12), 2, 1, 1, 1)
-//grid.attach(Media, 2, 2, 1, 1)
-
 
 const container = () => Widget.Box({
     class_name: "",
@@ -58,7 +53,6 @@ const container = () => Widget.Box({
         })
     })
 });
-
 
 export const ActivityCenterButton = () => Widget.Button({
     class_name: 'launcher normal-button',

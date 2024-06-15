@@ -2,13 +2,13 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { Notification } from '../Modules/Notification.js';
 
-export const NotificationPopup = Widget.Window({
+// Window in which popup notifications are displayed
+export const NotificationPopup = () => Widget.Window({
     name: 'notifications',
     anchor: ['bottom', 'right'],
     child: Widget.Box({
         css: `padding: 1px;`,
         children: [
-            //Widget.Label({label: "close all"}),
             Widget.Box({
                 class_name: 'notifications',
                 vertical: true,

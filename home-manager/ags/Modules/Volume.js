@@ -30,8 +30,6 @@ export const VolumeIcon = () => Widget.Box({
                 Widget.Label({
                     
                 }).hook(Audio, self => {
-
-                    print("gpu " + GPUTemp.value)
                     if (!Audio.speaker)
                         return;
 

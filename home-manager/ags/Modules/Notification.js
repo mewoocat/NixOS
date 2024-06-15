@@ -4,8 +4,6 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
-    print(app_entry)
-    print(app_icon)
     /*
     if (image) {
         return Widget.Box({
@@ -99,7 +97,6 @@ export const Notification = n => {
     });
 };
 
-
 export const dndToggle = Widget.Button({
     class_name: "normal-button",
     onPrimaryClick: () => Notifications.dnd = !Notifications.dnd,
@@ -143,9 +140,7 @@ export const NotificationWidget = (w,h) => Widget.Box({
                 vertical: true,
                 spacing: 8,
                 children: Notifications.bind('notifications').transform(notifications => {
-                    print("notif = " + notifications.length)
                     if (notifications.length == 0){
-                        print("empty")
                         return [ Widget.Label("All caught up :)") ]
                     }
                     return notifications.map(Notification).reverse();

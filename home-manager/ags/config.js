@@ -18,7 +18,8 @@ const display = new Gdk.Display()
 
 // Add icons in assets to icon set
 import Gtk from 'gi://Gtk';
-Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
+//Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
+App.addIcons(`${App.configDir}/assets`)
 
 // main scss file
 const scss = `${App.configDir}/Style/style.scss`
@@ -48,14 +49,14 @@ App.config({
     // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
     // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
     windows: [
-        Launcher, 
+        Launcher(), 
         //...forMonitors(Bar), 
         Bar(),
         Lockscreen(), 
-        ControlPanel,
+        ControlPanel(),
         ActivityCenter(),
-        NotificationPopup, 
-        Dock()
+        NotificationPopup(), 
+        //Dock()
     ],
 });
 

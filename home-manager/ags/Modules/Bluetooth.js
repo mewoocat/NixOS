@@ -207,8 +207,6 @@ export const BluetoothDevice = () => Widget.Box({
             class_name: "normal-button",
             onPrimaryClick: () => { 
                 let device = Bluetooth.getDevice(CurrentDevice.value.address)
-                print(device.name)
-                print(device.paired)
                 device.paired = false
             },
             child: Widget.Label({

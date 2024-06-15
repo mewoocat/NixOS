@@ -68,7 +68,6 @@ const grid3B = new Gtk.Grid()
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
 grid3B.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
-//grid3B.attach(DisplayButton(options.small, options.small), 2, 2, 1, 1)
 grid3B.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
 grid.attach(grid3B, 2, 3, 1, 1)
 
@@ -302,7 +301,7 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
     }) 
 });
 
-export const ControlPanel = Widget.Window({
+export const ControlPanel = () => Widget.Window({
     name: WINDOW_NAME,
     visible: false,
     layer: "overlay",

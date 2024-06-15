@@ -69,11 +69,13 @@ const appButton = (client = null) => Widget.Button({
                             }, 'event')
                         }
                     }),
+                    /*
                     Widget.Icon({
                         class_name: 'client-icon',
                         css: 'font-size: 3rem;',
                         icon: client.class,
                     }),         
+                    */
                 ],
             }),
             Widget.Label({

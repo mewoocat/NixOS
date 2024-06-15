@@ -1,0 +1,75 @@
+
+// Common
+////////////////////////////////////////////////////////////////////////////
+*{
+    all: unset;
+    padding: 0px;
+    margin: 0px;
+    color: $fg;
+}
+
+.recording > *{
+    color: red;
+}
+
+.container{
+    border-radius: 1rem;
+    background-color: rgba($bg1, $lowOpacity);
+}
+
+.toggle-window{
+    background-color: rgba($bg0, $mediumOpacity);
+    border-radius: 1rem;
+    border-color: rgba(64, 64, 64, 0.42);
+    border-width: 1px;
+    border-style: solid;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.round-left{
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.round-right{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+tooltip{
+    padding: 1.2rem;
+    border-radius: 1rem;
+    background-color: rgba($bg0, $lowOpacity);
+}
+
+.horizontal-separator{
+    min-height: 1px;
+    background-color: $fg; 
+    border-radius: 1rem;
+}
+
+/*
+window:has(menu){
+
+}
+*/
+
+.dim{
+    color: rgb(108, 108, 108);
+}
+
+.invisible{
+    opacity: 0;
+}
+
+switch{
+    //min-height: 0.6rem;
+    border-radius: 1rem;
+    background-color: $bg1;
+}
+
+switch slider {
+    border-radius: 1rem;
+    background-color: $accent1;
+}

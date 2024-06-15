@@ -55,7 +55,7 @@ export const LauncherButton = () => Widget.Button({
 });
 
 
-export const Launcher = Widget.Window({
+export const Launcher = () => Widget.Window({
     name: WINDOW_NAME,
     visible: false,
     layer: "overlay",
