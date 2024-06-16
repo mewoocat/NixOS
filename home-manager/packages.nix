@@ -180,6 +180,15 @@ in
     gnome.gnome-bluetooth_1_0
     blueman
 
+    wezterm
+    foot
+    gnome.gnome-terminal
+    gnome-console
+    tilix
+
+    gnome.nautilus
+    nix-software-center
+
   ];
 
 }
