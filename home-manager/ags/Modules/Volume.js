@@ -4,7 +4,7 @@ import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Gtk from 'gi://Gtk'
 import GObj from 'gi://GObject'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import { ControlPanelTab } from '../variables.js';
+import { ControlPanelTab } from '../Global.js';
 
 import { GPUTemp } from '../variables.js';
 

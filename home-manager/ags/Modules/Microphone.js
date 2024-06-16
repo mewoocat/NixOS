@@ -1,7 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Gtk from 'gi://Gtk'
-import { ControlPanelTab } from '../variables.js';
+import { ControlPanelTab } from '../Global.js';
 
 export const MicrophoneIcon = () => Widget.Icon({
     size: 20,

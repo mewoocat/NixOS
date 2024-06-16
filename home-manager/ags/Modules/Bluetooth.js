@@ -1,9 +1,12 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
+import { ControlPanelTab } from '../Global.js';
 
 import GObject from 'gi://GObject'
-import { ControlPanelTab, CurrentDevice } from '../variables.js';
+
+// Holds current bluetooth device selected
+export const CurrentDevice = Variable({}, {})
 
 var devices = []
 

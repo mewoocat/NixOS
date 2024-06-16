@@ -1,5 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { ControlPanelTab } from '../variables.js';
+import { ControlPanelTab } from '../Global.js';
 
 export const ThemeButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",

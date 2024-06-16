@@ -35,10 +35,8 @@ export const storage = Variable(0, {
 });
 
 
-export const ControlPanelTab = Variable("main", {})
+//export const ControlPanelTab = Variable("main", {})
 
-// Holds current bluetooth device selected
-export const CurrentDevice = Variable({}, {})
 
 import App from 'resource:///com/github/Aylur/ags/app.js';
 // Read in user settings
