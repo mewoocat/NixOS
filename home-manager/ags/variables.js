@@ -35,9 +35,6 @@ export const storage = Variable(0, {
 });
 
 
-//export const ControlPanelTab = Variable("main", {})
-
-
 import App from 'resource:///com/github/Aylur/ags/app.js';
 // Read in user settings
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))

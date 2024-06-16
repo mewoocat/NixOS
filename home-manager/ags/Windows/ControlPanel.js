@@ -9,7 +9,7 @@ import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
 import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
 import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
@@ -218,6 +218,7 @@ const bluetoothContainer = () => Widget.Box({
             startWidget: BluetoothStatus(),
             endWidget: BackButton(),
         }),
+        Refresh(),
         BluetoothConnectedDevices(),
         BluetoothDevices(),
     ],
@@ -299,9 +300,9 @@ export const ControlPanel = () => Widget.Window({
     name: WINDOW_NAME,
     visible: false,
     layer: "overlay",
-    keymode: "exclusive",
-    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    //anchor: ["top", "bottom", "right"], // Debug mode
+    //keymode: "exclusive",
+    //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top", "bottom", "right"], // Debug mode
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right"),
     setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME)),

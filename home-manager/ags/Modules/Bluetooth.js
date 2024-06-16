@@ -1,7 +1,9 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { ControlPanelTab } from '../Global.js';
+import icons from '../icons.js';
 
 import GObject from 'gi://GObject'
 
@@ -172,6 +174,16 @@ export const BluetoothStatus = () => Widget.Box({
         }),
         */
     ]
+})
+
+export const Refresh = () => Widget.Button({
+    class_name: "normal-button",
+    // Scan for bt devices
+    on_primary_click: () => execAsync("bluetoothctl --timeout 10 scan on"),
+    child: Widget.Icon({
+        size: 20,
+        icon: icons.refresh,
+    }),
 })
 
 
