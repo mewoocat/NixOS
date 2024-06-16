@@ -20,7 +20,8 @@ import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 
 // Variables
-import { ControlPanelTab, APInfoVisible } from '../variables.js';
+//import { ControlPanelTab } from '../variables.js';
+import { ControlPanelTab } from '../Global.js';
 
 // Options
 import options from '../options.js';
@@ -76,11 +77,13 @@ const bottom = Widget.Box({
     css: `
         min-height: 32px;
     `,
-    class_name: "container",
+    class_name: `control-panel-button`,
     children: [
         Widget.Button({
             class_name: "normal-button",
             on_primary_click: () => {
+                //ControlPanelTab.setValue("main")
+                App.closeWindow("ControlPanel")
                 Utils.subprocess(
                     // command to run, in an array just like execAsync
                     ['bash', '-c', `${App.configDir}/Windows/Settings.js`],
@@ -111,7 +114,6 @@ const BackButton = (dst = "main") => Widget.Button({
     //hexpand: true,
     onClicked: () => {
         ControlPanelTab.setValue(dst)
-        APInfoVisible.value = false
     },
     child: Widget.Label({
         label: "Back",
@@ -174,16 +176,9 @@ const networkContainer = () => Widget.Box({
         Widget.Box({
             vexpand: true,
             vertical: true,
-            setup: self => {
-                self.hook(APInfoVisible, self => {
-                    if (APInfoVisible.value == true){
-                        self.children = [ APInfo() ] 
-                    }
-                    else{
-                        self.children = [ WifiList() ]
-                    }
-                })
-            },
+            children: [
+                WifiList(),
+            ],
         })
     ],
 })

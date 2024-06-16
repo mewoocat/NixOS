@@ -36,11 +36,6 @@ export const storage = Variable(0, {
 
 
 export const ControlPanelTab = Variable("main", {})
-export const APInfoVisible = Variable(false, {})
-
-
-// Holds current wifi access point selected
-export const CurrentAP = Variable({}, {})
 
 // Holds current bluetooth device selected
 export const CurrentDevice = Variable({}, {})

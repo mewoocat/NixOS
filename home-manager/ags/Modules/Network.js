@@ -1,7 +1,10 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import { ControlPanelTab, APInfoVisible, CurrentAP } from '../variables.js';
+import { ControlPanelTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
+
+// Holds current wifi access point selected
+const CurrentAP = Variable({}, {})
 
 // Globals
 var apPassword = ""
