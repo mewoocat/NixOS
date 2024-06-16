@@ -27,6 +27,11 @@
     margin: 1rem;
 }
 
+.normal-window{
+    background-color: rgba($bg0, $mediumOpacity);
+    padding: 1rem;
+}
+
 .round-left{
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
@@ -73,3 +78,10 @@ switch slider {
     border-radius: 1rem;
     background-color: $accent1;
 }
+
+.header{
+    font-size: 24px;
+    margin: 1rem;
+    font-weight: bold;
+}
+

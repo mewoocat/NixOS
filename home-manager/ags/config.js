@@ -9,6 +9,7 @@ import { Lockscreen } from './Windows/Lockscreen.js';
 import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
+import { Settings } from './Windows/Settings.js';
 
 // GDK Display
 import Gdk from 'gi://Gdk'
@@ -55,6 +56,7 @@ App.config({
         ControlPanel(),
         ActivityCenter(),
         NotificationPopup(), 
+        Settings(),
         //Dock()
     ],
 });

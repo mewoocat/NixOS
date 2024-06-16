@@ -18,6 +18,7 @@ import { PowerProfilesButton } from '../Modules/Power.js';
 import { NightLightButton } from '../Modules/NightLight.js';
 import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
+import { Settings } from '../Windows/Settings.js';
 
 // Variables
 //import { ControlPanelTab } from '../variables.js';
@@ -84,6 +85,14 @@ const bottom = Widget.Box({
             on_primary_click: () => {
                 //ControlPanelTab.setValue("main")
                 App.closeWindow("ControlPanel")
+
+                App.closeWindow("Settings")
+                App.openWindow("Settings")
+
+                
+
+                //App.openWindow("Settings")
+                /*
                 Utils.subprocess(
                     // command to run, in an array just like execAsync
                     ['bash', '-c', `${App.configDir}/Windows/Settings.js`],
@@ -98,6 +107,7 @@ const bottom = Widget.Box({
                     // if the widget is destroyed the subprocess is forced to quit
                     //widget,
                 )
+                */
             },
             child: Widget.Icon({
                 size: 20,
