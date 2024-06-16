@@ -187,7 +187,6 @@ in
     tilix
 
     gnome.nautilus
-    nix-software-center
 
   ];
 
