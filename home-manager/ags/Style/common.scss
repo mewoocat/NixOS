@@ -54,6 +54,12 @@ tooltip{
     border-radius: 1rem;
 }
 
+.vertical-separator{
+    min-width: 1px;
+    background-color: $fg; 
+    border-radius: 1rem;
+}
+
 /*
 window:has(menu){
 
@@ -81,6 +87,12 @@ switch slider {
 
 .header{
     font-size: 24px;
+    margin: 1rem;
+    font-weight: bold;
+}
+
+.sub-header{
+    font-size: 16px;
     margin: 1rem;
     font-weight: bold;
 }

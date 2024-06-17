@@ -66,7 +66,6 @@ export const VolumeButton = () => Widget.Button({
 
 export const VolumeSlider = () => Widget.Box({
     class_name: 'volume',
-    //css: 'min-width: 180px',
     children: [
         VolumeButton(),
         Widget.Slider({
@@ -135,25 +134,17 @@ export const VolumeMenu = () => Widget.Box({
             label: "Outputs",
             hpack: "start",
         }),
-        Widget.Separator({
-            class_name: "horizontal-separator",
-        }),
         OutputDevices,
 
         Widget.Label({
             label: "Master",
             hpack: "start",
         }),
-        Widget.Separator({
-            class_name: "horizontal-separator",
-        }),
         VolumeSlider(),
+
         Widget.Label({
             label: "Mixer",
             hpack: "start",
-        }),
-        Widget.Separator({
-            class_name: "horizontal-separator",
         }),
         mixer,
     ],

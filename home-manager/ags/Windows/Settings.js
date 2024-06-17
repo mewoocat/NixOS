@@ -9,6 +9,13 @@ import { PowerProfilesButton } from '../Modules/Power.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
+import { brightness } from '../Modules/Display.js';
+import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
+import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
+import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { BatteryWidget } from '../Modules/Battery.js';
+import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
+
 const { Gtk } = imports.gi;
 
 const Window = Widget.subclass(Gtk.Window, "Window");
@@ -16,12 +23,14 @@ const Window = Widget.subclass(Gtk.Window, "Window");
 const SettingsTab = Variable("general", {})
 
 const tabs = [
-    "general",
-    "appearance",
-    "network",
-    "bluetooth",
-    "devices",
-    "about",
+    "General",
+    "Display",
+    "Appearance",
+    "Network",
+    "Bluetooth",
+    "Devices",
+    "Sound",
+    "About",
 ]
 
 const Tab = (t) => Widget.Button({
@@ -60,13 +69,32 @@ function Container(name, contents){
     })
 }
 
+
+function SectionHeader(name){ 
+    return Widget.Box({
+        css: `
+            margin-top: 0.6rem;
+            margin-bottom: 0.6rem;
+        `,
+        vertical: true,
+        children: [
+            Widget.Label({
+                class_name: "sub-header",
+                hpack: "start",
+                label: name,
+            }),
+            Widget.Separator({
+                class_name: "horizontal-separator",
+            }),
+        ],
+    })
+}
+
 const generalContents = Widget.Box({
+    vertical: true,
     children: [
-        Widget.Label({
-            label: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-            wrap: true,
-        }),
-        //PowerProfilesButton(),
+        SectionHeader("Power Profile"),
+        PowerProfilesButton(),
     ],
 })
 
@@ -82,15 +110,39 @@ const networkContents = Widget.Box({
 })
 
 
+
+const bluetoothContents = Widget.Box({
+    vertical: true,
+    children: [
+        BluetoothStatus(),
+        BluetoothConnectedDevices(),
+        BluetoothDevices(),
+        BluetoothDevice(),
+    ],
+})
+
+const soundContents = Widget.Box({
+    vertical: true,
+    children: [
+        SectionHeader("Volume"),
+        VolumeMenu(), 
+        SectionHeader("Microphone"),
+        MicrophoneMenu(),
+    ]
+})
+
+
 const TabContainer = () => Widget.Stack({      
     // Tabs
     children: {
-        'general': Container("General", generalContents),
-        'appearance': Container("Appearance", testContents()),
-        'network': Container("Network", networkContents),
-        'bluetooth': Container("Bluetooth", testContents()),
-        'devices': Container("Devices", testContents()),
-        'about' : Container("About", testContents()),
+        'General': Container("General", generalContents),
+        'Display': Container("Display", generalContents),
+        'Appearance': Container("Appearance", testContents()),
+        'Network': Container("Network", networkContents),
+        'Bluetooth': Container("Bluetooth", bluetoothContents),
+        'Devices': Container("Devices", testContents()),
+        'Sound': Container("Sound", soundContents),
+        'About' : Container("About", testContents()),
     },
     transition: "slide_up_down",
 
@@ -106,6 +158,9 @@ export const Settings = () => Window({
         class_name: "normal-window",
         children: [
             Tabs(),
+            Widget.Separator({
+                class_name: "vertical-separator",
+            }),
             TabContainer(),
         ],
     }),

@@ -71,9 +71,6 @@ export const MicrophoneMenu = () => Widget.Box({
             label: "Inputs",
             hpack: "start",
         }),
-        Widget.Separator({
-            class_name: "horizontal-separator",
-        }),
         inputDevices,
     ],
 })
