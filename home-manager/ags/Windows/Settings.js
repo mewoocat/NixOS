@@ -26,44 +26,33 @@ const Window = Widget.subclass(Gtk.Window, "Window");
 
 const SettingsTab = Variable("general", {})
 
-/*
-class Option {
-  // Constructor
-  constructor(name, value) {
-    // Constructor body
-  }
-  // Instance field
-  myField = "foo";
-  // Instance method
-  myMethod() {
-    // myMethod body
-  }
-  // Static field
-  static myStaticField = "bar";
-  // Static method
-  static myStaticMethod() {
-    // myStaticMethod body
-  }
-  // Static block
-  static {
-    // Static initialization code
-  }
-  // Fields, methods, static fields, and static methods all have
-  // "private" forms
-  #myPrivateField = "bar";
-}
-*/
+const gapsInSpinButton = Widget.SpinButton({
+    range: [0, 100],
+    increments: [1, 5],
+    onValueChanged: ({ value }) => {
+        print(value)
+    },
+})
 
-function Option(name, before, value, after) {
+const gapsOutSpinButton = Widget.SpinButton({
+    range: [0, 100],
+    increments: [1, 5],
+    onValueChanged: ({ value }) => {
+        print(value)
+    },
+})
+
+function Option(name, widget, before, value, after) {
     this.name = name
+    this.widget = widget
     this.before = before
     this.value = value
     this.after = after
 }
 
 let Options = {
-    gapsIn: new Option("Gaps in", "general:gaps_in = ", 10, ""),
-    gapsOut: new Option("Gaps out", "general:gaps_out = ", 40, ""),
+    gapsIn: new Option("Gaps in", gapsInSpinButton, "general:gaps_in = ", 10, ""),
+    gapsOut: new Option("Gaps out", gapsOutSpinButton, "general:gaps_out = ", 20, ""),
 }
 
 function ApplySettings(){
@@ -74,6 +63,9 @@ function ApplySettings(){
     // Generate option literals
     for (let o in Options){
         let opt = Options[o]
+
+        // Get current value from associated widget
+        opt.value = opt.widget.value
         
         contents = contents.concat(opt.before + opt.value + opt.after + "\n")
     }
@@ -167,6 +159,8 @@ const generalContents = Widget.Box({
     children: [
         SectionHeader("Power Profile"),
         PowerProfilesButton(),
+        gapsInSpinButton,
+        gapsOutSpinButton,
         ApplyButton(),
     ],
 })
