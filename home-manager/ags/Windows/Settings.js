@@ -4,6 +4,8 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
 import { RefreshWifi, WifiSSID, WifiIcon, WifiList, APInfo } from '../Modules/Network.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
@@ -17,10 +19,80 @@ import { BatteryWidget } from '../Modules/Battery.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
 
 const { Gtk } = imports.gi;
+import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
 
 const Window = Widget.subclass(Gtk.Window, "Window");
 
 const SettingsTab = Variable("general", {})
+
+/*
+class Option {
+  // Constructor
+  constructor(name, value) {
+    // Constructor body
+  }
+  // Instance field
+  myField = "foo";
+  // Instance method
+  myMethod() {
+    // myMethod body
+  }
+  // Static field
+  static myStaticField = "bar";
+  // Static method
+  static myStaticMethod() {
+    // myStaticMethod body
+  }
+  // Static block
+  static {
+    // Static initialization code
+  }
+  // Fields, methods, static fields, and static methods all have
+  // "private" forms
+  #myPrivateField = "bar";
+}
+*/
+
+function Option(name, before, value, after) {
+    this.name = name
+    this.before = before
+    this.value = value
+    this.after = after
+}
+
+let Options = {
+    gapsIn: new Option("Gaps in", "general:gaps_in = ", 10, ""),
+    gapsOut: new Option("Gaps out", "general:gaps_out = ", 40, ""),
+}
+
+function ApplySettings(){
+
+    // Contents to write to file
+    let contents = " \n"
+
+    // Generate option literals
+    for (let o in Options){
+        let opt = Options[o]
+        
+        contents = contents.concat(opt.before + opt.value + opt.after + "\n")
+    }
+    print("contents = " + contents)
+
+    // Write out new settings file
+    Utils.writeFile(contents, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
+        .then(file => print('Settings file updated'))
+        .catch(err => print(err))
+
+    // Reload hyprland config
+    Hyprland.messageAsync(`reload`)
+}
+
+const ApplyButton = () => Widget.Button({
+    class_name: "normal-button",
+    on_primary_click: () => ApplySettings(),
+    child: Widget.Label("Apply"),
+})
 
 const tabs = [
     "General",
@@ -95,6 +167,7 @@ const generalContents = Widget.Box({
     children: [
         SectionHeader("Power Profile"),
         PowerProfilesButton(),
+        ApplyButton(),
     ],
 })
 
