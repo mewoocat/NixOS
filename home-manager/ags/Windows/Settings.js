@@ -27,6 +27,8 @@ const Window = Widget.subclass(Gtk.Window, "Window");
 const SettingsTab = Variable("general", {})
 
 const gapsInSpinButton = Widget.SpinButton({
+    hpack: "start",
+    value: 20,
     range: [0, 100],
     increments: [1, 5],
     onValueChanged: ({ value }) => {
@@ -35,24 +37,47 @@ const gapsInSpinButton = Widget.SpinButton({
 })
 
 const gapsOutSpinButton = Widget.SpinButton({
+    hpack: "start",
     range: [0, 100],
     increments: [1, 5],
     onValueChanged: ({ value }) => {
         print(value)
+        gapsWorkspacesSlider.value = 900 // This works for setting initial value
     },
 })
+const gapsWorkspacesSlider = Widget.Slider({
+    class_name: "sliders",
+    onChange: ({ value }) => print(value),
+    //vertical: true,
+    hexpand: true,
+    //value: 40,
+    min: 800,
+    max: 1000,
+    value: 900,
+    setup: (self) => {
+        self.value = 900
+    }
+})
 
+// TODO
+// Create json to store json key value pairs for settings
+// iterate over json to get keys which would have the same name in the options object
+// load values for each option
+
+
+// Option object constructor
 function Option(name, widget, before, value, after) {
-    this.name = name
-    this.widget = widget
-    this.before = before
-    this.value = value
-    this.after = after
+    this.name = name        // Human readable name
+    this.widget = widget    // Reference to widget
+    this.before = before    // Option string before value
+    this.value = value      // Option value
+    this.after = after      // Option string after value
 }
 
 let Options = {
     gapsIn: new Option("Gaps in", gapsInSpinButton, "general:gaps_in = ", 10, ""),
     gapsOut: new Option("Gaps out", gapsOutSpinButton, "general:gaps_out = ", 20, ""),
+    gapsWorkspaces: new Option("Gaps workspaces", gapsWorkspacesSlider, "general:gaps_workspaces = ", 10, "")
 }
 
 function ApplySettings(){
@@ -161,6 +186,7 @@ const generalContents = Widget.Box({
         PowerProfilesButton(),
         gapsInSpinButton,
         gapsOutSpinButton,
+        gapsWorkspacesSlider,
         ApplyButton(),
     ],
 })
