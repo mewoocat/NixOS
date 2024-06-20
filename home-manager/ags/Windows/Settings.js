@@ -146,32 +146,36 @@ let Options = {
 
 
 const generalFlowBox = Widget.FlowBox({
+    max_children_per_line: 1,
     setup(self) {
         self.add(Widget.Label('Flowbox test'))
     },
 })
 
 
-function LoadOptionValues(){ 
-    for (let key in Options){
-        let opt = Options[key]
-        let widget = CreateOptionWidget(opt.type, opt.min, opt.max)
+// Load in options as widgets
+for (let key in Options){
+    let opt = Options[key]
+    let widget = CreateOptionWidget(opt.type, opt.min, opt.max)
+    let label = Widget.Label(opt.name)
 
-        // Add created widget to option object
-        Options[key].widget = widget
-        
+    // Add created widget to option object
+    Options[key].widget = widget 
 
-        // Add widget to box
-        generalFlowBox.add(Options[key].widget)
+    // Add widget to box
+    generalFlowBox.add(Widget.Box({
+        class_name: "container",
+        children: [
+            label,
+            widget,
+        ]
+    }))
 
-        // Set widget with value from json
-        Options[key].widget.value = data.options[opt.identifer]
+    // Set widget with value from json
+    Options[key].widget.value = data.options[opt.identifer]
 
-        print("Loaded option: " + opt.name)
-        
-    }
+    print("Loaded option: " + opt.name)    
 }
-LoadOptionValues()
 
 function ApplySettings(){
 
@@ -181,12 +185,12 @@ function ApplySettings(){
     // Generate option literals
     for (let key in Options){
         let opt = Options[key]
-        print("opt: " + opt.name + "\n" + opt.widget.value)
+        print("opt: " + Options[key].name + "\n" + Options[key].widget.value)
 
         // Get current value from associated widget
         Options[key].value = Options[key].widget.value 
         
-        contents = contents.concat(opt.before + Options[key].value + opt.after + "\n")
+        contents = contents.concat(opt.before + Options[key].widget.value + opt.after + "\n")
     }
     print("contents = " + contents)
 
@@ -349,7 +353,6 @@ const TabContainer = () => Widget.Stack({
 export const SettingsToggle = Widget.Button({
     class_name: "normal-button",
     on_primary_click: () => {
-        LoadOptionValues()
         App.closeWindow("Settings")
         App.closeWindow("ControlPanel")
         App.openWindow("Settings")   

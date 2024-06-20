@@ -93,6 +93,7 @@ in{
 
   #rtkit is optional but recommended
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -300,8 +301,6 @@ in{
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
-
 
 }
 
