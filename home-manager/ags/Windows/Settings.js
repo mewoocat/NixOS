@@ -80,14 +80,34 @@ const togglebutton = Widget.ToggleButton({
 const spinner = Widget.Spinner()
 
 
-function CreateOptionWidget(type){
+function CreateOptionWidget(type, minValue, maxValue){
+    print("type = " + type)
     switch(type){
         case "slider":
+            print("Creating slider")
+            return Widget.Slider({
+                class_name: "sliders",
+                onChange: ({ value }) => print(value),
+                hexpand: true,
+                min: minValue,
+                max: maxValue,
+            })
             break
         case "switch":
             break
         case "spin":
+            print("Creating spin button")
+            return Widget.SpinButton({
+                hpack: "start",
+                range: [minValue, maxValue],
+                increments: [1, 5],
+                onValueChanged: ({ value }) => {
+                    print(value)
+                },
+            })
             break
+        default:
+            print("Invalid CreateOptionWidget() type")
     }
 }
 
@@ -106,34 +126,52 @@ function CreateOptionWidget(type){
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 
 // Option object constructor
-function Option(identifer, name, widget, before, value, after) {
+function Option(identifer, name, type, widget, before, value, after, min, max) {
     this.identifer = identifer  // Unique reference to option 
     this.name = name            // Human readable name
+    this.type = type            // Type of widget
     this.widget = widget        // Reference to widget
     this.before = before        // Option string before value
     this.value = value          // Option value
     this.after = after          // Option string after value
+    this.min = min              // Option min value
+    this.max = max              // Option max value
 }
 
 let Options = {
-    gapsIn: new Option("gaps_in", "Gaps in", gapsInSpinButton, "general:gaps_in = ", data.options.gaps_in, ""),
-    gapsOut: new Option("gaps_out", "Gaps out", gapsOutSpinButton, "general:gaps_out = ", data.options.gaps_out, ""),
-    gapsWorkspaces: new Option("gaps_workspaces", "Gaps workspaces", gapsWorkspacesSlider, "general:gaps_workspaces = ", data.options.gaps_workspaces, "")
+    gapsIn: new Option("gaps_in", "Gaps in", "spin", null, "general:gaps_in = ", data.options.gaps_in, "", 0, 400),
+    gapsOut: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
+    gapsWorkspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400)
 }
+
+
+const generalFlowBox = Widget.FlowBox({
+    setup(self) {
+        self.add(Widget.Label('Flowbox test'))
+    },
+})
+
 
 function LoadOptionValues(){ 
     for (let key in Options){
         let opt = Options[key]
+        let widget = CreateOptionWidget(opt.type, opt.min, opt.max)
 
-        //widget = CreateOptionWidget(opt.widget)
+        // Add created widget to option object
+        Options[key].widget = widget
+        
+
+        // Add widget to box
+        generalFlowBox.add(Options[key].widget)
 
         // Set widget with value from json
-        // = data.options[opt.identifer]
+        Options[key].widget.value = data.options[opt.identifer]
 
-        print("value: " + opt.value)
+        print("Loaded option: " + opt.name)
         
     }
 }
+LoadOptionValues()
 
 function ApplySettings(){
 
@@ -141,13 +179,14 @@ function ApplySettings(){
     let contents = " \n"
 
     // Generate option literals
-    for (let o in Options){
-        let opt = Options[o]
+    for (let key in Options){
+        let opt = Options[key]
+        print("opt: " + opt.name + "\n" + opt.widget.value)
 
         // Get current value from associated widget
-        opt.value = opt.widget.value
+        Options[key].value = Options[key].widget.value 
         
-        contents = contents.concat(opt.before + opt.value + opt.after + "\n")
+        contents = contents.concat(opt.before + Options[key].value + opt.after + "\n")
     }
     print("contents = " + contents)
 
@@ -239,9 +278,12 @@ const generalContents = Widget.Box({
     children: [
         SectionHeader("Power Profile"),
         PowerProfilesButton(),
+        /*
         gapsInSpinButton,
         gapsOutSpinButton,
         gapsWorkspacesSlider,
+        */
+        generalFlowBox,
         colorbutton,
         fontbutton,
         switchButton,
