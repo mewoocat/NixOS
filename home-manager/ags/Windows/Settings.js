@@ -17,6 +17,7 @@ import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
+import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
 import GLib from 'gi://GLib';
@@ -59,25 +60,79 @@ const gapsWorkspacesSlider = Widget.Slider({
     }
 })
 
+// Testing
+const colorbutton = Widget.ColorButton({
+    onColorSet: ({ rgba: { red, green, blue, alpha } }) => {
+        print(`rgba(${red * 255}, ${green * 255}, ${blue * 255}, ${alpha})`)
+    },
+})
+const fontbutton = Widget.FontButton({
+    onFontSet: ({ font }) => {
+        print(font)
+    },
+})
+const switchButton = Widget.Switch({
+    onActivate: ({ active }) => print(active),
+})
+const togglebutton = Widget.ToggleButton({
+    onToggled: ({ active }) => print(active),
+})
+const spinner = Widget.Spinner()
+
+
+function CreateOptionWidget(type){
+    switch(type){
+        case "slider":
+            break
+        case "switch":
+            break
+        case "spin":
+            break
+    }
+}
+
+
+
+
+
+
 // TODO
 // Create json to store json key value pairs for settings
 // iterate over json to get keys which would have the same name in the options object
 // load values for each option
 
 
+// Read in user settings
+const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+
 // Option object constructor
-function Option(name, widget, before, value, after) {
-    this.name = name        // Human readable name
-    this.widget = widget    // Reference to widget
-    this.before = before    // Option string before value
-    this.value = value      // Option value
-    this.after = after      // Option string after value
+function Option(identifer, name, widget, before, value, after) {
+    this.identifer = identifer  // Unique reference to option 
+    this.name = name            // Human readable name
+    this.widget = widget        // Reference to widget
+    this.before = before        // Option string before value
+    this.value = value          // Option value
+    this.after = after          // Option string after value
 }
 
 let Options = {
-    gapsIn: new Option("Gaps in", gapsInSpinButton, "general:gaps_in = ", 10, ""),
-    gapsOut: new Option("Gaps out", gapsOutSpinButton, "general:gaps_out = ", 20, ""),
-    gapsWorkspaces: new Option("Gaps workspaces", gapsWorkspacesSlider, "general:gaps_workspaces = ", 10, "")
+    gapsIn: new Option("gaps_in", "Gaps in", gapsInSpinButton, "general:gaps_in = ", data.options.gaps_in, ""),
+    gapsOut: new Option("gaps_out", "Gaps out", gapsOutSpinButton, "general:gaps_out = ", data.options.gaps_out, ""),
+    gapsWorkspaces: new Option("gaps_workspaces", "Gaps workspaces", gapsWorkspacesSlider, "general:gaps_workspaces = ", data.options.gaps_workspaces, "")
+}
+
+function LoadOptionValues(){ 
+    for (let key in Options){
+        let opt = Options[key]
+
+        //widget = CreateOptionWidget(opt.widget)
+
+        // Set widget with value from json
+        // = data.options[opt.identifer]
+
+        print("value: " + opt.value)
+        
+    }
 }
 
 function ApplySettings(){
@@ -187,6 +242,10 @@ const generalContents = Widget.Box({
         gapsInSpinButton,
         gapsOutSpinButton,
         gapsWorkspacesSlider,
+        colorbutton,
+        fontbutton,
+        switchButton,
+        spinner,
         ApplyButton(),
     ],
 })
@@ -242,6 +301,20 @@ const TabContainer = () => Widget.Stack({
     // Select which tab to show
     setup: self => self.hook(SettingsTab, () => {
         self.shown = SettingsTab.value;
+    })
+})
+
+export const SettingsToggle = Widget.Button({
+    class_name: "normal-button",
+    on_primary_click: () => {
+        LoadOptionValues()
+        App.closeWindow("Settings")
+        App.closeWindow("ControlPanel")
+        App.openWindow("Settings")   
+    },
+    child: Widget.Icon({
+        size: 20,
+        icon: icons.settings,
     })
 })
 

@@ -18,7 +18,7 @@ import { PowerProfilesButton } from '../Modules/Power.js';
 import { NightLightButton } from '../Modules/NightLight.js';
 import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
-import { Settings } from '../Windows/Settings.js';
+import { Settings, SettingsToggle } from '../Windows/Settings.js';
 
 // Variables
 //import { ControlPanelTab } from '../variables.js';
@@ -80,40 +80,7 @@ const bottom = Widget.Box({
     `,
     class_name: `control-panel-button`,
     children: [
-        Widget.Button({
-            class_name: "normal-button",
-            on_primary_click: () => {
-                //ControlPanelTab.setValue("main")
-                App.closeWindow("ControlPanel")
-
-                App.closeWindow("Settings")
-                App.openWindow("Settings")
-
-                
-
-                //App.openWindow("Settings")
-                /*
-                Utils.subprocess(
-                    // command to run, in an array just like execAsync
-                    ['bash', '-c', `${App.configDir}/Windows/Settings.js`],
-
-                    // callback when the program outputs something to stdout
-                    (output) => print(output),
-
-                    // callback on error
-                    (err) => print("Error: " + err),
-
-                    // optional widget parameter
-                    // if the widget is destroyed the subprocess is forced to quit
-                    //widget,
-                )
-                */
-            },
-            child: Widget.Icon({
-                size: 20,
-                icon: icons.settings,
-            })
-        })
+        SettingsToggle,
     ],
 })
 grid.attach(bottom, 1,4,2,1)
