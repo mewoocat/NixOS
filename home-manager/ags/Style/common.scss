@@ -97,3 +97,32 @@ switch slider {
     font-weight: bold;
 }
 
+.option-container{
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: $bg1;
+}
+
+spinbutton{
+    min-height: 38px;
+
+    entry{
+        border-radius: 1rem;
+        padding: 0.6rem;
+        margin: 0.2rem;
+        background-color: $bg0;
+    }
+
+    button {
+        font-size: 8px;
+        min-width: 38px;
+        min-height: 38px;
+
+    }
+
+    button:hover{
+        border-radius: 100%;
+        background-color: $bg0;
+    }
+ }
