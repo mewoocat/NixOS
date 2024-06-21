@@ -91,14 +91,18 @@ function CreateOptionWidget(type, minValue, maxValue){
                 hexpand: true,
                 min: minValue,
                 max: maxValue,
+                step: 1,
             })
             break
         case "switch":
+            return Widget.Switch({
+                vpack: "center",
+            })
             break
         case "spin":
             print("Creating spin button")
             return Widget.SpinButton({
-                hpack: "start",
+                hpack: "end",
                 range: [minValue, maxValue],
                 increments: [1, 5],
                 onValueChanged: ({ value }) => {
@@ -141,15 +145,14 @@ function Option(identifer, name, type, widget, before, value, after, min, max) {
 let Options = {
     gapsIn: new Option("gaps_in", "Gaps in", "spin", null, "general:gaps_in = ", data.options.gaps_in, "", 0, 400),
     gapsOut: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
-    gapsWorkspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400)
+    gapsWorkspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
+    rounding: new Option("rounding", "Rounding", "slider", null, "decoration:rounding = ", data.options.rounding, "", 0, 40),
+    blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
 }
 
 
 const generalFlowBox = Widget.FlowBox({
     max_children_per_line: 1,
-    setup(self) {
-        self.add(Widget.Label('Flowbox test'))
-    },
 })
 
 
@@ -157,22 +160,28 @@ const generalFlowBox = Widget.FlowBox({
 for (let key in Options){
     let opt = Options[key]
     let widget = CreateOptionWidget(opt.type, opt.min, opt.max)
-    let label = Widget.Label(opt.name)
+    let label = Widget.Label({
+        label: opt.name,
+        hpack: "start",
+    })
 
     // Add created widget to option object
     Options[key].widget = widget 
 
     // Add widget to box
-    generalFlowBox.add(Widget.Box({
-        class_name: "container",
-        children: [
-            label,
-            widget,
-        ]
+    generalFlowBox.add(Widget.CenterBox({
+        class_name: "option-container",
+        startWidget: label,
+        endWidget: widget,
     }))
 
-    // Set widget with value from json
-    Options[key].widget.value = data.options[opt.identifer]
+    // Set widget with value from json based on type
+    if (opt.type === "spin" || opt.type === "slider"){
+        Options[key].widget.value = data.options[opt.identifer]
+    }
+    else if (opt.type === "switch"){
+        Options[key].widget.active = data.options[opt.identifer]
+    }
 
     print("Loaded option: " + opt.name)    
 }
@@ -187,10 +196,16 @@ function ApplySettings(){
         let opt = Options[key]
         print("opt: " + Options[key].name + "\n" + Options[key].widget.value)
 
-        // Get current value from associated widget
-        Options[key].value = Options[key].widget.value 
-        
-        contents = contents.concat(opt.before + Options[key].widget.value + opt.after + "\n")
+        if (opt.type === "spin" || opt.type === "slider"){
+            // Get current value from associated widget
+            Options[key].value = Options[key].widget.value  
+            contents = contents.concat(opt.before + Options[key].widget.value + opt.after + "\n")
+        }
+        else if (opt.type === "switch"){
+            // Get current value from associated widget
+            Options[key].value = Options[key].widget.active  
+            contents = contents.concat(opt.before + Options[key].widget.active + opt.after + "\n")
+        }
     }
     print("contents = " + contents)
 
