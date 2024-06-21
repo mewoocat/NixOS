@@ -125,9 +125,16 @@ in
   # GTK Config
   gtk = {
     enable = true;
-    cursorTheme = {
-      name = "macOS-BigSur";
+    /*
+    cursortheme = {
+      name = "macos-bigsur";
       package = pkgs.apple-cursor;
+      size = 24;
+    };
+    */
+    cursorTheme = {
+      name = "capitaine-cursors";
+      package = pkgs.capitaine-cursors;
       size = 24;
     };
     iconTheme = {

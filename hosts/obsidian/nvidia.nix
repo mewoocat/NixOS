@@ -81,6 +81,7 @@
     };
     */
 
+    /*
     # 555 :)
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
         version = "555.42.02";
@@ -89,5 +90,7 @@
         settingsSha256 = "sha256-QKN/gLGlT+/hAdYKlkIjZTgvubzQTt4/ki5Y+2Zj3pk=";
         persistencedSha256 = "sha256-FRMqY5uAJzq3o+YdM2Mdjj8Df6/cuUUAnh52Ne4koME=";
     };
+    */
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 }

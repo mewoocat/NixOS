@@ -26,17 +26,10 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland = {
-        #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-        url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.40.0&submodules=1";
-        #0.39.0 0.38.1
-        #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.38.0&submodules=1"; # Doesn't work
-        #url = "git+https://github.com/hyprwm/Hyprland?ref=master&rev=108163f1e5e0e1423a170e78688a826963ec7a81&submodules=1"; # Doesn't work
+        url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-        # https://github.com/hyprwm/Hyprland/commit/ca17a89d86b73f37019c4cc0c7087303adbcc1f9
-        #url = "git+https://github.com/hyprwm/Hyprland?ref=master&rev=ca17a89d86b73f37019c4cc0c7087303adbcc1f9&submodules=1"; # This one breaks it
-
-        #url = "git+https://github.com/hyprwm/Hyprland?ref=master&rev=356414639fc06ace7045236ec41d673342981057&submodules=1"; # Works
-        #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.37.1&submodules=1"; # Popup blur works
+        # v40
+        #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.40.0&submodules=1";
     };
     hyprspace = {
         url = github:KZDKM/Hyprspace;

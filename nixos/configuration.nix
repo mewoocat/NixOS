@@ -167,7 +167,7 @@ in{
   fonts.fontDir.enable = true;  
 
   # Required for steam to run?
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable32Bit = true;
 
 
   hardware.bluetooth.enable = true;
