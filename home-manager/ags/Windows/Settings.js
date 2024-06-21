@@ -91,12 +91,12 @@ function CreateOptionWidget(type, minValue, maxValue){
                 hexpand: true,
                 min: minValue,
                 max: maxValue,
-                step: 1,
+                step: 1, // Only works for keybinds?
             })
             break
         case "switch":
             return Widget.Switch({
-                vpack: "center",
+                hpack: "end",
             })
             break
         case "spin":
@@ -127,7 +127,7 @@ function CreateOptionWidget(type, minValue, maxValue){
 
 
 // Read in user settings
-const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 
 // Option object constructor
 function Option(identifer, name, type, widget, before, value, after, min, max) {
@@ -143,15 +143,17 @@ function Option(identifer, name, type, widget, before, value, after, min, max) {
 }
 
 let Options = {
-    gapsIn: new Option("gaps_in", "Gaps in", "spin", null, "general:gaps_in = ", data.options.gaps_in, "", 0, 400),
-    gapsOut: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
-    gapsWorkspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
+    gaps_in: new Option("gaps_in", "Gaps in", "spin", null, "general:gaps_in = ", data.options.gaps_in, "", 0, 400),
+    gaps_out: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
+    gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
     rounding: new Option("rounding", "Rounding", "slider", null, "decoration:rounding = ", data.options.rounding, "", 0, 40),
     blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
+    sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
 }
 
 
 const generalFlowBox = Widget.FlowBox({
+    vpack: "start",
     max_children_per_line: 1,
 })
 
@@ -186,6 +188,14 @@ for (let key in Options){
     print("Loaded option: " + opt.name)    
 }
 
+// Read in user settings
+var userSettingsJson = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+
+for (let key in Options){
+    print(key)
+    print(userSettingsJson.options[key])
+}
+
 function ApplySettings(){
 
     // Contents to write to file
@@ -193,19 +203,34 @@ function ApplySettings(){
 
     // Generate option literals
     for (let key in Options){
+        print("key = " + key)
         let opt = Options[key]
-        print("opt: " + Options[key].name + "\n" + Options[key].widget.value)
 
+        // Read in user settings
+        //let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+        let data = userSettingsJson
+
+        print("Before | data.options[key]: " + data.options[key])
         if (opt.type === "spin" || opt.type === "slider"){
+            // Update value in settings json cache
+            data.options[key] = Options[key].widget.value
             // Get current value from associated widget
-            Options[key].value = Options[key].widget.value  
+            //Options[key].value = Options[key].widget.value  
             contents = contents.concat(opt.before + Options[key].widget.value + opt.after + "\n")
         }
         else if (opt.type === "switch"){
+            // Update value in settings json cache
+            data.options[key] = Options[key].widget.active
             // Get current value from associated widget
-            Options[key].value = Options[key].widget.active  
+            //Options[key].value = Options[key].widget.active  
             contents = contents.concat(opt.before + Options[key].widget.active + opt.after + "\n")
         }
+
+        print("After | data.options[key]: " + data.options[key])
+    
+        let dataOut = JSON.stringify(data)
+        // Write out user settings
+        Utils.writeFileSync(dataOut, `${App.configDir}/../../.cache/ags/UserSettings.json`)
     }
     print("contents = " + contents)
 
@@ -220,6 +245,7 @@ function ApplySettings(){
 
 const ApplyButton = () => Widget.Button({
     class_name: "normal-button",
+    hpack: "end",
     on_primary_click: () => ApplySettings(),
     child: Widget.Label("Apply"),
 })
@@ -258,10 +284,13 @@ function Container(name, contents){
         vertical: true,
         hexpand: true,
         children: [
-            Widget.Label({
-                label: name,
-                class_name: "header",
-                hpack: "start",
+            Widget.CenterBox({
+                startWidget: Widget.Label({
+                    label: name,
+                    class_name: "header",
+                    hpack: "start",
+                }),
+                endWidget: ApplyButton(),
             }),
             Widget.Separator({
                 class_name: "horizontal-separator",
@@ -292,23 +321,11 @@ function SectionHeader(name){
     })
 }
 
-const generalContents = Widget.Box({
-    vertical: true,
-    children: [
-        SectionHeader("Power Profile"),
-        PowerProfilesButton(),
-        /*
-        gapsInSpinButton,
-        gapsOutSpinButton,
-        gapsWorkspacesSlider,
-        */
-        generalFlowBox,
-        colorbutton,
-        fontbutton,
-        switchButton,
-        spinner,
-        ApplyButton(),
-    ],
+const generalContents = Widget.Scrollable({
+    hscroll: 'never',
+    vscroll: 'always',
+    vexpand: true,
+    child: generalFlowBox,
 })
 
 const testContents = () => Widget.Label({
