@@ -57,6 +57,8 @@ in
    # Themes
    ".local/share/themes/adw-gtk3".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3";
    ".local/share/themes/adw-gtk3-dark".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3-dark";
+   # GTK 4
+   ".config/gtk-4.0/gtk.css".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3/gtk-4.0/gtk.css";
 
    ".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/wal";
 

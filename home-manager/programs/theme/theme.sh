@@ -85,6 +85,13 @@ function setColors(){
     # Reload GTK theme
     gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
+
+    # Kill and restart GTK 4 apps
+    # Have to kill not close in order for theme to change
+    pkill gnome-calendar
+    pkill nautilus 
+    gnome-calendar 1> /dev/null 2> /dev/null &
+    nautilus 1> /dev/null 2> /dev/null &
 }
 
 function setWallpaperTheme(){
