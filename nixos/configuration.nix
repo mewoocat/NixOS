@@ -12,6 +12,7 @@ in{
       # No need to import hardware here since its imported in flake.nix
       #./hardware-configuration.nix
       ./ios.nix
+      ./gnome-calendar.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

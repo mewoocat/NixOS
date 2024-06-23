@@ -150,8 +150,6 @@ in
     openvpn
     fastfetch
 
-    gnome.gnome-calendar
-
     #inputs.self.packages.x86_64-linux.nvim # Install nvim package exported in flake
 
     inputs.myNvim.packages.x86_64-linux.default
