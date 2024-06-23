@@ -139,7 +139,7 @@ in{
  
   programs.dconf.enable = true;  # Required for gtk?
   programs.light.enable = true;
-  programs.hyprland.enable = true;
+  #programs.hyprland.enable = true;
   programs.thunar.enable = true;
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
