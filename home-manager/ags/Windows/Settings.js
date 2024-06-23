@@ -25,7 +25,7 @@ import Gio from 'gi://Gio';
 
 const Window = Widget.subclass(Gtk.Window, "Window");
 
-const SettingsTab = Variable("general", {})
+const SettingsTab = Variable("General", {})
 
 const gapsInSpinButton = Widget.SpinButton({
     hpack: "start",
@@ -263,9 +263,23 @@ const tabs = [
 
 const Tab = (t) => Widget.Button({
     class_name: "normal-button",
-    on_primary_click: () =>{
+    css: `
+        margin-right: 1rem;
+    `,
+    on_primary_click: (self) =>{
         print(t)
         SettingsTab.value = t
+    },
+    setup: (self) => {
+        // Highlight current tab on startup
+        print("t = " + t)
+        print("SettingsTab.value = " + SettingsTab.value)
+        if (t === SettingsTab.value){
+            self.toggleClassName("active-button", true)
+        }
+        self.hook(SettingsTab, (self) => {
+            self.toggleClassName("active-button", t === SettingsTab.value)
+        }, "changed")
     },
     child: Widget.Label({
         label: t,
@@ -281,6 +295,7 @@ const Tabs = () => Widget.Box({
 
 function Container(name, contents){
     return Widget.Box({
+        class_name: "container",
         vertical: true,
         hexpand: true,
         children: [
@@ -314,9 +329,11 @@ function SectionHeader(name){
                 hpack: "start",
                 label: name,
             }),
+            /*
             Widget.Separator({
                 class_name: "horizontal-separator",
             }),
+            */
         ],
     })
 }

@@ -13,8 +13,9 @@
 }
 
 .container{
-    border-radius: 1rem;
-    background-color: rgba($bg1, $lowOpacity);
+    //border-radius: 1rem;
+    //background-color: rgba($bg1, $lowOpacity);
+    padding: 1rem;
 }
 
 .toggle-window{
@@ -125,4 +126,8 @@ spinbutton{
         border-radius: 100%;
         background-color: $bg0;
     }
- }
+}
+
+.active-button > *{
+    background-color: $accent3;
+}
