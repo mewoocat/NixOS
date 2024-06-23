@@ -186,6 +186,8 @@ in
 
     gnome.nautilus
 
+    cmakeMinimal
+
   ];
 
 }

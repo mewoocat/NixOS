@@ -9,6 +9,7 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
     `,
     on_clicked: () => {
+        /*
         switch (powerProfiles.active_profile) {
             case 'power-saver':
                 powerProfiles.active_profile = 'performance';
@@ -20,6 +21,25 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
                 powerProfiles.active_profile = 'power-saver';
                 break;
         };
+        */
+
+        // Loop over all available power profiles
+        for (let i = 0; i < powerProfiles.profiles.length; i++ ){
+            // Find current profile
+            if (powerProfiles.profiles[i].Profile === powerProfiles.active_profile){
+                // Set current profile to next one in list
+                // If not last element in list
+                if(i < powerProfiles.profiles.length - 1){
+                    powerProfiles.active_profile = powerProfiles.profiles[i + 1].Profile ;
+                }
+                // If last element in list
+                else{
+                    powerProfiles.active_profile = powerProfiles.profiles[0].Profile ;
+                }
+                // Stop searching
+                break
+            }
+        }
     },
     child: Widget.Icon({
         size: 22,
