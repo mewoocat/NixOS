@@ -48,8 +48,8 @@
 @define-color accent_bg_color {{color4}}; /* Selected */
 @define-color accent_fg_color {{foreground}};
 @define-color accent_color {{color4}};
-@define-color destructive_bg_color #ff0000;
-@define-color destructive_fg_color #ffff00;
+@define-color destructive_bg_color {{background}};
+@define-color destructive_fg_color {{foreground}};
 @define-color destructive_color #ff00ff;
 @define-color success_bg_color @green_5;
 @define-color success_fg_color {{foreground}};
@@ -73,18 +73,18 @@
 @define-color sidebar_bg_color rgba({{background | rgb}}, 0.6);
 @define-color sidebar_fg_color {{foreground}};
 @define-color sidebar_backdrop_color rgba({{background | rgb}}, 0.30);
-@define-color sidebar_shade_color #ff0000;
+@define-color sidebar_shade_color rgba({{background | rgb}}, 0.30);
 @define-color card_bg_color rgba(255, 255, 255, 0.08);
 @define-color card_fg_color {{foreground}};
-@define-color card_shade_color #ff0000;
-@define-color dialog_bg_color #ff0000;
+@define-color card_shade_color rgba({{background | rgb}}, 0.30);
+@define-color dialog_bg_color rgba({{background | rgb}}, 0.30);
 @define-color dialog_fg_color {{foreground}};
 @define-color popover_bg_color rgba({{background | rgb}}, 0.6); /*Popup menu*/
 @define-color popover_fg_color {{foreground}};
-@define-color thumbnail_bg_color #ff0000;
+@define-color thumbnail_bg_color rgba({{background | rgb}}, 0.30);
 @define-color thumbnail_fg_color {{foreground}};
-@define-color shade_color #ff0000;
-@define-color scrollbar_outline_color #ff0000;
+@define-color shade_color rgba({{background | rgb}}, 0.30);
+@define-color scrollbar_outline_color rgba({{background | rgb}}, 0.30);
 @define-color incognito_bg_color #1c2438;
 @define-color new_title_bg_color #303030;
 
