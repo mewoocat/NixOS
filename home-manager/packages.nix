@@ -188,6 +188,8 @@ in
 
     cmakeMinimal
 
+    evince # Gnome PDF viewer
+
   ];
 
 }
