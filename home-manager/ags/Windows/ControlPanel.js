@@ -106,14 +106,13 @@ function ControlPanelButton(widget, edges, w, h, action) {
             min-width: ${w}rem;
             min-height: ${h}rem;
         `,
-        child:
-            Widget.Box({
-                hexpand: true,
-                class_name: `${edges}`,
-                children: [
-                    widget
-                ]
-            })
+        child: Widget.Box({
+            hexpand: true,
+            class_name: `${edges}`,
+            children: [
+                widget
+            ]
+        })
     })
     return button;
 }

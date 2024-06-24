@@ -148,15 +148,15 @@ spinbutton{
     padding: 0.4rem 0.8rem;
     border-radius: 0.8rem;
     background-color: rgba($bg2, 0.3);
-    box-shadow: 3px 3px 2px rgba($bg0, 0.5), -3px -3px 2px rgba($bg2, 0.5);
+    box-shadow: 4px 4px 2px rgba($bg0, 0.8), -3px -3px 2px rgba($bg2, 0.5);
     border: solid;
     border-width: 0px;
     border-color: $bg2;
 }
 
 .shadow-button:hover > * {
-    background-color: rgba($bg0, 0.5);
-    box-shadow: -3px -3px 2px rgba($bg0, 0.5), 3px 3px 2px rgba($bg2, 0.5);
+    background-color: rgba($bg0, 0.2);
+    box-shadow: -4px -4px 2px rgba($bg0, 0.8), 3px 3px 2px rgba($bg2, 0.5);
 }
 
 
