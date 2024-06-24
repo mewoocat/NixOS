@@ -247,7 +247,7 @@ const stack = Widget.Stack({
 const content = Widget.Revealer({
     revealChild: false,
     transitionDuration: 150,
-    transition: "slide_down",
+    transition: "slide_left",
     setup: self => {
         self.hook(App, (self, windowName, visible) => {
             if (windowName === "ControlPanel"){

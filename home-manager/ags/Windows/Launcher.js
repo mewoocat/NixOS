@@ -11,7 +11,7 @@ const WINDOW_NAME = 'applauncher';
 const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer({
     revealChild: false,
     transitionDuration: 150,
-    transition: "slide_down",
+    transition: "slide_right",
     setup: self => {
         self.hook(App, (self, windowName, visible) => {
             if (windowName === WINDOW_NAME){

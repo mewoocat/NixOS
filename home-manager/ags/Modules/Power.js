@@ -122,3 +122,25 @@ export const powerButtons = Widget.Box({
 })
 
 
+
+// Fancy vs Fast Hyprland toggle
+/*
+export const FancyFastToggle = (w, h) => Widget.Button({
+    class_name: `control-panel-button`,
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
+    on_clicked: () => {
+    },
+    child: Widget.Icon({
+        size: 22,
+        setup: self => {
+            self.hook(, self => {
+                //starred-symbolic
+                //sensors-voltage-symbolic
+            })
+        }
+    })
+})
+*/
