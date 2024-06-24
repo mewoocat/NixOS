@@ -1,5 +1,5 @@
 @import 'colors';
-$mediumOpacity: 0.80;
+$mediumOpacity: 0.86;
 $lowOpacity: 0.45;
 
 @import 'common';
@@ -85,6 +85,7 @@ $lowOpacity: 0.45;
 .normal-button > * {
     padding: 0.4rem 0.8rem;
     border-radius: 0.8rem;
+    //background-color: rgba($bg2, 0.2);
 }
 
 .normal-button:hover > * {

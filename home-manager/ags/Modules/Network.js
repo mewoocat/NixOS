@@ -303,6 +303,7 @@ export const WifiListAvailable = () => Widget.Scrollable({
 
 export const WifiList = () => Widget.Box({
     vertical: true,
+    hexpand: true,
     children: [
         currentNetwork(),
         Widget.Separator({

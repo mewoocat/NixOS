@@ -128,6 +128,39 @@ spinbutton{
     }
 }
 
-.active-button > *{
+.active-button > * {
     background-color: $accent3;
+    border-radius: 1rem;
 }
+
+
+// Shadow Button
+.shadow-button {
+    margin: 1rem;
+    background-color: transparent;
+    padding: 0.28rem; // Currently determines bar height
+}
+
+.shadow-button:active {
+}
+
+.shadow-button > * {
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.8rem;
+    background-color: rgba($bg2, 0.3);
+    box-shadow: 3px 3px 2px rgba($bg0, 0.5), -3px -3px 2px rgba($bg2, 0.5);
+    border: solid;
+    border-width: 0px;
+    border-color: $bg2;
+}
+
+.shadow-button:hover > * {
+    background-color: rgba($bg0, 0.5);
+    box-shadow: -3px -3px 2px rgba($bg0, 0.5), 3px 3px 2px rgba($bg2, 0.5);
+}
+
+
+
+
+
+
