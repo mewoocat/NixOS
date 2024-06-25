@@ -13,6 +13,7 @@ in{
       #./hardware-configuration.nix
       ./ios.nix
       ./gnome-calendar.nix
+      ./gnome.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -88,15 +89,14 @@ in{
   # Needed for gparted
   security.polkit.enable = true;
 
-  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-  sound.enable = false;
-
-
   #rtkit is optional but recommended
   security.rtkit.enable = true;
 
+  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
+  sound.enable = lib.mkDefault false;
+
   services.pipewire = {
-    enable = true;
+    enable = lib.mkDefault true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -104,8 +104,8 @@ in{
     jack.enable = true;
   };
 
-  programs.coolercontrol.enable = true;
-  programs.coolercontrol.nvidiaSupport = true;
+  #programs.coolercontrol.enable = true;
+  #programs.coolercontrol.nvidiaSupport = true;
 
 
   ### Services ###
@@ -168,7 +168,8 @@ in{
   fonts.fontDir.enable = true;  
 
   # Required for steam to run?
-  hardware.graphics.enable32Bit = true;
+  #hardware.graphics.enable32Bit = true;
+  hardware.opengl.driSupport32Bit = true;
 
 
   hardware.bluetooth.enable = true;

@@ -14,7 +14,7 @@
   theme = pkgs.writeShellScriptBin "theme" src;
 
   # Wallust packaging
-  wallust = pkgs.callPackage ./programs/wallust.nix {};
+  #wallust = pkgs.callPackage ./programs/wallust.nix {};
 
 in
 {
