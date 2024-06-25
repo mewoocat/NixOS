@@ -39,7 +39,6 @@
     # My nvim config
     myNvim.url = "github:mewoocat/nvim-nix";
 
-
   };
 
   # The `@` syntax here is used to alias the attribute set of the
