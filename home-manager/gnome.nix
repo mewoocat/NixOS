@@ -5,7 +5,8 @@
     blur-my-shell
     zen
     vertical-workspaces
-    aylurs-widgets
+    luminus-shell-y
+    luminus-shell
   ];
 
   # Gnome settings
@@ -21,7 +22,8 @@
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      "num-workspaces" = 10;
+      num-workspaces = 10;
+      button-layout = "close,maximize,minimize:";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {

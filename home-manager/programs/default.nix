@@ -14,6 +14,8 @@
 
   programs.vscode = {
     enable = true;
+
+    /*
     extensions = with pkgs; [
       #vscode-extensions.cmschuetz12.wal 
       vscode-extensions.bbenoist.nix
@@ -24,6 +26,7 @@
       "window.titleBarStyle" = "custom";      # Fixes crash on startup
       #"workbench.colorTheme" = "Wal Bordered";         # Set theme
     };
+    */
   };
 
   programs.obs-studio = {
