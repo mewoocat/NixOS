@@ -13,7 +13,7 @@ in{
       #./hardware-configuration.nix
       ./ios.nix
       ./gnome-calendar.nix
-      ./gnome.nix
+      #./gnome.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -185,7 +185,7 @@ in{
   
   
   fonts.packages = with pkgs; [
-    #nerdfonts
+    (nerdfonts.override { fonts = [ "Iosevka" ]; })
   ];
 
   # Systemd

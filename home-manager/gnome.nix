@@ -7,6 +7,10 @@
     vertical-workspaces
     luminus-shell-y
     luminus-shell
+    open-bar
+    tilingnome
+    #easyScreenCast # Is flagged as broken
+    just-perfection
   ];
 
   # Gnome settings

@@ -11,7 +11,6 @@ in
     ./programs/firefox
     ./programs/bash.nix
     ./programs/hyprland/hyprland.nix
-    ./gnome.nix
  ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -56,10 +55,10 @@ in
    ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/wallust";
 
    # Themes
-   #".local/share/themes/adw-gtk3".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3";
-   #".local/share/themes/adw-gtk3-dark".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3-dark";
+   ".local/share/themes/adw-gtk3".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3";
+   ".local/share/themes/adw-gtk3-dark".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3-dark";
    # GTK 4
-   #".config/gtk-4.0/gtk.css".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3/gtk-4.0/gtk.css";
+   ".config/gtk-4.0/gtk.css".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/theme/adw-gtk3/gtk-4.0/gtk.css";
 
    ".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/home-manager/programs/wal";
 
@@ -132,6 +131,13 @@ in
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
+    };
+    */
+    # whitesur-gtk-theme
+    /*
+    theme = {
+      name = "whitesur-gtk-theme";
+      package = pkgs.whitesur-gtk-theme;
     };
     */
     cursorTheme = {

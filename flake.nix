@@ -28,7 +28,6 @@
 
     hyprland = {
         url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
         # v40
         #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.40.0&submodules=1";
     };
@@ -36,7 +35,7 @@
         url = github:KZDKM/Hyprspace;
         inputs.hyprland.follows = "hyprland";
     };
-   
+
     # My nvim config
     myNvim.url = "github:mewoocat/nvim-nix";
 
@@ -61,6 +60,7 @@
         modules = [ 
           ./hosts/scythe 
           ./nixos/configuration.nix 
+          #./nixos/gnome.nix
 
           # TODO: Move to seperate file?
           home-manager.nixosModules.home-manager
@@ -72,6 +72,7 @@
               imports = [
                 anyrun.homeManagerModules.default
                 ./home-manager/home.nix
+                #./home-manager/gnome.nix
                 ./home-manager/programs/game/gameLite.nix
               ];
             };
