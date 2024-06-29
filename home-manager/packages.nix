@@ -47,16 +47,14 @@ in
     '')
 
     # Core
-    #vim
-    #lunarvim
-    kitty
-    cinnamon.nemo-with-extensions
-    neofetch hyfetch
+    hyfetch fastfetch
     htop
-    vlc
     qalculate-gtk
     gnome.eog
-    #gnome.gnome-disk-utility
+    gnome.nautilus
+    evince # Gnome PDF viewer
+    gnome.gnome-bluetooth_1_0
+    blueman
 
     # Programs
     obsidian
@@ -65,7 +63,6 @@ in
     xdg-utils # needed for discord/vesktop to open web links in default browser
     onlyoffice-bin
     gnome.gucharmap
-    #vscodium
     inkscape
     gimp
     fontforge-gtk
@@ -77,11 +74,29 @@ in
     qdirstat
     ascii-image-converter 
     gh
+    vial
+    btop 
+    l3afpad
+    gthumb
+    rhythmbox
+    bookworm
+    spotifywm spotify-tray
+    nwg-displays
+    wlr-randr
+    nwg-look
+    gradience
+    openvpn
+    zoxide
+    tilix
     
     # Appearance
     liberation_ttf
     arkpandora_ttf
-    apple-cursor
+    cantarell-fonts
+    libsForQt5.qt5ct
+    qt6Packages.qt6ct
+    pywal
+    swww
 
     # Components + utilities
     coreutils # Collision with busybox 
@@ -89,7 +104,6 @@ in
     lm_sensors          # 
     brightnessctl
     bluez
-    swww
     wirelesstools
     pipewire
     pulseaudio
@@ -102,10 +116,6 @@ in
     glib
     gnome.nixos-gsettings-overrides # For gsettings theming
     sway-contrib.grimshot
-
-    pywal
-    #wallust # Older version
-
     jaq
     gojq
     socat
@@ -116,81 +126,31 @@ in
     unzip
     gvfs # for network file browsing
     openrgb-with-all-plugins
-    #busybox
     nmap
     dig
     libnotify
+    p7zip
+    tmux
+    blueberry
+    cmakeMinimal
 
     # AGS
     sassc
     wf-recorder
     slurp # Used to select screen in wf-recorder
+    python312Packages.gpustat
 
-    # Unsorted
-    blueberry
-    p7zip
-    cantarell-fonts
+    # Self packaged
+    wallust 
+    theme 
 
-    python312Packages.gpustat # for AGS
-
-
-    vial
-    btop 
-    l3afpad
-    gthumb
-    zoxide
-    tmux
+    # From flake
+    inputs.myNvim.packages.x86_64-linux.default
     inputs.matugen.packages.x86_64-linux.default
 
-    # Gui display settings
-    nwg-displays
-    wlr-randr
-    nwg-look
-    gradience
-    openvpn
-    fastfetch
-
-    #inputs.self.packages.x86_64-linux.nvim # Install nvim package exported in flake
-
-    inputs.myNvim.packages.x86_64-linux.default
-
-    theme # Created from local shell script
-    rhythmbox
-    bookworm
-
-    #qgnomeplatform
-    #qgnomeplatform-qt6
-    #libsForQt5.qtstyleplugin-kvantum
-    #qt6Packages.qtstyleplugin-kvantum
-    #lxqt.lxqt-config
-
-    libsForQt5.qt5ct
-    qt6Packages.qt6ct
-
-    # For Nextcloud client 
-    #gnome.gnome-keyring
-
-    wallust # Self packaged
-
-    spotifywm
-    spotify-tray
-
-    gnome.gnome-bluetooth_1_0
-    blueman
-
-    wezterm
-    foot
-    gnome.gnome-terminal
-    gnome-console
-    tilix
-
-    gnome.nautilus
-
-    cmakeMinimal
-
-    evince # Gnome PDF viewer
-
+    # Testing out
     niri
+
   ];
 
 }

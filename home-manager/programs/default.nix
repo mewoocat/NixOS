@@ -106,4 +106,24 @@
     package = pkgs.swaylock-effects;
   };
 
+  programs.foot = {
+    enable = true;
+    settings = {
+      main = {
+        font = "SpaceMono Nerd Font:size=10";
+      };
+    };
+  };
+
+  programs.gnome-terminal = {
+    enable = false;
+    showMenubar = false;
+    profile."642ab23b-1a4b-488a-872d-f3eeb408ebeb" = {
+      visibleName = "Default";
+      default = true;
+      font = "SpaceMono Nerd Font 10";
+      transparencyPercent = 40;
+    };
+  };
 }
+
