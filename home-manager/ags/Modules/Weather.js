@@ -31,7 +31,7 @@ Code 	Description
 95 * 	Thunderstorm: Slight or moderate
 96, 99 * 	Thunderstorm with slight and heavy hail
 */
-function LookupWeatherCode(code, name){
+function LookupWeatherCode(code){
     // Get day/night state
     // 
 
@@ -62,18 +62,31 @@ function LookupWeatherCode(code, name){
                 icon: "weather-overcast-symbolic",
                 name: "Overcast",
             }
+        case 51:
+        case 53:
+        case 55:
+            return {
+                icon: "weather-showers-symbolic",
+                name: "Rain",
+            }
+        case 95:
+        case 96:
+        case 99:
+            return {
+                icon: "weather-storms-symbolic",
+                name: "Storms",
+            }
+        // Need to add more
         default:
-            return "Unknown"
+            return {
+                icon: "unknown",
+                name: "Unknown",
+            }
     } 
 }
 
 // Weather icons
-//weather-clear-night-symbolic
-//weather-clear-symbolic
-//weather-few-clouds-night-symbolic
-//weather-few-clouds-symbolic
 //weather-fog-symbolic
-//weather-overcast-symbolic
 //weather-severe-alert-symbolic
 //weather-showers-scattered-symbolic
 //weather-showers-symbolic
@@ -140,6 +153,17 @@ export const weatherStatus = Utils.derive([weather], (weather) => {
     }
     else{
         return "0"
+    }
+}) 
+
+// Icon
+export const weatherIcon = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        print("weather code" + weather.current.weather_code)
+        return LookupWeatherCode(weather.current.weather_code).icon
+    }
+    else{
+        return "action-unavailable-symbolic"
     }
 }) 
 
@@ -215,8 +239,19 @@ export const Weather = (w, h) => Widget.Box({
                             ]
                         }),
                         // Status
-                        Widget.Label({
-                            label: weatherStatus.bind()
+                        Widget.Box({
+                            hexpand: true,
+                            hpack: "center",
+                            spacing: 8,
+                            children: [
+                                Widget.Icon({
+                                    size: 24,
+                                    icon: weatherIcon.bind(),
+                                }),
+                                Widget.Label({
+                                    label: weatherStatus.bind()
+                                }),
+                            ],
                         }),
                         Widget.Box({
                             children: [
