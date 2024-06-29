@@ -297,6 +297,7 @@ const Tabs = () => Widget.Box({
 
 function Container(name, contents){
     return Widget.Box({
+        class_name: "padder",
         vertical: true,
         hexpand: true,
         children: [

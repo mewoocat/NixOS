@@ -105,6 +105,10 @@ switch slider {
     background-color: $bg1;
 }
 
+.padder {
+    margin: 0.8rem;
+}
+
 spinbutton{
     min-height: 38px;
 
@@ -163,7 +167,6 @@ switch {
     background-color: rgba($bg0, 0.2);
     box-shadow: -4px -4px 2px rgba($bg0, 0.8), 3px 3px 2px rgba($bg2, 0.5);
 }
-
 
 
 

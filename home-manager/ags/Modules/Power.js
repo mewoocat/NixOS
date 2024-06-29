@@ -9,20 +9,6 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
     `,
     on_clicked: () => {
-        /*
-        switch (powerProfiles.active_profile) {
-            case 'power-saver':
-                powerProfiles.active_profile = 'performance';
-                break;
-            case 'performance':
-                powerProfiles.active_profile = 'balanced';
-                break;
-            default:
-                powerProfiles.active_profile = 'power-saver';
-                break;
-        };
-        */
-
         // Loop over all available power profiles
         for (let i = 0; i < powerProfiles.profiles.length; i++ ){
             // Find current profile
