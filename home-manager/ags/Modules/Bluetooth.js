@@ -75,7 +75,7 @@ function device(d){
         return null
     }
     return Widget.Button({ 
-        class_name: "normal-button",
+        class_name: "normal-button bg-button",
         onPrimaryClick: () => {
             CurrentDevice.value = d
             ControlPanelTab.setValue("bluetoothDevice")
@@ -177,7 +177,7 @@ export const BluetoothStatus = () => Widget.Box({
 })
 
 export const Refresh = () => Widget.Button({
-    class_name: "normal-button",
+    class_name: "normal-button bg-button",
     // Scan for bt devices
     on_primary_click: () => execAsync("bluetoothctl --timeout 10 scan on"),
     child: Widget.Icon({

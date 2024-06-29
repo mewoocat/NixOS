@@ -87,7 +87,7 @@ grid.attach(bottom, 1,4,2,1)
 
 
 const BackButton = (dst = "main") => Widget.Button({
-    class_name: `normal-button`,
+    class_name: `normal-button bg-button`,
     //hexpand: true,
     onClicked: () => {
         ControlPanelTab.setValue(dst)
@@ -190,11 +190,13 @@ const bluetoothContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        Widget.CenterBox({
-            startWidget: BluetoothStatus(),
-            endWidget: BackButton(),
+        Widget.Box({
+            children: [
+                BluetoothStatus(),
+                Refresh(),
+                BackButton(),
+            ],
         }),
-        Refresh(),
         BluetoothConnectedDevices(),
         BluetoothDevices(),
     ],
