@@ -14,7 +14,7 @@
 
 .container{
     //border-radius: 1rem;
-    //background-color: rgba($bg1, $lowOpacity);
+    background-color: rgba($bg1, $lowOpacity);
     padding: 1rem;
 }
 
@@ -116,16 +116,21 @@ spinbutton{
     }
 
     button {
+        border-radius: 100%;
+        margin-left: 2px;
         font-size: 8px;
         min-width: 38px;
         min-height: 38px;
-
+        background-color: rgba($bg2, 0.3);
     }
 
     button:hover{
-        border-radius: 100%;
         background-color: $bg0;
     }
+}
+
+switch {
+    background-color: rgba($bg2, 0.3);
 }
 
 .active-button > * {

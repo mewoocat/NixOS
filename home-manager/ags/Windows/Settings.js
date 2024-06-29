@@ -96,12 +96,14 @@ function CreateOptionWidget(type, minValue, maxValue){
             break
         case "switch":
             return Widget.Switch({
+                class_name: "switch-button",
                 hpack: "end",
             })
             break
         case "spin":
             print("Creating spin button")
             return Widget.SpinButton({
+                class_name: "spin-button",
                 hpack: "end",
                 range: [minValue, maxValue],
                 increments: [1, 5],
@@ -244,7 +246,7 @@ function ApplySettings(){
 }
 
 const ApplyButton = () => Widget.Button({
-    class_name: "normal-button",
+    class_name: "normal-button bg-button",
     hpack: "end",
     on_primary_click: () => ApplySettings(),
     child: Widget.Label("Apply"),
@@ -295,7 +297,6 @@ const Tabs = () => Widget.Box({
 
 function Container(name, contents){
     return Widget.Box({
-        class_name: "container",
         vertical: true,
         hexpand: true,
         children: [

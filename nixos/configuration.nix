@@ -164,8 +164,13 @@ in{
  programs.corectrl.enable = true;
 
 
+  # Fonts
+  ######################################################################
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
   fonts.fontDir.enable = true;  
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Gohu" "Monofur" "ProggyClean" "RobotoMono" "SpaceMono"]; })
+  ];
 
   # Required for steam to run?
   #hardware.graphics.enable32Bit = true;
@@ -179,15 +184,9 @@ in{
     };
   };
 
-
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
   
-  
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
-  ];
-
   # Systemd
   systemd = {
     # Autostarts gnome polkit
