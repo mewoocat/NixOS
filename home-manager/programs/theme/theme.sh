@@ -88,10 +88,10 @@ function setColors(){
 
     # Kill and restart GTK 4 apps
     # Have to kill not close in order for theme to change
-    pkill gnome-calendar
-    pkill nautilus 
-    gnome-calendar 1> /dev/null 2> /dev/null &
-    nautilus 1> /dev/null 2> /dev/null &
+    #pkill gnome-calendar
+    #pkill nautilus 
+    #gnome-calendar 1> /dev/null 2> /dev/null &
+    #nautilus 1> /dev/null 2> /dev/null &
 }
 
 function setWallpaperTheme(){

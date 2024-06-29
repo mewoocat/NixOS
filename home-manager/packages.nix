@@ -190,6 +190,7 @@ in
 
     evince # Gnome PDF viewer
 
+    niri
   ];
 
 }

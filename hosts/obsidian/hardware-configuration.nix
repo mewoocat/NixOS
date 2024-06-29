@@ -14,11 +14,20 @@
   #services.xserver.videoDrivers = ["amdgpu"];
 
   # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+
+  };
+
+  # Unstable version of OpenGL
+  /*
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-
   };
+  */
 
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];

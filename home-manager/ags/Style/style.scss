@@ -85,11 +85,14 @@ $lowOpacity: 0.45;
 .normal-button > * {
     padding: 0.4rem 0.8rem;
     border-radius: 0.8rem;
-    //background-color: rgba($bg2, 0.2);
 }
 
 .normal-button:hover > * {
     background-color: $bg2;
+}
+
+.bg-button > * {
+    background-color: rgba($bg2, 0.3);
 }
 
 // Power Button

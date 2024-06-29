@@ -4,10 +4,11 @@
   inputs = {
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11"; 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # For custom
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05"; # Testing on gnome
 
-    home-manager.url = "github:nix-community/home-manager";
-    #home-manager.url = "github:nix-community/home-manager/release-23.11";
+    #home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Anyrun
@@ -26,16 +27,15 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland = {
-        url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
-        # v40
+        #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+        url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.39.1&submodules=1";
         #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.40.0&submodules=1";
     };
     hyprspace = {
         url = github:KZDKM/Hyprspace;
         inputs.hyprland.follows = "hyprland";
     };
-   
+
     # My nvim config
     myNvim.url = "github:mewoocat/nvim-nix";
 
@@ -59,6 +59,7 @@
         modules = [ 
           ./hosts/scythe 
           ./nixos/configuration.nix 
+          #./nixos/gnome.nix
 
           # TODO: Move to seperate file?
           home-manager.nixosModules.home-manager
@@ -70,6 +71,7 @@
               imports = [
                 anyrun.homeManagerModules.default
                 ./home-manager/home.nix
+                #./home-manager/gnome.nix
                 ./home-manager/programs/game/gameLite.nix
               ];
             };

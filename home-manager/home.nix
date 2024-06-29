@@ -128,10 +128,16 @@ in
   gtk = {
     enable = true;
     /*
-    cursortheme = {
-      name = "macos-bigsur";
-      package = pkgs.apple-cursor;
-      size = 24;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+    */
+    # whitesur-gtk-theme
+    /*
+    theme = {
+      name = "whitesur-gtk-theme";
+      package = pkgs.whitesur-gtk-theme;
     };
     */
     cursorTheme = {
@@ -244,5 +250,8 @@ in
     "x-scheme-handler/http" = ["firefox.desktop"];
     "x-scheme-handler/https" = ["firefox.desktop"];
   };
+
+
+
 
 }
