@@ -112,6 +112,9 @@
       main = {
         font = "SpaceMono Nerd Font:size=10";
       };
+      colors = {
+        alpha = 0.9;
+      };
     };
   };
 
