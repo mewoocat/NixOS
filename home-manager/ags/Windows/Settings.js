@@ -17,6 +17,7 @@ import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
+import { locationSearch } from '../Modules/Weather.js'
 import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
@@ -158,6 +159,7 @@ const generalFlowBox = Widget.FlowBox({
     vpack: "start",
     max_children_per_line: 1,
 })
+generalFlowBox.add(locationSearch)
 
 
 // Load in options as widgets

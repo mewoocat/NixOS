@@ -9,6 +9,56 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 // Read in user settings
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 
+// Get lat and lon from city
+// Get data from api
+async function getCord(cityName){
+    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
+
+    // Try to make request to weather api
+    try {
+        // await is needed to wait for the return of the data
+        const data = await Utils.fetch(url)
+            .then(res => res.json())
+            //.catch(err => print(err))
+        print("data = " + data)
+        return data
+    }
+
+    // If request fails
+    catch{
+        return null
+    }
+}
+
+
+const locationInput = Widget.Entry({
+    placeholder_text: "Enter city",
+    on_change: (self) => {
+        let city = getCord(self.text)
+
+        print("City = " + city[0].name)
+        //locationResults.add(Widget.Label(locationName))
+    },
+    on_accept: () => {
+
+    },
+})
+
+const locationResults = Widget.ListBox({
+    setup(self) {
+        self.add(Widget.Label('hello'))
+    },
+})
+
+export const locationSearch = Widget.Box({
+    vertical: true,
+    children: [
+        locationInput,
+        locationResults,
+    ],
+})
+
+
 var lat = data.lat
 var lon = data.lon
 //TODO add variables for units
