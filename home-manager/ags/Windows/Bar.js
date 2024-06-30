@@ -7,7 +7,7 @@ import { WifiIcon, EthernetIcon, NetworkIndicator } from '../Modules/Network.js'
 import { BluetoothIcon } from '../Modules/Bluetooth.js';
 import { Workspaces, SpecialWorkspace } from '../Modules/Workspaces.js';
 import { LauncherButton } from '../Windows/Launcher.js';
-import { ClientTitle, ClientIcon, ToggleScratchpad } from '../Modules/CurrentClient.js';
+import { ClientTitle, ClientIcon, ToggleScratchpad } from '../Modules/Applications.js';
 import { MicrophoneIcon } from '../Modules/Microphone.js';
 import { ActivityCenterButton } from './ActivityCenter.js';
 import { ControlPanelToggleButton } from './ControlPanel.js';

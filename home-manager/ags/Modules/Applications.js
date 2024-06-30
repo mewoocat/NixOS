@@ -1,7 +1,51 @@
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
 const WINDOW_NAME = 'applauncher';
+
+export const ClientTitle = () => Widget.Label({
+    class_name: 'client-title',
+    label: Hyprland.active.client.bind('class').as(v => {
+        print(v)
+        if (v.startsWith("org.") || v.startsWith("com.")){
+            let pathList = v.split('.')
+            v = pathList[pathList.length - 1]
+        }
+        if (v.length > 0){
+            return v[0].toUpperCase() + v.slice(1)
+        }
+        return ""
+    }),
+});
+
+export const ClientIcon = () => Widget.Icon({
+    class_name: 'client-icon',
+    }).bind('icon', Hyprland, 'active', p => {
+        const icon = Utils.lookUpIcon(p.client.class)
+
+        //icon: Hyprland.active.client.bind("class"),
+        if (icon) {
+            // icon is the corresponding Gtk.IconInfo
+            return p.client.class
+            
+        }
+        else {
+            // null if it wasn't found in the current Icon Theme
+            // Return place holder icon
+            return "AppImageLauncher" 
+        }
+})
+
+export const ToggleScratchpad = () => Widget.Button({
+    class_name: "normal-button",
+    on_primary_click: () => Hyprland.messageAsync(`dispatch togglespecialworkspace`),
+    child: Widget.Icon({
+        size: 20,
+        icon: "focus-windows-symbolic",
+    })
+})
 
 // repopulate the box, so the most frequent apps are on top of the list
 function repopulate() {
