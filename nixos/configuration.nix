@@ -173,8 +173,8 @@ in{
   ];
 
   # Required for steam to run?
-  #hardware.graphics.enable32Bit = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
 
   hardware.bluetooth.enable = true;

@@ -14,12 +14,9 @@
   #services.xserver.videoDrivers = ["amdgpu"];
 
   # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
-  };
 
   # Unstable version of OpenGL
   /*

@@ -2,10 +2,8 @@
   description = "NixOS and Homemanager flake";
   
   inputs = {
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11"; 
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # For custom
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05"; # Testing on gnome
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     #home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "github:nix-community/home-manager/release-24.05";
