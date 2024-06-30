@@ -3,6 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk'
 import GObject from 'gi://GObject'
+import { timeout } from 'resource:///com/github/Aylur/ags/utils.js'
 
 ///////////////////////////////////
 //  Weather setup
@@ -14,7 +15,7 @@ const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSe
 // Get lat and lon from city
 // Get data from api
 async function getCord(cityName){
-    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
+    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5&language=en&format=json`
 
     // Try to make request to weather api
     try {
@@ -40,54 +41,48 @@ const locationResults = Widget.ListBox({
 })
 */
 
-const locationResults = Variable(null)
+/*
+const debounce = (fn: Function, ms = 300) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+*/
 
-const locationInput = Widget.Entry({
+async function setGeoCompletion(entry){ 
+    //let cities = ["london", "new york", "tokyo"]
+    
+    let data = await getCord(entry.text)
+        .catch(err => print(err))
+    let cities = data.results.map(city => city.name.toString())
+    print("Cities = " + JSON.stringify(cities))    
+
+    const liststore = new Gtk.ListStore();
+    liststore.set_column_types([GObject.TYPE_STRING]);
+
+    for (const item of cities) {
+      const iter = liststore.append();
+      liststore.set(iter, [0], [item]);
+    }
+
+    const completion = new Gtk.EntryCompletion();
+    completion.set_model(liststore);
+    completion.set_text_column(0);
+    entry.set_completion(completion);
+}
+
+export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
-    on_change: async (self) => {
-        let data = await getCord(self.text)
-            .catch(err => print(err))
-        let city = data.results[0].name.toString()
-        print("City = " + city)
-        if (city != null){
-            locationResults.add(Widget.Label(city))
-        }
-        else{
-            print("city was null :(")
-        }
-    },
-    on_accept: () => {
-
-    },
-      setup: (self) => {
-        const liststore = new Gtk.ListStore();
-        liststore.set_column_types([GObject.TYPE_STRING]);
-        const items = [
-          "test 1",
-          "test 2",
-          "test 3",
-        ];
-        for (const item of items) {
-          const iter = liststore.append();
-          liststore.set(iter, [0], [item]);
-        }
-
-        const completion = new Gtk.EntryCompletion();
-        completion.set_model(liststore);
-        completion.set_text_column(0);
-
-        self.set_completion(completion);
-      },
+    //on_change: self => timeout(1000, (self) => setGeoCompletion(self)),
+    //on_change: (self) => setTimeout((self) => { setGeoCompletion(self)}, 1000),
+    on_change: self => setGeoCompletion(self),
+    on_accept: () => {},
+    setup: self => setGeoCompletion(self),
 })
 
 
-export const locationSearch = Widget.Box({
-    vertical: true,
-    children: [
-        locationInput,
-        locationResults,
-    ],
-})
 
 
 var lat = data.lat
