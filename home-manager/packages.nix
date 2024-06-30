@@ -88,6 +88,7 @@ in
     openvpn
     zoxide
     tilix
+    blanket
     
     # Appearance
     liberation_ttf
