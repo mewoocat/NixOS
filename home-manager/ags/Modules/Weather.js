@@ -118,34 +118,50 @@ Code 	Description
 */
 function LookupWeatherCode(code){
     // Get day/night state
-    // 
+    let mode = ""
+    var currentHour = new Date().getHours()
+    print("DATE = " + currentHour)
+    // If night
+    if (currentHour >= 18 || currentHour < 6){
+        print("night")
+        mode="-night"
+    }
+    // Else day
+    else{
+        mode=""
+    }
 
     switch(code) {
         case 0:
             return {
-                icon: "weather-clear-symbolic", // "weather-clear-night-symbolic"
+                icon: `weather-clear${mode}-symbolic`, // "weather-clear-night-symbolic"
+                image: `weather-clear${mode}`,
                 name: "Clear sky",
             }
         case 1:
             return {
-                icon: "weather-few-clouds-symbolic", // "weather-few-clouds-symbolic"
+                icon: `weather-few-clouds${mode}-symbolic`, // "weather-few-clouds-symbolic"
+                image: `weather-few-clouds${mode}`,
                 name: "Mostly clear",
             }
         case 2:
             return {
-                icon: "weather-few-clouds-symbolic", // "weather-few-clouds-symbolic"
+                icon: `weather-few-clouds${mode}-symbolic`, // "weather-few-clouds-symbolic"
+                image: `weather-partly-cloudy${mode}`,
                 name: "Partly cloudy",
             }
         case 3:
             return {
-                icon: "weather-overcast-symbolic",
+                icon: `weather-overcast-symbolic`,
+                image: `weather-overcast`,
                 name: "Overcast",
             }
         case 45:
         case 48:
             return {
-                icon: "weather-overcast-symbolic",
-                name: "Overcast",
+                icon: "weather-fog-symbolic",
+                image: "weather-fog",
+                name: "Fog",
             }
         case 51:
         case 53:
@@ -158,6 +174,7 @@ function LookupWeatherCode(code){
         case 82:
             return {
                 icon: "weather-showers-symbolic",
+                image: "weather-showers",
                 name: "Rain",
             }
         case 95:
@@ -165,6 +182,7 @@ function LookupWeatherCode(code){
         case 99:
             return {
                 icon: "weather-storms-symbolic",
+                image: "weather-storms",
                 name: "Storms",
             }
         // Need to add more
@@ -241,10 +259,21 @@ export const loTemp = Utils.derive([weather], (weather) => {
 // status
 export const weatherStatus = Utils.derive([weather], (weather) => {
     if (weather != null){
-        return LookupWeatherCode(weather.current.weather_code, "name").name
+        return LookupWeatherCode(weather.current.weather_code).name
     }
     else{
         return "0"
+    }
+}) 
+
+// Image
+export const weatherImage = Utils.derive([weather], (weather) => {
+    if (weather != null){
+        print("weather image = " + LookupWeatherCode(weather.current.weather_code).image)
+        return LookupWeatherCode(weather.current.weather_code).image
+    }
+    else{
+        return "Unknown"
     }
 }) 
 
@@ -383,10 +412,12 @@ export const Weather = (w, h) => Widget.Box({
                     }),
                 ]
             })
-        }).hook(weatherStatus, self => {
+        }).hook(weatherImage, self => {
             // Update weather widget background based on current weather status
+            //
+            print("image "+weatherImage.value)
             self.css = `
-                background-image: url("${App.configDir}/assets/${weatherStatus.value}.jpg"); 
+                background-image: url("${App.configDir}/assets/${weatherImage.value}.jpg"); 
                 background-position: center;
                 background-size: cover;
             `;
