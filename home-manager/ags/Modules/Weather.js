@@ -1,6 +1,8 @@
 
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Gtk from 'gi://Gtk'
+import GObject from 'gi://GObject'
 
 ///////////////////////////////////
 //  Weather setup
@@ -19,8 +21,8 @@ async function getCord(cityName){
         // await is needed to wait for the return of the data
         const data = await Utils.fetch(url)
             .then(res => res.json())
-            //.catch(err => print(err))
-        print("data = " + data)
+            .catch(err => print(err))
+        //print("data = " + JSON.stringify(data))
         return data
     }
 
@@ -30,25 +32,54 @@ async function getCord(cityName){
     }
 }
 
-
-const locationInput = Widget.Entry({
-    placeholder_text: "Enter city",
-    on_change: (self) => {
-        let city = getCord(self.text)
-
-        print("City = " + city[0].name)
-        //locationResults.add(Widget.Label(locationName))
-    },
-    on_accept: () => {
-
-    },
-})
-
+/*
 const locationResults = Widget.ListBox({
     setup(self) {
         self.add(Widget.Label('hello'))
     },
 })
+*/
+
+const locationResults = Variable(null)
+
+const locationInput = Widget.Entry({
+    placeholder_text: "Enter city",
+    on_change: async (self) => {
+        let data = await getCord(self.text)
+            .catch(err => print(err))
+        let city = data.results[0].name.toString()
+        print("City = " + city)
+        if (city != null){
+            locationResults.add(Widget.Label(city))
+        }
+        else{
+            print("city was null :(")
+        }
+    },
+    on_accept: () => {
+
+    },
+      setup: (self) => {
+        const liststore = new Gtk.ListStore();
+        liststore.set_column_types([GObject.TYPE_STRING]);
+        const items = [
+          "test 1",
+          "test 2",
+          "test 3",
+        ];
+        for (const item of items) {
+          const iter = liststore.append();
+          liststore.set(iter, [0], [item]);
+        }
+
+        const completion = new Gtk.EntryCompletion();
+        completion.set_model(liststore);
+        completion.set_text_column(0);
+
+        self.set_completion(completion);
+      },
+})
+
 
 export const locationSearch = Widget.Box({
     vertical: true,
