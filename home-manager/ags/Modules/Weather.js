@@ -57,7 +57,7 @@ async function setGeoCompletion(entry){
     let data = await getCord(entry.text)
         .catch(err => print(err))
     let cities = data.results.map(city => city.name.toString())
-    print("Cities = " + JSON.stringify(cities))    
+    print("Cities = " + cities)    
 
     const liststore = new Gtk.ListStore();
     liststore.set_column_types([GObject.TYPE_STRING]);
@@ -77,9 +77,18 @@ export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
     //on_change: self => timeout(1000, (self) => setGeoCompletion(self)),
     //on_change: (self) => setTimeout((self) => { setGeoCompletion(self)}, 1000),
-    on_change: self => setGeoCompletion(self),
-    on_accept: () => {},
-    setup: self => setGeoCompletion(self),
+    on_accept: self => {
+        print("called")
+        try {
+            return setGeoCompletion(self)
+        }
+        catch(err){
+            print(err)
+            return null
+        }
+    },
+    //on_accept: () => {},
+    //setup: self => setGeoCompletion(self),
 })
 
 
