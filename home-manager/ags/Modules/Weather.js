@@ -33,63 +33,58 @@ async function getCord(cityName){
     }
 }
 
-/*
-const locationResults = Widget.ListBox({
-    setup(self) {
-        self.add(Widget.Label('hello'))
-    },
-})
-*/
+const searchResults = Variable([], {})
 
-/*
-const debounce = (fn: Function, ms = 300) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
-};
-*/
-
-async function setGeoCompletion(entry){ 
-    //let cities = ["london", "new york", "tokyo"]
-    
-    let data = await getCord(entry.text)
-        .catch(err => print(err))
-    let cities = data.results.map(city => city.name.toString())
-    print("Cities = " + cities)    
-
-    const liststore = new Gtk.ListStore();
-    liststore.set_column_types([GObject.TYPE_STRING]);
-
-    for (const item of cities) {
-      const iter = liststore.append();
-      liststore.set(iter, [0], [item]);
+async function updateCities(text){ 
+    //let cities = ["london", "new york", "tokyo"] 
+    try{
+        let data = await getCord(text)
+        let cities = data.results.map(city => city.name.toString())
+        print("Cities = " + cities)    
+        searchResults.value = cities
+    }
+    catch(err){
+        print(err)
     }
 
-    const completion = new Gtk.EntryCompletion();
-    completion.set_model(liststore);
-    completion.set_text_column(0);
-    entry.set_completion(completion);
 }
+
+
+const listStore = new Gtk.ListStore()
+listStore.set_column_types([GObject.TYPE_STRING]);
+const completion = new Gtk.EntryCompletion();
+completion.set_text_column(0)
 
 export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
-    //on_change: self => timeout(1000, (self) => setGeoCompletion(self)),
-    //on_change: (self) => setTimeout((self) => { setGeoCompletion(self)}, 1000),
-    on_accept: self => {
-        print("called")
-        try {
-            return setGeoCompletion(self)
-        }
-        catch(err){
-            print(err)
-            return null
-        }
+    on_change: self => {
+        Utils.timeout(1000, () => {
+            // runs with a second delay
+            updateCities(self.text).catch(err => print(err))
+        })
     },
-    //on_accept: () => {},
-    //setup: self => setGeoCompletion(self),
-})
+    on_accept: (self) => {
+        print(searchResults.value)
+        let cities = searchResults.value
+        for (const item of cities) {
+          const iter = listStore.append();
+          listStore.set(iter, [0], [item]);
+        }
+        completion.set_model(listStore)
+        self.set_completion(completion)
+    },
+}).hook(searchResults, self => {
+    let cities = searchResults.value
+    for (const item of cities) {
+      const iter = listStore.append();
+      listStore.set(iter, [0], [item]);
+    }
+    const completion = new Gtk.EntryCompletion();
+    completion.set_model(listStore)
+    completion.set_text_column(0)
+    self.set_completion(completion)
+
+}, "changed")
 
 
 
