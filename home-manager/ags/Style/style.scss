@@ -210,7 +210,7 @@ $lowOpacity: 0.45;
     min-width: 7.2rem;
     min-height: 7.2rem;
     background-color: $bg0;
-    color: lightgreen;
+    color: $accent2;
 }
 
 // Glyph Icons
@@ -305,3 +305,5 @@ button.combo:hover {
     padding: 1rem;
     background-color: rgba($bg1, 0.90);
 }
+
+

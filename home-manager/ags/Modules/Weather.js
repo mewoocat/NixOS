@@ -39,7 +39,8 @@ async function updateCities(text){
     //let cities = ["london", "new york", "tokyo"] 
     try{
         let data = await getCord(text)
-        let cities = data.results.map(city => city.name.toString())
+        //let cities = data.results.map(city => city.name.toString())
+        let cities = data.results
         print("Cities = " + cities)    
         searchResults.value = cities
     }
@@ -51,9 +52,12 @@ async function updateCities(text){
 
 
 const listStore = new Gtk.ListStore()
-listStore.set_column_types([GObject.TYPE_STRING]);
+listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 const completion = new Gtk.EntryCompletion();
 completion.set_text_column(0)
+completion.set_inline_completion = true
+completion.set_inline_selection = true
+completion.popup_set_width = true
 
 export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
@@ -64,26 +68,22 @@ export const locationSearch = Widget.Entry({
         })
     },
     on_accept: (self) => {
-        print(searchResults.value)
-        let cities = searchResults.value
-        for (const item of cities) {
-          const iter = listStore.append();
-          listStore.set(iter, [0], [item]);
-        }
-        completion.set_model(listStore)
-        self.set_completion(completion)
+        const iter = listStore.get_iter_first()
+        print(listStore.get_value(iter, 1))
     },
 }).hook(searchResults, self => {
-    let cities = searchResults.value
-    for (const item of cities) {
-      const iter = listStore.append();
-      listStore.set(iter, [0], [item]);
-    }
-    const completion = new Gtk.EntryCompletion();
-    completion.set_model(listStore)
-    completion.set_text_column(0)
-    self.set_completion(completion)
+    print(searchResults.value)
 
+    listStore.clear()
+    let cities = searchResults.value
+    for (const city of cities) {
+        print(city.name.toString()) 
+        const iter = listStore.append()
+        listStore.set(iter, [0, 1], [city.name.toString(), city.latitude.toString()]);
+    }
+    completion.set_model(listStore)
+    completion.complete()
+    self.set_completion(completion)
 }, "changed")
 
 

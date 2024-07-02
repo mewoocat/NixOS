@@ -60,6 +60,7 @@ export const BatteryLabel = () => Widget.Box({
 
 
 export const BatteryCircle = () => Widget.CircularProgress({
+    hpack: "center",
     class_name: "battery-circle",
     start_at: 0.25,
     rounded: true,
