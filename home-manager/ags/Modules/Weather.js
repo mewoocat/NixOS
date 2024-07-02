@@ -52,13 +52,20 @@ async function updateCities(text){
 
 
 const listStore = new Gtk.ListStore()
-listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING]);
+listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
 const completion = new Gtk.EntryCompletion();
 completion.set_text_column(0)
 completion.set_inline_completion = true
 completion.set_inline_selection = true
 completion.popup_set_width = true
+completion.connect("match-selected", (completion, model, iter) =>{
+    print(listStore.get_value(iter, 1).latitude)
+    print(listStore.get_value(iter, 1).longitude)
+    completion.get_entry().text = listStore.get_value(iter, 0)
+    return true
+})
 
+// match-selected(entryCompletion, model, iter) 
 export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
     on_change: self => {
@@ -68,8 +75,12 @@ export const locationSearch = Widget.Entry({
         })
     },
     on_accept: (self) => {
-        const iter = listStore.get_iter_first()
-        print(listStore.get_value(iter, 1))
+        print("Entered.. ")
+        const [matched, iter] = listStore.get_iter_first()
+        print(listStore.get_value(iter, 1).latitude)
+        print(listStore.get_value(iter, 1).longitude)
+        completion.get_entry().text = listStore.get_value(iter, 0)
+
     },
 }).hook(searchResults, self => {
     print(searchResults.value)
@@ -79,7 +90,7 @@ export const locationSearch = Widget.Entry({
     for (const city of cities) {
         print(city.name.toString()) 
         const iter = listStore.append()
-        listStore.set(iter, [0, 1], [city.name.toString(), city.latitude.toString()]);
+        listStore.set(iter, [0, 1], [city.name.toString() + ", " + city.country_code.toString(), city]);
     }
     completion.set_model(listStore)
     completion.complete()

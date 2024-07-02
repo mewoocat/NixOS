@@ -156,7 +156,7 @@ in
     enable = true;
     #style.name = "kvantum";
 
-    platformTheme = "qtct";
+    platformTheme.name = "qtct";
   };
 
 

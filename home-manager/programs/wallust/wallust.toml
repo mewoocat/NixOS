@@ -15,7 +15,7 @@ backend = "full"
 # lab - labmixed - lch - lchmixed
 color_space = "lab"
 
-#threshold = 50
+threshold = 10
 
 # Use the most prominent colors in a way that makes sense, a scheme color palette:
 # dark - dark16 - darkcomp - darkcomp16

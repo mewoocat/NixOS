@@ -11,7 +11,7 @@ var apPassword = ""
 
 // Not sure if this works
 export const RefreshWifi = (ap) => Widget.Button({ 
-    class_name: "normal-button",
+    class_name: "normal-button bg-button",
     onPrimaryClick: () => {
         Network.wifi.scan()
     }, 

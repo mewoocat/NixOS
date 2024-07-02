@@ -99,6 +99,7 @@
 
       alias fastfetch="fastfetch --logo none"
 
+
     '';
   };
 }

@@ -248,7 +248,8 @@ function ApplySettings(){
 }
 
 const ApplyButton = () => Widget.Button({
-    class_name: "normal-button bg-button",
+    class_name: "shadow-button",
+    vpack: "center",
     hpack: "end",
     on_primary_click: () => ApplySettings(),
     child: Widget.Label("Apply"),
@@ -266,7 +267,7 @@ const tabs = [
 ]
 
 const Tab = (t) => Widget.Button({
-    class_name: "normal-button",
+    class_name: "shadow-button",
     css: `
         margin-right: 1rem;
     `,

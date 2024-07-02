@@ -96,7 +96,8 @@ in{
   sound.enable = lib.mkDefault false;
 
   services.pipewire = {
-    enable = lib.mkDefault true;
+    #enable = lib.mkDefault true;
+    enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -140,7 +141,7 @@ in{
  
   programs.dconf.enable = true;  # Required for gtk?
   programs.light.enable = true;
-  #programs.hyprland.enable = true;
+  programs.hyprland.enable = true;
   programs.thunar.enable = true;
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin

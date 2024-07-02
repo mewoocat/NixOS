@@ -6,7 +6,12 @@
     padding: 0px;
     margin: 0px;
     color: $fg;
+    background-color: unset;
+    button {
+        all: unset;
+    }
 }
+
 
 .recording > *{
     color: red;
@@ -110,6 +115,7 @@ switch slider {
 }
 
 spinbutton{
+    all: unset;
     min-height: 38px;
 
     entry{
@@ -145,7 +151,7 @@ switch {
 
 // Shadow Button
 .shadow-button {
-    margin: 1rem;
+    margin-bottom: 0.6rem;
     background-color: transparent;
     padding: 0.28rem; // Currently determines bar height
 }

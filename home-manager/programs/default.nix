@@ -110,6 +110,7 @@
     enable = true;
     settings = {
       main = {
+        term = "xterm-256color";
         font = "SpaceMono Nerd Font:size=10";
       };
       colors = {
@@ -128,5 +129,16 @@
       transparencyPercent = 40;
     };
   };
+
+  programs.zellij = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      copy_command = "wl-copy";  
+      default_layout = "compact";
+      pane_frames = false;
+    };
+  };
 }
+
 
