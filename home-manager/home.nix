@@ -11,6 +11,7 @@ in
     ./programs/firefox
     ./programs/bash.nix
     ./programs/hyprland/hyprland.nix
+    ./programs/zellij
  ];
 
   # Home Manager needs a bit of information about you and the paths it should

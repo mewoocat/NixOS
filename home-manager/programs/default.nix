@@ -131,15 +131,6 @@
     };
   };
 
-  programs.zellij = {
-    enable = true;
-    enableBashIntegration = true;
-    settings = {
-      copy_command = "wl-copy";  
-      default_layout = "compact";
-      pane_frames = false;
-    };
-  };
 }
 
 
