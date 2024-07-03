@@ -34,7 +34,8 @@ export const ClientIcon = () => Widget.Icon({
         else {
             // null if it wasn't found in the current Icon Theme
             // Return place holder icon
-            return "AppImageLauncher" 
+            //return "AppImageLauncher" 
+            return "video-display-symbolic"
         }
 })
 
@@ -45,6 +46,9 @@ export const ToggleScratchpad = () => Widget.Button({
         size: 20,
         icon: "focus-windows-symbolic",
     })
+}).hook(Hyprland, self => {
+    let specialName = JSON.parse(Hyprland.message("j/monitors"))[0].specialWorkspace.name
+    self.toggleClassName("active-button", specialName == "special")
 })
 
 // repopulate the box, so the most frequent apps are on top of the list
