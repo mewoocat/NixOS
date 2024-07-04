@@ -1,10 +1,12 @@
 @import 'colors';
-$mediumOpacity: 0.86;
-$lowOpacity: 0.45;
+$highOpacity: 0.86;
+$mediumOpacity: 0.64;
+$lowOpacity: 0.44;
 
 @import 'common';
 @import 'sliders';
 @import 'workspaces';
+@import 'control-panel';
 
 // Bar
 ////////////////////////////////////////////////////////////////////////////
@@ -155,46 +157,6 @@ $lowOpacity: 0.45;
 
 
 
-// Control Panel
-////////////////////////////////////////////////////////////////////////////
-.control-panel-button{
-    //padding: 0rem; // Disables default button padding
-    background-color: rgba($bg1, $mediumOpacity);
-    border-radius: 1rem;
-    margin: 0.2rem;
-}
-
-.control-panel-sub-button{
-    margin: 0.2rem;
-}
-
-.control-panel-button:hover{
-    background-color: $accent3;
-}
-
-.control-panel-sub-button:hover{
-    background-color: $accent3;
-}
-
-
-// This is used to provide padding for content within a control panel button
-.control-panel-button-content{
-    padding: 0.4rem;
-}
-
-.control-panel-audio-box {
-    border-radius: 1rem;
-    padding: 0.4rem;
-    margin: 0.2rem;
-    background-color: rgba($bg1, $mediumOpacity);
-}
-
-.control-panel-widget-large{
-    padding: 0.4rem;
-    background-color: rgba($bg1, $lowOpacity);
-    border-radius: 1rem;
-    margin: 0.2rem;
-}
 
 // Battery
 ////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,7 @@
 }
 
 .container{
-    //border-radius: 1rem;
+    border-radius: 1rem;
     background-color: rgba($bg1, $lowOpacity);
     padding: 1rem;
 }
@@ -34,7 +34,7 @@
 }
 
 .normal-window{
-    background-color: rgba($bg0, $mediumOpacity);
+    background-color: rgba($bg0, $highOpacity);
     padding: 1rem;
 }
 

@@ -141,6 +141,7 @@ const mixer = () => Widget.Scrollable({
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
+    class_name: "container",
     vertical: true,
     children: [ 
         Widget.Label({

@@ -28,15 +28,17 @@ import options from '../options.js';
 import icons from '../icons.js';
 
 const WINDOW_NAME = "ControlPanel"
-
+const GRID_SPACING = 4
 
 import Gtk from 'gi://Gtk'
 const grid = new Gtk.Grid()
-//grid.set_column_spacing(8)
-//grid.set_row_spacing(8)
+grid.set_column_spacing(GRID_SPACING)
+grid.set_row_spacing(GRID_SPACING)
 
 // Row 1
 const grid1A = new Gtk.Grid()
+grid1A.set_column_spacing(GRID_SPACING)
+grid1A.set_row_spacing(GRID_SPACING)
 grid1A.attach(WifiPanelButton(options.large, options.small), 1, 1, 2, 1)
 grid1A.attach(BluetoothPanelButton(options.large, options.small), 1, 2, 2, 1)
 grid.attach(grid1A, 1, 1, 1, 1)
@@ -44,9 +46,8 @@ grid.attach(SystemStatsWidgetLarge(options.large, options.large), 2, 1, 1, 1)
 
 // Row 2
 const sliders = Widget.Box({
-    class_name: "control-panel-audio-box",
+    class_name: "control-panel-audio-box control-panel-button",
     vertical: true,
-    spacing: 8,
     children: [
         brightness(),
         VolumeSlider(),
@@ -65,6 +66,8 @@ else{
 }
 
 const grid3B = new Gtk.Grid()
+grid3B.set_column_spacing(GRID_SPACING)
+grid3B.set_row_spacing(GRID_SPACING)
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
 grid3B.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)

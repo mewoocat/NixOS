@@ -1,10 +1,17 @@
 
+{# Conditionally darken/light based on pallete #}
+{% if palette[:4] == "dark" %}
+    $bg0: {{background | lighten(0.0)}};
+    $bg1: {{background | lighten(0.1)}};
+    $bg2: {{background | lighten(0.2)}};
+    $bg3: {{background | lighten(0.3)}};
+{% else %}
+    $bg0: {{background | darken(0.0)}};
+    $bg1: {{background | darken(0.1)}};
+    $bg2: {{background | darken(0.2)}};
+    $bg3: {{background | darken(0.3)}};
+{% endif %}
 
-$bg0: {{background | lighten(0.0)}};
-{# Might need to conditionally darken/light based on pallete #}
-$bg1: {{background | lighten(0.1)}};
-$bg2: {{background | lighten(0.2)}};
-$bg3: {{background | lighten(0.3)}};
 
 $fg: {{foreground}};
 
