@@ -73,12 +73,15 @@ export const VolumeSlider = () => Widget.Box({
             hexpand: true,
             draw_value: false,
             on_change: ({ value }) => Audio.speaker.volume = value,
-            setup: self => self.hook(Audio, () => {
-                self.value = Audio.speaker?.volume || 0;
-            }, 'speaker-changed'),
+            setup: self => {
+                self.hook(Audio, () => {
+                    self.value = Audio.speaker?.volume || 0;
+                }, 'speaker-changed')
+                self.on("scroll-event", () => true) // Ignore scroll wheel
+            }
         }),
     ],
-});
+})
 
 import { ComboBoxText } from '../Global.js';
 const OutputDevices = () => ComboBoxText({}).on("changed", self => {
@@ -117,6 +120,9 @@ function appVolume(app){
                 draw_value: false,
                 on_change: ({ value }) => app.volume = value,
                 value: app.bind("volume"),
+                setup: self => {
+                    self.on("scroll-event", () => true) // Ignore scroll wheel
+                }
             }),
         ]
     })
@@ -125,6 +131,7 @@ function appVolume(app){
 // Mixer
 const mixer = () => Widget.Scrollable({
     css: 'min-height: 100px',
+    vexpand: true,
     child: Widget.Box({
         vertical: true,
         children: Audio.bind("apps").as(v => v.map(appVolume))
