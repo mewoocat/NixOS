@@ -12,8 +12,7 @@ import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import { brightness } from '../Modules/Display.js';
-import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
-import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
+import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'

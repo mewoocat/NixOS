@@ -2,13 +2,12 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
 // Import Modules
 import { BatteryLabel, BatteryBarButton } from '../Modules/Battery.js';
-import { VolumeIcon } from '../Modules/Volume.js';
 import { WifiIcon, EthernetIcon, NetworkIndicator } from '../Modules/Network.js';
 import { BluetoothIcon } from '../Modules/Bluetooth.js';
 import { Workspaces, SpecialWorkspace } from '../Modules/Workspaces.js';
 import { LauncherButton } from '../Windows/Launcher.js';
 import { ClientTitle, ClientIcon, ToggleScratchpad } from '../Modules/Applications.js';
-import { MicrophoneIcon } from '../Modules/Microphone.js';
+import { MicrophoneIcon, VolumeIcon } from '../Modules/Audio.js';
 import { ActivityCenterButton } from './ActivityCenter.js';
 import { ControlPanelToggleButton } from './ControlPanel.js';
 import { SysTray } from '../Modules/Systray.js'

@@ -6,8 +6,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 
 // Modules
 import { brightness } from '../Modules/Display.js';
-import { VolumeSlider, VolumeMenu } from '../Modules/Volume.js';
-import { MicrophoneMenu, MicrophoneSlider } from '../Modules/Microphone.js';
+import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
