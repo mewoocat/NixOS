@@ -8,7 +8,7 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
@@ -145,27 +145,19 @@ const mainContainer = () => Widget.Box({
 const networkContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
-    class_name: "container",
     children: [
         Widget.CenterBox({
             hexpand: true,
             startWidget: RefreshWifi(),
             endWidget: BackButton(),
         }),
-        Widget.Box({
-            vexpand: true,
-            vertical: true,
-            children: [
-                WifiList(),
-            ],
-        })
+        WifiList(),
     ],
 })
 
 const networkAPContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
-    class_name: "container",
     children: [
         BackButton("network"),
         APInfo(),
@@ -194,7 +186,6 @@ const microphoneContainer = () => Widget.Box({
 const bluetoothContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
-    class_name: "container",
     children: [
         Widget.Box({
             children: [
@@ -203,8 +194,7 @@ const bluetoothContainer = () => Widget.Box({
                 BackButton(),
             ],
         }),
-        BluetoothConnectedDevices(),
-        BluetoothDevices(),
+        BluetoothMenu(),
     ],
 })
 

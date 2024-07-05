@@ -99,6 +99,7 @@ function device(d){
 
 export const BluetoothDevices = () => Widget.Box({
     vertical: true,
+    hexpand: true,
     children: [
         Widget.Label({
             hpack: "start",
@@ -123,6 +124,7 @@ export const BluetoothDevices = () => Widget.Box({
 
 export const BluetoothConnectedDevices = () => Widget.Box({
     vertical: true,
+    hexpand: true,
     // Hides this widget if no devices are connected
     visible: Bluetooth.bind("connectedDevices").as(v => {
         if (v.length > 0){
@@ -147,6 +149,14 @@ export const BluetoothConnectedDevices = () => Widget.Box({
         })
 
     ]
+})
+
+export const BluetoothMenu = () => Widget.Box({
+    class_name: "container",
+    children: [
+        BluetoothConnectedDevices(),
+        BluetoothDevices(),
+    ],
 })
     
 

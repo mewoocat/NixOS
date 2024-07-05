@@ -231,6 +231,8 @@ const passwordEntry = Widget.Entry({
 
 export const APInfo = () => Widget.Box({
     vertical: true,
+    vexpand: true,
+    class_name: "container",
     children: [
         Widget.Label({
             hpack: "start",
@@ -242,7 +244,7 @@ export const APInfo = () => Widget.Box({
         Widget.Label({
             hpack: "start",
             label: CurrentAP.bind().as(v => {
-                if (v.frequency != null) { return "SSID: " + v.frequency.toString()}
+                if (v.frequency != null) { return "Frequency: " + v.frequency.toString()}
                 return "Frequency: N/A"
             }),
         }),
@@ -250,7 +252,14 @@ export const APInfo = () => Widget.Box({
             hpack: "start",
             label: CurrentAP.bind().as(v => {
                 if (v.strength != null) { return "Strength: " + v.strength.toString()}
-                return "SSID: N/A"
+                return "Strength: N/A"
+            }),
+        }),
+        Widget.Label({
+            hpack: "start",
+            label: CurrentAP.bind().as(v => {
+                if (v.strength != null) { return "Address: " + v.address.toString()}
+                return "Address: N/A"
             }),
         }),
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Address: " + CurrentAP.value.address.toString()}),
@@ -304,6 +313,7 @@ export const WifiListAvailable = () => Widget.Scrollable({
 export const WifiList = () => Widget.Box({
     vertical: true,
     hexpand: true,
+    class_name: "container",
     children: [
         currentNetwork(),
         Widget.Separator({
