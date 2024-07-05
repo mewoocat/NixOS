@@ -28,3 +28,22 @@
     color: $fgAlt;
 }
 
+
+.header{
+    font-size: 24px;
+    margin: 1rem;
+    font-weight: bold;
+}
+
+.sub-header{
+    font-size: 16px;
+    margin: 1rem;
+    font-weight: bold;
+}
+
+.option-container{
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: rgba($bg1, $lowOpacity);
+}
