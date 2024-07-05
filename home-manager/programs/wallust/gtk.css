@@ -46,8 +46,13 @@
 @define-color dark_5 #000000;
 
 @define-color accent_bg_color {{color4}}; /* Selected */
-@define-color accent_fg_color {{foreground}};
+{% if palette[:4] == "dark" %}
+    @define-color accent_fg_color {{foreground | darken(1)}};
+{% else %}
+    @define-color accent_fg_color {{foreground | lighten(1)}};
+{% endif %}
 @define-color accent_color {{color4}};
+
 @define-color destructive_bg_color {{background}};
 @define-color destructive_fg_color {{foreground}};
 @define-color destructive_color #ff00ff;
@@ -87,4 +92,5 @@
 @define-color scrollbar_outline_color rgba({{background | rgb}}, 0.30);
 @define-color incognito_bg_color #1c2438;
 @define-color new_title_bg_color #303030;
+
 
