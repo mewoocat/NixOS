@@ -141,8 +141,8 @@ const mixer = () => Widget.Scrollable({
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
-    class_name: "container",
     vertical: true,
+    class_name: "container",
     children: [ 
         Widget.Label({
             label: "Outputs",
@@ -163,8 +163,6 @@ export const VolumeMenu = () => Widget.Box({
         mixer(),
     ],
 })
-
-
 
 
 export const MicrophoneIcon = () => Widget.Icon({
@@ -229,6 +227,7 @@ inputDevices.hook(Audio, self => {
 // Volume menu
 export const MicrophoneMenu = () => Widget.Box({
     vertical: true,
+    class_name: "container",
     children: [ 
         Widget.Label({
             label: "Inputs",

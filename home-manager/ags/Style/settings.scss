@@ -1,0 +1,24 @@
+
+.tab-container{    
+    background-color: rgba($bg1, $lowOpacity);
+    padding: 1rem;
+}
+
+// Normal Button
+.settings-tab-button {
+    background-color: transparent;
+    padding: 0.28rem; // Currently determines bar height
+}
+
+.settings-tab-button:active {
+}
+
+.settings-tab-button > * {
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.8rem;
+}
+
+.settings-tab-button:hover > * {
+    background-color: $accent3;
+    color: #000000;
+}

@@ -20,7 +20,6 @@ import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 import { Settings, SettingsToggle } from '../Windows/Settings.js';
 
 // Variables
-//import { ControlPanelTab } from '../variables.js';
 import { ControlPanelTab } from '../Global.js';
 
 // Options
@@ -48,6 +47,7 @@ grid.attach(SystemStatsWidgetLarge(options.large, options.large), 2, 1, 1, 1)
 const sliders = Widget.Box({
     class_name: "control-panel-audio-box control-panel-button",
     vertical: true,
+    spacing: 8,
     children: [
         brightness(),
         VolumeSlider(),
@@ -145,6 +145,7 @@ const mainContainer = () => Widget.Box({
 const networkContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
+    class_name: "container",
     children: [
         Widget.CenterBox({
             hexpand: true,
@@ -164,6 +165,7 @@ const networkContainer = () => Widget.Box({
 const networkAPContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
+    class_name: "container",
     children: [
         BackButton("network"),
         APInfo(),
@@ -173,6 +175,7 @@ const networkAPContainer = () => Widget.Box({
 const volumeContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
+    spacing: 4,
     children: [
         BackButton(),
         VolumeMenu(), 
@@ -191,6 +194,7 @@ const microphoneContainer = () => Widget.Box({
 const bluetoothContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
+    class_name: "container",
     children: [
         Widget.Box({
             children: [

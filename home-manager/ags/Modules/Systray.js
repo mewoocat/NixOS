@@ -1,7 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 
-const isSystrayVisible = Variable(false)
+const isSystrayVisible = Variable(true)
 
 const buttonRevealer = Widget.Revealer({
     transitionDuration: 300,

@@ -41,7 +41,7 @@ export const BluetoothButton = () => Widget.Button({
 })
 
 export const BluetoothPanelButton = (w, h) => Widget.Box({
-    class_name: "control-panel-button",
+    //class_name: "control-panel-button",
     css: `
         min-width: ${w}rem;
         min-height: ${h}rem;
@@ -75,7 +75,7 @@ function device(d){
         return null
     }
     return Widget.Button({ 
-        class_name: "normal-button bg-button",
+        class_name: "normal-button bg-",
         onPrimaryClick: () => {
             CurrentDevice.value = d
             ControlPanelTab.setValue("bluetoothDevice")
