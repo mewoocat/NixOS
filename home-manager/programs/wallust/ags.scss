@@ -5,11 +5,15 @@
     $bg1: {{background | lighten(0.2)}};
     $bg2: {{background | lighten(0.4)}};
     $bg3: {{background | lighten(0.6)}};
+
+    $fgAlt: {{foreground | darken(1)}};
 {% else %}
     $bg0: {{background | darken(0.0)}};
     $bg1: {{background | darken(0.2)}};
     $bg2: {{background | darken(0.4)}};
     $bg3: {{background | darken(0.6)}};
+
+    $fgAlt: {{foreground | lighten(1)}};
 {% endif %}
 
 
@@ -25,4 +29,4 @@ $accent2: {{color3}};
 $onAccent2: {{color3 | complementary}};
 
 $accent3: {{color4}};
-$onAccent3: {{color4 | complementary}};
+$onAccent3: {{color4 | complementary }};

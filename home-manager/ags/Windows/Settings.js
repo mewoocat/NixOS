@@ -74,10 +74,10 @@ const Tab = (t) => Widget.Button({
         print("t = " + t)
         print("SettingsTab.value = " + SettingsTab.value)
         if (t === SettingsTab.value){
-            self.toggleClassName("active-button", true)
+            self.toggleClassName("settings-tab-active", true)
         }
         self.hook(SettingsTab, (self) => {
-            self.toggleClassName("active-button", t === SettingsTab.value)
+            self.toggleClassName("settings-tab-active", t === SettingsTab.value)
         }, "changed")
     },
     child: Widget.Label({

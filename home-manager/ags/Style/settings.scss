@@ -4,7 +4,7 @@
     padding: 1rem;
 }
 
-// Normal Button
+// Settings tab Button
 .settings-tab-button {
     background-color: transparent;
     padding: 0.28rem; // Currently determines bar height
@@ -20,5 +20,11 @@
 
 .settings-tab-button:hover > * {
     background-color: $accent3;
-    color: #000000;
+    color: $fgAlt;
 }
+
+.settings-tab-active > *{
+    background-color: $accent3;
+    color: $fgAlt;
+}
+
