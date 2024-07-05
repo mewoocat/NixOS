@@ -4,24 +4,14 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
-import { RefreshWifi, WifiSSID, WifiIcon, WifiList, APInfo } from '../Modules/Network.js';
-import { PowerProfilesButton } from '../Modules/Power.js';
-import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
-import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
+import { WifiList } from '../Modules/Network.js';
 
-import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
-import { BatteryWidget } from '../Modules/Battery.js';
-import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
-import { locationSearch } from '../Modules/Weather.js'
 import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
-import GLib from 'gi://GLib';
-import Gio from 'gi://Gio';
 
 const Window = Widget.subclass(Gtk.Window, "Window");
 const SettingsTab = Variable("General", {})

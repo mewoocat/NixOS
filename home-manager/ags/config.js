@@ -13,8 +13,6 @@ import { Settings } from './Windows/Settings.js';
 
 // GDK Display
 import Gdk from 'gi://Gdk'
-import Gtk from 'gi://Gtk';
-
 const display = new Gdk.Display()
 
 // Add icons in assets to icon set

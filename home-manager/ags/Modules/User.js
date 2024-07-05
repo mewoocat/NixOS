@@ -1,6 +1,10 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import { user } from '../variables.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+
+export const user = Variable("...", {
+    poll: [60000, 'whoami', out => out]
+});
 
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 var pfp = data.pfp

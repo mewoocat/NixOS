@@ -6,8 +6,6 @@ import GObj from 'gi://GObject'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { ControlPanelTab } from '../Global.js';
 
-import { GPUTemp } from '../variables.js';
-
 export const VolumeIcon = () => Widget.Box({
     class_name: "icon",
     children:[
