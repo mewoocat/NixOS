@@ -85,12 +85,7 @@ export const tempProgress = Widget.CircularProgress({
     value: temp.bind().as(v => v / 100)
 });
 
-export const SystemStatsWidgetLarge = (w, h) => Widget.Box({
-    class_name: "control-panel-button", // The reason this doesn't highlight on hover is because it's a box not a button
-    css: `
-        min-width: ${w}rem;
-        min-height: ${h}rem;
-    `,
+export const systemStatsBox2x2 = Widget.Box({
     hexpand: true,
     children: [
         Widget.Box({

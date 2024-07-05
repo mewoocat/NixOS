@@ -6,6 +6,7 @@
     $bg2: {{background | lighten(0.4)}};
     $bg3: {{background | lighten(0.6)}};
 
+    $fgDim: {{foreground | darken(0.4)}};
     $fgAlt: {{foreground | darken(1)}};
 {% else %}
     $bg0: {{background | darken(0.0)}};
@@ -13,6 +14,7 @@
     $bg2: {{background | darken(0.4)}};
     $bg3: {{background | darken(0.6)}};
 
+    $fgDim: {{foreground | lighten(0.4)}};
     $fgAlt: {{foreground | lighten(1)}};
 {% endif %}
 

@@ -69,6 +69,59 @@ export const BluetoothPanelButton = (w, h) => Widget.Box({
     ],
 })
 
+const bluetoothStatus = Widget.Label({
+    class_name: "sub-text",
+    hpack: "start",
+    label: "N/A",
+    setup: (self) => {
+        self.hook(Bluetooth, (self) => {
+            let content = ""
+            const connectedDevices = Bluetooth.connectedDevices
+            if (!Bluetooth.enabled) {
+                content = "Disabled"
+            }
+            else if (connectedDevices.length > 0) {
+                content = connectedDevices.length + " Connected"
+            }
+            else {
+                content = "Disconnected"
+            }    
+            self.label = content
+        }, "changed")
+    },
+})
+
+export const bluetoothButton2x1 = Widget.Box({
+    children: [
+
+        Widget.Button({         
+            vpack: "center",
+            class_name: "circle-button",
+            onClicked: () => ToggleBluetooth(),
+            child: BluetoothIcon(),
+            setup: (self) => {
+                self.hook(Bluetooth, (self) => {
+                    self.toggleClassName("circle-button-active", Bluetooth.enabled)
+                }, "changed")
+            },
+        }),
+        Widget.Button({
+            class_name: "normal-button",
+            onClicked: () => ControlPanelTab.setValue("bluetooth"),
+            child: Widget.Box({
+                vertical: true,
+                children: [
+                    Widget.Label({
+                        label: "Bluetooth",
+                        hpack: "start",
+                    }),
+                    bluetoothStatus,
+                ],
+            })
+        })
+    ],
+})
+
 
 function device(d){
     if (d.name == null){

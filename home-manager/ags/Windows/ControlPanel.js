@@ -1,16 +1,20 @@
 
+//////////////////////////////////////////////////////////////////
+// Imports
+//////////////////////////////////////////////////////////////////
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+import Gtk from 'gi://Gtk'
 
 // Modules
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
-import { RefreshWifi, WifiPanelButton, WifiSSID, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
-import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
+import { bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
-import { SystemStatsWidgetLarge, GPUWidget } from '../Modules/SystemStats.js';
+import { systemStatsBox2x2, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
 import { DisplayButton } from '../Modules/Display.js';
 import { PowerProfilesButton } from '../Modules/Power.js';
@@ -19,29 +23,85 @@ import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 import { Settings, SettingsToggle } from '../Windows/Settings.js';
 
-// Variables
 import { ControlPanelTab } from '../Global.js';
-
-// Options
 import options from '../options.js';
 import icons from '../icons.js';
 
+//////////////////////////////////////////////////////////////////
+// Constants
+//////////////////////////////////////////////////////////////////
 const WINDOW_NAME = "ControlPanel"
 const GRID_SPACING = 4
 
-import Gtk from 'gi://Gtk'
+
+//////////////////////////////////////////////////////////////////
+// Helper functions
+//////////////////////////////////////////////////////////////////
+
+// Make widget a formated button with action on click
+export function ControlPanelButton(widget, w, h, action) {
+    const button = Widget.Button({
+        class_name: "control-panel-item",
+        on_clicked: action,
+        css: `
+            min-width: ${w}rem;
+            min-height: ${h}rem;
+        `,
+        widget,
+    })
+    return button;
+}
+
+// Make widget a formated box
+export function ControlPanelBox(widget, w, h) {
+    const box = Widget.Box({
+        class_name: "control-panel-item",
+        css: `
+            min-width: ${w}rem;
+            min-height: ${h}rem;
+        `,
+        children: [ widget ],
+    })
+    return box;
+}
+
+
+
 const grid = new Gtk.Grid()
-grid.set_column_spacing(GRID_SPACING)
-grid.set_row_spacing(GRID_SPACING)
+// Usage:
+//     Grid.attach(columnNum, rowNum, widthNum, heighNum)
+
+
+//////////////////////////////////////////////////////////////////
+// Create control panel widgets to add to the main grid 
+//////////////////////////////////////////////////////////////////
+
+// Wireless
+const wirelessGrid = new Gtk.Grid()
+const wirelessWidget = ControlPanelBox(
+    Widget.Box({
+        hpack: "center",
+        vpack: "center",
+        hexpand: true,
+        vertical: true,
+        children: [
+            wifiButton2x1,
+            bluetoothButton2x1,
+        ],
+    }),
+    options.twoThirds,
+    options.large,
+)
+
+const systemStatsWidget = ControlPanelBox(
+    systemStatsBox2x2,
+    options.oneThird,
+    options.large,
+)
 
 // Row 1
-const grid1A = new Gtk.Grid()
-grid1A.set_column_spacing(GRID_SPACING)
-grid1A.set_row_spacing(GRID_SPACING)
-grid1A.attach(WifiPanelButton(options.large, options.small), 1, 1, 2, 1)
-grid1A.attach(BluetoothPanelButton(options.large, options.small), 1, 2, 2, 1)
-grid.attach(grid1A, 1, 1, 1, 1)
-grid.attach(SystemStatsWidgetLarge(options.large, options.large), 2, 1, 1, 1)
+grid.attach(wirelessWidget, 1, 1, 1, 1)
+grid.attach(systemStatsWidget, 2, 1, 1, 1)
 
 // Row 2
 const sliders = Widget.Box({
@@ -66,8 +126,6 @@ else{
 }
 
 const grid3B = new Gtk.Grid()
-grid3B.set_column_spacing(GRID_SPACING)
-grid3B.set_row_spacing(GRID_SPACING)
 grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
 grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
 grid3B.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
@@ -99,39 +157,6 @@ const BackButton = (dst = "main") => Widget.Button({
     })
 })
 
-// Make widget a formated button with action on click
-function ControlPanelButton(widget, edges, w, h, action) {
-    const button = Widget.Button({
-        class_name: `control-panel-button`,
-        on_clicked: action,
-        css: `
-            min-width: ${w}rem;
-            min-height: ${h}rem;
-        `,
-        child: Widget.Box({
-            hexpand: true,
-            class_name: `${edges}`,
-            children: [
-                widget
-            ]
-        })
-    })
-    return button;
-}
-
-// Make widget a formated box
-function ControlPanelBox(widget, w, h) {
-    const box = Widget.Box({
-        class_name: `control-panel-box`,
-        css: `
-            min-width: ${w}rem;
-            min-height: ${h}rem;
-        `,
-        child:
-            widget
-    })
-    return box;
-}
 
 
 const mainContainer = () => Widget.Box({
@@ -275,8 +300,8 @@ export const ControlPanel = () => Widget.Window({
     visible: false,
     layer: "overlay",
     keymode: "exclusive",
-    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    //anchor: ["top", "bottom", "right"], // Debug mode
+    //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top", "left", "right"], // Debug mode
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right"),
     setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME)),

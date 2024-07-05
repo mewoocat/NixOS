@@ -20,6 +20,16 @@ export const RefreshWifi = (ap) => Widget.Button({
     }),
 })
 
+// Toggles wifi enabled state
+function ToggleWifi(){
+    if (Network.wifi.enabled){
+        Network.wifi.enabled = false
+    }
+    else {
+        Network.wifi.enabled = true
+    }
+}
+
 export const WifiIcon = (isConnected, ap) => Widget.Icon({
     size: 16,
 }).hook(Network, self => {
@@ -87,9 +97,10 @@ export const NetworkIndicator = () => Widget.Box({
     //self.show_all() // ^
 }) 
 
-export const WifiSSID = () => Widget.Box({
+export const ssid = Widget.Box({
     children:[
         Widget.Label({
+            class_name: "sub-text",
             label: Network.wifi.bind("ssid"),
             truncate: "end",
             //maxWidthChars: 8,
@@ -118,9 +129,39 @@ export const WifiPanelButton = (w, h) => Widget.Button({
         class_name: "control-panel-button-content",
         children:[
             WifiIcon(true, null),
-            WifiSSID(),
+            ssid,
         ]
     }),
+})
+
+// 2 width x 1 height for grid
+export const wifiButton2x1 = Widget.Box({
+    children: [
+        Widget.Button({         
+            vpack: "center",
+            class_name: "circle-button",
+            onClicked: () => ToggleWifi(),
+            child: WifiIcon(),
+            setup: (self) => {
+                self.hook(Network, (self) => {
+                    self.toggleClassName("circle-button-active", Network.wifi.enabled)
+                }, "changed")
+            },
+        }),
+        Widget.Button({
+            class_name: "normal-button",
+            child: Widget.Box({
+                vertical: true,
+                children: [
+                    Widget.Label({
+                        label: "Wi-Fi",
+                        hpack: "start",
+                    }),
+                    ssid,
+                ],
+            }),
+        }),
+    ],
 })
 
 export const WifiSecurity = () => Widget.Icon({

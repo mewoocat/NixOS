@@ -59,28 +59,24 @@ const buttonRevealer = Widget.Revealer({
             Widget.Button({
                 class_name: "power-button",
                 vpack: "center",
-                //child: Widget.Label({label: "", justification: "center"}),
                 child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
                 on_primary_click: () => execAsync('shutdown now'),
             }),
             Widget.Button({
                 class_name: "power-button",
                 vpack: "center",
-                //child: Widget.Label({label: ""}),
                 child: Widget.Icon({icon: "system-hibernate-symbolic", size: 20}),
                 on_primary_click: () => execAsync('systemctl hibernate'),
             }),
             Widget.Button({
                 class_name: "power-button",
                 vpack: "center",
-                //child: Widget.Label({label: "⏾"}),
                 child: Widget.Icon({icon: "system-suspend-symbolic", size: 20}),
                 on_primary_click: () => execAsync('systemctl suspend'),
             }),
             Widget.Button({
                 class_name: "power-button",
                 vpack: "center",
-                //child: Widget.Label({label: ""}),
                 child: Widget.Icon({icon: "system-restart-symbolic", size: 20}),
                 on_primary_click: () => execAsync('systemctl reboot'),
             }),
