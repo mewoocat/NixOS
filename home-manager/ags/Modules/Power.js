@@ -94,7 +94,8 @@ export const powerButtons = Widget.Box({
         // Toggle button
         Widget.Button({
             vpack: "center",
-            class_name: "power-button",
+            //class_name: "power-button",
+            class_name: "normal-button",
             child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
             on_primary_click: () => {
                 buttonRevealer.revealChild = !buttonRevealer.revealChild 

@@ -2,8 +2,6 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { CloseOnClickAway } from '../Common.js';
-import { powerButtons } from '../Modules/Power.js';
-import { UserInfo } from '../Modules/User.js';
 import { AppLauncher } from '../Modules/Applications.js';
 
 const WINDOW_NAME = 'applauncher';
@@ -30,17 +28,6 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
         `,
         children: [
             AppLauncher(WINDOW_NAME),
-            // User and power menu
-            Widget.CenterBox({  
-                css: `
-                    padding: 0.8rem;
-                    border-radius: 1rem;
-                `,
-                class_name: "container",
-                startWidget: UserInfo,
-                centerWidget: Widget.Label(''),
-                endWidget: powerButtons,
-            })
         ],
     })
 })

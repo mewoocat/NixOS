@@ -33,7 +33,7 @@
     border-color: rgba(64, 64, 64, 0.42);
     border-width: 1px;
     border-style: solid;
-    padding: 1rem;
+    padding: 0.42rem;
     margin: 1rem;
 }
 
@@ -67,12 +67,16 @@ tooltip{
     min-height: 1px;
     background-color: $fg; 
     border-radius: 1rem;
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
 }
 
 .vertical-separator{
     min-width: 1px;
     background-color: $fg; 
     border-radius: 1rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
 }
 
 /*
@@ -444,3 +448,18 @@ button.combo:hover {
 entry treeview {
     background-color: $bg1;
 }
+
+// Progress bar
+progressbar {
+    trough {
+        background-color: $bg0;
+        border-radius: 1rem;
+        min-width: 1rem;
+        progress {
+            background-color: $accent3;
+            min-width: 1rem;
+            border-radius: 1rem;
+        }
+    }
+}
+

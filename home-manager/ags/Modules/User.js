@@ -13,16 +13,24 @@ export const UserInfo = Widget.Box({
     spacing: 4,
     children:[
         Widget.Box({
+            hexpand: false,
+            vexpand: false,
+            vpack: "center",
+            hpack: "center",
             css: `
+                margin-left: 0.4rem;
                 background-position: center;
                 border-radius: 100%;
-                min-width: 3rem;
-                min-height: 3rem;
+                min-width: 2rem;
+                min-height: 2rem;
                 background-size: cover;
                 background-image: url("${App.configDir}/../../.cache/ags/pfp");
             `,
         }),
         Widget.Label({
+            css: `
+                margin-left: 0.4rem;
+            `,
             label: user.bind(),
         }),
     ]

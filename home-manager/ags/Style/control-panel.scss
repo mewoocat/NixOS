@@ -4,7 +4,7 @@
 // Control Panel
 ////////////////////////////////////////////////////////////////////////////
 
-.control-panel-item {
+.control-panel-box{
     background-color: rgba($bg1, $mediumOpacity);
     border-radius: 1rem;
     border-color: rgba($bg0, $mediumOpacity);
@@ -14,7 +14,6 @@
 }
 
 .control-panel-button{
-    //padding: 0rem; // Disables default button padding
     background-color: rgba($bg1, $mediumOpacity);
     border-radius: 1rem;
     border-color: rgba($bg0, $mediumOpacity);
@@ -35,6 +34,7 @@
 .control-panel-sub-button:hover{
     background-color: $accent3;
 }
+
 
 
 // This is used to provide padding for content within a control panel button

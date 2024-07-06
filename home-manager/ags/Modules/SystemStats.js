@@ -3,6 +3,14 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 
+import icons from '../icons.js'
+
+const StatIcon = (icon, size) => Widget.Icon({
+    hpack: "center",
+    size: size,
+    icon: icon,
+})
+
 export const uptime = Variable("...", {
     poll: [60000, 'uptime', out => out.split(',')[0]]
 });
@@ -41,90 +49,110 @@ export const storage = Variable(0, {
 });
 
 export const cpuLabel = () => Widget.Label({
-    label: cpu.bind().transform(value => " " + Math.round(value*100).toString() + "%"),
+    label: cpu.bind().transform(value => "" + Math.round(value*100).toString() + "%"),
 })
 
 export const ramLabel = () => Widget.Label({
-    label: ram.bind().transform(value => " " + Math.round(value*100).toString() + "%"),
+    label: ram.bind().transform(value => "" + Math.round(value*100).toString() + "%"),
 })
 
 export const tempLabel = () => Widget.Label({
-    label: temp.bind().transform(value => " " + value.toString() + "°C"),
+    label: temp.bind().transform(value => "" + value.toString() + "°C"),
 })
 
 export const storageLabel = () => Widget.Label({
-    label: storage.bind().transform(value => "  " + value + "%"),
+    label: storage.bind().transform(value => "" + value + "%"),
 })
 
 
-export const cpuProgress = Widget.CircularProgress({
-    class_name: "system-stats-circular-progress",
-    start_at: 0.25,
-    rounded: true,
-    value: cpu.bind()
+export const cpuProgress = Widget.ProgressBar({
+    css: `
+        margin: 0.2rem;
+    `,
+    hpack: "center",
+    vertical: true,
+    inverted: true,
+    value: cpu.bind(),
 });
 
-export const ramProgress = Widget.CircularProgress({
-    class_name: "system-stats-circular-progress",
-    start_at: 0.25,
-    rounded: true,
+export const ramProgress = Widget.ProgressBar({
+    css: `
+        margin: 0.2rem;
+    `,
+    hpack: "center",
+    vertical: true,
+    inverted: true,
     value: ram.bind()
 });
 
-export const storageProgress = Widget.CircularProgress({
-    class_name: "system-stats-circular-progress",
-    start_at: 0.25,
-    rounded: true,
+export const storageProgress = Widget.ProgressBar({
+    css: `
+        margin: 0.2rem;
+    `,
+    hpack: "center",
+    vertical: true,
+    inverted: true,
     value: storage.bind().transform(p => p / 100)
 });
 
-export const tempProgress = Widget.CircularProgress({
-    class_name: "system-stats-circular-progress",
-    start_at: 0.25,
-    rounded: true,
+export const tempProgress = Widget.ProgressBar({
+    css: `
+        margin: 0.2rem;
+    `,
+    hpack: "center",
+    vertical: true,
+    inverted: true,
     value: temp.bind().as(v => v / 100)
 });
 
 export const systemStatsBox2x2 = Widget.Box({
     hexpand: true,
+    hpack: "center",
+    vpack: "center",
+    spacing: 10,
     children: [
+        // CPU
         Widget.Box({
             vertical: true,
-            hexpand: true,
             hpack: "center",
-            vpack: "center",
-            spacing: 4,
             children: [
-                // CPU
-                Widget.Box({
-                    children: [
-                        cpuProgress,
-                        cpuLabel(),
-                    ]
-                }),
-                // RAM
-                Widget.Box({
-                    children: [
-                        ramProgress,
-                        ramLabel(),
-                    ]
-                }),
-                // Storage
-                Widget.Box({
-                    children: [
-                        storageProgress,
-                        storageLabel(),
-                    ]
-                }),
-                // Temp
-                Widget.Box({
-                    children: [
-                        tempProgress,
-                        tempLabel(),
-                    ]
-                }),
+                cpuProgress,
+                StatIcon(icons.cpu, 16),
+                //cpuLabel(),
             ]
         }),
+        // RAM
+        Widget.Box({
+            vertical: true,
+            hpack: "center",
+            children: [
+                ramProgress,
+                StatIcon(icons.ram, 16),
+                //ramLabel(),
+            ]
+        }),
+        // Storage
+        Widget.Box({
+            vertical: true,
+            hpack: "center",
+            children: [
+                storageProgress,
+                StatIcon(icons.storage, 20),
+                //storageLabel(),
+            ]
+        }),
+        // Temp
+        Widget.Box({
+            vertical: true,
+            hpack: "center",
+            children: [
+                tempProgress,
+                StatIcon(icons.cpuTemp, 16),
+                //tempLabel(),
+            ]
+        }),
+    ]
+})
         /*
         Widget.Box({
             hpack: "center",
@@ -138,8 +166,6 @@ export const systemStatsBox2x2 = Widget.Box({
             ],
         }),
         */
-    ]
-})
 
 
 export const GPUCircle = (w, h) => Widget.CircularProgress({

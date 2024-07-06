@@ -22,6 +22,8 @@ import { NightLightButton } from '../Modules/NightLight.js';
 import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 import { Settings, SettingsToggle } from '../Windows/Settings.js';
+import { powerButtons } from '../Modules/Power.js';
+import { UserInfo } from '../Modules/User.js';
 
 import { ControlPanelTab } from '../Global.js';
 import options from '../options.js';
@@ -41,7 +43,7 @@ const GRID_SPACING = 4
 // Make widget a formated button with action on click
 export function ControlPanelButton(widget, w, h, action) {
     const button = Widget.Button({
-        class_name: "control-panel-item",
+        class_name: "control-panel-button",
         on_clicked: action,
         css: `
             min-width: ${w}rem;
@@ -55,7 +57,7 @@ export function ControlPanelButton(widget, w, h, action) {
 // Make widget a formated box
 export function ControlPanelBox(widget, w, h) {
     const box = Widget.Box({
-        class_name: "control-panel-item",
+        class_name: "control-panel-box",
         css: `
             min-width: ${w}rem;
             min-height: ${h}rem;
@@ -89,23 +91,27 @@ const wirelessWidget = ControlPanelBox(
             bluetoothButton2x1,
         ],
     }),
-    options.twoThirds,
+    options.xlarge,
     options.large,
 )
 
 const systemStatsWidget = ControlPanelBox(
     systemStatsBox2x2,
-    options.oneThird,
+    options.xlarge,
     options.large,
 )
 
-// Row 1
-grid.attach(wirelessWidget, 1, 1, 1, 1)
-grid.attach(systemStatsWidget, 2, 1, 1, 1)
+const buttonGrid = new Gtk.Grid()
+buttonGrid.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
+buttonGrid.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
+buttonGrid.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
+buttonGrid.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
 
-// Row 2
 const sliders = Widget.Box({
-    class_name: "control-panel-audio-box control-panel-button",
+    class_name: "control-panel-box",
+    css: `
+        padding: 0.6rem;
+    `,
     vertical: true,
     spacing: 8,
     children: [
@@ -114,38 +120,56 @@ const sliders = Widget.Box({
         MicrophoneSlider(),
     ]
 })
-grid.attach(sliders, 1,2,2,1)
+
+const bottom = Widget.CenterBox({
+    hexpand: true,
+    css: `
+        min-height: ${options.xsmall}rem;
+    `,
+    class_name: `control-panel-box`,
+    startWidget: UserInfo,
+    centerWidget: Widget.Label(''),
+    endWidget: Widget.Box({
+        hpack: "end",
+        children: [
+            SettingsToggle,
+            Widget.Separator({class_name: "vertical-separator"}),
+            powerButtons,
+        ],
+    }),
+})
+
+// Row 1
+const row1 = new Gtk.Grid()
+row1.attach(wirelessWidget, 1, 1, 1, 1)
+row1.attach(buttonGrid, 2, 1, 1, 1)
+
+// Row 2
+const row2 = new Gtk.Grid()
+row2.attach(sliders, 1,2,2,1)
 
 // Row 3
-
+const row3 = new Gtk.Grid()
 if (Battery.available){
-    grid.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
+    row3.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
 }
 else{
-    grid.attach(GPUWidget(options.large, options.large), 1, 3, 1, 1)
+    row3.attach(GPUWidget(options.large, options.large), 1, 3, 1, 1)
 }
-
-const grid3B = new Gtk.Grid()
-grid3B.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
-grid3B.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
-grid3B.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
-grid3B.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
-grid.attach(grid3B, 2, 3, 1, 1)
+row3.attach(systemStatsWidget, 2, 3, 1, 1)
 
 // Row 4
-
-const bottom = Widget.Box({
-    css: `
-        min-height: 32px;
-    `,
-    class_name: `control-panel-button`,
-    children: [
-        SettingsToggle,
-    ],
-})
-grid.attach(bottom, 1,4,2,1)
+const row4 = new Gtk.Grid()
+row4.attach(bottom, 1,4,2,1)
 
 
+
+
+
+//////////////////////////////////////////////////////////////////
+// Setup submenus
+//////////////////////////////////////////////////////////////////
+    //
 const BackButton = (dst = "main") => Widget.Button({
     class_name: `normal-button bg-button`,
     //hexpand: true,
@@ -157,12 +181,13 @@ const BackButton = (dst = "main") => Widget.Button({
     })
 })
 
-
-
 const mainContainer = () => Widget.Box({
     vertical: true,
     children: [
-        grid,
+        row1,
+        row2,
+        row3,
+        row4,
     ],
 });
 
