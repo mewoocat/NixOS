@@ -6,4 +6,10 @@ export default{
     ram: "ram-symbolic",
     storage: "drive-symbolic",
     cpuTemp: "temp-symbolic",
+    shutdown: "system-shutdown-symbolic",
+    hibernate: "system-hibernate-symbolic",
+    suspend: "system-suspend-symbolic",
+    restart: "system-restart-symbolic",
+
+
 }

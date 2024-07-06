@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 const powerProfiles = await Service.import('powerprofiles')
+import icons from '../icons.js'
 
 export const PowerProfilesButton = (w, h) => Widget.Button({
     class_name: `control-panel-button`,
@@ -49,6 +50,7 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
 })
 
 
+/*
 // Power button revealer
 const buttonRevealer = Widget.Revealer({
     transitionDuration: 300,
@@ -102,6 +104,50 @@ export const powerButtons = Widget.Box({
             },
         }),
     ]
+})
+*/
+
+// Creates a power button
+function PowerButton(name, icon, cmd){
+    return Widget.MenuItem({
+        onActivate: () => execAsync(cmd),
+        child: Widget.Box({
+            children: [
+                Widget.Label({
+                    hpack: "start",
+                    label: name
+                }),
+                Widget.Button({
+                    class_name: "power-button",
+                    vpack: "center",
+                    child: Widget.Icon({icon: icon, size: 20}),
+                    //on_primary_click: () => action,
+                }),
+            ],
+        }),
+    })
+}
+
+
+// Popup power menu
+const powerMenu = Widget.Menu({
+    children: [
+        // Fix these
+        PowerButton("Shutdown", icons.shutdown, "shutdown now"),
+        PowerButton("Hibernate", icons.hibernate, "systemctl hibernate"),
+        PowerButton("Sleep", icons.suspend, "systemctl suspend"),
+        PowerButton("Reboot", icons.reboot, "systemctl reboot"),
+
+    ],
+})
+
+export const togglePowerMenu = Widget.Button({
+    vpack: "center",
+    class_name: "normal-button",
+    child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
+    on_primary_click: (_, event) => {
+        powerMenu.popup_at_pointer(event)
+    },
 })
 
 

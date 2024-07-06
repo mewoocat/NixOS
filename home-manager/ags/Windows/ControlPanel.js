@@ -22,7 +22,7 @@ import { NightLightButton } from '../Modules/NightLight.js';
 import { CloseOnClickAway } from '../Common.js';
 import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
 import { Settings, SettingsToggle } from '../Windows/Settings.js';
-import { powerButtons } from '../Modules/Power.js';
+import { togglePowerMenu } from '../Modules/Power.js';
 import { UserInfo } from '../Modules/User.js';
 
 import { ControlPanelTab } from '../Global.js';
@@ -134,7 +134,7 @@ const bottom = Widget.CenterBox({
         children: [
             SettingsToggle,
             Widget.Separator({class_name: "vertical-separator"}),
-            powerButtons,
+            togglePowerMenu,
         ],
     }),
 })
