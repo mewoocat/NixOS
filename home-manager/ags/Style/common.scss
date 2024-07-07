@@ -385,14 +385,18 @@ entry window.popup {
 // Systray + other context menus?
 ////////////////////////////////////////////////////////////////////////////
 menu {
-    background-color: rgba($bg2, $mediumOpacity);
+    border-color: rgba(64, 64, 64, 0.42);
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba($bg0, $mediumOpacity);
     border-radius: 1rem;
     padding: 0.4rem;
 }
 
 menuitem {
-    border-radius: 0.4rem;
+    border-radius: 1rem;
     padding: 0.4rem;
+    margin: 0.2rem;
 }
 
 menuitem:hover{

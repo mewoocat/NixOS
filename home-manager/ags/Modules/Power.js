@@ -113,15 +113,13 @@ function PowerButton(name, icon, cmd){
         onActivate: () => execAsync(cmd),
         child: Widget.Box({
             children: [
-                Widget.Label({
-                    hpack: "start",
-                    label: name
-                }),
                 Widget.Button({
-                    class_name: "power-button",
                     vpack: "center",
                     child: Widget.Icon({icon: icon, size: 20}),
-                    //on_primary_click: () => action,
+                }),
+                Widget.Label({
+                    hpack: "start",
+                    label: " " + name
                 }),
             ],
         }),
@@ -129,14 +127,14 @@ function PowerButton(name, icon, cmd){
 }
 
 
-// Popup power menu
+// Popup power men
 const powerMenu = Widget.Menu({
     children: [
         // Fix these
         PowerButton("Shutdown", icons.shutdown, "shutdown now"),
         PowerButton("Hibernate", icons.hibernate, "systemctl hibernate"),
         PowerButton("Sleep", icons.suspend, "systemctl suspend"),
-        PowerButton("Reboot", icons.reboot, "systemctl reboot"),
+        PowerButton("Restart", icons.restart, "systemctl reboot"),
 
     ],
 })

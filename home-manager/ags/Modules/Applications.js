@@ -16,7 +16,7 @@ export const ClientTitle = () => Widget.Label({
         if (v.length > 0){
             return v[0].toUpperCase() + v.slice(1)
         }
-        return ""
+        return "Desktop"
     }),
 });
 
