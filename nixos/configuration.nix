@@ -31,9 +31,13 @@ in{
     #"modprobe.d/ELAN_Touchscreen.conf" = {
     #    text = "blacklist \"ELAN Touchscreen UNKNOWN\"";
     #};
+
+    # Prob need to move this to nvidia file
     "modprobe.d/nvidia.conf" = {
         text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
     };
+
+
   };
  };
 
@@ -136,6 +140,11 @@ in{
 
   # For Nextcloud client
   services.gnome.gnome-keyring.enable = true;
+
+  # Used with ags
+  services.greetd = {
+    enable = true;
+  };
 
   ### Programs ###
  
