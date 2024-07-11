@@ -98,7 +98,9 @@
     #configDir = ../ags;
 
     # additional packages to add to gjs's runtime
-    extraPackages = [  ];
+    extraPackages = with pkgs; [ 
+      gtk-session-lock
+    ];
   };
   
   programs.swaylock = {
