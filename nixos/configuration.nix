@@ -143,9 +143,12 @@ in{
   services.gnome.gnome-keyring.enable = true;
 
   # Used with ags
+  # This breaks the boot process
+  /*
   services.greetd = {
     enable = true;
   };
+  */
 
   ### Programs ###
  
