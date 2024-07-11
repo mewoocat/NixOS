@@ -1,4 +1,4 @@
-ty to Aylur and kotontrion:)
+ty to Aylur and Kotontrion:)
 
 Dependencies
 - `brightnessctl`

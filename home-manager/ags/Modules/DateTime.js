@@ -1,11 +1,24 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+
+const datetime = Variable(0, {
+    poll: [1000, ['bash', '-c', 'date "+%B %e   %l:%M %P"'], out => out],
+})
+
+const time = Variable(0, {
+    poll: [1000, ['bash', '-c', 'date "+%l:%M %P"'], out => out],
+})
 
 export const Clock = () => Widget.Label({
     class_name: 'clock',
-    setup: self => self
-        .poll(1000, self => execAsync(['date', '+%B %e   %l:%M %P'])
-            .then(date => self.label = date)),
+    label: datetime.bind(),
+});
+
+export const BigClock = () => Widget.Label({
+    class_name: 'clock',
+    css: `font-size: 4rem`,
+    label: time.bind(),
 });
 
 
