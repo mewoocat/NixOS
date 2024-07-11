@@ -14,13 +14,13 @@ function onLocked(){
 
 function onFinished(){
     print("Finished")
-    GtkSessionLock.lock_destroy(lock)
+    //GtkSessionLock.lock_destroy(lock)
     App.quit()     
 }
 
 print("Setting up lock")
 const lock = GtkSessionLock.prepare_lock()
-lock.lock_lock()
-lock.connect("locked", onLocked())
-lock.connect("finished", onFinished())
+//lock.lock_lock()
+lock.connect("locked", onLocked)
+lock.connect("finished", onFinished)
 
