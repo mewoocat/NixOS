@@ -133,20 +133,30 @@ function createLockWindow(monitor){
             ],
         })
     })    
+    windows.push({window, monitor})
     return window
 }
 
 function lockScreen(){
     const display = Gdk.Display.get_default()
+    // For all current monitors
     for (let m = 0; m < display.get_n_monitors(); m++) {
         const monitor = display.get_monitor(m)
-        const window = createLockWindow(monitor)
-        windows.push({window, monitor})
+        createLockWindow(monitor)
     }
     lock.lock_lock()
     windows.forEach(w => {
         lock.new_surface(w.window, w.monitor)
         w.window.show()
+    })
+
+    // For added / removed monitors
+    display.connect("monitor-added", (display, monitor) => {
+        const window = createLockWindow(monitor)
+        lock.new_surface(window, monitor)
+        window.show()
+    })
+    display.connect("monitor-removed", (display, monitor) => {
     })
 }
 
