@@ -9,29 +9,36 @@ export const user = Variable("...", {
 const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 var pfp = data.pfp
 
+export const UserIcon = (size = 2) => Widget.Box({
+    hexpand: false,
+    vexpand: false,
+    vpack: "center",
+    hpack: "center",
+    css: `
+        margin-left: 0.4rem;
+        background-position: center;
+        border-radius: 100%;
+        min-width: ${size}rem;
+        min-height: ${size}rem;
+        background-size: cover;
+        background-image: url("${App.configDir}/../../.cache/ags/pfp");
+    `,
+})
+
+
+export const UserName = (size = 1) => Widget.Label({
+    css: `
+        margin-left: 0.4rem;
+        font-weight: bold;
+        font-size: ${size}rem;
+    `,
+    label: user.bind(),
+})
+
 export const UserInfo = Widget.Box({
     spacing: 4,
     children:[
-        Widget.Box({
-            hexpand: false,
-            vexpand: false,
-            vpack: "center",
-            hpack: "center",
-            css: `
-                margin-left: 0.4rem;
-                background-position: center;
-                border-radius: 100%;
-                min-width: 2rem;
-                min-height: 2rem;
-                background-size: cover;
-                background-image: url("${App.configDir}/../../.cache/ags/pfp");
-            `,
-        }),
-        Widget.Label({
-            css: `
-                margin-left: 0.4rem;
-            `,
-            label: user.bind(),
-        }),
+        UserIcon(2),
+        UserName(),
     ]
 })

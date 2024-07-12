@@ -2,18 +2,46 @@ import GtkSessionLock from 'gi://GtkSessionLock'
 import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import { BigClock } from './DateTime.js'
-import { UserInfo } from './User.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import { BigClock } from './Modules/DateTime.js'
+import { UserIcon, UserName } from './Modules/User.js'
 
-// Holds lock windows for each monitor
-let windows = []
-let wallpaper = "/home/eXia/Nextcloud/Wallpapers/pexels-dominika-roseclay-2347131.jpg"
-
+//////////////////////////////////////////////////////////////////////
 // Check for support of the `ext-session-lock-v1` protocol
+//////////////////////////////////////////////////////////////////////
 if (!GtkSessionLock.is_supported()) {
     print("Error: ext-session-lock-v1 is not supported") 
     App.quit()     
 }
+
+//////////////////////////////////////////////////////////////////////
+// App config
+//////////////////////////////////////////////////////////////////////
+
+const scss = `${App.configDir}/Style/style.scss`
+const css = `${App.configDir}/Style/style.css`
+Utils.exec(`sassc ${scss} ${css}`)
+Utils.monitorFile(
+    `${App.configDir}/Style/_colors.scss`,
+    function() {
+        Utils.exec(`sassc ${scss} ${css}`)
+        App.resetCss();
+        App.applyCss(`${App.configDir}/Style/style.css`);
+    },
+);
+
+App.config({
+    style: css, 
+})
+
+
+//////////////////////////////////////////////////////////////////////
+// Globals
+//////////////////////////////////////////////////////////////////////
+
+// Holds lock windows for each monitor
+let windows = []
+let wallpaper = `${App.configDir}/../../.cache/wallpaper` 
 
 //////////////////////////////////////////////////////////////////////
 // Functions
@@ -40,28 +68,34 @@ function unlock() {
     App.quit()
 }
 
-const unlockButton = Widget.Button({
-    on_primary_click: () => {
-        unlock()
-    },
-    child: Widget.Label("Unlock"),
-})
+function authenticate(entry){ 
+    Utils.authenticate(entry.text)
+        .then(() => {
+            print('authentication sucessful')
+            unlock()
+        })
+        .catch(err => {
+            logError(err, 'unsucessful')
+            entry.text = ""
+        })
+}
+
 
 const passwordEntry = Widget.Entry({
     placeholder_text: 'type here',
     text: '',
     visibility: false,
     onAccept: (self) => {
-        Utils.authenticate(self.text)
-            .then(() => {
-                print('authentication sucessful')
-                unlock()
-            })
-            .catch(err => {
-                logError(err, 'unsucessful')
-                self.text = ""
-            })
+        authenticate(self)
     },
+})
+
+const unlockButton = Widget.Button({
+    class_name: "normal-button bg-button",
+    on_primary_click: () => {
+        authenticate(passwordEntry)
+    },
+    child: Widget.Label("Unlock"),
 })
 
 function createLockWindow(monitor){
@@ -82,9 +116,11 @@ function createLockWindow(monitor){
                     vpack: "center",
                     vexpand: true,
                     vertical: true,
+                    spacing: 12,
                     children: [
-                        BigClock(),
-                        UserInfo(),
+                        //BigClock(),
+                        UserIcon(8),
+                        UserName(1.6),
                         // Password entry
                         Widget.Box({
                             children: [
