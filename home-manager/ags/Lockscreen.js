@@ -2,7 +2,8 @@ import GtkSessionLock from 'gi://GtkSessionLock'
 import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import { BigClock, Clock } from './DateTime.js'
+import { BigClock } from './DateTime.js'
+import { UserInfo } from './User.js'
 
 // Holds lock windows for each monitor
 let windows = []
@@ -83,6 +84,7 @@ function createLockWindow(monitor){
                     vertical: true,
                     children: [
                         BigClock(),
+                        UserInfo(),
                         // Password entry
                         Widget.Box({
                             children: [
