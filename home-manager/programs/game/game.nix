@@ -18,6 +18,7 @@
     dolphin-emu
     xonotic
     osu-lazer-bin
+    prismlauncher # Minecraft
 
     (lutris.override {
        extraPkgs = pkgs: [
@@ -29,6 +30,19 @@
        ];
     })
     #inputs.nix-gaming.packages.${pkgs.system}.viper
+
+    (retroarch.override {
+      cores = with libretro; [
+        snes9x
+        pcsx-rearmed
+        mgba
+        citra
+        dolphin
+        mupen64plus
+        ppsspp
+        #pcsx2
+      ];
+    })
 
     sunshine
   ];

@@ -58,19 +58,18 @@ in
 
     # Programs
     obsidian
-    webcord
     vesktop
     xdg-utils # needed for discord/vesktop to open web links in default browser
-    onlyoffice-bin
+    #onlyoffice-bin
     gnome.gucharmap
     inkscape
     gimp
-    fontforge-gtk
+    #fontforge-gtk
     mgba
-    xournalpp
+    #xournalpp
     tor-browser-bundle-bin
     nextcloud-client
-    bottles
+    #bottles
     qdirstat
     ascii-image-converter 
     gh

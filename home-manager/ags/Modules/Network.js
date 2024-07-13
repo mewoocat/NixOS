@@ -150,6 +150,9 @@ export const wifiButton2x1 = Widget.Box({
         }),
         Widget.Button({
             class_name: "normal-button",
+            onClicked: () => {
+                ControlPanelTab.setValue("network")
+            },
             child: Widget.Box({
                 vertical: true,
                 children: [
