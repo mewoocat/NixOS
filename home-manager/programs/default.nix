@@ -132,7 +132,6 @@
       transparencyPercent = 40;
     };
   };
-
 }
 
 
