@@ -3,7 +3,7 @@ import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
-import { BigClock } from './Modules/DateTime.js'
+//import { BigClock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 
 //////////////////////////////////////////////////////////////////////

@@ -3,11 +3,7 @@
 
   # Shell scripts
   #what = pkgs.writeShellScriptBin "lockScreen2" ''exec ${pkgs.gtklock}/bin/gtklock'';
-  what = import ./scripts/lockScreen.nix { inherit pkgs; }; 
-  huh = pkgs.writeShellScriptBin "lockScreen3" ''
-        echo "what";
-        ${pkgs.gtklock}/bin/gtklock;
-        '';
+  #what = import ./scripts/lockScreen.nix { inherit pkgs; }; 
 
   # Theme packaging
   src = builtins.readFile ./programs/theme/theme.sh;
@@ -139,6 +135,7 @@ in
     wf-recorder
     slurp # Used to select screen in wf-recorder
     python312Packages.gpustat
+    gtk-session-lock
 
     # Self packaged
     wallust 

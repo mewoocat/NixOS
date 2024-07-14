@@ -99,15 +99,32 @@ in
     #systemdTarget = "basic.target";
     #extraArgs = [ pkgs ];
     events = let
-      lock = (pkgs.writeShellScriptBin "my-hello" ''
+      /*
+      lockOld = (pkgs.writeShellScriptBin "my-hello" ''
           #wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
           wallpaper=~/.cache/wallpaper
           ${pkgs.gtklock}/bin/gtklock -i -t "%l:%M %P" -b $wallpaper;
       '');
 
+      # Lock screen
+      lock = (pkgs.writeShellScriptBin "lock" ''
+        ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
+      '');
+      */
+
+      lock = pkgs.writeShellApplication {
+        name = "ags-lock";
+        runtimeInputs = with pkgs; [ 
+          coreutils 
+          sassc
+        ];
+        text = ''
+          ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
+        '';
+      };
     in
     [
-      { event = "before-sleep"; command = "${lock}/bin/my-hello"; }
+      { event = "before-sleep"; command = "${lock}/bin/ags-lock"; }
     ];
   };
 
