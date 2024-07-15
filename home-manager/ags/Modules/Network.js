@@ -2,6 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import { ControlPanelTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
+import { CircleButton } from './../Common.js';
 
 // Holds current wifi access point selected
 const CurrentAP = Variable({}, {})
@@ -9,16 +10,35 @@ const CurrentAP = Variable({}, {})
 // Globals
 var apPassword = ""
 
+const Refresh = () => {
+    print('Scaning')
+    Network.wifi.scan()
+}
+
 // Not sure if this works
+/*
 export const RefreshWifi = (ap) => Widget.Button({ 
-    class_name: "normal-button bg-button",
-    onPrimaryClick: () => {
-        Network.wifi.scan()
-    }, 
+    class_name: "circle-button",
+    vpack: "center",
+    onPrimaryClick: Refresh, 
     child: Widget.Icon({
         icon: "view-refresh-symbolic",
     }),
 })
+*/
+
+// Why this no work
+export const RefreshWifi = () => CircleButton("view-refresh-symbolic", Refresh)
+//
+/*
+        Widget.Switch({
+            vpack: "center",
+            setup: (self) => {
+                // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
+                self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
+            },
+        }),
+*/
 
 // Toggles wifi enabled state
 function ToggleWifi(){

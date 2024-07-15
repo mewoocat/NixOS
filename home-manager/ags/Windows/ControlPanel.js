@@ -196,10 +196,13 @@ const networkContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        Widget.CenterBox({
+        Widget.Box({
             hexpand: true,
-            startWidget: RefreshWifi(),
-            endWidget: BackButton(),
+            children: [
+                Widget.Label("Wi-Fi"),
+                RefreshWifi(),
+                BackButton(),
+            ],
         }),
         WifiList(),
     ],
