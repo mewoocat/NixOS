@@ -111,7 +111,7 @@ function appVolume(app){
             Widget.Slider({
                 vertical: true,
                 inverted: true,
-                class_name: "sliders",
+                class_name: "vertical-slider",
                 hexpand: false,
                 vexpand: true,
                 draw_value: false,
@@ -136,7 +136,19 @@ const mixer = () => Widget.Scrollable({
     vexpand: true,
     class_name: "container",
     child: Widget.Box({
-        children: Audio.bind("apps").as(v => v.map(appVolume))
+        children: Audio.bind("apps").as(v => {
+            if (v.length < 1){
+                print("Nothing playing")
+                return [Widget.Label({
+                    hexpand: true,
+                    class_name: "dim",
+                    label: "It's quiet here...",
+                    vpack: "center",
+                    hpack: "center",
+                })]
+            }
+            return v.map(appVolume)
+        }),
     })
 })
 
