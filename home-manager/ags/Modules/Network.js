@@ -196,8 +196,10 @@ export const WifiSecurity = () => Widget.Icon({
 
 
 export const CurrentNetwork = () => Widget.Button({ 
-    visible: Network.wifi.bind("internet").as(v => {
-        if (v != "disconnected"){
+    visible: Network.wifi.bind("enabled").as(v => {
+        print("wifi visibility CHECK||||||||||||||||||||||||||||||||||||||||||||||||||")
+        print(v)
+        if (v){
             return true
         }
         return false
