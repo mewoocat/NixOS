@@ -6,6 +6,7 @@ import { NotificationWidget } from '../Modules/Notification.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import { CloseOnClickAway } from '../Common.js';
 import { Weather } from '../Modules/Weather.js';
+import { Media } from '../Modules/Media.js'
 
 import Gtk from 'gi://Gtk';
 // Usage: grid.attach(Widget, col, row, width, height)
@@ -48,7 +49,13 @@ const container = () => Widget.Box({
             vexpand: false,
             children: [
                 grid,
-                NotificationWidget(24,12),
+                Widget.Box({
+                    vertical: true,
+                    children: [
+                        NotificationWidget(24,12),
+                        Media(), 
+                    ],
+                })
             ],
         })
     })

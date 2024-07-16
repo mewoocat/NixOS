@@ -92,11 +92,20 @@ export function SecToHourAndMin(seconds){
     return `${hours} hours, and ${minutes} minutes`
 }
 
-export function CircleButton(icon, action){
+export function CircleButton(icon, action, params){
+    function ActionParsed(){
+        print("params: " + params)
+        if ( params != null || params != undefined){
+            return action(...params)
+        }
+        else{
+            return action()
+        }
+    }
     return Widget.Button({ 
         class_name: "circle-button",
         vpack: "center",
-        on_primary_click: () => action(),
+        on_primary_click: () => ActionParsed(),
         child: Widget.Icon({
             icon: icon,
         }),

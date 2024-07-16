@@ -28,6 +28,7 @@ import { UserInfo } from '../Modules/User.js';
 import { ControlPanelTab } from '../Global.js';
 import options from '../options.js';
 import icons from '../icons.js';
+import { CircleButton } from './../Common.js';
 
 //////////////////////////////////////////////////////////////////
 // Constants
@@ -169,17 +170,29 @@ row4.attach(bottom, 1,4,2,1)
 //////////////////////////////////////////////////////////////////
 // Setup submenus
 //////////////////////////////////////////////////////////////////
-    //
+
+/*
 const BackButton = (dst = "main") => Widget.Button({
     class_name: `normal-button bg-button`,
     //hexpand: true,
     onClicked: () => {
         ControlPanelTab.setValue(dst)
     },
-    child: Widget.Label({
-        label: "Back",
-    })
+    child: Widget.Icon({
+        icon: icons.back,
+    }),
 })
+*/
+
+const SetTab = (dst) => {
+    ControlPanelTab.setValue(dst)
+}
+
+const BackButton = (dst = "main") => CircleButton(icons.back, SetTab, [dst])
+
+
+
+
 
 const mainContainer = () => Widget.Box({
     vertical: true,

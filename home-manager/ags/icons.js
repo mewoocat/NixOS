@@ -10,6 +10,6 @@ export default{
     hibernate: "system-hibernate-symbolic",
     suspend: "system-suspend-symbolic",
     restart: "system-restart-symbolic",
-
+    back: "pan-start-symbolic",
 
 }
