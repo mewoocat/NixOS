@@ -31,7 +31,7 @@
 }
 
 .player scale.position highlight {
-    background-color: #000000;
+    background-color: $accent3;
 }
 
 .player scale.position slider {

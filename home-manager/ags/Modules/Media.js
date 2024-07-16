@@ -29,6 +29,8 @@ function Player(player) {
         class_name: "title",
         wrap: true,
         hpack: "start",
+        truncate: "end",
+        maxWidthChars: 18,
         label: player.bind("track_title"),
     })
 
@@ -36,6 +38,8 @@ function Player(player) {
         class_name: "artist",
         wrap: true,
         hpack: "start",
+        truncate: "end",
+        maxWidthChars: 18,
         label: player.bind("track_artists").transform(a => a.join(", ")),
     })
 
@@ -89,7 +93,7 @@ function Player(player) {
     })
 
     const playPause = Widget.Button({
-        class_name: "play-pause",
+        class_name: "play-pause normal-button",
         on_clicked: () => player.playPause(),
         visible: player.bind("can_play"),
         child: Widget.Icon({
@@ -104,19 +108,21 @@ function Player(player) {
     })
 
     const prev = Widget.Button({
+        class_name: "normal-button",
         on_clicked: () => player.previous(),
         visible: player.bind("can_go_prev"),
         child: Widget.Icon(PREV_ICON),
     })
 
     const next = Widget.Button({
+        class_name: "normal-button",
         on_clicked: () => player.next(),
         visible: player.bind("can_go_next"),
         child: Widget.Icon(NEXT_ICON),
     })
 
     return Widget.Box(
-        { class_name: "player" },
+        { class_name: "player container" },
         img,
         Widget.Box(
             {
@@ -148,6 +154,7 @@ export function Media() {
         vertical: true,
         css: "min-height: 2px; min-width: 2px;", // small hack to make it visible
         visible: players.as(p => p.length > 0),
-        children: players.as(p => p.map(Player)),
+        // Only show the most recently played source
+        children: players.as(p => [Player(p[0])]),
     })
 }

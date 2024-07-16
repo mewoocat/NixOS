@@ -329,18 +329,18 @@ export const Weather = (w, h) => Widget.Box({
                 vertical: true,
                 hexpand: false,
                 vpack: "center",
-                class_name: "weather-container",
-                spacing: 4,
+                //class_name: "weather-container",
+                spacing: 8,
                 children: [
                     //Temperature
                     Widget.Box({
-                        spacing: 4,
+                        spacing: 12,
                         children:[
                             // Current temp
                             Widget.Label({
                                 hexpand: true,
                                 css: `
-                                    font-size: 1.4rem;
+                                    font-size: 1.8rem;
                                 `,
                                 label: currentTemp.bind()
                             }),
@@ -420,13 +420,14 @@ export const Weather = (w, h) => Widget.Box({
             })
         }).hook(weatherImage, self => {
             // Update weather widget background based on current weather status
-            //
+            /*
             print("image "+weatherImage.value)
             self.css = `
                 background-image: url("${App.configDir}/assets/${weatherImage.value}.jpg"); 
                 background-position: center;
                 background-size: cover;
             `;
+            */
         }, "changed"),
     ]
 })

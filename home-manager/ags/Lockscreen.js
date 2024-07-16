@@ -123,6 +123,7 @@ function createLockWindow(monitor){
                         UserName(1.6),
                         // Password entry
                         Widget.Box({
+                            class_name: "toggle-window",
                             children: [
                                 passwordEntry,
                                 unlockButton,

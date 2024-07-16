@@ -47,15 +47,20 @@ const container = () => Widget.Box({
             class_name: 'toggle-window',
             spacing: 8,
             vexpand: false,
+            vertical: true,
             children: [
-                grid,
                 Widget.Box({
-                    vertical: true,
                     children: [
-                        NotificationWidget(24,12),
-                        Media(), 
+                        grid,
+                        Widget.Box({
+                            vertical: true,
+                            children: [
+                                NotificationWidget(24,12),
+                            ],
+                        }),
                     ],
-                })
+                }),
+                Media(), 
             ],
         })
     })

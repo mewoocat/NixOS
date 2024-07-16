@@ -76,7 +76,7 @@ export const Notification = n => {
     return Widget.EventBox({
         on_primary_click: () => n.dismiss(),
         child: Widget.Box({
-            class_name: `notification ${n.urgency}`,
+            class_name: `${n.urgency} container`,
             vertical: true,
             children: [
                 Widget.Box({
