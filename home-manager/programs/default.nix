@@ -133,6 +133,10 @@
       transparencyPercent = 40;
     };
   };
+
+  programs.librewolf = {
+    #enable = true;
+  };
 }
 
 
