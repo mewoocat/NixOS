@@ -11,7 +11,7 @@ import Gtk from 'gi://Gtk'
 // Modules
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
-import { wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
+import { WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { systemStatsBox2x2, GPUWidget } from '../Modules/SystemStats.js';
@@ -208,14 +208,32 @@ const mainContainer = () => Widget.Box({
 const networkContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
+    spacing: 8,
     children: [
         Widget.Box({
-            hexpand: true,
+            spacing: 8,
             children: [
-                Widget.Label("Wi-Fi"),
-                RefreshWifi(),
-                BackButton(),
-            ],
+                BackButton(), 
+                WifiStatus(),
+            ]
+        }),
+        CurrentNetwork(),
+
+        Widget.Box({
+            children:[
+                Widget.Label({
+                    css: `margin-bottom: 0.4rem;`,
+                    label: "Available networks",
+                    hpack: "start",
+                }),
+                Widget.Box({
+                    hexpand: true,
+                    hpack: "end",
+                    children: [
+                        RefreshWifi(),
+                    ]
+                }),
+            ]
         }),
         WifiList(),
     ],
@@ -224,8 +242,15 @@ const networkContainer = () => Widget.Box({
 const networkAPContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
+    spacing: 8,
     children: [
-        BackButton("network"),
+        Widget.Box({
+            spacing: 8,
+            children: [
+                BackButton(), 
+                WifiStatus(),
+            ]
+        }),
         APInfo(),
     ],
 })
@@ -255,9 +280,9 @@ const bluetoothContainer = () => Widget.Box({
     children: [
         Widget.Box({
             children: [
+                BackButton(),
                 BluetoothStatus(),
                 Refresh(),
-                BackButton(),
             ],
         }),
         BluetoothMenu(),

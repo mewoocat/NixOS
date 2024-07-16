@@ -106,15 +106,14 @@ function appVolume(app){
     return Widget.Box({
         tooltip_text: app.name,
         class_name: "normal-button",
+        vertical: true,
         children: [
-            Widget.Icon({
-                vpack: "center",
-                size: 20,
-                icon: app.icon_name
-            }),
             Widget.Slider({
+                vertical: true,
+                inverted: true,
                 class_name: "sliders",
-                hexpand: true,
+                hexpand: false,
+                vexpand: true,
                 draw_value: false,
                 on_change: ({ value }) => app.volume = value,
                 value: app.bind("volume"),
@@ -122,16 +121,21 @@ function appVolume(app){
                     self.on("scroll-event", () => true) // Ignore scroll wheel
                 }
             }),
+            Widget.Icon({
+                vpack: "center",
+                size: 20,
+                icon: app.icon_name
+            }),
         ]
     })
 }
 
 // Mixer
 const mixer = () => Widget.Scrollable({
-    css: 'min-height: 100px',
+    css: 'min-height: 60px',
     vexpand: true,
+    class_name: "container",
     child: Widget.Box({
-        vertical: true,
         children: Audio.bind("apps").as(v => v.map(appVolume))
     })
 })
@@ -140,21 +144,25 @@ const mixer = () => Widget.Scrollable({
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
     vertical: true,
-    class_name: "container",
+    spacing: 8,
     children: [ 
         Widget.Label({
+            css: `margin-bottom: 0.4rem;`,
             label: "Outputs",
             hpack: "start",
         }),
-        OutputDevices(),
-
-        Widget.Label({
-            label: "Master",
-            hpack: "start",
+        Widget.Box({
+            vertical: true,
+            class_name: "container",
+            spacing: 8,
+            children: [
+                OutputDevices(),
+                VolumeSlider(),
+            ],
         }),
-        VolumeSlider(),
 
         Widget.Label({
+            css: `margin-bottom: 0.4rem;`,
             label: "Mixer",
             hpack: "start",
         }),

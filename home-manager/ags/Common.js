@@ -105,9 +105,14 @@ export function CircleButton(icon, action, params){
     return Widget.Button({ 
         class_name: "circle-button",
         vpack: "center",
+        vexpand: false,
+        hpack: "start",
+        hexpand: false,
         on_primary_click: () => ActionParsed(),
         child: Widget.Icon({
             icon: icon,
         }),
     })
 }
+
+

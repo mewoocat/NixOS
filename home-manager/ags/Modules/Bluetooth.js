@@ -4,7 +4,6 @@ import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { ControlPanelTab } from '../Global.js';
 import icons from '../icons.js';
-
 import GObject from 'gi://GObject'
 
 // Holds current bluetooth device selected

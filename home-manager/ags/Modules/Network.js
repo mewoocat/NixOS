@@ -3,6 +3,7 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import { ControlPanelTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 import { CircleButton } from './../Common.js';
+import GObject from 'gi://GObject'
 
 // Holds current wifi access point selected
 const CurrentAP = Variable({}, {})
@@ -194,14 +195,14 @@ export const WifiSecurity = () => Widget.Icon({
 })
 
 
-const currentNetwork = () => Widget.Button({ 
+export const CurrentNetwork = () => Widget.Button({ 
     visible: Network.wifi.bind("internet").as(v => {
         if (v != "disconnected"){
             return true
         }
         return false
     }),
-    class_name: "normal-button",
+    class_name: "normal-button container-no-spacing",
     onPrimaryClick: () => {
         // Set ap point info
         CurrentAP.value = Network.wifi
@@ -379,32 +380,39 @@ export const WifiList = () => Widget.Box({
     hexpand: true,
     class_name: "container",
     children: [
-        currentNetwork(),
-        Widget.Separator({
-            class_name: "horizontal-separator",
-            vertical: false,
-        }),
         WifiListAvailable(),
     ]
 })
 
 
+export const WifiSwitch = () => Widget.Switch({
+    vpack: "center",
+    setup: (self) => {
+        // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
+        self.bind_property("active", Network.wifi, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
+    },
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const WifiStatus = () => Widget.Box({
+    hexpand: true,
+    spacing: 8,
+    children: [
+        Widget.Box({
+            hpack: "start",
+            hexpand: true,
+            spacing: 8,
+            children: [
+                WifiIcon(),
+                Widget.Label("Wi-Fi"),
+            ]
+        }),
+        Widget.Box({
+            hpack: "end",
+            hexpand: true,
+            spacing: 8,
+            children: [
+                WifiSwitch(),
+            ]
+        }),
+    ],
+})

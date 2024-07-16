@@ -27,6 +27,11 @@
     padding: 1rem;
 }
 
+.container-no-spacing{
+    border-radius: 1rem;
+    background-color: rgba($bg1, $lowOpacity);
+}
+
 .toggle-window{
     background-color: rgba($bg0, $mediumOpacity);
     border-radius: 1rem;
@@ -95,12 +100,16 @@ window:has(menu){
 
 switch{
     //min-height: 0.6rem;
+    min-width: 2rem;
+    min-height: 2rem;
     border-radius: 1rem;
     background-color: $bg1;
 }
 
 switch slider {
     border-radius: 1rem;
+    min-width: 2rem;
+    min-height: 2rem;
     background-color: $accent1;
 }
 
@@ -254,7 +263,7 @@ entry window.popup {
 
 // Normal Button
 .normal-button {
-    background-color: transparent;
+    //background-color: transparent;
     padding: 0.28rem; // Currently determines bar height
 }
 
