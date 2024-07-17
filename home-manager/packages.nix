@@ -129,6 +129,10 @@ in
     tmux
     blueberry
     cmakeMinimal
+    glow
+    satty
+    grim
+    lynx
 
     # AGS
     sassc
