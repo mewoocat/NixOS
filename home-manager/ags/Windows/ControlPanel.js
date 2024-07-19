@@ -280,10 +280,9 @@ const bluetoothContainer = () => Widget.Box({
     children: [
         Widget.Box({
             children: [
-                BackButton(),
+                BackButton(), 
                 BluetoothStatus(),
-                Refresh(),
-            ],
+            ]
         }),
         BluetoothMenu(),
     ],

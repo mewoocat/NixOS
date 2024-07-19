@@ -205,37 +205,19 @@ export const BluetoothConnectedDevices = () => Widget.Box({
 
 export const BluetoothMenu = () => Widget.Box({
     class_name: "container",
+    vertical: true,
     children: [
         BluetoothConnectedDevices(),
         BluetoothDevices(),
     ],
 })
     
-
-export const BluetoothStatus = () => Widget.Box({
-    children: [
-        BluetoothButton(),
-        Widget.Switch({
-            vpack: "center",
-            setup: (self) => {
-                // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
-                self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
-            },
-        }),
-        /*
-        Widget.Label({
-            label: Bluetooth.bind("connectedDevices").as(d => {
-                if (d.length > 0){
-                    return d.length + " Connected"
-                }
-                else {
-                    return "Disconnected"
-                }
-            })
-            //label: "Status",
-        }),
-        */
-    ]
+export const BluetoothSwitch = () => Widget.Switch({
+    vpack: "center",
+    setup: (self) => {
+        // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
+        self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
+    },
 })
 
 export const Refresh = () => Widget.Button({
@@ -291,3 +273,26 @@ export const BluetoothDevice = () => Widget.Box({
 })
 
 
+export const BluetoothStatus = () => Widget.Box({
+    hexpand: true,
+    spacing: 8,
+    children: [
+        Widget.Box({
+            hpack: "start",
+            hexpand: true,
+            spacing: 8,
+            children: [
+                BluetoothIcon(),
+                Widget.Label("Bluetooth"),
+            ]
+        }),
+        Widget.Box({
+            hpack: "end",
+            hexpand: true,
+            spacing: 8,
+            children: [
+                BluetoothSwitch(),
+            ]
+        }),
+    ],
+})
