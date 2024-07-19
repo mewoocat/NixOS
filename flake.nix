@@ -45,66 +45,12 @@
 
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function. 
-  outputs = inputs@{ self, nixpkgs, home-manager, anyrun, ... }:
+  outputs = { self, ... }@inputs:
   let
- 	pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    # Call the function in ./hosts/default.nix with inputs as the argument
+    hosts = import ./hosts { inputs = inputs; };
   in
   {
-
-    # NixOS system configs
-    nixosConfigurations = {
-
-      # Razer blade stealth late 2016
-      scythe = nixpkgs.lib.nixosSystem {
-        #system = "x86_64-Linux";
-        specialArgs = { inherit inputs; };
-        modules = [ 
-          ./hosts/scythe 
-          ./nixos/configuration.nix 
-          #./nixos/gnome.nix
-
-          # TODO: Move to seperate file?
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.eXia = {
-              imports = [
-                anyrun.homeManagerModules.default
-                ./home-manager/home.nix
-                #./home-manager/gnome.nix
-                ./home-manager/programs/game/gameLite.nix
-              ];
-            };
-            #home-manger.home.packages = [ self.packages.x86_64-linux.nvim ];
-          }
-        ];
-      };
-
-      # Ryzen 5 + GTX 1080 / RX 470 Desktop
-      obsidian = nixpkgs.lib.nixosSystem {
-        #system = "x86_64-Linux";
-        specialArgs = { inherit inputs; };
-        modules = [ 
-          ./hosts/obsidian
-          ./nixos/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.eXia = {
-              imports = [
-                anyrun.homeManagerModules.default
-                ./home-manager/home.nix
-                ./home-manager/programs/game/game.nix
-              ];
-            };
-          }
-        ];
-      };
-    };
-
+    nixosConfigurations = hosts;
   };
 }
