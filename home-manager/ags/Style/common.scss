@@ -24,12 +24,26 @@
 .container{
     border-radius: 1rem;
     background-color: rgba($bg1, $lowOpacity);
-    padding: 1rem;
+    padding: 0.6em;
 }
 
 .container-no-spacing{
     border-radius: 1rem;
     background-color: rgba($bg1, $lowOpacity);
+}
+
+.container-side-spacing{
+    border-radius: 1rem;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    background-color: rgba($bg1, $lowOpacity);
+}
+
+.scrollable-item:first-child{
+    margin-top: 0.8em;
+}
+.scrollable-item:last-child{
+    margin-top: 0.8em;
 }
 
 .toggle-window{
@@ -38,7 +52,7 @@
     border-color: rgba(64, 64, 64, 0.42);
     border-width: 1px;
     border-style: solid;
-    padding: 0.42rem;
+    padding: 0.64rem;
     margin: 1rem;
 }
 
@@ -276,7 +290,11 @@ entry window.popup {
 }
 
 .normal-button:hover > * {
-    background-color: $bg2;
+    color: $fgAlt;
+    * {
+        color: $fgAlt;
+    }
+    background-color: $accent2;
 }
 
 .bg-button > * {
@@ -425,10 +443,14 @@ scrollbar.overlay-indicator{
     border-radius: 1rem;
 }
 
-scrollbar.vertical slider{
-    min-width: 4px;
-    border-radius: 1rem;
-    background-color: $bg3;
+scrollbar.vertical {
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+    slider{
+        min-width: 4px;
+        border-radius: 1rem;
+        background-color: $bg3;
+    }
 }
 
 // Combobox

@@ -11,5 +11,5 @@ export default{
     suspend: "system-suspend-symbolic",
     restart: "system-restart-symbolic",
     back: "pan-start-symbolic",
-
+    checkmark: "object-select-symbolic",
 }

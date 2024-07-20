@@ -5,6 +5,8 @@ import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 import { CircleButton } from './../Common.js';
 import GObject from 'gi://GObject'
 
+import icons from '../icons.js';
+
 // Holds current wifi access point selected
 const CurrentAP = Variable({}, {})
 
@@ -195,46 +197,12 @@ export const WifiSecurity = () => Widget.Icon({
 })
 
 
-export const CurrentNetwork = () => Widget.Button({ 
-    visible: Network.wifi.bind("enabled").as(v => {
-        print(v)
-        if (v){
-            return true
-        }
-        return false
-    }),
-    class_name: "normal-button container-no-spacing",
-    onPrimaryClick: () => {
-        // Set ap point info
-        CurrentAP.value = Network.wifi
-        // Set tab
-        ControlPanelTab.setValue("ap")
-    }, 
-    child: Widget.CenterBox({
-        startWidget: Widget.Box({
-            children: [
-                Widget.Label({
-                    css: "color: green; font-size: 20px;",
-                    label: "✓ ",
-                }),
-                Widget.Label({
-                    hpack: "start",
-                    label: Network.wifi.bind("ssid"),
-                }),
-            ]
-        }),
-        endWidget: Widget.Box({
-            hpack: "end",
-            children: [
-                WifiSecurity(),
-                WifiIcon(false, Network.wifi),
-            ],
-        }),
-    })
-})
 
 const network = (ap) => Widget.Button({ 
-    class_name: "normal-button",
+    css: `
+        margin-right: 0.8em;
+    `,
+    class_name: "normal-button scrollable-item",
     onPrimaryClick: () => {
         // Set ap point info
         CurrentAP.value = ap 
@@ -244,18 +212,76 @@ const network = (ap) => Widget.Button({
         ControlPanelTab.setValue("ap")
     }, 
     child: Widget.CenterBox({
-        startWidget: Widget.Label({
+        startWidget: Widget.Box({
             hpack: "start",
-            label: ap.ssid
+            spacing: 8,
+            children: [
+                WifiIcon(false, ap),
+                Widget.Label({
+                    hpack: "start",
+                    label: ap.ssid
+                }),
+            ],
         }),
         endWidget: Widget.Box({
             hpack: "end",
             children: [
                 WifiSecurity(),
-                WifiIcon(false, ap),
             ],
         }),
     })
+})
+
+// Current connected network
+export const CurrentNetwork = () => Widget.Box({
+    vertical: true,
+    hexpand: true,
+    class_name: "container",
+    children: [
+        Widget.Button({ 
+            visible: Network.wifi.bind("enabled").as(v => {
+                print(v)
+                if (v){
+                    return true
+                }
+                return false
+            }),
+            class_name: "normal-button",
+            onPrimaryClick: () => {
+                // Set ap point info
+                CurrentAP.value = Network.wifi
+                // Set tab
+                ControlPanelTab.setValue("ap")
+            }, 
+            child: Widget.CenterBox({
+                startWidget: Widget.Box({
+                    spacing: 8,
+                    children: [
+                        Widget.Button({         
+                            vpack: "center",
+                            class_name: "circle-button",
+                            child: WifiIcon(),
+                            setup: (self) => {
+                                self.hook(Network, (self) => {
+                                    self.toggleClassName("circle-button-active", Network.wifi.enabled)
+                                }, "changed")
+                            },
+                        }),
+                        Widget.Label({
+                            hpack: "start",
+                            label: Network.wifi.bind("ssid"),
+                        }),
+                    ]
+                }),
+                endWidget: Widget.Box({
+                    hpack: "end",
+                    children: [
+                        WifiSecurity(),
+                    ],
+                }),
+            })
+        })
+    ]
 })
 
 function ConnectToAP(ssid, password){
@@ -376,10 +402,11 @@ export const WifiListAvailable = () => Widget.Scrollable({
     })
 })
 
+// Wifi available networks
 export const WifiList = () => Widget.Box({
     vertical: true,
     hexpand: true,
-    class_name: "container",
+    class_name: "container-side-spacing",
     children: [
         WifiListAvailable(),
     ]

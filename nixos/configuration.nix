@@ -21,35 +21,32 @@ in{
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
- environment = {
-  sessionVariables = {
-    # Environment variables go here
-    NIXOS_OZONE_WL = "1";
-  };
-  etc = {
-    # Example (not sure if this works for disabling touchscreen)
-    #"modprobe.d/ELAN_Touchscreen.conf" = {
-    #    text = "blacklist \"ELAN Touchscreen UNKNOWN\"";
-    #};
-
-    # Prob need to move this to nvidia file
-    "modprobe.d/nvidia.conf" = {
-        text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
+  environment = {
+    sessionVariables = {
+      # Environment variables go here
+      NIXOS_OZONE_WL = "1";
     };
-
-
-  };
- };
-
-
-      nix.settings = {
-        # Cachix for Hyprland
-        substituters = ["https://hyprland.cachix.org"];
-        trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-
-        experimental-features = [ "nix-command" "flakes" ];
+    etc = {
+      # Prob need to move this to nvidia file
+      "modprobe.d/nvidia.conf" = {
+          text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
       };
+    };
+  };
 
+  nix.settings = {
+    # Cachix for Hyprland
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+
+    experimental-features = [ "nix-command" "flakes" ];
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -224,11 +221,6 @@ in{
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-#  networking.wireless.networks = {
-#    "Google Wi-Fi" = {
-#      psk = "9w8aay37";
-#    };
-#  };
 
 
   # Set your time zone.

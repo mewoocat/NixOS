@@ -217,18 +217,25 @@ const networkContainer = () => Widget.Box({
                 WifiStatus(),
             ]
         }),
+
+        Widget.Label({
+            label: "Connected network",
+            vpack: "center",
+            hpack: "start",
+        }),
         CurrentNetwork(),
 
         Widget.Box({
             children:[
                 Widget.Label({
-                    css: `margin-bottom: 0.4rem;`,
                     label: "Available networks",
+                    vpack: "center",
                     hpack: "start",
                 }),
                 Widget.Box({
                     hexpand: true,
                     hpack: "end",
+                    vpack: "center",
                     children: [
                         RefreshWifi(),
                     ]
@@ -247,7 +254,7 @@ const networkAPContainer = () => Widget.Box({
         Widget.Box({
             spacing: 8,
             children: [
-                BackButton(), 
+                BackButton("network"), 
                 WifiStatus(),
             ]
         }),
