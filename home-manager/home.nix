@@ -1,10 +1,19 @@
-{ config, pkgs, lib, inputs, ... }: let
+{ config, pkgs, lib, inputs, ... }: 
+let
+  lockScreen = pkgs.writeShellApplication {
+    name = "ags-lock";
+    runtimeInputs = with pkgs; [ 
+      coreutils 
+      sassc
+    ];
+    text = ''
+      ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
+    '';
+  };
 in
-
 {
   imports = [
-    inputs.ags.homeManagerModules.default
-    
+    inputs.ags.homeManagerModules.default   
     ./programs/default.nix
     ./programs/nvim
     ./packages.nix
@@ -12,7 +21,7 @@ in
     ./programs/bash.nix
     ./programs/hyprland/hyprland.nix
     ./programs/zellij
- ];
+  ];
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -96,35 +105,17 @@ in
   services.swayidle = {
     enable = true; 
     package = pkgs.swayidle;
-    #systemdTarget = "basic.target";
-    #extraArgs = [ pkgs ];
-    events = let
-      /*
-      lockOld = (pkgs.writeShellScriptBin "my-hello" ''
-          #wallpaper=$(${pkgs.coreutils}/bin/cat ~/.config/wallpaper);
-          wallpaper=~/.cache/wallpaper
-          ${pkgs.gtklock}/bin/gtklock -i -t "%l:%M %P" -b $wallpaper;
-      '');
-
-      # Lock screen
-      lock = (pkgs.writeShellScriptBin "lock" ''
-        ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
-      '');
-      */
-
-      lock = pkgs.writeShellApplication {
-        name = "ags-lock";
-        runtimeInputs = with pkgs; [ 
-          coreutils 
-          sassc
-        ];
-        text = ''
-          ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
-        '';
-      };
-    in
-    [
-      { event = "before-sleep"; command = "${lock}/bin/ags-lock"; }
+    events = [
+      { 
+        event = "before-sleep"; 
+        command = "${lockScreen}/bin/ags-lock"; 
+      }
+    ];
+    timeouts = [
+      { 
+        timeout = 60; 
+        command = "${lockScreen}/bin/ags-lock"; 
+      }
     ];
   };
 
