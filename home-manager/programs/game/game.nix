@@ -18,7 +18,15 @@
     dolphin-emu
     xonotic
     osu-lazer-bin
-    prismlauncher # Minecraft
+
+    # Minecraft
+    (prismlauncher.override { 
+      jdks = [ 
+        temurin-bin-21 
+        temurin-bin-8
+        temurin-bin-17 
+      ]; 
+    })
 
     (lutris.override {
        extraPkgs = pkgs: [
