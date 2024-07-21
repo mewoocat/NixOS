@@ -103,10 +103,22 @@ const OutputDevices = () => ComboBoxText({}).on("changed", self => {
 
 function appVolume(app){
     //const level = Variable(app.volume)
+    const name = app.name.toLowerCase()
+    const iconExists = Utils.lookUpIcon(name)
+    var icon
+    if (iconExists){
+        icon = name
+    }
+    else {
+        icon = app.icon_name
+    }
     return Widget.Box({
         tooltip_text: app.name,
         class_name: "normal-button",
         vertical: true,
+        css: `
+            margin-bottom: 0.5em
+        `,
         children: [
             Widget.Slider({
                 vertical: true,
@@ -123,8 +135,8 @@ function appVolume(app){
             }),
             Widget.Icon({
                 vpack: "center",
-                size: 20,
-                icon: app.icon_name
+                size: 24,
+                icon: icon,
             }),
         ]
     })

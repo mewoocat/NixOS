@@ -152,12 +152,14 @@ function device(d){
 export const BluetoothDevices = () => Widget.Box({
     vertical: true,
     hexpand: true,
+    spacing: 8,
     children: [
         Widget.Label({
             hpack: "start",
             label: "Devices available",
         }),
         Widget.Scrollable({
+            class_name: "container",
             css: `
                 min-height: 100px;
             `,
@@ -177,6 +179,7 @@ export const BluetoothDevices = () => Widget.Box({
 export const BluetoothConnectedDevices = () => Widget.Box({
     vertical: true,
     hexpand: true,
+    spacing: 8,
     // Hides this widget if no devices are connected
     visible: Bluetooth.bind("connectedDevices").as(v => {
         if (v.length > 0){
@@ -190,6 +193,7 @@ export const BluetoothConnectedDevices = () => Widget.Box({
             label: "Connected devices",
         }),
         Widget.Scrollable({
+            class_name: "container",
             css: `
                 min-height: 32px;
             `,
@@ -204,8 +208,8 @@ export const BluetoothConnectedDevices = () => Widget.Box({
 })
 
 export const BluetoothMenu = () => Widget.Box({
-    class_name: "container",
     vertical: true,
+    spacing: 8,
     children: [
         BluetoothConnectedDevices(),
         BluetoothDevices(),

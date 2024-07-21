@@ -459,6 +459,16 @@ scrollbar.vertical {
     }
 }
 
+scrollbar.horizontal {
+    margin-left: 0.6em;
+    margin-right: 0.6em;
+    slider{
+        min-height: 4px;
+        border-radius: 1rem;
+        background-color: $bg3;
+    }
+}
+
 // Combobox
 ////////////////////////////////////////////////////////////////////////////
 
