@@ -14,34 +14,10 @@ const CurrentAP = Variable({}, {})
 var apPassword = ""
 
 const Refresh = () => {
-    print('Scaning')
+    print('Scaning for Wi-Fi access points')
     Network.wifi.scan()
 }
-
-// Not sure if this works
-/*
-export const RefreshWifi = (ap) => Widget.Button({ 
-    class_name: "circle-button",
-    vpack: "center",
-    onPrimaryClick: Refresh, 
-    child: Widget.Icon({
-        icon: "view-refresh-symbolic",
-    }),
-})
-*/
-
-// Why this no work
-export const RefreshWifi = () => CircleButton("view-refresh-symbolic", Refresh)
-//
-/*
-        Widget.Switch({
-            vpack: "center",
-            setup: (self) => {
-                // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
-                self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)
-            },
-        }),
-*/
+export const RefreshWifi = () => CircleButton(icons.refresh, Refresh)
 
 // Toggles wifi enabled state
 function ToggleWifi(){
@@ -308,6 +284,10 @@ function ConnectToAP(ssid, password){
         });
 }
 
+function DeleteAP(ssid){
+    execAsync(`nmcli connection delete ${ssid}`) 
+}
+
 const connectError = Widget.Label({
     css: `color: red;`,
     wrap: true,
@@ -335,17 +315,24 @@ const passwordEntry = Widget.Entry({
     },
 })
 
-export const APInfo = () => Widget.Box({
+export const AccessPoint = () => Widget.Box({
     vertical: true,
     vexpand: true,
-    class_name: "container",
     children: [
-        Widget.Label({
-            hpack: "start",
-            label: CurrentAP.bind().as(v => {
-                if (v.ssid != null) { return "SSID: " + v.ssid.toString()}
-                return "SSID: N/A"
-            }),
+        Widget.Box({
+            class_name: "container",
+            children: [
+                Widget.Label({
+                    class_name: "large-text",
+                    hexpand: true,
+                    hpack: "center",
+                    tooltip_text: "ssid",
+                    label: CurrentAP.bind().as(v => {
+                        if (v.ssid != null) { return v.ssid.toString()}
+                        return "N/A"
+                    }),
+                }),
+            ],
         }),
         Widget.Label({
             hpack: "start",
@@ -373,29 +360,28 @@ export const APInfo = () => Widget.Box({
         //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
 
         passwordEntry,
-        connectError, 
-        // Connect button
-        Widget.Button({
-            class_name: "normal-button",
-            onPrimaryClick: () => { 
-                ConnectToAP(CurrentAP.value.ssid, apPassword)
-                passwordEntry.text = ""
-            },
-            child: Widget.Label({
-                label: "Connect"
-            })
-        }),
+        connectError, // Only shows if error occurs while connecting
 
-        // Delete connection
-        Widget.Button({
-            class_name: "normal-button",
-            onPrimaryClick: () => { 
-                let ssid = CurrentAP.value.ssid
-                execAsync(`nmcli connection delete ${ssid}`) 
-            },
-            child: Widget.Label({
-                label: "Remove"
-            })
+        Widget.Box({
+            spacing: 8,
+            children: [
+
+                // Connect button
+                Widget.Button({
+                    class_name: "normal-button bg-button",
+                    hexpand: true,
+                    onPrimaryClick: () => { 
+                        ConnectToAP(CurrentAP.value.ssid, apPassword)
+                        passwordEntry.text = ""
+                    },
+                    child: Widget.Label({
+                        label: "Connect"
+                    })
+                }),
+
+                // Delete connection
+                CircleButton(icons.deleteItem, DeleteAP, [CurrentAP.value.ssid]),
+            ],
         })
     ]
 })

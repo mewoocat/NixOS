@@ -1,6 +1,7 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import icons from '../icons.js';
 
 
 function isScreenRecordingOn() {
@@ -34,7 +35,7 @@ export const ScreenRecordButton = (w, h) => Widget.Button({
     },
     child: Widget.Icon({
         size: 22,
-        icon: "media-record-symbolic",
+        icon: icons.screenRecord,
         setup: self => {
             
         }

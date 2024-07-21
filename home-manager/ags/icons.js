@@ -12,4 +12,6 @@ export default{
     restart: "system-restart-symbolic",
     back: "pan-start-symbolic",
     checkmark: "object-select-symbolic",
+    screenRecord: "radio-checked-symbolic",
+    deleteItem: "edit-delete-symbolic",
 }

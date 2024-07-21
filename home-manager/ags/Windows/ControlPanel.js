@@ -11,7 +11,7 @@ import Gtk from 'gi://Gtk'
 // Modules
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
-import { NetworkBack, WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
+import { NetworkBack, WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, AccessPoint} from '../Modules/Network.js';
 import { bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { systemStatsBox2x2, GPUWidget } from '../Modules/SystemStats.js';
@@ -256,7 +256,7 @@ const networkContainer = () => Widget.Box({
             // Tabs
             children: {
                 'main': networkMain(),
-                'ap': APInfo(),
+                'ap': AccessPoint(),
             },
             transition: "slide_left_right",
 

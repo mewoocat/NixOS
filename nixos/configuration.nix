@@ -66,7 +66,7 @@ in{
 
     qemu
     quickemu
-
+    gnome.gnome-system-monitor
   ];
 
 

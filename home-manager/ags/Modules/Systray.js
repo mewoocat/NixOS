@@ -16,6 +16,14 @@ const buttonRevealer = Widget.Revealer({
                 on_primary_click: (_, event) => item.activate(event),
                 on_secondary_click: (_, event) => item.openMenu(event),
                 tooltipMarkup: item.bind('tooltip_markup'),
+                setup: (self) => {
+                    // Trying to fix the hover bug where the css :hover still stays active 
+                    // when not hovered
+                    self.on("leave-notify-event", () => {
+                       self.toggleClassName("normal-button", false) 
+                       self.toggleClassName("normal-button", true) 
+                    })
+                },
             }).hook(SystemTray, self => {
                 self.icon = item.icon
             }, "changed"));
