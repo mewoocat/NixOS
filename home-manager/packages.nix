@@ -133,6 +133,8 @@ in
     satty
     grim
     lynx
+    ddcutil
+    ddcui
 
     # AGS
     sassc
