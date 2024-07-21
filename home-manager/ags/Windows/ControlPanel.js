@@ -11,7 +11,7 @@ import Gtk from 'gi://Gtk'
 // Modules
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
-import { WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
+import { NetworkBack, WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, APInfo} from '../Modules/Network.js';
 import { bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { systemStatsBox2x2, GPUWidget } from '../Modules/SystemStats.js';
@@ -25,7 +25,7 @@ import { Settings, SettingsToggle } from '../Windows/Settings.js';
 import { togglePowerMenu } from '../Modules/Power.js';
 import { UserInfo } from '../Modules/User.js';
 
-import { ControlPanelTab } from '../Global.js';
+import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
 import options from '../options.js';
 import icons from '../icons.js';
 import { CircleButton } from './../Common.js';
@@ -188,8 +188,12 @@ const SetTab = (dst) => {
     ControlPanelTab.setValue(dst)
 }
 
-const BackButton = (dst = "main") => CircleButton(icons.back, SetTab, [dst])
-
+const BackButton = (dst = "main", customCallback = null) => {
+    if (customCallback == null){
+        return CircleButton(icons.back, SetTab, [dst])
+    }
+    return CircleButton(icons.back, customCallback, [])
+}
 
 
 
@@ -204,27 +208,16 @@ const mainContainer = () => Widget.Box({
     ],
 });
 
-
-const networkContainer = () => Widget.Box({
+const networkMain = () => Widget.Box({
     vertical: true,
-    vexpand: false,
     spacing: 8,
     children: [
-        Widget.Box({
-            spacing: 8,
-            children: [
-                BackButton(), 
-                WifiStatus(),
-            ]
-        }),
-
         Widget.Label({
             label: "Connected network",
             vpack: "center",
             hpack: "start",
         }),
         CurrentNetwork(),
-
         Widget.Box({
             children:[
                 Widget.Label({
@@ -243,10 +236,10 @@ const networkContainer = () => Widget.Box({
             ]
         }),
         WifiList(),
-    ],
+    ]
 })
 
-const networkAPContainer = () => Widget.Box({
+const networkContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     spacing: 8,
@@ -254,11 +247,25 @@ const networkAPContainer = () => Widget.Box({
         Widget.Box({
             spacing: 8,
             children: [
-                BackButton("network"), 
+                BackButton("n/a", NetworkBack), 
                 WifiStatus(),
             ]
         }),
-        APInfo(),
+
+        Widget.Stack({
+            // Tabs
+            children: {
+                'main': networkMain(),
+                'ap': APInfo(),
+            },
+            transition: "slide_left_right",
+
+            // Select which tab to show
+            setup: self => self.hook(ControlPanelNetworkTab, () => {
+                self.shown = ControlPanelNetworkTab.value;
+            })
+        })
+
     ],
 })
 
@@ -322,7 +329,6 @@ const stack = Widget.Stack({
     children: {
         'main': mainContainer(),
         'network': networkContainer(),
-        'ap': networkAPContainer(),
         'volume': volumeContainer(),
         'microphone': microphoneContainer(),
         'bluetooth': bluetoothContainer(),
@@ -336,7 +342,6 @@ const stack = Widget.Stack({
         self.shown = ControlPanelTab.value;
     })
 })
-
 
 
 const content = Widget.Revealer({

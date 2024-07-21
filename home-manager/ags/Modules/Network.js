@@ -1,6 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import { ControlPanelTab } from '../Global.js';
+import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 import { CircleButton } from './../Common.js';
 import GObject from 'gi://GObject'
@@ -50,6 +50,18 @@ function ToggleWifi(){
     }
     else {
         Network.wifi.enabled = true
+    }
+}
+
+// Return to correct network menu tab
+export function NetworkBack(){
+    if (ControlPanelNetworkTab.getValue() == "main"){
+        // Go back to main control panel menu
+        ControlPanelTab.setValue("main")
+    }
+    else{
+        // Go back to main network control panel menu
+        ControlPanelNetworkTab.setValue("main")
     }
 }
 
@@ -146,6 +158,7 @@ export const WifiPanelButton = (w, h) => Widget.Button({
     `,
     hexpand: true,
     onClicked: () => {
+        ControlPanelNetworkTab.setValue("main")
         ControlPanelTab.setValue("network")
     },
     child: Widget.Box({
@@ -174,6 +187,7 @@ export const wifiButton2x1 = Widget.Box({
         Widget.Button({
             class_name: "normal-button",
             onClicked: () => {
+                ControlPanelNetworkTab.setValue("main")
                 ControlPanelTab.setValue("network")
             },
             child: Widget.Box({
@@ -209,7 +223,7 @@ const network = (ap) => Widget.Button({
         // Hide error 
         connectError.visible = false 
         // Set tab
-        ControlPanelTab.setValue("ap")
+        ControlPanelNetworkTab.setValue("ap")
     }, 
     child: Widget.CenterBox({
         startWidget: Widget.Box({
@@ -251,7 +265,7 @@ export const CurrentNetwork = () => Widget.Box({
                 // Set ap point info
                 CurrentAP.value = Network.wifi
                 // Set tab
-                ControlPanelTab.setValue("ap")
+                ControlPanelNetworkTab.setValue("ap")
             }, 
             child: Widget.CenterBox({
                 startWidget: Widget.Box({
