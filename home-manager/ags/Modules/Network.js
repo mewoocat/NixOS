@@ -41,8 +41,8 @@ export function NetworkBack(){
     }
 }
 
-export const WifiIcon = (isConnected, ap) => Widget.Icon({
-    size: 16,
+export const WifiIcon = (isConnected, ap, size = 16) => Widget.Icon({
+    size: size,
 }).hook(Network, self => {
 
     // If access point
@@ -224,52 +224,63 @@ const network = (ap) => Widget.Button({
 
 // Current connected network
 export const CurrentNetwork = () => Widget.Box({
+    visible: Network.wifi.bind("enabled").as(v => {
+        print(v)
+        if (v){
+            return true
+        }
+        return false
+    }),
     vertical: true,
-    hexpand: true,
-    class_name: "container",
+    spacing: 8,
     children: [
-        Widget.Button({ 
-            visible: Network.wifi.bind("enabled").as(v => {
-                print(v)
-                if (v){
-                    return true
-                }
-                return false
-            }),
-            class_name: "normal-button",
-            onPrimaryClick: () => {
-                // Set ap point info
-                CurrentAP.value = Network.wifi
-                // Set tab
-                ControlPanelNetworkTab.setValue("ap")
-            }, 
-            child: Widget.CenterBox({
-                startWidget: Widget.Box({
-                    spacing: 8,
-                    children: [
-                        Widget.Button({         
-                            vpack: "center",
-                            class_name: "circle-button",
-                            child: WifiIcon(),
-                            setup: (self) => {
-                                self.hook(Network, (self) => {
-                                    self.toggleClassName("circle-button-active", Network.wifi.enabled)
-                                }, "changed")
-                            },
+        Widget.Label({
+            label: "Connected network",
+            vpack: "center",
+            hpack: "start",
+        }),
+        Widget.Box({
+            vertical: true,
+            hexpand: true,
+            class_name: "container",
+            children: [
+                Widget.Button({ 
+                    class_name: "normal-button",
+                    onPrimaryClick: () => {
+                        // Set ap point info
+                        CurrentAP.value = Network.wifi
+                        // Set tab
+                        ControlPanelNetworkTab.setValue("ap")
+                    }, 
+                    child: Widget.CenterBox({
+                        startWidget: Widget.Box({
+                            spacing: 8,
+                            children: [
+                                Widget.Button({         
+                                    vpack: "center",
+                                    class_name: "circle-button",
+                                    child: WifiIcon(),
+                                    setup: (self) => {
+                                        self.hook(Network, (self) => {
+                                            self.toggleClassName("circle-button-active", Network.wifi.enabled)
+                                        }, "changed")
+                                    },
+                                }),
+                                Widget.Label({
+                                    hpack: "start",
+                                    label: Network.wifi.bind("ssid"),
+                                }),
+                            ]
                         }),
-                        Widget.Label({
-                            hpack: "start",
-                            label: Network.wifi.bind("ssid"),
+                        endWidget: Widget.Box({
+                            hpack: "end",
+                            children: [
+                                WifiSecurity(),
+                            ],
                         }),
-                    ]
-                }),
-                endWidget: Widget.Box({
-                    hpack: "end",
-                    children: [
-                        WifiSecurity(),
-                    ],
-                }),
-            })
+                    })
+                })
+            ]
         })
     ]
 })
@@ -284,7 +295,8 @@ function ConnectToAP(ssid, password){
         });
 }
 
-function DeleteAP(ssid){
+function DeleteAP(){
+    const ssid = CurrentAP.value.ssid
     execAsync(`nmcli connection delete ${ssid}`) 
 }
 
@@ -314,18 +326,38 @@ const passwordEntry = Widget.Entry({
         apPassword = text
     },
 })
+const AccessPointStat = ( name, stat ) => Widget.Box({
+    children: [
+        Widget.Label({
+            hexpand: true,
+            hpack: "start",
+            label: name,
+        }),
+        Widget.Label({
+            hexpand: true,
+            hpack: "end",
+            label: CurrentAP.bind().as(ap => {
+                return ap[stat].toString()
+            }),
+        }), 
+    ]
+})
 
 export const AccessPoint = () => Widget.Box({
     vertical: true,
     vexpand: true,
+    spacing: 16,
     children: [
         Widget.Box({
-            class_name: "container",
+            //class_name: "container",
+            hpack: "center",
+            spacing: 8,
             children: [
+                WifiIcon(null, null, 24),
                 Widget.Label({
                     class_name: "large-text",
                     hexpand: true,
-                    hpack: "center",
+                    hpack: "start",
                     tooltip_text: "ssid",
                     label: CurrentAP.bind().as(v => {
                         if (v.ssid != null) { return v.ssid.toString()}
@@ -334,30 +366,7 @@ export const AccessPoint = () => Widget.Box({
                 }),
             ],
         }),
-        Widget.Label({
-            hpack: "start",
-            label: CurrentAP.bind().as(v => {
-                if (v.frequency != null) { return "Frequency: " + v.frequency.toString()}
-                return "Frequency: N/A"
-            }),
-        }),
-        Widget.Label({
-            hpack: "start",
-            label: CurrentAP.bind().as(v => {
-                if (v.strength != null) { return "Strength: " + v.strength.toString()}
-                return "Strength: N/A"
-            }),
-        }),
-        Widget.Label({
-            hpack: "start",
-            label: CurrentAP.bind().as(v => {
-                if (v.strength != null) { return "Address: " + v.address.toString()}
-                return "Address: N/A"
-            }),
-        }),
-        //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Address: " + CurrentAP.value.address.toString()}),
-        //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "BSSID: " + CurrentAP.value.bssid.toString()}),
-        //Widget.Label({hpack: "start"}).hook(CurrentAP, self => {self.label = "Last Seen: " + CurrentAP.value.lastSeen.toString()}),
+
 
         passwordEntry,
         connectError, // Only shows if error occurs while connecting
@@ -380,9 +389,22 @@ export const AccessPoint = () => Widget.Box({
                 }),
 
                 // Delete connection
-                CircleButton(icons.deleteItem, DeleteAP, [CurrentAP.value.ssid]),
+                CircleButton(icons.deleteItem, DeleteAP, []),
             ],
-        })
+        }),
+
+        // Information
+        Widget.Box({
+            class_name: "container",
+            spacing: 8,
+            vertical: true,
+            children: [
+                AccessPointStat("SSID:", "ssid"),
+                AccessPointStat("Frequency:", "frequency"),
+                AccessPointStat("Strength:", "strength"),
+                AccessPointStat("Address", "address"),
+            ],
+        }),
     ]
 })
 

@@ -212,11 +212,6 @@ const networkMain = () => Widget.Box({
     vertical: true,
     spacing: 8,
     children: [
-        Widget.Label({
-            label: "Connected network",
-            vpack: "center",
-            hpack: "start",
-        }),
         CurrentNetwork(),
         Widget.Box({
             children:[

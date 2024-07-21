@@ -171,8 +171,12 @@ in{
     ];
   };
 
- # For overclocking
- programs.corectrl.enable = true;
+  # For overclocking
+  programs.corectrl.enable = true;
+
+  # Virtualization
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
 
   # Fonts
