@@ -1,6 +1,6 @@
 {
     imports =  [
         ./hardware-configuration.nix
-        ./razer.nix
+        ../../nixos/hardware/razer.nix
     ];
 }

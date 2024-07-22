@@ -34,7 +34,7 @@ export const brightness = () => Widget.Box({
             max: 1,
             draw_value: false,
             on_change: self => {
-                Brightness.screen_value = self.value,
+                Brightness.screen_value = self.value
                 // For external monitors
                 // Very very slow
                 //execAsync(`ddcutil --disable-dynamic-sleep --sleep-multiplier 0.1 --noverify setvcp 10 ${self.value * 100}`)

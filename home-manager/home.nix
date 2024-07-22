@@ -113,7 +113,7 @@ in
     ];
     timeouts = [
       { 
-        timeout = 60; 
+        timeout = 60 * 10; # 10 minutes
         command = "${lockScreen}/bin/ags-lock"; 
       }
     ];

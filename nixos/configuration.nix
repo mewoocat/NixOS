@@ -14,6 +14,7 @@ in{
       ./ios.nix
       ./gnome-calendar.nix
       #./gnome.nix
+      ./hardware/razer.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

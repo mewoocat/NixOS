@@ -1,8 +1,6 @@
 
 { config, lib, pkgs, ... }:
-
 {
-    # Open Razer
     hardware.openrazer.enable = true;
     environment.systemPackages = with pkgs; [
         openrazer-daemon # Backend
