@@ -12,7 +12,7 @@ import Gtk from 'gi://Gtk'
 import { brightness } from '../Modules/Display.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { NetworkBack, WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, AccessPoint} from '../Modules/Network.js';
-import { bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { BluetoothBack, bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
 import { BatteryWidget } from '../Modules/Battery.js';
 import { systemStatsBox2x2, GPUWidget } from '../Modules/SystemStats.js';
 import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
@@ -25,7 +25,7 @@ import { Settings, SettingsToggle } from '../Windows/Settings.js';
 import { togglePowerMenu } from '../Modules/Power.js';
 import { UserInfo } from '../Modules/User.js';
 
-import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
+import { ControlPanelTab, ControlPanelNetworkTab, ControlPanelBluetoothTab } from '../Global.js';
 import options from '../options.js';
 import icons from '../icons.js';
 import { CircleButton } from './../Common.js';
@@ -283,31 +283,43 @@ const microphoneContainer = () => Widget.Box({
     ],
 })
 
+const BTDevice = () => Widget.Box({
+    vertical: true,
+    vexpand: false,
+    children: [
+        BluetoothDevice(),
+    ],
+})
+
 const bluetoothContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
+
         Widget.Box({
+            spacing: 8,
             children: [
-                BackButton(), 
+                BackButton("n/a", BluetoothBack), 
                 BluetoothStatus(),
             ]
         }),
-        BluetoothMenu(),
+
+        Widget.Stack({
+            // Tabs
+            children: {
+                'main': BluetoothMenu(),
+                'device': BTDevice(),
+            },
+            transition: "slide_left_right",
+
+            // Select which tab to show
+            setup: self => self.hook(ControlPanelBluetoothTab, () => {
+                self.shown = ControlPanelBluetoothTab.value;
+            })
+        })
     ],
 })
 
-const bluetoothDevice = () => Widget.Box({
-    vertical: true,
-    vexpand: false,
-    children: [
-        Widget.CenterBox({
-            startWidget: BluetoothStatus(),
-            endWidget: BackButton("bluetooth"),
-        }),
-        BluetoothDevice()
-    ],
-})
 
 const ThemeContainer = () => Widget.Box({
     vertical: true,
@@ -327,7 +339,6 @@ const stack = Widget.Stack({
         'volume': volumeContainer(),
         'microphone': microphoneContainer(),
         'bluetooth': bluetoothContainer(),
-        'bluetoothDevice': bluetoothDevice(),
         'theme': ThemeContainer(),
     },
     transition: "slide_left_right",

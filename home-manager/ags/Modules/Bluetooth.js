@@ -2,7 +2,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import { ControlPanelTab } from '../Global.js';
+import { ControlPanelTab, ControlPanelBluetoothTab } from '../Global.js';
 import icons from '../icons.js';
 import GObject from 'gi://GObject'
 
@@ -10,6 +10,17 @@ import GObject from 'gi://GObject'
 export const CurrentDevice = Variable({}, {})
 
 var devices = []
+
+export function BluetoothBack(){
+    if (ControlPanelBluetoothTab.getValue() == "main"){
+        // Go back to main control panel menu
+        ControlPanelTab.setValue("main")
+    }
+    else{
+        // Go back to main bluetooth control panel menu
+        ControlPanelBluetoothTab.setValue("main")
+    } 
+}
 
 export const BluetoothIcon = () => Widget.Icon().hook(Bluetooth, self  => {
     self.toggleClassName("dim", !Bluetooth.enabled)
@@ -58,7 +69,7 @@ export const BluetoothPanelButton = (w, h) => Widget.Box({
             hexpand: true,
             class_name: "control-panel-sub-button round-right",
             onPrimaryClick: () => {
-                ControlPanelTab.setValue("bluetooth")
+                ControlPanelBluetoothTab.setValue("device")
             }, 
             child: Widget.Icon({
                 icon: "view-more-symbolic",
@@ -130,7 +141,7 @@ function device(d){
         class_name: "normal-button bg-",
         onPrimaryClick: () => {
             CurrentDevice.value = d
-            ControlPanelTab.setValue("bluetoothDevice")
+            ControlPanelBluetoothTab.setValue("device")
         }, 
         child: Widget.CenterBox({
             startWidget: Widget.Label({

@@ -84,6 +84,7 @@ in
     zoxide
     tilix
     blanket
+    usbutils
     
     # Appearance
     liberation_ttf

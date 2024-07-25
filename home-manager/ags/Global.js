@@ -6,7 +6,8 @@ export const SearchEntry = Widget.subclass(Gtk.SearchEntry)
 
 // Stack tabs
 export const ControlPanelTab = Variable("main", {})
-export const ControlPanelNetworkTab = Variable("networkMain", {})
+export const ControlPanelNetworkTab = Variable("main", {})
+export const ControlPanelBluetoothTab = Variable("main", {})
 
 
 // Window states
