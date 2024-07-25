@@ -367,7 +367,6 @@ export const AccessPoint = () => Widget.Box({
             ],
         }),
 
-
         passwordEntry,
         connectError, // Only shows if error occurs while connecting
 

@@ -3,6 +3,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import { ControlPanelTab, ControlPanelBluetoothTab } from '../Global.js';
+import { CircleButton } from './../Common.js';
 import icons from '../icons.js';
 import GObject from 'gi://GObject'
 
@@ -245,45 +246,61 @@ export const Refresh = () => Widget.Button({
     }),
 })
 
+function ForgetDevice(){
+    let device = Bluetooth.getDevice(CurrentDevice.value.address)
+    device.paired = false
+}
+
 
 export const BluetoothDevice = () => Widget.Box({
     vertical: true,
+    spacing: 8,
     children: [
-        Widget.Label({
-            hpack: "start",
-            label: CurrentDevice.bind().as(d => d.name),
+        Widget.Box({
+            css: `margin-top: 2em;`,
+            hpack: "center",
+            spacing: 8,
+            vertical: true,
+            children: [
+                Widget.Label({
+                    class_name: "large-text",
+                    hexpand: true,
+                    hpack: "start",
+                    tooltip_text: "Bluetooth device",
+                    label: CurrentDevice.bind().as(d => d.name),
+                }),
+                Widget.Label({
+                    hpack: "start",
+                    label: CurrentDevice.bind().as(d => {
+                        if (d.paired != null){
+                            return "Paired"
+                        }
+                        return "Unpaired"
+                    }),
+                }),
+            ]
         }),
-        Widget.Label({
-            hpack: "start",
-            label: CurrentDevice.bind().as(d => {
-                if (d.paired != null){
-                    return "Paired? " + d.paired.toString()
-                }
-                return "Paired? N/A"
-            }),
-        }),
-        Widget.Separator({class_name: "horizontal-separator"}),
-        Widget.Button({
-            class_name: "normal-button",
-            onPrimaryClick: () => { 
-                let device = Bluetooth.getDevice(CurrentDevice.value.address)
-                device.setConnection(true)
-                //CurrentDevice.value.setConnection(true)
-            },
-            child: Widget.Label({
-                label: "Connect"
-            })
-        }),
-        Widget.Button({
-            class_name: "normal-button",
-            onPrimaryClick: () => { 
-                let device = Bluetooth.getDevice(CurrentDevice.value.address)
-                device.paired = false
-            },
-            child: Widget.Label({
-                label: "Remove"
-            })
-        }),
+
+        //Widget.Separator({class_name: "horizontal-separator"}),
+        Widget.Box({
+            children: [
+                // Connect button
+                Widget.Button({
+                    hexpand: true,
+                    class_name: "normal-button bg-button",
+                    onPrimaryClick: () => { 
+                        let device = Bluetooth.getDevice(CurrentDevice.value.address)
+                        device.setConnection(true)
+                        //CurrentDevice.value.setConnection(true)
+                    },
+                    child: Widget.Label({
+                        label: "Connect"
+                    })
+                }),
+                // Forget device
+                CircleButton(icons.deleteItem, ForgetDevice, []),
+            ],
+        })
     ]
 })
 
