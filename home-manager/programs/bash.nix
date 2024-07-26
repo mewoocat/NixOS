@@ -38,6 +38,7 @@
       ########################################################################################################
       alias vi='nvim'
       alias rebuild='sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)'
+      alias startup=~/NixOS/scripts/startup.sh
       alias fastfetch="fastfetch --logo none"
       alias ff="fastfetch --logo none"
       alias ls='ls -altr --color=auto'

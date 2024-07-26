@@ -49,18 +49,22 @@ export const storage = Variable(0, {
 });
 
 export const cpuLabel = () => Widget.Label({
+    class_name: "sub-text",
     label: cpu.bind().transform(value => "" + Math.round(value*100).toString() + "%"),
 })
 
 export const ramLabel = () => Widget.Label({
+    class_name: "sub-text",
     label: ram.bind().transform(value => "" + Math.round(value*100).toString() + "%"),
 })
 
 export const tempLabel = () => Widget.Label({
+    class_name: "sub-text",
     label: temp.bind().transform(value => "" + value.toString() + "°C"),
 })
 
 export const storageLabel = () => Widget.Label({
+    class_name: "sub-text",
     label: storage.bind().transform(value => "" + value + "%"),
 })
 
@@ -117,8 +121,8 @@ export const systemStatsBox2x2 = Widget.Box({
             hpack: "center",
             children: [
                 cpuProgress,
+                cpuLabel(),
                 StatIcon(icons.cpu, 16),
-                //cpuLabel(),
             ]
         }),
         // RAM
@@ -127,8 +131,8 @@ export const systemStatsBox2x2 = Widget.Box({
             hpack: "center",
             children: [
                 ramProgress,
+                ramLabel(),
                 StatIcon(icons.ram, 16),
-                //ramLabel(),
             ]
         }),
         // Storage
@@ -137,8 +141,8 @@ export const systemStatsBox2x2 = Widget.Box({
             hpack: "center",
             children: [
                 storageProgress,
+                storageLabel(),
                 StatIcon(icons.storage, 20),
-                //storageLabel(),
             ]
         }),
         // Temp
@@ -147,8 +151,8 @@ export const systemStatsBox2x2 = Widget.Box({
             hpack: "center",
             children: [
                 tempProgress,
+                tempLabel(),
                 StatIcon(icons.cpuTemp, 16),
-                //tempLabel(),
             ]
         }),
     ]
