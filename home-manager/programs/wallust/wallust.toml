@@ -7,6 +7,9 @@
 
 # -- global space -- # values below can be overwritten by command line flags
 
+# Enable pywal compatibility
+pywal = true
+
 # How the image is parse, in order to get the colors:
 # full - resized - wal - thumb -  fastresize - kmeans
 backend = "full"
@@ -47,12 +50,12 @@ saturation = 50
 
 ags.src = 'ags.scss'
 ags.dst = '~/.config/ags/Style/_colors.scss'
-#ags.pywal = false #idk what this does
 
 gtk.src = 'gtk.css'
 gtk.dst = '~/.cache/gtk.css'
-#ags.pywal = false #idk what this does
 
+vim.src = 'colors_neopywal.vim'
+vim.dst = '~/.cache/wallust/colors_neopywal.vim'
 
 
 
