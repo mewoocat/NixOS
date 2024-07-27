@@ -292,6 +292,7 @@ const BTDevice = () => Widget.Box({
 })
 
 const bluetoothContainer = () => Widget.Box({
+    spacing: 8,
     vertical: true,
     vexpand: false,
     children: [
@@ -325,7 +326,13 @@ const ThemeContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        BackButton(),
+        Widget.Box({
+            spacing: 8,
+            children: [
+                BackButton(),
+                Widget.Label("Appearance"),
+            ]
+        }),
         ThemeMenu(),
     ],
 })
@@ -380,6 +387,7 @@ export const ControlPanelToggleButton = (monitor) => Widget.Button({
 
 export const ControlPanel = () => Widget.Window({
     name: WINDOW_NAME,
+    css: `background-color: unset;`,
     visible: false,
     layer: "overlay",
     keymode: "exclusive",

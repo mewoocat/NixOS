@@ -14,6 +14,7 @@
 }
 
 .control-panel-button{
+    all: unset;
     background-color: rgba($bg1, $mediumOpacity);
     border-radius: 1rem;
     border-color: rgba($bg0, $mediumOpacity);

@@ -204,6 +204,14 @@ export const BluetoothConnectedDevices = () => Widget.Box({
             hpack: "start",
             label: "Connected devices",
         }),
+
+        Widget.Box({
+            class_name: "container",
+            vertical: true,
+        }).hook(Bluetooth, self => {
+            self.children = Bluetooth.connectedDevices.map(device)
+        })
+        /*
         Widget.Scrollable({
             class_name: "container",
             css: `
@@ -215,6 +223,7 @@ export const BluetoothConnectedDevices = () => Widget.Box({
                 self.children = Bluetooth.connectedDevices.map(device)
             })
         })
+        */
 
     ]
 })

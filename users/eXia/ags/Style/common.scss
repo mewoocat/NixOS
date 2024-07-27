@@ -2,13 +2,13 @@
 // Common
 ////////////////////////////////////////////////////////////////////////////
 *{
-    all: unset;
-    padding: 0px;
-    margin: 0px;
+    //all: unset;
     color: $fg;
-    background-color: unset;
+    //padding: 0px;
+    //margin: 0px;
+    //background-color: unset;
     button {
-        all: unset;
+        //all: unset;
     }
 }
 
@@ -139,7 +139,9 @@ switch slider {
 }
 
 spinbutton{
-    all: unset;
+    &, * {
+        all: unset;
+    }
     min-height: 38px;
 
     entry{
@@ -242,6 +244,7 @@ entry window.popup {
 
 // App launcher button
 .app-button {
+    all: unset;
     padding: 0.4rem;
     border-radius: 1rem;
     margin-right: 0.8rem;
@@ -262,6 +265,7 @@ entry window.popup {
 
 // Search entry
 .app-entry {
+    all: unset;
     padding: 0.6rem;
     background-color: rgba($bg1, $lowOpacity);
     border-radius: 1rem;
@@ -283,6 +287,7 @@ entry window.popup {
 
 // Normal Button
 .normal-button {
+    all: unset;
     //background-color: transparent;
     padding: 0.28rem; // Currently determines bar height
 }

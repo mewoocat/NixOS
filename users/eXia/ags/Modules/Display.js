@@ -1,5 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
+import Brightness from '../Services/Brightness.js'
 
 export const DisplayButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
@@ -13,7 +14,6 @@ export const DisplayButton = (w, h) => Widget.Button({
     })
 })
 
-import Brightness from '../Services/Brightness.js'
 
 export const brightness = () => Widget.Box({
     class_name: 'brightness',
@@ -28,7 +28,6 @@ export const brightness = () => Widget.Box({
             }), 
         }),
         Widget.Slider({
-            class_name: "sliders",
             hexpand: true,
             min: 0.01, // Set min slightly above 0 zero so the display can't be turned all the way off
             max: 1,

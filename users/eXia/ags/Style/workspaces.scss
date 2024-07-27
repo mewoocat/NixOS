@@ -23,6 +23,7 @@
 }
 
 .ws-button{
+    all: unset;
     padding: 0; // Remove default padding from ws buttons
     min-width: 1.8rem;
     label{

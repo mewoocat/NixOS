@@ -45,6 +45,7 @@ export const LauncherButton = () => Widget.Button({
 
 export const Launcher = () => Widget.Window({
     name: WINDOW_NAME,
+    css: `background-color: unset;`,
     visible: false,
     layer: "overlay",
     keymode: "exclusive",
