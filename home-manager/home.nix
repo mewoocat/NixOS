@@ -10,6 +10,8 @@ let
       ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
     '';
   };
+
+
 in
 {
   imports = [

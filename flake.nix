@@ -9,10 +9,6 @@
     #home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Anyrun
-    anyrun.url = "github:Kirottu/anyrun";
-    anyrun.inputs.nixpkgs.follows = "nixpkgs";
-
     # AGS
     ags.url = "github:Aylur/ags";
     #ags.url = "github:mewoocat/ags-testing";
