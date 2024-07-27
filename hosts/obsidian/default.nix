@@ -9,6 +9,8 @@ inputs.nixpkgs.lib.nixosSystem {
     ./hardware-configuration.nix
     ../../nixos/hardware/razer.nix
     ../../nixos/configuration.nix
+
+    # Home Manager
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
@@ -16,10 +18,11 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.users.eXia = {
         imports = [
-          ../../home-manager/home.nix
-          ../../home-manager/programs/game/game.nix
+          ../../users/eXia/home.nix
+          ../../users/eXia/programs/game/game.nix
         ];
       };
     }
+
   ];
 }

@@ -16,7 +16,7 @@
       #default_layout = "compact";
       default_layout = "normal";
       
-      theme = "gruvbox-dark";
+      theme = "default";
       # Need to declaritivley create this dir
       theme_dir = "${config.home.homeDirectory}/.config/zellij/themes";
       themes = {

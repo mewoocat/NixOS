@@ -1,0 +1,15 @@
+themes {
+ 	default {
+ 		fg "{{foreground}}"
+ 		bg "{{background}}"
+ 		black "{{background}}"
+ 		red "{{color0}}"
+ 		green "{{color1}}"
+ 		yellow "{{color2}}"
+ 		blue "{{color3}}"
+ 		magenta "{{color4}}"
+ 		cyan "{{color5}}"
+ 		white "{{color6}}"
+ 		orange "{{color7}}"
+ 	}
+}
