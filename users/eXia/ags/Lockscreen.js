@@ -3,7 +3,7 @@ import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
-//import { BigClock } from './Modules/DateTime.js'
+import { Clock, BigClock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 
 //////////////////////////////////////////////////////////////////////
@@ -110,6 +110,12 @@ function createLockWindow(monitor){
                 background-size: cover;
             `,
             children: [
+                // Bar 
+                Widget.CenterBox({
+                    class_name: "container",
+                    center_widget: Clock(),
+                }),
+                    
                 // Content
                 Widget.Box({
                     hpack: "center",

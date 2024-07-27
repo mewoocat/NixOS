@@ -5,7 +5,6 @@ import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';
 import { ActivityCenter } from './Windows/ActivityCenter.js';
 import { NotificationPopup } from './Windows/NotificationPopups.js';
 import { Dock } from './Windows/Dock.js';
-import { Lockscreen } from './Windows/Lockscreen.js';
 import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
@@ -50,7 +49,6 @@ App.config({
         Launcher(), 
         //...forMonitors(Bar), 
         Bar(),
-        Lockscreen(), 
         ControlPanel(),
         ActivityCenter(),
         NotificationPopup(), 

@@ -5,6 +5,7 @@ let
     runtimeInputs = with pkgs; [ 
       coreutils 
       sassc
+      date
     ];
     text = ''
       ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
