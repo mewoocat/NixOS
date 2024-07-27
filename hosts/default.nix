@@ -25,7 +25,10 @@
       }
     ];
   };
+  
+  obsidian = import ./obsidian { inputs = inputs; };
 
+  /*
   # Ryzen 5 + GTX 1080 / RX 470 Desktop
   obsidian = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = { inherit inputs; };
@@ -46,4 +49,5 @@
       }
     ];
   };
+  */
 }
