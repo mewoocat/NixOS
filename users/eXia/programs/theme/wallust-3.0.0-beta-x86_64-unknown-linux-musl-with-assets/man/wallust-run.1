@@ -1,0 +1,157 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH wallust-run 1  wallust-3.0 wallust-run
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.SH NAME
+wallust\-run \- Generate a palette from an image
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.SH SYNOPSIS
+\fBwallust\-run\fR [\fB\-a\fR|\fB\-\-alpha\fR] [\fB\-b\fR|\fB\-\-backend\fR] [\fB\-c\fR|\fB\-\-colorspace\fR] [\fB\-f\fR|\fB\-\-fallback\-generator\fR] [\fB\-k\fR|\fB\-\-check\-contrast\fR] [\fB\-n\fR|\fB\-\-no\-cache\fR] [\fB\-p\fR|\fB\-\-palette\fR] [\fB\-\-saturation\fR] [\fB\-t\fR|\fB\-\-threshold\fR] [\fB\-w\fR|\fB\-\-overwrite\-cache\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIFILE\fR> 
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.SH OPTIONS
+.TP
+\fB\-a\fR, \fB\-\-alpha\fR=\fIALPHA\fR
+Alpha *template variable* value, used only for templating (default is 100)
+.TP
+\fB\-b\fR, \fB\-\-backend\fR=\fIBACKEND\fR
+Choose which backend to use (overwrites config)
+.br
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+full: Read and return the whole image pixels (more precision, slower)
+.IP \(bu 2
+resized: Resizes the image before parsing, mantaining it\*(Aqs aspect ratio
+.IP \(bu 2
+wal: Uses image magick `convert` to generate the colors, like pywal
+.IP \(bu 2
+thumb: Faster algo hardcoded to 512x512 (no ratio respected)
+.IP \(bu 2
+fastresize: A much faster resize algo that uses SIMD. For some reason it fails on some images where `resized` doesn\*(Aqt, for this reason it doesn\*(Aqt *replace* but rather it\*(Aqs a new option
+.IP \(bu 2
+kmeans: Kmeans is an algo that divides and picks pixels all around the image, Requires more tweaking and more in depth testing but, for the most part, "it just werks"
+.RE
+.TP
+\fB\-c\fR, \fB\-\-colorspace\fR=\fICOLORSPACE\fR
+Choose which colorspace to use (overwrites config)
+.br
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+lab: Uses Cie L*a*b color space
+.IP \(bu 2
+labmixed: Variant of `lab` that mixes the colors gathered, if not enough colors it fallbacks to usual lab (not recommended in small images)
+.IP \(bu 2
+lch: CIE Lch, you can understand this color space like LAB but with chrome and hue added. Could help when sorting
+.IP \(bu 2
+lchmixed: CIE Lch, you can understand this color space like LAB but with chrome and hue added. Could help when sorting
+.RE
+.TP
+\fB\-f\fR, \fB\-\-fallback\-generator\fR=\fIFALLBACK_GENERATOR\fR
+Choose which fallback generation method to use (overwrites config)
+.br
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+interpolate: uses [`interpolate`]
+.IP \(bu 2
+complementary: uses [`complementary`]
+.RE
+.TP
+\fB\-k\fR, \fB\-\-check\-contrast\fR
+Ensure a readable contrast by checking colors in reference to the background (overwrites config)
+.TP
+\fB\-n\fR, \fB\-\-no\-cache\fR
+Don\*(Aqt cache the results
+.TP
+\fB\-p\fR, \fB\-\-palette\fR=\fIPALETTE\fR
+Choose which palette to use (overwrites config)
+.br
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+dark: 8 dark colors, dark background and light contrast
+.IP \(bu 2
+dark16: Same as `dark` but uses the 16 colors trick
+.IP \(bu 2
+darkcomp: This is a `dark` variant that changes all colors to it\*(Aqs complementary counterpart, giving the feeling of a \*(Aqnew palette\*(Aq but that still makes sense with the image provided
+.IP \(bu 2
+darkcomp16: 16 variation of the dark complementary variant
+.IP \(bu 2
+harddark: Same as `dark` with hard hue colors
+.IP \(bu 2
+harddark16: Harddark with 16 color variation
+.IP \(bu 2
+harddarkcomp: complementary colors variation of harddark scheme
+.IP \(bu 2
+harddarkcomp16: complementary colors variation of harddark scheme
+.IP \(bu 2
+light: Light bg, dark fg
+.IP \(bu 2
+light16: Same as `light` but uses the 16 color trick
+.IP \(bu 2
+lightcomp: complementary colors variation of light
+.IP \(bu 2
+lightcomp16: complementary colors variation of light with the 16 color variation
+.IP \(bu 2
+softdark: Variant of softlight, uses the lightest colors and a dark background (could be interpreted as `dark` inversed)
+.IP \(bu 2
+softdark16: softdark with 16 color variation
+.IP \(bu 2
+softdarkcomp: complementary variation for softdark
+.IP \(bu 2
+softdarkcomp16: complementary variation for softdark with the 16 color variation
+.IP \(bu 2
+softlight: Light with soft pastel colors, counterpart of `harddark`
+.IP \(bu 2
+softlight16: softlight with 16 color variation
+.IP \(bu 2
+softlightcomp: softlight with complementary colors
+.IP \(bu 2
+softlightcomp16: softlight with complementary colors with 16 colors
+.RE
+.TP
+\fB\-\-saturation\fR=\fISATURATION\fR
+Add saturation from 1% to 100% (overwrites config)
+.TP
+\fB\-t\fR, \fB\-\-threshold\fR=\fITHRESHOLD\fR
+Choose a custom threshold, between 1 and 100 (overwrites config)
+.TP
+\fB\-w\fR, \fB\-\-overwrite\-cache\fR
+Generates colors even if there is a cache version of it
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help (see a summary with \*(Aq\-h\*(Aq)
+.TP
+<\fIFILE\fR>
+Path to an image or json theme to use
+
+.SH "SEE ALSO"
+.BR wallust (5),
+.BR wallust-run (1),
+.BR wallust-cs (1),
+.BR wallust-theme (1),
+.BR wallust-themes [1]
+.br
+.SH "NOTES"
+.nr step 1
+.IP " \n+[step]." 4
+Suggestions for new colorschemes returned by the
+.B themes
+subcommand should be filled here.
+.RS 4
+.I https://codeberg.org/explosion-mental/wallust-themes
+.RE
+.SH "BUGS"
+.I https://codeberg.org/explosion-mental/wallust

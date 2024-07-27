@@ -1,0 +1,20 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 0,
+  "items": [
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PS1/Mobile Suit Gundam - Federation vs. Zeon (USA).iso",
+      "label": "Mobile Suit Gundam - Federation vs. Zeon (USA)",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
+      "crc32": "SLUS-20382|serial",
+      "db_name": "Sony - PlayStation 2.lpl"
+    }
+  ]
+}

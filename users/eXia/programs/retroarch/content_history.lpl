@@ -1,0 +1,188 @@
+{
+  "version": "1.5",
+  "default_core_path": "",
+  "default_core_name": "",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "thumbnail_match_mode": 0,
+  "sort_mode": 2,
+  "items": [
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/Cube (USA).iso",
+      "label": "Cube (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10223|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/Tekken 6 (USA) (En,Ja,Fr,De,Es,It,Ko,Ru).iso",
+      "label": "Tekken 6 (USA) (En,Fr,De,Es,It,Ru)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10466|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/Tony Hawk's Underground 2 Remix (USA).iso",
+      "label": "Tony Hawk's Underground 2 Remix (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10014|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/LEGO Star Wars II - The Original Trilogy (USA).iso",
+      "label": "LEGO Star Wars II - The Original Trilogy (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10155|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/Star Wars - Battlefront II (USA).iso",
+      "label": "Star Wars - Battlefront II (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10053|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/Gran Turismo (USA) (En,Fr,Es) (v2.00).iso",
+      "label": "Gran Turismo (USA) (En,Fr,Es)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "UCUS-98632|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/N64/Wetrix (USA) (En,Fr,De,Es,It,Nl).z64",
+      "label": "Wetrix (USA) (En,Fr,De,Es,It,Nl)",
+      "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
+      "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",
+      "crc32": "50CD1F71|crc",
+      "db_name": "Nintendo - Nintendo 64.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/N64/Star Fox 64 (USA) (Rev 1).z64",
+      "label": "Star Fox 64 (USA) (Rev 1)",
+      "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
+      "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",
+      "crc32": "B1B5FC46|crc",
+      "db_name": "Nintendo - Nintendo 64.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PS1/Gundam Battle Assault (USA)/Gundam Battle Assault (USA).cue",
+      "label": "Gundam Battle Assault (USA)",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
+      "crc32": "SLUS-01226|serial",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/run/media/eXia/SANDISK_32G/PSP/OutRun 2006 - Coast 2 Coast (USA).iso",
+      "label": "OutRun 2006 - Coast 2 Coast (USA) (v1.03)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10064|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Mega Man - Maverick Hunter X (USA).iso",
+      "label": "Mega Man - Maverick Hunter X (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10068|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/OutRun 2006 - Coast 2 Coast (USA).iso",
+      "label": "OutRun 2006 - Coast 2 Coast (USA) (v1.03)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10064|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PSP/Star Wars - Battlefront II (USA).iso",
+      "label": "Star Wars - Battlefront II (USA) (v1.01)",
+      "core_path": "/nix/store/7bg5csyb3figl9z5j61cv3l88h4qfr2s-libretro-ppsspp-unstable-2024-03-13/lib/retroarch/cores/ppsspp_libretro.so",
+      "core_name": "Sony - PlayStation Portable (PPSSPP)",
+      "crc32": "ULUS-10053|serial",
+      "db_name": "Sony - PlayStation Portable.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/Wii/mk wii.iso",
+      "label": "Mario Kart Wii (USA)",
+      "core_path": "/nix/store/x7zh2zzc9fv4flkrwmxvwyiqcry7py9z-libretro-dolphin-unstable-2022-12-17/lib/retroarch/cores/dolphin_libretro.so",
+      "core_name": "Nintendo - GameCube / Wii (Dolphin)",
+      "crc32": "RMCE01|serial",
+      "db_name": "Nintendo - Wii.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/Wii/Wiimms MKW-Fun 2018-12.v1.usa+ [RMCE39].iso",
+      "label": "Wiimms Mario Kart Fun 2018-12 (USA)",
+      "core_path": "/nix/store/x7zh2zzc9fv4flkrwmxvwyiqcry7py9z-libretro-dolphin-unstable-2022-12-17/lib/retroarch/cores/dolphin_libretro.so",
+      "core_name": "Nintendo - GameCube / Wii (Dolphin)",
+      "crc32": "RMCE39|serial",
+      "db_name": "Nintendo - Wii.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/N64/Tony Hawk's Pro Skater 4 (USA).bin",
+      "label": "Tony Hawk's Pro Skater 4 (USA)",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
+      "crc32": "41EEFD0B|crc",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/N64/Wetrix (USA) (En,Fr,De,Es,It,Nl).z64",
+      "label": "Wetrix (USA) (En,Fr,De,Es,It,Nl)",
+      "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
+      "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",
+      "crc32": "50CD1F71|crc",
+      "db_name": "Nintendo - Nintendo 64.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/N64/F-Zero X (USA).z64",
+      "label": "F-Zero X (USA)",
+      "core_path": "/nix/store/i5asfps7c5d1qdmjf5h6fvxm256xac0n-libretro-mupen64plus-next-unstable-2024-03-07/lib/retroarch/cores/mupen64plus_next_libretro.so",
+      "core_name": "Nintendo - Nintendo 64 (Mupen64Plus-Next)",
+      "crc32": "0B561FBA|crc",
+      "db_name": "Nintendo - Nintendo 64.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/3DS/Animal_Crossing_New_Leaf_USA.3ds",
+      "label": "Animal Crossing - New Leaf (USA) (En,Fr,Es)",
+      "core_path": "/nix/store/3bjwaqh5y8y65amxsdjsx5z0rv59z5w0-libretro-citra-unstable-2024-01-24/lib/retroarch/cores/citra_libretro.so",
+      "core_name": "Nintendo - 3DS (Citra)",
+      "crc32": "F59BC880|crc",
+      "db_name": "Nintendo - Nintendo 3DS.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/GB/Tetris (World) (Rev 1).gb",
+      "label": "Tetris (World) (Rev 1)",
+      "core_path": "/nix/store/r10nv469r4pyp5iqhxpc3795lc2ha0d7-libretro-mgba-unstable-2024-02-28/lib/retroarch/cores/mgba_libretro.so",
+      "core_name": "Nintendo - Game Boy Advance (mGBA)",
+      "crc32": "46DF91AD|crc",
+      "db_name": "Nintendo - Game Boy.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/SNES/Shin Kidou Senki Gundam W - Endless Duel (Japan).sfc",
+      "label": "Shin Kidou Senki Gundam W - Endless Duel (Japan)",
+      "core_path": "/nix/store/i3v04z25al9s2wr4avyyp7v8xl9zi5sl-libretro-snes9x-unstable-2024-02-14/lib/retroarch/cores/snes9x_libretro.so",
+      "core_name": "Nintendo - SNES / SFC (Snes9x)",
+      "crc32": "C0AECDCA|crc",
+      "db_name": "Nintendo - Super Nintendo Entertainment System.lpl"
+    },
+    {
+      "path": "/mnt/files/Games/Roms/PS1/Tony Hawk's Pro Skater (USA).bin",
+      "label": "Tony Hawk's Pro Skater (USA)",
+      "core_path": "/nix/store/imqsf197ywrnpr9wvsd5ka5yxzvlz93f-libretro-pcsx_rearmed-unstable-2024-03-10/lib/retroarch/cores/pcsx_rearmed_libretro.so",
+      "core_name": "Sony - PlayStation (PCSX ReARMed)",
+      "crc32": "A44EE32B|crc",
+      "db_name": "Sony - PlayStation.lpl"
+    }
+  ]
+}

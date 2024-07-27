@@ -1,0 +1,624 @@
+* {
+  all: unset;
+  padding: 0px;
+  margin: 0px;
+  color: #EFE6D8;
+  background-color: unset; }
+  * button {
+    all: unset; }
+
+.large-text {
+  font-size: 1.24em;
+  font-weight: bold; }
+
+.sub-text {
+  font-size: 0.72rem;
+  color: #8F8A82; }
+
+.recording > * {
+  color: red; }
+
+.container {
+  border-radius: 1rem;
+  background-color: rgba(57, 57, 60, 0.44);
+  padding: 0.6em; }
+
+.container-no-spacing {
+  border-radius: 1rem;
+  background-color: rgba(57, 57, 60, 0.44); }
+
+.container-side-spacing {
+  border-radius: 1rem;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  background-color: rgba(57, 57, 60, 0.44); }
+
+.scrollable-item:first-child {
+  margin-top: 0.8em; }
+
+.scrollable-item:last-child {
+  margin-top: 0.8em; }
+
+.toggle-window {
+  background-color: rgba(8, 8, 11, 0.64);
+  border-radius: 1rem;
+  border-color: rgba(64, 64, 64, 0.42);
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.64rem;
+  margin: 1rem; }
+
+.normal-window {
+  background-color: rgba(8, 8, 11, 0.8); }
+
+.round-left {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  margin-left: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem; }
+
+.round-right {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  margin-right: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem; }
+
+tooltip {
+  padding: 1.2rem;
+  border-radius: 1rem;
+  background-color: rgba(8, 8, 11, 0.44); }
+
+.horizontal-separator {
+  min-height: 1px;
+  background-color: #EFE6D8;
+  border-radius: 1rem;
+  margin-left: 0.6rem;
+  margin-right: 0.6rem; }
+
+.vertical-separator {
+  min-width: 1px;
+  background-color: #EFE6D8;
+  border-radius: 1rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem; }
+
+/*
+window:has(menu){
+
+}
+*/
+.dim {
+  color: #6c6c6c; }
+
+.invisible {
+  opacity: 0; }
+
+switch {
+  min-width: 2rem;
+  min-height: 2rem;
+  border-radius: 1rem;
+  background-color: #39393C; }
+
+switch slider {
+  border-radius: 1rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  background-color: #C6293D; }
+
+.padder {
+  margin: 0.8rem; }
+
+spinbutton {
+  all: unset;
+  min-height: 38px; }
+  spinbutton entry {
+    border-radius: 1rem;
+    padding: 0.6rem;
+    margin: 0.2rem;
+    background-color: #08080B; }
+  spinbutton button {
+    border-radius: 100%;
+    margin-left: 2px;
+    font-size: 8px;
+    min-width: 38px;
+    min-height: 38px;
+    background-color: rgba(107, 107, 109, 0.3); }
+  spinbutton button:hover {
+    background-color: #08080B; }
+
+switch {
+  background-color: rgba(107, 107, 109, 0.3); }
+
+.active-button > * {
+  background-color: #3491A0;
+  border-radius: 1rem; }
+
+.shadow-button {
+  margin-bottom: 0.6rem;
+  background-color: transparent;
+  padding: 0.28rem; }
+
+.shadow-button > * {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.8rem;
+  background-color: rgba(107, 107, 109, 0.3);
+  box-shadow: 4px 4px 2px rgba(8, 8, 11, 0.8), -3px -3px 2px rgba(107, 107, 109, 0.5);
+  border: solid;
+  border-width: 0px;
+  border-color: #6B6B6D; }
+
+.shadow-button:hover > * {
+  background-color: rgba(8, 8, 11, 0.2);
+  box-shadow: -4px -4px 2px rgba(8, 8, 11, 0.8), 3px 3px 2px rgba(107, 107, 109, 0.5); }
+
+entry {
+  padding: 0.6rem;
+  background-color: rgba(57, 57, 60, 0.44);
+  border-radius: 1rem; }
+
+/*
+entry window.popup {
+    background-color: $bg1;
+}
+*/
+.bar-window {
+  background-color: rgba(8, 8, 11, 0.64);
+  font-family: "System-ui";
+  font-size: 16px; }
+
+.bar-icon {
+  background-color: red;
+  padding: 0.3rem; }
+
+.applauncher {
+  background-color: rgba(8, 8, 11, 0.64);
+  padding: 8px;
+  border-radius: 1.2rem;
+  border-color: rgba(88, 88, 88, 0.42);
+  border-width: 1px;
+  border-style: solid; }
+
+.app-button {
+  padding: 0.4rem;
+  border-radius: 1rem;
+  margin-right: 0.8rem; }
+
+.app-button:hover {
+  background-color: #C6293D; }
+  .app-button:hover label {
+    color: #08080B; }
+
+.app-button:focus {
+  background-color: #C6293D; }
+  .app-button:focus label {
+    color: #08080B; }
+
+.app-entry {
+  padding: 0.6rem;
+  background-color: rgba(57, 57, 60, 0.44);
+  border-radius: 1rem; }
+
+.first-item > button:first-child {
+  background-color: #C6293D;
+  border-radius: 1rem; }
+  .first-item > button:first-child label {
+    color: #08080B; }
+
+.normal-button {
+  padding: 0.28rem; }
+
+.normal-button > * {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.8rem; }
+
+.normal-button:hover > * {
+  color: #000000;
+  background-color: #886D38; }
+  .normal-button:hover > * * {
+    color: #000000; }
+
+.bg-button > * {
+  background-color: rgba(107, 107, 109, 0.3); }
+
+.power-button > * {
+  padding: 0.4rem;
+  border-radius: 1rem; }
+
+.power-button:hover > * {
+  background-color: #9C9C9D; }
+
+.dock-button > box {
+  padding: 0.6rem 0.6rem;
+  margin: 0.4rem;
+  border-radius: 1rem;
+  min-width: 4rem;
+  min-height: 4rem; }
+
+.dock-button:hover > box {
+  background-color: #9C9C9D; }
+
+.dock-container {
+  background-color: rgba(8, 8, 11, 0.64); }
+
+.dock-app-indicator {
+  min-width: 0.4rem;
+  min-height: 0.4rem;
+  border-radius: 1rem;
+  margin-right: 0.6rem;
+  background-color: rgba(0, 0, 0, 0); }
+
+.dock-app-indicator-active {
+  background-color: #EFE6D8; }
+
+.notifications {
+  margin: 1rem; }
+
+.notification {
+  color: white;
+  background-color: rgba(8, 8, 11, 0.64);
+  border-radius: 1rem;
+  min-width: 16rem;
+  min-height: 4rem;
+  padding: 1rem; }
+
+.battery-bg {
+  color: #EFE6D8; }
+
+.battery-fg {
+  color: #44ec44; }
+
+.battery-circle {
+  min-width: 7.2rem;
+  min-height: 7.2rem;
+  background-color: #08080B;
+  color: #886D38; }
+
+.icon {
+  font-size: 20px;
+  color: #EFE6D8; }
+
+.system-stats-circular-progress {
+  background-color: #08080B;
+  color: #3491A0;
+  font-size: 4px;
+  min-height: 22px; }
+
+.lockscreen {
+  background-color: #39393C; }
+
+calendar {
+  all: unset; }
+
+calendar.button {
+  border-radius: 1rem; }
+
+calendar.button:hover {
+  background-color: #39393C; }
+
+calendar.button:disabled {
+  color: rgba(255, 255, 255, 0.06); }
+
+calendar.highlight {
+  color: rgba(255, 255, 255, 0.34); }
+
+calendar:selected {
+  color: white;
+  border-radius: 0.5em;
+  background: #C6293D; }
+
+calendar:indeterminate {
+  color: rgba(116, 116, 116, 0.776); }
+
+calendar.day-number.button {
+  color: red; }
+
+menu {
+  border-color: rgba(64, 64, 64, 0.42);
+  border-width: 1px;
+  border-style: solid;
+  background-color: rgba(8, 8, 11, 0.64);
+  border-radius: 1rem;
+  padding: 0.4rem; }
+
+menuitem {
+  border-radius: 1rem;
+  padding: 0.4rem;
+  margin: 0.2rem; }
+
+menuitem:hover {
+  background-color: #9C9C9D; }
+
+scrollbar {
+  min-width: 4px;
+  margin: 0px; }
+
+scrollbar.overlay-indicator {
+  background-color: black;
+  border-radius: 1rem; }
+
+scrollbar.vertical {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em; }
+  scrollbar.vertical slider {
+    min-width: 4px;
+    border-radius: 1rem;
+    background-color: #9C9C9D; }
+
+scrollbar.horizontal {
+  margin-left: 0.6em;
+  margin-right: 0.6em; }
+  scrollbar.horizontal slider {
+    min-height: 4px;
+    border-radius: 1rem;
+    background-color: #9C9C9D; }
+
+button.combo {
+  background-color: #08080B;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem; }
+
+button.combo:hover {
+  background-color: #9C9C9D; }
+
+.systray {
+  background-color: #08080B;
+  margin: 0.2rem;
+  border-radius: 1rem; }
+
+.weather-container {
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: rgba(57, 57, 60, 0.9); }
+
+entry treeview {
+  background-color: #39393C; }
+
+progressbar trough {
+  background-color: #08080B;
+  border-radius: 1rem;
+  min-width: 1rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem; }
+  progressbar trough progress {
+    background-color: #3491A0;
+    min-width: 1rem;
+    border-radius: 1rem; }
+
+/* The background */
+scale trough {
+  background-color: rgba(8, 8, 11, 0.64);
+  border-radius: 20px;
+  /* Accounts for the extension of the highlight */
+  padding: 4px 20px; }
+
+.vertical-slider trough {
+  /* Accounts for the extension of the highlight */
+  padding: 20px 4px; }
+
+scale trough:hover > slider {
+  background-color: #3491A0; }
+
+/* The highligh */
+scale highlight {
+  border-radius: 20px;
+  background-color: #C6293D;
+  /* Forces highlight to extend to match the slider positon  on the ends */
+  margin: 0 -14px; }
+
+.vertical-slider highlight {
+  /* Forces highlight to extend to match the slider positon  on the ends */
+  margin: -14px 0px; }
+
+/* The dot */
+scale slider {
+  min-height: 28px;
+  min-width: 28px;
+  border-radius: 100%;
+  background-color: #C6293D;
+  border-style: solid;
+  border-width: 0px;
+  border-color: #C6293D;
+  box-shadow: 0px 0px 4px #08080B; }
+
+scale slider:hover {
+  background-color: #3491A0; }
+
+.ws-indicator {
+  background-color: dimgray;
+  border-radius: 1.2rem;
+  margin: 0rem 0.24rem;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  transition: min-width 0.3s;
+  transition: min-height 0.3s; }
+
+.ws-inactive {
+  min-width: 0.6rem;
+  min-height: 0.6rem; }
+  .ws-inactive label {
+    font-size: 0rem; }
+
+.ws-button {
+  padding: 0;
+  min-width: 1.8rem; }
+  .ws-button label {
+    font-size: 0rem;
+    color: #9C9C9D; }
+
+.ws-button > * {
+  padding: 0rem; }
+
+.ws-button:hover > box {
+  background-color: #3491A0; }
+  .ws-button:hover > box label {
+    color: #08080B; }
+
+.ws-button:hover > .ws-inactive {
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  transition: min-width 0.3s;
+  transition: min-height 0.3s; }
+
+.ws-button:hover > .ws-active {
+  min-width: 2.4rem;
+  min-height: 1.2rem; }
+
+/* Occupied needs to come before active */
+.ws-occupied {
+  background-color: #C6293D; }
+  .ws-occupied label {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    font-size: 0.8rem;
+    color: #08080B; }
+
+.ws-active {
+  background-color: #3491A0;
+  min-width: 2.4rem;
+  min-height: 1.2rem; }
+  .ws-active label {
+    min-width: 2.4rem;
+    min-height: 1.2rem;
+    font-size: 0.8rem;
+    color: #08080B; }
+
+.control-panel-box {
+  background-color: rgba(57, 57, 60, 0.64);
+  border-radius: 1rem;
+  border-color: rgba(8, 8, 11, 0.64);
+  border-width: 1px;
+  border-style: solid;
+  margin: 0.2rem; }
+
+.control-panel-button {
+  background-color: rgba(57, 57, 60, 0.64);
+  border-radius: 1rem;
+  border-color: rgba(8, 8, 11, 0.64);
+  border-width: 1px;
+  border-style: solid;
+  margin: 0.2rem; }
+
+.control-panel-sub-button {
+  background-color: rgba(57, 57, 60, 0.64); }
+
+.control-panel-button:hover {
+  background-color: #3491A0; }
+
+.control-panel-sub-button:hover {
+  background-color: #3491A0; }
+
+.control-panel-button-content {
+  padding: 0.4rem; }
+
+.control-panel-audio-box {
+  border-radius: 1rem;
+  padding: 0.4rem;
+  margin: 0.2rem;
+  background-color: rgba(57, 57, 60, 0.64); }
+
+.control-panel-widget-large {
+  padding: 0.4rem;
+  background-color: rgba(57, 57, 60, 0.44);
+  border-radius: 1rem;
+  margin: 0.2rem; }
+
+.tab-container {
+  background-color: rgba(57, 57, 60, 0.44);
+  padding: 1rem; }
+
+.settings-tab-button {
+  background-color: transparent;
+  padding: 0.28rem; }
+
+.settings-tab-button > * {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.8rem; }
+
+.settings-tab-button:hover > * {
+  background-color: #3491A0;
+  color: #000000; }
+
+.settings-tab-active > * {
+  background-color: #3491A0;
+  color: #000000; }
+
+.header {
+  font-size: 24px;
+  margin: 1rem;
+  font-weight: bold; }
+
+.sub-header {
+  font-size: 16px;
+  margin: 1rem;
+  font-weight: bold; }
+
+.option-container {
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: rgba(57, 57, 60, 0.44); }
+
+.circle-button {
+  background-color: #6B6B6D;
+  border-radius: 100%;
+  min-width: 2rem;
+  min-height: 2rem; }
+  .circle-button > * {
+    color: #EFE6D8; }
+
+.circle-button:hover {
+  background-color: #C6293D; }
+  .circle-button:hover > * {
+    color: #000000; }
+
+.circle-button-active {
+  background-color: #C6293D; }
+  .circle-button-active > * {
+    color: #000000; }
+
+.circle-button:hover {
+  background-color: #C6293D; }
+  .circle-button:hover > * {
+    color: #000000; }
+
+.player {
+  padding: 10px;
+  min-width: 350px; }
+
+.player .img {
+  min-width: 100px;
+  min-height: 100px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 13px;
+  margin-right: 1em; }
+
+.player .title {
+  font-size: 1.2em; }
+
+.player .artist {
+  font-size: 1.1em;
+  color: red; }
+
+.player scale.position {
+  padding: 0;
+  margin-bottom: .3em; }
+
+.player scale.position trough {
+  min-height: 8px; }
+
+.player scale.position highlight {
+  background-color: #3491A0; }
+
+.player scale.position slider {
+  all: unset; }
+
+.player button {
+  min-height: 1em;
+  min-width: 1em;
+  padding: .3em; }
+
+.player button.play-pause {
+  margin: 0 .3em; }
