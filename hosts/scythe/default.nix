@@ -8,6 +8,7 @@ inputs.nixpkgs.lib.nixosSystem {
   # NixOS modules
   modules = [ 
 
+    /*
     # Add home-manager options
     inputs.home-manager.nixosModules.home-manager
     {
@@ -15,6 +16,8 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit inputs; };
     }
+    */
+    ../../modules/homemanager
 
     ./hardware-configuration.nix
     ../../nixos/configuration.nix 
