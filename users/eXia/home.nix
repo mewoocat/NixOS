@@ -5,7 +5,6 @@ let
     runtimeInputs = with pkgs; [ 
       coreutils 
       sassc
-      date
     ];
     text = ''
       ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
@@ -74,6 +73,9 @@ in
    ".config/gtk-4.0/gtk.css".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/theme/adw-gtk3/gtk-4.0/gtk.css";
 
    ".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/wal";
+
+   # For Nautilus new file
+   "Templates/".source = ./programs/nautilus/Templates;
 
   };
 
