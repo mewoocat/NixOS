@@ -1,7 +1,7 @@
 # Host: scythe
 # Razer blade stealth late 2016
 
-{ inputs };
+{ inputs }:
 
 inputs.nixpkgs.lib.nixosSystem {
   specialArgs = { inherit inputs; };
@@ -10,7 +10,9 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../nixos/configuration.nix 
     ../../nixos/hardware/razer.nix
     #./nixos/gnome.nix
+    ../../modules/homemanager
 
+    /*
     # TODO: Move to seperate file?
     inputs.home-manager.nixosModules.home-manager
     {
@@ -25,5 +27,6 @@ inputs.nixpkgs.lib.nixosSystem {
         ];
       };
     }
+    */
   ];
 }
