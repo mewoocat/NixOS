@@ -7,21 +7,14 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = { inherit inputs; };
   # NixOS modules
   modules = [ 
+    ../../modules/system                    # Core system components
+    ../../modules/homemanager               # Installs home-manager 
 
-    /*
-    # Add home-manager options
-    inputs.home-manager.nixosModules.home-manager
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit inputs; };
-    }
-    */
-    ../../modules/homemanager
-
+    # Hardware
     ./hardware-configuration.nix
-    ../../nixos/configuration.nix 
-    ../../nixos/hardware/razer.nix
+    ../../modules/hardware/razer.nix
+
+    ../../modules/gaming/gameLite.nix
     ../../users/eXia
   ];
 }

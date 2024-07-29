@@ -9,12 +9,9 @@ let
 in{
   imports =
     [ 
-      # No need to import hardware here since its imported in flake.nix
-      #./hardware-configuration.nix
-      ./ios.nix
-      ./gnome-calendar.nix
-      #./gnome.nix
-      ./hardware/razer.nix
+      ../hardware/ios.nix
+      ../hardware/razer.nix
+      ../../nixos/gnome-calendar.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

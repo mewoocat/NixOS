@@ -1,6 +1,8 @@
 
 { config, pkgs, lib, inputs, ... }: 
-
+let
+  username = "eXia";
+in
 {
   imports = [
     ./gameLite.nix
@@ -9,7 +11,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
-  home.packages = with pkgs; [
+  home-manager.users.${username}.home.packages = with pkgs; [
     # Games
     gamescope
     duckstation
