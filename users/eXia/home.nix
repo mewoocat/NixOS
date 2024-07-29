@@ -57,22 +57,20 @@ in
     # ".screenrc".source = dotfiles/screenrc;
 
    ".config/kitty".source = ./programs/kitty; 
-   ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/ags";
+   ".config/ags".source = ./ags;
    ".config/tmux".source = ./programs/tmux;
    ".config/matugen".source = ./programs/matugen;
-   ".config/btop".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/btop";
-   ".config/retroarch".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/retroarch";
-   # Doesn't actually seem to make it a symlink??
-   #".config/wallust".source = config.lib.file.mkOutOfStoreSymlink ./programs/wallust;
-   ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/wallust";
+   ".config/btop".source = ./programs/btop;
+   #".config/retroarch".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/retroarch";
+   ".config/wallust".source = ./programs/wallust;
 
    # Themes
-   ".local/share/themes/adw-gtk3".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/theme/adw-gtk3";
-   ".local/share/themes/adw-gtk3-dark".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/theme/adw-gtk3-dark";
+   ".local/share/themes/adw-gtk3".source = ./programs/theme/adw-gtk3;
+   ".local/share/themes/adw-gtk3-dark".source = ./programs/theme/adw-gtk3-dark;
    # GTK 4
-   ".config/gtk-4.0/gtk.css".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/theme/adw-gtk3/gtk-4.0/gtk.css";
+   ".config/gtk-4.0/gtk.css".source = ./programs/theme/adw-gtk3/gtk-4.0/gtk.css;
 
-   ".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/wal";
+   #".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/wal";
 
    # For Nautilus new file
    "Templates/".source = ./programs/nautilus/Templates;
