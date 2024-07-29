@@ -9,6 +9,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/system                    # Core system components
     ../../modules/homemanager               # Installs home-manager 
 
+    # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/razer.nix
 
