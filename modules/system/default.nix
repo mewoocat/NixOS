@@ -7,12 +7,13 @@
 let
 
 in{
-  imports =
-    [ 
-      ../hardware/ios.nix
-      ../hardware/razer.nix
-      ../../nixos/gnome-calendar.nix
-    ];
+
+  imports = [ 
+    ../hardware/ios.nix
+    ../hardware/razer.nix
+    ../../nixos/gnome-calendar.nix
+    ./user.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
