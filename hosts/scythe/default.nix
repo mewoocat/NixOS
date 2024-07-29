@@ -1,18 +1,16 @@
 # Host: scythe
 # Razer blade stealth late 2016
-
-{ inputs }:
-
+{inputs}:
 inputs.nixpkgs.lib.nixosSystem {
-  specialArgs = { inherit inputs; };
+  system = "x86_64-linux";
+  specialArgs = {inherit inputs;};
   # NixOS modules
-  modules = [ 
+  modules = [
     # Users
     ../../users/eXia
 
-
-    ../../modules/system                    # Core system components
-    ../../modules/homemanager               # Installs home-manager 
+    ../../modules/system # Core system components
+    ../../modules/homemanager # Installs home-manager
 
     # Hardware
     ./hardware-configuration.nix

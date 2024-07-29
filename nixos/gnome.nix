@@ -1,14 +1,16 @@
-
-{config, pkgs, lib, ...}:
 {
-
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
   # Fix audio conflict with main system
   sound.enable = lib.mkForce false;
-  
+
   # Disable pulseaudio which gets enabled by gnome
   hardware.pulseaudio.enable = lib.mkForce false;
 
@@ -24,7 +26,5 @@
   };
 
   # Fix web browser crashes?
-  environment.sessionVariables."NIXOS_OZONE_WL"="1";
- 
-
+  environment.sessionVariables."NIXOS_OZONE_WL" = "1";
 }

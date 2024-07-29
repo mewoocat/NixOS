@@ -1,6 +1,9 @@
-{ config, pkgs, inputs, ... }:
 {
-
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs.gnomeExtensions; [
     blur-my-shell
     zen
@@ -16,7 +19,6 @@
   # Gnome settings
   dconf.enable = true;
   dconf.settings = {
-
     # You need quotes to escape '/'
     "org/gnome/desktop/interface" = {
       clock-show-weekday = true;
@@ -31,9 +33,9 @@
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-        binding = "<Super>Return";
-        name = "Launch terminal";
-        command = "gnome-terminal";
+      binding = "<Super>Return";
+      name = "Launch terminal";
+      command = "gnome-terminal";
     };
 
     # Unset conflicting binds for workspace switching
@@ -74,10 +76,9 @@
       move-to-workspace-8 = ["<Shift><Super>8"];
       move-to-workspace-9 = ["<Shift><Super>9"];
       move-to-workspace-10 = ["<Shift><Super>0"];
-        
+
       toggle-fullscreen = ["<Super>f"];
       close = ["<Super><Shift>q"];
-
     };
   };
 }

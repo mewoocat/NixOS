@@ -1,8 +1,8 @@
 {
   description = "NixOS and Homemanager flake";
-  
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -37,16 +37,18 @@
     # My nvim config
     myNvim.url = "github:mewoocat/nvim-nix";
 
+    # Nix formatter
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    alejandra.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   # The `@` syntax here is used to alias the attribute set of the
-  # inputs's parameter, making it convenient to use inside the function. 
-  outputs = { self, ... }@inputs:
-  let
+  # inputs's parameter, making it convenient to use inside the function.
+  outputs = {self, ...} @ inputs: let
     # Call the function in ./hosts/default.nix with inputs as the argument
-    hosts = import ./hosts { inputs = inputs; };
-  in
-  {
+    hosts = import ./hosts {inputs = inputs;};
+  in {
+    formatter."x86_64-linux" = inputs.alejandra.defaultPackage."x86_64-linux";
     nixosConfigurations = hosts;
   };
 }

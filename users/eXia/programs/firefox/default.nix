@@ -1,8 +1,12 @@
-{ config, pkgs, lib, inputs, ... }: 
-let 
-  username = "eXia";
-in
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
+  username = "eXia";
+in {
   #home-manager.users.${username}.programs.firefox = {
   programs.firefox = {
     enable = true;

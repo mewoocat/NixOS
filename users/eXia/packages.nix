@@ -1,17 +1,19 @@
-
-{ config, pkgs, inputs, lib, ... }: let
-
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: let
   # Shell scripts
   #what = pkgs.writeShellScriptBin "lockScreen2" ''exec ${pkgs.gtklock}/bin/gtklock'';
-  #what = import ./scripts/lockScreen.nix { inherit pkgs; }; 
-
+  #what = import ./scripts/lockScreen.nix { inherit pkgs; };
   # Theme packaging
   src = builtins.readFile ./programs/theme/theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
   # Wallust packaging
   wallust = pkgs.callPackage ./programs/wallust.nix {};
-  
   /*
   # GTKPod packaging
   gtkpod = with pkgs; stdenv.mkDerivation rec {
@@ -51,16 +53,13 @@
     };
   };
   */
-
-in
-{
+in {
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = (pkg: true);
+  nixpkgs.config.allowUnfreePredicate = pkg: true;
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0" # Fix for obsidian using electron 25 which is EOL
     "electron-19.1.9" # For balena etcher
   ];
-
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -79,11 +78,12 @@ in
     # '')
 
     (pkgs.writeShellScriptBin "my-hello" ''
-        ${pkgs.gtklock}/bin/gtklock
+      ${pkgs.gtklock}/bin/gtklock
     '')
 
     # Core
-    hyfetch fastfetch
+    hyfetch
+    fastfetch
     htop
     qalculate-gtk
     gnome.eog
@@ -107,15 +107,16 @@ in
     nextcloud-client
     #bottles
     qdirstat
-    ascii-image-converter 
+    ascii-image-converter
     gh
     vial
-    btop 
+    btop
     l3afpad
     gthumb
     rhythmbox
     bookworm
-    spotifywm spotify-tray
+    spotifywm
+    spotify-tray
     nwg-displays
     wlr-randr
     nwg-look
@@ -125,7 +126,7 @@ in
     tilix
     blanket
     usbutils
-    
+
     # Appearance
     liberation_ttf
     arkpandora_ttf
@@ -136,9 +137,9 @@ in
     swww
 
     # Components + utilities
-    coreutils # Collision with busybox 
-    acpi                # Battery
-    lm_sensors          # 
+    coreutils # Collision with busybox
+    acpi # Battery
+    lm_sensors #
     brightnessctl
     bluez
     wirelesstools
@@ -185,8 +186,8 @@ in
     gtk-session-lock
 
     # Self packaged
-    wallust 
-    theme 
+    wallust
+    theme
     #gtkpod
 
     # From flake
@@ -195,7 +196,5 @@ in
 
     # Testing out
     niri
-
   ];
-
 }

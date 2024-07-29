@@ -1,10 +1,13 @@
-{ config, pkgs, ... }: 
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.zellij = {
     enable = true;
     enableBashIntegration = true;
     settings = {
-      copy_command = "wl-copy";  
+      copy_command = "wl-copy";
       pane_frames = false;
       simplified_ui = true;
       ui.pane_frames = {
@@ -15,7 +18,7 @@
       layout_dir = "${./layouts}";
       #default_layout = "compact";
       default_layout = "normal";
-      
+
       theme = "default";
       # Need to declaritivley create this dir
       theme_dir = "${config.home.homeDirectory}/.config/zellij/themes";

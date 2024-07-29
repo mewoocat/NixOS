@@ -1,14 +1,15 @@
-
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-
-{ config, pkgs, lib, inputs, ... }:
-let
-
-in{
-
-  imports = [ 
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
+in {
+  imports = [
     ../hardware/ios.nix
     ../hardware/razer.nix
     ../../nixos/gnome-calendar.nix
@@ -18,7 +19,7 @@ in{
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
 
   environment = {
     sessionVariables = {
@@ -28,7 +29,7 @@ in{
     etc = {
       # Prob need to move this to nvidia file
       "modprobe.d/nvidia.conf" = {
-          text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
+        text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
       };
     };
   };
@@ -38,7 +39,7 @@ in{
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
 
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
   };
 
   nix.gc = {
@@ -52,7 +53,7 @@ in{
   # For Nvidia 555
   #nixpkgs.config.allowUnfree = true;
   nixpkgs.config.nvidia.acceptLicense = true;
-  
+
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0"
   ];
@@ -66,12 +67,12 @@ in{
     qemu
     quickemu
     gnome.gnome-system-monitor
+    #inputs.alejandra.defaultPackage."x86_64-linux"
   ];
 
-
-  services.udev.packages = [ 
+  services.udev.packages = [
     pkgs.openrgb
-    pkgs.dolphinEmu   
+    pkgs.dolphinEmu
   ];
   hardware.i2c.enable = true;
 
@@ -108,14 +109,13 @@ in{
   #programs.coolercontrol.enable = true;
   #programs.coolercontrol.nvidiaSupport = true;
 
-
   ### Services ###
 
   # For udiskie automount to work
   services.udisks2.enable = true;
 
   # Required to show thumbnails in thunar
-  services.tumbler.enable = true; 
+  services.tumbler.enable = true;
 
   # For Vial keyboards
   services.udev.extraRules = "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"users\", TAG+=\"uaccess\", TAG+=\"udev-acl\"";
@@ -131,7 +131,7 @@ in{
 
   services.avahi.enable = true; # Needed for Moonlight / Sunshine
   services.avahi.publish.userServices = true;
- 
+
   # This appears broken
   #services.envfs.enable = true; # Populate /usr/bin with binaries
 
@@ -147,8 +147,8 @@ in{
   */
 
   ### Programs ###
- 
-  programs.dconf.enable = true;  # Required for gtk?
+
+  programs.dconf.enable = true; # Required for gtk?
   programs.light.enable = true;
   programs.hyprland.enable = true;
   programs.thunar.enable = true;
@@ -156,7 +156,7 @@ in{
     thunar-archive-plugin
     thunar-volman
   ];
-  programs.file-roller.enable = true;  # Archive backend?
+  programs.file-roller.enable = true; # Archive backend?
 
   programs.xfconf.enable = true;
   programs.noisetorch.enable = true;
@@ -177,19 +177,17 @@ in{
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-
   # Fonts
   ######################################################################
   #https://nixos.wiki/wiki/Fonts for linking fonts to flatpak
-  fonts.fontDir.enable = true;  
+  fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Gohu" "Monofur" "ProggyClean" "RobotoMono" "SpaceMono"]; })
+    (nerdfonts.override {fonts = ["Gohu" "Monofur" "ProggyClean" "RobotoMono" "SpaceMono"];})
   ];
 
   # Required for steam to run?
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
@@ -200,31 +198,30 @@ in{
 
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
-  
+
   # Systemd
   systemd = {
     # Autostarts gnome polkit
     # Needed for apps that require sudo permissions (i.e. gnome-disks)
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
     };
   };
- 
+
   #networking.nameservers = [ "192.168.1.64" ];
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   #time.timeZone = "America/Chicago";
@@ -245,17 +242,15 @@ in{
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       #firefox
       #tree
     ];
   };
-
 
   # Optimize storage
   # You can also manually optimize the store via:
@@ -264,7 +259,6 @@ in{
   # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
   nix.settings.auto-optimise-store = true;
   nix.optimise.automatic = true;
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -292,13 +286,16 @@ in{
     # Open ports in the firewall.
     #networking.firewall.allowedTCPPorts = [ 3216 ];
     # networking.firewall.allowedUDPPorts = [ ... ];
-    
+
     # For sunshine/moonlight
-    allowedTCPPorts = [ 47984 47989 47990 48010 ];
+    allowedTCPPorts = [47984 47989 47990 48010];
     allowedUDPPortRanges = [
-      { from = 47998; to = 48000; }
+      {
+        from = 47998;
+        to = 48000;
+      }
     ];
-};
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -312,6 +309,4 @@ in{
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
-

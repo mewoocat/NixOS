@@ -1,5 +1,10 @@
-{config, pkgs, lib, inputs, ...}:
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   # Window manager
   wayland.windowManager.hyprland = {
     enable = true;
@@ -9,8 +14,7 @@
       #inputs.hycov.packages.${pkgs.system}.hycov
       #inputs.hyprspace.packages.${pkgs.system}.Hyprspace # Fails to load on my "working" flake.lock
     ];
-    
+
     extraConfig = builtins.readFile ./hyprland.conf;
-    
   };
 }

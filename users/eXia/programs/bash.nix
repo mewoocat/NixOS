@@ -1,4 +1,9 @@
-{config, pkgs, lib, ...}:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 # Does this need to be a function?
 {
   # export GSETTINGS_SCHEMA_DIR=/nix/store/hqd68mpllad47hjnhgnqr6zqcrsi3dsz-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/;
@@ -20,7 +25,7 @@
       FROWNY="''${RED}:(''${NORMAL}"
       SELECT="if [ \$? = 0 ]; then echo \"''${SMILEY}\"; else echo \"''${FROWNY}\"; fi"
 
-      # Throw it all together 
+      # Throw it all together
       PS1="''${RESET}''${YELLOW}\h''${RED}@''${YELLOW}\u''${NORMAL} [\T] \W \`''${SELECT}\` ''${YELLOW}>''${NORMAL} "
       #######################
 
@@ -33,7 +38,7 @@
       if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
       # END_KITTY_SHELL_INTEGRATION
 
-      
+
       # Aliases
       ########################################################################################################
       alias vi='nvim'

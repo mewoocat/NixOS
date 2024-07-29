@@ -1,14 +1,17 @@
-
-{ config, pkgs, lib, inputs, ... }:
 {
-    
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   ### Programs ###
   programs.git = {
     enable = true;
     extraConfig = {
       credential.helper = "${
-        pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
+        pkgs.git.override {withLibsecret = true;}
+      }/bin/git-credential-libsecret";
     };
   };
 
@@ -17,7 +20,7 @@
 
     /*
     extensions = with pkgs; [
-      #vscode-extensions.cmschuetz12.wal 
+      #vscode-extensions.cmschuetz12.wal
       vscode-extensions.bbenoist.nix
       vscode-extensions.vscodevim.vim
     ];
@@ -31,7 +34,7 @@
 
   programs.obs-studio = {
     enable = true;
-    plugins = [ pkgs.obs-studio-plugins.wlrobs ];
+    plugins = [pkgs.obs-studio-plugins.wlrobs];
   };
 
   programs.ags = {
@@ -41,12 +44,12 @@
     #configDir = ../ags;
 
     # additional packages to add to gjs's runtime
-    extraPackages = with pkgs; [ 
+    extraPackages = with pkgs; [
       gtk-session-lock
-      #coreutils # For date 
+      #coreutils # For date
     ];
   };
-  
+
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
@@ -81,5 +84,3 @@
     #enable = true;
   };
 }
-
-
