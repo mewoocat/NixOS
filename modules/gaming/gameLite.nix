@@ -1,7 +1,7 @@
 
 { config, pkgs, lib, inputs, ... }: 
 let
-  username = "eXia";
+  #username = "eXia";
 in
 {
   imports = [
@@ -11,7 +11,7 @@ in
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
-  home-manager.users.${username}.home.packages = with pkgs; [
+  home-manager.users.${config.username}.home.packages = with pkgs; [
     # Games
     mgba
   ];

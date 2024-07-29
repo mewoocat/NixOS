@@ -7,6 +7,10 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = { inherit inputs; };
   # NixOS modules
   modules = [ 
+    # Users
+    ../../users/eXia
+
+
     ../../modules/system                    # Core system components
     ../../modules/homemanager               # Installs home-manager 
 
@@ -15,6 +19,5 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/hardware/razer.nix
 
     ../../modules/gaming/gameLite.nix
-    ../../users/eXia
   ];
 }
