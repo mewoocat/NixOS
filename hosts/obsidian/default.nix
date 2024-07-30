@@ -5,14 +5,22 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
-    ../../modules/system # Core system components
-    ../../modules/homemanager # Installs home-manager
 
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/razer.nix
+    ../../modules/hardware/ios.nix
+    ../../modules/hardware/vial-keyboards.nix
 
+    # Core system components
+    ../../modules/system 
+
+    # Desktop environment
+    ../../modules/system/gui/leaf
+    
+    # User
     ../../users/eXia
     ../../modules/gaming/game.nix
+
   ];
 }

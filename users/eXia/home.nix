@@ -5,16 +5,6 @@
   inputs,
   ...
 }: let
-  lockScreen = pkgs.writeShellApplication {
-    name = "ags-lock";
-    runtimeInputs = with pkgs; [
-      coreutils
-      sassc
-    ];
-    text = ''
-      ${config.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home.homeDirectory}/.config/ags/Lockscreen.js
-    '';
-  };
 in {
   imports = [
     inputs.ags.homeManagerModules.default
@@ -99,27 +89,7 @@ in {
     #QT_QPA_PLATFORMTHEME="gnome"; # For qgnomeplatform-qt6
   };
 
-  # Services
-
-  # start as part of hyprland, not sway
-  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
-  services.swayidle = {
-    enable = true;
-    package = pkgs.swayidle;
-    events = [
-      {
-        event = "before-sleep";
-        command = "${lockScreen}/bin/ags-lock";
-      }
-    ];
-    timeouts = [
-      {
-        timeout = 60 * 10; # 10 minutes
-        command = "${lockScreen}/bin/ags-lock";
-      }
-    ];
-  };
-
+# Services
   services.udiskie = {
     enable = true;
     automount = true;

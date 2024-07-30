@@ -4,12 +4,8 @@
   lib,
   inputs,
   ...
-}: let
-  #username = "eXia";
+}: let 
 in {
-  imports = [
-  ];
-
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
 
