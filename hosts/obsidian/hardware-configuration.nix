@@ -8,7 +8,6 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./nvidia.nix
   ];
 
   # Causes random xorg display manager to show on boot and login no worky

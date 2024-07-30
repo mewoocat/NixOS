@@ -9,8 +9,11 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # Hardware
     ./hardware-configuration.nix
-    ../../modules/hardware/razer.nix
+    ../../modules/hardware/bluetooth.nix
+    ../../modules/hardware/drawing-tablet.nix
     ../../modules/hardware/ios.nix
+    ../../modules/hardware/razer.nix
+    ../../modules/hardware/rgb.nix
     ../../modules/hardware/vial-keyboards.nix
 
     # Core system components
@@ -22,5 +25,8 @@ inputs.nixpkgs.lib.nixosSystem {
     # Users
     ../../users/eXia
     ../../modules/gaming/gameLite.nix
+
+    # Utilities
+    ../../modules/utilities
   ];
 }

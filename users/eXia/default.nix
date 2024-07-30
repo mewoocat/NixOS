@@ -9,6 +9,24 @@
   # This is a custom option
   username = "eXia";
 
+  imports = [ 
+    ../../modules/applications
+  ];
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.eXia = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      #firefox
+      #tree
+    ];
+  };
+
+  # Set your time zone.
+  #time.timeZone = "America/Chicago";
+  time.timeZone = "America/Denver";
+
   home-manager.users.${config.username} = {
     imports = [
       ./home.nix

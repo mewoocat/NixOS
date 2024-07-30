@@ -4,13 +4,14 @@
   lib,
   inputs,
   ...
-}: let
-
-in {
+}:{
   imports = [
     ./user.nix
     ./home-manager.nix
     ./boot.nix
+    ./power.nix
+    ./networking.nix
+    ./disks.nix
     ./general.nix
   ];
 

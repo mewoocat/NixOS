@@ -7,6 +7,18 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"]; # or "nouveau"
 
+  nixpkgs = {
+    config.nvidia.acceptLicense = true;
+  };
+
+  environment = {
+    etc = {
+      "modprobe.d/nvidia.conf" = {
+        text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
+      };
+    };
+  };
+
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
