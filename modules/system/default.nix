@@ -13,6 +13,7 @@
     ./networking.nix
     ./disks.nix
     ./general.nix
+    ./fonts.nix
   ];
 
 

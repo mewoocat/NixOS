@@ -7,7 +7,7 @@
 }: let
 in {
   imports = [
-    inputs.ags.homeManagerModules.default
+    #inputs.ags.homeManagerModules.default
     ./programs/default.nix
     ./programs/nvim
     ./packages.nix
@@ -48,7 +48,7 @@ in {
     # ".screenrc".source = dotfiles/screenrc;
 
     ".config/kitty".source = ./programs/kitty;
-    ".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/ags";
+    #".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/ags";
     ".config/tmux".source = ./programs/tmux;
     ".config/matugen".source = ./programs/matugen;
     ".config/btop".source = ./programs/btop;
