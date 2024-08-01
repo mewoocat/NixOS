@@ -42,7 +42,7 @@
       # Aliases
       ########################################################################################################
       alias vi='nvim'
-      alias rebuild='sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)'
+      alias rebuild='nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)'
       alias startup=~/NixOS/scripts/startup.sh
       alias fastfetch="fastfetch --logo none"
       alias ff="fastfetch --logo none"

@@ -5,6 +5,8 @@
   inputs,
   ...
 }: let
+
+
 in {
   imports = [
     #inputs.ags.homeManagerModules.default
@@ -51,20 +53,10 @@ in {
     #".config/ags".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/ags";
     ".config/tmux".source = ./programs/tmux;
     ".config/matugen".source = ./programs/matugen;
-    ".config/btop".source = ./programs/btop;
+    ".config/btop/btop.conf".source = ./programs/btop/btop.conf;
     #".config/retroarch".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/retroarch";
-    ".config/wallust".source = ./programs/wallust;
 
-    # Themes
-    ".local/share/themes/adw-gtk3".source = ./programs/theme/adw-gtk3;
-    ".local/share/themes/adw-gtk3-dark".source = ./programs/theme/adw-gtk3-dark;
-    # GTK 4
-    ".config/gtk-4.0/gtk.css".source = ./programs/theme/adw-gtk3/gtk-4.0/gtk.css;
 
-    #".config/wal".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/programs/wal";
-
-    # For Nautilus new file
-    "Templates/".source = ./programs/nautilus/Templates;
   };
 
   # You can also manage environment variables but you will have to manually
@@ -226,4 +218,130 @@ in {
     "x-scheme-handler/http" = ["firefox.desktop"];
     "x-scheme-handler/https" = ["firefox.desktop"];
   };
+
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0" # Fix for obsidian using electron 25 which is EOL
+    "electron-19.1.9" # For balena etcher
+  ];
+
+  # The home.packages option allows you to install Nix packages into your
+  # environment.
+  home.packages = with pkgs; [
+    # # It is sometimes useful to fine-tune packages, for example, by applying
+    # # overrides. You can do that directly here, just don't forget the
+    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # # fonts?
+    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+
+    # # You can also create simple shell scripts directly inside your
+    # # configuration. For example, this adds a command 'my-hello' to your
+    # # environment:
+    # (pkgs.writeShellScriptBin "my-hello" ''
+    #   echo "Hello, ${config.home.username}!"
+    # '')
+
+    (pkgs.writeShellScriptBin "my-hello" ''
+      ${pkgs.gtklock}/bin/gtklock
+    '')
+
+    # Core
+    hyfetch
+    fastfetch
+    htop
+    gnome.eog
+    evince # Gnome PDF viewer
+    gnome.gnome-bluetooth_1_0
+    blueman
+
+    # Programs
+    obsidian
+    vesktop
+    xdg-utils # needed for discord/vesktop to open web links in default browser
+    #onlyoffice-bin
+    gnome.gucharmap
+    inkscape
+    gimp
+    #fontforge-gtk
+    #xournalpp
+    tor-browser-bundle-bin
+    nextcloud-client
+    #bottles
+    qdirstat
+    ascii-image-converter
+    gh
+    vial
+    btop
+    l3afpad
+    gthumb
+    rhythmbox
+    bookworm
+    spotifywm
+    spotify-tray
+    nwg-displays
+    wlr-randr
+    nwg-look
+    gradience
+    openvpn
+    zoxide
+    tilix
+    blanket
+    usbutils
+
+    # Appearance
+    liberation_ttf
+    arkpandora_ttf
+    cantarell-fonts
+
+    # Components + utilities
+    coreutils # Collision with busybox
+    acpi # Battery
+    lm_sensors #
+    brightnessctl
+    bluez
+    wirelesstools
+    pipewire
+    pulseaudio
+    alsa-utils
+    pamixer
+    pavucontrol
+    swayidle
+    wl-clipboard
+    glib
+    gnome.nixos-gsettings-overrides # For gsettings theming
+    sway-contrib.grimshot
+    jaq
+    gojq
+    socat
+    ripgrep
+    jq
+    bc
+    wlsunset
+    unzip
+    gvfs # for network file browsing
+    openrgb-with-all-plugins
+    nmap
+    dig
+    libnotify
+    p7zip
+    tmux
+    blueberry
+    cmakeMinimal
+    glow
+    satty
+    grim
+    lynx
+    ddcutil
+    ddcui
+
+
+    # From flake
+    inputs.myNvim.packages.x86_64-linux.default
+    inputs.matugen.packages.x86_64-linux.default
+
+    # Testing out
+    niri
+  ];
+
 }

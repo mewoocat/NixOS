@@ -8,10 +8,11 @@
 
 {
   imports = [
-    ./core-applications/gnome-calendar.nix
+    ./core-applications
     ./core-functions
     ./ags
     ./hyprland
+    ./theming
   ];
   
   programs.dconf.enable = true; # Required for gtk?

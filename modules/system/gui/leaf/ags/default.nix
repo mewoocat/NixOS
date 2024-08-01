@@ -27,8 +27,16 @@
       # this no work
       #".config/ags".source = config.home-manager.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/ags";        
     };
+    home.packages = with pkgs; [
+      sassc
+      wf-recorder
+      slurp # Used to select screen in wf-recorder
+      python312Packages.gpustat
+      gtk-session-lock
+    ];
     systemd.user.tmpfiles.rules = [
-      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/users/eXia/ags"
+      # There's probably a better way to do this
+      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/gui/leaf/ags/ags-config"
     ];
   };
 }
