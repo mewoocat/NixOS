@@ -35,4 +35,4 @@ A particular input
 `sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)`
 
 ### Screenshots
-![Example](https://github.com/mewoocat/NixOS/blob/main/desktop-2.png)
+![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-2.png)

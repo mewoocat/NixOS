@@ -16,6 +16,8 @@
     };
     home.packages = with pkgs; [
       gnome.gnome-calculator
+      gnome.eog
+      gthumb
     ];
   };
 }
