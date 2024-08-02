@@ -9,6 +9,9 @@
     ./moonlight.nix
     ./nextcloud.nix
     ./thunar.nix
+    ./obs.nix
     ./firefox
+    ./foot.nix
+    ./librewolf.nix
   ];
 }
