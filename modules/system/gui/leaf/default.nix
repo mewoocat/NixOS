@@ -55,7 +55,6 @@
       gnome.gnome-bluetooth_1_0
       fastfetch
       xdg-utils # needed for discord/vesktop to open web links in default browser
-      btop
       usbutils
       # Appearance
       liberation_ttf

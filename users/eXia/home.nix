@@ -8,9 +8,7 @@
 in {
   imports = [
     ./programs/default.nix
-    ./programs/firefox
     ./programs/bash.nix
-    ./programs/zellij
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -28,7 +26,7 @@ in {
 
   # Dotfiles
   home.file = {
-    ".config/btop/btop.conf".source = ./programs/btop/btop.conf;
+    #".config/btop/btop.conf".source = ./programs/btop/btop.conf;
   };
 
   home.sessionVariables = {
@@ -37,15 +35,6 @@ in {
 
   # XDG
   xdg.desktopEntries = {
-    obsidian = {
-      name = "Obsidian :)";
-      exec = "obsidian --disable-gpu %u";
-      categories = ["Office"];
-      comment = "Knowledge base";
-      icon = "obsidian";
-      mimeType = ["x-scheme-handler/obsidian"];
-      type = "Application";
-    };
 
     webcord = {
       name = "Webcord :)";
@@ -80,57 +69,53 @@ in {
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0" # Fix for obsidian using electron 25 which is EOL
-  ];
 
-  # The home.packages option allows you to install Nix packages into your environment.
   home.packages = with pkgs; [
-    cmakeMinimal
-    lynx
-    tmux
+    vscodium
+  
     blueberry
-    nmap
-    glow
-    openrgb-with-all-plugins
     hyfetch
     htop
     evince # Gnome PDF viewer
     blueman
 
-    # Programs
-    obsidian
-    vesktop
-    #onlyoffice-bin
-    gnome.gucharmap
-    inkscape
-    gimp
-    #fontforge-gtk
-    #xournalpp
-    tor-browser-bundle-bin
-    nextcloud-client
-    #bottles
-    qdirstat
+
+    nmap
+    glow
+    cmakeMinimal
+    tmux
     ascii-image-converter
     gh
-    vial
+    zoxide
+    openvpn
+
+    # Programs
+    vesktop
+    inkscape
+    gimp
+    blanket
     l3afpad
     rhythmbox
     bookworm
-    spotifywm
-    spotify-tray
-    nwg-displays
-    wlr-randr
-    nwg-look
-    gradience
-    openvpn
-    zoxide
-    blanket
+    spotifywm spotify-tray
+    vial
+
+
+    qdirstat
+    gnome.gucharmap
 
     inputs.myNvim.packages.x86_64-linux.default
 
-    # Testing out
-    niri
+    #gradience
+    #niri
+    #lynx
+    #nwg-displays
+    #wlr-randr
+    #nwg-look
+    #fontforge-gtk
+    #xournalpp
+    #bottles
+    #onlyoffice-bin
   ];
 
   # This value determines the Home Manager release that your configuration is
