@@ -1,13 +1,11 @@
-
 {
   config,
   pkgs,
   lib,
   inputs,
   ...
-}: 
-{
-  imports = [ 
+}: {
+  imports = [
     ./razer.nix
     ./ios.nix
     ./vial-keyboards.nix

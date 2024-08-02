@@ -4,7 +4,7 @@
   lib,
   inputs,
   ...
-}: let 
+}: let
 in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;

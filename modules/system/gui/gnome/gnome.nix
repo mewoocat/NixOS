@@ -107,5 +107,5 @@
         close = ["<Super><Shift>q"];
       };
     };
-  }
+  };
 }

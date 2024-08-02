@@ -11,10 +11,8 @@
 
   # Wallust packaging
   wallust = pkgs.callPackage ./wallust.nix {};
-in{
+in {
   home-manager.users.${config.username} = {
-
-
     # GTK Config
     gtk = {
       enable = true;
@@ -49,7 +47,7 @@ in{
 
       platformTheme.name = "qtct";
     };
-    
+
     home.packages = with pkgs; [
       # Self packaged
       wallust
@@ -66,7 +64,6 @@ in{
     ];
 
     home.file = {
-
       ".config/wallust".source = ./wallust;
       ".config/matugen".source = ./matugen;
 
@@ -76,9 +73,6 @@ in{
 
       # GTK 4
       ".config/gtk-4.0/gtk.css".source = ./adw-gtk3/gtk-4.0/gtk.css;
-
-
-
     };
   };
 }

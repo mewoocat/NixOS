@@ -6,7 +6,6 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {inherit inputs;};
   # NixOS modules
   modules = [
-
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
@@ -17,7 +16,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/hardware/vial-keyboards.nix
 
     # Core system components
-    ../../modules/system 
+    ../../modules/system
 
     # Desktop environment
     ../../modules/system/gui/leaf

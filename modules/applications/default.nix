@@ -4,10 +4,9 @@
   lib,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
-    ./moonlight.nix    
+    ./moonlight.nix
     ./nextcloud.nix
     ./thunar.nix
   ];

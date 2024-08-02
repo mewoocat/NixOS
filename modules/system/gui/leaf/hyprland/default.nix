@@ -4,9 +4,7 @@
   lib,
   inputs,
   ...
-}: 
-
-{
+}: {
   programs.hyprland.enable = true;
 
   # Home manager

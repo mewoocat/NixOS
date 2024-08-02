@@ -9,7 +9,7 @@
   # This is a custom option
   username = "eXia";
 
-  imports = [ 
+  imports = [
     ../../modules/applications
   ];
 
@@ -18,8 +18,6 @@
     isNormalUser = true;
     extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      #firefox
-      #tree
     ];
   };
 

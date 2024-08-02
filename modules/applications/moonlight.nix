@@ -4,16 +4,14 @@
   lib,
   inputs,
   ...
-}:
-{
-
+}: {
   home-manager.users.${config.username}.home.packages = with pkgs; [
     sunshine
   ];
 
   # Moonlight / Sunshine
   ######################################################################
-  services.avahi.enable = true; 
+  services.avahi.enable = true;
   services.avahi.publish.userServices = true;
   networking.firewall = {
     enable = true;

@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-
   # Home manager config
   home-manager.users.${config.username} = {
     imports = [

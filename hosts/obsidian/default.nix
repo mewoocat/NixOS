@@ -5,7 +5,6 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
-
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
@@ -17,17 +16,16 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/hardware/nvidia.nix
 
     # Core system components
-    ../../modules/system 
+    ../../modules/system
 
     # Desktop environment
     ../../modules/system/gui/leaf
-    
+
     # User
     ../../users/eXia
     ../../modules/gaming/game.nix
 
     # Utilities
     ../../modules/utilities
-
   ];
 }

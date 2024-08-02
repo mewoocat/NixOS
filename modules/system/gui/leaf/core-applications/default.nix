@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-
   imports = [
     ./nautilus
     ./gnome-calendar.nix

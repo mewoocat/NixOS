@@ -4,9 +4,7 @@
   lib,
   inputs,
   ...
-}: 
-
-{
+}: {
   imports = [
     ./core-applications
     ./core-functions
@@ -14,7 +12,7 @@
     ./hyprland
     ./theming
   ];
-  
+
   programs.dconf.enable = true; # Required for gtk?
   programs.kdeconnect.enable = true;
 
@@ -45,12 +43,8 @@
     gnome.gnome-system-monitor
   ];
 
-
-
-
   # Home manager
   home-manager.users.${config.username} = {
-
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       SDL_VIDEODRIVER = "wayland";
@@ -99,10 +93,6 @@
       grim
       ddcutil
       ddcui
-
     ];
   };
-
-
-
 }

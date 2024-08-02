@@ -4,7 +4,7 @@
   lib,
   inputs,
   ...
-}:{
+}: {
   # Drive management
   programs.gnome-disks.enable = true;
   # Needed for gparted

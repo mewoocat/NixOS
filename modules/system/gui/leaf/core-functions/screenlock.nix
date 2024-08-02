@@ -1,13 +1,10 @@
-
 {
   config,
   pkgs,
   lib,
   inputs,
   ...
-}: 
-
-{
+}: {
   home-manager.users.${config.username} = let
     lockScreen = pkgs.writeShellApplication {
       name = "ags-lock";
@@ -19,8 +16,7 @@
         ${config.home-manager.users.${config.username}.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home-manager.users.${config.username}.home.homeDirectory}/.config/ags/Lockscreen.js
       '';
     };
-  in
-  {
+  in {
     # start as part of hyprland, not sway
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
     services.swayidle = {

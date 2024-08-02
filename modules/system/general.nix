@@ -4,8 +4,7 @@
   lib,
   inputs,
   ...
-}:
-{
+}: {
   nix = {
     settings = {
       # Cachix for Hyprland
@@ -14,7 +13,7 @@
 
       experimental-features = ["nix-command" "flakes"];
     };
-    
+
     # Garbage cleanup
     gc = {
       automatic = true;
@@ -43,14 +42,11 @@
   # This appears broken
   #services.envfs.enable = true; # Populate /usr/bin with binaries
 
-
   # To sort
   programs.light.enable = true;
   programs.xfconf.enable = true;
   security.rtkit.enable = true; #rtkit is optional but recommended
   services.gvfs.enable = true; # File file manager func.
-
-
 
   # Legacy
   ##############################################################################################
@@ -60,5 +56,4 @@
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
   # For Swaylock Screenlock
   security.pam.services.swaylock = {};
-
 }

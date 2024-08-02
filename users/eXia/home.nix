@@ -5,8 +5,6 @@
   inputs,
   ...
 }: let
-
-
 in {
   imports = [
     ./programs/default.nix
@@ -23,7 +21,6 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-
   # Activation scripts
   home.activation = {
     #Read home manager on home.activation
@@ -31,15 +28,12 @@ in {
 
   # Dotfiles
   home.file = {
-    ".config/kitty".source = ./programs/kitty;
-    ".config/tmux".source = ./programs/tmux;
     ".config/btop/btop.conf".source = ./programs/btop/btop.conf;
   };
 
   home.sessionVariables = {
     DEFAULT_BROWSER = "firefox"; # Not sure if this works
   };
-
 
   # XDG
   xdg.desktopEntries = {
