@@ -48,6 +48,10 @@
 
       eval "$(zoxide init bash)"
 
+      if [[ -f ~/startup.sh ]]; then
+        ~/startup.sh
+      fi
+
       # Set terminal with wallust colors
       cat ~/.cache/wallust/sequences
     '';
