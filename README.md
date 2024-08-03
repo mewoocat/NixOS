@@ -3,14 +3,14 @@
 My personal NixOS system
 
 # Overview
-| _ | _ |
+
+![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-3.png)
+|   |   |
 | - | - |
 | Window Manager | Hyprland
 | Widgets | AGS
 | Editor | nvim
 | Terminal | Foot
-
-![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-3.png)
 
 # Installation
 i forgor
