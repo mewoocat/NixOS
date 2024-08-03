@@ -17,9 +17,11 @@ i forgor
 
 # Usage
 ### Updating
-All inputs
-`nix flake update ~/NixOS`
-A particular input
+##### All inputs
+```
+nix flake update ~/NixOS`
+```
+##### A particular input
 ```
 nix flake lock --update-input <input_name>
 ```
