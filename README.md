@@ -3,8 +3,7 @@
 My personal NixOS system
 
 # Overview
----
-
+| _ | _ |
 | - | - |
 | Window Manager | Hyprland
 | Widgets | AGS
@@ -14,11 +13,9 @@ My personal NixOS system
 ![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-3.png)
 
 # Installation
----
 i forgor
 
 # Usage
----
 ### Updating
 All inputs
 `nix flake update ~/NixOS`
