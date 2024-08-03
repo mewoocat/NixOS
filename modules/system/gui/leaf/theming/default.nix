@@ -66,6 +66,7 @@ in {
     home.file = {
       ".config/wallust".source = ./wallust;
       ".config/matugen".source = ./matugen;
+      ".config/wal".source = ./wal;
 
       # GTK 3
       ".local/share/themes/adw-gtk3".source = ./adw-gtk3;

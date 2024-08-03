@@ -2,37 +2,41 @@
 
 My personal NixOS system
 
-### Installation
+# Overview
+---
 
-### Info
-- WM: Hyprland
-- Widgets: AGS
-- Shell: Bash
-- Editor: nvim + VSCode
-- Theme: wallust
+| - | - |
+| Window Manager | Hyprland
+| Widgets | AGS
+| Editor | nvim
+| Terminal | Foot
 
+![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-3.png)
 
-### Usage
+# Installation
+---
+i forgor
 
-##### Run NeoVim config
-
-Install nix
-`sh <(curl -L https://nixos.org/nix/install) --daemon`
-`export NIX_CONFIG="experimental-features = nix-command flakes"`
-
-`nix run github:mewoocat/NixOS#nvim`
-
-`nix profile install github:mewoocat/NixOS#nvim`
-
-##### Update
+# Usage
+---
+### Updating
 All inputs
 `nix flake update ~/NixOS`
 A particular input
-`nix flake lock --update-input input_name`
-`nix flake update input_name`
+```
+nix flake lock --update-input <input_name>
+```
+or
+```
+nix flake update <input_name>
+```
 
-##### Rebuild NixOS
-`sudo nixos-rebuild switch --flake ~/NixOS#$(hostname)`
+### Rebuild NixOS configuration
+```
+nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)
+```
+or use the bash alias
+```
+rebuild
+```
 
-### Screenshots
-![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-2.png)
