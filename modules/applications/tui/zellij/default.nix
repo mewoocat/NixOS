@@ -3,7 +3,36 @@
   pkgs,
   ...
 }: {
+
   home-manager.users.${config.username} = {
+
+    # For setting the zellij tab name to current dir
+    programs.bash = {
+      enable = true;
+      bashrcExtra = ''
+        # From: https://www.reddit.com/r/zellij/comments/10skez0/does_zellij_support_changing_tabs_name_according/
+        zellij_tab_name_update() {
+            if [[ -n $ZELLIJ ]]; then
+                local current_dir=$PWD
+                if [[ $current_dir == $HOME ]]; then
+                    current_dir="~"
+                else
+                    current_dir=''\${current_dir##*/}
+                fi
+                command nohup zellij action rename-tab $current_dir >/dev/null 2>&1
+            fi
+        }
+
+        zellij_tab_name_update
+        # Modify "cd" to update tab name each time
+        function cd(){
+          builtin cd "$@"
+          zellij_tab_name_update
+        }
+      '';
+    };
+
+
     programs.zellij = {
       enable = true;
       enableBashIntegration = true;
