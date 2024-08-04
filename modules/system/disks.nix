@@ -14,5 +14,6 @@
 
   environment.systemPackages = with pkgs; [
     gparted
+    ntfs3g # For ntfs file systems
   ];
 }
