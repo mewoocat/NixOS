@@ -18,14 +18,6 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-  # Unstable version of OpenGL
-  /*
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-  */
-
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
 
   boot.kernelModules = [
