@@ -4,13 +4,15 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk'
 import GObject from 'gi://GObject'
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js'
+import { GetOptions } from './Settings.js'
 
 ///////////////////////////////////
 //  Weather setup
 ///////////////////////////////////
 
 // Read in user settings
-const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+//const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+const data = GetOptions()
 
 // Get lat and lon from city
 // Get data from api

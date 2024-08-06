@@ -7,6 +7,7 @@ import { locationSearch } from '../Modules/Weather.js'
 import icons from '../icons.js';
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
+import { exec, writeFile, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
 
 const { Gtk } = imports.gi;
 
@@ -80,8 +81,37 @@ function CreateOptionWidget(type, minValue, maxValue){
     }
 }
 
+// Get user home dir
+let homeDir = GLib.get_home_dir()
+print("Home = " + homeDir)
 
 
+var userSettingsJson 
+function ReadJson(){
+    userSettingsJson = JSON.parse(Utils.readFile(configPath + configName))
+}
+export function GetOptions() {
+    // Read in user settings
+    let defaultConfig = `${App.configDir}/defaultUserSettings.json`
+    let configPath = `${homeDir}/.cache/ags/`
+    let configName = `UserSettings.json`
+
+    writeFile("test", `${configPath + configName}`)
+    try {
+        print("Reading")
+        userSettingsJson = JSON.parse(Utils.readFile(configPath + configName))
+    } catch (error) {
+        print(`Could not read ${configPath + configName}`)
+        print(error)
+        // user setting file could not be read in, create default one
+        let defaultConfigContents = readFile(defaultConfig).replace(/[\r\n]+/gm, "")
+        writeFile(defaultConfigContents, `${configPath + configName}`)
+        setTimeout(ReadJson, 1000)
+    }
+    return userSettingsJson
+}
+
+var userSettingsJson = GetOptions()
 
 
 
@@ -92,7 +122,8 @@ function CreateOptionWidget(type, minValue, maxValue){
 
 
 // Read in user settings
-let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+//let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
+let data = GetOptions()
 
 // Option object constructor
 function Option(identifer, name, type, widget, before, value, after, min, max) {
@@ -121,7 +152,7 @@ export const generalFlowBox = Widget.FlowBox({
     vpack: "start",
     max_children_per_line: 1,
 })
-generalFlowBox.add(locationSearch)
+//generalFlowBox.add(locationSearch)
 
 
 // Load in options as widgets
@@ -154,13 +185,14 @@ for (let key in Options){
     print("Loaded option: " + opt.name)    
 }
 
-// Read in user settings
-var userSettingsJson = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
 
+// Logging
+/*
 for (let key in Options){
     print(key)
     print(userSettingsJson.options[key])
 }
+*/
 
 function ApplySettings(){
 
