@@ -24,6 +24,7 @@ export function forMonitors(widget) {
 
 function ClickSpace(window){
     return Widget.EventBox({
+        //css: `background-color: #ff0000;`,
         vexpand: true,
         hexpand: true,
         on_primary_click: () => App.closeWindow(window),

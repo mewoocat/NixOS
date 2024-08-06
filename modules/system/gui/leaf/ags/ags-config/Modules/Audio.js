@@ -5,6 +5,7 @@ import Gtk from 'gi://Gtk'
 import GObj from 'gi://GObject'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { ControlPanelTab } from '../Global.js';
+import { ComboBoxText } from '../Global.js';
 
 export const VolumeIcon = () => Widget.Box({
     class_name: "icon",
@@ -81,7 +82,6 @@ export const VolumeSlider = () => Widget.Box({
     ],
 })
 
-import { ComboBoxText } from '../Global.js';
 const OutputDevices = () => ComboBoxText({}).on("changed", self => {
     var streamID = self.get_active_id()
     //print("streamID:    " + streamID)
@@ -97,7 +97,9 @@ const OutputDevices = () => ComboBoxText({}).on("changed", self => {
         let device = Audio.speakers[i]
         self.append(device.id.toString(), device.stream.port)
     }
-    self.set_active_id(Audio.speaker.id.toString())
+    if (Audio.speaker.id != null){
+        self.set_active_id(Audio.speaker.id.toString())
+    }
 }, "speaker-changed")
 
 
