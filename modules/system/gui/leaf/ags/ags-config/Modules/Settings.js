@@ -9,6 +9,8 @@ import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import { exec, writeFile, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
 
+import { Options, data } from '../Options/options.js'
+
 const { Gtk } = imports.gi;
 
 const gapsInSpinButton = Widget.SpinButton({
@@ -81,71 +83,6 @@ function CreateOptionWidget(type, minValue, maxValue){
     }
 }
 
-// Get user home dir
-let homeDir = GLib.get_home_dir()
-print("Home = " + homeDir)
-
-
-var userSettingsJson 
-function ReadJson(){
-    userSettingsJson = JSON.parse(Utils.readFile(configPath + configName))
-}
-export function GetOptions() {
-    // Read in user settings
-    let defaultConfig = `${App.configDir}/defaultUserSettings.json`
-    let configPath = `${homeDir}/.cache/ags/`
-    let configName = `UserSettings.json`
-
-    writeFile("test", `${configPath + configName}`)
-    try {
-        print("Reading")
-        userSettingsJson = JSON.parse(Utils.readFile(configPath + configName))
-    } catch (error) {
-        print(`Could not read ${configPath + configName}`)
-        print(error)
-        // user setting file could not be read in, create default one
-        let defaultConfigContents = readFile(defaultConfig).replace(/[\r\n]+/gm, "")
-        writeFile(defaultConfigContents, `${configPath + configName}`)
-        setTimeout(ReadJson, 1000)
-    }
-    return userSettingsJson
-}
-
-var userSettingsJson = GetOptions()
-
-
-
-// TODO
-// Create json to store json key value pairs for settings
-// iterate over json to get keys which would have the same name in the options object
-// load values for each option
-
-
-// Read in user settings
-//let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
-let data = GetOptions()
-
-// Option object constructor
-function Option(identifer, name, type, widget, before, value, after, min, max) {
-    this.identifer = identifer  // Unique reference to option 
-    this.name = name            // Human readable name
-    this.type = type            // Type of widget
-    this.widget = widget        // Reference to widget
-    this.before = before        // Option string before value
-    this.value = value          // Option value
-    this.after = after          // Option string after value
-    this.min = min              // Option min value
-    this.max = max              // Option max value
-}
-
-let Options = {
-    gaps_in: new Option("gaps_in", "Gaps in", "spin", null, "general:gaps_in = ", data.options.gaps_in, "", 0, 400),
-    gaps_out: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
-    gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
-    rounding: new Option("rounding", "Rounding", "slider", null, "decoration:rounding = ", data.options.rounding, "", 0, 40),
-    blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
-    sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
-}
 
 
 export const generalFlowBox = Widget.FlowBox({

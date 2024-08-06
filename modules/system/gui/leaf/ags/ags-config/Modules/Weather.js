@@ -4,7 +4,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk'
 import GObject from 'gi://GObject'
 import { timeout } from 'resource:///com/github/Aylur/ags/utils.js'
-import { GetOptions } from './Settings.js'
+import { data } from '../Options/options.js'
 
 ///////////////////////////////////
 //  Weather setup
@@ -12,7 +12,7 @@ import { GetOptions } from './Settings.js'
 
 // Read in user settings
 //const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
-const data = GetOptions()
+//const data = GetOptions()
 
 // Get lat and lon from city
 // Get data from api
@@ -101,9 +101,15 @@ export const locationSearch = Widget.Entry({
 
 
 
+if (data != null){
+    var lat = data.lat
+    var lon = data.lon
+}
+else{
+    var lat = 0
+    var lon = 0
+}
 
-var lat = data.lat
-var lon = data.lon
 //TODO add variables for units
 var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`
 

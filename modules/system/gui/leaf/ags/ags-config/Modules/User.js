@@ -1,13 +1,16 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import { data } from '../Options/options.js'
 
 export const user = Variable("...", {
     poll: [60000, 'whoami', out => out]
 });
 
-const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
-var pfp = data.pfp
+var pfp = ""
+if (data != null){
+    pfp = data.pfp
+}
 
 export const UserIcon = (size = 2) => Widget.Box({
     hexpand: false,

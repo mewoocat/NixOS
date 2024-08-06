@@ -26,7 +26,7 @@ import { togglePowerMenu } from '../Modules/Power.js';
 import { UserInfo } from '../Modules/User.js';
 
 import { ControlPanelTab, ControlPanelNetworkTab, ControlPanelBluetoothTab } from '../Global.js';
-import options from '../options.js';
+import { opt } from '../Options/options.js';
 import icons from '../icons.js';
 import { CircleButton } from './../Common.js';
 
@@ -92,21 +92,21 @@ const wirelessWidget = ControlPanelBox(
             bluetoothButton2x1,
         ],
     }),
-    options.xlarge,
-    options.large,
+    opt.xlarge,
+    opt.large,
 )
 
 const systemStatsWidget = ControlPanelBox(
     systemStatsBox2x2,
-    options.xlarge,
-    options.large,
+    opt.xlarge,
+    opt.large,
 )
 
 const buttonGrid = new Gtk.Grid()
-buttonGrid.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
-buttonGrid.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
-buttonGrid.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
-buttonGrid.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
+buttonGrid.attach(NightLightButton(opt.small, opt.small), 1, 1, 1, 1)
+buttonGrid.attach(PowerProfilesButton(opt.small, opt.small), 1, 2, 1, 1)
+buttonGrid.attach(ThemeButton(opt.small, opt.small), 2, 1, 1, 1)
+buttonGrid.attach(ScreenRecordButton(opt.small, opt.small), 2, 2, 1, 1)
 
 const sliders = Widget.Box({
     class_name: "control-panel-box",
@@ -125,7 +125,7 @@ const sliders = Widget.Box({
 const bottom = Widget.CenterBox({
     hexpand: true,
     css: `
-        min-height: ${options.xsmall}rem;
+        min-height: ${opt.xsmall}rem;
     `,
     class_name: `control-panel-box`,
     startWidget: UserInfo,
@@ -152,10 +152,10 @@ row2.attach(sliders, 1,2,2,1)
 // Row 3
 const row3 = new Gtk.Grid()
 if (Battery.available){
-    row3.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
+    row3.attach(BatteryWidget(opt.large, opt.large), 1, 3, 1, 1)
 }
 else{
-    row3.attach(GPUWidget(options.large, options.large), 1, 3, 1, 1)
+    row3.attach(GPUWidget(opt.large, opt.large), 1, 3, 1, 1)
 }
 row3.attach(systemStatsWidget, 2, 3, 1, 1)
 

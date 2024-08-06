@@ -9,6 +9,7 @@ import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 import { Settings } from './Windows/Settings.js';
+import { GetOptions, data } from './Options/options.js';
 
 // GDK Display
 import Gdk from 'gi://Gdk'
@@ -26,6 +27,9 @@ const css = `${App.configDir}/Style/style.css`
 
 // Generate css
 exec(`sassc ${scss} ${css}`)
+
+// Load options
+//GetOptions()
 
 monitorFile(
     `${App.configDir}/Style/_colors.scss`,
