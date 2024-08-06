@@ -27,8 +27,6 @@ const css = `${App.configDir}/Style/style.css`
 // Generate css
 exec(`sassc ${scss} ${css}`)
 
-// Read in user json settings
-
 monitorFile(
     `${App.configDir}/Style/_colors.scss`,
     function() {
