@@ -94,7 +94,6 @@ export function SecToHourAndMin(seconds){
 
 export function CircleButton(icon, action, params){
     function ActionParsed(){
-        print("params: " + params)
         if ( params != null || params != undefined){
             return action(...params)
         }

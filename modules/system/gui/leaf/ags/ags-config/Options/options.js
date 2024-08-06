@@ -1,23 +1,16 @@
-
 import GLib from 'gi://GLib';
-import { exec, writeFile, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
+import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
 
-// Get user home dir
 let homeDir = GLib.get_home_dir()
-print("Home = " + homeDir)
+let defaultConfig = `${App.configDir}/defaultUserSettings.json`
+let configPath = `${homeDir}/.cache/ags/`
+let configName = `UserSettings.json`
 
-// Development options
-export const opt = {
-    // In rem
-    xsmall: "2",
-    small: "4",
-    medium: "6",
-    large: "8",
-    xlarge: "10",
-}
+export var Options = null   // Options object
+export var data = null;     // Json data
 
 
-// Option object constructor
+// Hyprland Option object constructor
 function Option(identifer, name, type, widget, before, value, after, min, max) {
     this.identifer = identifer  // Unique reference to option 
     this.name = name            // Human readable name
@@ -30,9 +23,15 @@ function Option(identifer, name, type, widget, before, value, after, min, max) {
     this.max = max              // Option max value
 }
 
-
-export var Options = null
-export var data = null;
+// Development options
+export const opt = {
+    // In rem
+    xsmall: "2",
+    small: "4",
+    medium: "6",
+    large: "8",
+    xlarge: "10",
+}
 
 function InitilizeOptions(){
     data = JSON.parse(Utils.readFile(configPath + configName))
@@ -53,11 +52,8 @@ function InitilizeOptions(){
 // Refreshes the contents of data
 export function GetOptions() {
     // Read in user settings
-    let defaultConfig = `${App.configDir}/defaultUserSettings.json`
-    let configPath = `${homeDir}/.cache/ags/`
-    let configName = `UserSettings.json`
     try {
-        print("Reading")
+        print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
     } 
 
@@ -66,22 +62,12 @@ export function GetOptions() {
         print(`Could not read ${configPath + configName}`)
         print(error)
         const defaultConfigContents = readFile(defaultConfig)
-        writeFile(defaultConfigContents, `${configPath + configName}`)
-        setTimeout(InitilizeOptions, 1000)
+        writeFileSync(defaultConfigContents, `${configPath + configName}`)
     }
+
+    InitilizeOptions()
 }
 
 GetOptions()
 
-
-
-// TODO
-// Create json to store json key value pairs for settings
-// iterate over json to get keys which would have the same name in the options object
-// load values for each option
-
-
-// Read in user settings
-//let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
-//let data = GetOptions()
 

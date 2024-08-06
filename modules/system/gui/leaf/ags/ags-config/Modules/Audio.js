@@ -84,12 +84,12 @@ export const VolumeSlider = () => Widget.Box({
 import { ComboBoxText } from '../Global.js';
 const OutputDevices = () => ComboBoxText({}).on("changed", self => {
     var streamID = self.get_active_id()
-    print("streamID:    " + streamID)
+    //print("streamID:    " + streamID)
     if (streamID == undefined){
         streamID = 1
     }
     Audio.speaker = Audio.getStream(parseInt(streamID))
-    print(Audio.getStream(parseInt(streamID)).name)
+    //print(Audio.getStream(parseInt(streamID)).name)
 }).hook(Audio, self => {
     self.remove_all()
     // Set combobox with output devices
@@ -150,7 +150,7 @@ const mixer = () => Widget.Scrollable({
     child: Widget.Box({
         children: Audio.bind("apps").as(v => {
             if (v.length < 1){
-                print("Nothing playing")
+                //print("Nothing playing")
                 return [Widget.Label({
                     hexpand: true,
                     class_name: "dim",
@@ -263,6 +263,7 @@ export const MicrophoneMenu = () => Widget.Box({
             label: "Inputs",
             hpack: "start",
         }),
-        inputDevices,
+        //This is broken pls fix
+        //inputDevices,
     ],
 })

@@ -43,7 +43,6 @@ async function updateCities(text){
         let data = await getCord(text)
         //let cities = data.results.map(city => city.name.toString())
         let cities = data.results
-        print("Cities = " + cities)    
         searchResults.value = cities
     }
     catch(err){
@@ -61,8 +60,8 @@ completion.set_inline_completion = true
 completion.set_inline_selection = true
 completion.popup_set_width = true
 completion.connect("match-selected", (completion, model, iter) =>{
-    print(listStore.get_value(iter, 1).latitude)
-    print(listStore.get_value(iter, 1).longitude)
+    //print(listStore.get_value(iter, 1).latitude)
+    //print(listStore.get_value(iter, 1).longitude)
     completion.get_entry().text = listStore.get_value(iter, 0)
     return true
 })
@@ -85,12 +84,12 @@ export const locationSearch = Widget.Entry({
 
     },
 }).hook(searchResults, self => {
-    print(searchResults.value)
+    //print(searchResults.value)
 
     listStore.clear()
     let cities = searchResults.value
     for (const city of cities) {
-        print(city.name.toString()) 
+        //print(city.name.toString()) 
         const iter = listStore.append()
         listStore.set(iter, [0, 1], [city.name.toString() + ", " + city.country_code.toString(), city]);
     }
@@ -134,10 +133,8 @@ function LookupWeatherCode(code){
     // Get day/night state
     let mode = ""
     var currentHour = new Date().getHours()
-    print("DATE = " + currentHour)
     // If night
     if (currentHour >= 18 || currentHour < 6){
-        print("night")
         mode="-night"
     }
     // Else day
@@ -201,7 +198,7 @@ function LookupWeatherCode(code){
             }
         // Need to add more
         default:
-            print(`Weather code ${code} not recognized.`)
+            //print(`Weather code ${code} not recognized.`)
             return {
                 icon: "Unknown",
                 name: "Unknown",
@@ -283,7 +280,7 @@ export const weatherStatus = Utils.derive([weather], (weather) => {
 // Image
 export const weatherImage = Utils.derive([weather], (weather) => {
     if (weather != null){
-        print("weather image = " + LookupWeatherCode(weather.current.weather_code).image)
+        //print("weather image = " + LookupWeatherCode(weather.current.weather_code).image)
         return LookupWeatherCode(weather.current.weather_code).image
     }
     else{
@@ -294,7 +291,7 @@ export const weatherImage = Utils.derive([weather], (weather) => {
 // Icon
 export const weatherIcon = Utils.derive([weather], (weather) => {
     if (weather != null){
-        print("weather code" + weather.current.weather_code)
+        //print("weather code" + weather.current.weather_code)
         return LookupWeatherCode(weather.current.weather_code).icon
     }
     else{

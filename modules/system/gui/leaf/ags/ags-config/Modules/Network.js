@@ -225,7 +225,7 @@ const network = (ap) => Widget.Button({
 // Current connected network
 export const CurrentNetwork = () => Widget.Box({
     visible: Network.wifi.bind("enabled").as(v => {
-        print(v)
+        //print(v)
         if (v){
             return true
         }
@@ -337,6 +337,9 @@ const AccessPointStat = ( name, stat ) => Widget.Box({
             hexpand: true,
             hpack: "end",
             label: CurrentAP.bind().as(ap => {
+                if (ap[stat] == null){
+                    return "..."
+                }
                 return ap[stat].toString()
             }),
         }), 

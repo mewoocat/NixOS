@@ -8,7 +8,6 @@ const WINDOW_NAME = 'applauncher';
 export const ClientTitle = () => Widget.Label({
     class_name: 'client-title',
     label: Hyprland.active.client.bind('class').as(v => {
-        print(v)
         if (v.startsWith("org.") || v.startsWith("com.")){
             let pathList = v.split('.')
             v = pathList[pathList.length - 1]

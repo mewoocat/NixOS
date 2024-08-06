@@ -19,7 +19,7 @@ const gapsInSpinButton = Widget.SpinButton({
     range: [0, 100],
     increments: [1, 5],
     onValueChanged: ({ value }) => {
-        print(value)
+        //print(value)
     },
 })
 
@@ -28,13 +28,13 @@ const gapsOutSpinButton = Widget.SpinButton({
     range: [0, 100],
     increments: [1, 5],
     onValueChanged: ({ value }) => {
-        print(value)
+        //print(value)
         gapsWorkspacesSlider.value = 900 // This works for setting initial value
     },
 })
 const gapsWorkspacesSlider = Widget.Slider({
     class_name: "sliders",
-    onChange: ({ value }) => print(value),
+    //onChange: ({ value }) => print(value),
     //vertical: true,
     hexpand: true,
     //value: 40,
@@ -47,10 +47,8 @@ const gapsWorkspacesSlider = Widget.Slider({
 })
 
 function CreateOptionWidget(type, minValue, maxValue){
-    print("type = " + type)
     switch(type){
         case "slider":
-            print("Creating slider")
             return Widget.Slider({
                 class_name: "sliders",
                 onChange: ({ value }) => print(value),
@@ -67,7 +65,6 @@ function CreateOptionWidget(type, minValue, maxValue){
             })
             break
         case "spin":
-            print("Creating spin button")
             return Widget.SpinButton({
                 class_name: "spin-button",
                 hpack: "end",
@@ -85,42 +82,42 @@ function CreateOptionWidget(type, minValue, maxValue){
 
 
 
-export const generalFlowBox = Widget.FlowBox({
+export const generalFlowBox = () => Widget.FlowBox({
     vpack: "start",
     max_children_per_line: 1,
+    setup: (self) => {
+        // Load in options as widgets
+        for (let key in Options){
+            let opt = Options[key]
+            let widget = CreateOptionWidget(opt.type, opt.min, opt.max)
+            let label = Widget.Label({
+                label: opt.name,
+                hpack: "start",
+            })
+
+            // Add created widget to option object
+            Options[key].widget = widget 
+
+            // Add widget to box
+            self.add(Widget.CenterBox({
+                class_name: "option-container",
+                startWidget: label,
+                endWidget: widget,
+            }))
+
+            // Set widget with value from json based on type
+            if (opt.type === "spin" || opt.type === "slider"){
+                Options[key].widget.value = data.options[opt.identifer]
+            }
+            else if (opt.type === "switch"){
+                Options[key].widget.active = data.options[opt.identifer]
+            }
+        }
+    },
 })
 //generalFlowBox.add(locationSearch)
 
 
-// Load in options as widgets
-for (let key in Options){
-    let opt = Options[key]
-    let widget = CreateOptionWidget(opt.type, opt.min, opt.max)
-    let label = Widget.Label({
-        label: opt.name,
-        hpack: "start",
-    })
-
-    // Add created widget to option object
-    Options[key].widget = widget 
-
-    // Add widget to box
-    generalFlowBox.add(Widget.CenterBox({
-        class_name: "option-container",
-        startWidget: label,
-        endWidget: widget,
-    }))
-
-    // Set widget with value from json based on type
-    if (opt.type === "spin" || opt.type === "slider"){
-        Options[key].widget.value = data.options[opt.identifer]
-    }
-    else if (opt.type === "switch"){
-        Options[key].widget.active = data.options[opt.identifer]
-    }
-
-    print("Loaded option: " + opt.name)    
-}
 
 
 // Logging
@@ -138,14 +135,13 @@ function ApplySettings(){
 
     // Generate option literals
     for (let key in Options){
-        print("key = " + key)
+        //print("key = " + key)
         let opt = Options[key]
 
         // Read in user settings
-        //let data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
-        let data = userSettingsJson
+        //let data = userSettingsJson
 
-        print("Before | data.options[key]: " + data.options[key])
+       // print("Before | data.options[key]: " + data.options[key])
         if (opt.type === "spin" || opt.type === "slider"){
             // Update value in settings json cache
             data.options[key] = Options[key].widget.value
@@ -161,13 +157,13 @@ function ApplySettings(){
             contents = contents.concat(opt.before + Options[key].widget.active + opt.after + "\n")
         }
 
-        print("After | data.options[key]: " + data.options[key])
+       //:writeFileSync print("After | data.options[key]: " + data.options[key])
     
         let dataOut = JSON.stringify(data)
         // Write out user settings
         Utils.writeFileSync(dataOut, `${App.configDir}/../../.cache/ags/UserSettings.json`)
     }
-    print("contents = " + contents)
+    //print("contents = " + contents)
 
     // Write out new settings file
     Utils.writeFile(contents, `${App.configDir}/../../.cache/hypr/userSettings.conf`)

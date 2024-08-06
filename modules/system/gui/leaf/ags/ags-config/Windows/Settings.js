@@ -6,9 +6,9 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 import { WifiList } from '../Modules/Network.js';
-
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { generalFlowBox, ApplyButton } from '../Modules/Settings.js'
 import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
@@ -17,7 +17,6 @@ const Window = Widget.subclass(Gtk.Window, "Window");
 const SettingsTab = Variable("General", {})
 
 
-import { generalFlowBox, ApplyButton } from '../Modules/Settings.js'
 
 
 // Testing
@@ -56,13 +55,10 @@ const Tab = (t) => Widget.Button({
         margin-right: 1rem;
     `,
     on_primary_click: (self) =>{
-        print(t)
         SettingsTab.value = t
     },
     setup: (self) => {
         // Highlight current tab on startup
-        print("t = " + t)
-        print("SettingsTab.value = " + SettingsTab.value)
         if (t === SettingsTab.value){
             self.toggleClassName("settings-tab-active", true)
         }
@@ -130,11 +126,11 @@ function SectionHeader(name){
     })
 }
 
-const generalContents = Widget.Scrollable({
+const generalContents = () => Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'always',
     vexpand: true,
-    child: generalFlowBox,
+    child: generalFlowBox(),
 })
 
 const testContents = () => Widget.Box({
@@ -182,8 +178,8 @@ const soundContents = Widget.Box({
 const TabContainer = () => Widget.Stack({      
     // Tabs
     children: {
-        'General': Container("General", generalContents),
-        'Display': Container("Display", generalContents),
+        'General': Container("General", generalContents()),
+        'Display': Container("Display", generalContents()),
         'Appearance': Container("Appearance", testContents()),
         'Network': Container("Network", networkContents),
         'Bluetooth': Container("Bluetooth", bluetoothContents),
