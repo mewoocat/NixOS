@@ -83,8 +83,12 @@ const grid = new Gtk.Grid()
 const wirelessGrid = new Gtk.Grid()
 const wirelessWidget = ControlPanelBox(
     Widget.Box({
-        hpack: "center",
+        hpack: "fill",
         vpack: "center",
+        css: `
+            margin-left: 0.6em;
+            margin-right: 0.6em;
+        `,
         hexpand: true,
         vertical: true,
         children: [

@@ -103,8 +103,8 @@ const bluetoothStatus = Widget.Label({
 })
 
 export const bluetoothButton2x1 = Widget.Box({
+    hexpand: true,
     children: [
-
         Widget.Button({         
             vpack: "center",
             class_name: "circle-button",
@@ -121,6 +121,7 @@ export const bluetoothButton2x1 = Widget.Box({
             onClicked: () => ControlPanelTab.setValue("bluetooth"),
             child: Widget.Box({
                 vertical: true,
+                hexpand: true,
                 children: [
                     Widget.Label({
                         label: "Bluetooth",

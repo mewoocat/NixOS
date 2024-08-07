@@ -71,7 +71,7 @@ function CreateOptionWidget(type, minValue, maxValue){
                 range: [minValue, maxValue],
                 increments: [1, 5],
                 onValueChanged: ({ value }) => {
-                    print(value)
+                    //print(value)
                 },
             })
             break

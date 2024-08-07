@@ -4,6 +4,7 @@ import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 import { CircleButton } from './../Common.js';
 import GObject from 'gi://GObject'
+import { opt } from '../Options/options.js';
 
 import icons from '../icons.js';
 
@@ -114,7 +115,7 @@ export const ssid = Widget.Box({
             class_name: "sub-text",
             label: Network.wifi.bind("ssid"),
             truncate: "end",
-            //maxWidthChars: 8,
+            maxWidthChars: opt.large * 2,
         }).hook(Network, label =>{
             if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
                 label.label = Network.wifi.internet
@@ -168,6 +169,7 @@ export const wifiButton2x1 = Widget.Box({
             },
             child: Widget.Box({
                 vertical: true,
+                hexpand: true,
                 children: [
                     Widget.Label({
                         label: "Wi-Fi",

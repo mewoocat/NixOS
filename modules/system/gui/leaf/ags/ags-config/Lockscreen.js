@@ -82,6 +82,7 @@ function authenticate(entry){
 
 
 const passwordEntry = Widget.Entry({
+    class_name: "app-entry",
     placeholder_text: 'type here',
     text: '',
     visibility: false,
