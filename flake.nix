@@ -40,6 +40,12 @@
     # Nix formatter
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
+    
+    # 3DS dev
+    devkitnix = {
+      url = "github:knarkzel/devkitnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the

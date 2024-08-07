@@ -3,11 +3,11 @@ import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 const datetime = Variable(0, {
-    poll: [1000, ['bash', '-c', 'date "+%B %e   %l:%M %P"'], out => out],
+    poll: [5000, ['bash', '-c', 'date "+%B %e   %l:%M %P"'], out => out],
 })
 
 const time = Variable(0, {
-    poll: [1000, ['bash', '-c', 'date "+%l:%M %P"'], out => out],
+    poll: [5000, ['bash', '-c', 'date "+%l:%M %P"'], out => out],
 })
 
 export const Clock = () => Widget.Label({

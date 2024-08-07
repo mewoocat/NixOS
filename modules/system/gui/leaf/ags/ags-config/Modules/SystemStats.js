@@ -17,13 +17,14 @@ export const uptime = Variable("...", {
 
 const divide = ([total, free]) => free / total;
 
+// Todo: make this only poll if dgpu is detected
 const GPUTemp = Variable(0, {
-    poll: [1000, ['bash', '-c', "gpustat --no-header | grep '\[0\]' | cut -d '|' -f 2 | cut -d ',' -f 1 | cut -c -3"], out => Math.round(parseInt(out))/100]
+    poll: [2000, ['bash', '-c', "gpustat --no-header | grep '\[0\]' | cut -d '|' -f 2 | cut -d ',' -f 1 | cut -c -3"], out => Math.round(parseInt(out))/100]
     //poll: [1000, ['bash', '-c', ""], out => Math.round(parseInt(out))/100]
 })
 
 const cpu = Variable(0, {
-    poll: [1000, ['bash', '-c', "top -bn 1 | awk '/Cpu/{print 100-$8}'"], out => Math.round(out)/100]
+    poll: [2000, ['bash', '-c', "top -bn 1 | awk '/Cpu/{print 100-$8}'"], out => Math.round(out)/100]
 })
 
 const ram = Variable(0, {

@@ -41,6 +41,26 @@
         "type": "github"
       }
     },
+    "devkitnix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1668816049,
+        "narHash": "sha256-MfOv0sY4RR7zmCDkM3tLkQID3DQnOAk1eO5o1QVEb6g=",
+        "owner": "knarkzel",
+        "repo": "devkitnix",
+        "rev": "ed1a8e082153d1141ab57ce6f94d87cb0b24af51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "knarkzel",
+        "repo": "devkitnix",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -525,6 +545,7 @@
       "inputs": {
         "ags": "ags",
         "alejandra": "alejandra",
+        "devkitnix": "devkitnix",
         "home-manager": "home-manager",
         "hypridle": "hypridle",
         "hyprland": "hyprland",
