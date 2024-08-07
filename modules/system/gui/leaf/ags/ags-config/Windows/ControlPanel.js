@@ -391,11 +391,13 @@ export const ControlPanel = () => Widget.Window({
     visible: false,
     layer: "overlay",
     keymode: "exclusive",
-    anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
-    //anchor: ["top", "left", "right"], // Debug mode
+    //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
+    anchor: ["top", "left", "right"], // Debug mode
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right"),
-    //child: content,
-    setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME)),
+    setup: self => {
+        //self.show_all()
+        //self.visible = false
+        self.keybind("Escape", () => App.closeWindow(WINDOW_NAME))
+    }
 });
-

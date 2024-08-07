@@ -208,6 +208,7 @@ export const SettingsToggle = Widget.Button({
     })
 })
 
+// Settings window (Non ags widget window)
 export const Settings = () => Window({
     name: "Settings",
     child: Widget.Box({
@@ -218,7 +219,7 @@ export const Settings = () => Window({
         ],
     }),
     setup: (self) => {
-        self.show_all();
+        //self.show_all(); // This may or may not be needed
         self.visible = false;
         self.on("delete-event", () => {
             App.closeWindow("Settings")

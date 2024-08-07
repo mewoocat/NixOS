@@ -82,7 +82,11 @@ export const VolumeSlider = () => Widget.Box({
     ],
 })
 
-const OutputDevices = () => ComboBoxText({}).on("changed", self => {
+// Dropdown to select output device
+const OutputDevices = () => ComboBoxText({
+    //css: "padding: 1px;"
+
+}).on("changed", self => {
     var streamID = self.get_active_id()
     //print("streamID:    " + streamID)
     if (streamID == undefined){
@@ -101,7 +105,6 @@ const OutputDevices = () => ComboBoxText({}).on("changed", self => {
         self.set_active_id(Audio.speaker.id.toString())
     }
 }, "speaker-changed")
-
 
 function appVolume(app){
     //const level = Variable(app.volume)

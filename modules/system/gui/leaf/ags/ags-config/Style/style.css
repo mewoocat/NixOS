@@ -1,5 +1,5 @@
 * {
-  color: #FFFFFF; }
+  color: #FFFBF0; }
 
 .large-text {
   font-size: 1.24em;
@@ -7,25 +7,25 @@
 
 .sub-text {
   font-size: 0.72rem;
-  color: #999999; }
+  color: #999790; }
 
 .recording > * {
   color: red; }
 
 .container {
   border-radius: 1rem;
-  background-color: rgba(51, 51, 51, 0.44);
+  background-color: rgba(55, 57, 59, 0.44);
   padding: 0.6em; }
 
 .container-no-spacing {
   border-radius: 1rem;
-  background-color: rgba(51, 51, 51, 0.44); }
+  background-color: rgba(55, 57, 59, 0.44); }
 
 .container-side-spacing {
   border-radius: 1rem;
   padding-left: 0.6em;
   padding-right: 0.6em;
-  background-color: rgba(51, 51, 51, 0.44); }
+  background-color: rgba(55, 57, 59, 0.44); }
 
 .scrollable-item:first-child {
   margin-top: 0.8em; }
@@ -34,7 +34,7 @@
   margin-top: 0.8em; }
 
 .toggle-window {
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(5, 7, 10, 0.64);
   border-radius: 1rem;
   border-color: rgba(64, 64, 64, 0.42);
   border-width: 1px;
@@ -43,7 +43,7 @@
   margin: 1rem; }
 
 .normal-window {
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: rgba(5, 7, 10, 0.8); }
 
 .round-left {
   border-top-left-radius: 1rem;
@@ -62,18 +62,18 @@
 tooltip {
   padding: 1.2rem;
   border-radius: 1rem;
-  background-color: rgba(0, 0, 0, 0.44); }
+  background-color: rgba(5, 7, 10, 0.44); }
 
 .horizontal-separator {
   min-height: 1px;
-  background-color: #FFFFFF;
+  background-color: #FFFBF0;
   border-radius: 1rem;
   margin-left: 0.6rem;
   margin-right: 0.6rem; }
 
 .vertical-separator {
   min-width: 1px;
-  background-color: #FFFFFF;
+  background-color: #FFFBF0;
   border-radius: 1rem;
   margin-top: 0.6rem;
   margin-bottom: 0.6rem; }
@@ -93,13 +93,13 @@ switch {
   min-width: 2rem;
   min-height: 2rem;
   border-radius: 1rem;
-  background-color: #333333; }
+  background-color: #37393B; }
 
 switch slider {
   border-radius: 1rem;
   min-width: 2rem;
   min-height: 2rem;
-  background-color: #66CC99; }
+  background-color: #FB576C; }
 
 .padder {
   margin: 0.8rem; }
@@ -112,22 +112,22 @@ spinbutton {
     border-radius: 1rem;
     padding: 0.6rem;
     margin: 0.2rem;
-    background-color: #000000; }
+    background-color: #05070A; }
   spinbutton button {
     border-radius: 100%;
     margin-left: 2px;
     font-size: 8px;
     min-width: 38px;
     min-height: 38px;
-    background-color: rgba(102, 102, 102, 0.3); }
+    background-color: rgba(105, 106, 108, 0.3); }
   spinbutton button:hover {
-    background-color: #000000; }
+    background-color: #05070A; }
 
 switch {
-  background-color: rgba(102, 102, 102, 0.3); }
+  background-color: rgba(105, 106, 108, 0.3); }
 
 .active-button > * {
-  background-color: #6699CC;
+  background-color: #D36E61;
   border-radius: 1rem; }
 
 .shadow-button {
@@ -138,19 +138,19 @@ switch {
 .shadow-button > * {
   padding: 0.4rem 0.8rem;
   border-radius: 0.8rem;
-  background-color: rgba(102, 102, 102, 0.3);
-  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.8), -3px -3px 2px rgba(102, 102, 102, 0.5);
+  background-color: rgba(105, 106, 108, 0.3);
+  box-shadow: 4px 4px 2px rgba(5, 7, 10, 0.8), -3px -3px 2px rgba(105, 106, 108, 0.5);
   border: solid;
   border-width: 0px;
-  border-color: #666666; }
+  border-color: #696A6C; }
 
 .shadow-button:hover > * {
-  background-color: rgba(0, 0, 0, 0.2);
-  box-shadow: -4px -4px 2px rgba(0, 0, 0, 0.8), 3px 3px 2px rgba(102, 102, 102, 0.5); }
+  background-color: rgba(5, 7, 10, 0.2);
+  box-shadow: -4px -4px 2px rgba(5, 7, 10, 0.8), 3px 3px 2px rgba(105, 106, 108, 0.5); }
 
 entry {
   padding: 0.6rem;
-  background-color: rgba(51, 51, 51, 0.44);
+  background-color: rgba(55, 57, 59, 0.44);
   border-radius: 1rem; }
 
 /*
@@ -159,7 +159,7 @@ entry window.popup {
 }
 */
 .bar-window {
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(5, 7, 10, 0.64);
   font-family: "System-ui";
   font-size: 16px; }
 
@@ -168,7 +168,7 @@ entry window.popup {
   padding: 0.3rem; }
 
 .applauncher {
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(5, 7, 10, 0.64);
   padding: 8px;
   border-radius: 1.2rem;
   border-color: rgba(88, 88, 88, 0.42);
@@ -182,26 +182,26 @@ entry window.popup {
   margin-right: 0.8rem; }
 
 .app-button:hover {
-  background-color: #66CC99; }
+  background-color: #FB576C; }
   .app-button:hover label {
-    color: #000000; }
+    color: #05070A; }
 
 .app-button:focus {
-  background-color: #66CC99; }
+  background-color: #FB576C; }
   .app-button:focus label {
-    color: #000000; }
+    color: #05070A; }
 
 .app-entry {
   all: unset;
   padding: 0.6rem;
-  background-color: rgba(51, 51, 51, 0.44);
+  background-color: rgba(55, 57, 59, 0.44);
   border-radius: 1rem; }
 
 .first-item > button:first-child {
-  background-color: #66CC99;
+  background-color: #FB576C;
   border-radius: 1rem; }
   .first-item > button:first-child label {
-    color: #000000; }
+    color: #05070A; }
 
 .normal-button {
   all: unset;
@@ -213,19 +213,19 @@ entry window.popup {
 
 .normal-button:hover > * {
   color: #000000;
-  background-color: #CC9966; }
+  background-color: #5A96DE; }
   .normal-button:hover > * * {
     color: #000000; }
 
 .bg-button > * {
-  background-color: rgba(102, 102, 102, 0.3); }
+  background-color: rgba(105, 106, 108, 0.3); }
 
 .power-button > * {
   padding: 0.4rem;
   border-radius: 1rem; }
 
 .power-button:hover > * {
-  background-color: #999999; }
+  background-color: #9B9C9D; }
 
 .dock-button > box {
   padding: 0.6rem 0.6rem;
@@ -235,10 +235,10 @@ entry window.popup {
   min-height: 4rem; }
 
 .dock-button:hover > box {
-  background-color: #999999; }
+  background-color: #9B9C9D; }
 
 .dock-container {
-  background-color: rgba(0, 0, 0, 0.64); }
+  background-color: rgba(5, 7, 10, 0.64); }
 
 .dock-app-indicator {
   min-width: 0.4rem;
@@ -248,21 +248,21 @@ entry window.popup {
   background-color: rgba(0, 0, 0, 0); }
 
 .dock-app-indicator-active {
-  background-color: #FFFFFF; }
+  background-color: #FFFBF0; }
 
 .notifications {
   margin: 1rem; }
 
 .notification {
   color: white;
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(5, 7, 10, 0.64);
   border-radius: 1rem;
   min-width: 16rem;
   min-height: 4rem;
   padding: 1rem; }
 
 .battery-bg {
-  color: #FFFFFF; }
+  color: #FFFBF0; }
 
 .battery-fg {
   color: #44ec44; }
@@ -270,21 +270,21 @@ entry window.popup {
 .battery-circle {
   min-width: 7.2rem;
   min-height: 7.2rem;
-  background-color: #000000;
-  color: #CC9966; }
+  background-color: #05070A;
+  color: #5A96DE; }
 
 .icon {
   font-size: 20px;
-  color: #FFFFFF; }
+  color: #FFFBF0; }
 
 .system-stats-circular-progress {
-  background-color: #000000;
-  color: #6699CC;
+  background-color: #05070A;
+  color: #D36E61;
   font-size: 4px;
   min-height: 22px; }
 
 .lockscreen {
-  background-color: #333333; }
+  background-color: #37393B; }
 
 calendar {
   all: unset; }
@@ -293,7 +293,7 @@ calendar.button {
   border-radius: 1rem; }
 
 calendar.button:hover {
-  background-color: #333333; }
+  background-color: #37393B; }
 
 calendar.button:disabled {
   color: rgba(255, 255, 255, 0.06); }
@@ -304,7 +304,7 @@ calendar.highlight {
 calendar:selected {
   color: white;
   border-radius: 0.5em;
-  background: #66CC99; }
+  background: #FB576C; }
 
 calendar:indeterminate {
   color: rgba(116, 116, 116, 0.776); }
@@ -316,7 +316,7 @@ menu {
   border-color: rgba(64, 64, 64, 0.42);
   border-width: 1px;
   border-style: solid;
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(5, 7, 10, 0.64);
   border-radius: 1rem;
   padding: 0.4rem; }
 
@@ -326,7 +326,7 @@ menuitem {
   margin: 0.2rem; }
 
 menuitem:hover {
-  background-color: #999999; }
+  background-color: #9B9C9D; }
 
 scrollbar {
   min-width: 4px;
@@ -342,7 +342,7 @@ scrollbar.vertical {
   scrollbar.vertical slider {
     min-width: 4px;
     border-radius: 1rem;
-    background-color: #999999; }
+    background-color: #9B9C9D; }
 
 scrollbar.horizontal {
   margin-left: 0.6em;
@@ -350,37 +350,37 @@ scrollbar.horizontal {
   scrollbar.horizontal slider {
     min-height: 4px;
     border-radius: 1rem;
-    background-color: #999999; }
+    background-color: #9B9C9D; }
 
 button.combo {
-  background-color: #000000;
+  background-color: #05070A;
   padding: 0.5rem 1rem;
   border-radius: 1rem; }
 
 button.combo:hover {
-  background-color: #999999; }
+  background-color: #9B9C9D; }
 
 .systray {
-  background-color: #000000;
+  background-color: #05070A;
   margin: 0.2rem;
   border-radius: 1rem; }
 
 .weather-container {
   border-radius: 1rem;
   padding: 1rem;
-  background-color: rgba(51, 51, 51, 0.9); }
+  background-color: rgba(55, 57, 59, 0.9); }
 
 entry treeview {
-  background-color: #333333; }
+  background-color: #37393B; }
 
 progressbar trough {
-  background-color: #000000;
+  background-color: #05070A;
   border-radius: 1rem;
   min-width: 1rem;
   padding-left: 0.2rem;
   padding-right: 0.2rem; }
   progressbar trough progress {
-    background-color: #6699CC;
+    background-color: #D36E61;
     min-width: 1rem;
     border-radius: 1rem; }
 
@@ -389,7 +389,7 @@ scale, scale * {
 
 /* The background */
 scale trough {
-  background-color: rgba(0, 0, 0, 0.64);
+  background-color: rgba(5, 7, 10, 0.64);
   border-radius: 20px;
   /* Accounts for the extension of the highlight */
   padding: 4px 20px; }
@@ -399,12 +399,12 @@ scale trough {
   padding: 20px 4px; }
 
 scale trough:hover > slider {
-  background-color: #6699CC; }
+  background-color: #D36E61; }
 
 /* The highligh */
 scale highlight {
   border-radius: 20px;
-  background-color: #66CC99;
+  background-color: #FB576C;
   /* Forces highlight to extend to match the slider positon  on the ends */
   margin: 0 -14px; }
 
@@ -417,14 +417,14 @@ scale slider {
   min-height: 28px;
   min-width: 28px;
   border-radius: 100%;
-  background-color: #66CC99;
+  background-color: #FB576C;
   border-style: solid;
   border-width: 0px;
-  border-color: #66CC99;
-  box-shadow: 0px 0px 4px #000000; }
+  border-color: #FB576C;
+  box-shadow: 0px 0px 4px #05070A; }
 
 scale slider:hover {
-  background-color: #6699CC; }
+  background-color: #D36E61; }
 
 .ws-indicator {
   background-color: dimgray;
@@ -447,15 +447,15 @@ scale slider:hover {
   min-width: 1.8rem; }
   .ws-button label {
     font-size: 0rem;
-    color: #999999; }
+    color: #9B9C9D; }
 
 .ws-button > * {
   padding: 0rem; }
 
 .ws-button:hover > box {
-  background-color: #6699CC; }
+  background-color: #D36E61; }
   .ws-button:hover > box label {
-    color: #000000; }
+    color: #05070A; }
 
 .ws-button:hover > .ws-inactive {
   min-width: 1.2rem;
@@ -469,48 +469,48 @@ scale slider:hover {
 
 /* Occupied needs to come before active */
 .ws-occupied {
-  background-color: #66CC99; }
+  background-color: #FB576C; }
   .ws-occupied label {
     min-width: 1.2rem;
     min-height: 1.2rem;
     font-size: 0.8rem;
-    color: #000000; }
+    color: #05070A; }
 
 .ws-active {
-  background-color: #6699CC;
+  background-color: #D36E61;
   min-width: 2.4rem;
   min-height: 1.2rem; }
   .ws-active label {
     min-width: 2.4rem;
     min-height: 1.2rem;
     font-size: 0.8rem;
-    color: #000000; }
+    color: #05070A; }
 
 .control-panel-box {
-  background-color: rgba(51, 51, 51, 0.64);
+  background-color: rgba(55, 57, 59, 0.64);
   border-radius: 1rem;
-  border-color: rgba(0, 0, 0, 0.64);
+  border-color: rgba(5, 7, 10, 0.64);
   border-width: 1px;
   border-style: solid;
   margin: 0.2rem; }
 
 .control-panel-button {
   all: unset;
-  background-color: rgba(51, 51, 51, 0.64);
+  background-color: rgba(55, 57, 59, 0.64);
   border-radius: 1rem;
-  border-color: rgba(0, 0, 0, 0.64);
+  border-color: rgba(5, 7, 10, 0.64);
   border-width: 1px;
   border-style: solid;
   margin: 0.2rem; }
 
 .control-panel-sub-button {
-  background-color: rgba(51, 51, 51, 0.64); }
+  background-color: rgba(55, 57, 59, 0.64); }
 
 .control-panel-button:hover {
-  background-color: #6699CC; }
+  background-color: #D36E61; }
 
 .control-panel-sub-button:hover {
-  background-color: #6699CC; }
+  background-color: #D36E61; }
 
 .control-panel-button-content {
   padding: 0.4rem; }
@@ -519,16 +519,16 @@ scale slider:hover {
   border-radius: 1rem;
   padding: 0.4rem;
   margin: 0.2rem;
-  background-color: rgba(51, 51, 51, 0.64); }
+  background-color: rgba(55, 57, 59, 0.64); }
 
 .control-panel-widget-large {
   padding: 0.4rem;
-  background-color: rgba(51, 51, 51, 0.44);
+  background-color: rgba(55, 57, 59, 0.44);
   border-radius: 1rem;
   margin: 0.2rem; }
 
 .tab-container {
-  background-color: rgba(51, 51, 51, 0.44);
+  background-color: rgba(55, 57, 59, 0.44);
   padding: 1rem; }
 
 .settings-tab-button {
@@ -540,11 +540,11 @@ scale slider:hover {
   border-radius: 0.8rem; }
 
 .settings-tab-button:hover > * {
-  background-color: #6699CC;
+  background-color: #D36E61;
   color: #000000; }
 
 .settings-tab-active > * {
-  background-color: #6699CC;
+  background-color: #D36E61;
   color: #000000; }
 
 .header {
@@ -561,29 +561,29 @@ scale slider:hover {
   border-radius: 1rem;
   padding: 1rem;
   margin: 1rem;
-  background-color: rgba(51, 51, 51, 0.44); }
+  background-color: rgba(55, 57, 59, 0.44); }
 
 .circle-button {
   all: unset;
-  background-color: #666666;
+  background-color: #696A6C;
   border-radius: 100%;
   min-width: 2rem;
   min-height: 2rem; }
   .circle-button > * {
-    color: #FFFFFF; }
+    color: #FFFBF0; }
 
 .circle-button:hover {
-  background-color: #66CC99; }
+  background-color: #FB576C; }
   .circle-button:hover > * {
     color: #000000; }
 
 .circle-button-active {
-  background-color: #66CC99; }
+  background-color: #FB576C; }
   .circle-button-active > * {
     color: #000000; }
 
 .circle-button:hover {
-  background-color: #66CC99; }
+  background-color: #FB576C; }
   .circle-button:hover > * {
     color: #000000; }
 
@@ -614,7 +614,7 @@ scale slider:hover {
   min-height: 8px; }
 
 .player scale.position highlight {
-  background-color: #6699CC; }
+  background-color: #D36E61; }
 
 .player scale.position slider {
   all: unset; }
