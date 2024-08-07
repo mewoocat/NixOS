@@ -1,4 +1,5 @@
 
 networks.txt
-home-manager/ags/Style/_colors.scss
-home-manager/ags/Style/style.css
+modules/system/gui/leaf/ags/ags-config/Style/_colors.scss
+modules/system/gui/leaf/ags/ags-config/Style/style.css
+
