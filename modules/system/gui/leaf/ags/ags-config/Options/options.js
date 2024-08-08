@@ -12,13 +12,24 @@ let configPath = `${homeDir}/.cache/ags/`
 let configName = `UserSettings.json`
 
 // Export an object which contains all option widgets
-export var Options = null   // Options object
+export var Options = {
+    system: {
+        xsmall: "2",
+        small: "4",
+        medium: "6",
+        large: "8",
+        xlarge: "10",
+    },
+    user: null,
+} 
 export var data = null;     // Json data
 
 // Option types
-// - Ags/Gtk:       Controlled internally
-// - Hyprland:      Controlled via config file 
-// - 
+// - User
+//     - Ags/Gtk:       Controlled internally
+//     - Hyprland:      Controlled via config file 
+// - System
+//     - Ags/Gtk:       Controlled internally
 
 
 // Option object constructor
@@ -39,7 +50,7 @@ function Option(id, name, type, widget, value, min, max, external, configFile, b
 
 // Create widget from option
 export function CreateOptionWidget(option){
-    switch(type){
+    switch(option.type){
         case "slider":
             return Widget.Slider({
                 onChange: ({ value }) => print(value),
@@ -76,15 +87,7 @@ export function CreateOptionWidget(option){
 }
 
 
-// Development options
-export const opt = {
-    // In rem
-    xsmall: "2",
-    small: "4",
-    medium: "6",
-    large: "8",
-    xlarge: "10",
-}
+// function Option(id, name, type, widget, value, min, max, external, configFile, beforeStr, afterStr) {
 
 // Initilize options with data from json config
 function InitilizeOptions(){
@@ -92,15 +95,16 @@ function InitilizeOptions(){
     if (data == null){
         return
     }
-    Options = {
-        gaps_in: new Option("gaps_in", "Gaps in", "spin", null, "general:gaps_in = ", data.options.gaps_in, "", 0, 400),
-        gaps_out: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
-        gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
-        rounding: new Option("rounding", "Rounding", "slider", null, "decoration:rounding = ", data.options.rounding, "", 0, 40),
-        blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
-        sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
+    Options.user = {
+        gaps_in: new Option("gaps_in", "Gaps in", "spin", null, data.options.gaps_in, 0, 400, true, "", "general:gaps_in = ", ""),
+        //gaps_out: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
+        //gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
+        //rounding: new Option("rounding", "Rounding", "slider", null, "decoration:rounding = ", data.options.rounding, "", 0, 40),
+        //blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
+        //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
 }
+
 
 // Refreshes the contents of data
 export function GetOptions() {

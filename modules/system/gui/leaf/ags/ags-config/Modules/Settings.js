@@ -23,7 +23,7 @@ export const generalFlowBox = () => Widget.FlowBox({
             let option = Options[key]
             let widget = CreateOptionWidget(option)
             let label = Widget.Label({
-                label: opt.name,
+                label: option.name,
                 hpack: "start",
             })
 

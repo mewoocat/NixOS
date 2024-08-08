@@ -4,8 +4,7 @@ import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 import { CircleButton } from './../Common.js';
 import GObject from 'gi://GObject'
-import { opt } from '../Options/options.js';
-
+import { Options } from '../Options/options.js';
 import icons from '../icons.js';
 
 // Holds current wifi access point selected
@@ -115,7 +114,7 @@ export const ssid = Widget.Box({
             class_name: "sub-text",
             label: Network.wifi.bind("ssid"),
             truncate: "end",
-            maxWidthChars: opt.large * 2,
+            maxWidthChars: Options.system.large * 2,
         }).hook(Network, label =>{
             if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
                 label.label = Network.wifi.internet
