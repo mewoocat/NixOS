@@ -1,27 +1,80 @@
 import GLib from 'gi://GLib';
 import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
+import Gtk from 'gi://Gtk'
+
+// Configure animations
+// I think this only applys the option to the default window
+Gtk.Settings.get_default().gtk_enable_animations = true
 
 let homeDir = GLib.get_home_dir()
 let defaultConfig = `${App.configDir}/defaultUserSettings.json`
 let configPath = `${homeDir}/.cache/ags/`
 let configName = `UserSettings.json`
 
+// Export an object which contains all option widgets
 export var Options = null   // Options object
 export var data = null;     // Json data
 
+// Option types
+// - Ags/Gtk:       Controlled internally
+// - Hyprland:      Controlled via config file 
+// - 
 
-// Hyprland Option object constructor
-function Option(identifer, name, type, widget, before, value, after, min, max) {
-    this.identifer = identifer  // Unique reference to option 
-    this.name = name            // Human readable name
-    this.type = type            // Type of widget
-    this.widget = widget        // Reference to widget
-    this.before = before        // Option string before value
-    this.value = value          // Option value
-    this.after = after          // Option string after value
-    this.min = min              // Option min value
-    this.max = max              // Option max value
+
+// Option object constructor
+function Option(id, name, type, widget, value, min, max, external, configFile, beforeStr, afterStr) {
+    this.id = id                    // Unique identifer to be able to retrieve option value from json
+    this.name = name                // Human readable name
+    this.type = type                // Type of widget
+    this.widget = widget            // Reference to widget
+    this.value = value              // Option value
+    this.min = min                  // Option min value
+    this.max = max                  // Option max value
+    this.external = external        // Contains bool
+    this.configFile = configFile      // Config file where option string will be appended
+    this.beforeStr = beforeStr        // Option string before value
+    this.afterStr = afterStr          // Option string after value
 }
+
+
+// Create widget from option
+export function CreateOptionWidget(option){
+    switch(type){
+        case "slider":
+            return Widget.Slider({
+                onChange: ({ value }) => print(value),
+                hexpand: true,
+                min: option.min,
+                max: option.max,
+                step: 1, // Only works for keybinds?
+                value: data.options[option.id],
+            })
+            break
+        case "switch":
+            return Widget.Switch({
+                class_name: "switch-button",
+                hpack: "end",
+                active: data.options[option.id],
+            })
+            break
+        case "spin":
+            return Widget.SpinButton({
+                class_name: "spin-button",
+                hpack: "end",
+                range: [option.min, option.max],
+                increments: [1, 5],
+                value: data.options[option.id],
+                onValueChanged: ({ value }) => {
+                    //print(value)
+                },
+            })
+            break
+        default:
+            print("Invalid CreateOptionWidget() type")
+            return null
+    }
+}
+
 
 // Development options
 export const opt = {
@@ -33,6 +86,7 @@ export const opt = {
     xlarge: "10",
 }
 
+// Initilize options with data from json config
 function InitilizeOptions(){
     data = JSON.parse(Utils.readFile(configPath + configName))
     if (data == null){
@@ -47,7 +101,6 @@ function InitilizeOptions(){
         sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
 }
-
 
 // Refreshes the contents of data
 export function GetOptions() {
@@ -68,6 +121,59 @@ export function GetOptions() {
     InitilizeOptions()
 }
 
-GetOptions()
 
+
+
+
+///////////////////////////////////////////////////////////////
+
+
+// Define option widget templates
+//
+export function ApplySettings(){
+
+    // Contents to write to hyprland config file
+    let hyprlandConfig = " \n"
+
+    // Generate option literals
+    for (let key in Options){
+        //print("key = " + key)
+        let opt = Options[key]
+
+        // Read in user settings
+        //let data = userSettingsJson
+
+        // print("Before | data.options[key]: " + data.options[key])
+        if (opt.type === "spin" || opt.type === "slider"){
+            data.options[key] = Options[key].widget.value
+            // Get current value from associated widget
+            contents = contents.concat(opt.before + Options[key].widget.value + opt.after + "\n")
+        }
+        else if (opt.type === "switch"){
+            // Get current value from associated widget
+            data.options[key] = Options[key].widget.active
+            // Append the option string to contents being written to config file
+            contents = contents.concat(opt.before + Options[key].widget.active + opt.after + "\n")
+        }
+
+        // User settings json
+        let userSettings = JSON.stringify(data)
+
+        // Write out user settings json
+        Utils.writeFileSync(dataOut, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+    }
+    //print("contents = " + contents)
+
+    // Write out new settings file
+    Utils.writeFile(contents, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
+        .then(file => print('Settings file updated'))
+        .catch(err => print(err))
+
+    // Reload hyprland config
+    Hyprland.messageAsync(`reload`)
+}
+
+
+
+GetOptions()
 

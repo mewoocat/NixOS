@@ -38,6 +38,7 @@ export const ClientIcon = () => Widget.Icon({
         }
 })
 
+// Note: This assumes the user's special workspace is id -99
 export const ToggleScratchpad = () => Widget.Button({
     class_name: "normal-button",
     on_primary_click: () => Hyprland.messageAsync(`dispatch togglespecialworkspace`),
@@ -46,8 +47,8 @@ export const ToggleScratchpad = () => Widget.Button({
         icon: "focus-windows-symbolic",
     })
 }).hook(Hyprland, self => {
-    let specialName = JSON.parse(Hyprland.message("j/monitors"))[0].specialWorkspace.name
-    self.toggleClassName("active-button", specialName == "special")
+    let specialName = JSON.parse(Hyprland.message("j/monitors"))[0].specialWorkspace.id
+    self.toggleClassName("active-button", specialName == -99)
 })
 
 // repopulate the box, so the most frequent apps are on top of the list

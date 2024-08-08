@@ -71,6 +71,7 @@ in {
 
   home.packages = with pkgs; [
     vscodium
+    bottom
   
     blueberry
     hyfetch

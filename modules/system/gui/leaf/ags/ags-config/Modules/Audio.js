@@ -68,7 +68,6 @@ export const VolumeSlider = () => Widget.Box({
     children: [
         VolumeButton(),
         Widget.Slider({
-            class_name: "sliders",
             hexpand: true,
             draw_value: false,
             on_change: ({ value }) => Audio.speaker.volume = value,
@@ -224,7 +223,6 @@ export const MicrophoneSlider = () => Widget.Box({
     children: [
         MicrophoneButton(),
         Widget.Slider({
-            class_name: "sliders",
             hexpand: true,
             draw_value: false,
             on_change: ({ value }) => Audio.microphone.volume = value,

@@ -1,5 +1,6 @@
 * {
-  color: #FFFAD4; }
+  color: #FFFAD4;
+  border: unset; }
 
 .large-text {
   font-size: 1.24em;
@@ -313,6 +314,7 @@ calendar.day-number.button {
   color: red; }
 
 menu {
+  border: none;
   border-color: rgba(64, 64, 64, 0.42);
   border-width: 1px;
   border-style: solid;
@@ -324,6 +326,8 @@ menuitem {
   border-radius: 1rem;
   padding: 0.4rem;
   margin: 0.2rem; }
+  menuitem * {
+    all: unset; }
 
 menuitem:hover {
   background-color: #9A9A9A; }
@@ -363,6 +367,7 @@ button.combo:hover {
 .systray {
   background-color: #020302;
   margin: 0.2rem;
+  min-width: 3.2em;
   border-radius: 1rem; }
 
 .weather-container {

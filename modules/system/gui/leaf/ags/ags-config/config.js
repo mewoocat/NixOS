@@ -18,10 +18,10 @@ import { ControlPanel } from './Windows/ControlPanel.js';
 import { Settings } from './Windows/Settings.js';
 import { GetOptions, data } from './Options/options.js';
 
+
 // GDK Display
 import Gdk from 'gi://Gdk'
 const display = new Gdk.Display()
-
 
 // main scss file
 const scss = `${App.configDir}/Style/style.scss`
@@ -43,7 +43,7 @@ monitorFile(
 );
 
 function InitilizeWindows(){
-    return [
+    const windows = [
         Launcher(), 
         // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
         // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
@@ -55,6 +55,7 @@ function InitilizeWindows(){
         Settings(),
         //Dock()
     ]
+    return windows
 }
 
 App.config({
