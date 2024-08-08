@@ -18,6 +18,8 @@ import { ControlPanel } from './Windows/ControlPanel.js';
 import { Settings } from './Windows/Settings.js';
 import { GetOptions, data } from './Options/options.js';
 
+// Loads json config and options
+GetOptions()
 
 // GDK Display
 import Gdk from 'gi://Gdk'

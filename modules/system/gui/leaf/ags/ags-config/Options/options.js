@@ -1,5 +1,6 @@
 import GLib from 'gi://GLib';
 import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Gtk from 'gi://Gtk'
 
 // Configure animations
@@ -13,6 +14,7 @@ let configName = `UserSettings.json`
 
 // Export an object which contains all option widgets
 export var Options = {
+    // Static system options
     system: {
         xsmall: "2",
         small: "4",
@@ -20,6 +22,7 @@ export var Options = {
         large: "8",
         xlarge: "10",
     },
+    // User options read from json file
     user: null,
 } 
 export var data = null;     // Json data
@@ -76,7 +79,7 @@ export function CreateOptionWidget(option){
                 increments: [1, 5],
                 value: data.options[option.id],
                 onValueChanged: ({ value }) => {
-                    //print(value)
+                    print(value)
                 },
             })
             break
@@ -85,6 +88,7 @@ export function CreateOptionWidget(option){
             return null
     }
 }
+
 
 
 // function Option(id, name, type, widget, value, min, max, external, configFile, beforeStr, afterStr) {
@@ -103,6 +107,8 @@ function InitilizeOptions(){
         //blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
+    print("//////////////////////////Options.user")
+    print(Options.user)
 }
 
 
@@ -112,6 +118,7 @@ export function GetOptions() {
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
+        InitilizeOptions()
     } 
 
     // user setting file could not be read in, create default one
@@ -120,51 +127,45 @@ export function GetOptions() {
         print(error)
         const defaultConfigContents = readFile(defaultConfig)
         writeFileSync(defaultConfigContents, `${configPath + configName}`)
+        // TODO: probably need to try again here
     }
 
-    InitilizeOptions()
 }
 
 
-
-
-
-///////////////////////////////////////////////////////////////
-
-
-// Define option widget templates
-//
 export function ApplySettings(){
 
-    // Contents to write to hyprland config file
-    let hyprlandConfig = " \n"
+    // Contents to write to config file
+    let contents = " \n"
 
-    // Generate option literals
-    for (let key in Options){
+    // Generate option -> config string literals
+    for (let key in Options.user){
         //print("key = " + key)
-        let opt = Options[key]
+        let opt = Options.user[key]
+        let value = -1
 
-        // Read in user settings
-        //let data = userSettingsJson
-
-        // print("Before | data.options[key]: " + data.options[key])
+        // Get current value from associated widget
         if (opt.type === "spin" || opt.type === "slider"){
-            data.options[key] = Options[key].widget.value
-            // Get current value from associated widget
-            contents = contents.concat(opt.before + Options[key].widget.value + opt.after + "\n")
+            value = Options.user[key].widget.value
+            print("///OPRION REF///////////////")
+            print(Options.user[key].widget)
+            print(value)
         }
         else if (opt.type === "switch"){
-            // Get current value from associated widget
-            data.options[key] = Options[key].widget.active
-            // Append the option string to contents being written to config file
-            contents = contents.concat(opt.before + Options[key].widget.active + opt.after + "\n")
+            value = Options.user[key].widget.active
+        }
+        else{
+            print("ERROR: Invalid option type in ApplySettings()")
         }
 
+        data.options[key] = value
+        contents = contents.concat(opt.beforeStr + value + opt.afterStr + "\n")
+
         // User settings json
-        let userSettings = JSON.stringify(data)
+        let dataModified = JSON.stringify(data)
 
         // Write out user settings json
-        Utils.writeFileSync(dataOut, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+        Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
     }
     //print("contents = " + contents)
 
@@ -177,7 +178,4 @@ export function ApplySettings(){
     Hyprland.messageAsync(`reload`)
 }
 
-
-
-GetOptions()
 

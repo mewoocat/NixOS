@@ -1,17 +1,12 @@
 
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
+import Widget   from 'resource:///com/github/Aylur/ags/widget.js';
+import App      from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import { locationSearch } from '../Modules/Weather.js'
 import icons from '../icons.js';
-import GLib from 'gi://GLib';
-import Gio from 'gi://Gio';
-const { Gtk } = imports.gi;
+import { locationSearch } from '../Modules/Weather.js'
 import { exec, writeFile, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
-
 import { Options, data, CreateOptionWidget, ApplySettings } from '../Options/options.js'
-
 
 
 export const generalFlowBox = () => Widget.FlowBox({
@@ -19,8 +14,11 @@ export const generalFlowBox = () => Widget.FlowBox({
     max_children_per_line: 1,
     setup: (self) => {
         // Load in options as widgets
-        for (let key in Options){
-            let option = Options[key]
+        //
+        print("Options.user = " + JSON.stringify(Options.user))
+        for (let key in Options.user){
+            print("key = " + key)
+            let option = Options.user[key]
             let widget = CreateOptionWidget(option)
             let label = Widget.Label({
                 label: option.name,
@@ -28,7 +26,7 @@ export const generalFlowBox = () => Widget.FlowBox({
             })
 
             // Add ref of created widget to option object
-            Options[key].widget = widget 
+            Options.user[key].widget = widget 
 
             // Add widget to box
             self.add(Widget.CenterBox({
