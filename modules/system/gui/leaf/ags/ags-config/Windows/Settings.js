@@ -8,7 +8,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { WifiList } from '../Modules/Network.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
-import { generalFlowBox, ApplyButton } from '../Modules/Settings.js'
+import { generalSettings, ApplyButton } from '../Modules/Settings.js'
 import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
@@ -125,13 +125,14 @@ function SectionHeader(name){
         ],
     })
 }
-
+/*
 const generalContents = () => Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'always',
     vexpand: true,
-    child: generalFlowBox(),
+    child: generalSettings,
 })
+*/
 
 const testContents = () => Widget.Box({
     vertical: true,
@@ -178,8 +179,8 @@ const soundContents = Widget.Box({
 const TabContainer = () => Widget.Stack({      
     // Tabs
     children: {
-        'General': Container("General", generalContents()),
-        'Display': Container("Display", generalContents()),
+        'General': Container("General", generalSettings),
+        'Display': Container("Display", testContents()),
         'Appearance': Container("Appearance", testContents()),
         'Network': Container("Network", networkContents),
         'Bluetooth': Container("Bluetooth", bluetoothContents),

@@ -35,20 +35,6 @@ export var data = null;     // Json data
 //     - Ags/Gtk:       Controlled internally
 
 
-// Option object constructor
-function Option(id, name, type, widget, value, min, max, external, configFile, beforeStr, afterStr) {
-    this.id = id                    // Unique identifer to be able to retrieve option value from json
-    this.name = name                // Human readable name
-    this.type = type                // Type of widget
-    this.widget = widget            // Reference to widget
-    this.value = value              // Option value
-    this.min = min                  // Option min value
-    this.max = max                  // Option max value
-    this.external = external        // Contains bool
-    this.configFile = configFile      // Config file where option string will be appended
-    this.beforeStr = beforeStr        // Option string before value
-    this.afterStr = afterStr          // Option string after value
-}
 
 
 // Create widget from option
@@ -78,8 +64,9 @@ export function CreateOptionWidget(option){
                 range: [option.min, option.max],
                 increments: [1, 5],
                 value: data.options[option.id],
-                onValueChanged: ({ value }) => {
-                    print(value)
+                onValueChanged: (self) => {
+                    print(self.value)
+                    print(self)
                 },
             })
             break
@@ -90,25 +77,85 @@ export function CreateOptionWidget(option){
 }
 
 
+// Load in options as widgets to destination FlowBox
+export const LoadOptionWidgets = (options, dst) => {
 
-// function Option(id, name, type, widget, value, min, max, external, configFile, beforeStr, afterStr) {
+    print("Loading options into widgets...")
+
+    // Iterate over each option in the provided options object
+    for (let key in options){
+        let option = options[key]                   // The given option
+        let widget = CreateOptionWidget(option)     // Returns reference to widget created from option
+
+        // Add ref of created widget to option object
+        options[key].widget = widget 
+
+        // Add widget to destination FlowBox
+        dst.add(Widget.CenterBox({
+            class_name: "option-container",
+            startWidget: Widget.Label({
+                label: option.name,
+                hpack: "start",
+            }),
+            endWidget: widget,
+        }))
+    } 
+}
 
 // Initilize options with data from json config
 function InitilizeOptions(){
     data = JSON.parse(Utils.readFile(configPath + configName))
     if (data == null){
+        print("ERROR: Parsing UserSettings.json failed")
         return
     }
+    print("Initing user options")
+
+    /*
+    Example:
+    {
+        id: "gaps_in",                      // Unique identifer to be able to retrieve option value from json
+        name: "Gaps in",                    // Human readable name
+        type: "spin",                       // Type of widget
+        widget: null,                       // Reference to widget
+        value: data.options.gaps_in,        // Option value 
+        min: 0,                             // Option min value
+        max: 400,                           // Option max value 
+        context: "hyprland",                // Context in which the option is applied 
+        beforeStr: "general:gaps_in = ",    // Option string before value
+        afterStr: "",                       // Option string after value
+    }
+    */
+    
     Options.user = {
-        gaps_in: new Option("gaps_in", "Gaps in", "spin", null, data.options.gaps_in, 0, 400, true, "", "general:gaps_in = ", ""),
-        //gaps_out: new Option("gaps_out", "Gaps out", "spin", null, "general:gaps_out = ", data.options.gaps_out, "", 0, 400),
-        //gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, "general:gaps_workspaces = ", data.options.gaps_workspaces, "", 0, 400),
-        //rounding: new Option("rounding", "Rounding", "slider", null, "decoration:rounding = ", data.options.rounding, "", 0, 40),
+        gaps_in: {
+            id: "gaps_in", 
+            name: "Gaps in", 
+            type: "spin", 
+            widget: null, 
+            value: data.options.gaps_in, 
+            min: 0,
+            max: 400, 
+            context: "hyprland", 
+            beforeStr: "general:gaps_in = ", 
+            afterStr: ""
+        },
+        /*
+        gaps_out: new Option(
+            id: "gaps_out", 
+            "Gaps out", 
+            "spin", 
+            null, 
+            data.options.gaps_out, 
+            0, 400, true, "", "general:gaps_out = ", ""),
+        gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, data.options.gaps_workspaces, 0, 400, true, "", "general:gaps_workspaces = ", ""),
+        rounding: new Option("rounding", "Rounding", "slider", null, data.options.rounding, 0, 40, true, "", "decoration:rounding = ", ""),
+        */
         //blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
-    print("//////////////////////////Options.user")
-    print(Options.user)
+    print("User options initilized:")
+    print(JSON.stringify(Options.user))
 }
 
 
@@ -140,7 +187,8 @@ export function ApplySettings(){
 
     // Generate option -> config string literals
     for (let key in Options.user){
-        //print("key = " + key)
+        print("Are the applied options being seen?")
+        print("key = " + key)
         let opt = Options.user[key]
         let value = -1
 
@@ -163,6 +211,8 @@ export function ApplySettings(){
 
         // User settings json
         let dataModified = JSON.stringify(data)
+        print("\n// DATA MODIFIED //\n")
+        print(dataModified)
 
         // Write out user settings json
         Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)

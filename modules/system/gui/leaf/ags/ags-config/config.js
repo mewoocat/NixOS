@@ -5,6 +5,15 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 // Doesn't seem to fix the issue tho
 App.addIcons(`${App.configDir}/assets`)
 
+print("importing options")
+import { GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
+// Loads json config and options
+GetOptions()
+
+import { generalSettings } from './Modules/Settings.js';
+// Load the user options as widgets into the generalSettings FlowBox
+LoadOptionWidgets(Options.user, generalSettings)
+
 
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { forMonitors } from './Common.js';
@@ -15,11 +24,8 @@ import { Dock } from './Windows/Dock.js';
 import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
+print("importing settings")
 import { Settings } from './Windows/Settings.js';
-import { GetOptions, data } from './Options/options.js';
-
-// Loads json config and options
-GetOptions()
 
 // GDK Display
 import Gdk from 'gi://Gdk'
