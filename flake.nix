@@ -46,6 +46,11 @@
       url = "github:knarkzel/devkitnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Microfetch
+    microfetch = {
+      url = "github:NotAShelf/microfetch";
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the
