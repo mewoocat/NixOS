@@ -179,6 +179,18 @@ function InitilizeOptions(){
             context: "hyprland", 
             beforeStr: "general:border_size = ", 
             afterStr: ""
+        },
+        animations: {
+            id: "animations",
+            name: "Animations",
+            type: "switch",
+            widget: null,
+            value: data.options.animations,
+            min: null,
+            max: null, 
+            context: "hyprland", 
+            beforeStr: "animations:enabled = ", 
+            afterStr: ""
         }
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
@@ -238,7 +250,7 @@ export function ApplySettings(){
         contents = contents.concat(opt.beforeStr + value + opt.afterStr + "\n")
 
         // User settings json
-        let dataModified = JSON.stringify(data)
+        let dataModified = JSON.stringify(data, null, 4)
         print("\n// DATA MODIFIED //\n")
         print(dataModified)
 
