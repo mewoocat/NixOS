@@ -16,10 +16,6 @@ export const generalSettings = Widget.FlowBox({
 //generalFlowBox.add(locationSearch)
 
 
-
-
-generalSettings.add(Widget.Label("WHAT"))
-
 export const ApplyButton = () => Widget.Button({
     class_name: "normal-button bg-button",
     vpack: "center",

@@ -13,7 +13,7 @@ const datetime = Variable(GLib.DateTime.new_now_local(), {
 export const Clock = () => Widget.Label({
     class_name: 'clock',
     label: datetime.bind().as(v => {
-        return v.format("%B%e   %l:%M %P")
+        return v.format("%B %e   %l:%M %P")
     }),
 });
 

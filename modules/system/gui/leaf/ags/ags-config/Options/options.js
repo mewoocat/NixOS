@@ -27,15 +27,6 @@ export var Options = {
 } 
 export var data = null;     // Json data
 
-// Option types
-// - User
-//     - Ags/Gtk:       Controlled internally
-//     - Hyprland:      Controlled via config file 
-// - System
-//     - Ags/Gtk:       Controlled internally
-
-
-
 
 // Create widget from option
 export function CreateOptionWidget(option){
@@ -140,18 +131,55 @@ function InitilizeOptions(){
             beforeStr: "general:gaps_in = ", 
             afterStr: ""
         },
-        /*
-        gaps_out: new Option(
+
+        gaps_out: {
             id: "gaps_out", 
-            "Gaps out", 
-            "spin", 
-            null, 
-            data.options.gaps_out, 
-            0, 400, true, "", "general:gaps_out = ", ""),
-        gaps_workspaces: new Option("gaps_workspaces", "Gaps workspaces", "slider", null, data.options.gaps_workspaces, 0, 400, true, "", "general:gaps_workspaces = ", ""),
-        rounding: new Option("rounding", "Rounding", "slider", null, data.options.rounding, 0, 40, true, "", "decoration:rounding = ", ""),
-        */
-        //blur: new Option("blur", "Blur", "switch", null, "decoration:blur:enabled = ", data.options.blur, "", 0, 40),
+            name: "Gaps out", 
+            type: "spin", 
+            widget: null, 
+            value: data.options.gaps_out, 
+            min: 0,
+            max: 400, 
+            context: "hyprland", 
+            beforeStr: "general:gaps_out = ", 
+            afterStr: ""
+        },
+        gaps_workspaces: {
+            id: "gaps_workspaces",
+            name: "Gaps workspaces",
+            type: "spin",
+            widget: null,
+            value: data.options.gaps_workspaces,
+            min: 0,
+            max: 400, 
+            context: "hyprland", 
+            beforeStr: "general:gaps_workspaces = ", 
+            afterStr: ""
+        },
+        rounding: {
+            id: "rounding",
+            name: "Rounding",
+            type: "spin",
+            widget: null,
+            value: data.options.rounding,
+            min: 0,
+            max: 100, 
+            context: "hyprland", 
+            beforeStr: "decoration:rounding = ", 
+            afterStr: ""
+        },
+        border_size: {
+            id: "border_size",
+            name: "Border size",
+            type: "spin",
+            widget: null,
+            value: data.options.border_size,
+            min: 0,
+            max: 100, 
+            context: "hyprland", 
+            beforeStr: "general:border_size = ", 
+            afterStr: ""
+        }
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
     print("User options initilized:")
