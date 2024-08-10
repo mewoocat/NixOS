@@ -4,6 +4,7 @@
 *{
     //all: unset;
     color: $fg;
+    border: unset;
     //padding: 0px;
     //margin: 0px;
     //background-color: unset;
@@ -423,6 +424,7 @@ entry window.popup {
 // Systray + other context menus?
 ////////////////////////////////////////////////////////////////////////////
 menu {
+    border: none; 
     border-color: rgba(64, 64, 64, 0.42);
     border-width: 1px;
     border-style: solid;
@@ -432,6 +434,9 @@ menu {
 }
 
 menuitem {
+    * {
+        all: unset;
+    }
     border-radius: 1rem;
     padding: 0.4rem;
     margin: 0.2rem;
@@ -492,6 +497,7 @@ button.combo:hover {
 .systray{
     background-color: $bg0;
     margin: 0.2rem;
+    min-width: 3.2em;
     border-radius: 1rem;
 }
 

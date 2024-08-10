@@ -60,7 +60,7 @@ const container = () => Widget.Box({
                         }),
                     ],
                 }),
-                //Media(), // Need to optimize
+                Media(), // Need to optimize
             ],
         })
     })

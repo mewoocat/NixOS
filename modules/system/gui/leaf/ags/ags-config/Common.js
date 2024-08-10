@@ -24,6 +24,7 @@ export function forMonitors(widget) {
 
 function ClickSpace(window){
     return Widget.EventBox({
+        //css: `background-color: #ff0000;`,
         vexpand: true,
         hexpand: true,
         on_primary_click: () => App.closeWindow(window),
@@ -94,7 +95,6 @@ export function SecToHourAndMin(seconds){
 
 export function CircleButton(icon, action, params){
     function ActionParsed(){
-        print("params: " + params)
         if ( params != null || params != undefined){
             return action(...params)
         }

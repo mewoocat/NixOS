@@ -26,7 +26,7 @@ import { togglePowerMenu } from '../Modules/Power.js';
 import { UserInfo } from '../Modules/User.js';
 
 import { ControlPanelTab, ControlPanelNetworkTab, ControlPanelBluetoothTab } from '../Global.js';
-import options from '../options.js';
+import { Options } from '../Options/options.js';
 import icons from '../icons.js';
 import { CircleButton } from './../Common.js';
 
@@ -83,8 +83,12 @@ const grid = new Gtk.Grid()
 const wirelessGrid = new Gtk.Grid()
 const wirelessWidget = ControlPanelBox(
     Widget.Box({
-        hpack: "center",
+        hpack: "fill",
         vpack: "center",
+        css: `
+            margin-left: 0.6em;
+            margin-right: 0.6em;
+        `,
         hexpand: true,
         vertical: true,
         children: [
@@ -92,21 +96,21 @@ const wirelessWidget = ControlPanelBox(
             bluetoothButton2x1,
         ],
     }),
-    options.xlarge,
-    options.large,
+    Options.system.xlarge,
+    Options.system.large,
 )
 
 const systemStatsWidget = ControlPanelBox(
     systemStatsBox2x2,
-    options.xlarge,
-    options.large,
+    Options.system.xlarge,
+    Options.system.large,
 )
 
 const buttonGrid = new Gtk.Grid()
-buttonGrid.attach(NightLightButton(options.small, options.small), 1, 1, 1, 1)
-buttonGrid.attach(PowerProfilesButton(options.small, options.small), 1, 2, 1, 1)
-buttonGrid.attach(ThemeButton(options.small, options.small), 2, 1, 1, 1)
-buttonGrid.attach(ScreenRecordButton(options.small, options.small), 2, 2, 1, 1)
+buttonGrid.attach(NightLightButton(Options.system.small, Options.system.small), 1, 1, 1, 1)
+buttonGrid.attach(PowerProfilesButton(Options.system.small, Options.system.small), 1, 2, 1, 1)
+buttonGrid.attach(ThemeButton(Options.system.small, Options.system.small), 2, 1, 1, 1)
+buttonGrid.attach(ScreenRecordButton(Options.system.small, Options.system.small), 2, 2, 1, 1)
 
 const sliders = Widget.Box({
     class_name: "control-panel-box",
@@ -125,7 +129,7 @@ const sliders = Widget.Box({
 const bottom = Widget.CenterBox({
     hexpand: true,
     css: `
-        min-height: ${options.xsmall}rem;
+        min-height: ${Options.system.xsmall}rem;
     `,
     class_name: `control-panel-box`,
     startWidget: UserInfo,
@@ -152,10 +156,10 @@ row2.attach(sliders, 1,2,2,1)
 // Row 3
 const row3 = new Gtk.Grid()
 if (Battery.available){
-    row3.attach(BatteryWidget(options.large, options.large), 1, 3, 1, 1)
+    row3.attach(BatteryWidget(Options.system.large, Options.system.large), 1, 3, 1, 1)
 }
 else{
-    row3.attach(GPUWidget(options.large, options.large), 1, 3, 1, 1)
+    row3.attach(GPUWidget(Options.system.large, Options.system.large), 1, 3, 1, 1)
 }
 row3.attach(systemStatsWidget, 2, 3, 1, 1)
 
@@ -395,6 +399,9 @@ export const ControlPanel = () => Widget.Window({
     anchor: ["top", "left", "right"], // Debug mode
     exclusivity: 'normal',
     child: CloseOnClickAway("ControlPanel", content, "top-right"),
-    setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME)),
+    setup: self => {
+        //self.show_all()
+        //self.visible = false
+        self.keybind("Escape", () => App.closeWindow(WINDOW_NAME))
+    }
 });
-

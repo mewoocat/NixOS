@@ -5,6 +5,7 @@ import Gtk from 'gi://Gtk'
 import GObj from 'gi://GObject'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { ControlPanelTab } from '../Global.js';
+import { ComboBoxText } from '../Global.js';
 
 export const VolumeIcon = () => Widget.Box({
     class_name: "icon",
@@ -67,7 +68,6 @@ export const VolumeSlider = () => Widget.Box({
     children: [
         VolumeButton(),
         Widget.Slider({
-            class_name: "sliders",
             hexpand: true,
             draw_value: false,
             on_change: ({ value }) => Audio.speaker.volume = value,
@@ -81,15 +81,18 @@ export const VolumeSlider = () => Widget.Box({
     ],
 })
 
-import { ComboBoxText } from '../Global.js';
-const OutputDevices = () => ComboBoxText({}).on("changed", self => {
+// Dropdown to select output device
+const OutputDevices = () => ComboBoxText({
+    //css: "padding: 1px;"
+
+}).on("changed", self => {
     var streamID = self.get_active_id()
-    print("streamID:    " + streamID)
+    //print("streamID:    " + streamID)
     if (streamID == undefined){
         streamID = 1
     }
     Audio.speaker = Audio.getStream(parseInt(streamID))
-    print(Audio.getStream(parseInt(streamID)).name)
+    //print(Audio.getStream(parseInt(streamID)).name)
 }).hook(Audio, self => {
     self.remove_all()
     // Set combobox with output devices
@@ -97,9 +100,10 @@ const OutputDevices = () => ComboBoxText({}).on("changed", self => {
         let device = Audio.speakers[i]
         self.append(device.id.toString(), device.stream.port)
     }
-    self.set_active_id(Audio.speaker.id.toString())
+    if (Audio.speaker.id != null){
+        self.set_active_id(Audio.speaker.id.toString())
+    }
 }, "speaker-changed")
-
 
 function appVolume(app){
     //const level = Variable(app.volume)
@@ -150,7 +154,7 @@ const mixer = () => Widget.Scrollable({
     child: Widget.Box({
         children: Audio.bind("apps").as(v => {
             if (v.length < 1){
-                print("Nothing playing")
+                //print("Nothing playing")
                 return [Widget.Label({
                     hexpand: true,
                     class_name: "dim",
@@ -219,7 +223,6 @@ export const MicrophoneSlider = () => Widget.Box({
     children: [
         MicrophoneButton(),
         Widget.Slider({
-            class_name: "sliders",
             hexpand: true,
             draw_value: false,
             on_change: ({ value }) => Audio.microphone.volume = value,
@@ -263,6 +266,7 @@ export const MicrophoneMenu = () => Widget.Box({
             label: "Inputs",
             hpack: "start",
         }),
-        inputDevices,
+        //This is broken pls fix
+        //inputDevices,
     ],
 })

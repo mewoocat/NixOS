@@ -113,10 +113,7 @@ function PowerButton(name, icon, cmd){
         onActivate: () => execAsync(cmd),
         child: Widget.Box({
             children: [
-                Widget.Button({
-                    vpack: "center",
-                    child: Widget.Icon({icon: icon, size: 20}),
-                }),
+                Widget.Icon({vpack: "center", icon: icon, size: 20}),
                 Widget.Label({
                     hpack: "start",
                     label: " " + name
