@@ -192,32 +192,26 @@ function InitilizeOptions(){
             beforeStr: "animations:enabled = ", 
             afterStr: ""
         },
-        /*
         ags_animations: {
-            id: "ags animations",
+            id: "ags_animations",
             name: "Ags animations",
             type: "switch",
             widget: null,
-            value: Gtk.Settings.get_default().gtk_enable_animations,
+            value: data.options.ags_animations,
             min: null,
             max: null, 
             context: "ags", 
-            beforeStr: "", 
-            afterStr: "",
-            callback: () => {
-                if (Gtk.Settings.get_default().gtk_enable_animations == true){
-                    Gtk.Settings.get_default().gtk_enable_animations = false
-                }
-                else{
-                    Gtk.Settings.get_default().gtk_enable_animations = true
-                }
-            },
+            beforeStr: null, 
+            afterStr: null,
+            callback: function () {
+                // Set animation state to state of associated switch widget
+                Gtk.Settings.get_default().gtk_enable_animations = this.widget.active
+            }
         }
-        */
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
     print("User options initilized:")
-    print(JSON.stringify(Options.user))
+    print(JSON.stringify(Options.user, null, 4))
 }
 
 
@@ -244,22 +238,17 @@ export function GetOptions() {
 
 export function ApplySettings(){
 
-    // Contents to write to config file
-    let contents = " \n"
+    // Hyprland config contents to write to config file
+    let hyprlandConfig = " \n"
 
     // Generate option -> config string literals
     for (let key in Options.user){
-        print("Are the applied options being seen?")
-        print("key = " + key)
         let opt = Options.user[key]
         let value = -1
 
         // Get current value from associated widget
         if (opt.type === "spin" || opt.type === "slider"){
             value = Options.user[key].widget.value
-            print("///OPRION REF///////////////")
-            print(Options.user[key].widget)
-            print(value)
         }
         else if (opt.type === "switch"){
             value = Options.user[key].widget.active
@@ -268,26 +257,33 @@ export function ApplySettings(){
             print("ERROR: Invalid option type in ApplySettings()")
         }
 
+        // Set the updated value in the json cache
         data.options[key] = value
-        contents = contents.concat(opt.beforeStr + value + opt.afterStr + "\n")
 
-        // User settings json
-        let dataModified = JSON.stringify(data, null, 4)
-        print("\n// DATA MODIFIED //\n")
-        print(dataModified)
+        if (opt.context == "ags"){
+            opt.callback()  
+        }     
 
-        // Write out user settings json
-        Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+        // Generates hyprland config literal
+        else if (opt.context == "hyprland"){
+            hyprlandConfig = hyprlandConfig.concat(opt.beforeStr + value + opt.afterStr + "\n")
+        }
+
     }
-    //print("contents = " + contents)
 
-    // Write out new settings file
-    Utils.writeFile(contents, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
-        .then(file => print('Settings file updated'))
+    // Write out Hyprland settings files
+    Utils.writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
+        .then(file => print('LOG: Hyprland settings file updated'))
         .catch(err => print(err))
-
     // Reload hyprland config
     Hyprland.messageAsync(`reload`)
+
+    // Modified user settings json
+    let dataModified = JSON.stringify(data, null, 4)
+    // Write out to UserSettings.json
+    Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+        .then(file => print('LOG: User settings file updated'))
+        .catch(err => print(err))
 }
 
 
