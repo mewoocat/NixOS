@@ -225,13 +225,6 @@ const network = (ap) => Widget.Button({
 
 // Current connected network
 export const CurrentNetwork = () => Widget.Box({
-    visible: Network.wifi.bind("enabled").as(v => {
-        //print(v)
-        if (v){
-            return true
-        }
-        return false
-    }),
     vertical: true,
     spacing: 8,
     children: [
@@ -284,6 +277,13 @@ export const CurrentNetwork = () => Widget.Box({
             ]
         })
     ]
+}).hook(Network, self => {
+    if (Network.wifi.internet != "disconnected"){
+        self.visible = true
+    }
+    else{
+        self.visible = false
+    }
 })
 
 function ConnectToAP(ssid, password){
@@ -298,7 +298,8 @@ function ConnectToAP(ssid, password){
 
 function DeleteAP(){
     const ssid = CurrentAP.value.ssid
-    execAsync(`nmcli connection delete ${ssid}`) 
+    print(`EXEC:    nmcli connection delete ${ssid}`)
+    execAsync(`nmcli connection delete \"${ssid}\"`) 
 }
 
 const connectError = Widget.Label({

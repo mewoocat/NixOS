@@ -191,7 +191,29 @@ function InitilizeOptions(){
             context: "hyprland", 
             beforeStr: "animations:enabled = ", 
             afterStr: ""
+        },
+        /*
+        ags_animations: {
+            id: "ags animations",
+            name: "Ags animations",
+            type: "switch",
+            widget: null,
+            value: Gtk.Settings.get_default().gtk_enable_animations,
+            min: null,
+            max: null, 
+            context: "ags", 
+            beforeStr: "", 
+            afterStr: "",
+            callback: () => {
+                if (Gtk.Settings.get_default().gtk_enable_animations == true){
+                    Gtk.Settings.get_default().gtk_enable_animations = false
+                }
+                else{
+                    Gtk.Settings.get_default().gtk_enable_animations = true
+                }
+            },
         }
+        */
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
     print("User options initilized:")
