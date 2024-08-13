@@ -8,7 +8,8 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-
+      
+      # What is this even doing?
       # If not running interactively, don't do anything
       [[ $- != *i* ]] && return
 
@@ -27,17 +28,11 @@
       PS1="''${RESET}''${YELLOW}\h''${RED}@''${YELLOW}\u''${NORMAL} [\T] \W \`''${SELECT}\` ''${YELLOW}>''${NORMAL} "
       #######################
 
-      ([ -f ~/.cache/wal/sequences ] && cat ~/.cache/wal/sequences &)
-      # To add support for TTYs this line can be optionally added.
-      #source ~/.cache/wal/colors-tty.sh
 
       # Aliases
       ########################################################################################################
       alias vi='nvim'
       alias rebuild='nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)'
-      alias startup=~/NixOS/scripts/startup.sh
-      alias fastfetch="fastfetch --logo none"
-      alias ff="fastfetch --logo none"
       alias ls='ls -altr --color=auto'
       alias rm='rm -I'
 

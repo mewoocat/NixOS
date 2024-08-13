@@ -9,16 +9,11 @@
     #home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # AGS
     ags.url = "github:Aylur/ags";
-    #ags.url = "github:mewoocat/ags-testing";
-
-    # Matugen
-    matugen = {
-      url = "github:InioX/matugen?ref=v2.2.0";
-    };
-
+    matugen.url = "github:InioX/matugen?ref=v2.2.0";
     nix-gaming.url = "github:fufexan/nix-gaming";
+    myNvim.url = "github:mewoocat/nvim-nix";
+    microfetch.url = "github:NotAShelf/microfetch";
 
     hyprland = {
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -35,7 +30,6 @@
     };
 
     # My nvim config
-    myNvim.url = "github:mewoocat/nvim-nix";
 
     # Nix formatter
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
@@ -47,10 +41,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Microfetch
-    microfetch = {
-      url = "github:NotAShelf/microfetch";
-    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the
