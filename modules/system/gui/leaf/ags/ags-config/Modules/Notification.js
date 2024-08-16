@@ -4,7 +4,6 @@ import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
-    /*
     if (image) {
         return Widget.Box({
             css: `
@@ -17,7 +16,6 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
             `,
         });
     }
-    */
 
     let icon = 'dialog-information-symbolic';
     if (lookUpIcon(app_icon))
@@ -35,7 +33,8 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 export const Notification = n => {
     const icon = Widget.Box({
-        //vpack: 'start',
+        vpack: 'center',
+        vexpand: true,
         class_name: 'icon',
         child: NotificationIcon(n),
     });
@@ -78,6 +77,12 @@ export const Notification = n => {
         child: Widget.Box({
             class_name: `${n.urgency} container`,
             vertical: true,
+            css: `
+                margin-right: 0.8em;
+                margin-bottom: 0.8em;
+                min-width: 14em;
+                min-height: 4em;
+            `,
             children: [
                 Widget.Box({
                     children: [

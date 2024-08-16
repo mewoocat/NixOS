@@ -8,5 +8,6 @@
   imports = [
     ./sound.nix
     ./screenlock.nix
+    ./startup.nix
   ];
 }

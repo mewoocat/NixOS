@@ -4,7 +4,7 @@ import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 import { CircleButton } from './../Common.js';
 import GObject from 'gi://GObject'
-
+import { Options } from '../Options/options.js';
 import icons from '../icons.js';
 
 // Holds current wifi access point selected
@@ -114,7 +114,7 @@ export const ssid = Widget.Box({
             class_name: "sub-text",
             label: Network.wifi.bind("ssid"),
             truncate: "end",
-            //maxWidthChars: 8,
+            maxWidthChars: Options.system.large * 2,
         }).hook(Network, label =>{
             if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
                 label.label = Network.wifi.internet
@@ -168,6 +168,7 @@ export const wifiButton2x1 = Widget.Box({
             },
             child: Widget.Box({
                 vertical: true,
+                hexpand: true,
                 children: [
                     Widget.Label({
                         label: "Wi-Fi",
@@ -224,13 +225,6 @@ const network = (ap) => Widget.Button({
 
 // Current connected network
 export const CurrentNetwork = () => Widget.Box({
-    visible: Network.wifi.bind("enabled").as(v => {
-        print(v)
-        if (v){
-            return true
-        }
-        return false
-    }),
     vertical: true,
     spacing: 8,
     children: [
@@ -283,6 +277,13 @@ export const CurrentNetwork = () => Widget.Box({
             ]
         })
     ]
+}).hook(Network, self => {
+    if (Network.wifi.internet != "disconnected"){
+        self.visible = true
+    }
+    else{
+        self.visible = false
+    }
 })
 
 function ConnectToAP(ssid, password){
@@ -297,7 +298,8 @@ function ConnectToAP(ssid, password){
 
 function DeleteAP(){
     const ssid = CurrentAP.value.ssid
-    execAsync(`nmcli connection delete ${ssid}`) 
+    print(`EXEC:    nmcli connection delete ${ssid}`)
+    execAsync(`nmcli connection delete \"${ssid}\"`) 
 }
 
 const connectError = Widget.Label({
@@ -337,6 +339,9 @@ const AccessPointStat = ( name, stat ) => Widget.Box({
             hexpand: true,
             hpack: "end",
             label: CurrentAP.bind().as(ap => {
+                if (ap[stat] == null){
+                    return "..."
+                }
                 return ap[stat].toString()
             }),
         }), 

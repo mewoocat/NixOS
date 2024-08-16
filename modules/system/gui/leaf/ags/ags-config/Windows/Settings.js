@@ -6,9 +6,9 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 import { WifiList } from '../Modules/Network.js';
-
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
+import { generalSettings, ApplyButton } from '../Modules/Settings.js'
 import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
@@ -17,7 +17,6 @@ const Window = Widget.subclass(Gtk.Window, "Window");
 const SettingsTab = Variable("General", {})
 
 
-import { generalFlowBox, ApplyButton } from '../Modules/Settings.js'
 
 
 // Testing
@@ -56,13 +55,10 @@ const Tab = (t) => Widget.Button({
         margin-right: 1rem;
     `,
     on_primary_click: (self) =>{
-        print(t)
         SettingsTab.value = t
     },
     setup: (self) => {
         // Highlight current tab on startup
-        print("t = " + t)
-        print("SettingsTab.value = " + SettingsTab.value)
         if (t === SettingsTab.value){
             self.toggleClassName("settings-tab-active", true)
         }
@@ -129,13 +125,14 @@ function SectionHeader(name){
         ],
     })
 }
-
-const generalContents = Widget.Scrollable({
+/*
+const generalContents = () => Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'always',
     vexpand: true,
-    child: generalFlowBox,
+    child: generalSettings,
 })
+*/
 
 const testContents = () => Widget.Box({
     vertical: true,
@@ -182,8 +179,8 @@ const soundContents = Widget.Box({
 const TabContainer = () => Widget.Stack({      
     // Tabs
     children: {
-        'General': Container("General", generalContents),
-        'Display': Container("Display", generalContents),
+        'General': Container("General", generalSettings),
+        'Display': Container("Display", testContents()),
         'Appearance': Container("Appearance", testContents()),
         'Network': Container("Network", networkContents),
         'Bluetooth': Container("Bluetooth", bluetoothContents),
@@ -212,6 +209,7 @@ export const SettingsToggle = Widget.Button({
     })
 })
 
+// Settings window (Non ags widget window)
 export const Settings = () => Window({
     name: "Settings",
     child: Widget.Box({
@@ -222,7 +220,7 @@ export const Settings = () => Window({
         ],
     }),
     setup: (self) => {
-        self.show_all();
+        //self.show_all(); // This may or may not be needed
         self.visible = false;
         self.on("delete-event", () => {
             App.closeWindow("Settings")

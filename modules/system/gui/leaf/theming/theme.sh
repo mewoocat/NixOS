@@ -78,7 +78,8 @@ function setColors(){
         wallust run $wallpaper -p $mode
     # Use provided colorscheme
     else
-        colorscheme=~/.config/wal/colorschemes/$mode/$colorscheme.json
+        #colorscheme=~/.config/wal/colorschemes/$mode/$colorscheme.json
+        colorscheme=~/.config/wallust/pywal-colors/$mode/$colorscheme.json
         wallust cs $colorscheme  
     fi
 

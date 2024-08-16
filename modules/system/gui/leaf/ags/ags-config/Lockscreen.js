@@ -3,7 +3,7 @@ import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
-import { Clock, BigClock } from './Modules/DateTime.js'
+import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 
 //////////////////////////////////////////////////////////////////////
@@ -82,6 +82,7 @@ function authenticate(entry){
 
 
 const passwordEntry = Widget.Entry({
+    class_name: "app-entry",
     placeholder_text: 'type here',
     text: '',
     visibility: false,

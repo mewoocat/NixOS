@@ -1,25 +1,22 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import GLib from 'gi://GLib';
 
-const datetime = Variable(0, {
-    poll: [5000, ['bash', '-c', 'date "+%B %e   %l:%M %P"'], out => out],
-})
 
-const time = Variable(0, {
-    poll: [5000, ['bash', '-c', 'date "+%l:%M %P"'], out => out],
+// Contains datetime object
+const datetime = Variable(GLib.DateTime.new_now_local(), {
+    // Poll every 60s
+    poll: [60000, () => GLib.DateTime.new_now_local()],
 })
 
 export const Clock = () => Widget.Label({
     class_name: 'clock',
-    label: datetime.bind(),
+    label: datetime.bind().as(v => {
+        return v.format("%B %e   %l:%M %P")
+    }),
 });
 
-export const BigClock = () => Widget.Label({
-    class_name: 'clock',
-    css: `font-size: 4rem`,
-    label: time.bind(),
-});
 
 
 // More info https://aylur.github.io/ags-docs/config/subclassing-gtk-widgets/ ?

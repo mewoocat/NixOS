@@ -380,9 +380,27 @@
         "type": "github"
       }
     },
-    "myNvim": {
+    "microfetch": {
       "inputs": {
         "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1722846822,
+        "narHash": "sha256-/6q7oH3ahod5BVW93s6ABZTrPC/mUjjjMJAxcqam1gs=",
+        "owner": "NotAShelf",
+        "repo": "microfetch",
+        "rev": "927f6077b4b78cd112bc6932aab5287edc413ce8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NotAShelf",
+        "repo": "microfetch",
+        "type": "github"
+      }
+    },
+    "myNvim": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1722011442,
@@ -401,7 +419,7 @@
     "nix-gaming": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1719364749,
@@ -495,6 +513,21 @@
     },
     "nixpkgs_5": {
       "locked": {
+        "lastModified": 1722719969,
+        "narHash": "sha256-E47qbT/mRtBCSZra+9S9208sp/QnNeOAq7EhHX+eMNE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "83a364ced9d5b8a6bdac897bbef6b91e70777b97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
         "lastModified": 1712439257,
         "narHash": "sha256-aSpiNepFOMk9932HOax0XwNxbA38GOUVOiXfUVPOrck=",
         "owner": "NixOS",
@@ -509,7 +542,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1718983919,
         "narHash": "sha256-+1xgeIow4gJeiwo4ETvMRvWoircnvb0JOt7NS9kUhoM=",
@@ -525,7 +558,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_7": {
+    "nixpkgs_8": {
       "locked": {
         "lastModified": 1719506693,
         "narHash": "sha256-C8e9S7RzshSdHB7L+v9I51af1gDM5unhJ2xO1ywxNH8=",
@@ -551,9 +584,10 @@
         "hyprland": "hyprland",
         "hyprspace": "hyprspace",
         "matugen": "matugen",
+        "microfetch": "microfetch",
         "myNvim": "myNvim",
         "nix-gaming": "nix-gaming",
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_8"
       }
     },
     "rust-analyzer-src": {
