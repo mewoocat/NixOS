@@ -564,11 +564,16 @@ scale slider:hover {
 
 .option-container {
   border-radius: 1rem;
+<<<<<<< HEAD
   padding: 0.8rem;
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
+=======
+  padding: 1rem;
+  margin: 1rem;
+>>>>>>> ags-overhaul
   background-color: rgba(53, 53, 53, 0.44); }
 
 .circle-button {

@@ -23,8 +23,8 @@
   };
 
   # Set your time zone.
-  #time.timeZone = "America/Chicago";
-  time.timeZone = "America/Denver";
+  time.timeZone = "America/Chicago";
+  #time.timeZone = "America/Denver";
 
   home-manager.users.${config.username} = {
     imports = [
