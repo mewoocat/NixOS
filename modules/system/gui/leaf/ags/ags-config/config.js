@@ -27,6 +27,8 @@ import { ControlPanel } from './Windows/ControlPanel.js';
 print("importing settings")
 import { Settings } from './Windows/Settings.js';
 
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+
 // GDK Display
 import Gdk from 'gi://Gdk'
 const display = new Gdk.Display()
@@ -51,12 +53,25 @@ monitorFile(
 );
 
 function InitilizeWindows(){
+
+    const userDefaultMonitor = Options.user.default_monitor.value
+    let defaultMonitor = 0
+
+    // Check if monitor exists
+    Hyprland.monitors.forEach(m => {
+        if (m.id == userDefaultMonitor){
+            defaultMonitor = userDefaultMonitor
+        }
+    })
+
+    print("User default monitor:\n" + JSON.stringify(userDefaultMonitor, null, 4))
+
     const windows = [
         Launcher(), 
         // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
         // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
         //...forMonitors(Bar), 
-        Bar(),
+        Bar(defaultMonitor),
         ControlPanel(),
         ActivityCenter(),
         NotificationPopup(), 

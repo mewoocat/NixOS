@@ -21,6 +21,7 @@ export var Options = {
         medium: "6",
         large: "8",
         xlarge: "10",
+        defaultMonitor: 1,
     },
     // User options read from json file
     user: null,
@@ -198,14 +199,23 @@ function InitilizeOptions(){
             type: "switch",
             widget: null,
             value: data.options.ags_animations,
-            min: null,
-            max: null, 
             context: "ags", 
-            beforeStr: null, 
-            afterStr: null,
             callback: function () {
                 // Set animation state to state of associated switch widget
                 Gtk.Settings.get_default().gtk_enable_animations = this.widget.active
+            }
+        },
+        default_monitor: {
+            id: "default_monitor",
+            name: "Default monitor",
+            type: "spin",
+            widget: null,
+            value: data.options.default_monitor,
+            min: 0,
+            max: 10, 
+            context: "ags", 
+            callback: function () {
+
             }
         }
         //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
