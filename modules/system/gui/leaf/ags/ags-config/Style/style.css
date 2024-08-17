@@ -314,12 +314,8 @@ calendar.day-number.button {
   color: red; }
 
 menu {
-  border: none;
   border-color: rgba(64, 64, 64, 0.42);
-  border-width: 1px;
-  border-style: solid;
   background-color: rgba(2, 3, 2, 0.64);
-  border-radius: 1rem;
   padding: 0.4rem; }
 
 menuitem {
@@ -537,6 +533,7 @@ scale slider:hover {
   padding: 1rem; }
 
 .settings-tab-button {
+  all: unset;
   background-color: transparent;
   padding: 0.28rem; }
 
@@ -564,16 +561,11 @@ scale slider:hover {
 
 .option-container {
   border-radius: 1rem;
-<<<<<<< HEAD
   padding: 0.8rem;
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
-=======
-  padding: 1rem;
-  margin: 1rem;
->>>>>>> ags-overhaul
   background-color: rgba(53, 53, 53, 0.44); }
 
 .circle-button {
