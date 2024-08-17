@@ -231,18 +231,36 @@ export function GetOptions() {
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
+        print(`Successfully read in ${configPath + configName}`)
         InitilizeOptions()
     } 
 
-    // user setting file could not be read in, create default one
+    // User setting file could not be read in, create default one and try again
     catch (error) {
-        print(`Could not read ${configPath + configName}`)
         print(error)
+        print(`Could not read ${configPath + configName}`)
+
+        // Backup existing UserSettings.json
+        print(`Backing up current UserSettings.json to ${configPath + configName + ".bak"}`)
+        exec(`cp ${configPath + configName} ${configPath + configName + ".bak"}`)
+
+        // Create default UserSettings.json
         const defaultConfigContents = readFile(defaultConfig)
         writeFileSync(defaultConfigContents, `${configPath + configName}`)
-        // TODO: probably need to try again here
-    }
 
+        // Retry loading in options
+        try{
+            print(`Retrying reading in ${configPath + configName}`)
+            data = JSON.parse(Utils.readFile(configPath + configName))
+            InitilizeOptions()
+            print(`Successfully read in ${configPath + configName}`)
+        }
+        catch (error) {
+            print(error)
+            print("Something really really bad happened...")
+            App.quit()
+        }
+    }
 }
 
 
