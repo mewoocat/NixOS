@@ -12,21 +12,26 @@
         coreutils
         sassc
       ];
-      text = ''
-       
-        # TODO: Not sure if this is working
+      text = '' 
+        # This conditional check is not needed since attempting to run another ags process with same bus name fails
         # Only start lockscreen if it is not already running
-        if ! busctl --user list | grep com.github.Aylur.ags.lockscreen 
-        then
+        #if ! busctl --user list | grep com.github.Aylur.ags.lockscreen 
+        #then
           ${config.home-manager.users.${config.username}.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home-manager.users.${config.username}.home.homeDirectory}/.config/ags/Lockscreen.js
-        fi
+        #fi
       '';
     };
   in {
+  
+    home.packages = [
+      lockScreen
+    ];
+
     # start as part of hyprland, not sway
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
     services.swayidle = {
       enable = true;
+      extraArgs = [ "-w" ]; # Does this fix multiple calls to lock?
       package = pkgs.swayidle;
       events = [
         {
@@ -36,7 +41,7 @@
       ];
       timeouts = [
         {
-          timeout = 60 * 10; # 10 minutes
+          timeout = 60 * 15; # 15 minutes
           command = "${lockScreen}/bin/ags-lock";
         }
       ];
