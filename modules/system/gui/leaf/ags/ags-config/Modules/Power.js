@@ -112,6 +112,8 @@ export const togglePowerMenu = Widget.Button({
     on_primary_click: (_, event) => {
         powerMenu.popup_at_pointer(event)
     },
+}).on("leave-notify-event", (self) => {
+    // on hover lost
 })
 
 

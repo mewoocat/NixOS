@@ -27,6 +27,7 @@
       lockScreen
     ];
 
+    /*
     # start as part of hyprland, not sway
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
     services.swayidle = {
@@ -46,5 +47,31 @@
         }
       ];
     };
+    */
+
+    
+    services.hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          lock_cmd = "${lockScreen}/bin/ags-lock";
+          before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
+          after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
+        };
+
+        listener = [
+          {
+            timeout = 900;
+            on-timeout = "${lockScreen}/bin/ags-lock";
+          }
+          {
+            timeout = 1200;
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+        ];
+      };
+    }; 
+
   };
 }
