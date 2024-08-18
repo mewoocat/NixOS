@@ -81,6 +81,18 @@ export const VolumeSlider = () => Widget.Box({
     ],
 })
 
+function UpdateOutputDevices(widget){
+    widget.remove_all()
+    // Set combobox with output devices
+    for( let i = 0; i < Audio.speakers.length; i++ ){ 
+        let device = Audio.speakers[i]
+        widget.append(device.id.toString(), device.stream.port)
+    }
+    if (Audio.speaker.id != null){
+        widget.set_active_id(Audio.speaker.id.toString())
+    }
+}
+
 // Dropdown to select output device
 const OutputDevices = () => ComboBoxText({
     //css: "padding: 1px;"
@@ -93,17 +105,11 @@ const OutputDevices = () => ComboBoxText({
     }
     Audio.speaker = Audio.getStream(parseInt(streamID))
     //print(Audio.getStream(parseInt(streamID)).name)
-}).hook(Audio, self => {
-    self.remove_all()
-    // Set combobox with output devices
-    for( let i = 0; i < Audio.speakers.length; i++ ){ 
-        let device = Audio.speakers[i]
-        self.append(device.id.toString(), device.stream.port)
-    }
-    if (Audio.speaker.id != null){
-        self.set_active_id(Audio.speaker.id.toString())
-    }
-}, "speaker-changed")
+})
+.hook(Audio, self => UpdateOutputDevices(self), "speaker-changed")
+// These somehow allow new audio devices to show up without first adjusting volume slider
+.hook(Audio, self => UpdateOutputDevices(self), "stream-added")         
+.hook(Audio, self => UpdateOutputDevices(self), "stream-removed")
 
 function appVolume(app){
     //const level = Variable(app.volume)
