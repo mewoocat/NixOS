@@ -81,6 +81,23 @@ export function CloseOnClickAway(windowName, content, layout) {
             ],
         })
     }
+    else if (layout === "center") {
+        return Widget.Box({
+            children: [
+                ClickSpace(windowName),
+                Widget.Box({
+                    vertical: true,
+                    hexpand: false,
+                    children: [
+                        ClickSpace(windowName),
+                        content,
+                        ClickSpace(windowName)
+                    ]
+                }),
+                ClickSpace(windowName),
+            ],
+        })
+    }
     else {
         console.log("Error: Invalid layout for CloseOnClickAway()")
     }
