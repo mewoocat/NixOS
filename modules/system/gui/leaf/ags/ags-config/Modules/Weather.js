@@ -240,7 +240,7 @@ export const weather = Variable(null, {
 // Current temp
 export const currentTemp = Utils.derive([weather], (weather) => {
     if (weather != null){
-        return Math.round(weather.current.temperature_2m).toString() + weather.current_units.temperature_2m.toString()
+        return Math.round(weather.current.temperature_2m).toString() /* weather.current_units.temperature_2m.toString()*/ + "°"
     }
     else{
         return "0"
@@ -325,104 +325,121 @@ export const Weather = (w, h) => Widget.Box({
         min-width: ${w}rem;
         min-height: ${h}rem;
     `,
+    class_name: "control-panel-button",
+    hexpand: true,
     children: [
-        // Background image
-        Widget.CenterBox({
-            class_name: "control-panel-button",
+        Widget.Box({
+            vertical: true,
             hexpand: true,
-            centerWidget: Widget.Box({
-                vertical: true,
-                hexpand: false,
-                vpack: "center",
-                //class_name: "weather-container",
-                spacing: 8,
-                children: [
-                    //Temperature
-                    Widget.Box({
-                        spacing: 12,
-                        children:[
-                            // Current temp
-                            Widget.Label({
-                                hexpand: true,
-                                css: `
-                                    font-size: 1.8rem;
-                                `,
-                                label: currentTemp.bind()
-                            }),
-                            Widget.Box({
-                                vertical: true,
-                                hexpand: true,
-                                css: `
-                                    font-size: 0.8rem;
-                                `,
-                                children: [
-                                    // Hi
-                                    Widget.Label({
-                                        hpack: "start",
-                                        label: hiTemp.bind(),
-                                    }),
-                                    // Lo
-                                    Widget.Label({
-                                        hpack: "start",
-                                        label: loTemp.bind(),
-                                    }),
+            //vpack: "center",
+            //class_name: "weather-container", // Background image
+            css: `
+                padding: 1.4em;
+            `,
+            spacing: 8,
+            children: [
 
-                                ]
-                            })
-                        ]
-                    }),
-                    // Status
-                    Widget.Box({
-                        hexpand: true,
-                        hpack: "center",
-                        spacing: 8,
-                        children: [
-                            Widget.Icon({
-                                size: 24,
-                                icon: weatherIcon.bind(),
-                            }),
-                            Widget.Label({
-                                label: weatherStatus.bind()
-                            }),
-                        ],
-                    }),
-                    Widget.Box({
-                        spacing: 4,
-                        children: [
-                            // Precipitation
-                            Widget.Box({
-                                spacing: 4,
-                                tooltip_text: "Precipitation",
-                                children: [
-                                    Widget.Icon({
-                                        size: 18,
-                                        icon: "weather-showers-symbolic",
-                                    }),
-                                    Widget.Label({
-                                        hexpand: true,
-                                        label: precipitation.bind()
-                                    }),
-                                ],
-                            }),
-                            // Humidity
-                            Widget.Box({
-                                spacing: 4,
-                                tooltip_text: "Humidity",
-                                children: [
-                                    Widget.Icon({
-                                        size: 18,
-                                        icon: "raindrop",
-                                    }),
-                                    Widget.Label({
-                                        hexpand: true,
-                                        label: humidity.bind()
-                                    }),
-                                ],
-                            })
-                        ]
-                    }),
-                ]
-            })
+                // Icon and Temp
+                Widget.Box({
+                    spacing: 12,
+                    hpack: "start",
+                    children:[
+                        // Status icon
+                        Widget.Icon({
+                            size: 40,
+                            icon: weatherIcon.bind(),
+                        }),
+                        // Current temp
+                        Widget.Label({
+                            hexpand: true,
+                            css: `
+                                font-size: 2.2rem;
+                            `,
+                            label: currentTemp.bind()
+                        }),
+                    ]
+                }),
+                // Status
+                Widget.Box({
+                    hexpand: true,
+                    hpack: "start",
+                    spacing: 8,
+                    children: [
+                        Widget.Label({
+                            label: weatherStatus.bind()
+                        }),
+                    ],
+                }),
+
+                // Hi and low temps
+                Widget.Box({
+                    vertical: true,
+                    hexpand: true,
+                    vpack: "end",
+                    vexpand: true,
+                    css: `
+                        font-size: 0.8rem;
+                    `,
+                    children: [
+                        // Hi
+                        Widget.Label({
+                            hpack: "start",
+                            label: hiTemp.bind(),
+                        }),
+                        // Lo
+                        Widget.Label({
+                            hpack: "start",
+                            label: loTemp.bind(),
+                        }),
+
+                    ]
+                }),
+                
+                // Precipitation and humidity
+                /*
+                Widget.Box({
+                    hexpand: true,
+                    children: [
+                        Widget.Box({
+                            spacing: 16,
+                            hpack: "center",
+                            children: [
+                                // Precipitation
+                                Widget.Box({
+                                    spacing: 4,
+                                    tooltip_text: "Precipitation",
+                                    children: [
+                                        Widget.Icon({
+                                            size: 18,
+                                            icon: "weather-showers-symbolic",
+                                        }),
+                                        Widget.Label({
+                                            hexpand: true,
+                                            label: precipitation.bind()
+                                        }),
+                                    ],
+                                }),
+                                // Humidity
+                                Widget.Box({
+                                    spacing: 4,
+                                    tooltip_text: "Humidity",
+                                    children: [
+                                        Widget.Icon({
+                                            size: 18,
+                                            icon: "raindrop",
+                                        }),
+                                        Widget.Label({
+                                            hexpand: true,
+                                            label: humidity.bind()
+                                        }),
+                                    ],
+                                })
+                            ]
+                        }),
+                    ],
+                }),
+                */
+            ]
         }).hook(weatherImage, self => {
             // Update weather widget background based on current weather status
             /*
