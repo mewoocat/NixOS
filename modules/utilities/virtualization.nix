@@ -11,5 +11,6 @@
   environment.systemPackages = with pkgs; [
     qemu
     quickemu
+    guestfs-tools
   ];
 }

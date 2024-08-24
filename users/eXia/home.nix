@@ -106,6 +106,8 @@ in {
 
     inputs.myNvim.packages.x86_64-linux.default
     inputs.microfetch.packages.x86_64-linux.default
+    
+    brasero
 
     #gradience
     #niri
