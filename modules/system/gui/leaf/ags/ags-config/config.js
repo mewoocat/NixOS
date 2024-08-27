@@ -26,6 +26,7 @@ import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
 print("importing settings")
 import { Settings } from './Windows/Settings.js';
+import { GenerateCSS, css } from './Style/style.js'
 
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 
@@ -33,24 +34,11 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Gdk from 'gi://Gdk'
 const display = new Gdk.Display()
 
-// main scss file
-const scss = `${App.configDir}/Style/style.scss`
+// Compile and apply scss as css
+GenerateCSS()
 
-// target css file
-const css = `${App.configDir}/Style/style.css`
-
-// Generate css
-exec(`sassc ${scss} ${css}`)
-
-// Monitor for style changes and reapply
-monitorFile(
-    `${App.configDir}/Style/_colors.scss`,
-    function() {
-        exec(`sassc ${scss} ${css}`)
-        App.resetCss();
-        App.applyCss(`${App.configDir}/Style/style.css`);
-    },
-);
+// Monitor for color changes and reapply
+monitorFile(`${App.configDir}/Style/_colors.scss`, GenerateCSS);
 
 function InitilizeWindows(){
 

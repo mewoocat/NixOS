@@ -125,14 +125,12 @@ function SectionHeader(name){
         ],
     })
 }
-/*
 const generalContents = () => Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'always',
     vexpand: true,
     child: generalSettings,
 })
-*/
 
 const testContents = () => Widget.Box({
     vertical: true,
@@ -179,7 +177,7 @@ const soundContents = Widget.Box({
 const TabContainer = () => Widget.Stack({      
     // Tabs
     children: {
-        'General': Container("General", generalSettings),
+        'General': Container("General", generalContents()),
         'Display': Container("Display", testContents()),
         'Appearance': Container("Appearance", testContents()),
         'Network': Container("Network", networkContents),
