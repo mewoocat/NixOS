@@ -12,6 +12,6 @@
     ./obs.nix
     ./firefox
     ./foot.nix
-    ./librewolf.nix
+    #./librewolf.nix  # Build failure
   ];
 }
