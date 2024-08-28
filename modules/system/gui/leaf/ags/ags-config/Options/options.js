@@ -2,6 +2,7 @@ import GLib from 'gi://GLib';
 import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Gtk from 'gi://Gtk'
+import { GenerateCSS } from '../Style/style.js'
 
 // Configure animations
 // I think this only applys the option to the default window
@@ -215,6 +216,28 @@ function InitilizeOptions(){
             max: 10, 
             context: "ags", 
             callback: function () {
+
+            }
+        },
+        ags_opacity: {
+            id: "ags_opacity",
+            name: "Ags opacity (stub)",
+            type: "spin",
+            widget: null,
+            value: data.options.ags_opacity,
+            min: 0,
+            max: 100, 
+            context: "ags", 
+            callback: function () {
+                print(`this.value = ${this.widget.value}`)
+                // Modify variables.scss  
+                let content = `
+                    $mediumOpacity: ${this.widget.value / 100};
+                `
+                writeFileSync(content, `${App.configDir}/Style/variables.scss`)
+
+                // Reload CSS
+                GenerateCSS()
 
             }
         }

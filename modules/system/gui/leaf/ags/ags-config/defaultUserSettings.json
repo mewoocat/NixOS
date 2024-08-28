@@ -11,6 +11,7 @@
         "border_size":3,
         "animations": true,
         "ags_animations": true,
-        "default_monitor": 1
+        "default_monitor": 1,
+        "ags_opacity": 90
     }
 }
