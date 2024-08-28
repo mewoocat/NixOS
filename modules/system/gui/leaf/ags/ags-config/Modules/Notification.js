@@ -146,7 +146,19 @@ export const NotificationWidget = (w,h) => Widget.Box({
                 spacing: 8,
                 children: Notifications.bind('notifications').transform(notifications => {
                     if (notifications.length == 0){
-                        return [ Widget.Label("All caught up :)") ]
+                        return [
+                            Widget.Box({
+                                vexpand: true,
+                                children: [
+                                    Widget.Label({
+                                        vpack: "center",
+                                        hexpand: true,
+                                        class_name: "sub-text",
+                                        label: "All caught up :)",
+                                    })
+                                ]
+                            })
+                        ]
                     }
                     return notifications.map(Notification).reverse();
                 }),
