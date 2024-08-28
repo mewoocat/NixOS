@@ -421,10 +421,31 @@ export const WifiListAvailable = () => Widget.Scrollable({
         vertical: true,
         children: [],
     }).hook(Network, self => {
-        self.children = Network.wifi.accessPoints
-            .filter((ap) => ap.ssid != Network.wifi.ssid) // Filter out connected ap
-            .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
-            .map(network) 
+        const accessPoints = Network.wifi.accessPoints
+
+        // If no acessPoints were found
+        if (Network.wifi.accessPoints == null || Network.wifi.accessPoints == 0){
+            self.children = [
+                Widget.Box({
+                    vexpand: true,
+                    children: [
+                        Widget.Label({
+                            vpack: "center",
+                            hexpand: true,
+                            class_name: "sub-text",
+                            label: "No networks found",
+                        })
+                    ]
+                })
+            ]
+        }
+        // If any access points were found
+        else{
+            self.children = Network.wifi.accessPoints
+                .filter((ap) => ap.ssid != Network.wifi.ssid) // Filter out connected ap
+                .sort((a, b) => b.strength - a.strength)    // Sort by signal strength (I think lamba functions without {} imply a return)
+                .map(network) 
+        }
     })
 })
 
