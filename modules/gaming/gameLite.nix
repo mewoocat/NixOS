@@ -18,8 +18,19 @@ in {
   };
 
   # Required for steam to run?
+
+  # Unstable
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
+  # 24.04
+  /*
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  */
 
   home-manager.users.${config.username}.home.packages = with pkgs; [
     # Games

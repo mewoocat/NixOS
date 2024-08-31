@@ -54,6 +54,16 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+  # Unstable
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
+  # 24.04
+  /*
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  */
 }
