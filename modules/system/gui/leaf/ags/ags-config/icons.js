@@ -14,4 +14,5 @@ export default{
     checkmark: "object-select-symbolic",
     screenRecord: "radio-checked-symbolic",
     deleteItem: "edit-delete-symbolic",
+    lock: "lock-symbolic",
 }

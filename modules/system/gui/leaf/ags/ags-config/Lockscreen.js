@@ -5,6 +5,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
+import icons from './icons.js';
 
 //////////////////////////////////////////////////////////////////////
 // Check for support of the `ext-session-lock-v1` protocol
@@ -83,7 +84,8 @@ function authenticate(entry){
 
 const passwordEntry = Widget.Entry({
     class_name: "app-entry",
-    placeholder_text: 'type here',
+    placeholder_text: 'Password',
+    vpack: "center",
     text: '',
     visibility: false,
     onAccept: (self) => {
@@ -99,11 +101,58 @@ const unlockButton = Widget.Button({
     child: Widget.Label("Unlock"),
 })
 
-function createLockWindow(monitor){
+
+function LockscreenContents(monitorID){
+    if (monitorID != 0){
+        return null
+    }
+    return Widget.Box({
+        vertical: true,
+        hexpand: true,
+        children: [
+            // Bar 
+            Widget.CenterBox({
+                class_name: "bar-window-lockscreen",
+                start_widget: Widget.Icon({
+                    hexpand: true,
+                    hpack: "start",
+                    css: `margin-left: 1.6em;`,
+                    icon: icons.lock,
+                }),
+                center_widget: Clock(),
+            }),
+                
+            // Content
+            Widget.Box({
+                hpack: "center",
+                vpack: "center",
+                vexpand: true,
+                vertical: true,
+                spacing: 12,
+                children: [
+                    UserIcon(8),
+                    UserName(1.6),
+                    // Password entry
+                    Widget.Box({
+                        class_name: "toggle-window bg-0",
+                        vpack: "center",
+                        spacing: 8,
+                        children: [
+                            passwordEntry,
+                            unlockButton,
+                        ],
+                    }),
+                ]
+            })
+        ]
+    })
+}
+
+function createLockWindow(monitor, id){
+
     const window = new Gtk.Window({
         // Background image
         child: Widget.Box({
-            vertical: true,
             css: `
                 background-color: #000000;
                 background-image: url("${wallpaper}"); 
@@ -111,33 +160,7 @@ function createLockWindow(monitor){
                 background-size: cover;
             `,
             children: [
-                // Bar 
-                Widget.CenterBox({
-                    class_name: "container",
-                    center_widget: Clock(),
-                }),
-                    
-                // Content
-                Widget.Box({
-                    hpack: "center",
-                    vpack: "center",
-                    vexpand: true,
-                    vertical: true,
-                    spacing: 12,
-                    children: [
-                        //BigClock(),
-                        UserIcon(8),
-                        UserName(1.6),
-                        // Password entry
-                        Widget.Box({
-                            class_name: "toggle-window",
-                            children: [
-                                passwordEntry,
-                                unlockButton,
-                            ],
-                        }),
-                    ]
-                })
+                LockscreenContents(id),
             ],
         })
     })    
@@ -150,7 +173,7 @@ function lockScreen(){
     // For all current monitors
     for (let m = 0; m < display.get_n_monitors(); m++) {
         const monitor = display.get_monitor(m)
-        createLockWindow(monitor)
+        createLockWindow(monitor, m)
     }
     lock.lock_lock()
     windows.forEach(w => {

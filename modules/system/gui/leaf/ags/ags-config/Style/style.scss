@@ -11,3 +11,9 @@ $lowOpacity: 0.44;
 @import 'settings';
 @import 'buttons';
 @import 'media';
+
+// BG color overrides
+// Note that these need to be defined after any overwritten classes 
+.bg-0{
+    background-color: rgba($bg0, 1);
+}

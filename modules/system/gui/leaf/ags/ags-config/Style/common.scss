@@ -223,6 +223,14 @@ entry window.popup {
     background-color: rgba($bg0, $mediumOpacity);
     font-family: "System-ui";
     font-size: 16px;
+    min-height: 2.25em;
+}
+
+.bar-window-lockscreen{
+    background-color: rgba($bg0, 1);
+    font-family: "System-ui";
+    font-size: 16px;
+    min-height: 2.25em;
 }
 
 .bar-icon{
@@ -267,9 +275,12 @@ entry window.popup {
 // Search entry
 .app-entry {
     all: unset;
-    padding: 0.6rem;
     background-color: rgba($bg1, $lowOpacity);
-    border-radius: 1rem;
+    border-radius: 1em;
+    //padding: 0.4rem 0.8rem;
+    padding-left: 0.8rem;
+    min-height: 28px;
+
 }
 
 // First item in list of applications
@@ -290,7 +301,7 @@ entry window.popup {
 .normal-button {
     all: unset;
     //background-color: transparent;
-    padding: 0.28rem; // Currently determines bar height
+    padding: 0.28rem;
 }
 
 .normal-button:active {
@@ -298,7 +309,7 @@ entry window.popup {
 
 .normal-button > * {
     padding: 0.4rem 0.8rem;
-    border-radius: 0.8rem;
+    border-radius: 1rem;
 }
 
 .normal-button:hover > * {
