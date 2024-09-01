@@ -3,6 +3,7 @@ import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import { Weather } from './Modules/Weather.js';
 import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 import icons from './icons.js';
@@ -101,6 +102,17 @@ const unlockButton = Widget.Button({
     child: Widget.Label("Unlock"),
 })
 
+function LockscreenWidget(widget, w, h) {
+    const box = Widget.Box({
+        class_name: "lockscreen-widget",
+        css: `
+            min-width: ${w}rem;
+            min-height: ${h}rem;
+        `,
+        children: [ widget ],
+    })
+    return box;
+}
 
 function LockscreenContents(monitorID){
     if (monitorID != 0){
@@ -125,8 +137,9 @@ function LockscreenContents(monitorID){
             // Content
             Widget.Box({
                 hpack: "center",
-                vpack: "center",
+                vpack: "end",
                 vexpand: true,
+                hexpand: true,
                 vertical: true,
                 spacing: 12,
                 children: [
@@ -143,6 +156,17 @@ function LockscreenContents(monitorID){
                         ],
                     }),
                 ]
+            }),
+            // Bottom left
+            Widget.Box({
+                vexpand: true,
+                hexpand: true,
+                hpack: "start",
+                vpack: "end",
+                css: `padding: 1em;`,
+                children: [
+                    LockscreenWidget(Weather(), 12, 12),
+                ],
             })
         ]
     })

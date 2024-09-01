@@ -7,12 +7,13 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import { CloseOnClickAway } from '../Common.js';
 import { Weather } from '../Modules/Weather.js';
 import { Media } from '../Modules/Media.js'
+import { ControlPanelBox } from './ControlPanel.js'
 
 import Gtk from 'gi://Gtk';
 // Usage: grid.attach(Widget, col, row, width, height)
 const grid = new Gtk.Grid()
 grid.attach(CalendarContainer(12, 12), 1, 1, 1, 1)
-grid.attach(Weather(12, 12), 1, 2, 1, 1)
+grid.attach(ControlPanelBox(Weather(), 12, 12), 1, 2, 1, 1)
 
 const container = () => Widget.Box({
     class_name: "",

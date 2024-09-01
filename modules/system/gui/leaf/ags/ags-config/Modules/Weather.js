@@ -320,136 +320,128 @@ export const humidity = Utils.derive([weather], (weather) => {
 }) 
 
 
-export const Weather = (w, h) => Widget.Box({
-    css: `
-        min-width: ${w}rem;
-        min-height: ${h}rem;
-    `,
-    class_name: "control-panel-button",
+export const Weather = () => Widget.Box({
+    vertical: true,
     hexpand: true,
+    //vpack: "center",
+    //class_name: "weather-container", // Background image
+    css: `
+        padding: 1.4em;
+    `,
+    spacing: 8,
     children: [
+
+        // Icon and Temp
+        Widget.Box({
+            spacing: 12,
+            hpack: "start",
+            children:[
+                // Status icon
+                Widget.Icon({
+                    size: 40,
+                    icon: weatherIcon.bind(),
+                }),
+                // Current temp
+                Widget.Label({
+                    hexpand: true,
+                    css: `
+                        font-size: 2.2rem;
+                    `,
+                    label: currentTemp.bind()
+                }),
+            ]
+        }),
+        // Status
+        Widget.Box({
+            hexpand: true,
+            hpack: "start",
+            spacing: 8,
+            children: [
+                Widget.Label({
+                    label: weatherStatus.bind()
+                }),
+            ],
+        }),
+
+        // Hi and low temps
         Widget.Box({
             vertical: true,
             hexpand: true,
-            //vpack: "center",
-            //class_name: "weather-container", // Background image
+            vpack: "end",
+            vexpand: true,
             css: `
-                padding: 1.4em;
+                font-size: 0.8rem;
             `,
-            spacing: 8,
             children: [
-
-                // Icon and Temp
-                Widget.Box({
-                    spacing: 12,
+                // Hi
+                Widget.Label({
                     hpack: "start",
-                    children:[
-                        // Status icon
-                        Widget.Icon({
-                            size: 40,
-                            icon: weatherIcon.bind(),
-                        }),
-                        // Current temp
-                        Widget.Label({
-                            hexpand: true,
-                            css: `
-                                font-size: 2.2rem;
-                            `,
-                            label: currentTemp.bind()
-                        }),
-                    ]
+                    label: hiTemp.bind(),
                 }),
-                // Status
-                Widget.Box({
-                    hexpand: true,
+                // Lo
+                Widget.Label({
                     hpack: "start",
-                    spacing: 8,
-                    children: [
-                        Widget.Label({
-                            label: weatherStatus.bind()
-                        }),
-                    ],
+                    label: loTemp.bind(),
                 }),
 
-                // Hi and low temps
-                Widget.Box({
-                    vertical: true,
-                    hexpand: true,
-                    vpack: "end",
-                    vexpand: true,
-                    css: `
-                        font-size: 0.8rem;
-                    `,
-                    children: [
-                        // Hi
-                        Widget.Label({
-                            hpack: "start",
-                            label: hiTemp.bind(),
-                        }),
-                        // Lo
-                        Widget.Label({
-                            hpack: "start",
-                            label: loTemp.bind(),
-                        }),
-
-                    ]
-                }),
-                
-                // Precipitation and humidity
-                /*
-                Widget.Box({
-                    hexpand: true,
-                    children: [
-                        Widget.Box({
-                            spacing: 16,
-                            hpack: "center",
-                            children: [
-                                // Precipitation
-                                Widget.Box({
-                                    spacing: 4,
-                                    tooltip_text: "Precipitation",
-                                    children: [
-                                        Widget.Icon({
-                                            size: 18,
-                                            icon: "weather-showers-symbolic",
-                                        }),
-                                        Widget.Label({
-                                            hexpand: true,
-                                            label: precipitation.bind()
-                                        }),
-                                    ],
-                                }),
-                                // Humidity
-                                Widget.Box({
-                                    spacing: 4,
-                                    tooltip_text: "Humidity",
-                                    children: [
-                                        Widget.Icon({
-                                            size: 18,
-                                            icon: "raindrop",
-                                        }),
-                                        Widget.Label({
-                                            hexpand: true,
-                                            label: humidity.bind()
-                                        }),
-                                    ],
-                                })
-                            ]
-                        }),
-                    ],
-                }),
-                */
             ]
-        }).hook(weatherImage, self => {
-            // Update weather widget background based on current weather status
-            /*
-            print("image "+weatherImage.value)
-            self.css = `
-                background-image: url("${App.configDir}/assets/${weatherImage.value}.jpg"); 
-                background-position: center;
-                background-size: cover;
-            `;
-            */
-        }, "changed"),
+        }),
+        
+        // Precipitation and humidity
+        /*
+        Widget.Box({
+            hexpand: true,
+            children: [
+                Widget.Box({
+                    spacing: 16,
+                    hpack: "center",
+                    children: [
+                        // Precipitation
+                        Widget.Box({
+                            spacing: 4,
+                            tooltip_text: "Precipitation",
+                            children: [
+                                Widget.Icon({
+                                    size: 18,
+                                    icon: "weather-showers-symbolic",
+                                }),
+                                Widget.Label({
+                                    hexpand: true,
+                                    label: precipitation.bind()
+                                }),
+                            ],
+                        }),
+                        // Humidity
+                        Widget.Box({
+                            spacing: 4,
+                            tooltip_text: "Humidity",
+                            children: [
+                                Widget.Icon({
+                                    size: 18,
+                                    icon: "raindrop",
+                                }),
+                                Widget.Label({
+                                    hexpand: true,
+                                    label: humidity.bind()
+                                }),
+                            ],
+                        })
+                    ]
+                }),
+            ],
+        }),
+        */
     ]
-})
+}).hook(weatherImage, self => {
+    // Update weather widget background based on current weather status
+    /*
+    print("image "+weatherImage.value)
+    self.css = `
+        background-image: url("${App.configDir}/assets/${weatherImage.value}.jpg"); 
+        background-position: center;
+        background-size: cover;
+    `;
+    */
+}, "changed")
+
+

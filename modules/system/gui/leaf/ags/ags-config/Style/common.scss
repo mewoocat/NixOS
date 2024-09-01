@@ -511,7 +511,7 @@ button.combo:hover {
 .weather-container{
     border-radius: 1rem;
     padding: 1rem;
-    background-color: rgba($bg1, 0.90);
+    background-color: rgba($bg1, 1);
 }
 
 entry treeview {
@@ -534,3 +534,8 @@ progressbar {
     }
 }
 
+
+.lockscreen-widget{
+    background-color: rgba($bg0, 1);
+    border-radius: 1rem;
+}
