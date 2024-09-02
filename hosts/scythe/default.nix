@@ -27,5 +27,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # Utilities
     ../../modules/utilities
+
+    ./custom-inputs.nix
   ];
 }
