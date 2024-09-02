@@ -23,6 +23,12 @@
       #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.41.1&submodules=1"; # The only good version
       url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1";
     };
+
+    hyprland-wlr = {
+      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.41.1&submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hypridle = {
       url = "github:hyprwm/hypridle";
     };
