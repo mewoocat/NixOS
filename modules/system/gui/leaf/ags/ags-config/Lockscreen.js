@@ -8,6 +8,8 @@ import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 import icons from './icons.js';
 
+const WeatherWidget = Weather()
+
 //////////////////////////////////////////////////////////////////////
 // Check for support of the `ext-session-lock-v1` protocol
 //////////////////////////////////////////////////////////////////////
@@ -118,12 +120,35 @@ function LockscreenContents(monitorID){
     if (monitorID != 0){
         return null
     }
-    return Widget.Box({
-        vertical: true,
+    return Widget.Overlay({
         hexpand: true,
-        children: [
+        child: Widget.Box({
+            hpack: "center",
+            vpack: "center",
+            vexpand: true,
+            hexpand: true,
+            vertical: true,
+            spacing: 12,
+            children: [
+                UserIcon(8),
+                UserName(1.6),
+                // Password entry
+                Widget.Box({
+                    class_name: "toggle-window bg-0",
+                    vpack: "center",
+                    spacing: 8,
+                    children: [
+                        passwordEntry,
+                        unlockButton,
+                    ],
+                }),
+            ]
+        }),
+
+        overlays: [
             // Bar 
             Widget.CenterBox({
+                vpack: "start",
                 class_name: "bar-window-lockscreen",
                 start_widget: Widget.Icon({
                     hexpand: true,
@@ -134,29 +159,6 @@ function LockscreenContents(monitorID){
                 center_widget: Clock(),
             }),
                 
-            // Content
-            Widget.Box({
-                hpack: "center",
-                vpack: "end",
-                vexpand: true,
-                hexpand: true,
-                vertical: true,
-                spacing: 12,
-                children: [
-                    UserIcon(8),
-                    UserName(1.6),
-                    // Password entry
-                    Widget.Box({
-                        class_name: "toggle-window bg-0",
-                        vpack: "center",
-                        spacing: 8,
-                        children: [
-                            passwordEntry,
-                            unlockButton,
-                        ],
-                    }),
-                ]
-            }),
             // Bottom left
             Widget.Box({
                 vexpand: true,
@@ -165,7 +167,7 @@ function LockscreenContents(monitorID){
                 vpack: "end",
                 css: `padding: 1em;`,
                 children: [
-                    LockscreenWidget(Weather(), 12, 12),
+                    LockscreenWidget(WeatherWidget, 12, 12),
                 ],
             })
         ]
