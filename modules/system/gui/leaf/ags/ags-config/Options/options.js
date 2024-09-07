@@ -1,6 +1,7 @@
 import GLib from 'gi://GLib';
 import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Gtk from 'gi://Gtk'
 import { GenerateCSS } from '../Style/style.js'
 
@@ -12,6 +13,9 @@ let homeDir = GLib.get_home_dir()
 let defaultConfig = `${App.configDir}/defaultUserSettings.json`
 let configPath = `${homeDir}/.cache/ags/`
 let configName = `UserSettings.json`
+
+export const settingsChanged = Variable(false, {}) 
+export var data = null;     // Json data
 
 // Export an object which contains all option widgets
 export var Options = {
@@ -27,7 +31,6 @@ export var Options = {
     // User options read from json file
     user: null,
 } 
-export var data = null;     // Json data
 
 
 // Create widget from option
@@ -35,7 +38,10 @@ export function CreateOptionWidget(option){
     switch(option.type){
         case "slider":
             return Widget.Slider({
-                onChange: ({ value }) => print(value),
+                onChange: ({ value }) => {
+                    settingsChanged.value = true
+                    print(value)
+                },
                 hexpand: true,
                 min: option.min,
                 max: option.max,
@@ -45,6 +51,9 @@ export function CreateOptionWidget(option){
             break
         case "switch":
             return Widget.Switch({
+                onActivate: () => {
+                    settingsChanged.value = true
+                },
                 class_name: "switch-button",
                 hpack: "end",
                 active: data.options[option.id],
@@ -59,7 +68,7 @@ export function CreateOptionWidget(option){
                 value: data.options[option.id],
                 onValueChanged: (self) => {
                     print(self.value)
-                    print(self)
+                    settingsChanged.value = true
                 },
             })
             break
@@ -97,7 +106,7 @@ export const LoadOptionWidgets = (options, dst) => {
 
 // Initilize options with data from json config
 function InitilizeOptions(){
-    data = JSON.parse(Utils.readFile(configPath + configName))
+    //data = JSON.parse(Utils.readFile(configPath + configName))
     if (data == null){
         print("ERROR: Parsing UserSettings.json failed")
         return
@@ -323,7 +332,7 @@ export function ApplySettings(){
     }
 
     // Write out Hyprland settings files
-    Utils.writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
+    writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
         .then(file => print('LOG: Hyprland settings file updated'))
         .catch(err => print(err))
     // Reload hyprland config
@@ -332,9 +341,24 @@ export function ApplySettings(){
     // Modified user settings json
     let dataModified = JSON.stringify(data, null, 4)
     // Write out to UserSettings.json
-    Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+    writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
         .then(file => print('LOG: User settings file updated'))
         .catch(err => print(err))
 }
 
+// Reverts any changed options to their original values since the last apply
+export function RevertSettings(){
+    for (let key in Options.user){
+        const option = Options.user[key]
+        const widget = option.widget // Gets a reference to the given option's widget
+        const previousValue = data.options[option.id]
 
+        if (option.type == "spin"){
+            widget.value = previousValue
+        }
+        else if (option.type == "switch"){
+            widget.active = previousValue
+        }
+    }
+    settingsChanged.value = false 
+}

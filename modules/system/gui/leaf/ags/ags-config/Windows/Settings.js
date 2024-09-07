@@ -8,7 +8,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { WifiList } from '../Modules/Network.js';
 import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
 import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
-import { generalSettings, ApplyButton } from '../Modules/Settings.js'
+import { generalSettings, ApplyButton, ChangedOptionsIndicator } from '../Modules/Settings.js'
 import icons from '../icons.js';
 
 const { Gtk } = imports.gi;
@@ -78,7 +78,6 @@ const Tabs = () => Widget.Box({
     children: tabs.map(Tab)
 })
 
-
 function Container(name, contents){
     return Widget.Box({
         class_name: "padder",
@@ -91,7 +90,13 @@ function Container(name, contents){
                     class_name: "header",
                     hpack: "start",
                 }),
-                endWidget: ApplyButton(),
+                endWidget: Widget.Box({
+                    hpack: "end",
+                    children: [
+                        ChangedOptionsIndicator(),
+                        ApplyButton(),
+                    ],
+                }),
             }),
             /*
             Widget.Separator({

@@ -324,6 +324,10 @@ entry window.popup {
     background-color: rgba($bg2, 0.3);
 }
 
+.bg-button-alert > * {
+    background-color: #aa2323;
+}
+
 // Power Button
 
 .power-button > * {
