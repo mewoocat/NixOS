@@ -1,20 +1,21 @@
-# Host: obsidian
-# Ryzen 5 + GTX 1080 / RX 470 Desktop
+
+# Host: toshiba
+# Early 2010s Toshiba laptop
+# 
 {inputs}:
 inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
+  # NixOS modules
   modules = [
+
     ./configuration.nix
+
     # Hardware
-    ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
     ../../modules/hardware/drawing-tablet.nix
     ../../modules/hardware/ios.nix
-    ../../modules/hardware/razer.nix
-    ../../modules/hardware/rgb.nix
     ../../modules/hardware/vial-keyboards.nix
-    ../../modules/hardware/nvidia.nix
 
     # Core system components
     ../../modules/system
@@ -22,11 +23,14 @@ inputs.nixpkgs.lib.nixosSystem {
     # Desktop environment
     ../../modules/system/gui/leaf
 
-    # User
+    # Users
     ../../users/eXia
-    ../../modules/gaming/game.nix
+    ../../modules/gaming/gameLite.nix
 
     # Utilities
     ../../modules/utilities
+
+    ./custom-inputs.nix
+
   ];
 }
