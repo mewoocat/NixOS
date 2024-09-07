@@ -504,7 +504,7 @@ button.combo:hover {
 .systray{
     background-color: $bg0;
     margin: 0.2rem;
-    min-width: 3.2em;
+    min-width: 2.625em; // This should be the same width as the systray with one item
     border-radius: 1rem;
 }
 
