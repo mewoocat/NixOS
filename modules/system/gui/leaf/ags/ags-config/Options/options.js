@@ -95,6 +95,7 @@ export const LoadOptionWidgets = (options, dst) => {
         // Add widget to destination FlowBox
         dst.add(Widget.CenterBox({
             class_name: "option-container",
+            hpack: "center",
             startWidget: Widget.Label({
                 label: option.name,
                 hpack: "start",
