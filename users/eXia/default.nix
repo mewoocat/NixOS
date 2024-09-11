@@ -31,4 +31,8 @@
       ./home.nix
     ];
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-29.4.6"
+  ];
 }

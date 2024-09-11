@@ -10,9 +10,10 @@ import { GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
 // Loads json config and options
 GetOptions()
 
-import { generalSettings } from './Modules/Settings.js';
+import { generalSettings, displaySettings } from './Modules/Settings.js';
 // Load the user options as widgets into the generalSettings FlowBox
-LoadOptionWidgets(Options.user, generalSettings)
+LoadOptionWidgets(Options.user.general, generalSettings)
+LoadOptionWidgets(Options.user.display, displaySettings)
 
 
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
@@ -42,7 +43,7 @@ monitorFile(`${App.configDir}/Style/_colors.scss`, GenerateCSS);
 
 function InitilizeWindows(){
 
-    const userDefaultMonitor = Options.user.default_monitor.value
+    const userDefaultMonitor = Options.user.display.default_monitor.value
     let defaultMonitor = 0
 
     // Check if monitor exists

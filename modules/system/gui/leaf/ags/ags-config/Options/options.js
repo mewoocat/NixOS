@@ -35,8 +35,9 @@ export var Options = {
 
 // Create widget from option
 export function CreateOptionWidget(option){
+    
     switch(option.type){
-        case "slider":
+        case "slider": 
             return Widget.Slider({
                 onChange: ({ value }) => {
                     settingsChanged.value = true
@@ -46,7 +47,7 @@ export function CreateOptionWidget(option){
                 min: option.min,
                 max: option.max,
                 step: 1, // Only works for keybinds?
-                value: data.options[option.id],
+                value: option.value,
             })
             break
         case "switch":
@@ -56,7 +57,7 @@ export function CreateOptionWidget(option){
                 },
                 class_name: "switch-button",
                 hpack: "end",
-                active: data.options[option.id],
+                active: option.value,
             })
             break
         case "spin":
@@ -65,7 +66,7 @@ export function CreateOptionWidget(option){
                 hpack: "end",
                 range: [option.min, option.max],
                 increments: [1, 5],
-                value: data.options[option.id],
+                value: option.value,
                 onValueChanged: (self) => {
                     print(self.value)
                     settingsChanged.value = true
@@ -131,127 +132,132 @@ function InitilizeOptions(){
     */
     
     Options.user = {
-        gaps_in: {
-            id: "gaps_in", 
-            name: "Gaps in", 
-            type: "spin", 
-            widget: null, 
-            value: data.options.gaps_in, 
-            min: 0,
-            max: 400, 
-            context: "hyprland", 
-            beforeStr: "general:gaps_in = ", 
-            afterStr: ""
-        },
+        general: {
+            gaps_in: {
+                id: "gaps_in", 
+                name: "Gaps in", 
+                type: "spin", 
+                widget: null, 
+                value: data.options.general.gaps_in, 
+                min: 0,
+                max: 400, 
+                context: "hyprland", 
+                beforeStr: "general:gaps_in = ", 
+                afterStr: ""
+            },
 
-        gaps_out: {
-            id: "gaps_out", 
-            name: "Gaps out", 
-            type: "spin", 
-            widget: null, 
-            value: data.options.gaps_out, 
-            min: 0,
-            max: 400, 
-            context: "hyprland", 
-            beforeStr: "general:gaps_out = ", 
-            afterStr: ""
-        },
-        gaps_workspaces: {
-            id: "gaps_workspaces",
-            name: "Gaps workspaces",
-            type: "spin",
-            widget: null,
-            value: data.options.gaps_workspaces,
-            min: 0,
-            max: 400, 
-            context: "hyprland", 
-            beforeStr: "general:gaps_workspaces = ", 
-            afterStr: ""
-        },
-        rounding: {
-            id: "rounding",
-            name: "Rounding",
-            type: "spin",
-            widget: null,
-            value: data.options.rounding,
-            min: 0,
-            max: 100, 
-            context: "hyprland", 
-            beforeStr: "decoration:rounding = ", 
-            afterStr: ""
-        },
-        border_size: {
-            id: "border_size",
-            name: "Border size",
-            type: "spin",
-            widget: null,
-            value: data.options.border_size,
-            min: 0,
-            max: 100, 
-            context: "hyprland", 
-            beforeStr: "general:border_size = ", 
-            afterStr: ""
-        },
-        animations: {
-            id: "animations",
-            name: "Animations",
-            type: "switch",
-            widget: null,
-            value: data.options.animations,
-            min: null,
-            max: null, 
-            context: "hyprland", 
-            beforeStr: "animations:enabled = ", 
-            afterStr: ""
-        },
-        ags_animations: {
-            id: "ags_animations",
-            name: "Ags animations",
-            type: "switch",
-            widget: null,
-            value: data.options.ags_animations,
-            context: "ags", 
-            callback: function () {
-                // Set animation state to state of associated switch widget
-                Gtk.Settings.get_default().gtk_enable_animations = this.widget.active
+            gaps_out: {
+                id: "gaps_out", 
+                name: "Gaps out", 
+                type: "spin", 
+                widget: null, 
+                value: data.options.general.gaps_out, 
+                min: 0,
+                max: 400, 
+                context: "hyprland", 
+                beforeStr: "general:gaps_out = ", 
+                afterStr: ""
+            },
+            gaps_workspaces: {
+                id: "gaps_workspaces",
+                name: "Gaps workspaces",
+                type: "spin",
+                widget: null,
+                value: data.options.general.gaps_workspaces,
+                min: 0,
+                max: 400, 
+                context: "hyprland", 
+                beforeStr: "general:gaps_workspaces = ", 
+                afterStr: ""
+            },
+            rounding: {
+                id: "rounding",
+                name: "Rounding",
+                type: "spin",
+                widget: null,
+                value: data.options.general.rounding,
+                min: 0,
+                max: 100, 
+                context: "hyprland", 
+                beforeStr: "decoration:rounding = ", 
+                afterStr: ""
+            },
+            border_size: {
+                id: "border_size",
+                name: "Border size",
+                type: "spin",
+                widget: null,
+                value: data.options.general.border_size,
+                min: 0,
+                max: 100, 
+                context: "hyprland", 
+                beforeStr: "general:border_size = ", 
+                afterStr: ""
+            },
+            animations: {
+                id: "animations",
+                name: "Animations",
+                type: "switch",
+                widget: null,
+                value: data.options.general.animations,
+                min: null,
+                max: null, 
+                context: "hyprland", 
+                beforeStr: "animations:enabled = ", 
+                afterStr: ""
+            },
+            ags_animations: {
+                id: "ags_animations",
+                name: "Ags animations",
+                type: "switch",
+                widget: null,
+                value: data.options.general.ags_animations,
+                context: "ags", 
+                callback: function () {
+                    // Set animation state to state of associated switch widget
+                    Gtk.Settings.get_default().gtk_enable_animations = this.widget.active
+                }
+            },
+            ags_opacity: {
+                id: "ags_opacity",
+                name: "Ags opacity (stub)",
+                type: "spin",
+                widget: null,
+                value: data.options.general.ags_opacity,
+                min: 0,
+                max: 100, 
+                context: "ags", 
+                callback: function () {
+                    print(`this.value = ${this.widget.value}`)
+                    // Modify variables.scss  
+                    let content = `
+                        $mediumOpacity: ${this.widget.value / 100};
+                    `
+                    writeFileSync(content, `${App.configDir}/Style/variables.scss`)
+
+                    // Reload CSS
+                    GenerateCSS()
+
+                }
             }
+            //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
+
         },
-        default_monitor: {
-            id: "default_monitor",
-            name: "Default monitor",
-            type: "spin",
-            widget: null,
-            value: data.options.default_monitor,
-            min: 0,
-            max: 10, 
-            context: "ags", 
-            callback: function () {
+        display: { 
+            default_monitor: {
+                id: "default_monitor",
+                name: "Default monitor",
+                type: "spin",
+                widget: null,
+                value: data.options.display.default_monitor,
+                min: 0,
+                max: 10, 
+                context: "ags", 
+                callback: function () {
 
-            }
-        },
-        ags_opacity: {
-            id: "ags_opacity",
-            name: "Ags opacity (stub)",
-            type: "spin",
-            widget: null,
-            value: data.options.ags_opacity,
-            min: 0,
-            max: 100, 
-            context: "ags", 
-            callback: function () {
-                print(`this.value = ${this.widget.value}`)
-                // Modify variables.scss  
-                let content = `
-                    $mediumOpacity: ${this.widget.value / 100};
-                `
-                writeFileSync(content, `${App.configDir}/Style/variables.scss`)
-
-                // Reload CSS
-                GenerateCSS()
-
+                }
             }
         }
-        //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
     }
     print("User options initilized:")
     print(JSON.stringify(Options.user, null, 4))
@@ -296,6 +302,22 @@ export function GetOptions() {
     }
 }
 
+function GetOptionValue(opt){
+        let value = -1
+
+        // Get current value from associated widget
+        if (opt.type === "spin" || opt.type === "slider"){
+            value = opt.widget.value
+        }
+        else if (opt.type === "switch"){
+            value = opt.widget.active
+        }
+        else{
+            print("ERROR: Invalid option type")
+        }
+        return value 
+}
+
 
 export function ApplySettings(){
 
@@ -303,33 +325,23 @@ export function ApplySettings(){
     let hyprlandConfig = " \n"
 
     // Generate option -> config string literals
-    for (let key in Options.user){
-        let opt = Options.user[key]
-        let value = -1
+    for (let category in Options.user){
+        for (let opt in Options.user[category]){
+            let value = GetOptionValue(Options.user[category][opt])
+            // Set the updated value in the json cache
+            data.options[category][opt] = value
 
-        // Get current value from associated widget
-        if (opt.type === "spin" || opt.type === "slider"){
-            value = Options.user[key].widget.value
+            if (opt.context == "ags"){
+                opt.callback()  
+            }     
+
+            // Generates hyprland config literal
+            else if (opt.context == "hyprland"){
+                hyprlandConfig = hyprlandConfig.concat(opt.beforeStr + value + opt.afterStr + "\n")
+            }
         }
-        else if (opt.type === "switch"){
-            value = Options.user[key].widget.active
-        }
-        else{
-            print("ERROR: Invalid option type in ApplySettings()")
-        }
-
-        // Set the updated value in the json cache
-        data.options[key] = value
-
-        if (opt.context == "ags"){
-            opt.callback()  
-        }     
-
-        // Generates hyprland config literal
-        else if (opt.context == "hyprland"){
-            hyprlandConfig = hyprlandConfig.concat(opt.beforeStr + value + opt.afterStr + "\n")
-        }
-
+        print("value")
+        print(data.options.general.gaps_in.value)
     }
 
     // Write out Hyprland settings files

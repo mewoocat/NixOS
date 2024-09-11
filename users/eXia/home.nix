@@ -108,6 +108,8 @@ in {
     inputs.microfetch.packages.x86_64-linux.default
     
     brasero
+    #teams-for-linux # Borked
+    ungoogled-chromium
 
     #gradience
     #niri

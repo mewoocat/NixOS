@@ -15,6 +15,11 @@ export const generalSettings = Widget.FlowBox({
 })
 //generalFlowBox.add(locationSearch)
 
+export const displaySettings = Widget.FlowBox({
+    vpack: "start",
+    max_children_per_line: 1,
+})
+
 
 export const ApplyButton = () => Widget.Button({
     visible: settingsChanged.bind(), 
