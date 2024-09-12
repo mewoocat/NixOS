@@ -44,6 +44,7 @@ export function CreateOptionWidget(option){
                     print(value)
                 },
                 hexpand: true,
+                vpack: "center",
                 min: option.min,
                 max: option.max,
                 step: 1, // Only works for keybinds?
@@ -52,18 +53,28 @@ export function CreateOptionWidget(option){
             break
         case "switch":
             return Widget.Switch({
-                onActivate: () => {
+                class_name: "switch-off",
+                onActivate: (self) => {
+                    print("INFO: Switch onActivate called")
+                    print("INFO: self.active: " + self.active)
+                    self.toggleClassName("switch-off", !self.active)
+                    self.toggleClassName("switch-on", self.active)
                     settingsChanged.value = true
                 },
-                class_name: "switch-button",
                 hpack: "end",
+                vpack: "center",
                 active: option.value,
+                setup: (self) => {
+                    self.toggleClassName("switch-off", !self.active)
+                    self.toggleClassName("switch-on", self.active)
+                }
             })
             break
         case "spin":
             return Widget.SpinButton({
                 class_name: "spin-button",
                 hpack: "end",
+                vpack: "center",
                 range: [option.min, option.max],
                 increments: [1, 5],
                 value: option.value,
