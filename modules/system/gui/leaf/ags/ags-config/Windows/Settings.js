@@ -41,12 +41,12 @@ const spinner = Widget.Spinner()
 const tabs = [
     "General",
     "Display",
-    "Appearance",
-    "Network",
-    "Bluetooth",
-    "Devices",
-    "Sound",
-    "About",
+    //"Appearance",
+    //"Network",
+    //"Bluetooth",
+    //"Devices",
+    //"Sound",
+    //"About",
 ]
 
 const Tab = (t) => Widget.Button({
@@ -74,7 +74,6 @@ const Tab = (t) => Widget.Button({
 
 const Tabs = () => Widget.Box({
     vertical: true,
-    class_name: "tab-container",
     children: tabs.map(Tab)
 })
 
@@ -191,12 +190,12 @@ const TabContainer = () => Widget.Stack({
     children: {
         'General': Container("General", generalContents()),
         'Display': Container("Display", displayContents()),
-        'Appearance': Container("Appearance", testContents()),
-        'Network': Container("Network", networkContents),
-        'Bluetooth': Container("Bluetooth", bluetoothContents),
-        'Devices': Container("Devices", testContents()),
-        'Sound': Container("Sound", soundContents),
-        'About' : Container("About", testContents()),
+        //'Appearance': Container("Appearance", testContents()),
+        //'Network': Container("Network", networkContents),
+        //'Bluetooth': Container("Bluetooth", bluetoothContents),
+        //'Devices': Container("Devices", testContents()),
+        //'Sound': Container("Sound", soundContents),
+        //'About' : Container("About", testContents()),
     },
     transition: "slide_up_down",
 
@@ -204,6 +203,28 @@ const TabContainer = () => Widget.Stack({
     setup: self => self.hook(SettingsTab, () => {
         self.shown = SettingsTab.value;
     })
+})
+
+const LeftPanel = () => Widget.Box({
+    vertical: true,
+    spacing: 8,
+    class_name: "tab-container",
+    children: [
+        Widget.Box({
+            spacing: 8,
+            children: [
+                Widget.Icon({
+                    size: 20,
+                    icon: icons.settings,
+                }),
+                Widget.Label({
+                    class_name: "large-text",
+                    label: "Settings",
+                })
+            ]
+        }),
+        Tabs(),
+    ]
 })
 
 export const SettingsToggle = Widget.Button({
@@ -219,13 +240,15 @@ export const SettingsToggle = Widget.Button({
     })
 })
 
+
+
 // Settings window (Non ags widget window)
 export const Settings = () => Window({
     name: "Settings",
     child: Widget.Box({
         class_name: "normal-window",
         children: [
-            Tabs(),
+            LeftPanel(),
             TabContainer(),
         ],
     }),
