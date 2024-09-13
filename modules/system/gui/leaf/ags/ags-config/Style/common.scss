@@ -13,6 +13,11 @@
     }
 }
 
+// Disable highlight on floxbox children
+flowboxchild {
+    all: unset;
+}
+
 
 .large-text {
     font-size: 1.24em;

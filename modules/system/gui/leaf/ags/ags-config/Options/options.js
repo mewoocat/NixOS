@@ -336,11 +336,13 @@ export function ApplySettings(){
     let hyprlandConfig = " \n"
 
     // Generate option -> config string literals
-    for (let category in Options.user){
-        for (let opt in Options.user[category]){
-            let value = GetOptionValue(Options.user[category][opt])
+    for (let categoryKey in Options.user){
+        for (let optKey in Options.user[categoryKey]){
+            let opt = Options.user[categoryKey][optKey]
+            let value = GetOptionValue(opt)
+            print("opt = " + opt)
             // Set the updated value in the json cache
-            data.options[category][opt] = value
+            data.options[categoryKey][optKey] = value
 
             if (opt.context == "ags"){
                 opt.callback()  
@@ -355,10 +357,14 @@ export function ApplySettings(){
         print(data.options.general.gaps_in.value)
     }
 
+    print("hyprlandConfig")
+    print(hyprlandConfig)
+
     // Write out Hyprland settings files
     writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
-        .then(file => print('LOG: Hyprland settings file updated'))
-        .catch(err => print(err))
+        //.then(file => print('LOG: Hyprland settings file updated'))
+        //.catch(err => print(err))
+
     // Reload hyprland config
     Hyprland.messageAsync(`reload`)
 
@@ -366,22 +372,28 @@ export function ApplySettings(){
     let dataModified = JSON.stringify(data, null, 4)
     // Write out to UserSettings.json
     writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
-        .then(file => print('LOG: User settings file updated'))
-        .catch(err => print(err))
+        //.then(file => print('LOG: User settings file updated'))
+        //.catch(err => print(err))
+
+    print("settingsChanged?")
+    settingsChanged.value = false 
 }
 
 // Reverts any changed options to their original values since the last apply
 export function RevertSettings(){
-    for (let key in Options.user){
-        const option = Options.user[key]
-        const widget = option.widget // Gets a reference to the given option's widget
-        const previousValue = data.options[option.id]
+    for (let categoryKey in Options.user){
+        for (let optionKey in Options.user[categoryKey]){
+            const option = Options.user[categoryKey][optionKey]
+            const widget = option.widget // Gets a reference to the given option's widget
+            const previousValue = data.options[categoryKey][option.id]
 
-        if (option.type == "spin"){
-            widget.value = previousValue
-        }
-        else if (option.type == "switch"){
-            widget.active = previousValue
+            if (option.type == "spin"){
+                widget.value = previousValue
+            }
+            else if (option.type == "switch"){
+                widget.active = previousValue
+            }
+            // Add option type checks as needed
         }
     }
     settingsChanged.value = false 
