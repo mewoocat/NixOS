@@ -20,6 +20,9 @@ function ToggleNightlight(self){
 }
 
 export const NightLightButton = (w, h) => Widget.Button({
+    setup: (self) => {
+        self.toggleClassName("active-button", isNightLightOn()) // Set active indicator state on startup
+    },
     class_name: `control-panel-button`,
     css: `
         min-width: ${w}rem;

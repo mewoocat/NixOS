@@ -16,6 +16,7 @@ var apPassword = ""
 const Refresh = () => {
     print('Scaning for Wi-Fi access points')
     Network.wifi.scan()
+    print('Scan completed')
 }
 export const RefreshWifi = () => CircleButton(icons.refresh, Refresh)
 

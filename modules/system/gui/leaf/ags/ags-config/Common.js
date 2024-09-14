@@ -128,6 +128,15 @@ export function CircleButton(icon, action, params){
         on_primary_click: () => ActionParsed(),
         child: Widget.Icon({
             icon: icon,
+            // Rotate GTK Icon
+            /*
+            css: isSystrayVisible.bind().as(visible => {
+                return `
+                        -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
+                        transition: -gtk-icon-transform 0.5s;
+                        `
+            }),
+            */
         }),
     })
 }

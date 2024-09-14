@@ -43,9 +43,9 @@ export const SysTray = () => Widget.Box({
             child: Widget.Icon({
                 icon: "pan-start-symbolic",
                 size: 20,
-                // This animation no work 
+
+                // Rotate GTK Icon
                 css: isSystrayVisible.bind().as(visible => {
-                    // Rotate GTK Icon
                     return `
                             -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
                             transition: -gtk-icon-transform 0.5s;
