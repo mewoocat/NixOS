@@ -2,17 +2,29 @@
 
 
 function usage(){
-    echo ""
-    echo "   Usage"
-    echo "       theme.sh <param> <arg> <Options>"
-    echo "   Params"
-    echo "       -c | --color-scheme     (If no color scheme is provided, one will be generated from the wallpaper)"
-    echo "       -p | --pallets          Select one of the wallust pallets (Defaults to dark)"
-    echo "       -d | --dark             (Default)"
-    echo "       -l | --light"
-    echo "   Options"
-    echo "       -h | --help             Print this message"
-    echo ""
+    echo "
+    Usage
+        theme.sh <param> <arg> <Options>
+    Params
+        -w | --wallpaper <path-to-wallpaper>    Set wallpaper
+        -c | --colorscheme <colorscheme-name>   (If no color scheme is provided, one will be 
+                                                generated from the wallpaper)
+        -p | --pallets                          Select one of the wallust pallets (Defaults to dark)
+        -d | --dark                             Set a dark theme (Default)
+        -l | --light                            Set a light theme
+        -g | --generate-preset                  Generate a preset based on the current theme 
+                                                being set
+        -a | --activate-preset <preset-name>    Activate an existing preset
+        -L |                                    Activate the default light preset
+        -D |                                    Activate the default dark preset
+           | --set-as-default                   Sets theme as default light/dark
+    Options
+        -h | --help                             Print this message
+
+    Examples
+        ./theme.sh -h
+    "
+    exit 0
 }
 
 #walColors="Path/to/color/file/generated/by/matugen"
@@ -24,20 +36,19 @@ gtkThemeDark="adw-gtk3-dark"
 # Also need to generate the config file with the colorscheme variable
 # This normally would get generated when the first theme is applied
 
-
-# Usage: setWallpaper $wallpaper
 function setWallpaper(){
-    swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
-    cp $1 ~/.cache/wallpaper;                               # Cache wallpaper
+    wallpaper=$1
 
+    swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
+    cp $wallpaper ~/.cache/wallpaper;                               # Cache wallpaper
 }
 
 # Set QT theme
 # Takes in a mode (light/dark)
 function setQtTheme(){
     mode=$1
-    qtTheme=""
 
+    qtTheme=""
     if [[ $mode == "light" ]];
     then
         qtTheme="airy"
@@ -54,7 +65,6 @@ function setColors(){
     wallpaper=$1
     mode=$2
     colorscheme=$3
-
  
     setQtTheme $mode
 
@@ -95,27 +105,43 @@ function setColors(){
     #nautilus 1> /dev/null 2> /dev/null &
 }
 
-function setWallpaperTheme(){
+function setTheme(){
     wallpaper=$1
     mode=$2 # Light/Dark
     colorscheme=$3
 
     # Set wallpaper
-    setWallpaper $wallpaper
+    if [[ "$wallpaper" != "" ]]; then
+        setWallpaper $wallpaper
+    fi
 
     # Set colorscheme
     setColors $wallpaper $mode $colorscheme
-
-
 }
 
+function createPreset(){
+    wallpaper=$1
+    mode=$2 # Light/Dark
+    colorscheme=$3
+
+    echo "Creating preset..."
+}
+
+function activatePreset(){
+    name=$1
+
+    # Lookup name in preset dir
+
+    # Run setTheme with param found in preset
+
+    echo "Activating preset..."
+}
 
 # Initial values
-mode=""
 colorscheme=""
 mode="dark"
 
-# get input flags
+# Get input flags
 while getopts w:c:p:h flag
 do
     case "${flag}" in
@@ -131,8 +157,13 @@ do
     esac
 done
 
-setWallpaperTheme $wallpaper $mode $colorscheme
+# Verify inputs
+if [[ "$colorscheme" == "" ]]; then
+    echo -e "ERROR: Invalid inputs"
+    usage
+fi
 
+setTheme $wallpaper $mode $colorscheme
 
 exit 0
 
