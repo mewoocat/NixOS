@@ -4,6 +4,7 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Gtk from 'gi://Gtk'
 import { GenerateCSS } from '../Style/style.js'
+import { weather } from '../Modules/Weather.js'
 
 // Configure animations
 // I think this only applys the option to the default window
@@ -125,6 +126,11 @@ function InitilizeOptions(){
         return
     }
     print("Initing user options")
+
+    // Restart the weather polling variable
+    // Since the lat and lon have been read in, it can retrieve the weather data
+    weather.stopPoll()
+    weather.startPoll()
 
     /*
     Example:
@@ -281,6 +287,7 @@ export function GetOptions() {
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
+        print(JSON.stringify(data))
         print(`Successfully read in ${configPath + configName}`)
         InitilizeOptions()
     } 

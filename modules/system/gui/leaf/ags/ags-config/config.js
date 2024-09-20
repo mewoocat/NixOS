@@ -6,7 +6,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 App.addIcons(`${App.configDir}/assets`)
 
 print("importing options")
-import { GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
+import {data, GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
 // Loads json config and options
 GetOptions()
 
@@ -15,6 +15,8 @@ import { generalSettings, displaySettings } from './Modules/Settings.js';
 LoadOptionWidgets(Options.user.general, generalSettings)
 LoadOptionWidgets(Options.user.display, displaySettings)
 
+print("data")
+print(data)
 
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { forMonitors } from './Common.js';

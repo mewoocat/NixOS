@@ -9,6 +9,53 @@ import { data } from '../Options/options.js'
 ///////////////////////////////////
 //  Weather setup
 ///////////////////////////////////
+export const weather = Variable(null, {
+    poll: [40000, () => { 
+        /*
+        if (data == null){
+            return null
+        }
+        */
+        return getWeather()
+    }]
+})
+
+// Get data from api
+async function getWeather(){
+    // Get user lat lon
+    //TODO add variables for units
+    if (data != null){
+        print(JSON.stringify(data))
+        var lat = data.lat
+        var lon = data.lon
+        print("lat = " + lat)
+        print("lon = " + lon)
+    }
+    else{
+        print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
+        var lat = 0
+        var lon = 0
+    }
+
+    // Try to make request to weather api
+    try {
+        var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`    
+        print("URL:")
+        print(url)
+        // await is needed to wait for the return of the data
+        const weatherData = await Utils.fetch(url)
+            .then(res => res.json())
+            //.catch(console.error)
+        print("Weather data ////////////////////////////////////")
+        print(JSON.stringify(weatherData))
+        return weatherData
+    }
+
+    // If request fails
+    catch{
+        return null
+    }
+}
 
 // Read in user settings
 //const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
@@ -99,18 +146,6 @@ export const locationSearch = Widget.Entry({
 }, "changed")
 
 
-
-if (data != null){
-    var lat = data.lat
-    var lon = data.lon
-}
-else{
-    var lat = 0
-    var lon = 0
-}
-
-//TODO add variables for units
-var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`
 
 /*
 WMO Weather interpretation codes (WW)
@@ -216,26 +251,6 @@ function LookupWeatherCode(code){
 //weather-tornado-symbolic
 //weather-windy-symbolic
 
-// Get data from api
-async function getWeather(){
-    // Try to make request to weather api
-    try {
-        // await is needed to wait for the return of the data
-        const data = await Utils.fetch(url)
-            .then(res => res.json())
-            //.catch(console.error)
-        return data
-    }
-
-    // If request fails
-    catch{
-        return null
-    }
-}
-
-export const weather = Variable(null, {
-    poll: [400000, () => { return getWeather() }]
-})
 
 // Current temp
 export const currentTemp = Utils.derive([weather], (weather) => {
