@@ -1,7 +1,9 @@
 #!/bin/sh
 
 themeDir=~/.config/leaf/theme
+presetDir=~/.config/leaf/theme/presets
 mkdir -p $themeDir
+mkdir -p $presetDir
 
 function usage(){
     echo "
@@ -26,7 +28,6 @@ function usage(){
     Examples
         ./theme.sh -h
     "
-    exit 0
 }
 
 #walColors="Path/to/color/file/generated/by/matugen"
@@ -34,20 +35,7 @@ gtkThemeLight="adw-gtk3"
 gtkThemeDark="adw-gtk3-dark"
 
 
-function generatePreset(){
-    local name=$1
-    local wallpaper=$2 
-    local colorscheme=$3
 
-    # Use the wallust debug option to determine the values needed to find the path to a wallust colorscheme generated from a wallpaper
-    
-    echo -e "{\"name\": \"$name\"}" > $themeDir/$name.json
-}
-
-# TODO: Check if qt5ct and qt6ct dir's exist in .config and if not, run and kill each to generate the configs 
-# This is needed to be able to modify the color setting
-# Also need to generate the config file with the colorscheme variable
-# This normally would get generated when the first theme is applied
 
 function setWallpaper(){
     wallpaper=$1
@@ -58,6 +46,10 @@ function setWallpaper(){
 
 # Set QT theme
 # Takes in a mode (light/dark)
+# TODO: Check if qt5ct and qt6ct dir's exist in .config and if not, run and kill each to generate the configs 
+# This is needed to be able to modify the color setting
+# Also need to generate the config file with the colorscheme variable
+# This normally would get generated when the first theme is applied
 function setQtTheme(){
     mode=$1
 
@@ -132,18 +124,40 @@ function setTheme(){
     setColors $wallpaper $mode $colorscheme
 }
 
-function createPreset(){
-    wallpaper=$1
-    mode=$2 # Light/Dark
-    colorscheme=$3
+function generatePreset(){
+    local name=$1
+    local wallpaper=$2 
+    local colorscheme=$3
 
     echo "Creating preset..."
+    echo "Name: $name"
+    echo "Wallpaper: $wallpaper"
+    echo "colorscheme: $colorscheme"
+
+    # Use the wallust debug option to determine the values needed to find the path to a wallust colorscheme generated from a wallpaper
+    #
+    # Output preset information to json file 
+    echo -e "{\n\t\"name\": \"$name\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\"\n}" > $presetDir/$name.json
+
 }
 
 function activatePreset(){
-    name=$1
+    local name=$1
+
+    local presetPath="$presetDir/$name.json"
+    echo "presetPath = $presetPath" 
+
+    # Check if preset exists
+    if [[ ! -f "$presetPath" ]]; then
+        echo "ERROR: Preset doesn't exist"
+        exit 2
+    fi
 
     # Lookup name in preset dir
+    local wallpaper=$(cat "$presetPath" | jq .wallpaper)
+    local colorscheme=$(cat "$presetPath" | jq .colorscheme)
+    echo "preset wallpaper = $wallpaper"
+    echo "preset colorscheme = $colorscheme"
 
     # Run setTheme with param found in preset
 
@@ -153,9 +167,12 @@ function activatePreset(){
 # Initial values
 colorscheme=""
 mode="dark"
+createPreset=false
+presetName="default"
+activatePreset=false
 
 # Get input flags
-while getopts w:c:p:h flag
+while getopts w:c:p:hga: flag
 do
     case "${flag}" in
 
@@ -165,17 +182,29 @@ do
 
         p) mode=${OPTARG} ;;
 
-        h) usage ;;
+        g) createPreset=true ;;
+
+        a) presetName=${OPTARG}; activatePreset=true ;;
+
+        h) usage; exit 0 ;;
 
     esac
 done
 
-generatePreset "test"
-
 # Verify inputs
-if [[ "$colorscheme" == "" ]]; then
+if [[ "$colorscheme" == "" && "$wallpaper" == "" && "activatePreset" == false  ]]; then
     echo -e "ERROR: Invalid inputs"
     usage
+    exit 1
+fi
+
+if [[ "$createPreset" == true ]]; then 
+    generatePreset $presetName $wallpaper $colorscheme
+fi
+
+if [[ "$activatePreset" == true ]]; then
+    activatePreset $presetName
+    exit 0
 fi
 
 setTheme $wallpaper $mode $colorscheme
