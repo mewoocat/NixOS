@@ -1,5 +1,7 @@
 #!/bin/sh
 
+themeDir=~/.config/leaf/theme
+mkdir -p $themeDir
 
 function usage(){
     echo "
@@ -30,6 +32,17 @@ function usage(){
 #walColors="Path/to/color/file/generated/by/matugen"
 gtkThemeLight="adw-gtk3"
 gtkThemeDark="adw-gtk3-dark"
+
+
+function generatePreset(){
+    local name=$1
+    local wallpaper=$2 
+    local colorscheme=$3
+
+    # Use the wallust debug option to determine the values needed to find the path to a wallust colorscheme generated from a wallpaper
+    
+    echo -e "{\"name\": \"$name\"}" > $themeDir/$name.json
+}
 
 # TODO: Check if qt5ct and qt6ct dir's exist in .config and if not, run and kill each to generate the configs 
 # This is needed to be able to modify the color setting
@@ -156,6 +169,8 @@ do
 
     esac
 done
+
+generatePreset "test"
 
 # Verify inputs
 if [[ "$colorscheme" == "" ]]; then
