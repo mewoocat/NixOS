@@ -19,6 +19,7 @@
     isNormalUser = true;
     extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
+      inputs.zen-browser.packages."${system}".default
     ];
   };
 

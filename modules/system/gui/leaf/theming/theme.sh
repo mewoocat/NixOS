@@ -2,8 +2,20 @@
 
 themeDir=~/.config/leaf/theme
 presetDir=~/.config/leaf/theme/presets
+
 mkdir -p $themeDir
 mkdir -p $presetDir
+
+gtkThemeLight="adw-gtk3"
+gtkThemeDark="adw-gtk3-dark"
+
+# Globals variables
+wallpaper=""
+colorscheme=""
+mode="dark" # Light/Dark
+createPreset=false
+activatePreset=false
+presetName="default"
 
 function usage(){
     echo "
@@ -22,6 +34,7 @@ function usage(){
         -L |                                    Activate the default light preset
         -D |                                    Activate the default dark preset
            | --set-as-default                   Sets theme as default light/dark
+        -n | --name                             Set a name when generating a preset
     Options
         -h | --help                             Print this message
 
@@ -30,17 +43,9 @@ function usage(){
     "
 }
 
-#walColors="Path/to/color/file/generated/by/matugen"
-gtkThemeLight="adw-gtk3"
-gtkThemeDark="adw-gtk3-dark"
-
-
-
-
 function setWallpaper(){
-    wallpaper=$1
-
-    swww img -t "simple" --transition-step 255 $1;          # Set wallpaper
+    echo "INFO: setWallpaper()"
+    swww img -t "simple" --transition-step 255 $wallpaper;          # Set wallpaper
     cp $wallpaper ~/.cache/wallpaper;                               # Cache wallpaper
 }
 
@@ -51,7 +56,6 @@ function setWallpaper(){
 # Also need to generate the config file with the colorscheme variable
 # This normally would get generated when the first theme is applied
 function setQtTheme(){
-    mode=$1
 
     qtTheme=""
     if [[ $mode == "light" ]];
@@ -67,10 +71,6 @@ function setQtTheme(){
 }
 
 function setColors(){
-    wallpaper=$1
-    mode=$2
-    colorscheme=$3
- 
     setQtTheme $mode
 
     # Determine mode (light/dark)
@@ -111,40 +111,33 @@ function setColors(){
 }
 
 function setTheme(){
-    wallpaper=$1
-    mode=$2 # Light/Dark
-    colorscheme=$3
+
+    echo "setTheme wallpaper = $wallpaper"
 
     # Set wallpaper
     if [[ "$wallpaper" != "" ]]; then
-        setWallpaper $wallpaper
+        setWallpaper
     fi
 
     # Set colorscheme
-    setColors $wallpaper $mode $colorscheme
+    setColors
 }
 
 function generatePreset(){
-    local name=$1
-    local wallpaper=$2 
-    local colorscheme=$3
-
     echo "Creating preset..."
-    echo "Name: $name"
+    echo "Name: $presetName"
     echo "Wallpaper: $wallpaper"
     echo "colorscheme: $colorscheme"
 
     # Use the wallust debug option to determine the values needed to find the path to a wallust colorscheme generated from a wallpaper
     #
     # Output preset information to json file 
-    echo -e "{\n\t\"name\": \"$name\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\"\n}" > $presetDir/$name.json
+    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\"\n}" > $presetDir/$presetName.json
 
 }
 
 function activatePreset(){
-    local name=$1
-
-    local presetPath="$presetDir/$name.json"
+    local presetPath="$presetDir/$presetName.json"
     echo "presetPath = $presetPath" 
 
     # Check if preset exists
@@ -153,26 +146,14 @@ function activatePreset(){
         exit 2
     fi
 
-    # Lookup name in preset dir
-    local wallpaper=$(cat "$presetPath" | jq .wallpaper)
-    local colorscheme=$(cat "$presetPath" | jq .colorscheme)
+    wallpaper=$(cat "$presetPath" | jq -r .wallpaper)
+    colorscheme=$(cat "$presetPath" | jq -r .colorscheme)
     echo "preset wallpaper = $wallpaper"
     echo "preset colorscheme = $colorscheme"
-
-    # Run setTheme with param found in preset
-
-    echo "Activating preset..."
 }
 
-# Initial values
-colorscheme=""
-mode="dark"
-createPreset=false
-presetName="default"
-activatePreset=false
-
 # Get input flags
-while getopts w:c:p:hga: flag
+while getopts w:c:p:hga:n: flag
 do
     case "${flag}" in
 
@@ -185,29 +166,39 @@ do
         g) createPreset=true ;;
 
         a) presetName=${OPTARG}; activatePreset=true ;;
+        
+        n) presetName=${OPTARG} ;;
 
         h) usage; exit 0 ;;
 
     esac
 done
 
+echo "colorscheme = $colorscheme"
+echo "wallpaper = $wallpaper"
+echo "mode = $mode"
+echo "activatePreset = $activatePreset"
+
+
 # Verify inputs
-if [[ "$colorscheme" == "" && "$wallpaper" == "" && "activatePreset" == false  ]]; then
+if [[ "$colorscheme" == "" && "$wallpaper" == "" && "$activatePreset" == false  ]]; then
     echo -e "ERROR: Invalid inputs"
+    echo "A colorscheme, wallpaper, or preset must be specified"
     usage
     exit 1
 fi
 
 if [[ "$createPreset" == true ]]; then 
-    generatePreset $presetName $wallpaper $colorscheme
+    generatePreset
 fi
 
 if [[ "$activatePreset" == true ]]; then
     activatePreset $presetName
+    setTheme
     exit 0
 fi
 
-setTheme $wallpaper $mode $colorscheme
+setTheme
 
 exit 0
 
