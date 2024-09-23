@@ -15,9 +15,9 @@
             if [[ -n $ZELLIJ ]]; then
                 local current_dir=$PWD
                 if [[ $current_dir == $HOME ]]; then
-                    current_dir="~"
+                    current_dir="~/"
                 else
-                    current_dir=''\${current_dir##*/}
+                    current_dir=''\${current_dir##*/}/
                 fi
                 command nohup zellij action rename-tab $current_dir >/dev/null 2>&1
             fi
@@ -35,11 +35,11 @@
 
     programs.zellij = {
       enable = true;
-      enableBashIntegration = true;
+      #enableBashIntegration = true;
       settings = {
         copy_command = "wl-copy";
         pane_frames = false;
-        simplified_ui = true;
+        simplified_ui = false;
         ui.pane_frames = {
           hide_session_name = true;
           rounded_corners = true;
@@ -50,7 +50,7 @@
         default_layout = "normal";
 
         theme = "default";
-        # Need to declaritivley create this dir
+        # TODO: Need to declaritivley create this dir
         theme_dir = "/home/${config.username}/.config/zellij/themes";
         themes = {
           gruvbox-dark = {
