@@ -26,8 +26,8 @@ function usage(){
         -c | --colorscheme <colorscheme-name>   (If no color scheme is provided, one will be 
                                                 generated from the wallpaper)
         -p | --pallets                          Select one of the wallust pallets (Defaults to dark)
-        -d | --dark                             Set a dark theme (Default)
-        -l | --light                            Set a light theme
+        -d | --dark                             Set a dark colorscheme (Default)
+        -l | --light                            Set a light colorscheme
         -g | --generate-preset                  Generate a preset based on the current theme 
                                                 being set
         -a | --activate-preset <preset-name>    Activate an existing preset
@@ -35,6 +35,7 @@ function usage(){
         -D |                                    Activate the default dark preset
            | --set-as-default                   Sets theme as default light/dark
         -n | --name                             Set a name when generating a preset
+        -G | --get-active-theme                
     Options
         -h | --help                             Print this message
 
@@ -114,6 +115,11 @@ function setTheme(){
 
     echo "setTheme wallpaper = $wallpaper"
 
+    # Set theme as active
+    presetDir=$presetDir/..
+    presetName=$activeTheme
+    generatePreset
+
     # Set wallpaper
     if [[ "$wallpaper" != "" ]]; then
         setWallpaper
@@ -148,27 +154,25 @@ function activatePreset(){
 
     wallpaper=$(cat "$presetPath" | jq -r .wallpaper)
     colorscheme=$(cat "$presetPath" | jq -r .colorscheme)
+    mode=$(cat "$presetPath" | jq -r .mode)
     echo "preset wallpaper = $wallpaper"
     echo "preset colorscheme = $colorscheme"
+
+    setTheme
 }
 
 # Get input flags
-while getopts w:c:p:hga:n: flag
+while getopts w:c:p:hga:n:DL flag
 do
     case "${flag}" in
-
         w) wallpaper=${OPTARG}; ;;
-
         c) colorscheme=${OPTARG} ;;
-
         p) mode=${OPTARG} ;;
-
         g) createPreset=true ;;
-
         a) presetName=${OPTARG}; activatePreset=true ;;
-        
         n) presetName=${OPTARG} ;;
-
+        D) presetName="default-dark"; activatePreset; exit 0 ;; 
+        L) presetName="default-light"; activatePreset; exit 0 ;; 
         h) usage; exit 0 ;;
 
     esac
@@ -193,8 +197,7 @@ if [[ "$createPreset" == true ]]; then
 fi
 
 if [[ "$activatePreset" == true ]]; then
-    activatePreset $presetName
-    setTheme
+    activatePreset
     exit 0
 fi
 
