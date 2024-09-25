@@ -26,6 +26,8 @@ export const ThemeMenu = () => Widget.Box({
                 print(uri)
             },
         }),
+
+        // Light / dark toggle switch
         Widget.Switch({
             class_name: "switch-off",
             onActivate: (self) => {
@@ -33,6 +35,13 @@ export const ThemeMenu = () => Widget.Box({
                 print("INFO: self.active: " + self.active)
                 self.toggleClassName("switch-off", !self.active)
                 self.toggleClassName("switch-on", self.active)
+                print(self.active)
+                if (self.active){
+                    execAsync(`theme -L`)
+                }
+                else {
+                    execAsync(`theme -D`)
+                }
             },
             hpack: "end",
             vpack: "center",

@@ -35,7 +35,8 @@ function usage(){
         -D |                                    Activate the default dark preset
            | --set-as-default                   Sets theme as default light/dark
         -n | --name                             Set a name when generating a preset
-        -G | --get-active-theme                
+        #-G | --get-active-theme                
+        #-m | --get-current-mode                 Returns either "light" or "dark" given the current mode
     Options
         -h | --help                             Print this message
 
@@ -115,9 +116,9 @@ function setTheme(){
 
     echo "setTheme wallpaper = $wallpaper"
 
-    # Set theme as active
+    # Set theme as active by creating a current-theme.json file in ~/.config/leaf/theme
     presetDir=$presetDir/..
-    presetName=$activeTheme
+    presetName="current-theme"
     generatePreset
 
     # Set wallpaper
@@ -161,6 +162,11 @@ function activatePreset(){
     setTheme
 }
 
+# Echos path current theme .json
+getActiveTheme(){
+    echo "hello"
+}
+
 # Get input flags
 while getopts w:c:p:hga:n:DL flag
 do
@@ -173,6 +179,7 @@ do
         n) presetName=${OPTARG} ;;
         D) presetName="default-dark"; activatePreset; exit 0 ;; 
         L) presetName="default-light"; activatePreset; exit 0 ;; 
+        #G) ; exit 0 ;;
         h) usage; exit 0 ;;
 
     esac
