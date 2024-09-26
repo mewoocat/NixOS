@@ -18,6 +18,17 @@ export const ThemeButton = (w, h) => Widget.Button({
     })
 })
 
+function GetThemeState() {
+    // WARNING: Assumes ags config dir is located at ~/.config/ags
+    let CurrentThemeJsonPath = `${App.configDir}/../leaf/theme/current-theme.json`
+    let CurrentThemeJson = JSON.parse(Utils.readFile(CurrentThemeJsonPath))
+    print(JSON.stringify(CurrentThemeJson.mode))
+    return CurrentThemeJson.mode
+}
+
+GetThemeState()
+
+export const ThemeState = Variable(GetThemeState(), {})
 export const ThemeMenu = () => Widget.Box({
     vertical: true,
     children: [
@@ -28,29 +39,46 @@ export const ThemeMenu = () => Widget.Box({
         }),
 
         // Light / dark toggle switch
-        Widget.Switch({
-            class_name: "switch-off",
-            onActivate: (self) => {
-                print("INFO: Switch onActivate called")
-                print("INFO: self.active: " + self.active)
-                self.toggleClassName("switch-off", !self.active)
-                self.toggleClassName("switch-on", self.active)
-                print(self.active)
-                if (self.active){
-                    execAsync(`theme -L`)
-                }
-                else {
-                    execAsync(`theme -D`)
-                }
-            },
-            hpack: "end",
-            vpack: "center",
-            active: true,
-            setup: (self) => {
-                self.toggleClassName("switch-off", !self.active)
-                self.toggleClassName("switch-on", self.active)
-            }
+        Widget.Box({
+            children: [
+                Widget.Label({
+                    label: ThemeState.bind().as(v => v[0].toUpperCase() + v.slice(1)),
+                }),
+                Widget.Switch({
+                    class_name: "switch-off",
+                    onActivate: (self) => {
+                        print("INFO: Switch onActivate called")
+                        print("INFO: self.active: " + self.active)
+                        self.toggleClassName("switch-off", !self.active)
+                        self.toggleClassName("switch-on", self.active)
+                        print(self.active)
+                        if (self.active){
+                            ThemeState.value = "Dark"
+                            execAsync(`theme -D`)
+                        }
+                        else {
+                            ThemeState.value = "Light"
+                            execAsync(`theme -L`)
+                        }
+                    },
+                    hpack: "end",
+                    vpack: "center",
+                    active: true,
+                    setup: (self) => {
+                        self.toggleClassName("switch-off", !self.active)
+                        self.toggleClassName("switch-on", self.active)
+                        
+                        if (ThemeState.value == "dark"){
+                            self.active = true
+                        }
+                        else{
+                            self.active = false
+                        }
+                    }
+                }),
+            ],
         }),
+
         Widget.Button({
             class_name: "normal-button",
             onPrimaryClick: () => {
