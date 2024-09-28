@@ -7,8 +7,16 @@ presetDir="$LEAF_CONFIG_DIR/theme/presets"
 currentThemePath="$LEAF_CONFIG_DIR/theme/current-theme.json"
 recentThemesPath="$LEAF_CONFIG_DIR/theme/recent-themes.json"
 
+# Create directories and files if they do not exist
 mkdir -p $themeDir
 mkdir -p $presetDir
+if [ ! -f $currentThemePath ]; then
+    echo "null" > $currentThemePath  
+fi
+if [ ! -f $recentThemesPath ]; then
+    # Make empty json array
+    echo "[]" > $recentThemesPath
+fi
 
 gtkThemeLight="adw-gtk3"
 gtkThemeDark="adw-gtk3-dark"
@@ -173,16 +181,30 @@ getActiveTheme(){
 
 addThemeToRecents(){
     # Get recent themes
-    local json=$(cat $recentThemesPath)
-    #recentThemes=$(cat "$recentThemesPath" | jq -r '.recent-themes[0]')
-    #recentThemesArray=$(echo "$recentThemesJson" | jq .recent-themes)
+    #local json=$(cat $recentThemesPath)
     local currentTheme=$(cat $currentThemePath | jq '.')
+    echo "Current theme:"
     echo $currentTheme
+
+    # If theme is already in recents then move it to the front of the list
+
+    # Check if theme to be added already exists
+    # Returns null if it doesn't exist, returns the index in the array if it does exist
+    local existingThemeIndex=$(cat $recentThemesPath | jq ". | index($currentTheme)") 
+    echo $existingThemeIndex
+
+    # If the theme being set doesn't exist in the recent themes
+    if [[ $existingThemeIndex == "null" ]]; then
+        echo "Theme not in recents" 
+        # Move themes over and replace the first one with the new theme
+        cat $recentThemesPath | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme"
+    else
+        echo "Theme in recents"
+        # Creates a new json array by moving the existing theme to the front and moves everything before it down 1
+        cat $recentThemesPath | jq "[.[$existingThemeIndex]] + .[0:$existingThemeIndex] + .[$existingThemeIndex + 1:]"
+        exit
+    fi
     
-    # Move themes over 
-    cat ~/.config/leaf/theme/recent-themes.json | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme"
-    #echo $json | jq '.recent-themes[0]'
-    #echo "${recentThemesArray[1]}"
 }
 addThemeToRecents
 exit 0
