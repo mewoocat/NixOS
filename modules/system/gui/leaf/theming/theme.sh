@@ -24,6 +24,7 @@ gtkThemeDark="adw-gtk3-dark"
 # Globals variables
 wallpaper=""
 colorscheme=""
+colorSchemePath=""
 mode="dark" # Light/Dark
 createPreset=false
 activatePreset=false
@@ -108,8 +109,8 @@ function setColors(){
     # Use provided colorscheme
     else
         #colorscheme=~/.config/wal/colorschemes/$mode/$colorscheme.json
-        colorscheme=~/.config/wallust/pywal-colors/$mode/$colorscheme.json
-        wallust cs $colorscheme  
+        colorschemePath=~/.config/wallust/pywal-colors/$mode/$colorscheme.json
+        wallust cs $colorschemePath
     fi
 
     # Reload GTK theme
@@ -192,18 +193,22 @@ addThemeToRecents(){
     # Returns null if it doesn't exist, returns the index in the array if it does exist
     local existingThemeIndex=$(cat $recentThemesPath | jq ". | index($currentTheme)") 
     echo $existingThemeIndex
+    local recentThemesModified="null"
 
     # If the theme being set doesn't exist in the recent themes
     if [[ $existingThemeIndex == "null" ]]; then
         echo "Theme not in recents" 
         # Move themes over and replace the first one with the new theme
-        cat $recentThemesPath | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme"
+        recentThemesModified=$(cat $recentThemesPath | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme")
     else
         echo "Theme in recents"
         # Creates a new json array by moving the existing theme to the front and moves everything before it down 1
-        cat $recentThemesPath | jq "[.[$existingThemeIndex]] + .[0:$existingThemeIndex] + .[$existingThemeIndex + 1:]"
-        exit
+        recentThemesModified=$(cat $recentThemesPath | jq "[.[$existingThemeIndex]] + .[0:$existingThemeIndex] + .[$existingThemeIndex + 1:]")
     fi
+
+    # Overwrite the existing recent-themes.json
+    echo $recentThemesModified
+    echo $recentThemesModified > $recentThemesPath
     
 }
 addThemeToRecents

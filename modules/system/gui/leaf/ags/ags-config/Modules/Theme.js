@@ -30,50 +30,85 @@ function GetThemeState() {
 
 // WARNING: Assumes ags config dir is located at ~/.config/ags
 const RecentThemesPath = `${App.configDir}/../leaf/theme/recent-themes.json`
-const RecentThemes = Variable({})
+
+// Returns a list of the recent themes as widgets given the recent-themes.json as input
+const GenerateRecentThemeWidgets = (recentThemesJson) => {
+    
+    print(JSON.stringify(recentThemesJson, null, 4)) 
+
+    let recentThemesList = []
+
+    for (let themeKey in recentThemesJson){
+        let theme = recentThemesJson[themeKey]
+
+        print("INFO: Theme = " + JSON.stringify(theme))
+
+        // Error checking
+        if (theme == null || theme.colorscheme == ""){
+            print("Error processing theme")
+            continue
+        }
+
+        // Generating colorscheme widget
+        let colorschemeJsonPath = theme.colorscheme 
+        // If no colorscheme was provided, skip
+        let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
+        const colorGrid = new Gtk.Grid()
+        let colors = colorschemeJson["colors"]
+        let colorNum = 0
+        for (let key in colors){
+            let color = colors[key]
+            print("Color = " + color)
+            let colorWidget = Widget.Box({
+                css: `
+                    background-color: ${color};
+                    min-width: 2em;
+                    min-height: 2em;
+                    border-radius: 100%;
+                    margin: 0.2em;
+                `,
+            })
+            let col = colorNum < 8 ? colorNum + 1 : colorNum + 1 - 8
+            let row = colorNum < 8 ? 1 : 2
+            print(`row = ${row} | col = ${col}`)
+            // Usage: Grid.attach(widget, columnNum, rowNum, widthNum, heighNum) 
+            colorGrid.attach(colorWidget, col, row, 1, 1)
+            colorNum++
+        }
+
+        let themeWidget = Widget.Box({
+            children: [
+                // Name
+                Widget.Label({
+                    label: theme.name,
+                }),
+                colorGrid
+                // Colorscheme
+                // Wallpaper
+            ]
+        })
+
+        recentThemesList.push(themeWidget)
+
+    }
+    
+    return recentThemesList
+}
+
+// Stores a list of the recent themes as widgets
+print("/////////////////////////////////////////////////////////")
+const RecentThemes = Variable(GenerateRecentThemeWidgets(JSON.parse(Utils.readFile(RecentThemesPath))))
+
 const RecentThemesMonitor = Utils.monitorFile(RecentThemesPath, (file, event) => {
-    print(Utils.readFile(file), event)
+    print("")
+    var contents = Utils.readFile(file)
+    print(JSON.stringify(contents), null, 4)
+    // Regenerate the themes
+    RecentThemes.value = GenerateRecentThemeWidgets(JSON.parse(contents))
+    print("")
 })
 
 
-export const GenerateColorschemeWidget = (colorschemeJsonPath) => {
-
-    let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
-
-    const colorGrid = new Gtk.Grid()
-    // Usage:
-    //     Grid.attach(columnNum, rowNum, widthNum, heighNum) 
-
-    let colors = colorschemeJson["colors"]
-
-    let colorNum = 0
-    for (let key in colors){
-        let color = colors[key]
-        print("Color = " + color)
-        let colorWidget = Widget.Box({
-            css: `
-                background-color: ${color};
-                min-width: 2em;
-                min-height: 2em;
-                border-radius: 100%;
-                margin: 0.2em;
-            `,
-        })
-        let col = colorNum < 8 ? colorNum + 1 : colorNum + 1 - 8
-        let row = colorNum < 8 ? 1 : 2
-        print(`row = ${row} | col = ${col}`)
-        colorGrid.attach(colorWidget, col, row, 1, 1)
-        colorNum++
-    }
-
-    print("")
-
-    return Widget.Box({
-        children: [
-            colorGrid,
-        ],
-    })
-}
 
 GetThemeState()
 
@@ -133,13 +168,19 @@ export const ThemeMenu = () => Widget.Box({
             ],
         }),
 
+        Widget.Label({
+            label: "TEST",
+        }),
+
+        // Recent themes
         Widget.Box({
             vertical: true,
-            children: [
-                GenerateColorschemeWidget("/home/eXia/.config/wallust/pywal-colors/dark/3024.json"),
-                GenerateColorschemeWidget("/home/eXia/.config/wallust/pywal-colors/dark/base16-embers.json"),
-            ]
-        })
+            css: `
+                min-height: 100px;
+                background-color: red;
+            `,
+            children: RecentThemes.bind(),
+        }),
     ]
 })
 
