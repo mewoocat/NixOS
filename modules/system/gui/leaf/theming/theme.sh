@@ -1,7 +1,11 @@
 #!/bin/sh
 
-themeDir=~/.config/leaf/theme
-presetDir=~/.config/leaf/theme/presets
+LEAF_CONFIG_DIR=~/.config/leaf
+
+themeDir="$LEAF_CONFIG_DIR/theme"
+presetDir="$LEAF_CONFIG_DIR/theme/presets"
+currentThemePath="$LEAF_CONFIG_DIR/theme/current-theme.json"
+recentThemesPath="$LEAF_CONFIG_DIR/theme/recent-themes.json"
 
 mkdir -p $themeDir
 mkdir -p $presetDir
@@ -166,6 +170,22 @@ function activatePreset(){
 getActiveTheme(){
     echo "hello"
 }
+
+addThemeToRecents(){
+    # Get recent themes
+    local json=$(cat $recentThemesPath)
+    #recentThemes=$(cat "$recentThemesPath" | jq -r '.recent-themes[0]')
+    #recentThemesArray=$(echo "$recentThemesJson" | jq .recent-themes)
+    local currentTheme=$(cat $currentThemePath | jq '.')
+    echo $currentTheme
+    
+    # Move themes over 
+    cat ~/.config/leaf/theme/recent-themes.json | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme"
+    #echo $json | jq '.recent-themes[0]'
+    #echo "${recentThemesArray[1]}"
+}
+addThemeToRecents
+exit 0
 
 # Get input flags
 while getopts w:c:p:hga:n:DL flag

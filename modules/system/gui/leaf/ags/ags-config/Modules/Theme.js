@@ -1,6 +1,8 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Gtk from 'gi://Gtk'
 import { ControlPanelTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
+//import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 export const ThemeButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
@@ -26,6 +28,53 @@ function GetThemeState() {
     return CurrentThemeJson.mode
 }
 
+// WARNING: Assumes ags config dir is located at ~/.config/ags
+const RecentThemesPath = `${App.configDir}/../leaf/theme/recent-themes.json`
+const RecentThemes = Variable({})
+const RecentThemesMonitor = Utils.monitorFile(RecentThemesPath, (file, event) => {
+    print(Utils.readFile(file), event)
+})
+
+
+export const GenerateColorschemeWidget = (colorschemeJsonPath) => {
+
+    let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
+
+    const colorGrid = new Gtk.Grid()
+    // Usage:
+    //     Grid.attach(columnNum, rowNum, widthNum, heighNum) 
+
+    let colors = colorschemeJson["colors"]
+
+    let colorNum = 0
+    for (let key in colors){
+        let color = colors[key]
+        print("Color = " + color)
+        let colorWidget = Widget.Box({
+            css: `
+                background-color: ${color};
+                min-width: 2em;
+                min-height: 2em;
+                border-radius: 100%;
+                margin: 0.2em;
+            `,
+        })
+        let col = colorNum < 8 ? colorNum + 1 : colorNum + 1 - 8
+        let row = colorNum < 8 ? 1 : 2
+        print(`row = ${row} | col = ${col}`)
+        colorGrid.attach(colorWidget, col, row, 1, 1)
+        colorNum++
+    }
+
+    print("")
+
+    return Widget.Box({
+        children: [
+            colorGrid,
+        ],
+    })
+}
+
 GetThemeState()
 
 export const ThemeState = Variable(GetThemeState(), {})
@@ -40,12 +89,17 @@ export const ThemeMenu = () => Widget.Box({
 
         // Light / dark toggle switch
         Widget.Box({
+            css: `
+                margin: 0.4em;
+            `,
             children: [
                 Widget.Label({
                     label: ThemeState.bind().as(v => v[0].toUpperCase() + v.slice(1)),
                 }),
                 Widget.Switch({
                     class_name: "switch-off",
+                    hexpand: true,
+                    hpack: "end",
                     onActivate: (self) => {
                         print("INFO: Switch onActivate called")
                         print("INFO: self.active: " + self.active)
@@ -79,23 +133,12 @@ export const ThemeMenu = () => Widget.Box({
             ],
         }),
 
-        Widget.Button({
-            class_name: "normal-button",
-            onPrimaryClick: () => {
-                execAsync(['bash', '-c', 'theme -D'])
-            }, 
-            child: Widget.Label({
-                label: "Dark theme",
-            }),
-        }),
-        Widget.Button({
-            class_name: "normal-button",
-            onPrimaryClick: () => {
-                execAsync(['bash', '-c', 'theme -L'])
-            }, 
-            child: Widget.Label({
-                label: "Light theme",
-            }),
+        Widget.Box({
+            vertical: true,
+            children: [
+                GenerateColorschemeWidget("/home/eXia/.config/wallust/pywal-colors/dark/3024.json"),
+                GenerateColorschemeWidget("/home/eXia/.config/wallust/pywal-colors/dark/base16-embers.json"),
+            ]
         })
     ]
 })
