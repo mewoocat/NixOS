@@ -15,9 +15,6 @@ import { generalSettings, displaySettings } from './Modules/Settings.js';
 LoadOptionWidgets(Options.user.general, generalSettings)
 LoadOptionWidgets(Options.user.display, displaySettings)
 
-print("data")
-print(data)
-
 import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
 import { forMonitors } from './Common.js';
 import { monitorFile } from 'resource:///com/github/Aylur/ags/utils.js';

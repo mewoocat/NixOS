@@ -24,7 +24,7 @@ function GetThemeState() {
     // WARNING: Assumes ags config dir is located at ~/.config/ags
     let CurrentThemeJsonPath = `${App.configDir}/../leaf/theme/current-theme.json`
     let CurrentThemeJson = JSON.parse(Utils.readFile(CurrentThemeJsonPath))
-    print(JSON.stringify(CurrentThemeJson.mode))
+    //print(JSON.stringify(CurrentThemeJson.mode))
     return CurrentThemeJson.mode
 }
 
@@ -34,14 +34,14 @@ const RecentThemesPath = `${App.configDir}/../leaf/theme/recent-themes.json`
 // Returns a list of the recent themes as widgets given the recent-themes.json as input
 const GenerateRecentThemeWidgets = (recentThemesJson) => {
     
-    print(JSON.stringify(recentThemesJson, null, 4)) 
+    //print(JSON.stringify(recentThemesJson, null, 4)) 
 
     let recentThemesList = []
 
     for (let themeKey in recentThemesJson){
         let theme = recentThemesJson[themeKey]
 
-        print("INFO: Theme = " + JSON.stringify(theme))
+        //print("INFO: Theme = " + JSON.stringify(theme))
 
         // Error checking
         if (theme == null || theme.colorscheme == ""){
@@ -51,10 +51,12 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 
         // Generating colorscheme widget
         let colorschemeJsonPath = theme.colorschemePath
-        print("colorschemeJsonPath = " + colorschemeJsonPath)
         let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
         const colorGrid = new Gtk.Grid()
         let colors = colorschemeJson["colors"]
+
+        // Add all colors
+        /*
         let colorNum = 0
         for (let key in colors){
             let color = colors[key]
@@ -75,6 +77,23 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
             colorGrid.attach(colorWidget, col, row, 1, 1)
             colorNum++
         }
+        */
+
+        // Add colors 1-7
+        for (let i = 1; i < 8; i++){
+            let color = colors[`color${i}`]
+            let colorWidget = Widget.Box({
+                css: `
+                    background-color: ${color};
+                    min-width: 1em;
+                    min-height: 1em;
+                    border-radius: 100%;
+                    margin: 0.2em;
+                `,
+            })
+            colorGrid.attach(colorWidget, i, 1, 1, 1)
+        }
+
 
         let themeWidget = Widget.Button({
             on_primary_click: () => {
@@ -101,9 +120,11 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
                                     background-color: ${colorschemeJson.special.background};
                                     border-radius: 1em;
                                     padding: 0.4em;
+                                    min-height: 64px;
                                 `,
                                 hpack: "end",
                                 hexpand: true,
+                                vpack: "center",
                                 children: [
                                     colorGrid,
                                 ],
@@ -124,19 +145,13 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 }
 
 // Stores a list of the recent themes as widgets
-print("/////////////////////////////////////////////////////////")
-print(RecentThemesPath)
 const recentThemesJson = JSON.parse(Utils.readFile(RecentThemesPath))
-print("JSON data = " + JSON.stringify(recentThemesJson))
 const RecentThemes = Variable(GenerateRecentThemeWidgets(recentThemesJson))
 
 const RecentThemesMonitor = Utils.monitorFile(RecentThemesPath, (file, event) => {
-    print("")
     var contents = Utils.readFile(file)
-    print(JSON.stringify(contents), null, 4)
     // Regenerate the themes
     RecentThemes.value = GenerateRecentThemeWidgets(JSON.parse(contents))
-    print("")
 })
 
 
@@ -201,6 +216,9 @@ export const ThemeMenu = () => Widget.Box({
 
         Widget.Label({
             hpack: "start",
+            css: `
+                margin-bottom: 0.4em;
+            `,
             label: "Recent themes",
         }),
         // Recent themes

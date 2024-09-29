@@ -42,6 +42,7 @@ export const ClientIcon = () => Widget.Icon({
 export const ToggleScratchpad = () => Widget.Button({
     class_name: "normal-button",
     on_primary_click: () => Hyprland.messageAsync(`dispatch togglespecialworkspace`),
+    tooltip_text: "Scratchpad",
     child: Widget.Icon({
         size: 20,
         icon: "focus-windows-symbolic",

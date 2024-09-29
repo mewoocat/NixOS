@@ -42,7 +42,6 @@ export function CreateOptionWidget(option){
             return Widget.Slider({
                 onChange: ({ value }) => {
                     settingsChanged.value = true
-                    print(value)
                 },
                 hexpand: true,
                 vpack: "center",
@@ -277,7 +276,7 @@ function InitilizeOptions(){
         }
     }
     print("User options initilized:")
-    print(JSON.stringify(Options.user, null, 4))
+    //print(JSON.stringify(Options.user, null, 4))
 }
 
 
@@ -287,7 +286,7 @@ export function GetOptions() {
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
-        print(JSON.stringify(data))
+        //print(JSON.stringify(data, null, 4))
         print(`Successfully read in ${configPath + configName}`)
         InitilizeOptions()
     } 

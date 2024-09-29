@@ -25,11 +25,8 @@ async function getWeather(){
     // Get user lat lon
     //TODO add variables for units
     if (data != null){
-        print(JSON.stringify(data))
         var lat = data.lat
         var lon = data.lon
-        print("lat = " + lat)
-        print("lon = " + lon)
     }
     else{
         print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
@@ -40,14 +37,10 @@ async function getWeather(){
     // Try to make request to weather api
     try {
         var url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`    
-        print("URL:")
-        print(url)
         // await is needed to wait for the return of the data
         const weatherData = await Utils.fetch(url)
             .then(res => res.json())
             //.catch(console.error)
-        print("Weather data ////////////////////////////////////")
-        print(JSON.stringify(weatherData))
         return weatherData
     }
 
