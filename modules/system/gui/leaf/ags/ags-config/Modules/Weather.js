@@ -91,6 +91,7 @@ async function updateCities(text){
 
 }
 
+/*
 
 const listStore = new Gtk.ListStore()
 listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
@@ -138,7 +139,7 @@ export const locationSearch = Widget.Entry({
     self.set_completion(completion)
 }, "changed")
 
-
+*/
 
 /*
 WMO Weather interpretation codes (WW)

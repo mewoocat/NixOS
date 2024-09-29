@@ -11,7 +11,8 @@ import { ControlPanelBox } from './ControlPanel.js'
 
 import Gtk from 'gi://Gtk';
 // Usage: grid.attach(Widget, col, row, width, height)
-const grid = new Gtk.Grid()
+import { Grid } from '../Global.js';
+const grid = Grid()
 grid.attach(CalendarContainer(12, 12), 1, 1, 1, 1)
 grid.attach(ControlPanelBox(Weather(), 12, 12), 1, 2, 1, 1)
 

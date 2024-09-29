@@ -71,7 +71,9 @@ export function ControlPanelBox(widget, w, h) {
 
 
 
-const grid = new Gtk.Grid()
+import { Grid } from '../Global.js';
+const grid = Grid()
+
 // Usage:
 //     Grid.attach(columnNum, rowNum, widthNum, heighNum)
 
@@ -81,7 +83,7 @@ const grid = new Gtk.Grid()
 //////////////////////////////////////////////////////////////////
 
 // Wireless
-const wirelessGrid = new Gtk.Grid()
+const wirelessGrid = Grid()
 const wirelessWidget = ControlPanelBox(
     Widget.Box({
         hpack: "fill",
@@ -107,7 +109,7 @@ const systemStatsWidget = ControlPanelBox(
     Options.system.large,
 )
 
-const buttonGrid = new Gtk.Grid()
+const buttonGrid = Grid()
 buttonGrid.attach(NightLightButton(Options.system.small, Options.system.small), 1, 1, 1, 1)
 buttonGrid.attach(PowerProfilesButton(Options.system.small, Options.system.small), 1, 2, 1, 1)
 buttonGrid.attach(ThemeButton(Options.system.small, Options.system.small), 2, 1, 1, 1)
@@ -146,16 +148,16 @@ const bottom = Widget.CenterBox({
 })
 
 // Row 1
-const row1 = new Gtk.Grid()
+const row1 = Grid()
 row1.attach(wirelessWidget, 1, 1, 1, 1)
 row1.attach(buttonGrid, 2, 1, 1, 1)
 
 // Row 2
-const row2 = new Gtk.Grid()
+const row2 = Grid()
 row2.attach(sliders, 1,2,2,1)
 
 // Row 3
-const row3 = new Gtk.Grid()
+const row3 = Grid()
 if (Battery.available){
     row3.attach(BatteryWidget(Options.system.large, Options.system.large), 1, 3, 1, 1)
 }
@@ -165,7 +167,7 @@ else{
 row3.attach(systemStatsWidget, 2, 3, 1, 1)
 
 // Row 4
-const row4 = new Gtk.Grid()
+const row4 = Grid()
 row4.attach(bottom, 1,4,2,1)
 
 

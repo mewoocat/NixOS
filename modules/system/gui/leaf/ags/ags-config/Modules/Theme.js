@@ -2,6 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Gtk from 'gi://Gtk'
 import { ControlPanelTab } from '../Global.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
+import { Grid } from '../Global.js';
 //import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 export const ThemeButton = (w, h) => Widget.Button({
@@ -52,7 +53,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
         // Generating colorscheme widget
         let colorschemeJsonPath = theme.colorschemePath
         let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
-        const colorGrid = new Gtk.Grid()
+        const colorGrid = Grid()
         let colors = colorschemeJson["colors"]
 
         // Add all colors
