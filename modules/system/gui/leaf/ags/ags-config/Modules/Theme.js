@@ -50,8 +50,8 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
         }
 
         // Generating colorscheme widget
-        let colorschemeJsonPath = theme.colorscheme 
-        // If no colorscheme was provided, skip
+        let colorschemeJsonPath = theme.colorschemePath
+        print("colorschemeJsonPath = " + colorschemeJsonPath)
         let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
         const colorGrid = new Gtk.Grid()
         let colors = colorschemeJson["colors"]
@@ -62,8 +62,8 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
             let colorWidget = Widget.Box({
                 css: `
                     background-color: ${color};
-                    min-width: 2em;
-                    min-height: 2em;
+                    min-width: 1em;
+                    min-height: 1em;
                     border-radius: 100%;
                     margin: 0.2em;
                 `,
@@ -76,16 +76,44 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
             colorNum++
         }
 
-        let themeWidget = Widget.Box({
-            children: [
-                // Name
-                Widget.Label({
-                    label: theme.name,
-                }),
-                colorGrid
-                // Colorscheme
-                // Wallpaper
-            ]
+        let themeWidget = Widget.Button({
+            on_primary_click: () => {
+                print("yay")
+                execAsync(`theme -a ${theme.name}`)
+            },
+            child: Widget.Box({
+                vertical: true,
+                spacing: 8,
+                children: [
+                    // Name
+                    Widget.Label({
+                        hpack: "start",
+                        label: theme.name,
+                    }),
+                    Widget.Box({
+                        children: [
+                            Widget.Icon({
+                                icon: theme.wallpaper, 
+                                size: 64,
+                            }),
+                            Widget.Box({
+                                css: `
+                                    background-color: ${colorschemeJson.special.background};
+                                    border-radius: 1em;
+                                    padding: 0.4em;
+                                `,
+                                hpack: "end",
+                                hexpand: true,
+                                children: [
+                                    colorGrid,
+                                ],
+                            })
+                        ],
+                    })
+                    // Colorscheme
+                    // Wallpaper
+                ]
+            })
         })
 
         recentThemesList.push(themeWidget)
@@ -97,7 +125,10 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 
 // Stores a list of the recent themes as widgets
 print("/////////////////////////////////////////////////////////")
-const RecentThemes = Variable(GenerateRecentThemeWidgets(JSON.parse(Utils.readFile(RecentThemesPath))))
+print(RecentThemesPath)
+const recentThemesJson = JSON.parse(Utils.readFile(RecentThemesPath))
+print("JSON data = " + JSON.stringify(recentThemesJson))
+const RecentThemes = Variable(GenerateRecentThemeWidgets(recentThemesJson))
 
 const RecentThemesMonitor = Utils.monitorFile(RecentThemesPath, (file, event) => {
     print("")
@@ -169,18 +200,24 @@ export const ThemeMenu = () => Widget.Box({
         }),
 
         Widget.Label({
-            label: "TEST",
+            hpack: "start",
+            label: "Recent themes",
         }),
-
         // Recent themes
-        Widget.Box({
-            vertical: true,
-            css: `
-                min-height: 100px;
-                background-color: red;
-            `,
-            children: RecentThemes.bind(),
-        }),
+        Widget.Scrollable({
+            hscroll: "never",
+            vexpand: true,
+
+            
+            child: Widget.Box({
+                vertical: true,
+                spacing: 8,
+                css: `
+                    min-height: 1px;
+                `,
+                children: RecentThemes.bind(),
+            }),
+        })
     ]
 })
 

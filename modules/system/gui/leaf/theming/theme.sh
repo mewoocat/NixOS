@@ -24,11 +24,12 @@ gtkThemeDark="adw-gtk3-dark"
 # Globals variables
 wallpaper=""
 colorscheme=""
-colorSchemePath=""
+colorschemePath=""
 mode="dark" # Light/Dark
 createPreset=false
 activatePreset=false
 presetName="default"
+themeOutputPath=""
 
 function usage(){
     echo "
@@ -108,8 +109,8 @@ function setColors(){
         wallust run $wallpaper -p $mode
     # Use provided colorscheme
     else
-        #colorscheme=~/.config/wal/colorschemes/$mode/$colorscheme.json
         colorschemePath=~/.config/wallust/pywal-colors/$mode/$colorscheme.json
+        echo "colorschemePath = $colorschemePath"
         wallust cs $colorschemePath
     fi
 
@@ -129,11 +130,6 @@ function setTheme(){
 
     echo "setTheme wallpaper = $wallpaper"
 
-    # Set theme as active by creating a current-theme.json file in ~/.config/leaf/theme
-    presetDir=$presetDir/..
-    presetName="current-theme"
-    generatePreset
-
     # Set wallpaper
     if [[ "$wallpaper" != "" ]]; then
         setWallpaper
@@ -141,6 +137,13 @@ function setTheme(){
 
     # Set colorscheme
     setColors
+
+    # Set theme as active by creating a current-theme.json file in ~/.config/leaf/theme
+    themeOutputPath=$currentThemePath
+    echo $themeOutputPath
+    generatePreset
+
+    addThemeToRecents
 }
 
 function generatePreset(){
@@ -148,31 +151,15 @@ function generatePreset(){
     echo "Name: $presetName"
     echo "Wallpaper: $wallpaper"
     echo "colorscheme: $colorscheme"
+    echo "colorschemePath: $colorschemePath"
 
     # Use the wallust debug option to determine the values needed to find the path to a wallust colorscheme generated from a wallpaper
     #
     # Output preset information to json file 
-    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\"\n}" > $presetDir/$presetName.json
 
-}
+    echo "Outputting preset as json"
+    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\",\n\t\"colorschemePath\": \"$colorschemePath\"\n}" > $themeOutputPath
 
-function activatePreset(){
-    local presetPath="$presetDir/$presetName.json"
-    echo "presetPath = $presetPath" 
-
-    # Check if preset exists
-    if [[ ! -f "$presetPath" ]]; then
-        echo "ERROR: Preset doesn't exist"
-        exit 2
-    fi
-
-    wallpaper=$(cat "$presetPath" | jq -r .wallpaper)
-    colorscheme=$(cat "$presetPath" | jq -r .colorscheme)
-    mode=$(cat "$presetPath" | jq -r .mode)
-    echo "preset wallpaper = $wallpaper"
-    echo "preset colorscheme = $colorscheme"
-
-    setTheme
 }
 
 # Echos path current theme .json
@@ -199,7 +186,7 @@ addThemeToRecents(){
     if [[ $existingThemeIndex == "null" ]]; then
         echo "Theme not in recents" 
         # Move themes over and replace the first one with the new theme
-        recentThemesModified=$(cat $recentThemesPath | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme")
+        recentThemesModified=$(cat $recentThemesPath | jq ".[4] = .[3] | .[3] = .[2] | .[2] = .[1] | .[1] = .[0] | .[0] = $currentTheme" )
     else
         echo "Theme in recents"
         # Creates a new json array by moving the existing theme to the front and moves everything before it down 1
@@ -207,12 +194,29 @@ addThemeToRecents(){
     fi
 
     # Overwrite the existing recent-themes.json
-    echo $recentThemesModified
-    echo $recentThemesModified > $recentThemesPath
+    printf "Recent themes modified = \n $recentThemesModified\n"
+    printf "$recentThemesModified" > $recentThemesPath
     
 }
-addThemeToRecents
-exit 0
+
+function activatePreset(){
+    local presetPath="$presetDir/$presetName.json"
+    echo "presetPath = $presetPath" 
+
+    # Check if preset exists
+    if [[ ! -f "$presetPath" ]]; then
+        echo "ERROR: Preset doesn't exist"
+        exit 2
+    fi
+
+    wallpaper=$(cat "$presetPath" | jq -r .wallpaper)
+    colorscheme=$(cat "$presetPath" | jq -r .colorscheme)
+    mode=$(cat "$presetPath" | jq -r .mode)
+    echo "preset wallpaper = $wallpaper"
+    echo "preset colorscheme = $colorscheme"
+
+    setTheme
+}
 
 # Get input flags
 while getopts w:c:p:hga:n:DL flag
@@ -246,16 +250,17 @@ if [[ "$colorscheme" == "" && "$wallpaper" == "" && "$activatePreset" == false  
     exit 1
 fi
 
-if [[ "$createPreset" == true ]]; then 
-    generatePreset
-fi
-
 if [[ "$activatePreset" == true ]]; then
     activatePreset
     exit 0
 fi
 
 setTheme
+
+if [[ "$createPreset" == true ]]; then 
+    themeOutputPath="$presetDir/$presetName.json"
+    generatePreset
+fi
 
 exit 0
 
