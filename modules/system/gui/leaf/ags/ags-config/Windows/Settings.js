@@ -49,28 +49,31 @@ const tabs = [
     //"About",
 ]
 
-const Tab = (t) => Widget.Button({
-    class_name: "settings-tab-button",
-    css: `
-        margin-right: 1rem;
-    `,
-    on_primary_click: (self) =>{
-        SettingsTab.value = t
-    },
-    setup: (self) => {
-        // Highlight current tab on startup
-        if (t === SettingsTab.value){
-            self.toggleClassName("settings-tab-active", true)
-        }
-        self.hook(SettingsTab, (self) => {
-            self.toggleClassName("settings-tab-active", t === SettingsTab.value)
-        }, "changed")
-    },
-    child: Widget.Label({
-        label: t,
-    }),
+const Tab = (t) => {
 
-})
+    return Widget.Button({
+        class_name: "settings-tab-button",
+        css: `
+            margin-right: 1rem;
+        `,
+        on_primary_click: (self) =>{
+            SettingsTab.value = t
+        },
+        setup: (self) => {
+            // Highlight current tab on startup
+            if (t === SettingsTab.value){
+                self.toggleClassName("settings-tab-active", true)
+            }
+            self.hook(SettingsTab, (self) => {
+                self.toggleClassName("settings-tab-active", t === SettingsTab.value)
+            }, "changed")
+        },
+        child: Widget.Label({
+            label: t,
+        }),
+
+    })
+}
 
 const Tabs = () => Widget.Box({
     vertical: true,
@@ -78,6 +81,7 @@ const Tabs = () => Widget.Box({
 })
 
 function Container(name, contents){
+
     return Widget.Box({
         class_name: "padder",
         vertical: true,
@@ -109,6 +113,7 @@ function Container(name, contents){
 
 
 function SectionHeader(name){ 
+
     return Widget.Box({
         css: `
             margin-top: 0.6rem;
@@ -158,13 +163,13 @@ const testContents = () => Widget.Box({
     ]
 })
 
-const networkContents = Widget.Box({
+const networkContents = () => Widget.Box({
     children: [
         WifiList(),
     ]
 })
 
-const bluetoothContents = Widget.Box({
+const bluetoothContents = () => Widget.Box({
     vertical: true,
     children: [
         BluetoothStatus(),
@@ -174,7 +179,7 @@ const bluetoothContents = Widget.Box({
     ],
 })
 
-const soundContents = Widget.Box({
+const soundContents = () => Widget.Box({
     vertical: true,
     children: [
         SectionHeader("Volume"),
@@ -191,10 +196,10 @@ const TabContainer = () => Widget.Stack({
         'General': Container("General", generalContents()),
         'Display': Container("Display", displayContents()),
         //'Appearance': Container("Appearance", testContents()),
-        //'Network': Container("Network", networkContents),
-        //'Bluetooth': Container("Bluetooth", bluetoothContents),
+        //'Network': Container("Network", networkContents()),
+        //'Bluetooth': Container("Bluetooth", bluetoothContents()),
         //'Devices': Container("Devices", testContents()),
-        //'Sound': Container("Sound", soundContents),
+        //'Sound': Container("Sound", soundContents()),
         //'About' : Container("About", testContents()),
     },
     transition: "slide_up_down",
