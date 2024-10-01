@@ -97,8 +97,9 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 
 
         let themeWidget = Widget.Button({
+            class_name: "normal-button",
             on_primary_click: () => {
-                print("yay")
+                print(`INFO: Setting active theme to ${theme.name}`)
                 execAsync(`theme -a ${theme.name}`)
             },
             child: Widget.Box({
@@ -121,7 +122,6 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
                                     background-color: ${colorschemeJson.special.background};
                                     border-radius: 1em;
                                     padding: 0.4em;
-                                    min-height: 64px;
                                 `,
                                 hpack: "end",
                                 hexpand: true,
@@ -163,11 +163,13 @@ export const ThemeState = Variable(GetThemeState(), {})
 export const ThemeMenu = () => Widget.Box({
     vertical: true,
     children: [
+        /*
         Widget.FileChooserButton({
             onFileSet: ({ uri }) => {
                 print(uri)
             },
         }),
+        */
 
         // Light / dark toggle switch
         Widget.Box({
@@ -224,10 +226,9 @@ export const ThemeMenu = () => Widget.Box({
         }),
         // Recent themes
         Widget.Scrollable({
+            class_name: "container",
             hscroll: "never",
-            vexpand: true,
-
-            
+            vexpand: true,   
             child: Widget.Box({
                 vertical: true,
                 spacing: 8,

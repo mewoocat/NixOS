@@ -3,7 +3,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
 
 // Notification service config
-Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
+Notifications.clearDelay = 500 // Helps prevent crashes when calling `Notifications.clear()`
 
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
