@@ -110,6 +110,7 @@ in {
     brasero
     #teams-for-linux # Borked
     ungoogled-chromium
+    swaylock
 
     #gradience
     #niri

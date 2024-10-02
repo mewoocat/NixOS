@@ -5,6 +5,25 @@
   inputs,
   ...
 }: {
+
+  systemd.services = {
+    suspend-delay = {
+      enable = true;
+      description = "Adds a delay for starting the suspend.  Useful for making suspend wait for lockscreen to fully init";
+      wantedBy = [ "sleep.target" ];
+      before = [ "sleep.target" ]; 
+      serviceConfig = {
+        Type = "simple";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 3"; 
+        ExecStart = "${pkgs.coreutils}/bin/true"; # Do nothing
+      };
+    };
+  };
+
+
+
+
+
   home-manager.users.${config.username} = let
     lockScreen = pkgs.writeShellApplication {
       name = "ags-lock";
@@ -55,6 +74,7 @@
       settings = {
         general = {
           lock_cmd = "${lockScreen}/bin/ags-lock";
+          #lock_cmd = "swaylock";
           before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
           after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
         };
