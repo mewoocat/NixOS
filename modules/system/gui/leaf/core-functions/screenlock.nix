@@ -76,16 +76,16 @@
           lock_cmd = "${lockScreen}/bin/ags-lock";
           #lock_cmd = "swaylock";
           before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
-          after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
+          after_sleep_cmd = "systemctl --user restart hypridle; hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
         };
 
         listener = [
           {
-            timeout = 900;
-            on-timeout = "${lockScreen}/bin/ags-lock";
+            timeout = 15;
+            on-timeout = "loginctl lock-session";
           }
           {
-            timeout = 1200;
+            timeout = 30;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }
