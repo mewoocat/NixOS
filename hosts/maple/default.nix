@@ -5,16 +5,12 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
-    # Hardware
+    ./core.nix
     ./hardware-configuration.nix
-
-    # Core system components
-    ../../modules/system
+    ../../modules/servers/nextcloud
 
     # User
-    ../../users/eXia
+    #../../users/eXia # need to add user without all the other junk
 
-    # Utilities
-    ../../modules/utilities
   ];
 }
