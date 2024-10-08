@@ -5,6 +5,9 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
+    # Core configuration
+    ./core.nix
+
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
