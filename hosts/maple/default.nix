@@ -6,7 +6,7 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {inherit inputs;};
   modules = [
     ./core.nix
-    ./hardware-configuration.nix
+    #./hardware-configuration.nix
     ../../modules/servers/nextcloud
 
     ./disk-config.nix # Disk setup for nixos-anywhere
