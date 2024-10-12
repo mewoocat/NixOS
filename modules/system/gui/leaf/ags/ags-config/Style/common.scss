@@ -24,6 +24,15 @@ flowboxchild {
     font-weight: bold;
 }
 
+.medium-text {
+    font-size: 1.08em;
+    font-weight: bold;
+}
+
+.small-text {
+    font-size: 0.72rem;
+}
+
 .sub-text {
     font-size: 0.72rem;
     color: $fgDim;
@@ -36,7 +45,7 @@ flowboxchild {
 .container{
     border-radius: 1rem;
     background-color: rgba($bg1, $lowOpacity);
-    padding: 0.6em;
+    padding: 1em;
 }
 
 .container-no-spacing{
