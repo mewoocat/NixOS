@@ -1,4 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 // Add icons in assets to icon set
 //Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
 // Need to do this before importing anything else since importing could try to eval an custom icon which has not been added yet
@@ -24,15 +25,11 @@ import { Dock } from './Windows/Dock.js';
 import { Launcher } from './Windows/Launcher.js';
 import { Bar } from './Windows/Bar.js';
 import { ControlPanel } from './Windows/ControlPanel.js';
+import { monitors } from './Monitors.js'
+
 print("importing settings")
 import { Settings } from './Windows/Settings.js';
 import { GenerateCSS, css } from './Style/style.js'
-
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-
-// GDK Display
-import Gdk from 'gi://Gdk'
-const display = new Gdk.Display()
 
 // Compile and apply scss as css
 GenerateCSS()
@@ -43,23 +40,21 @@ monitorFile(`${App.configDir}/Style/_colors.scss`, GenerateCSS);
 function InitilizeWindows(){
 
     const userDefaultMonitor = Options.user.display.default_monitor.value
-    let defaultMonitor = 0
+    let defaultMonitorID = 0
 
-    // Check if monitor exists
-    Hyprland.monitors.forEach(m => {
-        if (m.id == userDefaultMonitor){
-            defaultMonitor = userDefaultMonitor
-        }
-    })
+    // Find the id num associated with the monitor identifier
+    if (monitors[userDefaultMonitor] != undefined){
+        defaultMonitorID = monitors[userDefaultMonitor]
+    }
 
-    print("User default monitor:\n" + JSON.stringify(userDefaultMonitor, null, 4))
+    print("INFO: defaultMonitorID: " + defaultMonitorID)
 
     const windows = [
         Launcher(), 
         // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
         // ... here returns the array output of forMonitors as a individual elements so they are not nested in the parrent array
         //...forMonitors(Bar), 
-        Bar(defaultMonitor),
+        Bar(defaultMonitorID),
         ControlPanel(),
         ActivityCenter(),
         NotificationPopup(), 

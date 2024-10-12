@@ -1,10 +1,13 @@
 import GLib from 'gi://GLib';
-import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
+import Gtk from 'gi://Gtk'
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import Gtk from 'gi://Gtk'
+import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
+
 import { GenerateCSS } from '../Style/style.js'
 import { weather } from '../Modules/Weather.js'
+import { ComboBoxText } from '../Global.js'
+import { monitors } from '../Monitors.js'
 
 // Configure animations
 // I think this only applys the option to the default window
@@ -81,6 +84,29 @@ export function CreateOptionWidget(option){
                 onValueChanged: (self) => {
                     print(self.value)
                     settingsChanged.value = true
+                },
+            })
+            break
+        case "combobox":
+            return ComboBoxText({
+                class_name: "",
+                hpack: "end",
+                vpack: "center",
+                setup: (self) => {
+                    // Init items
+                    for (const key in option.comboboxItems){
+                        const id = option.comboboxItems[key]
+                        const text = key
+                        self.append(id.toString(), text)
+                    }
+                    
+                    // Set active
+                    self.set_active_id(option.comboboxItems[option.value].toString())
+
+                    self.on("changed", self => {
+                        print("INFO: ComboBoxText modified to:" + self.get_active_text())
+                        settingsChanged.value = true
+                    })
                 },
             })
             break
@@ -263,7 +289,8 @@ function InitilizeOptions(){
             default_monitor: {
                 id: "default_monitor",
                 name: "Default monitor",
-                type: "spin",
+                type: "combobox",
+                comboboxItems: monitors, 
                 widget: null,
                 value: data.options.display.default_monitor,
                 min: 0,
@@ -320,19 +347,22 @@ export function GetOptions() {
 }
 
 function GetOptionValue(opt){
-        let value = -1
+    let value = -1
 
-        // Get current value from associated widget
-        if (opt.type === "spin" || opt.type === "slider"){
-            value = opt.widget.value
-        }
-        else if (opt.type === "switch"){
-            value = opt.widget.active
-        }
-        else{
-            print("ERROR: Invalid option type")
-        }
-        return value 
+    // Get current value from associated widget
+    if (opt.type === "spin" || opt.type === "slider"){
+        value = opt.widget.value
+    }
+    else if (opt.type === "switch"){
+        value = opt.widget.active
+    }
+    else if (opt.type === "combobox"){
+        value = opt.widget.get_active_text()
+    }
+    else{
+        print("ERROR: Invalid option type")
+    }
+    return value 
 }
 
 
@@ -383,6 +413,7 @@ export function ApplySettings(){
 
     print("settingsChanged?")
     settingsChanged.value = false 
+
 }
 
 // Reverts any changed options to their original values since the last apply
