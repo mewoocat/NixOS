@@ -113,7 +113,8 @@ const OutputDevices = () => ComboBoxText({
 
 function appVolume(app){
     //const level = Variable(app.volume)
-    const name = app.name.toLowerCase()
+    let name = app.name ?? "?" // If undefined use default value
+    name = name.toLowerCase()
     const iconExists = Utils.lookUpIcon(name)
     var icon
     if (iconExists){

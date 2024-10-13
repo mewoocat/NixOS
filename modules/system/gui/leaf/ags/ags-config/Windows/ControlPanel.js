@@ -28,7 +28,7 @@ import { UserInfo } from '../Modules/User.js';
 import { ControlPanelTab, ControlPanelNetworkTab, ControlPanelBluetoothTab } from '../Global.js';
 import { Options } from '../Options/options.js';
 import icons from '../icons.js';
-import { CircleButton } from './../Common.js';
+import * as Common from './../Common.js'
 
 //////////////////////////////////////////////////////////////////
 // Constants
@@ -197,9 +197,9 @@ const SetTab = (dst) => {
 
 const BackButton = (dst = "main", customCallback = null) => {
     if (customCallback == null){
-        return CircleButton(icons.back, SetTab, [dst])
+        return Common.CircleButton(icons.back, SetTab, [dst])
     }
-    return CircleButton(icons.back, customCallback, [])
+    return Common.CircleButton(icons.back, customCallback, [])
 }
 
 
