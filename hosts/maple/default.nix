@@ -5,6 +5,8 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
+    inputs.disko.nixosModules.disko
+
     ./core.nix
     #./hardware-configuration.nix
     ../../modules/servers/nextcloud

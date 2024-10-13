@@ -59,7 +59,7 @@
     */
     
     zen-browser.url = "github:MarceColl/zen-browser-flake";
-
+    disko.url = "github:nix-community/disko";
   };
 
   # The `@` syntax here is used to alias the attribute set of the
