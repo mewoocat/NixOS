@@ -1,9 +1,9 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
-import { ControlPanelTab } from '../Global.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
-import { Grid } from '../Global.js';
-//import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+
+import * as Global from '../Global.js'
+
 
 export const ThemeButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
@@ -12,9 +12,8 @@ export const ThemeButton = (w, h) => Widget.Button({
         min-height: ${h}rem;
         font-size: 22px;
     `,
-
     on_primary_click: () => { 
-        ControlPanelTab.setValue("theme")
+        Global.ControlPanelTab.setValue("theme")
     },
     child: Widget.Icon({
         icon: "org.gnome.Settings-color-symbolic",
@@ -53,7 +52,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
         // Generating colorscheme widget
         let colorschemeJsonPath = theme.colorschemePath
         let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
-        const colorGrid = Grid()
+        const colorGrid = Global.Grid()
         let colors = colorschemeJson["colors"]
 
         // Add all colors
@@ -95,12 +94,11 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
             colorGrid.attach(colorWidget, i, 1, 1, 1)
         }
 
-
         let themeWidget = Widget.Button({
             class_name: "normal-button",
             on_primary_click: () => {
                 print(`INFO: Setting active theme to ${theme.name}`)
-                execAsync(`theme -a ${theme.name}`)
+                Utils.execAsync(`theme -a ${theme.name}`)
             },
             child: Widget.Box({
                 vertical: true,
@@ -137,11 +135,8 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
                 ]
             })
         })
-
         recentThemesList.push(themeWidget)
-
-    }
-    
+    } 
     return recentThemesList
 }
 
@@ -155,22 +150,12 @@ const RecentThemesMonitor = Utils.monitorFile(RecentThemesPath, (file, event) =>
     RecentThemes.value = GenerateRecentThemeWidgets(JSON.parse(contents))
 })
 
-
-
 GetThemeState()
 
 export const ThemeState = Variable(GetThemeState(), {})
 export const ThemeMenu = () => Widget.Box({
     vertical: true,
     children: [
-        /*
-        Widget.FileChooserButton({
-            onFileSet: ({ uri }) => {
-                print(uri)
-            },
-        }),
-        */
-
         // Light / dark toggle switch
         Widget.Box({
             css: `
@@ -192,11 +177,11 @@ export const ThemeMenu = () => Widget.Box({
                         print(self.active)
                         if (self.active){
                             ThemeState.value = "Dark"
-                            execAsync(`theme -D`)
+                            Utils.execAsync(`theme -D`)
                         }
                         else {
                             ThemeState.value = "Light"
-                            execAsync(`theme -L`)
+                            Utils.execAsync(`theme -L`)
                         }
                     },
                     hpack: "end",
@@ -224,6 +209,7 @@ export const ThemeMenu = () => Widget.Box({
             `,
             label: "Recent themes",
         }),
+
         // Recent themes
         Widget.Scrollable({
             class_name: "container",

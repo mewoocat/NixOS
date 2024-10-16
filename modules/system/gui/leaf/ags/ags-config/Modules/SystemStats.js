@@ -1,9 +1,10 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import Utils from 'resource:///com/github/Aylur/ags/utils.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import App from 'resource:///com/github/Aylur/ags/app.js'
 
 import icons from '../icons.js'
+
 
 const StatIcon = (icon, size) => Widget.Icon({
     hpack: "center",
@@ -68,7 +69,6 @@ export const storageLabel = () => Widget.Label({
     class_name: "sub-text",
     label: storage.bind().transform(value => "" + value + "%"),
 })
-
 
 export const cpuProgress = Widget.ProgressBar({
     css: `
@@ -158,20 +158,6 @@ export const systemStatsBox2x2 = Widget.Box({
         }),
     ]
 })
-        /*
-        Widget.Box({
-            hpack: "center",
-            vpack: "center",
-            hexpand: true,
-            children: [
-
-                Widget.Label({
-                    label: uptime.bind(),
-                }),
-            ],
-        }),
-        */
-
 
 export const GPUCircle = (w, h) => Widget.CircularProgress({
     hpack: "center",

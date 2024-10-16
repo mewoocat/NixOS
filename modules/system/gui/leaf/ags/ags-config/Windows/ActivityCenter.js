@@ -1,20 +1,21 @@
-
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { Clock, Calendar, CalendarContainer } from '../Modules/DateTime.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import { NotificationWidget } from '../Modules/Notification.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import { CloseOnClickAway } from '../Common.js';
-import { Weather } from '../Modules/Weather.js';
-import { Media } from '../Modules/Media.js'
-import { ControlPanelBox } from './ControlPanel.js'
-
+import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk';
+
+import * as DateTime from '../Modules/DateTime.js';
+import * as Notification from '../Modules/Notification.js';
+import * as Common from '../Common.js';
+import * as Weather from '../Modules/Weather.js';
+import * as Media from '../Modules/Media.js'
+import * as ControlPanel from './ControlPanel.js'
+import * as Global from '../Global.js';
+
+
 // Usage: grid.attach(Widget, col, row, width, height)
-import { Grid } from '../Global.js';
-const grid = Grid()
-grid.attach(CalendarContainer(12, 12), 1, 1, 1, 1)
-grid.attach(ControlPanelBox(Weather(), 12, 12), 1, 2, 1, 1)
+const grid = Global.Grid()
+grid.attach(DateTime.CalendarContainer(12, 12), 1, 1, 1, 1)
+grid.attach(ControlPanel.ControlPanelBox(Weather.Weather(), 12, 12), 1, 2, 1, 1)
 
 const container = () => Widget.Box({
     class_name: "",
@@ -32,14 +33,14 @@ const container = () => Widget.Box({
                 }
 
                 // Reset calendar date to today
-                execAsync(['date', '+%e %m %Y'])
+                Utils.execAsync(['date', '+%e %m %Y'])
                     .then(date => {
                         date = date.split(" ")
                         const day = date[0]
                         const month = date[1] - 1 // Because the month is zero indexed
                         const year = date[2]
-                        Calendar.select_day(day) // Reset the selected day
-                        Calendar.select_month(month, year) // Reset the selected month and year
+                        DateTime.Calendar.select_day(day) // Reset the selected day
+                        DateTime.Calendar.select_month(month, year) // Reset the selected month and year
                     })
                     .catch(err => print(err))
 
@@ -57,12 +58,12 @@ const container = () => Widget.Box({
                         Widget.Box({
                             vertical: true,
                             children: [
-                                NotificationWidget(24,12),
+                                Notification.NotificationWidget(24,12),
                             ],
                         }),
                     ],
                 }),
-                Media(), // Need to optimize
+                Media.Media(), // Need to optimize
             ],
         })
     })
@@ -70,8 +71,8 @@ const container = () => Widget.Box({
 
 export const ActivityCenterButton = () => Widget.Button({
     class_name: 'launcher normal-button',
-    on_primary_click: () => execAsync('ags -t ActivityCenter'),
-    child: Clock()
+    on_primary_click: () => Utils.execAsync('ags -t ActivityCenter'),
+    child: DateTime.Clock()
 });
 
 export const ActivityCenter = (monitor = 0) => Widget.Window({
@@ -81,5 +82,5 @@ export const ActivityCenter = (monitor = 0) => Widget.Window({
     anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     //anchor: ["top"], // Debug
     exclusivity: 'normal',
-    child: CloseOnClickAway("ActivityCenter", container(), "top-center"),
+    child: Common.CloseOnClickAway("ActivityCenter", container(), "top-center"),
 });

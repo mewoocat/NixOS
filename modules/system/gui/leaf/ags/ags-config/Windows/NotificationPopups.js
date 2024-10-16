@@ -1,6 +1,6 @@
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { Notification } from '../Modules/Notification.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js'
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import * as Notification from '../Modules/Notification.js'
 
 // Window in which popup notifications are displayed
 export const NotificationPopup = () => Widget.Window({
@@ -13,7 +13,7 @@ export const NotificationPopup = () => Widget.Window({
             Widget.Box({
                 vertical: true,
                 children: Notifications.bind('popups').transform(popups => {
-                    return popups.map(Notification);
+                    return popups.map(Notification.Notification);
                 }),
             }),
         ]

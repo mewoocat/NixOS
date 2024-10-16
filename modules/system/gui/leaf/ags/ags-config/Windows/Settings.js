@@ -4,19 +4,17 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Gtk from 'gi://Gtk'
 
-import { WifiList } from '../Modules/Network.js';
-import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
-import { Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothConnectedDevices, BluetoothDevices, BluetoothDevice } from '../Modules/Bluetooth.js';
-import { generalSettings, displaySettings, ApplyButton, ChangedOptionsIndicator } from '../Modules/Settings.js'
+import * as Network from '../Modules/Network.js';
+import * as Audio from '../Modules/Audio.js';
+import * as Bluetooth from '../Modules/Bluetooth.js';
+import * as Settings from '../Modules/Settings.js'
 import icons from '../icons.js';
 
-const { Gtk } = imports.gi;
 
 const Window = Widget.subclass(Gtk.Window, "Window");
 const SettingsTab = Variable("General", {})
-
-
 
 
 // Testing
@@ -96,8 +94,8 @@ function Container(name, contents){
                 endWidget: Widget.Box({
                     hpack: "end",
                     children: [
-                        ChangedOptionsIndicator(),
-                        ApplyButton(),
+                        Settings.ChangedOptionsIndicator(),
+                        Settings.ApplyButton(),
                     ],
                 }),
             }),
@@ -138,14 +136,14 @@ const generalContents = () => Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'always',
     vexpand: true,
-    child: generalSettings,
+    child: Settings.generalSettings,
 })
 
 const displayContents = () => Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'always',
     vexpand: true,
-    child: displaySettings,
+    child: Settings.displaySettings,
 })
 
 const testContents = () => Widget.Box({
@@ -165,17 +163,17 @@ const testContents = () => Widget.Box({
 
 const networkContents = () => Widget.Box({
     children: [
-        WifiList(),
+        Network.WifiList(),
     ]
 })
 
 const bluetoothContents = () => Widget.Box({
     vertical: true,
     children: [
-        BluetoothStatus(),
-        BluetoothConnectedDevices(),
-        BluetoothDevices(),
-        BluetoothDevice(),
+        Bluetooth.BluetoothStatus(),
+        Bluetooth.BluetoothConnectedDevices(),
+        Bluetooth.BluetoothDevices(),
+        Bluetooth.BluetoothDevice(),
     ],
 })
 
@@ -183,9 +181,9 @@ const soundContents = () => Widget.Box({
     vertical: true,
     children: [
         SectionHeader("Volume"),
-        VolumeMenu(), 
+        Audio.VolumeMenu(), 
         SectionHeader("Microphone"),
-        MicrophoneMenu(),
+        Audio.MicrophoneMenu(),
     ]
 })
 
@@ -245,10 +243,8 @@ export const SettingsToggle = Widget.Button({
     })
 })
 
-
-
-// Settings window (Non ags widget window)
-export const Settings = () => Window({
+// Settings window (Normal window)
+export const SettingsWin = () => Window({
     name: "Settings",
     child: Widget.Box({
         class_name: "normal-window",

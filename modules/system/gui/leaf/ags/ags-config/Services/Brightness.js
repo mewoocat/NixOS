@@ -1,5 +1,6 @@
-import Service from 'resource:///com/github/Aylur/ags/service.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js'
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
+
 
 class BrightnessService extends Service {
     // every subclass of GObject.Object has to register itself

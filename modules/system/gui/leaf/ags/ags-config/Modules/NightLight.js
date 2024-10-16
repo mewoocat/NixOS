@@ -1,10 +1,10 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
 function isNightLightOn() {
     // Check if wlsunset is running
     // Bash command outputs 0 if yes or 1 if no
-    let state = exec('bash -c "pidof wlsunset > /dev/null; echo $?"')
+    let state = Utils.exec('bash -c "pidof wlsunset > /dev/null; echo $?"')
     if (state == "0"){
         return true
     }
@@ -13,10 +13,9 @@ function isNightLightOn() {
     }
 }
 
-
 function ToggleNightlight(self){ 
     self.toggleClassName("active-button", !isNightLightOn()) // Toggles active indicator
-    execAsync(['bash', '-c', 'pkill wlsunset; if [ $? -ne 0 ]; then wlsunset -T 4010; fi']).catch(logError);
+    Utils.execAsync(['bash', '-c', 'pkill wlsunset; if [ $? -ne 0 ]; then wlsunset -T 4010; fi']).catch(logError);
 }
 
 export const NightLightButton = (w, h) => Widget.Button({

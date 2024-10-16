@@ -1,10 +1,11 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Network from 'resource:///com/github/Aylur/ags/service/network.js';
-import { ControlPanelTab, ControlPanelNetworkTab } from '../Global.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
-import { CircleButton } from './../Common.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Network from 'resource:///com/github/Aylur/ags/service/network.js'
 import GObject from 'gi://GObject'
-import { Options } from '../Options/options.js';
+
+import * as Global from '../Global.js'
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import * as Common from '../Common.js'
+import * as Options from '../Options/options.js';
 import icons from '../icons.js';
 
 // Holds current wifi access point selected
@@ -18,7 +19,7 @@ const Refresh = () => {
     Network.wifi.scan()
     print('Scan completed')
 }
-export const RefreshWifi = () => CircleButton(icons.refresh, Refresh)
+export const RefreshWifi = () => Common.CircleButton(icons.refresh, Refresh)
 
 // Toggles wifi enabled state
 function ToggleWifi(){
@@ -32,13 +33,13 @@ function ToggleWifi(){
 
 // Return to correct network menu tab
 export function NetworkBack(){
-    if (ControlPanelNetworkTab.getValue() == "main"){
+    if (Global.ControlPanelNetworkTab.getValue() == "main"){
         // Go back to main control panel menu
-        ControlPanelTab.setValue("main")
+        Global.ControlPanelTab.setValue("main")
     }
     else{
         // Go back to main network control panel menu
-        ControlPanelNetworkTab.setValue("main")
+        Global.ControlPanelNetworkTab.setValue("main")
     }
 }
 
@@ -56,7 +57,6 @@ export const WifiIcon = (isConnected, ap, size = 16) => Widget.Icon({
     } 
 })
 
-
 export const EthernetIconLabel = () => Widget.Box({
     class_name: "icon",
     children:[
@@ -73,7 +73,6 @@ export const EthernetIconLabel = () => Widget.Box({
         }),
     ]
 })
-
 
 export const EthernetIcon = () => Widget.Icon({
     class_name: "icon",
@@ -115,7 +114,7 @@ export const ssid = Widget.Box({
             class_name: "sub-text",
             label: Network.wifi.bind("ssid"),
             truncate: "end",
-            maxWidthChars: Options.system.large * 2,
+            maxWidthChars: Options.Options.system.large * 2,
         }).hook(Network, label =>{
             if (Network.wifi.internet == "disconnected" || Network.wifi.internet == "connecting"){
                 label.label = Network.wifi.internet
@@ -135,8 +134,8 @@ export const WifiPanelButton = (w, h) => Widget.Button({
     `,
     hexpand: true,
     onClicked: () => {
-        ControlPanelNetworkTab.setValue("main")
-        ControlPanelTab.setValue("network")
+        Global.ControlPanelNetworkTab.setValue("main")
+        Global.ControlPanelTab.setValue("network")
     },
     child: Widget.Box({
         class_name: "control-panel-button-content",
@@ -164,8 +163,8 @@ export const wifiButton2x1 = Widget.Box({
         Widget.Button({
             class_name: "normal-button",
             onClicked: () => {
-                ControlPanelNetworkTab.setValue("main")
-                ControlPanelTab.setValue("network")
+                Global.ControlPanelNetworkTab.setValue("main")
+                Global.ControlPanelTab.setValue("network")
             },
             child: Widget.Box({
                 vertical: true,
@@ -188,8 +187,6 @@ export const WifiSecurity = () => Widget.Icon({
     icon: "lock-symbolic",
 })
 
-
-
 const network = (ap) => Widget.Button({ 
     css: `
         margin-right: 0.8em;
@@ -201,7 +198,7 @@ const network = (ap) => Widget.Button({
         // Hide error 
         connectError.visible = false 
         // Set tab
-        ControlPanelNetworkTab.setValue("ap")
+        Global.ControlPanelNetworkTab.setValue("ap")
     }, 
     child: Widget.CenterBox({
         startWidget: Widget.Box({
@@ -245,7 +242,7 @@ export const CurrentNetwork = () => Widget.Box({
                         // Set ap point info
                         CurrentAP.value = Network.wifi
                         // Set tab
-                        ControlPanelNetworkTab.setValue("ap")
+                        Global.ControlPanelNetworkTab.setValue("ap")
                     }, 
                     child: Widget.CenterBox({
                         startWidget: Widget.Box({
@@ -289,7 +286,7 @@ export const CurrentNetwork = () => Widget.Box({
 
 function ConnectToAP(ssid, password){
 
-    execAsync(`nmcli dev wifi connect ${ssid} password ${password}`)
+    Utils.execAsync(`nmcli dev wifi connect ${ssid} password ${password}`)
         //.then(out => print(out))
         .catch(err => {
             print(err)
@@ -300,7 +297,7 @@ function ConnectToAP(ssid, password){
 function DeleteAP(){
     const ssid = CurrentAP.value.ssid
     print(`EXEC:    nmcli connection delete ${ssid}`)
-    execAsync(`nmcli connection delete \"${ssid}\"`) 
+    Utils.execAsync(`nmcli connection delete \"${ssid}\"`) 
 }
 
 const connectError = Widget.Label({
@@ -329,6 +326,7 @@ const passwordEntry = Widget.Entry({
         apPassword = text
     },
 })
+
 const AccessPointStat = ( name, stat ) => Widget.Box({
     children: [
         Widget.Label({
@@ -394,7 +392,7 @@ export const AccessPoint = () => Widget.Box({
                 }),
 
                 // Delete connection
-                CircleButton(icons.deleteItem, DeleteAP, []),
+                Common.CircleButton(icons.deleteItem, DeleteAP, []),
             ],
         }),
 

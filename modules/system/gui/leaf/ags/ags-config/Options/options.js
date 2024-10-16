@@ -1,13 +1,14 @@
-import GLib from 'gi://GLib';
+import GLib from 'gi://GLib'
 import Gtk from 'gi://Gtk'
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import { exec, writeFile, writeFileSync, readFile } from 'resource:///com/github/Aylur/ags/utils.js'
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
-import { GenerateCSS } from '../Style/style.js'
-import { weather } from '../Modules/Weather.js'
-import { ComboBoxText } from '../Global.js'
-import { monitors } from '../Monitors.js'
+import * as Style from '../Style/style.js'
+import * as Weather from '../Modules/Weather.js'
+import * as Global from '../Global.js'
+import * as Monitors from '../Monitors.js'
+
 
 // Configure animations
 // I think this only applys the option to the default window
@@ -36,10 +37,8 @@ export var Options = {
     user: null,
 } 
 
-
 // Create widget from option
-export function CreateOptionWidget(option){
-    
+export function CreateOptionWidget(option){   
     switch(option.type){
         case "slider": 
             return Widget.Slider({
@@ -88,7 +87,7 @@ export function CreateOptionWidget(option){
             })
             break
         case "combobox":
-            return ComboBoxText({
+            return Global.ComboBoxText({
                 class_name: "",
                 hpack: "end",
                 vpack: "center",
@@ -131,10 +130,8 @@ export function CreateOptionWidget(option){
     }
 }
 
-
 // Load in options as widgets to destination FlowBox
 export const LoadOptionWidgets = (options, dst) => {
-
     print("Loading options into widgets...")
 
     // Iterate over each option in the provided options object
@@ -169,8 +166,8 @@ function InitilizeOptions(){
 
     // Restart the weather polling variable
     // Since the lat and lon have been read in, it can retrieve the weather data
-    weather.stopPoll()
-    weather.startPoll()
+    Weather.weather.stopPoll()
+    Weather.weather.startPoll()
 
     /*
     Example:
@@ -290,10 +287,10 @@ function InitilizeOptions(){
                     let content = `
                         $mediumOpacity: ${this.widget.value / 100};
                     `
-                    writeFileSync(content, `${App.configDir}/Style/variables.scss`)
+                    Utils.writeFileSync(content, `${App.configDir}/Style/variables.scss`)
 
                     // Reload CSS
-                    GenerateCSS()
+                    Style.GenerateCSS()
 
                 }
             }
@@ -305,7 +302,7 @@ function InitilizeOptions(){
                 id: "default_monitor",
                 name: "Default monitor",
                 type: "combobox",
-                comboboxItems: monitors, 
+                comboboxItems: Monitors.monitors, 
                 widget: null,
                 value: data.options.display.default_monitor,
                 min: 0,
@@ -340,11 +337,11 @@ export function GetOptions() {
 
         // Backup existing UserSettings.json
         print(`Backing up current UserSettings.json to ${configPath + configName + ".bak"}`)
-        exec(`cp ${configPath + configName} ${configPath + configName + ".bak"}`)
+        Utils.exec(`cp ${configPath + configName} ${configPath + configName + ".bak"}`)
 
         // Create default UserSettings.json
-        const defaultConfigContents = readFile(defaultConfig)
-        writeFileSync(defaultConfigContents, `${configPath + configName}`)
+        const defaultConfigContents = Utils.readFile(defaultConfig)
+        Utils.writeFileSync(defaultConfigContents, `${configPath + configName}`)
 
         // Retry loading in options
         try{
@@ -380,7 +377,6 @@ function GetOptionValue(opt){
     return value 
 }
 
-
 export function ApplySettings(){
 
     // Hyprland config contents to write to config file
@@ -412,7 +408,7 @@ export function ApplySettings(){
     print(hyprlandConfig)
 
     // Write out Hyprland settings files
-    writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
+    Utils.writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
         //.then(file => print('LOG: Hyprland settings file updated'))
         //.catch(err => print(err))
 
@@ -422,13 +418,12 @@ export function ApplySettings(){
     // Modified user settings json
     let dataModified = JSON.stringify(data, null, 4)
     // Write out to UserSettings.json
-    writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+    Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
         //.then(file => print('LOG: User settings file updated'))
         //.catch(err => print(err))
 
     print("settingsChanged?")
     settingsChanged.value = false 
-
 }
 
 // Reverts any changed options to their original values since the last apply

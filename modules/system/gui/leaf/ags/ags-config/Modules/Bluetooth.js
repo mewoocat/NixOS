@@ -1,11 +1,11 @@
-
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js'
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import { ControlPanelTab, ControlPanelBluetoothTab } from '../Global.js';
-import { CircleButton } from './../Common.js';
-import icons from '../icons.js';
+import icons from '../icons.js'
 import GObject from 'gi://GObject'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+
+import * as Global from '../Global.js'
+import * as Common from '../Common.js'
 
 // Holds current bluetooth device selected
 export const CurrentDevice = Variable({}, {})
@@ -13,13 +13,13 @@ export const CurrentDevice = Variable({}, {})
 var devices = []
 
 export function BluetoothBack(){
-    if (ControlPanelBluetoothTab.getValue() == "main"){
+    if (Global.ControlPanelBluetoothTab.getValue() == "main"){
         // Go back to main control panel menu
-        ControlPanelTab.setValue("main")
+        Global.ControlPanelTab.setValue("main")
     }
     else{
         // Go back to main bluetooth control panel menu
-        ControlPanelBluetoothTab.setValue("main")
+        Global.ControlPanelBluetoothTab.setValue("main")
     } 
 }
 
@@ -70,7 +70,7 @@ export const BluetoothPanelButton = (w, h) => Widget.Box({
             hexpand: true,
             class_name: "control-panel-sub-button round-right",
             onPrimaryClick: () => {
-                ControlPanelBluetoothTab.setValue("device")
+                Global.ControlPanelBluetoothTab.setValue("device")
             }, 
             child: Widget.Icon({
                 icon: "view-more-symbolic",
@@ -118,7 +118,7 @@ export const bluetoothButton2x1 = Widget.Box({
         }),
         Widget.Button({
             class_name: "normal-button",
-            onClicked: () => ControlPanelTab.setValue("bluetooth"),
+            onClicked: () => Global.ControlPanelTab.setValue("bluetooth"),
             child: Widget.Box({
                 vertical: true,
                 hexpand: true,
@@ -143,7 +143,7 @@ function device(d){
         class_name: "normal-button bg-",
         onPrimaryClick: () => {
             CurrentDevice.value = d
-            ControlPanelBluetoothTab.setValue("device")
+            Global.ControlPanelBluetoothTab.setValue("device")
         }, 
         child: Widget.CenterBox({
             startWidget: Widget.Label({
@@ -249,7 +249,7 @@ export const BluetoothSwitch = () => Widget.Switch({
 export const Refresh = () => Widget.Button({
     class_name: "normal-button bg-button",
     // Scan for bt devices
-    on_primary_click: () => execAsync("bluetoothctl --timeout 10 scan on"),
+    on_primary_click: () => Utils.execAsync("bluetoothctl --timeout 10 scan on"),
     child: Widget.Icon({
         size: 20,
         icon: icons.refresh,
@@ -308,7 +308,7 @@ export const BluetoothDevice = () => Widget.Box({
                     })
                 }),
                 // Forget device
-                CircleButton(icons.deleteItem, ForgetDevice, []),
+                Common.CircleButton(icons.deleteItem, ForgetDevice, []),
             ],
         })
     ]

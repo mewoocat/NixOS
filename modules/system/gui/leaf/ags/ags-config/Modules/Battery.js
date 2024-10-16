@@ -1,11 +1,15 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
-import { SecToHourAndMin } from '../Common.js'; 
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js'
+import * as Common from '../Common.js'
 
+
+export function isAvailable(){
+    return Battery.available
+}
 
 export const BatteryLabel = () => Widget.Box({
     visible: Battery.bind('available'),
-    tooltip_text: Battery.bind('time-remaining').as(v => `Time remaining: ${SecToHourAndMin(v)}`),
+    tooltip_text: Battery.bind('time-remaining').as(v => `Time remaining: ${Common.SecToHourAndMin(v)}`),
 
     hpack: "center",
     children: [

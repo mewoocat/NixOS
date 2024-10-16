@@ -1,15 +1,16 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import { data } from '../Options/options.js'
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import App from 'resource:///com/github/Aylur/ags/app.js'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+
+import * as Options from '../Options/options.js'
 
 export const user = Variable("...", {
     poll: [60000, 'whoami', out => out]
 });
 
 var pfp = ""
-if (data != null){
-    pfp = data.pfp
+if (Options.data != null){
+    pfp = Options.data.pfp
 }
 
 export const UserIcon = (size = 2) => Widget.Box({
@@ -27,7 +28,6 @@ export const UserIcon = (size = 2) => Widget.Box({
         background-image: url("${App.configDir}/../../.cache/ags/pfp");
     `,
 })
-
 
 export const UserName = (size = 1) => Widget.Label({
     css: `

@@ -59,7 +59,7 @@ function InitilizeWindows(){
         ControlPanel.ControlPanel(),
         ActivityCenter.ActivityCenter(),
         NotificationPopup.NotificationPopup(), 
-        SettingsWin.Settings(),
+        SettingsWin.SettingsWin(),
         //Dock.Dock()
     ]
     return windows

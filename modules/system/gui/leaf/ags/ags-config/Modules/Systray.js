@@ -1,5 +1,6 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js'
+
 
 const isSystrayVisible = Variable(true)
 
@@ -47,9 +48,9 @@ export const SysTray = () => Widget.Box({
                 // Rotate GTK Icon
                 css: isSystrayVisible.bind().as(visible => {
                     return `
-                            -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
-                            transition: -gtk-icon-transform 0.5s;
-                            `
+                        -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
+                        transition: -gtk-icon-transform 0.5s;
+                    `
                 }),
             }),
         }),

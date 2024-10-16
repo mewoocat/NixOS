@@ -1,19 +1,18 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-const powerProfiles = await Service.import('powerprofiles')
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import App from 'resource:///com/github/Aylur/ags/app.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+
+import * as Common from '../Common.js'
 import icons from '../icons.js'
-import { CloseOnClickAway } from '../Common.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 
+const powerProfiles = await Service.import('powerprofiles')
 const WINDOW_NAME = "ConfirmationPopup"
 const selectedAction = Variable(null)
 const selectedConfirmationText = Variable("")
 
-
 export const ConfirmationPopup = () =>{
-
     const content = Widget.Box({
         class_name: "container",
         css: `
@@ -56,7 +55,7 @@ export const ConfirmationPopup = () =>{
         layer: "overlay",
         keymode: "exclusive",
         exclusivity: 'normal',
-        child: CloseOnClickAway(WINDOW_NAME, content, "center"),
+        child: Common.CloseOnClickAway(WINDOW_NAME, content, "center"),
         setup: self => {
             self.keybind("Escape", () => App.closeWindow(WINDOW_NAME))
         }
@@ -65,9 +64,6 @@ export const ConfirmationPopup = () =>{
 
 const confirmationPopup = ConfirmationPopup()
 App.addWindow(confirmationPopup)
-
-
-
 
 // Creates a power button
 function PowerButton(name, icon, action, confirmationText = "Are you sure?"){
@@ -91,17 +87,13 @@ function PowerButton(name, icon, action, confirmationText = "Are you sure?"){
     })
 }
 
-
 // Popup power menu
 const powerMenu = Widget.Menu({
     children: [
-        // Fix these
-        PowerButton("Shutdown", icons.shutdown, () => execAsync("shutdown now")),
-        PowerButton("Hibernate", icons.hibernate, () => execAsync("systemctl hibernate")),
-        PowerButton("Sleep", icons.suspend, () => execAsync("systemctl suspend")),
-        PowerButton("Restart", icons.restart, () => execAsync("systemctl reboot")),
-        PowerButton("Test", icons.settings, () => print("Testing...")),
-
+        PowerButton("Shutdown", icons.shutdown, () => Utils.execAsync("shutdown now")),
+        PowerButton("Hibernate", icons.hibernate, () => Utils.execAsync("systemctl hibernate")),
+        PowerButton("Sleep", icons.suspend, () => Utils.execAsync("systemctl suspend")),
+        PowerButton("Restart", icons.restart, () => Utils.execAsync("systemctl reboot")),
     ],
 })
 
@@ -115,7 +107,6 @@ export const togglePowerMenu = Widget.Button({
 }).on("leave-notify-event", (self) => {
     // on hover lost
 })
-
 
 export const PowerProfilesButton = (w, h) => Widget.Button({
     class_name: `control-panel-button`,
@@ -163,60 +154,3 @@ export const PowerProfilesButton = (w, h) => Widget.Button({
     })
 })
 
-
-/*
-// Power button revealer
-const buttonRevealer = Widget.Revealer({
-    transitionDuration: 300,
-    transition: 'slide_left',
-    revealChild: false,
-    child: Widget.Box({
-        children: [
-            Widget.Button({
-                class_name: "power-button",
-                vpack: "center",
-                child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
-                on_primary_click: () => execAsync('shutdown now'),
-            }),
-            Widget.Button({
-                class_name: "power-button",
-                vpack: "center",
-                child: Widget.Icon({icon: "system-hibernate-symbolic", size: 20}),
-                on_primary_click: () => execAsync('systemctl hibernate'),
-            }),
-            Widget.Button({
-                class_name: "power-button",
-                vpack: "center",
-                child: Widget.Icon({icon: "system-suspend-symbolic", size: 20}),
-                on_primary_click: () => execAsync('systemctl suspend'),
-            }),
-            Widget.Button({
-                class_name: "power-button",
-                vpack: "center",
-                child: Widget.Icon({icon: "system-restart-symbolic", size: 20}),
-                on_primary_click: () => execAsync('systemctl reboot'),
-            }),
-            // Spacer
-            Widget.Label({label: "|"}),
-        ]
-    })
-})
-
-// Power buttons
-export const powerButtons = Widget.Box({
-    hpack: "end",
-    children: [
-        buttonRevealer,
-        // Toggle button
-        Widget.Button({
-            vpack: "center",
-            //class_name: "power-button",
-            class_name: "normal-button",
-            child: Widget.Icon({icon: "system-shutdown-symbolic", size: 20}),
-            on_primary_click: () => {
-                buttonRevealer.revealChild = !buttonRevealer.revealChild 
-            },
-        }),
-    ]
-})
-*/

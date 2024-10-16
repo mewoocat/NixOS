@@ -1,5 +1,6 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
+
 
 const dispatch = ws => Hyprland.sendMessage(`dispatch workspace ${ws}`);
 
@@ -31,7 +32,6 @@ export const Workspaces = () => Widget.EventBox({
                     self.toggleClassName('ws-large', (Hyprland.getWorkspace(i)?.windows || 0) > 1);
                 }),
             }),
-
         })),
     }),
 });

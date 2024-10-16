@@ -1,7 +1,7 @@
-import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Applications from 'resource:///com/github/Aylur/ags/service/applications.js'
+import App from 'resource:///com/github/Aylur/ags/app.js'
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
 
 const WINDOW_NAME = 'applauncher';
 
