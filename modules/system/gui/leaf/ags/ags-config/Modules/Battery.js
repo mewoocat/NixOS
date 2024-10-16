@@ -33,6 +33,10 @@ export const BatteryLabel = () => Widget.Box({
                     class_name: "battery-fg"
                 }).hook(Battery, label => {
                     //print("bat: " + Battery.energy + " W")
+                    
+                    //label.toggleClassName("battery-fg-low", Battery.percent < 21 && Battery.charging == false)
+                    label.toggleClassName("battery-fg-low", false)
+
                     if (Battery.charging){
                         label.label = ""
                     }

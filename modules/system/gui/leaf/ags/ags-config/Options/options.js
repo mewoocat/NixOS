@@ -94,14 +94,29 @@ export function CreateOptionWidget(option){
                 vpack: "center",
                 setup: (self) => {
                     // Init items
+                    let foundDefault = false
                     for (const key in option.comboboxItems){
                         const id = option.comboboxItems[key]
                         const text = key
                         self.append(id.toString(), text)
+                        if (key == option.value){
+                            foundDefault = true
+                        }
+                    }
+
+                    // If the item specified in the user settings is not valid or found
+                    // Use the first one found
+                    let active = undefined
+                    if (!foundDefault){
+                        const first = Object.keys(option.comboboxItems)[0]
+                        active = option.comboboxItems[first]
+                    }
+                    else {
+                        active = option.comboboxItems[option.value]
                     }
                     
                     // Set active
-                    self.set_active_id(option.comboboxItems[option.value].toString())
+                    self.set_active_id(active.toString())
 
                     self.on("changed", self => {
                         print("INFO: ComboBoxText modified to:" + self.get_active_text())
