@@ -12,6 +12,10 @@ export const NotificationPopup = () => Widget.Window({
         children: [
             Widget.Box({
                 vertical: true,
+                css: `
+                    padding: 8px;
+                `,
+                spacing: 8,
                 children: Notifications.bind('popups').transform(popups => {
                     return popups.map(Notification.Notification);
                 }),

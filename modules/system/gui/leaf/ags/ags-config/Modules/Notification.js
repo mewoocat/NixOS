@@ -25,7 +25,7 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
     let icon = 'dialog-information-symbolic';
     if (app_entry && Utils.lookUpIcon(app_entry))
         icon = app_entry;
-    else if (UtilslookUpIcon(app_icon))
+    else if (Utils.lookUpIcon(app_icon))
         icon = app_icon;
 
     print("INFO: Notification icon: " + icon)
@@ -104,10 +104,10 @@ export const Notification = n => {
         child: Widget.Box({
             class_name: `${n.urgency} container`,
             vertical: true,
-            vpack: "center",
-            vexpand: true,
+            //vpack: "center",
+            //vexpand: true,
             css: `
-                min-width: 14em;
+                min-width: 16em;
                 min-height: 4em;
             `,
             children: [
@@ -174,6 +174,7 @@ export const NotificationWidget = (w,h) => Widget.Box({
             hscroll: 'never',
             vscroll: 'always',
             css: 'min-height: 140px;',
+            vpack: 'fill',
             vexpand: true,
             child: Widget.Box({
                 class_name: 'notifications',
