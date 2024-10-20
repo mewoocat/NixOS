@@ -14,6 +14,7 @@
     matugen.url = "github:InioX/matugen?ref=v2.2.0";
     nix-gaming.url = "github:fufexan/nix-gaming";
     myNvim.url = "github:mewoocat/nvim-nix";
+    myNvimNvf.url = "github:mewoocat/nvim-nvf";
     microfetch.url = "github:NotAShelf/microfetch";
 
     hyprland = {
@@ -43,8 +44,6 @@
       inputs.hyprland.follows = "hyprland";
     };
     */
-
-    # My nvim config
 
     # Nix formatter
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
