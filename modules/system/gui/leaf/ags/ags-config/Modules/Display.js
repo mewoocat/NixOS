@@ -1,5 +1,5 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Brightness from '../Services/Brightness.js'
 
 export const DisplayButton = (w, h) => Widget.Button({
@@ -13,7 +13,6 @@ export const DisplayButton = (w, h) => Widget.Button({
         icon: "preferences-desktop-display-symbolic",
     })
 })
-
 
 export const brightness = () => Widget.Box({
     class_name: 'brightness',
@@ -36,8 +35,7 @@ export const brightness = () => Widget.Box({
                 Brightness.screen_value = self.value
                 // For external monitors
                 // Very very slow
-                //execAsync(`ddcutil --disable-dynamic-sleep --sleep-multiplier 0.1 --noverify setvcp 10 ${self.value * 100}`)
-
+                //Utils.execAsync(`ddcutil --disable-dynamic-sleep --sleep-multiplier 0.1 --noverify setvcp 10 ${self.value * 100}`)
             },
             value: Brightness.bind('screen-value'),
         }),

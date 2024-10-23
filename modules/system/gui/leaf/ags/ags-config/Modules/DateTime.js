@@ -1,7 +1,7 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import GLib from 'gi://GLib';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+import GLib from 'gi://GLib'
 
 
 // Contains datetime object

@@ -1,41 +1,33 @@
-
-//////////////////////////////////////////////////////////////////
-// Imports
-//////////////////////////////////////////////////////////////////
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import Gtk from 'gi://Gtk'
 
 // Modules
-import { brightness } from '../Modules/Display.js';
-import { VolumeSlider, VolumeMenu, MicrophoneMenu, MicrophoneSlider } from '../Modules/Audio.js';
-import { NetworkBack, WifiSwitch, WifiStatus, CurrentNetwork, wifiButton2x1, RefreshWifi, WifiPanelButton, ssid, WifiIcon, WifiList, AccessPoint} from '../Modules/Network.js';
-import { BluetoothBack, bluetoothButton2x1, Refresh, BluetoothStatus, BluetoothPanelButton, BluetoothMenu, BluetoothDevice } from '../Modules/Bluetooth.js';
-import { BatteryWidget } from '../Modules/Battery.js';
-import { systemStatsBox2x2, GPUWidget } from '../Modules/SystemStats.js';
-import { ThemeButton, ThemeMenu } from '../Modules/Theme.js'
-import { DisplayButton } from '../Modules/Display.js';
-import { PowerProfilesButton } from '../Modules/Power.js';
-import { NightLightButton } from '../Modules/NightLight.js';
-import { CloseOnClickAway } from '../Common.js';
-import { ScreenRecordButton } from '../Modules/ScreenCapture.js';
-import { Settings, SettingsToggle } from '../Windows/Settings.js';
-import { togglePowerMenu } from '../Modules/Power.js';
-import { UserInfo } from '../Modules/User.js';
-
-import { ControlPanelTab, ControlPanelNetworkTab, ControlPanelBluetoothTab } from '../Global.js';
-import { Options } from '../Options/options.js';
+import * as Display from '../Modules/Display.js';
+import * as Audio from '../Modules/Audio.js';
+import * as Network from '../Modules/Network.js';
+import * as Bluetooth from '../Modules/Bluetooth.js';
+import * as Battery from '../Modules/Battery.js';
+import * as SystemStats from '../Modules/SystemStats.js';
+import * as Theme from '../Modules/Theme.js'
+import * as Power from '../Modules/Power.js';
+import * as NightLight from '../Modules/NightLight.js';
+import * as Common from '../Common.js';
+import * as ScreenCapture from '../Modules/ScreenCapture.js';
+import * as Settings from '../Windows/Settings.js'
+import * as User from '../Modules/User.js';
+import * as Global from '../Global.js';
+import * as Options from '../Options/options.js';
 import icons from '../icons.js';
-import * as Common from './../Common.js'
 
 //////////////////////////////////////////////////////////////////
 // Constants
 //////////////////////////////////////////////////////////////////
 const WINDOW_NAME = "ControlPanel"
 const GRID_SPACING = 4
-
+// Usage: Grid.attach(columnNum, rowNum, widthNum, heighNum)
+const grid = Global.Grid()
 
 //////////////////////////////////////////////////////////////////
 // Helper functions
@@ -68,22 +60,12 @@ export function ControlPanelBox(widget, w, h) {
     return box;
 }
 
-
-
-
-import { Grid } from '../Global.js';
-const grid = Grid()
-
-// Usage:
-//     Grid.attach(columnNum, rowNum, widthNum, heighNum)
-
-
 //////////////////////////////////////////////////////////////////
 // Create control panel widgets to add to the main grid 
 //////////////////////////////////////////////////////////////////
 
 // Wireless
-const wirelessGrid = Grid()
+const wirelessGrid = Global.Grid()
 const wirelessWidget = ControlPanelBox(
     Widget.Box({
         hpack: "fill",
@@ -95,25 +77,25 @@ const wirelessWidget = ControlPanelBox(
         hexpand: true,
         vertical: true,
         children: [
-            wifiButton2x1,
-            bluetoothButton2x1,
+            Network.wifiButton2x1,
+            Bluetooth.bluetoothButton2x1,
         ],
     }),
-    Options.system.xlarge,
-    Options.system.large,
+    Options.Options.system.xlarge,
+    Options.Options.system.large,
 )
 
 const systemStatsWidget = ControlPanelBox(
-    systemStatsBox2x2,
-    Options.system.xlarge,
-    Options.system.large,
+    SystemStats.systemStatsBox2x2,
+    Options.Options.system.xlarge,
+    Options.Options.system.large,
 )
 
-const buttonGrid = Grid()
-buttonGrid.attach(NightLightButton(Options.system.small, Options.system.small), 1, 1, 1, 1)
-buttonGrid.attach(PowerProfilesButton(Options.system.small, Options.system.small), 1, 2, 1, 1)
-buttonGrid.attach(ThemeButton(Options.system.small, Options.system.small), 2, 1, 1, 1)
-buttonGrid.attach(ScreenRecordButton(Options.system.small, Options.system.small), 2, 2, 1, 1)
+const buttonGrid = Global.Grid()
+buttonGrid.attach(NightLight.NightLightButton(Options.Options.system.small, Options.Options.system.small), 1, 1, 1, 1)
+buttonGrid.attach(Power.PowerProfilesButton(Options.Options.system.small, Options.Options.system.small), 1, 2, 1, 1)
+buttonGrid.attach(Theme.ThemeButton(Options.Options.system.small, Options.Options.system.small), 2, 1, 1, 1)
+buttonGrid.attach(ScreenCapture.ScreenRecordButton(Options.Options.system.small, Options.Options.system.small), 2, 2, 1, 1)
 
 const sliders = Widget.Box({
     class_name: "control-panel-box",
@@ -123,51 +105,51 @@ const sliders = Widget.Box({
     vertical: true,
     spacing: 8,
     children: [
-        brightness(),
-        VolumeSlider(),
-        MicrophoneSlider(),
+        Display.brightness(),
+        Audio.VolumeSlider(),
+        Audio.MicrophoneSlider(),
     ]
 })
 
 const bottom = Widget.CenterBox({
     hexpand: true,
     css: `
-        min-height: ${Options.system.xsmall}rem;
+        min-height: ${Options.Options.system.xsmall}rem;
     `,
     class_name: `control-panel-box`,
-    startWidget: UserInfo,
+    startWidget: User.UserInfo,
     centerWidget: Widget.Label(''),
     endWidget: Widget.Box({
         hpack: "end",
         children: [
-            SettingsToggle,
+            Settings.SettingsToggle,
             Widget.Separator({class_name: "vertical-separator"}),
-            togglePowerMenu,
+            Power.togglePowerMenu,
         ],
     }),
 })
 
 // Row 1
-const row1 = Grid()
+const row1 = Global.Grid()
 row1.attach(wirelessWidget, 1, 1, 1, 1)
 row1.attach(buttonGrid, 2, 1, 1, 1)
 
 // Row 2
-const row2 = Grid()
+const row2 = Global.Grid()
 row2.attach(sliders, 1,2,2,1)
 
 // Row 3
-const row3 = Grid()
-if (Battery.available){
-    row3.attach(BatteryWidget(Options.system.large, Options.system.large), 1, 3, 1, 1)
+const row3 = Global.Grid()
+if (Battery.isAvailable()){
+    row3.attach(Battery.BatteryWidget(Options.Options.system.large, Options.Options.system.large), 1, 3, 1, 1)
 }
 else{
-    row3.attach(GPUWidget(Options.system.large, Options.system.large), 1, 3, 1, 1)
+    row3.attach(SystemStats.GPUWidget(Options.Options.system.large, Options.Options.system.large), 1, 3, 1, 1)
 }
 row3.attach(systemStatsWidget, 2, 3, 1, 1)
 
 // Row 4
-const row4 = Grid()
+const row4 = Global.Grid()
 row4.attach(bottom, 1,4,2,1)
 
 
@@ -177,22 +159,8 @@ row4.attach(bottom, 1,4,2,1)
 //////////////////////////////////////////////////////////////////
 // Setup submenus
 //////////////////////////////////////////////////////////////////
-
-/*
-const BackButton = (dst = "main") => Widget.Button({
-    class_name: `normal-button bg-button`,
-    //hexpand: true,
-    onClicked: () => {
-        ControlPanelTab.setValue(dst)
-    },
-    child: Widget.Icon({
-        icon: icons.back,
-    }),
-})
-*/
-
 const SetTab = (dst) => {
-    ControlPanelTab.setValue(dst)
+    Global.ControlPanelTab.setValue(dst)
 }
 
 const BackButton = (dst = "main", customCallback = null) => {
@@ -219,7 +187,7 @@ const networkMain = () => Widget.Box({
     vertical: true,
     spacing: 8,
     children: [
-        CurrentNetwork(),
+        Network.CurrentNetwork(),
         Widget.Box({
             children:[
                 Widget.Label({
@@ -232,12 +200,12 @@ const networkMain = () => Widget.Box({
                     hpack: "end",
                     vpack: "center",
                     children: [
-                        RefreshWifi(),
+                        Network.RefreshWifi(),
                     ]
                 }),
             ]
         }),
-        WifiList(),
+        Network.WifiList(),
     ]
 })
 
@@ -249,8 +217,8 @@ const networkContainer = () => Widget.Box({
         Widget.Box({
             spacing: 8,
             children: [
-                BackButton("n/a", NetworkBack), 
-                WifiStatus(),
+                BackButton("n/a", Network.NetworkBack), 
+                Network.WifiStatus(),
             ]
         }),
 
@@ -258,13 +226,13 @@ const networkContainer = () => Widget.Box({
             // Tabs
             children: {
                 'main': networkMain(),
-                'ap': AccessPoint(),
+                'ap': Network.AccessPoint(),
             },
             transition: "slide_left_right",
 
             // Select which tab to show
-            setup: self => self.hook(ControlPanelNetworkTab, () => {
-                self.shown = ControlPanelNetworkTab.value;
+            setup: self => self.hook(Global.ControlPanelNetworkTab, () => {
+                self.shown = Global.ControlPanelNetworkTab.value;
             })
         })
 
@@ -277,7 +245,7 @@ const volumeContainer = () => Widget.Box({
     spacing: 4,
     children: [
         BackButton(),
-        VolumeMenu(), 
+        Audio.VolumeMenu(), 
     ],
 })
 
@@ -286,7 +254,7 @@ const microphoneContainer = () => Widget.Box({
     vexpand: false,
     children: [
         BackButton(),
-        MicrophoneMenu(), 
+        Audio.MicrophoneMenu(), 
     ],
 })
 
@@ -294,7 +262,7 @@ const BTDevice = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        BluetoothDevice(),
+        Bluetooth.BluetoothDevice(),
     ],
 })
 
@@ -307,22 +275,22 @@ const bluetoothContainer = () => Widget.Box({
         Widget.Box({
             spacing: 8,
             children: [
-                BackButton("n/a", BluetoothBack), 
-                BluetoothStatus(),
+                BackButton("n/a", Bluetooth.BluetoothBack), 
+                Bluetooth.BluetoothStatus(),
             ]
         }),
 
         Widget.Stack({
             // Tabs
             children: {
-                'main': BluetoothMenu(),
+                'main': Bluetooth.BluetoothMenu(),
                 'device': BTDevice(),
             },
             transition: "slide_left_right",
 
             // Select which tab to show
-            setup: self => self.hook(ControlPanelBluetoothTab, () => {
-                self.shown = ControlPanelBluetoothTab.value;
+            setup: self => self.hook(Global.ControlPanelBluetoothTab, () => {
+                self.shown = Global.ControlPanelBluetoothTab.value;
             })
         })
     ],
@@ -340,7 +308,7 @@ const ThemeContainer = () => Widget.Box({
                 Widget.Label("Appearance"),
             ]
         }),
-        ThemeMenu(),
+        Theme.ThemeMenu(),
     ],
 })
 
@@ -358,8 +326,8 @@ const stack = Widget.Stack({
     transition: "slide_left_right",
 
     // Select which tab to show
-    setup: self => self.hook(ControlPanelTab, () => {
-        self.shown = ControlPanelTab.value;
+    setup: self => self.hook(Global.ControlPanelTab, () => {
+        self.shown = Global.ControlPanelTab.value;
     })
 })
 
@@ -372,7 +340,7 @@ const content = Widget.Revealer({
         self.hook(App, (self, windowName, visible) => {
             if (windowName === "ControlPanel"){
                 self.revealChild = visible
-                ControlPanelTab.setValue("main")
+                Global.ControlPanelTab.setValue("main")
             }
         }, 'window-toggled')
     },
@@ -386,7 +354,7 @@ const content = Widget.Revealer({
 
 export const ControlPanelToggleButton = (monitor) => Widget.Button({
     class_name: 'launcher normal-button',
-    on_primary_click: () => execAsync(`ags -t ControlPanel`),
+    on_primary_click: () => Utils.execAsync(`ags -t ControlPanel`),
     child: Widget.Label({
         label: ""
     }) 
@@ -401,7 +369,7 @@ export const ControlPanel = () => Widget.Window({
     //anchor: ["top", "bottom", "right", "left"], // Anchoring on all corners is used to stretch the window across the whole screen 
     anchor: ["top", "left", "right"], // Debug mode
     exclusivity: 'normal',
-    child: CloseOnClickAway("ControlPanel", content, "top-right"),
+    child: Common.CloseOnClickAway("ControlPanel", content, "top-right"),
     setup: self => {
         //self.show_all()
         //self.visible = false

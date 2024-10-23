@@ -1,21 +1,17 @@
-
-import App from 'resource:///com/github/Aylur/ags/app.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import App from 'resource:///com/github/Aylur/ags/app.js'
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
 import GObject from 'gi://GObject'
-import { timeout } from 'resource:///com/github/Aylur/ags/utils.js'
-import { data } from '../Options/options.js'
+
+import * as Options from '../Options/options.js'
+
 
 ///////////////////////////////////
 //  Weather setup
 ///////////////////////////////////
 export const weather = Variable(null, {
     poll: [40000, () => { 
-        /*
-        if (data == null){
-            return null
-        }
-        */
         return getWeather()
     }]
 })
@@ -24,9 +20,9 @@ export const weather = Variable(null, {
 async function getWeather(){
     // Get user lat lon
     //TODO add variables for units
-    if (data != null){
-        var lat = data.lat
-        var lon = data.lon
+    if (Options.data != null){
+        var lat = Options.data.lat
+        var lon = Options.data.lon
     }
     else{
         print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
@@ -49,10 +45,6 @@ async function getWeather(){
         return null
     }
 }
-
-// Read in user settings
-//const data = JSON.parse(Utils.readFile(`${App.configDir}/../../.cache/ags/UserSettings.json`))
-//const data = GetOptions()
 
 // Get lat and lon from city
 // Get data from api

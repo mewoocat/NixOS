@@ -1,8 +1,8 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-import { CloseOnClickAway } from '../Common.js';
-import { AppLauncher } from '../Modules/Applications.js';
+import Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import * as Common from '../Common.js';
+import * as Applications from '../Modules/Applications.js';
 
 const WINDOW_NAME = 'applauncher';
 
@@ -27,7 +27,7 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
             min-height: ${height}px;
         `,
         children: [
-            AppLauncher(WINDOW_NAME),
+            Applications.AppLauncher(WINDOW_NAME),
         ],
     })
 })
@@ -35,7 +35,7 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
 export const LauncherButton = () => Widget.Button({
     class_name: 'launcher normal-button',
     hpack: "start",
-    on_primary_click: () => execAsync(`ags -t applauncher`), //toggleLauncherWindow(),
+    on_primary_click: () => Utils.execAsync(`ags -t applauncher`), //toggleLauncherWindow(),
     child: Widget.Icon({
         size: 20,
         icon: 'distributor-logo-nixos',
@@ -51,7 +51,7 @@ export const Launcher = () => Widget.Window({
     keymode: "exclusive",
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
     //anchor: ["top", "left", "bottom"], // Debugging // idk why removing bottom from here causes the window to not open 
-    child: CloseOnClickAway(WINDOW_NAME, Content({
+    child: Common.CloseOnClickAway(WINDOW_NAME, Content({
         spacing: 12,
     }), "top-left"),
     setup: self =>  self.keybind("Escape", () => App.closeWindow(WINDOW_NAME))

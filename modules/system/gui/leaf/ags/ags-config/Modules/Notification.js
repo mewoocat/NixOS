@@ -1,7 +1,8 @@
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import GLib from 'gi://GLib';
-import { lookUpIcon } from 'resource:///com/github/Aylur/ags/utils.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js'
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Utils from 'resource:///com/github/Aylur/ags/utils.js'
+import GLib from 'gi://GLib'
+
 
 // Notification service config
 Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
@@ -22,9 +23,9 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
     }
 
     let icon = 'dialog-information-symbolic';
-    if (app_entry && lookUpIcon(app_entry))
+    if (app_entry && Utils.lookUpIcon(app_entry))
         icon = app_entry;
-    else if (lookUpIcon(app_icon))
+    else if (Utils.lookUpIcon(app_icon))
         icon = app_icon;
 
     print("INFO: Notification icon: " + icon)
@@ -103,10 +104,10 @@ export const Notification = n => {
         child: Widget.Box({
             class_name: `${n.urgency} container`,
             vertical: true,
-            vpack: "center",
-            vexpand: true,
+            //vpack: "center",
+            //vexpand: true,
             css: `
-                min-width: 14em;
+                min-width: 16em;
                 min-height: 4em;
             `,
             children: [
@@ -173,6 +174,7 @@ export const NotificationWidget = (w,h) => Widget.Box({
             hscroll: 'never',
             vscroll: 'always',
             css: 'min-height: 140px;',
+            vpack: 'fill',
             vexpand: true,
             child: Widget.Box({
                 class_name: 'notifications',

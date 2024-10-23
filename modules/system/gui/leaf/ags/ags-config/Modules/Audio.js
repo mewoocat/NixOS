@@ -1,11 +1,11 @@
 
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js'
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js'
+import Variable from 'resource:///com/github/Aylur/ags/variable.js'
 import Gtk from 'gi://Gtk'
 import GObj from 'gi://GObject'
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import { ControlPanelTab } from '../Global.js';
-import { ComboBoxText } from '../Global.js';
+
+import * as Global from '../Global.js'
 
 export const VolumeIcon = () => Widget.Box({
     class_name: "icon",
@@ -59,7 +59,7 @@ export const VolumeIcon = () => Widget.Box({
 
 export const VolumeButton = () => Widget.Button({
     class_name: "normal-button",
-    onClicked: () => ControlPanelTab.setValue("volume"),
+    onClicked: () => Global.ControlPanelTab.setValue("volume"),
     child: VolumeIcon(),
 })
 
@@ -94,7 +94,7 @@ function UpdateOutputDevices(widget){
 }
 
 // Dropdown to select output device
-const OutputDevices = () => ComboBoxText({
+const OutputDevices = () => Global.ComboBoxText({
     //css: "padding: 1px;"
 
 }).on("changed", self => {
@@ -220,7 +220,7 @@ export const MicrophoneIcon = () => Widget.Icon({
 
 export const MicrophoneButton = () => Widget.Button({
     class_name: "normal-button",
-    onClicked: () => ControlPanelTab.setValue("microphone"),
+    onClicked: () => Global.ControlPanelTab.setValue("microphone"),
     child: MicrophoneIcon(),
 })
 
@@ -241,8 +241,7 @@ export const MicrophoneSlider = () => Widget.Box({
 });
 
 
-//let ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
-const inputDevices = ComboBoxText({
+const inputDevices = Global.ComboBoxText({
     //class_name: "normal-button",
 })
 inputDevices.on("changed", self => {
