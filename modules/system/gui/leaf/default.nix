@@ -11,6 +11,7 @@
     ./ags
     ./hyprland
     ./theming
+    ./dynamic
   ];
 
   programs.dconf.enable = true; # Required for gtk?
