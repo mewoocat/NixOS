@@ -240,6 +240,7 @@ export const BluetoothMenu = () => Widget.Box({
     
 export const BluetoothSwitch = () => Widget.Switch({
     vpack: "center",
+    class_name: Bluetooth.bind("enabled").as(v => v ? "switch-on" : "switch-off"),
     setup: (self) => {
         // Syncs the active property on this switch to the enabled property on the Bluetooth GObject
         self.bind_property("active", Bluetooth, "enabled",  GObject.BindingFlags.BIDIRECTIONAL)

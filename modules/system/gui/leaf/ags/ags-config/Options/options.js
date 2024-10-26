@@ -58,8 +58,8 @@ export function CreateOptionWidget(option){
             return Widget.Switch({
                 class_name: "switch-off",
                 onActivate: (self) => {
-                    print("INFO: Switch onActivate called")
-                    print("INFO: self.active: " + self.active)
+                    //print("INFO: Switch onActivate called")
+                    //print("INFO: self.active: " + self.active)
                     self.toggleClassName("switch-off", !self.active)
                     self.toggleClassName("switch-on", self.active)
                     settingsChanged.value = true
