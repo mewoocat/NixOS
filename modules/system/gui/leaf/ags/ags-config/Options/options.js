@@ -409,7 +409,7 @@ export function ApplySettings(){
     print(hyprlandConfig)
 
     // Write out Hyprland settings files
-    Utils.writeFile(hyprlandConfig, `${App.configDir}/../../.cache/hypr/userSettings.conf`)
+    Utils.writeFile(hyprlandConfig, `${configPath}/hypr/userSettings.conf`)
         //.then(file => print('LOG: Hyprland settings file updated'))
         //.catch(err => print(err))
 

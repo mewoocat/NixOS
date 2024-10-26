@@ -31,8 +31,11 @@ in{
     leaf-startup.text = ''
       mkdir -p ${leaf-dir}
       mkdir -p ${leaf-dir}/theme 
-      echo "${defaultConfigStr}"
       cp ${defaultConfigStr} ${leaf-dir}/defaultUserSettings.json
+      mkdir -p ${leaf-dir}/hypr
+      touch ${leaf-dir}/hypr/monitors.conf
+      touch ${leaf-dir}/hypr/workspaces.conf
+      touch ${leaf-dir}/hypr/userSettings.conf
     '';
   };
 
