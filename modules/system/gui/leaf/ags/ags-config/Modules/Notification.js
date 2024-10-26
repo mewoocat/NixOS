@@ -28,7 +28,7 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
     else if (Utils.lookUpIcon(app_icon))
         icon = app_icon;
 
-    print("INFO: Notification icon: " + icon)
+    //print("INFO: Notification icon: " + icon)
 
     return Widget.Icon({
         size: 48, 

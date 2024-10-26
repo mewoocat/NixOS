@@ -16,8 +16,9 @@ Gtk.Settings.get_default().gtk_enable_animations = true
 
 let homeDir = GLib.get_home_dir()
 let defaultConfig = `${App.configDir}/defaultUserSettings.json`
-let configPath = `${homeDir}/.cache/ags/`
+let configPath = `${homeDir}/.config/leaf-de/`
 let configName = `UserSettings.json`
+let defaultConfigName = `defaultUserSettings.json`
 
 export const settingsChanged = Variable(false, {}) 
 export var data = null;     // Json data
@@ -325,7 +326,7 @@ export function GetOptions() {
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
-        //print(JSON.stringify(data, null, 4))
+        print(JSON.stringify(data, null, 4))
         print(`Successfully read in ${configPath + configName}`)
         InitilizeOptions()
     } 
@@ -336,19 +337,19 @@ export function GetOptions() {
         print(`Could not read ${configPath + configName}`)
 
         // Backup existing UserSettings.json
-        print(`Backing up current UserSettings.json to ${configPath + configName + ".bak"}`)
-        Utils.exec(`cp ${configPath + configName} ${configPath + configName + ".bak"}`)
+        //print(`Backing up current UserSettings.json to ${configPath + configName + ".bak"}`)
+        //Utils.exec(`cp ${configPath + configName} ${configPath + configName + ".bak"}`)
 
         // Create default UserSettings.json
-        const defaultConfigContents = Utils.readFile(defaultConfig)
-        Utils.writeFileSync(defaultConfigContents, `${configPath + configName}`)
+        //const defaultConfigContents = Utils.readFile(defaultConfig)
+        //Utils.writeFileSync(defaultConfigContents, `${configPath + configName}`)
 
-        // Retry loading in options
+        // Retry loading in options using the default config
         try{
             print(`Retrying reading in ${configPath + configName}`)
-            data = JSON.parse(Utils.readFile(configPath + configName))
+            data = JSON.parse(Utils.readFile(configPath + defaultConfigName))
             InitilizeOptions()
-            print(`Successfully read in ${configPath + configName}`)
+            print(`Successfully read in ${configPath + defaultConfigName}`)
         }
         catch (error) {
             print(error)
@@ -418,7 +419,7 @@ export function ApplySettings(){
     // Modified user settings json
     let dataModified = JSON.stringify(data, null, 4)
     // Write out to UserSettings.json
-    Utils.writeFileSync(dataModified, `${App.configDir}/../../.cache/ags/UserSettings.json`)
+    Utils.writeFileSync(dataModified, `${configPath + configName}`)
         //.then(file => print('LOG: User settings file updated'))
         //.catch(err => print(err))
 

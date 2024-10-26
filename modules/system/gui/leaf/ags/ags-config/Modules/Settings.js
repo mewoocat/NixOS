@@ -22,7 +22,7 @@ export const ApplyButton = () => Widget.Button({
     class_name: "normal-button bg-button",
     vpack: "center",
     hpack: "end",
-    on_primary_click: () => ApplySettings(),
+    on_primary_click: () => Options.ApplySettings(),
     child: Widget.Label("Apply"),
 })
 
