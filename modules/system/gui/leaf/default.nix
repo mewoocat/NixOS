@@ -23,6 +23,13 @@
     };
   };
 
+  system.userActivationScripts = {
+    leaf-startup.text = ''
+      mkdir -p /home/${config.username}/.config/leaf-de
+      mkdir -p /home/${config.username}/.config/leaf-de/theme 
+    '';
+  };
+
   # Autostarts gnome polkit
   # Needed for apps that require sudo permissions (i.e. gnome-disks)
   systemd.user.services.polkit-gnome-authentication-agent-1 = {

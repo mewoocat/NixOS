@@ -9,6 +9,12 @@
   # This is a custom option
   username = "eXia";
 
+  system.activationScripts = {
+    test.text = ''
+      echo "test"
+    '';
+  };
+
   imports = [
     ../../modules/applications
     ../../modules/dev-environments

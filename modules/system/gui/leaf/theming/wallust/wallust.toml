@@ -52,7 +52,7 @@ ags.src = 'ags.scss'
 ags.dst = '~/.config/ags/Style/_colors.scss'
 
 gtk.src = 'gtk.css'
-gtk.dst = '~/.cache/gtk.css'
+gtk.dst = '~/.config/leaf-de/theme/gtk.css'
 
 vim.src = 'colors_neopywal.vim'
 vim.dst = '~/.cache/wallust/colors_neopywal.vim'

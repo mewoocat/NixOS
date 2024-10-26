@@ -110,6 +110,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
                         label: theme.name,
                     }),
                     Widget.Box({
+                        vertical: true,
                         children: [
                             Widget.Icon({
                                 icon: theme.wallpaper, 
@@ -121,7 +122,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
                                     border-radius: 1em;
                                     padding: 0.4em;
                                 `,
-                                hpack: "end",
+                                hpack: "center",
                                 hexpand: true,
                                 vpack: "center",
                                 children: [
