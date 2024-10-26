@@ -4,7 +4,11 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  leaf-dir = "/home/${config.username}/.config/leaf-de";
+  # Accessing the path using ${} from within a string returns the nix store version of the file
+  defaultConfigStr = "${./ags/ags-config/defaultUserSettings.json}"; 
+in{
   imports = [
     ./core-applications
     ./core-functions
@@ -25,8 +29,10 @@
 
   system.userActivationScripts = {
     leaf-startup.text = ''
-      mkdir -p /home/${config.username}/.config/leaf-de
-      mkdir -p /home/${config.username}/.config/leaf-de/theme 
+      mkdir -p ${leaf-dir}
+      mkdir -p ${leaf-dir}/theme 
+      echo "${defaultConfigStr}"
+      cp ${defaultConfigStr} ${leaf-dir}/defaultUserSettings.json
     '';
   };
 

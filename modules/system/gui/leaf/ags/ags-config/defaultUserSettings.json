@@ -1,20 +1,20 @@
 {
-    "lon":0,
-    "lat":0,
-    "options":{
-        "general":{
-            "gaps_in":4,
-            "gaps_out":8,
-            "gaps_workspaces":100,
-            "rounding":10,
-            "blur":true,
-            "sensitivity":0,
-            "border_size":3,
+    "lon": 0,
+    "lat": 0,
+    "options": {
+        "general": {
+            "gaps_in": 4,
+            "gaps_out": 8,
+            "gaps_workspaces": 100,
+            "rounding": 10,
+            "blur": true,
+            "sensitivity": 0,
+            "border_size": 2,
             "animations": true,
             "ags_animations": true,
-            "ags_opacity": 90
+            "ags_opacity": 75
         },
-        "display":{
+        "display": {
             "default_monitor": 1
         }
     }
