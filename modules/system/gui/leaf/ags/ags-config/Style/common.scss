@@ -148,6 +148,12 @@ switch{
 .switch-off slider{
     background-color: $bg2;
 }
+.switch-on:hover slider{
+    background-color: $bg2;
+}
+.switch-off:hover slider{
+    background-color: $accent1;
+}
 
 switch slider {
     border-radius: 1rem;
