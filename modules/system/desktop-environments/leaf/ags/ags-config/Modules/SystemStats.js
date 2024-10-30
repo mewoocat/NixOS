@@ -185,7 +185,7 @@ export const GPUWidget = (w, h) => Widget.Box({
         min-width: ${w}rem;
         min-height: ${h}rem;
     `,
-    class_name: `control-panel-button`,
+    class_name: `control-panel-box`,
     children: [
         Widget.Overlay({
             hexpand: true,

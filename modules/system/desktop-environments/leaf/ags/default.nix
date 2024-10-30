@@ -47,7 +47,7 @@
     ];
     systemd.user.tmpfiles.rules = [
       # There's probably a better way to do this
-      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/gui/leaf/ags/ags-config"
+      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config"
     ];
   };
 }

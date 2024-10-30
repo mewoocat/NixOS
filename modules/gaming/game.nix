@@ -49,7 +49,7 @@ in {
         snes9x
         pcsx-rearmed
         mgba
-        citra
+        #citra
         dolphin
         mupen64plus
         ppsspp

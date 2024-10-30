@@ -22,7 +22,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/system
 
     # Desktop environment
-    ../../modules/system/gui/leaf
+    ../../modules/system/desktop-environments/leaf
 
     # User
     ../../users/eXia

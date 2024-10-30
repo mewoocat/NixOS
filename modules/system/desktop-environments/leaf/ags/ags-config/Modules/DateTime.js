@@ -28,7 +28,7 @@ export const Calendar = Widget.Calendar({
 });
 
 export const CalendarContainer = (w, h) => Widget.Box({
-    class_name: "control-panel-button",
+    class_name: "control-panel-box",
     css: `
         min-width: ${w}rem;
         min-height: ${h}rem;

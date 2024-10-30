@@ -15,12 +15,11 @@
 
 .control-panel-button{
     all: unset;
-    //background-color: rgba($bg1, $mediumOpacity);
-    background-color: rgba($bg1, 1);
+    background-color: rgba($bg1, $mediumOpacity);
     border-radius: 1rem;
-    //border-color: rgba($bg0, $mediumOpacity);
-    //border-width: 1px;
-    //border-style: solid;
+    border-color: rgba($bg0, $mediumOpacity);
+    border-width: 1px;
+    border-style: solid;
     margin: 0.2rem;
 }
 

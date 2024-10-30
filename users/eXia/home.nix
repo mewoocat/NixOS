@@ -62,8 +62,8 @@ in {
     "application/pdf" = ["firefox.desktop"];
     "x-scheme-handler/http" = ["firefox.desktop"];
     "x-scheme-handler/https" = ["firefox.desktop"];
-    "text/markdown" = ["l3afpad.desktop"];
-    "text/plain" = ["l3afpad.desktop"];
+    #"text/markdown" = ["l3afpad.desktop"];
+    #"text/plain" = ["l3afpad.desktop"];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -94,7 +94,6 @@ in {
     inkscape
     gimp
     blanket
-    l3afpad
     rhythmbox
     bookworm
     spotifywm spotify-tray
