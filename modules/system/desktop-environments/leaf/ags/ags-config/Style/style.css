@@ -610,9 +610,7 @@ scale slider:hover {
 .circle-button {
   all: unset;
   background-color: #6B6A6A;
-  border-radius: 100%;
-  min-width: 2rem;
-  min-height: 2rem; }
+  border-radius: 100%; }
   .circle-button > * {
     color: #EEF2F2; }
 
@@ -624,11 +622,6 @@ scale slider:hover {
 .circle-button-active {
   background-color: #248888; }
   .circle-button-active > * {
-    color: #000000; }
-
-.circle-button:hover {
-  background-color: #248888; }
-  .circle-button:hover > * {
     color: #000000; }
 
 .player {

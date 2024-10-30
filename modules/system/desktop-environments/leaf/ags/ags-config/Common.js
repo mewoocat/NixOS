@@ -110,7 +110,7 @@ export function SecToHourAndMin(seconds){
     return `${hours} hours, and ${minutes} minutes`
 }
 
-export function CircleButton(icon, action, params){
+export function CircleButton(icon, action, params, size = 4){
     function ActionParsed(){
         if ( params != null || params != undefined){
             return action(...params)
@@ -118,13 +118,17 @@ export function CircleButton(icon, action, params){
         else{
             return action()
         }
-    }
+    } 
     return Widget.Button({ 
         class_name: "circle-button",
         vpack: "center",
         vexpand: false,
         hpack: "start",
         hexpand: false,
+        css: `
+            min-width: ${size}rem;
+            min-height: ${size}rem;
+        `,
         on_primary_click: () => ActionParsed(),
         child: Widget.Icon({
             icon: icon,

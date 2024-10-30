@@ -2,24 +2,28 @@ import Notifications from 'resource:///com/github/Aylur/ags/service/notification
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import GLib from 'gi://GLib'
-
+import Gio from 'gi://Gio';
 
 // Notification service config
 Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
 
 /** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
-    if (image) {
-        return Widget.Box({
-            css: `
-                min-width: 3rem;
-                min-height: 3rem;
-                background-image: url("${image}");
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-            `,
-        });
+    if (image != null) {
+        const imageFile = Gio.File.new_for_path(image)
+        const imageExists = imageFile.query_exists(null)
+        if(imageExists){
+            return Widget.Box({
+                css: `
+                    min-width: 3rem;
+                    min-height: 3rem;
+                    background-image: url("${image}");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                `,
+            });
+        }
     }
 
     let icon = 'dialog-information-symbolic';
@@ -88,6 +92,12 @@ export const Notification = n => {
         wrap: true,
     });
 
+    const close = Widget.Button({
+        class_name: "normal-button bg-button",
+        on_primary_click: n.close, 
+        child: Widget.Label({label: "Close"}),
+    })
+
     const actions = Widget.Box({
         class_name: 'actions',
         children: n.actions.map(({ id, label }) => Widget.Button({
@@ -123,6 +133,7 @@ export const Notification = n => {
                                     children: [
                                         appName,
                                         time,
+                                        close,
                                     ]
                                 }),
                                 summary,
@@ -151,6 +162,18 @@ export const dndToggle = Widget.Button({
     })
 })
 
+function ClearNotifications(){
+    Notifications.notifications.forEach(notif => {
+        try{ 
+            notif.close()
+            print(`INFO: Closed notification: ${notif.id}`)
+        }
+        catch(err){
+            print(`ERROR: ${err}`)
+        }
+    }) 
+}
+
 export const NotificationWidget = (w,h) => Widget.Box({
     css: `
         min-width: ${w}rem;
@@ -165,7 +188,8 @@ export const NotificationWidget = (w,h) => Widget.Box({
             centerWidget: dndToggle,
             endWidget: Widget.Button({
                 class_name: "normal-button",
-                on_primary_click: () => Notifications.clear(),
+                //on_primary_click: () => Notifications.clear(), // Can cause crashes
+                on_primary_click: ClearNotifications, // Can cause crashes
                 child: Widget.Label({label: "close all"}),
             }),
         }),

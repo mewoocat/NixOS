@@ -4,8 +4,8 @@
     all: unset;
     background-color: $bg2;
     border-radius: 100%;
-    min-width: 2rem;
-    min-height: 2rem;
+    //min-width: 2rem;
+    //min-height: 2rem;
     
     // Button contents
     > * {
@@ -21,13 +21,6 @@
 }
 
 .circle-button-active {
-    background-color: $accent1;
-    > * {
-        color: $fgAlt;
-    }
-}
-
-.circle-button:hover {
     background-color: $accent1;
     > * {
         color: $fgAlt;
