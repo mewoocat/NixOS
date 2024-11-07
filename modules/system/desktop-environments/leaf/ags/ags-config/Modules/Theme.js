@@ -1,8 +1,10 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
+import GdkPixbuf from 'gi://GdkPixbuf'
 
 import * as Global from '../Global.js'
+import icons from '../icons.js';
 
 
 export const ThemeButton = (w, h) => Widget.Button({
@@ -40,6 +42,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 
     for (let themeKey in recentThemesJson){
         let theme = recentThemesJson[themeKey]
+        let wallpaperImage = theme.wallpaper
 
         //print("INFO: Theme = " + JSON.stringify(theme))
 
@@ -94,7 +97,20 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
             colorGrid.attach(colorWidget, i, 1, 1, 1)
         }
 
-        let themeWidget = Widget.Button({
+        //const wallaperImage = Gtk.Image.new_from_file(theme.wallpaper)
+
+        // Try to load the image
+        try {
+            print(`Info: Loading image ${wallpaperImage} ...`)
+            GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
+        }
+        catch (err){
+            print(err)
+            print("Info: Image load failed, using fallback")
+            wallpaperImage = icons.invalidWallpaper 
+        }
+
+        const themeWidget = Widget.Button({
             class_name: "normal-button",
             on_primary_click: () => {
                 print(`INFO: Setting active theme to ${theme.name}`)
@@ -113,7 +129,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
                         vertical: true,
                         children: [
                             Widget.Icon({
-                                icon: theme.wallpaper, 
+                                icon: wallpaperImage, 
                                 size: 64,
                             }),
                             Widget.Box({
@@ -224,7 +240,7 @@ export const ThemeMenu = () => Widget.Box({
                 `,
                 children: RecentThemes.bind(),
             }),
-        })
+        }),
     ]
 })
 
