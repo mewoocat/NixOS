@@ -1,4 +1,4 @@
 
 networks.txt
-modules/system/gui/leaf/ags/ags-config/Style/_colors.scss
-modules/system/gui/leaf/ags/ags-config/Style/style.css
+modules/system/desktop-environments/leaf/ags/ags-config/Style/_colors.css
+modules/system/desktop-environments/leaf/ags/ags-config/Style/style.css

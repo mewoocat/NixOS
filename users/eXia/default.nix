@@ -23,12 +23,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
     isNormalUser = true;
-    extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers" "cdrom"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       inputs.zen-browser.packages."${system}".default
       linux-wifi-hotspot
+      wineWowPackages.stable
     ];
   };
+
+  programs.cdemu.enable = true; # For emulating CD-Roms
 
   # Set your time zone.
   time.timeZone = "America/Chicago";

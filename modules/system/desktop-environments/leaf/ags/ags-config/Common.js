@@ -110,7 +110,7 @@ export function SecToHourAndMin(seconds){
     return `${hours} hours, and ${minutes} minutes`
 }
 
-export function CircleButton(icon, action, params, size = 4){
+export function CircleButton(icon, action, params, size = 2){
     function ActionParsed(){
         if ( params != null || params != undefined){
             return action(...params)
