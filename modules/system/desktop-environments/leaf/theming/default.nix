@@ -19,8 +19,13 @@ in {
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
+
+    # For gnome like style
+    #platformTheme = "gnome";
+    #style = "adwaita-dark";
+
+    platformTheme = "qt5ct";
+
   };
 
   home-manager.users.${config.username} = {
