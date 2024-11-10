@@ -14,12 +14,12 @@
 in {
 
   environment.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt5ct";
+    #QT_QPA_PLATFORMTHEME = "qt5ct";
   };
 
   qt = {
     enable = true;
-    platformTheme = "qt5ct";
+    platformTheme = "gnome";
     style = "adwaita-dark";
   };
 
