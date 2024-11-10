@@ -12,6 +12,17 @@
   # Wallust packaging
   wallust = pkgs.callPackage ./wallust.nix {};
 in {
+
+  environment.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "adwaita-dark";
+  };
+
   home-manager.users.${config.username} = {
     # GTK Config
     gtk = {
@@ -41,12 +52,18 @@ in {
     };
 
     # QT Config (BROKEN)
+    /*
     qt = {
       enable = true;
-      #style.name = "kvantum";
-
-      platformTheme.name = "qtct";
+      style = {
+        name = "adwaita-dark";
+        package = pkgs.adwaita-qt;
+      };
+      platformTheme = {
+        name = "qt5ct";
+      };
     };
+    */
 
     home.packages = with pkgs; [
       # Self packaged
@@ -72,7 +89,13 @@ in {
       ".local/share/themes/adw-gtk3-dark".source = ./adw-gtk3-dark;
 
       # GTK 4
-      ".config/gtk-4.0/gtk.css".source = ./adw-gtk3/gtk-4.0/gtk.css;
+      ".config/gtk-4.0/gtk.css".source = ./adw-gtk3/gtk-4.0/gtk.css; 
     };
+
+    systemd.user.tmpfiles.rules = [
+      # QT configs
+      "L+ /home/${config.username}/.config/qt5ct - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/theming/qt-configs/qt5ct"
+      "L+ /home/${config.username}/.config/qt6ct - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/theming/qt-configs/qt6ct"
+    ];
   };
 }

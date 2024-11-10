@@ -5,9 +5,10 @@
 src=$1
 dest=$2
 
-date=$(date +"%b-%d-%Y-%T")
-backupDir="Backup-$date"
-mkdir $dest/$backupDir
+#date=$(date +"%b-%d-%Y-%T")
+#backupDir="Backup-$date"
+#mkdir $dest/$backupDir
 
+# Designed for creating backups
 #--dry-run
-rsync --human-readable --hard-links --archive --info=progress2 --no-inc-recursive $src $dest/$backupDir
+rsync --human-readable --hard-links --archive --info=progress2 --no-inc-recursive $src $dest
