@@ -103,8 +103,8 @@ in {
     qdirstat
     gnome.gucharmap
 
-    inputs.myNvim.packages.x86_64-linux.default
-    #inputs.myNvimNvf.packages.x86_64-linux.default
+    #inputs.myNvim.packages.x86_64-linux.default
+    inputs.myNvimNvf.packages.x86_64-linux.default
     inputs.microfetch.packages.x86_64-linux.default
     
     brasero

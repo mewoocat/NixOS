@@ -884,14 +884,15 @@
     "myNvimNvf": {
       "inputs": {
         "nixpkgs": "nixpkgs_8",
-        "nvf": "nvf"
+        "nvf": "nvf",
+        "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1729408405,
-        "narHash": "sha256-hHBfR4AFvoS4gCTI89EYn/8HFzdyXu2niLClruGvJF8=",
+        "lastModified": 1731275291,
+        "narHash": "sha256-lRus8yfym/92qyRFpG4k9AsqinbuAgGjuQqwpxVGYdc=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "b155bb7184000183cf8daa17572fac4114222f4d",
+        "rev": "02e04a1a4eca5cef22f25dbd3b3ccd9ece3bac6c",
         "type": "github"
       },
       "original": {
@@ -1188,11 +1189,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1729256560,
-        "narHash": "sha256-/uilDXvCIEs3C9l73JTACm4quuHUsIHcns1c+cHUJwA=",
+        "lastModified": 1731139594,
+        "narHash": "sha256-IigrKK3vYRpUu+HEjPL/phrfh7Ox881er1UEsZvw9Q4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4c2fcb090b1f3e5b47eaa7bd33913b574a11e0a0",
+        "rev": "76612b17c0ce71689921ca12d9ffdc9c23ce40b2",
         "type": "github"
       },
       "original": {
@@ -1321,6 +1322,7 @@
         "plugin-otter-nvim": "plugin-otter-nvim",
         "plugin-oxocarbon": "plugin-oxocarbon",
         "plugin-plenary-nvim": "plugin-plenary-nvim",
+        "plugin-precognition-nvim": "plugin-precognition-nvim",
         "plugin-project-nvim": "plugin-project-nvim",
         "plugin-registers": "plugin-registers",
         "plugin-rose-pine": "plugin-rose-pine",
@@ -1347,11 +1349,11 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1728378979,
-        "narHash": "sha256-CW/5Cs9m8HupL+6iRMpdHE88OmK9MXH2h3BcXCQw440=",
+        "lastModified": 1731058322,
+        "narHash": "sha256-PCR/lHTzZDD7R9HtkSoC24yHbOwqX0VCf4rqWXJLh9I=",
         "owner": "notashelf",
         "repo": "nvf",
-        "rev": "0947ab38c0bc79780eec599161306157b8de74a3",
+        "rev": "8997e62b3b00ece6d51685b23949e3062a19dd06",
         "type": "github"
       },
       "original": {
@@ -2112,6 +2114,22 @@
         "type": "github"
       }
     },
+    "plugin-neopywal": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723226430,
+        "narHash": "sha256-P28gg5fPPPyhepPHOZFgMnGTToCXK+v4ev6oTRSZXtg=",
+        "owner": "RedsXDD",
+        "repo": "neopywal.nvim",
+        "rev": "2d65d138463bbbe9d824b9bc1048ef1888017da6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RedsXDD",
+        "repo": "neopywal.nvim",
+        "type": "github"
+      }
+    },
     "plugin-new-file-template-nvim": {
       "flake": false,
       "locked": {
@@ -2622,6 +2640,22 @@
       "original": {
         "owner": "nvim-lua",
         "repo": "plenary.nvim",
+        "type": "github"
+      }
+    },
+    "plugin-precognition-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730325090,
+        "narHash": "sha256-onY1Aa+dwLR1wRua52hpSXj6zZOZXjkUlDjDa0xEEcE=",
+        "owner": "tris203",
+        "repo": "precognition.nvim",
+        "rev": "0189e8d6f96275a079b2805d68d49414871885cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tris203",
+        "repo": "precognition.nvim",
         "type": "github"
       }
     },
