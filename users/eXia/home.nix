@@ -70,58 +70,6 @@ in {
   nixpkgs.config.allowUnfreePredicate = pkg: true;
 
   home.packages = with pkgs; [
-    vscodium
-    bottom
-  
-    blueberry
-    hyfetch
-    htop
-    evince # Gnome PDF viewer
-    blueman
-
-
-    nmap
-    glow
-    cmakeMinimal
-    tmux
-    ascii-image-converter
-    gh
-    zoxide
-    openvpn
-
-    # Programs
-    vesktop
-    inkscape
-    gimp
-    blanket
-    rhythmbox
-    bookworm
-    spotifywm spotify-tray
-    vial
-
-
-    qdirstat
-    gnome.gucharmap
-
-    #inputs.myNvim.packages.x86_64-linux.default
-    inputs.myNvimNvf.packages.x86_64-linux.default
-    inputs.microfetch.packages.x86_64-linux.default
-    
-    brasero
-    #teams-for-linux # Borked
-    ungoogled-chromium
-    swaylock
-
-    #gradience
-    #niri
-    #lynx
-    #nwg-displays
-    #wlr-randr
-    #nwg-look
-    #fontforge-gtk
-    #xournalpp
-    #bottles
-    #onlyoffice-bin
   ];
 
 

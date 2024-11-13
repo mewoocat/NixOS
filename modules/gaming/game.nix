@@ -14,6 +14,8 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
 
+  programs.cdemu.enable = true; # For emulating CD-Roms
+
   home-manager.users.${username}.home.packages = with pkgs; [
     # Games
     gamescope

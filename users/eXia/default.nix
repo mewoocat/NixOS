@@ -9,15 +9,13 @@
   # This is a custom option
   username = "eXia";
 
-  system.activationScripts = {
-    test.text = ''
-      echo "test"
-    '';
-  };
-
   imports = [
     ../../modules/applications
     ../../modules/dev-environments
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    #"electron-29.4.6"
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -25,25 +23,54 @@
     isNormalUser = true;
     extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers" "cdrom"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      inputs.zen-browser.packages."${system}".default
+
+      # Utilities
+      bottom    
+      blueberry
+      hyfetch
+      htop
+      blueman
+      nmap
+      glow
+      cmakeMinimal
+      tmux
+      ascii-image-converter
+      gh
+      zoxide
+      openvpn
       linux-wifi-hotspot
+      #inputs.myNvim.packages.x86_64-linux.default
+      inputs.myNvimNvf.packages.x86_64-linux.default
+      inputs.microfetch.packages.x86_64-linux.default  
       wineWowPackages.stable
+
+      # Applications
+      vesktop
+      vscodium
+      inkscape
+      gimp
+      blanket
+      rhythmbox
+      bookworm
+      spotifywm spotify-tray
+      vial
+      evince # Gnome PDF viewer
+      qdirstat
+      gnome.gucharmap
+      brasero
+      ungoogled-chromium
+      #teams-for-linux # Borked
     ];
   };
 
-  programs.cdemu.enable = true; # For emulating CD-Roms
-
   # Set your time zone.
   time.timeZone = "America/Chicago";
-  #time.timeZone = "America/Denver";
 
+  # Import Homemanger config
   home-manager.users.${config.username} = {
     imports = [
       ./home.nix
     ];
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-29.4.6"
-  ];
 }
