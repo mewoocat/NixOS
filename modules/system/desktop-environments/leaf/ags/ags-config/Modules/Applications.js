@@ -27,13 +27,11 @@ export const ClientIcon = () => Widget.Icon({
         //icon: Hyprland.active.client.bind("class"),
         if (icon) {
             // icon is the corresponding Gtk.IconInfo
-            return p.client.class
-            
+            return p.client.class 
         }
         else {
             // null if it wasn't found in the current Icon Theme
             // Return place holder icon
-            //return "AppImageLauncher" 
             return "video-display-symbolic"
         }
 })
@@ -52,13 +50,16 @@ export const ToggleScratchpad = () => Widget.Button({
     self.toggleClassName("active-button", specialName == -99)
 })
 
-// repopulate the box, so the most frequent apps are on top of the list
-function repopulate() {
-    applications = Applications.query('').map(AppItem);
-    list.children = applications;
-}
 
-/** @param {import('resource:///com/github/Aylur/ags/service/applications.js').Application} app */
+
+
+
+
+/////////////////////////////////////////////////////////////////
+// Application Launcher
+/////////////////////////////////////////////////////////////////
+
+// Creates a widget for a given app
 const AppItem = app => Widget.Button({
     class_name: "app-button",
     on_clicked: () => {
@@ -83,34 +84,41 @@ const AppItem = app => Widget.Button({
     }),
 });
 
+// Generate the list of application widgets on startup
+let appWidgets = Applications.query('').map(AppItem)
 
-// search entry
+function filterApps(filter = "") {
+    appWidgets.forEach(appWidget => {
+        appWidget.visible = appWidget.attribute.app.match(filter);
+    })
+}
+
+// Search entry
 const entry = Widget.Entry({
     class_name: "app-entry",
     placeholder_text: "Search...",
     hexpand: true,
     css: `margin-bottom: 8px;`,
 
-    // to launch the first item on Enter
     on_accept: (self) => {
-        applications = Applications.query(self.text || '');
-        if (applications[0]) {
-            App.toggleWindow(WINDOW_NAME); //Todo: get name from const
-            applications[0].launch();
+        // To launch the first item on Enter 
+        // Find first visible
+        for (const appWidget of appWidgets) {
+            if (appWidget.visible){
+                App.toggleWindow(WINDOW_NAME); //Todo: get name from const
+                appWidget.attribute.app.launch()
+                break
+            }
         }
-        repopulate()
+
+
+        filterApps("") // Make all apps visible
         self.text = ""
     },
 
-    // filter out the list
+    // Displays or hides results based on filter
     on_change: ({ text }) => {
-        var foundFirst = false
-        applications.forEach(item => {
-            item.visible = item.attribute.app.match(text);
-            if (item.visible == true && foundFirst == false){
-                foundFirst = true
-            }
-        })
+        filterApps(text)
     },
 });
 
@@ -124,22 +132,18 @@ entry.on('notify::has-focus', ({ hasFocus }) => {
 */
 
 
-// list of application buttons
-let applications = Applications.query('').map(AppItem);
 
-// container holding the buttons
-const list = Widget.Box({
-    vertical: true,
-    class_name: "app-list",
-    children: applications,
-    spacing: 4,
-});
 
-// wrap the list in a scrollable
+// Wrap the list in a scrollable container holding the buttons
 const appScroller = Widget.Scrollable({
     css: `min-height: 400px;`,
     hscroll: 'never',
-    child: list,
+        child: Widget.Box({
+        vertical: true,
+        class_name: "app-list",
+        spacing: 4,
+        children: appWidgets,
+    })
 })
 
 
@@ -158,7 +162,6 @@ export const AppLauncher = (WINDOW_NAME) => Widget.Box({
 
         // when the applauncher shows up
         if (visible) {
-            repopulate();
             entry.text = '';
             entry.grab_focus();
         }
