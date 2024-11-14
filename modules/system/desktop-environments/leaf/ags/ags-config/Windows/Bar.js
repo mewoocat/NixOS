@@ -10,6 +10,7 @@ import * as Audio from '../Modules/Audio.js';
 import * as ActivityCenter from './ActivityCenter.js';
 import * as ControlPanel from './ControlPanel.js';
 import * as Systray from '../Modules/Systray.js'
+import * as NightLight from '../Modules/NightLight.js'
 
 
 // layout of the bar
@@ -38,6 +39,7 @@ const Right = (monitor) => Widget.Box({
         //Battery.BatteryBarButton(),
         Systray.SysTray(), 
         Battery.BatteryLabel(), 
+        NightLight.BarIcon(),
         Audio.MicrophoneIcon(),
         Network.NetworkIndicator(),
         Bluetooth.BluetoothIcon(),
