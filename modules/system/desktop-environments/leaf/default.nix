@@ -18,6 +18,7 @@ in{
     ./dynamic
   ];
 
+  programs.light.enable = true;
   programs.dconf.enable = true; # Required for gtk?
   programs.kdeconnect.enable = true;
 
@@ -28,6 +29,7 @@ in{
   };
 
   system.userActivationScripts = {
+    # Initialize dynamic configurations
     leaf-startup.text = ''
       mkdir -p ${leaf-dir}
       mkdir -p ${leaf-dir}/theme 
