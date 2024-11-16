@@ -18,16 +18,6 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Activation scripts
-  home.activation = {
-    #Read home manager on home.activation
-  };
-
-  # Dotfiles
-  home.file = {
-    #".config/btop/btop.conf".source = ./programs/btop/btop.conf;
-  };
-
   home.sessionVariables = {
     DEFAULT_BROWSER = "firefox"; # Not sure if this works
   };
@@ -68,10 +58,6 @@ in {
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
-
-  home.packages = with pkgs; [
-  ];
-
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

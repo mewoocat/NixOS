@@ -43,6 +43,8 @@
       inputs.myNvimNvf.packages.x86_64-linux.default
       inputs.microfetch.packages.x86_64-linux.default  
       wineWowPackages.stable
+      nh # Nix helper
+      exfatprogs # exFAT filesystem userspace utilities
 
       # Applications
       vesktop
