@@ -16,4 +16,5 @@ export default{
     deleteItem: "edit-delete-symbolic",
     lock: "lock-symbolic",
     invalidWallpaper: "invalid-wallpaper-symbolic",
+    close: "window-close-symbolic",
 }

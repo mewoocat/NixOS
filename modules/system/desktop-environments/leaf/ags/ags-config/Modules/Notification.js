@@ -4,6 +4,9 @@ import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio';
 
+import * as Common from './../Common.js';
+import icons from '../icons.js';
+
 // Notification service config
 Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
 
@@ -67,6 +70,9 @@ export const Notification = n => {
         hexpand: true,
         max_width_chars: 24,
         truncate: 'end',
+        css: `
+            margin-right: 0.6em;
+        `,
         label: GLib.DateTime.new_from_unix_local(n.time).format("%l:%M %P"),
     });
 
@@ -92,11 +98,7 @@ export const Notification = n => {
         wrap: true,
     });
 
-    const close = Widget.Button({
-        class_name: "normal-button bg-button",
-        on_primary_click: n.close, 
-        child: Widget.Label({label: "Close"}),
-    })
+    const close = Common.CircleButton(icons.close, n.close, [])
 
     const actions = Widget.Box({
         class_name: 'actions',
@@ -129,7 +131,6 @@ export const Notification = n => {
                             vertical: true,
                             children: [
                                 Widget.Box({
-                                    homogeneous: true,
                                     children: [
                                         appName,
                                         time,
