@@ -3,6 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
 
+import * as Weather from '../Modules/Weather.js';
 import icons from '../icons.js';
 import * as Options from '../Options/options.js'
 
@@ -11,6 +12,8 @@ export const generalSettings = Widget.FlowBox({
     vpack: "start",
     max_children_per_line: 1,
 })
+
+generalSettings.add(Weather.locationSearch)
 
 export const displaySettings = Widget.FlowBox({
     vpack: "start",
