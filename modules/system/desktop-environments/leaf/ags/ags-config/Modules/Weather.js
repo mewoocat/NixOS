@@ -46,6 +46,11 @@ async function getWeather(){
     }
 }
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// City Lookup to Lat/Lon Widget
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 // Get lat and lon from city
 // Get data from api
 async function getCord(cityName){
@@ -68,6 +73,7 @@ async function getCord(cityName){
 }
 
 const searchResults = Variable([], {})
+let cities = []
 
 async function updateCities(text){ 
     //let cities = ["london", "new york", "tokyo"] 
@@ -102,10 +108,13 @@ completion.connect("match-selected", (completion, model, iter) =>{
 export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
     on_change: self => {
+        /*
         Utils.timeout(1000, () => {
             // runs with a second delay
             updateCities(self.text).catch(err => print(err))
         })
+        */
+        updateCities(self.text).catch(err => print(err))
     },
     on_accept: (self) => {
         print("Entered.. ")
@@ -119,7 +128,7 @@ export const locationSearch = Widget.Entry({
     //print(searchResults.value)
 
     listStore.clear()
-    let cities = searchResults.value
+    cities = searchResults.value
     for (const city of cities) {
         //print(city.name.toString()) 
         const iter = listStore.append()
@@ -130,6 +139,13 @@ export const locationSearch = Widget.Entry({
     self.set_completion(completion)
 }, "changed")
 
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Weather status code lookup
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
 WMO Weather interpretation codes (WW)
