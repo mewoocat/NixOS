@@ -73,20 +73,17 @@ async function getCord(cityName){
 }
 
 const searchResults = Variable([], {})
-let cities = []
 
 async function updateCities(text){ 
     //let cities = ["london", "new york", "tokyo"] 
     try{
         let data = await getCord(text)
         //let cities = data.results.map(city => city.name.toString())
-        let cities = data.results
-        searchResults.value = cities
+        searchResults.value = data.results
     }
     catch(err){
         print(err)
     }
-
 }
 
 
@@ -128,7 +125,7 @@ export const locationSearch = Widget.Entry({
     //print(searchResults.value)
 
     listStore.clear()
-    cities = searchResults.value
+    const cities = searchResults.value
     for (const city of cities) {
         //print(city.name.toString()) 
         const iter = listStore.append()
