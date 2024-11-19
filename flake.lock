@@ -888,11 +888,11 @@
         "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1731275291,
-        "narHash": "sha256-lRus8yfym/92qyRFpG4k9AsqinbuAgGjuQqwpxVGYdc=",
+        "lastModified": 1731992040,
+        "narHash": "sha256-4QAKdOF/1l99VwsATv1SGPM1fMdyCPW9a+mvA+dsmRk=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "02e04a1a4eca5cef22f25dbd3b3ccd9ece3bac6c",
+        "rev": "628a03a6c92a71ce2706404e8f710decfa90e4e8",
         "type": "github"
       },
       "original": {
