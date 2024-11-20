@@ -98,7 +98,7 @@ export const Notification = n => {
         wrap: true,
     });
 
-    const close = Common.CircleButton(icons.close, n.close, [])
+    const close = Common.CircleButton(icons.close, n.close, [], 1.4)
 
     const actions = Widget.Box({
         class_name: 'actions',

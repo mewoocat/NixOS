@@ -87,6 +87,7 @@ async function updateCities(text){
 }
 
 
+const locationData = Variable({})
 const listStore = new Gtk.ListStore()
 listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
 const completion = new Gtk.EntryCompletion();
@@ -94,10 +95,16 @@ completion.set_text_column(0)
 completion.set_inline_completion = true
 completion.set_inline_selection = true
 completion.popup_set_width = true
+
+// Whenever a match in the completion popup is selected
 completion.connect("match-selected", (completion, model, iter) =>{
     //print(listStore.get_value(iter, 1).latitude)
     //print(listStore.get_value(iter, 1).longitude)
-    completion.get_entry().text = listStore.get_value(iter, 0)
+    completion.get_entry().text = listStore.get_value(iter, 0) // Set the entry text to the completed text
+    locationData.value = listStore.get_value(iter, 1) // Retrive the value associated with the completed text
+    print("Entered.. ")
+    print(locationData.value.latitude)
+    print(locationData.value.longitude)
     return true
 })
 
@@ -115,10 +122,12 @@ export const locationSearch = Widget.Entry({
     },
     on_accept: (self) => {
         print("Entered.. ")
-        const [matched, iter] = listStore.get_iter_first()
-        print(listStore.get_value(iter, 1).latitude)
-        print(listStore.get_value(iter, 1).longitude)
-        completion.get_entry().text = listStore.get_value(iter, 0)
+        print(locationData.value.latitude)
+        print(locationData.value.longitude)
+        //const [matched, iter] = listStore.get_iter_first()
+        //print(listStore.get_value(iter, 1).latitude)
+        //print(listStore.get_value(iter, 1).longitude)
+        //completion.get_entry().text = listStore.get_value(iter, 0)
 
     },
 }).hook(searchResults, self => {

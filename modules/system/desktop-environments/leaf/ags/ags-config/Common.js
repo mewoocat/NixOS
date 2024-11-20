@@ -122,8 +122,8 @@ export function CircleButton(icon, action, params, size = 2){
     return Widget.Button({ 
         class_name: "circle-button",
         vpack: "center",
+        hpack: "center",
         vexpand: false,
-        hpack: "start",
         hexpand: false,
         css: `
             min-width: ${size}rem;
@@ -132,6 +132,10 @@ export function CircleButton(icon, action, params, size = 2){
         on_primary_click: () => ActionParsed(),
         child: Widget.Icon({
             icon: icon,
+            vpack: "center",
+            hpack: "center",
+            hexpand: true,
+            vexpand: true,
             // Rotate GTK Icon
             /*
             css: isSystrayVisible.bind().as(visible => {
