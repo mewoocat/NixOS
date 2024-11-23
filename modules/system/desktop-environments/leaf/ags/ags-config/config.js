@@ -1,6 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Gtk from 'gi://Gtk'
+
 // Add icons in assets to icon set
 //Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
 // Need to do this before importing anything else since importing could try to eval an custom icon which has not been added yet
@@ -12,11 +13,16 @@ import {data, GetOptions, Options, LoadOptionWidgets} from './Options/options.js
 // Loads json config and options
 GetOptions()
 
-import * as Common from './Common.js';
 import * as Settings from './Modules/Settings.js';
 // Load the user options as widgets into the generalSettings FlowBox
 LoadOptionWidgets(Options.user.general, Settings.generalSettings)
 LoadOptionWidgets(Options.user.display, Settings.displaySettings)
+
+
+// Configure animations
+print(`Info: Ags animations?: ${Options.user.general.ags_animations.value}`)
+// I think this only applys the option to the default window
+Gtk.Settings.get_default().gtk_enable_animations = Options.user.general.ags_animations.value
 
 
 // Import windows
@@ -68,9 +74,12 @@ function InitilizeWindows(){
 App.config({
     style: Style.css, 
     closeWindowDelay: {
-        "ControlPanel":     150, // milliseconds
-        "applauncher":      150, // milliseconds
-        "ActivityCenter":   150, // milliseconds
+        //"ControlPanel":     150, // milliseconds
+        //"applauncher":      150, // milliseconds
+        //"ActivityCenter":   150, // milliseconds
+        "ControlPanel":     0, // milliseconds
+        "applauncher":      0, // milliseconds
+        "ActivityCenter":   0, // milliseconds
     },
     windows: InitilizeWindows(),
 });

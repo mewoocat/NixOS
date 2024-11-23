@@ -10,7 +10,6 @@ import icons from '../icons.js';
 // Notification service config
 Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
 
-/** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
     if (image != null) {
         const imageFile = Gio.File.new_for_path(image)
@@ -43,7 +42,6 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
     });
 };
 
-/** @param {import('resource:///com/github/Aylur/ags/service/notifications.js').Notification} n */
 export const Notification = n => {
     const icon = Widget.Box({
         vpack: 'center',

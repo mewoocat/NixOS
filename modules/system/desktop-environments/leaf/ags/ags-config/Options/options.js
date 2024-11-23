@@ -10,9 +10,6 @@ import * as Global from '../Global.js'
 import * as Monitors from '../Monitors.js'
 
 
-// Configure animations
-// I think this only applys the option to the default window
-Gtk.Settings.get_default().gtk_enable_animations = true
 
 let homeDir = GLib.get_home_dir()
 let defaultConfig = `${App.configDir}/defaultUserSettings.json`
@@ -53,7 +50,6 @@ export function CreateOptionWidget(option){
                 step: 1, // Only works for keybinds?
                 value: option.value,
             })
-            break
         case "switch":
             return Widget.Switch({
                 class_name: "switch-off",
@@ -72,7 +68,6 @@ export function CreateOptionWidget(option){
                     self.toggleClassName("switch-on", self.active)
                 }
             })
-            break
         case "spin":
             return Widget.SpinButton({
                 class_name: "spin-button",
@@ -86,7 +81,6 @@ export function CreateOptionWidget(option){
                     settingsChanged.value = true
                 },
             })
-            break
         case "combobox":
             return Global.ComboBoxText({
                 class_name: "",
@@ -124,7 +118,6 @@ export function CreateOptionWidget(option){
                     })
                 },
             })
-            break
         default:
             print("Invalid CreateOptionWidget() type")
             return null
