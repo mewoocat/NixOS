@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
   imports = [
@@ -14,8 +13,8 @@
     home.file = {
     };
     home.packages = with pkgs; [
-      gnome.gnome-calculator
-      gnome.eog
+      gnome-calculator
+      eog
       gthumb
     ];
   };

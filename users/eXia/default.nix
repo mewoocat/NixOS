@@ -58,7 +58,7 @@
       vial
       evince # Gnome PDF viewer
       qdirstat
-      gnome.gucharmap
+      gucharmap
       brasero
       ungoogled-chromium
       #teams-for-linux # Borked

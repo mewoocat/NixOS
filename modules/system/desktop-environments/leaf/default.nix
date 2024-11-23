@@ -59,7 +59,7 @@ in{
 
   environment.systemPackages = with pkgs; [
     polkit_gnome # Not sure if this is needed since the service is defined above?
-    gnome.gnome-system-monitor
+    gnome-system-monitor
   ];
 
   # Home manager
@@ -71,15 +71,14 @@ in{
     };
 
     home.packages = with pkgs; [
-      gnome.gnome-bluetooth_1_0
+      gnome-bluetooth_1_0
       fastfetch
       xdg-utils # needed for discord/vesktop to open web links in default browser
       usbutils
-      # Appearance
       liberation_ttf
       arkpandora_ttf
       cantarell-fonts
-      coreutils # Collision with busybox
+      coreutils
       acpi # Battery
       lm_sensors #
       brightnessctl

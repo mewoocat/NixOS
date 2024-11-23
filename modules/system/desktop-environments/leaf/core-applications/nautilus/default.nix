@@ -12,7 +12,7 @@
       "Templates/".source = ./Templates;
     };
     home.packages = with pkgs; [
-      gnome.nautilus
+      nautilus
       gvfs # for network file browsing
     ];
     # Services
