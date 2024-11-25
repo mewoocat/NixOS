@@ -92,9 +92,51 @@ const listStore = new Gtk.ListStore()
 listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
 const completion = new Gtk.EntryCompletion();
 completion.set_text_column(0)
-completion.set_inline_completion = true
-completion.set_inline_selection = true
+completion.inline_completion = true
+completion.inline_selection = true
 completion.popup_set_width = true
+
+function selectCity(){
+    
+}
+
+// match-selected(entryCompletion, model, iter) 
+export const locationSearch = Widget.Entry({
+    placeholder_text: "Enter city",
+    on_change: self => {
+        updateCities(self.text).catch(err => print(err))
+    },
+    on_accept: (self) => {
+        // Probably should do nothing when accepted and fully rely on the match-selected signal
+        // Hmmm... maybe not?
+
+        /*
+        const [matched, iter] = listStore.get_iter_first() // Get the first suggestion
+        completion.get_entry().text = listStore.get_value(iter, 0) // Set the text of the entry to the first suggestion
+        locationData.value = listStore.get_value(iter, 1) // Retrive the value associated with the first suggestion
+
+        print("Entered.. ")
+        //print(locationData.value.city)
+        print(locationData.value.latitude)
+        print(locationData.value.longitude)
+        */
+
+    },
+}).hook(searchResults, self => {
+    //print(searchResults.value)
+
+    listStore.clear()
+    const cities = searchResults.value
+    for (const city of cities) {
+        print(city.name.toString()) 
+        const iter = listStore.append()
+        listStore.set(iter, [0, 1], [city.name.toString() + ", " + city.country_code.toString(), city]);
+    }
+    completion.set_model(listStore)
+    completion.complete()
+    self.set_completion(completion)
+}, "changed")
+
 
 // Whenever a match in the completion popup is selected
 completion.connect("match-selected", (completion, model, iter) =>{
@@ -107,45 +149,6 @@ completion.connect("match-selected", (completion, model, iter) =>{
     print(locationData.value.longitude)
     return true
 })
-
-// match-selected(entryCompletion, model, iter) 
-export const locationSearch = Widget.Entry({
-    placeholder_text: "Enter city",
-    on_change: self => {
-        /*
-        Utils.timeout(1000, () => {
-            // runs with a second delay
-            updateCities(self.text).catch(err => print(err))
-        })
-        */
-        updateCities(self.text).catch(err => print(err))
-    },
-    on_accept: (self) => {
-        print("Entered.. ")
-        print(locationData.value.latitude)
-        print(locationData.value.longitude)
-        //const [matched, iter] = listStore.get_iter_first()
-        //print(listStore.get_value(iter, 1).latitude)
-        //print(listStore.get_value(iter, 1).longitude)
-        //completion.get_entry().text = listStore.get_value(iter, 0)
-
-    },
-}).hook(searchResults, self => {
-    //print(searchResults.value)
-
-    listStore.clear()
-    const cities = searchResults.value
-    for (const city of cities) {
-        //print(city.name.toString()) 
-        const iter = listStore.append()
-        listStore.set(iter, [0, 1], [city.name.toString() + ", " + city.country_code.toString(), city]);
-    }
-    completion.set_model(listStore)
-    completion.complete()
-    self.set_completion(completion)
-}, "changed")
-
-
 
 
 
