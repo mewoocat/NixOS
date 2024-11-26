@@ -18,11 +18,14 @@ export const weather = Variable(null, {
 
 // Get data from api
 async function getWeather(){
+
+    print(JSON.stringify(Options.Options))
+
     // Get user lat lon
     //TODO add variables for units
-    if (Options.data != null){
-        var lat = Options.data.lat
-        var lon = Options.data.lon
+    if (Options.Options.user != null){
+        var lat = Options.Options.user.lat
+        var lon = Options.Options.user.lon
     }
     else{
         print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
@@ -72,8 +75,6 @@ async function getCord(cityName){
     }
 }
 
-const searchResults = Variable([], {})
-
 async function updateCities(text){ 
     //let cities = ["london", "new york", "tokyo"] 
     try{
@@ -87,20 +88,21 @@ async function updateCities(text){
 }
 
 
+const searchResults = Variable([])
 const locationData = Variable({})
-const listStore = new Gtk.ListStore()
-listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
-const completion = new Gtk.EntryCompletion();
-completion.set_text_column(0)
-completion.inline_completion = true
-completion.inline_selection = true
-completion.popup_set_width = true
 
-function selectCity(){
-    
+function SelectedLocation(){
+
+    Options.Options.user.lat = locationData.value.latitude
+    Options.Options.user.lon = locationData.value.longitude
+    Options.data.lat = locationData.value.latitude
+    Options.data.lon = locationData.value.longitude
+
+    print(JSON.stringify(Options.Options, null, 4))
+
+    Options.WriteOutSettingsFile()
 }
 
-// match-selected(entryCompletion, model, iter) 
 export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
     on_change: self => {
@@ -110,21 +112,23 @@ export const locationSearch = Widget.Entry({
         // Probably should do nothing when accepted and fully rely on the match-selected signal
         // Hmmm... maybe not?
 
-        /*
         const [matched, iter] = listStore.get_iter_first() // Get the first suggestion
-        completion.get_entry().text = listStore.get_value(iter, 0) // Set the text of the entry to the first suggestion
+        self.text = listStore.get_value(iter, 0) // Set the text of the entry to the first suggestion
         locationData.value = listStore.get_value(iter, 1) // Retrive the value associated with the first suggestion
+        completion.popup_completion = true
+        
 
         print("Entered.. ")
         //print(locationData.value.city)
         print(locationData.value.latitude)
         print(locationData.value.longitude)
-        */
 
+        SelectedLocation()
+    },
+    setup: (self) => {
+        self.placeholder_text = "Enter location..."
     },
 }).hook(searchResults, self => {
-    //print(searchResults.value)
-
     listStore.clear()
     const cities = searchResults.value
     for (const city of cities) {
@@ -138,16 +142,28 @@ export const locationSearch = Widget.Entry({
 }, "changed")
 
 
+const listStore = new Gtk.ListStore()
+listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
+
+const completion = new Gtk.EntryCompletion();
+completion.set_text_column(0) // Column of the model to use for text
+completion.inline_completion = true
+completion.inline_selection = true
+completion.popup_set_width = true
+completion.set_match_func(() => true) // Match all rows in model
+                                      // This delegates all filtering functionality to the location API
+
 // Whenever a match in the completion popup is selected
+// match-selected(entryCompletion, model, iter) 
 completion.connect("match-selected", (completion, model, iter) =>{
-    //print(listStore.get_value(iter, 1).latitude)
-    //print(listStore.get_value(iter, 1).longitude)
     completion.get_entry().text = listStore.get_value(iter, 0) // Set the entry text to the completed text
     locationData.value = listStore.get_value(iter, 1) // Retrive the value associated with the completed text
-    print("Entered.. ")
+
+    print("Entered..  via match-selected")
     print(locationData.value.latitude)
     print(locationData.value.longitude)
-    return true
+
+    SelectedLocation()
 })
 
 

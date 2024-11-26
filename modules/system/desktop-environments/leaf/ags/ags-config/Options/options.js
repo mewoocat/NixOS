@@ -180,6 +180,8 @@ function InitilizeOptions(){
     */
     
     Options.user = {
+        lon: data.lon,
+        lat: data.lat,
         general: {
             gaps_in: {
                 id: "gaps_in", 
@@ -371,6 +373,15 @@ function GetOptionValue(opt){
     return value 
 }
 
+export function WriteOutSettingsFile(){
+    // Modified user settings json
+    let dataModified = JSON.stringify(data, null, 4)
+    // Write out to UserSettings.json
+    Utils.writeFileSync(dataModified, `${configPath + configName}`)
+        //.then(file => print('LOG: User settings file updated'))
+        //.catch(err => print(err))
+}
+
 export function ApplySettings(){
 
     // Hyprland config contents to write to config file
@@ -409,12 +420,7 @@ export function ApplySettings(){
     // Reload hyprland config
     Hyprland.messageAsync(`reload`)
 
-    // Modified user settings json
-    let dataModified = JSON.stringify(data, null, 4)
-    // Write out to UserSettings.json
-    Utils.writeFileSync(dataModified, `${configPath + configName}`)
-        //.then(file => print('LOG: User settings file updated'))
-        //.catch(err => print(err))
+    WriteOutSettingsFile()
 
     print("settingsChanged?")
     settingsChanged.value = false 
