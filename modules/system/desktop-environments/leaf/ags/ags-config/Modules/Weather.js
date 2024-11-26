@@ -18,14 +18,13 @@ export const weather = Variable(null, {
 
 // Get data from api
 async function getWeather(){
-
-    print(JSON.stringify(Options.Options))
+    print("INFO: Getting weather data from internet")
 
     // Get user lat lon
     //TODO add variables for units
     if (Options.Options.user != null){
-        var lat = Options.Options.user.lat
-        var lon = Options.Options.user.lon
+        var lat = Options.data.lat
+        var lon = Options.data.lon
     }
     else{
         print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
@@ -93,14 +92,19 @@ const locationData = Variable({})
 
 function SelectedLocation(){
 
-    Options.Options.user.lat = locationData.value.latitude
-    Options.Options.user.lon = locationData.value.longitude
+    //Options.Options.user.lat = locationData.value.latitude
+    //Options.Options.user.lon = locationData.value.longitude
     Options.data.lat = locationData.value.latitude
     Options.data.lon = locationData.value.longitude
 
-    print(JSON.stringify(Options.Options, null, 4))
+    //print(JSON.stringify(Options.Options, null, 4))
 
     Options.WriteOutSettingsFile()
+
+    // Refresh the weather
+    const updatedWeather = getWeather()
+    print(JSON.stringify(updatedWeather))
+    weather.setValue(updatedWeather)
 }
 
 export const locationSearch = Widget.Entry({
