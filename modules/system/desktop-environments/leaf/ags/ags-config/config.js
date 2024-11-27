@@ -9,20 +9,21 @@ import Gtk from 'gi://Gtk'
 App.addIcons(`${App.configDir}/assets`)
 
 print("importing options")
-import {data, GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
+//import {data, GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
+import * as Options from './Options/options.js'
 // Loads json config and options
-GetOptions()
+Options.GetOptions()
 
 import * as Settings from './Modules/Settings.js';
 // Load the user options as widgets into the generalSettings FlowBox
-LoadOptionWidgets(Options.user.general, Settings.generalSettings)
-LoadOptionWidgets(Options.user.display, Settings.displaySettings)
+Options.LoadOptionWidgets(Options.Options.user.general, Settings.generalSettings)
+Options.LoadOptionWidgets(Options.Options.user.display, Settings.displaySettings)
 
 
 // Configure animations
-print(`Info: Ags animations?: ${Options.user.general.ags_animations.value}`)
+print(`Info: Ags animations?: ${Options.Options.user.general.ags_animations.value}`)
 // I think this only applys the option to the default window
-Gtk.Settings.get_default().gtk_enable_animations = Options.user.general.ags_animations.value
+Gtk.Settings.get_default().gtk_enable_animations = Options.Options.user.general.ags_animations.value
 
 
 // Import windows
@@ -46,7 +47,7 @@ Utils.monitorFile(`${App.configDir}/Style/_colors.scss`, Style.GenerateCSS);
 
 function InitilizeWindows(){
 
-    const userDefaultMonitor = Options.user.display.default_monitor.value
+    const userDefaultMonitor = Options.Options.user.display.default_monitor.value
     let defaultMonitorID = 0
 
     // Find the id num associated with the monitor identifier

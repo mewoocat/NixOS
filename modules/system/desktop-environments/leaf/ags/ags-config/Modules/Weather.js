@@ -6,6 +6,7 @@ import GObject from 'gi://GObject'
 
 import * as Options from '../Options/options.js'
 
+print("INFO: Entered Weather.js <----------------")
 
 ///////////////////////////////////
 //  Weather setup
@@ -15,14 +16,28 @@ export const weather = Variable(null, {
         return getWeather()
     }]
 })
+/*
+weather.stopPoll()
+setTimeout(() => {
+        print("INFO: Connecting to isJsonLoaded")
+        Options.isJsonLoaded.connect('changed', ({value}) => {
+            print(`INFO: isJsonLoaded: ${value}`)
+            if (value){
+                weather.startPoll()
+            }
+        })
+    },
+    5000
+)
+*/
 
-// Get data from api
+// Get data from apr
 async function getWeather(){
     print("INFO: Getting weather data from internet")
 
     // Get user lat lon
     //TODO add variables for units
-    if (Options.Options.user != null){
+    if (Options.data != null){
         var lat = Options.data.lat
         var lon = Options.data.lon
     }

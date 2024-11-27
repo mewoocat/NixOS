@@ -17,6 +17,7 @@ let configPath = `${homeDir}/.config/leaf-de/`
 let configName = `UserSettings.json`
 let defaultConfigName = `defaultUserSettings.json`
 
+export const isJsonLoaded = Variable(false)
 export const settingsChanged = Variable(false, {}) 
 export var data = null;     // Json data
 
