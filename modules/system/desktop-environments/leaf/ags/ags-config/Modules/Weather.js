@@ -113,9 +113,13 @@ function SelectedLocation(){
     Options.WriteOutSettingsFile()
 
     // Refresh the weather
+    weather.stopPoll()
+    weather.startPoll()
+    /*
     const updatedWeather = getWeather()
     print(JSON.stringify(updatedWeather))
     weather.setValue(updatedWeather)
+    */
 }
 
 export const locationSearch = Widget.Entry({
