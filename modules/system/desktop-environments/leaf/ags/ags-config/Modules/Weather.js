@@ -92,13 +92,9 @@ const locationData = Variable({})
 
 function SelectedLocation(){
 
-    //Options.Options.user.lat = locationData.value.latitude
-    //Options.Options.user.lon = locationData.value.longitude
+    // Update json settings data with new location
     Options.data.lat = locationData.value.latitude
     Options.data.lon = locationData.value.longitude
-
-    //print(JSON.stringify(Options.Options, null, 4))
-
     Options.WriteOutSettingsFile()
 
     // Refresh the weather

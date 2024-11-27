@@ -393,7 +393,7 @@ export function ApplySettings(){
             let opt = Options.user[categoryKey][optKey]
             let value = GetOptionValue(opt)
             print("opt = " + opt)
-            // Set the updated value in the json cache
+            // Set the updated value in the json data
             data.options[categoryKey][optKey] = value
 
             if (opt.context == "ags"){
