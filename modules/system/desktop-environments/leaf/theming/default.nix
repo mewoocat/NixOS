@@ -52,7 +52,26 @@ in {
       };
       iconTheme = {
         name = "kora";
-        package = pkgs.kora-icon-theme;
+        package = pkgs.kora-icon-theme.overrideAttrs (finalAttrs: previousAttrs: {
+          # Based off of https://github.com/NixOS/nixpkgs/blob/nixos-24.05/pkgs/data/icons/kora-icon-theme/default.nix#L53
+          installPhase = ''
+            runHook preInstall
+
+            mkdir -p $out/share/icons
+            cp -a kora* $out/share/icons/
+
+            # MODIFICATION: Overwriting with custom icons
+            cp ${./../ags/ags-config/assets/bluetooth-disabled-symbolic.svg} $out/share/icons/kora/status/symbolic/bluetooth-disabled-symbolic.svg
+
+            rm $out/share/icons/kora*/create-new-icon-theme.cache.sh
+
+            for theme in $out/share/icons/*; do
+              gtk-update-icon-cache -f $theme
+            done
+
+            runHook postInstall
+          '';
+        });
       };
     };
 
