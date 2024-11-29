@@ -148,17 +148,28 @@ export const Notification = n => {
 };
 
 export const dndToggle = Widget.Button({
-    class_name: "normal-button",
+    class_name: "normal-button bg-button",
     onPrimaryClick: () => Notifications.dnd = !Notifications.dnd,
     child: Widget.Icon({
-        size: 20,
+        size: 18,
         icon: Notifications.bind("dnd").as(v => {
             if (v){
-                return "notifications-disabled-symbolic"
+                return icons.notificationDisabled
             }
-            return "notification-symbolic"
+            return icons.notification
         })
     })
+})
+
+const closeAllNotifButton = Widget.Button({
+    class_name: "normal-button bg-button",
+    //on_primary_click: () => Notifications.clear(), // Can cause crashes
+    on_primary_click: ClearNotifications, // Can cause crashes
+    //child: Widget.Label({label: "close all"}),
+    child: Widget.Icon({
+        size: 18,
+        icon: icons.close
+    }),
 })
 
 function ClearNotifications(){
@@ -181,15 +192,19 @@ export const NotificationWidget = (w,h) => Widget.Box({
     vertical: true,
     children: [
         Widget.CenterBox({
+            hexpand: true,
             startWidget: Widget.Label({
+                className: "dim",
                 label: "Notifications",
             }),
-            centerWidget: dndToggle,
-            endWidget: Widget.Button({
-                class_name: "normal-button",
-                //on_primary_click: () => Notifications.clear(), // Can cause crashes
-                on_primary_click: ClearNotifications, // Can cause crashes
-                child: Widget.Label({label: "close all"}),
+            centerWidget: null,
+            endWidget: Widget.Box({
+                hexpand: true,
+                hpack: "end",
+                children: [
+                    dndToggle,
+                    closeAllNotifButton,
+                ],
             }),
         }),
         Widget.Separator({class_name: "horizontal-separator"}),
