@@ -147,6 +147,41 @@ export const Notification = n => {
     });
 };
 
+export const NotifCountBarIcon = () => Widget.Box({
+    hpack: "center",
+    vpack: "center",
+    visible: Notifications.bind('notifications').as(v => {
+        if (v.length > 0){
+            return true
+        }
+        return false
+    }),
+    css: `
+        background-color: red;
+        min-width: 1.2rem;
+        min-height: 1.2rem;
+        font-size: 0.8rem;
+        border-radius: 100%;
+    `,
+    child: Widget.Label({
+        hexpand: true,
+        vexpand: true,
+        hpack: "center",
+        vpack: "center",
+        label: Notifications.bind('notifications').as(v => v.length.toString())
+    })
+})
+
+export const DndBarIcon = () => Widget.Icon({
+    size: 20,
+    visible: Notifications.bind('dnd'),
+    tooltip_text: "Do not disturb is on",
+    icon: icons.notificationDisabled,
+    css: `
+        color: red;
+    `,
+})
+
 export const dndToggle = Widget.Button({
     class_name: "normal-button bg-button",
     onPrimaryClick: () => Notifications.dnd = !Notifications.dnd,
@@ -192,8 +227,13 @@ export const NotificationWidget = (w,h) => Widget.Box({
     vertical: true,
     children: [
         Widget.CenterBox({
+            css: `
+                padding-left: 1rem;
+                padding-right: 0.4rem;
+            `,
             hexpand: true,
             startWidget: Widget.Label({
+                hpack: "start",
                 className: "dim",
                 label: "Notifications",
             }),

@@ -11,6 +11,7 @@ import * as ActivityCenter from './ActivityCenter.js';
 import * as ControlPanel from './ControlPanel.js';
 import * as Systray from '../Modules/Systray.js'
 import * as NightLight from '../Modules/NightLight.js'
+import * as Notification from '../Modules/Notification.js'
 
 
 // layout of the bar
@@ -29,6 +30,7 @@ const Center = () => Widget.Box({
     spacing: 8,
     children: [
         ActivityCenter.ActivityCenterButton(),
+        Notification.NotifCountBarIcon(),
     ],
 });
 
@@ -39,6 +41,7 @@ const Right = (monitor) => Widget.Box({
         //Battery.BatteryBarButton(),
         Systray.SysTray(), 
         Battery.BatteryLabel(), 
+        Notification.DndBarIcon(),
         NightLight.BarIcon(),
         Audio.MicrophoneIcon(),
         Network.NetworkIndicator(),
