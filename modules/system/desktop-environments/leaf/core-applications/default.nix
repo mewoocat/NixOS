@@ -16,6 +16,7 @@
       gnome-calculator
       eog
       gthumb
+      gnome-text-editor
     ];
   };
 }

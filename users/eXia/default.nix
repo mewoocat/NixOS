@@ -45,6 +45,8 @@
       wineWowPackages.stable
       nh # Nix helper
       exfatprogs # exFAT filesystem userspace utilities
+      stress 
+      s-tui
 
       # Applications
       vesktop

@@ -58,12 +58,21 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-  # 24.04
-  /*
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+  # Undervolting
+  #
+  # Note: that only enabling this service without any other options set 
+  #       will cause the service to fail to start.  Add an option to remedy this.
+  #
+  # Note: There is a 2 min timeout before the undevolts are applied at boot. 
+  #       This allows for a grace period to disable a configuration that results
+  #       in a crash.
+  #
+  # Note: Disabled for now since the 2 min grace period doesn't appear to work.
+  services.undervolt = {
+    enable = false;
+    coreOffset = -100;
+    gpuOffset = -100;
+    analogioOffset = -100;
+    uncoreOffset = -100;
   };
-  */
 }
