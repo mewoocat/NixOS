@@ -27,10 +27,24 @@ const Left = () => Widget.Box({
 });
 
 const Center = () => Widget.Box({
-    spacing: 8,
+    spacing: 4,
+    hpack: "center",
+    hexpand: true,
     children: [
-        ActivityCenter.ActivityCenterButton(),
-        Notification.NotifCountBarIcon(),
+        // This center box is used to have icons relative to the ActivityCenterButton 
+        Widget.CenterBox({
+            start_widget: Widget.Box({
+                css: `min-width: 1.6rem;`,
+            }),
+            center_widget: ActivityCenter.ActivityCenterButton(),
+            end_widget: Widget.Box({
+                css: `min-width: 1.6rem;`,
+                hpack: "end",
+                children: [
+                    Notification.NotifCountBarIcon(),
+                ],
+            }),
+        })
     ],
 });
 
