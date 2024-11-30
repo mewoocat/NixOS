@@ -1,4 +1,3 @@
-import App from 'resource:///com/github/Aylur/ags/app.js'
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
@@ -71,15 +70,22 @@ async function getWeather(){
 // Get lat and lon from city
 // Get data from api
 async function getCord(cityName){
-    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5&language=en&format=json`
+    // Encode the city name search to replace spaces with +'s 
+    // The web api seems to require the spaces in the query to be + not %20
+    const cityNameEncoded = cityName.split(' ').join('+')
+    let urlBase = `https://geocoding-api.open-meteo.com/v1/search`
+    let query = `?name=${cityNameEncoded}&count=5&language=en&format=json`
+    let url = urlBase + query
+    print(`INFO: URL: ${url}`)
 
     // Try to make request to weather api
     try {
         // await is needed to wait for the return of the data
         const data = await Utils.fetch(url)
             .then(res => res.json())
+            //.then(res => res.text())
             .catch(err => print(err))
-        //print("data = " + JSON.stringify(data))
+        //print(JSON.stringify(data, null, 4))
         return data
     }
 
