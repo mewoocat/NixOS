@@ -168,7 +168,8 @@ export const locationSearch = Widget.Entry({
     for (const city of cities) {
         print(city.name.toString()) 
         const iter = listStore.append()
-        listStore.set(iter, [0, 1], [city.name.toString() + ", " + city.country_code.toString(), city]);
+        const cityText = city.name.toString() + ": " + (city.admin1 ?? " ").toString() + " " + city.country_code.toString()
+        listStore.set(iter, [0, 1], [cityText, city]);
     }
     completion.set_model(listStore)
     completion.complete()
@@ -182,7 +183,7 @@ listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
 const completion = new Gtk.EntryCompletion();
 completion.set_text_column(0) // Column of the model to use for text
 completion.inline_completion = true
-completion.inline_selection = true
+completion.inline_selection = false
 completion.popup_set_width = true
 completion.set_match_func(() => true) // Match all rows in model
                                       // This delegates all filtering functionality to the location API
