@@ -16,7 +16,7 @@ export const VolumeIcon = () => Widget.Box({
             child:
                 Widget.Label().hook(Audio, self => {
                     self.class_name = "dim"
-                    if (Audio.speaker.is_muted){
+                    if (Audio.speaker.is_muted || Audio.speaker.volume == 0){
                         self.label = ""
                     }
                     else{
@@ -34,7 +34,7 @@ export const VolumeIcon = () => Widget.Box({
 
                     var icon = "vol-err";
 
-                    if (Audio.speaker.is_muted){
+                    if (Audio.speaker.is_muted || Audio.speaker.volume == 0){
                         icon = "" // Only base icon of overlay is displayed
                     }
                     else if(Audio.speaker.volume > 0.75){
