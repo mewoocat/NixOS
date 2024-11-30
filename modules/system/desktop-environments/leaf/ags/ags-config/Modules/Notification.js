@@ -147,18 +147,64 @@ export const Notification = n => {
     });
 };
 
+export const NotifCountBarIcon = () => Widget.Box({
+    hpack: "center",
+    vpack: "center",
+    visible: Notifications.bind('notifications').as(v => {
+        if (v.length > 0){
+            return true
+        }
+        return false
+    }),
+    css: `
+        background-color: red;
+        min-width: 1.2rem;
+        min-height: 1.2rem;
+        font-size: 0.8rem;
+        border-radius: 100%;
+    `,
+    child: Widget.Label({
+        hexpand: true,
+        vexpand: true,
+        hpack: "center",
+        vpack: "center",
+        label: Notifications.bind('notifications').as(v => v.length.toString())
+    })
+})
+
+export const DndBarIcon = () => Widget.Icon({
+    size: 20,
+    visible: Notifications.bind('dnd'),
+    tooltip_text: "Do not disturb is on",
+    icon: icons.notificationDisabled,
+    css: `
+        color: red;
+    `,
+})
+
 export const dndToggle = Widget.Button({
-    class_name: "normal-button",
+    class_name: "normal-button bg-button",
     onPrimaryClick: () => Notifications.dnd = !Notifications.dnd,
     child: Widget.Icon({
-        size: 20,
+        size: 18,
         icon: Notifications.bind("dnd").as(v => {
             if (v){
-                return "notifications-disabled-symbolic"
+                return icons.notificationDisabled
             }
-            return "notification-symbolic"
+            return icons.notification
         })
     })
+})
+
+const closeAllNotifButton = Widget.Button({
+    class_name: "normal-button bg-button",
+    //on_primary_click: () => Notifications.clear(), // Can cause crashes
+    on_primary_click: ClearNotifications, // Can cause crashes
+    //child: Widget.Label({label: "close all"}),
+    child: Widget.Icon({
+        size: 18,
+        icon: icons.close
+    }),
 })
 
 function ClearNotifications(){
@@ -181,15 +227,24 @@ export const NotificationWidget = (w,h) => Widget.Box({
     vertical: true,
     children: [
         Widget.CenterBox({
+            css: `
+                padding-left: 1rem;
+                padding-right: 0.4rem;
+            `,
+            hexpand: true,
             startWidget: Widget.Label({
+                hpack: "start",
+                className: "dim",
                 label: "Notifications",
             }),
-            centerWidget: dndToggle,
-            endWidget: Widget.Button({
-                class_name: "normal-button",
-                //on_primary_click: () => Notifications.clear(), // Can cause crashes
-                on_primary_click: ClearNotifications, // Can cause crashes
-                child: Widget.Label({label: "close all"}),
+            centerWidget: null,
+            endWidget: Widget.Box({
+                hexpand: true,
+                hpack: "end",
+                children: [
+                    dndToggle,
+                    closeAllNotifButton,
+                ],
             }),
         }),
         Widget.Separator({class_name: "horizontal-separator"}),

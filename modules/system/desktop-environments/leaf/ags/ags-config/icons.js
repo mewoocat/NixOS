@@ -17,4 +17,6 @@ export default{
     lock: "lock-symbolic",
     invalidWallpaper: "invalid-wallpaper-symbolic",
     close: "window-close-symbolic",
+    notification: "notification-symbolic",
+    notificationDisabled: "notifications-disabled-symbolic",
 }
