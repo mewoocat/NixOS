@@ -72,11 +72,20 @@ async function getWeather(){
 async function getCord(cityName){
     // Encode the city name search to replace spaces with +'s 
     // The web api seems to require the spaces in the query to be + not %20
-    const cityNameEncoded = cityName.split(' ').join('+')
+    //const cityNameEncoded = cityName.split(' ').join('+')
     let urlBase = `https://geocoding-api.open-meteo.com/v1/search`
-    let query = `?name=${cityNameEncoded}&count=5&language=en&format=json`
+    let query = `?name=${cityName}&count=5&language=en&format=json`
+    query = query.split(' ').join('+')
     let url = urlBase + query
     print(`INFO: URL: ${url}`)
+
+    // Test 
+    /*
+    const test = "string with spaces"
+    print(test.split(' ').join('+'))
+    const test2 = `?name=${test}&count=5&language=en&format=json`
+    print(test2.split(' ').join('+'))
+    */
 
     // Try to make request to weather api
     try {
