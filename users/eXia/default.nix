@@ -47,6 +47,7 @@
       exfatprogs # exFAT filesystem userspace utilities
       stress 
       s-tui
+      gcc14
 
       # Applications
       vesktop
