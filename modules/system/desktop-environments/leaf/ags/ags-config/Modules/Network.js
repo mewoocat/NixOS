@@ -17,8 +17,8 @@ var apPassword = ""
 const Refresh = () => {
     print('Scaning for Wi-Fi access points')
     Network.wifi.scan()
-    print('Scan completed')
 }
+Refresh() // Initial network scan
 export const RefreshWifi = () => Common.CircleButton(icons.refresh, Refresh)
 
 // Toggles wifi enabled state

@@ -25,6 +25,7 @@ in {
     dolphin-emu
     xonotic
     osu-lazer-bin
+    heroic # Native GOG, Epic, and Amazon Games Launcher
 
     # Minecraft
     (prismlauncher.override {
