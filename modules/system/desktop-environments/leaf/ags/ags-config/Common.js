@@ -136,15 +136,6 @@ export function CircleButton(icon, action, params, size = 2){
             hpack: "center",
             hexpand: true,
             vexpand: true,
-            // Rotate GTK Icon
-            /*
-            css: isSystrayVisible.bind().as(visible => {
-                return `
-                        -gtk-icon-transform: ${visible ? "rotate(-0.5turn)" : "none"};
-                        transition: -gtk-icon-transform 0.5s;
-                        `
-            }),
-            */
         }),
     })
 }

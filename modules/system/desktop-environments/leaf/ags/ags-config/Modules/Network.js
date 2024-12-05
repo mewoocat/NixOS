@@ -8,18 +8,70 @@ import * as Common from '../Common.js'
 import * as Options from '../Options/options.js';
 import icons from '../icons.js';
 
-// Holds current wifi access point selected
-const CurrentAP = Variable({}, {})
-
 // Globals
+const CurrentAP = Variable({}, {}) // Holds current wifi access point selected
+const IsRefreshing = Variable(false)
 var apPassword = ""
 
 const Refresh = () => {
+    print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
     print('Scaning for Wi-Fi access points')
     Network.wifi.scan()
+    /*
+    IsRefreshing.value = true // Rotate refresh icon
+    setTimeout(() => IsRefreshing.value = false, 3000)
+    */
+    IsRefreshing.value = !IsRefreshing.value // Rotate refresh icon
+    print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
 }
 Refresh() // Initial network scan
-export const RefreshWifi = () => Common.CircleButton(icons.refresh, Refresh)
+
+// Copied from Commons.CircleButton
+export const RefreshWifi = () => {
+    /*
+    return Widget.Box({
+        // Add rotating animation to network refresh
+        // The issue with the code below is that the css is targeting self
+        css: IsRefreshing.bind().as(value => {
+            return `
+                background-color: red;
+                -gtk-icon-transform: ${value ? "rotate(5turn)" : "none"};
+                transition: -gtk-icon-transform 1s;
+            `
+        }),
+        children: [
+            Common.CircleButton(icons.refresh, Refresh)
+        ],
+    })
+    */
+
+    return Widget.Button({ 
+        class_name: "circle-button",
+        vpack: "center",
+        hpack: "center",
+        vexpand: false,
+        hexpand: false,
+        css: `
+            min-width: ${2}rem;
+            min-height: ${2}rem;
+        `,
+        on_primary_click: () => Refresh(),
+        child: Widget.Icon({
+            icon: icons.refresh,
+            vpack: "center",
+            hpack: "center",
+            hexpand: true,
+            vexpand: true,
+            // Add rotating animation to network refresh
+            css: IsRefreshing.bind().as(value => {
+                return `
+                    -gtk-icon-transform: ${value ? "rotate(5turn)" : "none"};
+                    transition: -gtk-icon-transform 3s;
+                `
+            }),
+        }),
+    })
+}
 
 // Toggles wifi enabled state
 function ToggleWifi(){
