@@ -504,7 +504,7 @@ export const WifiListAvailable = () => Widget.Scrollable({
 export const WifiList = () => Widget.Box({
     vertical: true,
     hexpand: true,
-    class_name: "container-side-spacing",
+    class_name: "scrollable-container",
     children: [
         WifiListAvailable(),
     ]

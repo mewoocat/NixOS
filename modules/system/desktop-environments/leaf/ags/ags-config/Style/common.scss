@@ -48,18 +48,15 @@ flowboxchild {
     padding: 1em;
 }
 
-.container-no-spacing{
+.scrollable-container{
     border-radius: 1rem;
     background-color: rgba($bg1, $lowOpacity);
 }
 
-.container-side-spacing{
-    border-radius: 1rem;
-    padding-left: 0.6em;
-    padding-right: 0.6em;
-    background-color: rgba($bg1, $lowOpacity);
+.scrollable-item > *{
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
 }
-
 .scrollable-item:first-child{
     margin-top: 0.8em;
 }
@@ -496,8 +493,7 @@ scrollbar.overlay-indicator{
 }
 
 scrollbar.vertical {
-    margin-top: 0.6em;
-    margin-bottom: 0.6em;
+    margin: 0.6rem;
     slider{
         min-width: 4px;
         border-radius: 1rem;
