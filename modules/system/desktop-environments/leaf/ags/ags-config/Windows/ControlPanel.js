@@ -244,7 +244,14 @@ const volumeContainer = () => Widget.Box({
     vexpand: false,
     spacing: 4,
     children: [
-        BackButton(),
+        // Top bar
+        Widget.Box({
+            spacing: 8,
+            children: [
+                BackButton(),
+                Widget.Label("Volume"),
+            ]
+        }),
         Audio.VolumeMenu(), 
     ],
 })
@@ -253,7 +260,14 @@ const microphoneContainer = () => Widget.Box({
     vertical: true,
     vexpand: false,
     children: [
-        BackButton(),
+        // Top bar
+        Widget.Box({
+            spacing: 8,
+            children: [
+                BackButton(),
+                Widget.Label("Microphone"),
+            ]
+        }),
         Audio.MicrophoneMenu(), 
     ],
 })

@@ -5,12 +5,11 @@
   inputs,
   ...
 }: {
-  home-manager.users.${config.username}.home.packages = with pkgs; [
-    sunshine
-  ];
-
   # Moonlight / Sunshine
   ######################################################################
+  users.users.${config.username}.packages = with pkgs; [
+    (sunshine.override { cudaSupport = true; })
+  ];
   services.avahi.enable = true;
   services.avahi.publish.userServices = true;
   networking.firewall = {
