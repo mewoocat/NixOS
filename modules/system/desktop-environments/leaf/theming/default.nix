@@ -52,7 +52,12 @@ in {
       };
       iconTheme = {
         name = "kora";
-        package = pkgs.kora-icon-theme;
+        package = pkgs.kora-icon-theme.overrideAttrs{
+          postInstall = ''
+            # MODIFICATION: Overwriting with custom icons
+            cp ${./../ags/ags-config/assets/bluetooth-disabled-symbolic.svg} $out/share/icons/kora/status/symbolic/bluetooth-disabled-symbolic.svg
+          '';
+        };
       };
     };
 

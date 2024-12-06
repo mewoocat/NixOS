@@ -33,6 +33,12 @@ const buttonRevealer = Widget.Revealer({
 })
 
 export const SysTray = () => Widget.Box({
+    visible: SystemTray.bind('items').as(v => {
+        if (v.length == 0){
+            return false
+        }
+        return true
+    }),
     children: [
         buttonRevealer,
         Widget.Button({
@@ -55,5 +61,7 @@ export const SysTray = () => Widget.Box({
             }),
         }),
     ],
-})
+}).hook(SystemTray, self => {
+    //self.visible = false
+}, 'changed')
 

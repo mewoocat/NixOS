@@ -5,15 +5,18 @@
 }: {
   home-manager.users.${config.username} = {
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.allowUnfreePredicate = pkg: true;
+    nixpkgs.config.allowUnfreePredicate = true;
+    /*
     nixpkgs.config.permittedInsecurePackages = [
       "electron-25.9.0" # Fix for obsidian using electron 25 which is EOL
     ];
+    */
 
     home.packages = with pkgs; [
       obsidian
     ];
 
+    /*
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
     xdg.desktopEntries = {
@@ -28,5 +31,6 @@
         type = "Application";
       };
     };
+    */
   };
 }

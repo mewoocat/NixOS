@@ -1,4 +1,3 @@
-import App from 'resource:///com/github/Aylur/ags/app.js'
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
@@ -6,6 +5,7 @@ import GObject from 'gi://GObject'
 
 import * as Options from '../Options/options.js'
 
+print("INFO: Entered Weather.js <----------------")
 
 ///////////////////////////////////
 //  Weather setup
@@ -15,14 +15,28 @@ export const weather = Variable(null, {
         return getWeather()
     }]
 })
+/*
+weather.stopPoll()
+setTimeout(() => {
+        print("INFO: Connecting to isJsonLoaded")
+        Options.isJsonLoaded.connect('changed', ({value}) => {
+            print(`INFO: isJsonLoaded: ${value}`)
+            if (value){
+                weather.startPoll()
+            }
+        })
+    },
+    5000
+)
+*/
 
-// Get data from api
+// Get data from apr
 async function getWeather(){
     print("INFO: Getting weather data from internet")
 
     // Get user lat lon
     //TODO add variables for units
-    if (Options.Options.user != null){
+    if (Options.data != null){
         var lat = Options.data.lat
         var lon = Options.data.lon
     }
@@ -56,15 +70,31 @@ async function getWeather(){
 // Get lat and lon from city
 // Get data from api
 async function getCord(cityName){
-    let url = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5&language=en&format=json`
+    // Encode the city name search to replace spaces with +'s 
+    // The web api seems to require the spaces in the query to be + not %20
+    //const cityNameEncoded = cityName.split(' ').join('+')
+    let urlBase = `https://geocoding-api.open-meteo.com/v1/search`
+    let query = `?name=${cityName}&count=5&language=en&format=json`
+    query = query.split(' ').join('+')
+    let url = urlBase + query
+    print(`INFO: URL: ${url}`)
+
+    // Test 
+    /*
+    const test = "string with spaces"
+    print(test.split(' ').join('+'))
+    const test2 = `?name=${test}&count=5&language=en&format=json`
+    print(test2.split(' ').join('+'))
+    */
 
     // Try to make request to weather api
     try {
         // await is needed to wait for the return of the data
         const data = await Utils.fetch(url)
             .then(res => res.json())
+            //.then(res => res.text())
             .catch(err => print(err))
-        //print("data = " + JSON.stringify(data))
+        //print(JSON.stringify(data, null, 4))
         return data
     }
 
@@ -98,9 +128,13 @@ function SelectedLocation(){
     Options.WriteOutSettingsFile()
 
     // Refresh the weather
+    weather.stopPoll()
+    weather.startPoll()
+    /*
     const updatedWeather = getWeather()
     print(JSON.stringify(updatedWeather))
     weather.setValue(updatedWeather)
+    */
 }
 
 export const locationSearch = Widget.Entry({
@@ -134,7 +168,8 @@ export const locationSearch = Widget.Entry({
     for (const city of cities) {
         print(city.name.toString()) 
         const iter = listStore.append()
-        listStore.set(iter, [0, 1], [city.name.toString() + ", " + city.country_code.toString(), city]);
+        const cityText = city.name.toString() + ": " + (city.admin1 ?? " ").toString() + " " + city.country_code.toString()
+        listStore.set(iter, [0, 1], [cityText, city]);
     }
     completion.set_model(listStore)
     completion.complete()
@@ -148,7 +183,7 @@ listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_JSOBJECT]);
 const completion = new Gtk.EntryCompletion();
 completion.set_text_column(0) // Column of the model to use for text
 completion.inline_completion = true
-completion.inline_selection = true
+completion.inline_selection = false
 completion.popup_set_width = true
 completion.set_match_func(() => true) // Match all rows in model
                                       // This delegates all filtering functionality to the location API

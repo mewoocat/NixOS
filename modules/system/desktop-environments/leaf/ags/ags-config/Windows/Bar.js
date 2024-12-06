@@ -11,6 +11,7 @@ import * as ActivityCenter from './ActivityCenter.js';
 import * as ControlPanel from './ControlPanel.js';
 import * as Systray from '../Modules/Systray.js'
 import * as NightLight from '../Modules/NightLight.js'
+import * as Notification from '../Modules/Notification.js'
 
 
 // layout of the bar
@@ -26,9 +27,24 @@ const Left = () => Widget.Box({
 });
 
 const Center = () => Widget.Box({
-    spacing: 8,
+    spacing: 4,
+    hpack: "center",
+    hexpand: true,
     children: [
-        ActivityCenter.ActivityCenterButton(),
+        // This center box is used to have icons relative to the ActivityCenterButton 
+        Widget.CenterBox({
+            start_widget: Widget.Box({
+                css: `min-width: 1.6rem;`,
+            }),
+            center_widget: ActivityCenter.ActivityCenterButton(),
+            end_widget: Widget.Box({
+                css: `min-width: 1.6rem;`,
+                hpack: "end",
+                children: [
+                    Notification.NotifCountBarIcon(),
+                ],
+            }),
+        })
     ],
 });
 
@@ -39,6 +55,7 @@ const Right = (monitor) => Widget.Box({
         //Battery.BatteryBarButton(),
         Systray.SysTray(), 
         Battery.BatteryLabel(), 
+        Notification.DndBarIcon(),
         NightLight.BarIcon(),
         Audio.MicrophoneIcon(),
         Network.NetworkIndicator(),
