@@ -1,7 +1,4 @@
-import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
-import Utils from 'resource:///com/github/Aylur/ags/utils.js'
-import App from 'resource:///com/github/Aylur/ags/app.js'
 
 import icons from '../icons.js'
 
@@ -116,8 +113,20 @@ export const systemStatsBox2x2 = Widget.Box({
     vpack: "center",
     spacing: 10,
     children: [
+        // Temp
+        Widget.Box({
+            tooltip_text: temp.bind().transform(value => "CPU temp: " + value.toString() + "°C"),
+            vertical: true,
+            hpack: "center",
+            children: [
+                tempProgress,
+                tempLabel(),
+                StatIcon(icons.cpuTemp, 16),
+            ]
+        }),
         // CPU
         Widget.Box({
+            tooltip_text: cpu.bind().transform(value => "CPU usage: " + Math.round(value*100).toString() + "%"),
             vertical: true,
             hpack: "center",
             children: [
@@ -128,6 +137,7 @@ export const systemStatsBox2x2 = Widget.Box({
         }),
         // RAM
         Widget.Box({
+            tooltip_text: ram.bind().transform(value => "RAM usage: " + Math.round(value*100).toString() + "%"),
             vertical: true,
             hpack: "center",
             children: [
@@ -138,22 +148,13 @@ export const systemStatsBox2x2 = Widget.Box({
         }),
         // Storage
         Widget.Box({
+            tooltip_text: storage.bind().transform(value => "Storage usage: " + value + "%"),
             vertical: true,
             hpack: "center",
             children: [
                 storageProgress,
                 storageLabel(),
                 StatIcon(icons.storage, 20),
-            ]
-        }),
-        // Temp
-        Widget.Box({
-            vertical: true,
-            hpack: "center",
-            children: [
-                tempProgress,
-                tempLabel(),
-                StatIcon(icons.cpuTemp, 16),
             ]
         }),
     ]
