@@ -1,9 +1,7 @@
 
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js'
-import Variable from 'resource:///com/github/Aylur/ags/variable.js'
-import Gtk from 'gi://Gtk'
-import GObj from 'gi://GObject'
+import Gdk from 'gi://Gdk'
 
 import * as Global from '../Global.js'
 
@@ -125,11 +123,11 @@ function appVolume(app){
     }
     return Widget.Box({
         tooltip_text: app.name,
-        class_name: "normal-button",
         vertical: true,
         css: `
             margin-bottom: 0.5em
         `,
+        spacing: 8,
         children: [
             Widget.Slider({
                 vertical: true,
@@ -141,7 +139,14 @@ function appVolume(app){
                 on_change: ({ value }) => app.volume = value,
                 value: app.bind("volume"),
                 setup: self => {
-                    self.on("scroll-event", () => true) // Ignore scroll wheel
+                    self.on("scroll-event", (widget, event) => {
+                        //print(event.get_scroll_direction()) // This returns false
+                        mixerInstance.emit("scroll-event", event) // Forward event to mixer
+                                                                  // Can't find info anywhere about this emit() method
+                                                                  // But chat gpt says it exists and it works ¯\_(ツ)_/¯
+
+                        return true                               // Do nothing with the event on this slider
+                    })
                 }
             }),
             Widget.Icon({
@@ -158,7 +163,35 @@ const mixer = () => Widget.Scrollable({
     css: 'min-height: 60px',
     vexpand: true,
     class_name: "container",
+    setup: (self) => {
+        self.on("scroll-event", (widget, event) =>{
+            print(event)
+            print(event.get_scroll_deltas()) // This actually gets scroll info, might be useful for rotating scroll direction
+            let [ok, delta_x, delta_y] = event.get_scroll_deltas()
+            print(`INFO: x: ${delta_x}`)
+            print(`INFO: y: ${delta_y}`)
+            if (delta_y != 0){
+                delta_x = delta_y
+                let adj = self.get_hadjustment()
+                adj.value += delta_x
+                self.set_hadjustment(adj)
+                /*
+                const modifiedEvent = new Gdk.EventScroll({
+                    type: Gdk.EventType.SCROLL,
+                    delta_x: delta_x,
+                    delta_y: delta_y,
+                })
+                */
+                print(`INFO: x: ${delta_x}`)
+                print(`INFO: y: ${delta_y}`)
+
+                //mixerInstance.emit("scroll-event", modifiedEvent)
+                return true;
+            }
+        })
+    },
     child: Widget.Box({
+        spacing: 16,
         children: Audio.bind("apps").as(v => {
             if (v.length < 1){
                 //print("Nothing playing")
@@ -175,6 +208,95 @@ const mixer = () => Widget.Scrollable({
     })
 })
 
+const mixerInstance = mixer()
+/*
+// Mixer
+const mixer = () => {
+    const appVolume = (app) => {
+        //const level = Variable(app.volume)
+        let name = app.name ?? "?" // If undefined use default value
+        name = name.toLowerCase()
+        const iconExists = Utils.lookUpIcon(name)
+        var icon
+        if (iconExists){
+            icon = name
+        }
+        else {
+            icon = app.icon_name
+        }
+        return Widget.Box({
+            tooltip_text: app.name,
+            vertical: true,
+            css: `
+                margin-bottom: 0.5em
+            `,
+            spacing: 8,
+            children: [
+                Widget.Slider({
+                    vertical: true,
+                    inverted: true,
+                    class_name: "vertical-slider",
+                    hexpand: false,
+                    vexpand: true,
+                    draw_value: false,
+                    on_change: ({ value }) => app.volume = value,
+                    value: app.bind("volume"),
+                    setup: self => {
+                        self.on("scroll-event", (widget, event) => {
+                            //print(event.get_scroll_direction())
+                            scrollable.emit("scroll-event", event) // Forward event to mixer
+                                                                      // Can't find info anywhere about this emit() method
+                                                                      // But chat gpt says it exists and it works ¯\_(ツ)_/¯
+
+                            return true                               // Do nothing with the event on this slider
+                        })
+                    }
+                }),
+                Widget.Icon({
+                    vpack: "center",
+                    size: 24,
+                    icon: icon,
+                }),
+            ]
+        })
+    }
+    const scrollable = Widget.Scrollable({
+        css: 'min-height: 60px',
+        vexpand: true,
+        class_name: "container",
+        setup: (self) => {
+            self.on("scroll-event", (widget, event) =>{
+                print(`INFO: event: ${event.get_scroll_direction()}`)
+                if (event.get_scroll_direction() == Gdk.ScrollDirection.UP){
+                    print("INFO: scroll up")
+                    // Scroll down
+                    event.direction = Gdk.ScrollDirection.RIGHT
+                    mixerInstance.emit("scroll-event", event)
+                    return true;
+                }
+            })
+        },
+        child: Widget.Box({
+            spacing: 16,
+            children: Audio.bind("apps").as(v => {
+                if (v.length < 1){
+                    //print("Nothing playing")
+                    return [Widget.Label({
+                        hexpand: true,
+                        class_name: "dim",
+                        label: "It's quiet here...",
+                        vpack: "center",
+                        hpack: "center",
+                    })]
+                }
+                return v.map(appVolume)
+            }),
+        })
+    })
+
+    return scrollable
+}
+*/
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
@@ -201,7 +323,9 @@ export const VolumeMenu = () => Widget.Box({
             label: "Mixer",
             hpack: "start",
         }),
-        mixer(),
+
+        //mixer(),
+        mixerInstance,
     ],
 })
 
