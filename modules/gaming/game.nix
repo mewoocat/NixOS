@@ -47,6 +47,7 @@ in {
     })
     #inputs.nix-gaming.packages.${pkgs.system}.viper
 
+    /*
     (retroarch.override {
       cores = with libretro; [
         snes9x
@@ -59,5 +60,6 @@ in {
         #pcsx2
       ];
     })
+    */
   ];
 }

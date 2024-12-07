@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [gnome.gnome-calendar];
+  environment.systemPackages = with pkgs; [gnome-calendar];
   programs.dconf.enable = true;
   services = {
     gnome = {
