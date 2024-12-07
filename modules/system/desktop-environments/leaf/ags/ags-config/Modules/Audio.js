@@ -159,58 +159,6 @@ function appVolume(app){
 }
 
 // Mixer
-const mixer = () => Widget.Scrollable({
-    css: 'min-height: 60px',
-    vexpand: true,
-    class_name: "container",
-    setup: (self) => {
-        self.on("scroll-event", (widget, event) =>{
-            print(event)
-            print(event.get_scroll_deltas()) // This actually gets scroll info, might be useful for rotating scroll direction
-            let [ok, delta_x, delta_y] = event.get_scroll_deltas()
-            print(`INFO: x: ${delta_x}`)
-            print(`INFO: y: ${delta_y}`)
-            if (delta_y != 0){
-                delta_x = delta_y
-                let adj = self.get_hadjustment()
-                adj.value += delta_x
-                self.set_hadjustment(adj)
-                /*
-                const modifiedEvent = new Gdk.EventScroll({
-                    type: Gdk.EventType.SCROLL,
-                    delta_x: delta_x,
-                    delta_y: delta_y,
-                })
-                */
-                print(`INFO: x: ${delta_x}`)
-                print(`INFO: y: ${delta_y}`)
-
-                //mixerInstance.emit("scroll-event", modifiedEvent)
-                return true;
-            }
-        })
-    },
-    child: Widget.Box({
-        spacing: 16,
-        children: Audio.bind("apps").as(v => {
-            if (v.length < 1){
-                //print("Nothing playing")
-                return [Widget.Label({
-                    hexpand: true,
-                    class_name: "dim",
-                    label: "It's quiet here...",
-                    vpack: "center",
-                    hpack: "center",
-                })]
-            }
-            return v.map(appVolume)
-        }),
-    })
-})
-
-const mixerInstance = mixer()
-/*
-// Mixer
 const mixer = () => {
     const appVolume = (app) => {
         //const level = Variable(app.volume)
@@ -266,13 +214,18 @@ const mixer = () => {
         class_name: "container",
         setup: (self) => {
             self.on("scroll-event", (widget, event) =>{
-                print(`INFO: event: ${event.get_scroll_direction()}`)
-                if (event.get_scroll_direction() == Gdk.ScrollDirection.UP){
-                    print("INFO: scroll up")
-                    // Scroll down
-                    event.direction = Gdk.ScrollDirection.RIGHT
-                    mixerInstance.emit("scroll-event", event)
-                    return true;
+                let [ok, delta_x, delta_y] = event.get_scroll_deltas()
+                //print(event)
+                //print(event.get_scroll_deltas()) // This actually gets scroll info, might be useful for rotating scroll direction
+                //print(`INFO: x: ${delta_x}`)
+                //print(`INFO: y: ${delta_y}`)
+                // If mouse was vertically scrolled
+                if (ok && delta_y != 0){
+                    delta_x = delta_y // Make scroll horizonal instead
+                    let adj = self.get_hadjustment() // Get the current horizontal scroll adjustment
+                    adj.value += delta_x * 8 // Set the new horizontal scroll adjustment with a 8x modifier (For some reason the scroll is really small)
+                    self.set_hadjustment(adj) // Set new adjustment
+                    return true; // Indicate that the event was handled
                 }
             })
         },
@@ -296,7 +249,6 @@ const mixer = () => {
 
     return scrollable
 }
-*/
 
 // Volume menu
 export const VolumeMenu = () => Widget.Box({
@@ -324,8 +276,7 @@ export const VolumeMenu = () => Widget.Box({
             hpack: "start",
         }),
 
-        //mixer(),
-        mixerInstance,
+        mixer(),
     ],
 })
 
