@@ -32,6 +32,16 @@ const ram = Variable(0, {
         .splice(1, 2))],
 });
 
+const ramAmount = Variable(0, {
+    poll: [2000, 'free --giga -h', out => {
+        const memArray = out.split('\n')
+                 .find(line => line.includes('Mem:'))
+                 .split(/\s+/)
+        const formatedOut = `Usage: ${memArray[2]} / ${memArray[1]}`
+        return formatedOut
+    }
+]});
+
 // Cpu temp
 const temp = Variable(-1, {
     poll: [6000, ['bash', '-c', "fastfetch --packages-disabled nix --logo none --cpu-temp | grep 'CPU:' | rev | cut -d ' ' -f1 | cut -c 4- | rev"], out => Math.round(out)
@@ -45,6 +55,16 @@ export const storage = Variable(0, {
         .split(/\s+/).slice(-2)[0]
         .replace('%', '')
     ]
+});
+
+export const storageAmount = Variable(0, {
+    poll: [5000, 'df -h -t ext4', out => {
+        const storageArray = out.split('\n')
+                          .find(line => line.endsWith("/"))
+                          .split(/\s+/)
+        const storageFormatted = `Usage: ${storageArray[2]} / ${storageArray[1]}`
+        return storageFormatted
+    }]
 });
 
 export const cpuLabel = () => Widget.Label({
@@ -137,7 +157,7 @@ export const systemStatsBox2x2 = Widget.Box({
         }),
         // RAM
         Widget.Box({
-            tooltip_text: ram.bind().transform(value => "RAM usage: " + Math.round(value*100).toString() + "%"),
+            tooltip_text: ramAmount.bind(),
             vertical: true,
             hpack: "center",
             children: [
@@ -148,7 +168,7 @@ export const systemStatsBox2x2 = Widget.Box({
         }),
         // Storage
         Widget.Box({
-            tooltip_text: storage.bind().transform(value => "Storage usage: " + value + "%"),
+            tooltip_text: storageAmount.bind(),
             vertical: true,
             hpack: "center",
             children: [
