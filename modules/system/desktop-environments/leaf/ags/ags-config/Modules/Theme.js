@@ -42,8 +42,6 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 
     for (let themeKey in recentThemesJson){
         let theme = recentThemesJson[themeKey]
-        let wallpaperImage = theme.wallpaper
-
         //print("INFO: Theme = " + JSON.stringify(theme))
 
         // Error checking
@@ -51,6 +49,7 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
             print("Error processing theme")
             continue
         }
+        let wallpaperImage = theme.wallpaper
 
         // Generating colorscheme widget
         let colorschemeJsonPath = theme.colorschemePath

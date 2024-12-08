@@ -38,6 +38,8 @@
       #inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-0-45-2.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
+
     hypridle = {
       url = "github:hyprwm/hypridle";
     };
