@@ -14,6 +14,8 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
 
+  programs.cdemu.enable = true; # For emulating CD-Roms
+
   home-manager.users.${username}.home.packages = with pkgs; [
     # Games
     gamescope
@@ -23,6 +25,7 @@ in {
     dolphin-emu
     xonotic
     osu-lazer-bin
+    heroic # Native GOG, Epic, and Amazon Games Launcher
 
     # Minecraft
     (prismlauncher.override {
@@ -44,17 +47,19 @@ in {
     })
     #inputs.nix-gaming.packages.${pkgs.system}.viper
 
+    /*
     (retroarch.override {
       cores = with libretro; [
         snes9x
         pcsx-rearmed
         mgba
-        citra
+        #citra
         dolphin
         mupen64plus
         ppsspp
         #pcsx2
       ];
     })
+    */
   ];
 }

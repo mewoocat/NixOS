@@ -4,16 +4,19 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     #nixpkgs.url = "github:NixOS/nixpkgs/0d40d3a1ff082aa0ea314d8170f46d66f0b82c8b"; # Unstable pinned
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     home-manager.url = "github:nix-community/home-manager";
     #home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    ags.url = "github:Aylur/ags";
+    #ags.url = "github:Aylur/ags";
+    #ags.url = "git+https://github.com/Aylur/ags?ref=refs/tags/v1.8.2";
+    ags.url = "git+https://github.com/Aylur/ags?rev=60180a184cfb32b61a1d871c058b31a3b9b0743d";
     matugen.url = "github:InioX/matugen?ref=v2.2.0";
     nix-gaming.url = "github:fufexan/nix-gaming";
     myNvim.url = "github:mewoocat/nvim-nix";
+    myNvimNvf.url = "github:mewoocat/nvim-nvf";
     microfetch.url = "github:NotAShelf/microfetch";
 
     hyprland = {
@@ -29,6 +32,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-laptop = {
+      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.44.1&submodules=1";
+      #inputs.nixpkgs.follows = "nixpkgs-stable";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hypridle = {
       url = "github:hyprwm/hypridle";
     };
@@ -38,8 +47,6 @@
       inputs.hyprland.follows = "hyprland";
     };
     */
-
-    # My nvim config
 
     # Nix formatter
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
@@ -52,6 +59,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     */
+    
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
 
   };
 

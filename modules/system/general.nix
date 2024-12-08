@@ -10,7 +10,8 @@
       # Cachix for Hyprland
       substituters = ["https://hyprland.cachix.org"];
       trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-
+      
+      # Enable flakes
       experimental-features = ["nix-command" "flakes"];
     };
 
@@ -32,7 +33,7 @@
   nixpkgs = {
     config.allowUnfree = true;
     config.permittedInsecurePackages = [
-      "electron-25.9.0"
+      #"electron-25.9.0"
     ];
   };
 
@@ -42,18 +43,8 @@
   # This appears broken
   #services.envfs.enable = true; # Populate /usr/bin with binaries
 
-  # To sort
-  programs.light.enable = true;
   programs.xfconf.enable = true;
-  security.rtkit.enable = true; #rtkit is optional but recommended
+  security.rtkit.enable = true; # rtkit is optional but recommended
   services.gvfs.enable = true; # File file manager func.
 
-  # Legacy
-  ##############################################################################################
-  # Gtklock needs this for password to work
-  security.pam.services.gtklock = {};
-  # https://github.com/NixOS/nixpkgs/issues/240886
-  security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
-  # For Swaylock Screenlock
-  security.pam.services.swaylock = {};
 }

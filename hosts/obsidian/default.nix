@@ -5,7 +5,9 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
-    ./configuration.nix
+    # Core configuration
+    ./core.nix
+
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
@@ -20,7 +22,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/system
 
     # Desktop environment
-    ../../modules/system/gui/leaf
+    ../../modules/system/desktop-environments/leaf
 
     # User
     ../../users/eXia

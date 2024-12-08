@@ -11,10 +11,10 @@
   networking.firewall = {
     enable = true;
     # Open ports in the firewall.
-    allowedTCPPorts = [];
+    allowedTCPPorts = [ 22 ];
     allowedUDPPortRanges = [];
   };
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 }

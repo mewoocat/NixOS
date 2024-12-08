@@ -23,6 +23,7 @@
   boot.kernelModules = [
     "kvm-amd"
     "i2c-dev" # For openrgb
+    "vhba" # Needed for cdemu-daemon to start
   ];
   boot.extraModulePackages = [];
   boot.kernelParams = ["quiet"];

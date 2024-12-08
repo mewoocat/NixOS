@@ -18,16 +18,6 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Activation scripts
-  home.activation = {
-    #Read home manager on home.activation
-  };
-
-  # Dotfiles
-  home.file = {
-    #".config/btop/btop.conf".source = ./programs/btop/btop.conf;
-  };
-
   home.sessionVariables = {
     DEFAULT_BROWSER = "firefox"; # Not sure if this works
   };
@@ -62,65 +52,12 @@ in {
     "application/pdf" = ["firefox.desktop"];
     "x-scheme-handler/http" = ["firefox.desktop"];
     "x-scheme-handler/https" = ["firefox.desktop"];
-    "text/markdown" = ["l3afpad.desktop"];
-    "text/plain" = ["l3afpad.desktop"];
+    #"text/markdown" = ["l3afpad.desktop"];
+    #"text/plain" = ["l3afpad.desktop"];
   };
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
-
-  home.packages = with pkgs; [
-    vscodium
-    bottom
-  
-    blueberry
-    hyfetch
-    htop
-    evince # Gnome PDF viewer
-    blueman
-
-
-    nmap
-    glow
-    cmakeMinimal
-    tmux
-    ascii-image-converter
-    gh
-    zoxide
-    openvpn
-
-    # Programs
-    vesktop
-    inkscape
-    gimp
-    blanket
-    l3afpad
-    rhythmbox
-    bookworm
-    spotifywm spotify-tray
-    vial
-
-
-    qdirstat
-    gnome.gucharmap
-
-    inputs.myNvim.packages.x86_64-linux.default
-    inputs.microfetch.packages.x86_64-linux.default
-    
-    brasero
-
-    #gradience
-    #niri
-    #lynx
-    #nwg-displays
-    #wlr-randr
-    #nwg-look
-    #fontforge-gtk
-    #xournalpp
-    #bottles
-    #onlyoffice-bin
-  ];
-
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

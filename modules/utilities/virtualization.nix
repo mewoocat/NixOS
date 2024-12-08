@@ -12,5 +12,7 @@
     qemu
     quickemu
     guestfs-tools
+    libvirt-glib
+    virtiofsd
   ];
 }

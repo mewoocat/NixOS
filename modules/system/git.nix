@@ -4,14 +4,10 @@
   lib,
   ...
 }: {
-  home-manager.users.${config.username} = {
-    programs.git = {
-      enable = true;
-      extraConfig = {
-        credential.helper = "${
-          pkgs.git.override {withLibsecret = true;}
-        }/bin/git-credential-libsecret";
-      };
+  programs.git = {
+    enable = true;
+    config = {
+      credential.helper = "${pkgs.git.override {withLibsecret = true;} }/bin/git-credential-libsecret"; 
     };
   };
 }
