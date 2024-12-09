@@ -15,10 +15,12 @@ in {
   nixpkgs.config.allowUnfreePredicate = pkg: true;
 
   programs.cdemu.enable = true; # For emulating CD-Roms
-
+  programs.gamemode.enable = true; # Optimise system performance on demand
+ 
   home-manager.users.${username}.home.packages = with pkgs; [
     # Games
     gamescope
+
     duckstation
     pcsx2
     rpcs3

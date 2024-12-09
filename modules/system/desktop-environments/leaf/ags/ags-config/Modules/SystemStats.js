@@ -33,11 +33,14 @@ const ram = Variable(0, {
 });
 
 const ramAmount = Variable(0, {
-    poll: [2000, 'free --giga -h', out => {
+    poll: [2000, 'free --kibi', out => {
+        const GBinKiB = 0.000001024
         const memArray = out.split('\n')
                  .find(line => line.includes('Mem:'))
                  .split(/\s+/)
-        const formatedOut = `Usage: ${memArray[2]} / ${memArray[1]}`
+        const total = Math.round(memArray[1] * GBinKiB * 10) / 10 // Round to 1 decimal place
+        const used = Math.round(memArray[2] * GBinKiB * 10 ) / 10 // Round to 1 decimal place  
+        const formatedOut = `Usage: ${used} GB / ${total} GB`
         return formatedOut
     }
 ]});
@@ -48,21 +51,32 @@ const temp = Variable(-1, {
 ]});
 
 // Percent of storage used on '/' drive
-//TODO -t ext4 is a workaround the "df: /run/user/1000/doc: Operation not permitted" error which is returning a non zero value which might be causing it not to work
 export const storage = Variable(0, {
-    poll: [5000, 'df -h -t ext4', out => out.split('\n')
-        .find(line => line.endsWith("/"))
-        .split(/\s+/).slice(-2)[0]
-        .replace('%', '')
-    ]
-});
-
-export const storageAmount = Variable(0, {
-    poll: [5000, 'df -h -t ext4', out => {
+    poll: [5000, 'df /', out => { 
         const storageArray = out.split('\n')
                           .find(line => line.endsWith("/"))
                           .split(/\s+/)
-        const storageFormatted = `Usage: ${storageArray[2]} / ${storageArray[1]}`
+        const total = storageArray[1]
+        const available = storageArray[3]
+        const used = total - available
+        const usage = Math.round(used / total * 100000) / 100000 // Round to 5 decimal places
+        print(usage)
+        return usage
+    }]
+});
+
+export const storageAmount = Variable(0, {
+    // Get root storage
+    // df outputs amounts in 1024 byte units
+    poll: [5000, 'df /', out => {
+        const GBinKiB = 0.000001024
+        const storageArray = out.split('\n')
+                          .find(line => line.endsWith("/"))
+                          .split(/\s+/)
+        const total = Math.round(storageArray[1] * GBinKiB * 10) / 10 // Round to 1 decimal place
+        const available = Math.round(storageArray[3] * GBinKiB * 10) / 10 // Round to 1 decimal place
+        const used = total - available
+        const storageFormatted = `Usage of /: ${used} GB / ${total} GB`
         return storageFormatted
     }]
 });
@@ -84,7 +98,7 @@ export const tempLabel = () => Widget.Label({
 
 export const storageLabel = () => Widget.Label({
     class_name: "sub-text",
-    label: storage.bind().transform(value => "" + value + "%"),
+    label: storage.bind().transform(value => "" + Math.round(value * 100) + "%"),
 })
 
 export const cpuProgress = Widget.ProgressBar({
@@ -114,7 +128,7 @@ export const storageProgress = Widget.ProgressBar({
     hpack: "center",
     vertical: true,
     inverted: true,
-    value: storage.bind().transform(p => p / 100)
+    value: storage.bind()
 });
 
 export const tempProgress = Widget.ProgressBar({
