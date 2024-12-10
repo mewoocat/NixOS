@@ -8,9 +8,7 @@
   # For Nextcloud client
   services.gnome.gnome-keyring.enable = true;
 
-  home-manager.users.${config.username} = {
-    home.packages = with pkgs; [
-      nextcloud-client
-    ];
-  };
+  users.users.${config.username}.packages = with pkgs; [
+    nextcloud-client
+  ];
 }

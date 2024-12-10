@@ -6,6 +6,7 @@
   ...
 }: 
 {
+  /*
   home-manager.users.${config.username} = {
     programs.firefox = {
       enable = true;
@@ -18,4 +19,7 @@
       };
     };
   };
+  */
+
+  programs.firefox.enable = true;
 }

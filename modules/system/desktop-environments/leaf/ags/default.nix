@@ -24,9 +24,6 @@
     programs.ags = {
       enable = true;
 
-      # null or path, leave as null if you don't want hm to manage the config
-      #configDir = ../ags;
-
       # additional packages to add to gjs's runtime
       extraPackages = with pkgs; [
         gtk-session-lock
@@ -34,10 +31,6 @@
       ];
     };
 
-    home.file = {
-      # this no work
-      #".config/ags".source = config.home-manager.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/NixOS/users/eXia/ags";
-    };
     home.packages = with pkgs; [
       sassc
       wf-recorder
@@ -45,6 +38,8 @@
       python312Packages.gpustat
       gtk-session-lock
     ];
+
+    # Symlink ags config to .config
     systemd.user.tmpfiles.rules = [
       # There's probably a better way to do this
       "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config"

@@ -3,12 +3,12 @@
   pkgs,
   ...
 }: {
-  home-manager.users.${config.username} = {
-    home.packages = with pkgs; [
-      btop
-    ];
-    home.file = {
-      ".config/btop/btop.conf".source = ./btop.conf;
-    };
-  };
+
+  users.users.${config.username}.packages = with pkgs; [
+    btop
+  ];
+
+  systemd.tmpfiles.rules = [
+    "L+ /home/${config.username}/.config/btop/btop.conf - - - - ${./btop.conf}"
+  ];
 }

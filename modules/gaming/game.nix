@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }: {
@@ -10,27 +9,34 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = pkg: true;
+  nixpkgs.config.allowUnfreePredicate = true;
 
   # Testing fix for Deadlock crash
+  # Doesn't seem to fix anything
+  /*
   boot.kernel.sysctl = {
     "vm.max_map_count" = 1048576;
   };
+  */
 
   programs.cdemu.enable = true; # For emulating CD-Roms
   programs.gamemode.enable = true; # Optimise system performance on demand
- 
-  home-manager.users.${config.username}.home.packages = with pkgs; [
-    # Games
+
+  users.users.${config.username}.packages = with pkgs; [ 
+
+    # Utilities
     gamescope
 
+    # Emulators
     duckstation
     pcsx2
     rpcs3
     dolphin-emu
+
+    # Games
     xonotic
     osu-lazer-bin
-    heroic # Native GOG, Epic, and Amazon Games Launcher
+    #inputs.nix-gaming.packages.${pkgs.system}.osu-stable
 
     # Minecraft
     (prismlauncher.override {
@@ -41,6 +47,8 @@
       ];
     })
 
+    # Launchers
+    heroic # Native GOG, Epic, and Amazon Games Launcher
     (lutris.override {
       extraPkgs = pkgs: [
         # List package dependencies here
