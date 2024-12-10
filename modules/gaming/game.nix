@@ -4,9 +4,7 @@
   lib,
   inputs,
   ...
-}: let
-  username = "eXia";
-in {
+}: {
   imports = [
     ./gameLite.nix
   ];
@@ -14,10 +12,15 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
 
+  # Testing fix for Deadlock crash
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 1048576;
+  };
+
   programs.cdemu.enable = true; # For emulating CD-Roms
   programs.gamemode.enable = true; # Optimise system performance on demand
  
-  home-manager.users.${username}.home.packages = with pkgs; [
+  home-manager.users.${config.username}.home.packages = with pkgs; [
     # Games
     gamescope
 

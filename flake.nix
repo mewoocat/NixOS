@@ -24,7 +24,8 @@
       #url = "git+https://github.com/hyprwm/Hyprland?rev=a71207434c0bc2c8e05e94b1619e68059a002879&submodules=1";
       #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.39.1&submodules=1";
       #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.41.1&submodules=1"; # The only good version
-      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1";
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1";
+      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
     };
 
     hyprland-wlr = {
