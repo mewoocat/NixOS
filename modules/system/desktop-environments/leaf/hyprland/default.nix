@@ -8,10 +8,9 @@
   programs.hyprland.enable = true;
 
   users.users.${config.username}.packages = with pkgs; [
-    xorg.xrandr
+    xorg.xrandr # For xwyaland
   ];
 
-  # Home manager
   home-manager.users.${config.username} = {
     wayland.windowManager.hyprland = {
       enable = true;
