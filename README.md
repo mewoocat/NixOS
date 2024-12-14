@@ -52,3 +52,4 @@ or use the bash alias
 rebuild
 ```
 
+![](./assets/powered-by-nixos.gif)
