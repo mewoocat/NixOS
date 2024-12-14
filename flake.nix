@@ -34,6 +34,8 @@
 
     hyprland-laptop = {
       url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.44.1&submodules=1";
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1";
       #inputs.nixpkgs.follows = "nixpkgs-stable";
       #inputs.nixpkgs.follows = "nixpkgs";
     };

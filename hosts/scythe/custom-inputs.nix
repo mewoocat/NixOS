@@ -6,6 +6,13 @@
   ...
 }: {
 
+  # Fix mesa version mismatch
+  # This uses mesa from hyprland's nixpkgs input
+  hardware.opengl = {
+    package = lib.mkForce inputs.hyprland-laptop.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers;
+  };
+
+
   home-manager.users.${config.username} = {
     wayland.windowManager.hyprland = {
       # Use different input for hyprland
