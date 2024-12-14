@@ -6,6 +6,7 @@
   ...
 }: {
 
+  # Fixes hyprland crash on startup
   # Fix mesa version mismatch
   # This uses mesa from hyprland's nixpkgs input
   hardware.opengl = {

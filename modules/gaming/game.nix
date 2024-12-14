@@ -35,8 +35,8 @@
 
     # Games
     xonotic
-    osu-lazer-bin
-    #inputs.nix-gaming.packages.${pkgs.system}.osu-stable
+    #osu-lazer-bin # Low fps on openGL, crashes on vulken
+    inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin # Works great on openGL :)
 
     # Minecraft
     (prismlauncher.override {
