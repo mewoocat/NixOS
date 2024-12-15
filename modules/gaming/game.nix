@@ -48,7 +48,10 @@
     })
 
     # Launchers
-    heroic # Native GOG, Epic, and Amazon Games Launcher
+    # Native GOG, Epic, and Amazon Games Launcher
+    #heroic # Only start background process but window never loads
+    heroic-unwrapped # This one's window opens
+
     (lutris.override {
       extraPkgs = pkgs: [
         # List package dependencies here
