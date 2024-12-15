@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   # Custom user options
@@ -15,7 +16,19 @@
       type = lib.types.str;
       default = "please-change-me";
     };
+
+    userModules = lib.mkOption {
+      type = lib.types.listOf lib.types.submodule;
+      default = [];
+    };
+
   };
+
+  imports = [
+    lib.evalModules { 
+      modules = config.userModules; 
+    }
+  ];
 
   config = {
     # Option definitions.
@@ -23,5 +36,10 @@
     # Usually these depend on whether a user of this module chose to "enable" it
     # using the "option" above.
     # Options for modules imported in "imports" can be set here.
+
+    userModules = [
+      #../applications/tui/btop
+    ];
+
   };
 }
