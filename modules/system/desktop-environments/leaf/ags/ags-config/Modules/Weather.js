@@ -398,7 +398,6 @@ export const humidity = Utils.derive([weather], (weather) => {
 export const Weather = () => Widget.Box({
     vertical: true,
     hexpand: true,
-    //vpack: "center",
     //class_name: "weather-container", // Background image
     css: `
         padding: 1.4em;

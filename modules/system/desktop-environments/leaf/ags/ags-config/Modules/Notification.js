@@ -112,11 +112,11 @@ export const Notification = n => {
     return Widget.EventBox({
         on_primary_click: () => n.dismiss(),
         child: Widget.Box({
-            class_name: `${n.urgency} container`,
+            //class_name: `${n.urgency} container`,
+            class_name: `control-panel-box`,
             vertical: true,
-            //vpack: "center",
-            //vexpand: true,
             css: `
+                padding: 1rem;
                 min-width: 16em;
                 min-height: 4em;
             `,
