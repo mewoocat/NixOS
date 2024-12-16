@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   # Custom user options
@@ -24,11 +23,14 @@
 
   };
 
-  imports = [
+  imports = config.userModules;
+  /*
+  [
     lib.evalModules { 
       modules = config.userModules; 
     }
   ];
+  */
 
   config = {
     # Option definitions.
