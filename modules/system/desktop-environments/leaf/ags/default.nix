@@ -39,10 +39,10 @@
       gtk-session-lock
     ];
 
-    # Symlink ags config to .config
     systemd.user.tmpfiles.rules = [
       # There's probably a better way to do this
-      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config"
+      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config" # Symlink ags config to .config
+      "L+ /home/${config.username}/.local/share/fonts/icon_font.ttf - - - - ${./ags-config/assets/icon_font.ttf}" # Symlink icon font
     ];
   };
 }

@@ -41,9 +41,14 @@ async function getWeather(){
         var lon = Options.data.lon
     }
     else{
+        /*
         print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
         var lat = 0
         var lon = 0
+        */
+        print("ERROR: No location found to get weather for")
+        return null
+
     }
 
     // Try to make request to weather api

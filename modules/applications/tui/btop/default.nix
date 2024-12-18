@@ -8,7 +8,8 @@
     btop
   ];
 
-  systemd.tmpfiles.rules = [
+  systemd.user.tmpfiles.users.eXia.rules = [
     "L+ /home/${config.username}/.config/btop/btop.conf - - - - ${./btop.conf}"
   ];
+
 }

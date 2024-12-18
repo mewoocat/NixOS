@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-
+  
   systemd.tmpfiles.rules = [
     "L+ /home/${config.username}/.config/hypr/hyprland.conf - - - - ${./hyprland.conf}"
   ];
@@ -17,7 +17,7 @@
   };
 
   users.users.${config.username}.packages = with pkgs; [
-    xorg.xrandr # For xwyaland
+    xorg.xrandr # For xwayland
   ];
 
   /*

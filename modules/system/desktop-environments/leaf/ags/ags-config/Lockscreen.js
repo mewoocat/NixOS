@@ -8,6 +8,10 @@ import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 import icons from './icons.js';
 
+
+import * as Options from './Options/options.js'
+Options.GetOptions()
+
 const WeatherWidget = Weather()
 
 //////////////////////////////////////////////////////////////////////
