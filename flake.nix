@@ -7,7 +7,6 @@
     #nixpkgs.url = "github:NixOS/nixpkgs/0d40d3a1ff082aa0ea314d8170f46d66f0b82c8b"; # Unstable pinned
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
-
     #home-manager.url = "github:nix-community/home-manager";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -35,9 +34,8 @@
     };
 
     hyprland-laptop = {
-      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.44.1&submodules=1";
-      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
-      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1";
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.44.1&submodules=1";
+      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
       #inputs.nixpkgs.follows = "nixpkgs-stable";
       #inputs.nixpkgs.follows = "nixpkgs";
     };

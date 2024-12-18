@@ -4,21 +4,18 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let 
 
   # Fixes hyprland crash on startup
   # Fix mesa version mismatch
-  # This uses mesa from hyprland's nixpkgs input
-  hardware.opengl = {
-    package = lib.mkForce inputs.hyprland-laptop.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers;
+  # Override the mesa package in the hyprland input to use the mesa package from the nixpkgs input
+  hyprlandOverride = inputs.hyprland.packages.${pkgs.system}.hyprland.override {
+    mesa = pkgs.mesa;
+  };
+in {
+
+  programs.hyprland = {
+    package = lib.mkForce hyprlandOverride;
   };
 
-
-  home-manager.users.${config.username} = {
-    wayland.windowManager.hyprland = {
-      # Use different input for hyprland
-      #package = lib.mkForce inputs.hyprland.packages."${pkgs.system}".hyprland;
-      package = lib.mkForce inputs.hyprland-laptop.packages."${pkgs.system}".hyprland;
-    };
-  };
 }
