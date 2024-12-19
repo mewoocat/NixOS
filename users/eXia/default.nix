@@ -12,11 +12,14 @@
   imports = [
     ../../modules/applications
     ../../modules/dev-environments
+    inputs.hjem.nixosModules.default
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    #"electron-29.4.6"
-  ];
+  homes.eXia = {
+    files = {
+      ".config/test.txt".text = "hi";
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
