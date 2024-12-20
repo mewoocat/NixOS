@@ -29,6 +29,8 @@ in{
   };
 
   system.userActivationScripts = {
+    # This breaks the nixos-activation service if an error occurs here :/
+    /*
     # Initialize dynamic configurations
     leaf-startup.text = ''
       mkdir -p ${leaf-dir}
@@ -39,6 +41,7 @@ in{
       touch ${leaf-dir}/hypr/workspaces.conf
       touch ${leaf-dir}/hypr/userSettings.conf
     '';
+    */
   };
 
   # Autostarts gnome polkit
