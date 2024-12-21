@@ -19,17 +19,12 @@
     "L+ /home/${config.username}/.config/test.txt - - - - ${./test.txt}"
   ];
 
-  /*
   homes.eXia = {
-    enable = false;
+    enable = true;
     files = {
-      ".config/test.txt".text = "hi";
-      ".config/wtf.txt".text = "why is this working???";
-      ".config/holdup.txt".text = "ok what";
-      ".config/huh.txt".text = "ok what??????";
+      ".config/what.txt".source = ./test.txt;
     };
   };
-  */
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
