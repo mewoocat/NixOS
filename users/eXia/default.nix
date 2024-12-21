@@ -22,7 +22,10 @@
   homes.eXia = {
     enable = true;
     files = {
-      ".config/what.txt".source = ./test.txt;
+      ".config/what.txt" = {
+        source = ./test.txt;
+        clobber = true;
+      };
     };
   };
 
