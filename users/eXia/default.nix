@@ -79,6 +79,7 @@
       brasero
       ungoogled-chromium
       #teams-for-linux # Borked
+      newsflash
 
       zellij
     ];

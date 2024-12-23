@@ -4,7 +4,15 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  types-path = "/share/com.github.Aylur.ags/types";
+  ags-package = inputs.ags.packages.${pkgs.system}.default.override {
+    extraPackages = with pkgs;[
+      libdbusmenu-gtk3
+    ];
+    buildTypes = true;
+  };
+in {
   # For AGS Screenlock
   security.pam.services.ags = {};
 
@@ -15,9 +23,11 @@
   };
   */
 
+  #home-manager.users.${config.username}.home.packages = [ags-package];
+
+
   users.users.${config.username}.packages = with pkgs; [
-    inputs.ags.packages.${pkgs.system}.default
-    libdbusmenu-gtk3
+    ags-package
 
     # Dependencies
     gtk-session-lock
@@ -37,6 +47,10 @@
       };
       ".local/share/fonts/icon_font.ttf" = {
         source = ./ags-config/assets/icon_font.ttf;
+        clobber = true;
+      };
+      ".local/${types-path}" = {
+        source = "${ags-package}/${types-path}";
         clobber = true;
       };
     };
