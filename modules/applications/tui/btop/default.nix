@@ -8,11 +8,13 @@
     btop
   ];
 
+  /*
   home-manager.users.${config.username} = {
     systemd.user.tmpfiles.rules = [
       "L /home/${config.username}/.config/btop/btop.conf - - - - ${./btop.conf}"
     ];
   };
+  */
 
   # This has issues
   /*

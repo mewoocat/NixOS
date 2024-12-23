@@ -6,17 +6,14 @@
   ...
 }: let
 in {
+  /*
   imports = [
-    ./bash.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "eXia";
   home.homeDirectory = "/home/eXia";
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   home.sessionVariables = {
     DEFAULT_BROWSER = "firefox"; # Not sure if this works
@@ -58,6 +55,7 @@ in {
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
+  */
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -67,4 +65,7 @@ in {
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }

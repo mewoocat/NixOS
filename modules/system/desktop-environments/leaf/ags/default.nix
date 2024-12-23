@@ -15,34 +15,31 @@
   };
   */
 
-  # Home manager config
-  home-manager.users.${config.username} = {
-    imports = [
-      inputs.ags.homeManagerModules.default # Import ags hm module
-    ];
+  users.users.${config.username}.packages = with pkgs; [
+    inputs.ags.packages.${pkgs.system}.default
+    libdbusmenu-gtk3
 
-    programs.ags = {
-      enable = true;
+    # Dependencies
+    gtk-session-lock
+    sassc
+    wf-recorder
+    slurp # Used to select screen in wf-recorder
+    python312Packages.gpustat
+    gtk-session-lock
+  ];  
 
-      # additional packages to add to gjs's runtime
-      extraPackages = with pkgs; [
-        gtk-session-lock
-        #coreutils # For date
-      ];
+  homes.eXia = {
+    enable = true;
+    files = {
+      ".config/ags" = {
+        source = ./ags-config;
+        clobber = true;
+      };
+      ".local/share/fonts/icon_font.ttf" = {
+        source = ./ags-config/assets/icon_font.ttf;
+        clobber = true;
+      };
     };
-
-    home.packages = with pkgs; [
-      sassc
-      wf-recorder
-      slurp # Used to select screen in wf-recorder
-      python312Packages.gpustat
-      gtk-session-lock
-    ];
-
-    systemd.user.tmpfiles.rules = [
-      # There's probably a better way to do this
-      "L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config" # Symlink ags config to .config
-      "L+ /home/${config.username}/.local/share/fonts/icon_font.ttf - - - - ${./ags-config/assets/icon_font.ttf}" # Symlink icon font
-    ];
   };
+
 }

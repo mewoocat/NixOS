@@ -6,6 +6,6 @@
 
   imports = [
     ./btop
-    ./zellij
+    #./zellij
   ];
 }

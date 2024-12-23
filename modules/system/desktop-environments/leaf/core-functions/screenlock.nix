@@ -36,7 +36,7 @@
         # Only start lockscreen if it is not already running
         #if ! busctl --user list | grep com.github.Aylur.ags.lockscreen 
         #then
-          ${config.home-manager.users.${config.username}.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home-manager.users.${config.username}.home.homeDirectory}/.config/ags/Lockscreen.js
+          ags -b lockscreen -c ~/.config/ags/Lockscreen.js
         #fi
       '';
     };

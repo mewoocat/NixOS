@@ -13,11 +13,14 @@
     ../../modules/applications
     ../../modules/dev-environments
     inputs.hjem.nixosModules.default
+    ./programs
   ];
 
+  /*
   systemd.user.tmpfiles.users.${config.username}.rules = [
     "L+ /home/${config.username}/.config/test.txt - - - - ${./test.txt}"
   ];
+  */
 
   homes.eXia = {
     enable = true;
@@ -76,6 +79,8 @@
       brasero
       ungoogled-chromium
       #teams-for-linux # Borked
+
+      zellij
     ];
   };
 
