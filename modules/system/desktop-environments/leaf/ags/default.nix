@@ -8,9 +8,8 @@
   types-path = "/share/com.github.Aylur.ags/types";
   ags-package = inputs.ags.packages.${pkgs.system}.default.override {
     extraPackages = with pkgs;[
-      libdbusmenu-gtk3
+      #libdbusmenu-gtk3
       gtk-session-lock
-      sassc
     ];
     #buildTypes = true;
   };
@@ -45,14 +44,13 @@ in {
     wf-recorder
     slurp # Used to select screen in wf-recorder
     python312Packages.gpustat
-    gtk-session-lock
   ];  
 
   homes.eXia = {
     enable = true;
     files = {
       ".config/ags" = {
-        source = ./ags-config;
+        source = "/home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config";
         clobber = true;
       };
       ".local/share/fonts/icon_font.ttf" = {
