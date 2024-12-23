@@ -24,7 +24,14 @@ in{
 
   environment = {
     sessionVariables = {
+      WOT = "ok";
+    };
+    variables = {
       NIXOS_OZONE_WL = "1";
+      WTF = "Hi";
+      SDL_VIDEODRIVER = "wayland";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      GSETTINGS_SCHEMA_DIR = "${pkgs.gnome.nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/";
     };
   };
 
@@ -64,15 +71,6 @@ in{
     polkit_gnome # Not sure if this is needed since the service is defined above?
     gnome-system-monitor
   ];
-
-  # Home manager
-  home-manager.users.${config.username} = {
-    home.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      SDL_VIDEODRIVER = "wayland";
-      QT_QPA_PLATFORM = "wayland;xcb";
-    };
-  };
 
   users.users.${config.username}.packages = with pkgs; [
     gnome-bluetooth_1_0
