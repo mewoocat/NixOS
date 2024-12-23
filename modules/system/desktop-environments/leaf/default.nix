@@ -72,47 +72,47 @@ in{
       SDL_VIDEODRIVER = "wayland";
       QT_QPA_PLATFORM = "wayland;xcb";
     };
-
-    home.packages = with pkgs; [
-      gnome-bluetooth_1_0
-      fastfetch
-      xdg-utils # needed for discord/vesktop to open web links in default browser
-      usbutils
-      liberation_ttf
-      arkpandora_ttf
-      cantarell-fonts
-      coreutils
-      acpi # Battery
-      lm_sensors #
-      brightnessctl
-      bluez
-      wirelesstools
-      pipewire
-      pulseaudio
-      alsa-utils
-      pamixer
-      pavucontrol
-      swayidle
-      wl-clipboard
-      glib
-      gnome.nixos-gsettings-overrides # For gsettings theming
-      sway-contrib.grimshot
-      jaq
-      gojq
-      socat
-      ripgrep
-      jq
-      bc
-      wlsunset
-      unzip
-      gvfs # for network file browsing
-      dig
-      libnotify
-      p7zip
-      satty
-      grim
-      ddcutil
-      ddcui
-    ];
   };
+
+  users.users.${config.username}.packages = with pkgs; [
+    gnome-bluetooth_1_0
+    fastfetch
+    xdg-utils # needed for discord/vesktop to open web links in default browser
+    usbutils
+    liberation_ttf
+    arkpandora_ttf
+    cantarell-fonts
+    coreutils
+    acpi # Battery
+    lm_sensors #
+    brightnessctl
+    bluez
+    wirelesstools
+    pipewire
+    pulseaudio
+    alsa-utils
+    pamixer
+    pavucontrol
+    swayidle
+    wl-clipboard
+    glib
+    gnome.nixos-gsettings-overrides # For gsettings theming
+    sway-contrib.grimshot
+    jaq
+    gojq
+    socat
+    ripgrep
+    jq
+    bc
+    wlsunset
+    unzip
+    gvfs # for network file browsing
+    dig
+    libnotify
+    p7zip
+    satty
+    grim
+    ddcutil
+    ddcui
+  ];
 }
