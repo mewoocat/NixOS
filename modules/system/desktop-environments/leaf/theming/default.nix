@@ -28,8 +28,10 @@ in {
 
   };
 
-  # This can be used to dynamically set icon theme
-  # gsettings set org.gnome.desktop.interface gtk-icon-theme-name whitesur-gtk-theme
+  # This can be used to dynamically set gtk options
+  # gsettings set org.gnome.desktop.interface icon-theme whitesur-gtk-theme
+  # gsettings set org.gnome.desktop.interface cursor-theme <name>
+  # gsettings set org.gnome.desktop.interface cursor-size 24
 
   users.users.${config.username}.packages = with pkgs; [
     # GTK
