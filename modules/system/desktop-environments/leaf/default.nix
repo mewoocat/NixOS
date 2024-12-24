@@ -24,11 +24,9 @@ in{
 
   environment = {
     sessionVariables = {
-      WOT = "ok";
     };
     variables = {
       NIXOS_OZONE_WL = "1";
-      WTF = "Hi";
       SDL_VIDEODRIVER = "wayland";
       QT_QPA_PLATFORM = "wayland;xcb";
       GSETTINGS_SCHEMA_DIR = "${pkgs.gnome.nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/";

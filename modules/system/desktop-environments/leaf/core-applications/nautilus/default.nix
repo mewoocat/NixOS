@@ -13,14 +13,18 @@
   users.users.${config.username}.packages = with pkgs; [
     nautilus
     gvfs # for network file browsing
+    #udiskie
   ];
 
-  # Old HM Service, need to fix
-  /*
-  services.udiskie = {
+  # Create sevice to run udiskie for automounting
+  systemd.user.services.udiskie = {
     enable = true;
-    automount = true;
-    tray = "never";
+    after = [ "graphical.target" ];
+    wantedBy = [ "graphical.target" ];
+    description = "udiskie service";
+    serviceConfig = {
+        Type = "simple";
+        ExecStart = ''${pkgs.udiskie}/bin/udiskie'';
+    };
   };
-  */
 }
