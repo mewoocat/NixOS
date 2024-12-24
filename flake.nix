@@ -7,10 +7,6 @@
     #nixpkgs.url = "github:NixOS/nixpkgs/0d40d3a1ff082aa0ea314d8170f46d66f0b82c8b"; # Unstable pinned
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
-    #home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
     #ags.url = "github:Aylur/ags";
     #ags.url = "git+https://github.com/Aylur/ags?ref=refs/tags/v1.8.2";
     ags.url = "git+https://github.com/Aylur/ags?rev=60180a184cfb32b61a1d871c058b31a3b9b0743d";

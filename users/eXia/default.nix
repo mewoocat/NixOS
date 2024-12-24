@@ -88,11 +88,4 @@
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
-  # Import Homemanger config
-  home-manager.users.${config.username} = {
-    imports = [
-      ./home.nix
-    ];
-  };
-
 }

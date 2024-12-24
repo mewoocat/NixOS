@@ -11,8 +11,8 @@
     Hyprland
   '';
 in {
-  home-manager.users.${config.username} = {
-    home.packages = [
+  users.users.${config.username} = {
+    packages = [
       startup
     ];
   };

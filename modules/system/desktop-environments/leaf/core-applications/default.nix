@@ -8,11 +8,8 @@
     ./gnome-calendar.nix
   ];
 
-  # Home manager config
-  home-manager.users.${config.username} = {
-    home.file = {
-    };
-    home.packages = with pkgs; [
+  users.users.${config.username} = {
+    packages = with pkgs; [
       gnome-calculator
       eog
       gthumb
