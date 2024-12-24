@@ -257,27 +257,6 @@
         "type": "github"
       }
     },
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1733951536,
-        "narHash": "sha256-Zb5ZCa7Xj+0gy5XVXINTSr71fCfAv+IKtmIXNrykT54=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "1318c3f3b068cdcea922fa7c1a0a1f0c96c22f5f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-24.11",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -3124,7 +3103,6 @@
         "ags": "ags",
         "alejandra": "alejandra",
         "hjem": "hjem",
-        "home-manager": "home-manager",
         "hypridle": "hypridle",
         "hyprland": "hyprland",
         "hyprland-laptop": "hyprland-laptop",

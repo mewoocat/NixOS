@@ -16,6 +16,7 @@
 in {
   # For AGS Screenlock
   security.pam.services.ags = {};
+  /*
   home-manager.users.${config.username} = {
     imports = [
       inputs.ags.homeManagerModules.default # Import ags hm module
@@ -25,6 +26,7 @@ in {
       enable = true;
     };
   };
+*/
 
   # This breaks the boot process
   /*
@@ -37,7 +39,7 @@ in {
 
 
   users.users.${config.username}.packages = with pkgs; [
-    #ags-package
+    ags-package
 
     # Dependencies
     sassc
