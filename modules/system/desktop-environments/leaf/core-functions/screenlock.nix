@@ -48,9 +48,13 @@ in{
 
   systemd.user.services.hypridle = {
     enable = true;
-    after = [ "graphical.target" ];
-    wantedBy = [ "graphical.target" ];
+    #after = [ "graphical.target" ];
+    wantedBy = [ "default.target" ]; # Make this service start when user logs in
     description = "hypridle service";
+    # Reload the service if any of these change
+    reloadTriggers = [
+      lockScreen
+    ];
     # Add programs to the service's PATH env variable
     path = [
       pkgs.coreutils

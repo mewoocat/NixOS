@@ -5,7 +5,7 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
-    # Core configuration
+    # Core host related configuration
     ./core.nix
 
     # Hardware
@@ -26,9 +26,10 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # User
     ../../users/eXia
-    ../../modules/gaming/game.nix
+    ../../users/iris
 
-    # Utilities
+    # Other
     ../../modules/utilities
+    ../../modules/gaming/game.nix
   ];
 }
