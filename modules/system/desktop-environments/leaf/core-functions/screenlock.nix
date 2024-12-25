@@ -7,8 +7,14 @@
 }: let
   lockScreen = pkgs.writeShellApplication {
     name = "ags-lock";
-    runtimeInputs = with pkgs; [
-      coreutils
+    runtimeInputs = with pkgs; [  
+      # Need ags 
+      (inputs.ags.packages.${pkgs.system}.default.override {
+        extraPackages = with pkgs;[
+          gtk-session-lock
+        ];
+      })
+      coreutils # idk if this is needed anymore
       sassc
     ];
     text = '' 
@@ -40,9 +46,26 @@ in{
     lockScreen
   ];
 
-  services.hypridle = {
+  systemd.user.services.hypridle = {
     enable = true;
-  }; 
+    after = [ "graphical.target" ];
+    wantedBy = [ "graphical.target" ];
+    description = "hypridle service";
+    # Add programs to the service's PATH env variable
+    path = [
+      pkgs.coreutils
+      lockScreen # For the ags-lock command
+    ];
+    /*
+    serviceConfig = {
+        Type = "simple";
+        ExecStart = ''echo $PATH; ${pkgs.hypridle}/bin/hypridle'';
+    };
+    */
+
+    # This will ExecStart this script which has access to the paths provided
+    script = "${pkgs.hypridle}/bin/hypridle";
+  };
 
   # hypridle config
   homes.eXia = {
