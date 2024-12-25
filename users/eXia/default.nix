@@ -16,21 +16,8 @@
     ./programs
   ];
 
-  /*
-  systemd.user.tmpfiles.users.${config.username}.rules = [
-    "L+ /home/${config.username}/.config/test.txt - - - - ${./test.txt}"
-  ];
-  */
-
-  homes.eXia = {
-    enable = true;
-    files = {
-      ".config/what.txt" = {
-        source = ./test.txt;
-        clobber = true;
-      };
-    };
-  };
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
@@ -80,6 +67,7 @@
       ungoogled-chromium
       #teams-for-linux # Borked
       newsflash
+      obsidian
 
       zellij
     ];
