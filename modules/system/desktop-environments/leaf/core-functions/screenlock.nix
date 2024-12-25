@@ -46,10 +46,11 @@ in{
     lockScreen
   ];
 
+  #services.hypridle.enable = true;
   systemd.user.services.hypridle = {
     enable = true;
-    #after = [ "graphical.target" ];
-    wantedBy = [ "default.target" ]; # Make this service start when user logs in
+    after = [ "graphical-session-pre.target" ];
+    partOf = [ "graphical-session.target" ];
     description = "hypridle service";
     # Reload the service if any of these change
     reloadTriggers = [
@@ -60,12 +61,11 @@ in{
       pkgs.coreutils
       lockScreen # For the ags-lock command
     ];
-    /*
-    serviceConfig = {
-        Type = "simple";
-        ExecStart = ''echo $PATH; ${pkgs.hypridle}/bin/hypridle'';
-    };
-    */
+
+    #serviceConfig = {
+    #    Type = "simple";
+    #    ExecStart = ''echo $PATH; ${pkgs.hypridle}/bin/hypridle'';
+    #};
 
     # This will ExecStart this script which has access to the paths provided
     script = "${pkgs.hypridle}/bin/hypridle";
