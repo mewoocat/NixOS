@@ -49,23 +49,32 @@ in{
   #services.hypridle.enable = true;
   systemd.user.services.hypridle = {
     enable = true;
-    after = [ "graphical-session-pre.target" ];
-    partOf = [ "graphical-session.target" ];
     description = "hypridle service";
+    after = [ "graphical-session.target" ];
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    unitConfig = {
+      ConditionEnvironment = "WAYLAND_DISPLAY"; # Only start if WAYLAND_DISPLAY env var is set
+    };
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      /*
+      Environment = [
+        "PATH=${lockScreen}/bin/ags-lock"
+      ];
+      ExecStart = ''${pkgs.hypridle}/bin/hypridle'';
+      */
+    };
     # Reload the service if any of these change
     reloadTriggers = [
       lockScreen
     ];
+
     # Add programs to the service's PATH env variable
     path = [
-      pkgs.coreutils
       lockScreen # For the ags-lock command
     ];
-
-    #serviceConfig = {
-    #    Type = "simple";
-    #    ExecStart = ''echo $PATH; ${pkgs.hypridle}/bin/hypridle'';
-    #};
 
     # This will ExecStart this script which has access to the paths provided
     script = "${pkgs.hypridle}/bin/hypridle";

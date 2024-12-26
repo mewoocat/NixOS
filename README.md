@@ -54,7 +54,7 @@ rebuild
 
 # Credits
 - home-manager: for showing me how to do home management without home manager 
-- raf: for attempting to answer my stupid questions
+- raf: for answering my stupid questions
 ### Honorable mentions
 - nixpkgs src
 
