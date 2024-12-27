@@ -3253,11 +3253,9 @@ geary-conversation-viewer#conversation_viewer searchbar > revealer > box { backg
 
 /* Trying to target the popup window of the entry completion */
 /* Seems to work for the thunar path entry completion */
-/*
 entry .background {
-  background-color: #ff0000;
+  background-color: @destructive_bg_color;
 }
-*/
 /*
 .background {
   background-color: #ff0000;
