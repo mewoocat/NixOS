@@ -70,6 +70,7 @@
       obsidian
 
       zellij
+      dconf-editor
     ];
   };
 

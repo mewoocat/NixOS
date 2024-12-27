@@ -3245,3 +3245,9 @@ geary-conversation-viewer#conversation_viewer searchbar > revealer > box { backg
 .budgie-panel.vertical button { padding: 4px 0; }
 
 .budgie-panel.vertical #tasklist-button { min-height: 32px; }
+
+entry {
+    window {
+        background-color: #ff0000;
+    }
+}
