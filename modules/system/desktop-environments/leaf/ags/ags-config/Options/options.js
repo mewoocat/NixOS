@@ -269,6 +269,8 @@ function InitilizeOptions(){
                     Gtk.Settings.get_default().gtk_enable_animations = this.widget.active
                 }
             },
+            // TODO: Needs to be reworked after putting ags config in nix store
+            /*
             ags_opacity: {
                 id: "ags_opacity",
                 name: "Ags opacity (stub)",
@@ -291,6 +293,7 @@ function InitilizeOptions(){
 
                 }
             }
+            */
             //sensitivity: new Option("sensitivity", "Sensitivity", "slider", null, "input:sensitivity = ", data.options.sensitivity, "", -1, 1),
 
         },
