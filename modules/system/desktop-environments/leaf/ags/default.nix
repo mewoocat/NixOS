@@ -16,17 +16,6 @@
 in {
   # For AGS Screenlock
   security.pam.services.ags = {};
-  /*
-  home-manager.users.${config.username} = {
-    imports = [
-      inputs.ags.homeManagerModules.default # Import ags hm module
-    ];
-
-    programs.ags = {
-      enable = true;
-    };
-  };
-*/
 
   # This breaks the boot process
   /*
@@ -34,9 +23,6 @@ in {
     enable = true;
   };
   */
-
-  #home-manager.users.${config.username}.home.packages = [ags-package];
-
 
   users.users.${config.username}.packages = with pkgs; [
     ags-package
@@ -52,13 +38,14 @@ in {
     enable = true;
     files = {
       ".config/ags" = {
-        source = "/home/${config.username}/NixOS/modules/system/desktop-environments/leaf/ags/ags-config";
+        source = ./ags-config;
         clobber = true;
       };
       ".local/share/fonts/icon_font.ttf" = {
         source = ./ags-config/assets/icon_font.ttf;
         clobber = true;
       };
+      # Doesn't seem like this is needed
       /*
       ".local/${types-path}" = {
         source = "${ags-package}/${types-path}";
