@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import App from 'resource:///com/github/Aylur/ags/app.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+import GLib from 'gi://GLib'
 
 import * as Options from '../Options/options.js'
 
@@ -25,7 +26,7 @@ export const UserIcon = (size = 2) => Widget.Box({
         min-width: ${size}rem;
         min-height: ${size}rem;
         background-size: cover;
-        background-image: url("${App.configDir}/../../.cache/ags/pfp");
+        background-image: url("${GLib.get_home_dir()}/.cache/ags/pfp");
     `,
 })
 
