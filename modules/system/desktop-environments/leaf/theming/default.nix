@@ -5,12 +5,29 @@
   inputs,
   ...
 }: let
-  # Theme packaging
+  # Theme manager packaging
   src = builtins.readFile ./theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
   # Wallust packaging
   wallust = pkgs.callPackage ./wallust.nix {};
+
+  # Default GTK theme
+  /*
+  gtk-theme = pkgs.adw-gtk3.overrideAttrs {
+    postInstall = ''
+      # MODIFICATION: Use color variables from leaf
+      echo "@import "../../../../../.config/leaf-de/theme/gtk.css"" >> $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css
+    '';
+  };
+  */
+  adw-gtk3-leaf = pkgs.fetchFromGitHub {
+    owner = "mewoocat";
+    repo = "adw-gtk3-leaf";
+    rev = "7ca12c905e2ec1c98634f149b5f011b4e39ec0cc";
+    sha256 = "sha256-+b40wFEiV6BTrwYpX1ndh+r1ECV3CcYuewGyLXBftl4";
+  };
+
 in {
 
   environment.sessionVariables = {
@@ -42,7 +59,13 @@ in {
         cp ${./../ags/ags-config/assets/bluetooth-disabled-symbolic.svg} $out/share/icons/kora/status/symbolic/bluetooth-disabled-symbolic.svg
       '';
     })
+    #adw-gtk3 # Main GTK theme
     whitesur-gtk-theme
+    orchis-theme
+    shades-of-gray-theme
+    nwg-look
+
+    inputs.adw-gtk3-leaf.packages.${system}.default
 
     wallust
     theme
@@ -74,15 +97,22 @@ in {
       source = ./matugen;
     };
 
-    ".local/share/themes/adw-gtk3" = {
+    ".local/share/themes/adw-gtk3-leaf" = {
       clobber = true;
-      source = ./adw-gtk3;
+      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf";
     };
 
-    ".local/share/themes/adw-gtk3-dark" = {
+    ".local/share/themes/adw-gtk3-leaf-dark" = {
       clobber = true;
-      source = ./adw-gtk3-dark;
+      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark";
     };
+
+    /*
+    ".config/gtk-3.0/gtk.css" = {
+      clobber = true;
+      source = ./leaf-gtk-3.0.css; 
+    };
+    */
 
     ".config/gtk-4.0/gtk.css" = {
       clobber = true;
