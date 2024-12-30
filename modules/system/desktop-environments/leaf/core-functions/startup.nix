@@ -7,12 +7,13 @@
 }: let
   startup = pkgs.writeShellScriptBin "leaf" ''
     echo "Starting Leaf Desktop Environment..."
-    zellij kill-all-session
-    Hyprland
+    #Hyprland
+    exec uwsm start hyprland-uwsm.desktop # Run hyprland as a systemd service
+                                          # This is needed to start the graphical-session.target
   '';
 in {
-  home-manager.users.${config.username} = {
-    home.packages = [
+  users.users.${config.username} = {
+    packages = [
       startup
     ];
   };

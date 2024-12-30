@@ -4,7 +4,29 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  lockScreen = pkgs.writeShellApplication {
+    name = "ags-lock";
+    runtimeInputs = with pkgs; [  
+      # Need ags 
+      (inputs.ags.packages.${pkgs.system}.default.override {
+        extraPackages = with pkgs;[
+          gtk-session-lock
+        ];
+      })
+      coreutils # idk if this is needed anymore
+      sassc
+    ];
+    text = '' 
+      # This conditional check is not needed since attempting to run another ags process with same bus name fails
+      # Only start lockscreen if it is not already running
+      #if ! busctl --user list | grep com.github.Aylur.ags.lockscreen 
+      #then
+        ags -b lockscreen -c ~/.config/ags/Lockscreen.js
+      #fi
+    '';
+  };
+in{
 
   systemd.services = {
     suspend-delay = {
@@ -20,78 +42,52 @@
     };
   };
 
+  users.users.${config.username}.packages = [
+    lockScreen
+  ];
 
-
-
-
-  home-manager.users.${config.username} = let
-    lockScreen = pkgs.writeShellApplication {
-      name = "ags-lock";
-      runtimeInputs = with pkgs; [
-        coreutils
-        sassc
-      ];
-      text = '' 
-        # This conditional check is not needed since attempting to run another ags process with same bus name fails
-        # Only start lockscreen if it is not already running
-        #if ! busctl --user list | grep com.github.Aylur.ags.lockscreen 
-        #then
-          ${config.home-manager.users.${config.username}.programs.ags.finalPackage}/bin/ags -b lockscreen -c ${config.home-manager.users.${config.username}.home.homeDirectory}/.config/ags/Lockscreen.js
-        #fi
-      '';
+  #services.hypridle.enable = true;
+  systemd.user.services.hypridle = {
+    enable = true;
+    description = "hypridle service";
+    after = [ "graphical-session.target" ];
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    unitConfig = {
+      ConditionEnvironment = "WAYLAND_DISPLAY"; # Only start if WAYLAND_DISPLAY env var is set
     };
-  in {
-  
-    home.packages = [
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      /*
+      Environment = [
+        "PATH=${lockScreen}/bin/ags-lock"
+      ];
+      ExecStart = ''${pkgs.hypridle}/bin/hypridle'';
+      */
+    };
+    # Reload the service if any of these change
+    reloadTriggers = [
       lockScreen
     ];
 
-    /*
-    # start as part of hyprland, not sway
-    systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
-    services.swayidle = {
-      enable = true;
-      extraArgs = [ "-w" ]; # Does this fix multiple calls to lock?
-      package = pkgs.swayidle;
-      events = [
-        {
-          event = "before-sleep";
-          command = "${lockScreen}/bin/ags-lock";
-        }
-      ];
-      timeouts = [
-        {
-          timeout = 60 * 15; # 15 minutes
-          command = "${lockScreen}/bin/ags-lock";
-        }
-      ];
-    };
-    */
+    # Add programs to the service's PATH env variable
+    path = [
+      lockScreen # For the ags-lock command
+    ];
 
-    
-    services.hypridle = {
-      enable = true;
-      settings = {
-        general = {
-          lock_cmd = "${lockScreen}/bin/ags-lock";
-          #lock_cmd = "swaylock";
-          before_sleep_cmd = "loginctl lock-session";    # lock before suspend.
-          after_sleep_cmd = "hyprctl dispatch dpms on";  # to avoid having to press a key twice to turn on the display.
-        };
+    # This will ExecStart this script which has access to the paths provided
+    script = "${pkgs.hypridle}/bin/hypridle";
+  };
 
-        listener = [
-          {
-            timeout = 300; # 5 mins
-            on-timeout = "loginctl lock-session";
-          }
-          {
-            timeout = 540; # 9 mins
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
-          }
-        ];
+  # hypridle config
+  homes.eXia = {
+    enable = true;
+    files = {
+      ".config/hypr/hypridle.conf" = {
+        source = ./hypridle.conf;
+        clobber = true;
       };
-    }; 
-
+    };
   };
 }

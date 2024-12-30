@@ -13,23 +13,11 @@
     ../../modules/applications
     ../../modules/dev-environments
     inputs.hjem.nixosModules.default
+    ./programs
   ];
 
-  systemd.user.tmpfiles.users.${config.username}.rules = [
-    "L+ /home/${config.username}/.config/test.txt - - - - ${./test.txt}"
-  ];
-
-  /*
-  homes.eXia = {
-    enable = false;
-    files = {
-      ".config/test.txt".text = "hi";
-      ".config/wtf.txt".text = "why is this working???";
-      ".config/holdup.txt".text = "ok what";
-      ".config/huh.txt".text = "ok what??????";
-    };
-  };
-  */
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
@@ -78,17 +66,15 @@
       brasero
       ungoogled-chromium
       #teams-for-linux # Borked
+      newsflash
+      obsidian
+
+      zellij
+      dconf-editor
     ];
   };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
-
-  # Import Homemanger config
-  home-manager.users.${config.username} = {
-    imports = [
-      ./home.nix
-    ];
-  };
 
 }

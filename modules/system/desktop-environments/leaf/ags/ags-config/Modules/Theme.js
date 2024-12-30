@@ -2,6 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
 import GdkPixbuf from 'gi://GdkPixbuf'
+import GLib from 'gi://GLib'
 
 import * as Global from '../Global.js'
 import icons from '../icons.js';
@@ -24,14 +25,14 @@ export const ThemeButton = (w, h) => Widget.Button({
 
 function GetThemeState() {
     // WARNING: Assumes ags config dir is located at ~/.config/ags
-    let CurrentThemeJsonPath = `${App.configDir}/../leaf/theme/current-theme.json`
+    let CurrentThemeJsonPath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
     let CurrentThemeJson = JSON.parse(Utils.readFile(CurrentThemeJsonPath))
     //print(JSON.stringify(CurrentThemeJson.mode))
     return CurrentThemeJson.mode
 }
 
 // WARNING: Assumes ags config dir is located at ~/.config/ags
-const RecentThemesPath = `${App.configDir}/../leaf/theme/recent-themes.json`
+const RecentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-themes.json`
 
 // Returns a list of the recent themes as widgets given the recent-themes.json as input
 const GenerateRecentThemeWidgets = (recentThemesJson) => {

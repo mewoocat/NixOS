@@ -1,6 +1,7 @@
 import GtkSessionLock from 'gi://GtkSessionLock'
 import Gdk from 'gi://Gdk'
 import Gtk from 'gi://Gtk'
+import GLib from 'gi://GLib'
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import { Weather } from './Modules/Weather.js';
@@ -49,7 +50,7 @@ App.config({
 
 // Holds lock windows for each monitor
 let windows = []
-let wallpaper = `${App.configDir}/../../.cache/wallpaper` 
+let wallpaper = `${GLib.get_home_dir()}/.cache/wallpaper` 
 
 //////////////////////////////////////////////////////////////////////
 // Functions

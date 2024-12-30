@@ -117,6 +117,8 @@ function setColors(){
     # Reload GTK theme
     gsettings set org.gnome.desktop.interface gtk-theme phocus
     gsettings set org.gnome.desktop.interface gtk-theme $gtkTheme   # Reload GTK theme
+    # TODO: Probably also should set the color-scheme prefernce so none gtk apps get the memo
+    #gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
     # Kill and restart GTK 4 apps
     # Have to kill not close in order for theme to change

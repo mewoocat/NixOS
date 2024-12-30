@@ -24,7 +24,12 @@ in{
 
   environment = {
     sessionVariables = {
+    };
+    variables = {
       NIXOS_OZONE_WL = "1";
+      SDL_VIDEODRIVER = "wayland";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      GSETTINGS_SCHEMA_DIR = "${pkgs.gnome.nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/";
     };
   };
 
@@ -65,54 +70,45 @@ in{
     gnome-system-monitor
   ];
 
-  # Home manager
-  home-manager.users.${config.username} = {
-    home.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      SDL_VIDEODRIVER = "wayland";
-      QT_QPA_PLATFORM = "wayland;xcb";
-    };
-
-    home.packages = with pkgs; [
-      gnome-bluetooth_1_0
-      fastfetch
-      xdg-utils # needed for discord/vesktop to open web links in default browser
-      usbutils
-      liberation_ttf
-      arkpandora_ttf
-      cantarell-fonts
-      coreutils
-      acpi # Battery
-      lm_sensors #
-      brightnessctl
-      bluez
-      wirelesstools
-      pipewire
-      pulseaudio
-      alsa-utils
-      pamixer
-      pavucontrol
-      swayidle
-      wl-clipboard
-      glib
-      gnome.nixos-gsettings-overrides # For gsettings theming
-      sway-contrib.grimshot
-      jaq
-      gojq
-      socat
-      ripgrep
-      jq
-      bc
-      wlsunset
-      unzip
-      gvfs # for network file browsing
-      dig
-      libnotify
-      p7zip
-      satty
-      grim
-      ddcutil
-      ddcui
-    ];
-  };
+  users.users.${config.username}.packages = with pkgs; [
+    gnome-bluetooth_1_0
+    fastfetch
+    xdg-utils # needed for discord/vesktop to open web links in default browser
+    usbutils
+    liberation_ttf
+    arkpandora_ttf
+    cantarell-fonts
+    coreutils
+    acpi # Battery
+    lm_sensors #
+    brightnessctl
+    bluez
+    wirelesstools
+    pipewire
+    pulseaudio
+    alsa-utils
+    pamixer
+    pavucontrol
+    swayidle
+    wl-clipboard
+    glib
+    gnome.nixos-gsettings-overrides # For gsettings theming
+    sway-contrib.grimshot
+    jaq
+    gojq
+    socat
+    ripgrep
+    jq
+    bc
+    wlsunset
+    unzip
+    gvfs # for network file browsing
+    dig
+    libnotify
+    p7zip
+    satty
+    grim
+    ddcutil
+    ddcui
+  ];
 }

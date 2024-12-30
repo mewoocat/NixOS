@@ -1,12 +1,11 @@
 {
   config,
   pkgs,
-  lib,
-  inputs,
   ...
 }: {
+
   imports = [
-    ./gui
-    ./tui
+    ./moonlight.nix
+    ./thunar.nix
   ];
 }

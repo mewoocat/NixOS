@@ -7,7 +7,6 @@
 }: {
   imports = [
     ./user.nix
-    ./home-manager.nix
     ./boot.nix
     ./power.nix
     ./networking.nix

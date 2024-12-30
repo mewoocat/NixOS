@@ -5,12 +5,29 @@
   inputs,
   ...
 }: let
-  # Theme packaging
+  # Theme manager packaging
   src = builtins.readFile ./theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
   # Wallust packaging
   wallust = pkgs.callPackage ./wallust.nix {};
+
+  # Default GTK theme
+  /*
+  gtk-theme = pkgs.adw-gtk3.overrideAttrs {
+    postInstall = ''
+      # MODIFICATION: Use color variables from leaf
+      echo "@import "../../../../../.config/leaf-de/theme/gtk.css"" >> $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css
+    '';
+  };
+  */
+  adw-gtk3-leaf = pkgs.fetchFromGitHub {
+    owner = "mewoocat";
+    repo = "adw-gtk3-leaf";
+    rev = "7ca12c905e2ec1c98634f149b5f011b4e39ec0cc";
+    sha256 = "sha256-+b40wFEiV6BTrwYpX1ndh+r1ECV3CcYuewGyLXBftl4";
+  };
+
 in {
 
   environment.sessionVariables = {
@@ -28,84 +45,88 @@ in {
 
   };
 
-  home-manager.users.${config.username} = {
-    # GTK Config
-    gtk = {
-      enable = true;
-      /*
-      theme = {
-        name = "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
-      };
-      */
-      # whitesur-gtk-theme
-      /*
-      theme = {
-        name = "whitesur-gtk-theme";
-        package = pkgs.whitesur-gtk-theme;
-      };
-      */
-      cursorTheme = {
-        name = "capitaine-cursors";
-        package = pkgs.capitaine-cursors;
-        size = 24;
-      };
-      iconTheme = {
-        name = "kora";
-        package = pkgs.kora-icon-theme.overrideAttrs{
-          postInstall = ''
-            # MODIFICATION: Overwriting with custom icons
-            cp ${./../ags/ags-config/assets/bluetooth-disabled-symbolic.svg} $out/share/icons/kora/status/symbolic/bluetooth-disabled-symbolic.svg
-          '';
-        };
-      };
+  # This can be used to dynamically set gtk options
+  # gsettings set org.gnome.desktop.interface icon-theme whitesur-gtk-theme
+  # gsettings set org.gnome.desktop.interface cursor-theme <name>
+  # gsettings set org.gnome.desktop.interface cursor-size 24
+
+  users.users.${config.username}.packages = with pkgs; [
+    # GTK
+    capitaine-cursors
+    (pkgs.kora-icon-theme.overrideAttrs{
+      postInstall = ''
+        # MODIFICATION: Overwriting with custom icons
+        cp ${./../ags/ags-config/assets/bluetooth-disabled-symbolic.svg} $out/share/icons/kora/status/symbolic/bluetooth-disabled-symbolic.svg
+      '';
+    })
+    #adw-gtk3 # Main GTK theme
+    whitesur-gtk-theme
+    orchis-theme
+    shades-of-gray-theme
+    nwg-look
+
+    inputs.adw-gtk3-leaf.packages.${system}.default
+
+    wallust
+    theme
+    inputs.matugen.packages.x86_64-linux.default
+    libsForQt5.qt5ct
+    qt6Packages.qt6ct
+    pywal
+    swww
+  ];
+
+  homes.${config.username}.files = {
+    ".config/gtk-3.0/settings.ini" = {
+      clobber = true;
+      text = ''
+        [Settings]
+        gtk-cursor-theme-name=capitaine-cursors
+        gtk-cursor-theme-size=24
+        gtk-icon-theme-name=whitesur-gtk-theme
+      '';
     };
 
-    # QT Config (BROKEN)
+    ".config/wallust" = {
+      clobber = true;
+      source = ./wallust;
+    };
+
+    ".config/matugen" = {
+      clobber = true;
+      source = ./matugen;
+    };
+
+    ".local/share/themes/adw-gtk3-leaf" = {
+      clobber = true;
+      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf";
+    };
+
+    ".local/share/themes/adw-gtk3-leaf-dark" = {
+      clobber = true;
+      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark";
+    };
+
     /*
-    qt = {
-      enable = true;
-      style = {
-        name = "adwaita-dark";
-        package = pkgs.adwaita-qt;
-      };
-      platformTheme = {
-        name = "qt5ct";
-      };
+    ".config/gtk-3.0/gtk.css" = {
+      clobber = true;
+      source = ./leaf-gtk-3.0.css; 
     };
     */
 
-    home.packages = with pkgs; [
-      # Self packaged
-      wallust
-      theme
-
-      # Flake inputs
-      inputs.matugen.packages.x86_64-linux.default
-
-      # Nixpkgs
-      libsForQt5.qt5ct
-      qt6Packages.qt6ct
-      pywal
-      swww
-    ];
-
-    home.file = {
-      ".config/wallust".source = ./wallust;
-      ".config/matugen".source = ./matugen;
-
-      # GTK 3
-      ".local/share/themes/adw-gtk3".source = ./adw-gtk3;
-      ".local/share/themes/adw-gtk3-dark".source = ./adw-gtk3-dark;
-
-      # GTK 4
-      ".config/gtk-4.0/gtk.css".source = ./adw-gtk3/gtk-4.0/gtk.css; 
+    ".config/gtk-4.0/gtk.css" = {
+      clobber = true;
+      source = ./adw-gtk3/gtk-4.0/gtk.css; 
     };
 
-    systemd.user.tmpfiles.rules = [
-      # QT configs
-      "L+ /home/${config.username}/.config/qt5ct - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/theming/qt-configs/qt5ct"
-      "L+ /home/${config.username}/.config/qt6ct - - - - /home/${config.username}/NixOS/modules/system/desktop-environments/leaf/theming/qt-configs/qt6ct"
-    ];
+    ".config/qt5ct" = {
+      clobber = true;
+      source = ./qt-configs/qt5ct;
+    };
+
+    ".config/qt6ct" = {
+      clobber = true;
+      source = ./qt-configs/qt6ct;
+    };
   };
 }

@@ -38,13 +38,12 @@
   };
 
   environment.systemPackages = with pkgs; [
+    man-pages
   ];
 
-  # This appears broken
-  #services.envfs.enable = true; # Populate /usr/bin with binaries
-
-  programs.xfconf.enable = true;
+  #services.envfs.enable = true; # Populate /usr/bin with binaries # This appears broken
   security.rtkit.enable = true; # rtkit is optional but recommended
   services.gvfs.enable = true; # File file manager func.
 
+  programs.xfconf.enable = true;
 }

@@ -4,26 +4,27 @@
   lib,
   ...
 }: {
-  # Home manager config
-  home-manager.users.${config.username} = {
-    imports = [
-    ];
-    home.file = {
-      "Templates/".source = ./Templates;
+  homes.${config.username}.files = {
+    "Templates/" = {
+      clobber = true;
+      source = ./Templates;
     };
-    home.packages = with pkgs; [
-      nautilus
-      gvfs # for network file browsing
-    ];
-    # Services
-    services.udiskie = {
-      enable = true;
-      automount = true;
-      tray = "never";
+  };
+  users.users.${config.username}.packages = with pkgs; [
+    nautilus
+    gvfs # for network file browsing
+    #udiskie
+  ];
+
+  # Create sevice to run udiskie for automounting
+  systemd.user.services.udiskie = {
+    enable = true;
+    after = [ "graphical.target" ];
+    wantedBy = [ "graphical.target" ];
+    description = "udiskie service";
+    serviceConfig = {
+        Type = "simple";
+        ExecStart = ''${pkgs.udiskie}/bin/udiskie'';
     };
-    systemd.user.tmpfiles.rules = [
-      # There's probably a better way to do this
-      #"L+ /home/${config.username}/.config/ags - - - - /home/${config.username}/NixOS/modules/system/gui/leaf/ags/ags-config"
-    ];
   };
 }

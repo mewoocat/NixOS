@@ -226,17 +226,15 @@ spinbutton{
 
 
 entry {
+
+    // Popup window
+    window {
+        background-color: $bg1;
+    }
     padding: 0.6rem;
     background-color: rgba($bg1, $lowOpacity);
     border-radius: 1rem;
-
 }
-// Doesn't work
-/*
-entry window.popup {
-    background-color: $bg1;
-}
-*/
 
 
 // Bar

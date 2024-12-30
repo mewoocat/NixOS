@@ -16,10 +16,8 @@
   };
   devkitpro2 = pkgs.writeShellScriptBin "devkitpro" "${devkitA64}";
 in{
-  home-manager.users.${config.username} = {
-    home.packages = [
-      #devkitpro 
-      devkitpro2
-    ];
-  };
+  users.users.${config.username}.packages = [
+    #devkitpro 
+    devkitpro2
+  ];
 }
