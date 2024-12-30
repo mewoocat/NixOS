@@ -116,7 +116,7 @@ in {
 
     ".config/gtk-4.0/gtk.css" = {
       clobber = true;
-      source = ./adw-gtk3/gtk-4.0/gtk.css; 
+      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark/gtk-4.0/gtk.css";
     };
 
     ".config/qt5ct" = {
