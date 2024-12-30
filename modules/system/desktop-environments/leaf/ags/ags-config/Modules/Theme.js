@@ -3,6 +3,7 @@ import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
 import GdkPixbuf from 'gi://GdkPixbuf'
 import GLib from 'gi://GLib'
+import Gio from 'gi://Gio';
 
 import * as Global from '../Global.js'
 import icons from '../icons.js';
@@ -54,7 +55,17 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
 
         // Generating colorscheme widget
         let colorschemeJsonPath = theme.colorschemePath
-        let colorschemeJson = JSON.parse(Utils.readFile(colorschemeJsonPath))
+        let colorschemeJson = null
+        print(`INFO: Attempting to read: ${colorschemeJsonPath}`)
+        const colorschemeFileData = Utils.readFile(colorschemeJsonPath)
+        //print(`INFO: fileData: ${JSON.stringify(colorschemeFileData)}`)
+        if (colorschemeFileData != "" && colorschemeFileData != null){
+            colorschemeJson = JSON.parse(colorschemeFileData)
+        }
+        else {
+            print("ERROR: colorschemeFileData was null or empty, skipping theme...")
+            continue
+        }
         const colorGrid = Global.Grid()
         let colors = colorschemeJson["colors"]
 

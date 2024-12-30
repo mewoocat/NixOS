@@ -46,7 +46,6 @@ in{
     lockScreen
   ];
 
-  #services.hypridle.enable = true;
   systemd.user.services.hypridle = {
     enable = true;
     description = "hypridle service";
