@@ -8,7 +8,7 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.disko.nixosModules.disko
 
     ./core.nix
-    #./hardware-configuration.nix
+    ./hardware-configuration.nix
     ../../modules/servers/nextcloud
 
     ./disk-config.nix # Disk setup for nixos-anywhere
