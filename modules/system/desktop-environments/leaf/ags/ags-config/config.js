@@ -1,6 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk'
+import GLib from 'gi://GLib'
 
 // Add icons in assets to icon set
 //Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
@@ -43,7 +44,10 @@ import * as Style from './Style/style.js'
 Style.GenerateCSS()
 
 // Monitor for color changes and reapply
-Utils.monitorFile(`${App.configDir}/Style/_colors.scss`, Style.GenerateCSS);
+Utils.monitorFile(`${GLib.get_home_dir()}/.config/leaf-de/theme/_ags-colors.scss`, () => {
+    print("INFO: Reloading css")
+    Style.GenerateCSS()
+});
 
 function InitilizeWindows(){
 

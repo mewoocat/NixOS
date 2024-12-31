@@ -49,7 +49,7 @@ saturation = 50
 # zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
 
 ags.src = 'ags.scss'
-ags.dst = '~/.config/ags/Style/_colors.scss'
+ags.dst = '~/.config/leaf-de/theme/_ags-colors.scss'
 
 gtk.src = 'gtk.css'
 gtk.dst = '~/.config/leaf-de/theme/gtk.css'

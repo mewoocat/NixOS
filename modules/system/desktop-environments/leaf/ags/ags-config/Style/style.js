@@ -10,7 +10,6 @@ export const css = `${GLib.get_home_dir()}/.config/leaf-de/ags.css`
 
 // Generate & apply css
 export function GenerateCSS(){
-    print("NOTICE: " + css)
     exec(`sassc ${scss} ${css}`)
     App.resetCss();
     App.applyCss(`${css}`);
