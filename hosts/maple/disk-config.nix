@@ -1,10 +1,10 @@
-# Configured for a virtual machine
 # Copied from: https://github.com/nix-community/nixos-anywhere-examples/blob/main/disk-config.nix
+# Example to create a bios compatible gpt partition
 { lib, ... }:
 {
   disko.devices = {
     disk.disk1 = {
-      device = lib.mkDefault "/dev/vda"; # Virtual disk
+      device = lib.mkDefault "/dev/sda";
       type = "disk";
       content = {
         type = "gpt";
