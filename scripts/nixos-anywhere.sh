@@ -1,5 +1,7 @@
 #!/bin/sh
 
 nix run github:nix-community/nixos-anywhere -- \
-    --flake ~/NixOS #<configuration name> \
-    --target-host root@192.168.0.100
+    --flake ~/NixOS#maple \
+    --target-host root@192.168.0.104 \
+    --generate-hardware-config nixos-generate-config ~/NixOS/hosts/maple/hardware-configuration.nix \
+
