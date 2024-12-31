@@ -1,0 +1,20 @@
+//@import '../../leaf-de/theme/_ags-colors.scss'; // This also works but breaks when ags isn't ran from .config/ags
+@import '/home/eXia/.config/leaf-de/theme/_ags-colors.scss';
+@import 'variables';
+
+$highOpacity: 0.86;
+$lowOpacity: 0.44;
+
+@import 'common';
+@import 'sliders';
+@import 'workspaces';
+@import 'control-panel';
+@import 'settings';
+@import 'buttons';
+@import 'media';
+
+// BG color overrides
+// Note that these need to be defined after any overwritten classes 
+.bg-0{
+    background-color: rgba($bg0, 1);
+}

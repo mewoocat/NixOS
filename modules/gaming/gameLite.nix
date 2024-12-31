@@ -32,8 +32,7 @@ in {
   };
   */
 
-  home-manager.users.${config.username}.home.packages = with pkgs; [
-    # Games
+  users.users.${config.username}.packages = with pkgs; [
     mgba
   ];
 }

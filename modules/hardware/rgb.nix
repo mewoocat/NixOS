@@ -11,9 +11,7 @@
     pkgs.openrgb
   ];
   hardware.i2c.enable = true;
-  home-manager.users.${config.username} = {
-    home.packages = with pkgs; [
-      openrgb-with-all-plugins
-    ];
-  };
+  users.users.${config.username}.packages = with pkgs; [
+    openrgb-with-all-plugins
+  ];
 }

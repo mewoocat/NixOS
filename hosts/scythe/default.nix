@@ -6,6 +6,9 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {inherit inputs;};
   # NixOS modules
   modules = [
+    # Core system config
+    ./core.nix
+
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
@@ -19,7 +22,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/system
 
     # Desktop environment
-    ../../modules/system/gui/leaf
+    ../../modules/system/desktop-environments/leaf
 
     # Users
     ../../users/eXia

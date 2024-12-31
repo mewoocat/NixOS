@@ -52,3 +52,10 @@ or use the bash alias
 rebuild
 ```
 
+# Credits
+- home-manager: for showing me how to do home management without home manager 
+- raf: for answering my stupid questions
+### Honorable mentions
+- nixpkgs src
+
+![](./assets/powered-by-nixos.gif)

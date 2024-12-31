@@ -1,28 +1,42 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
-}: let
-  username = "eXia";
-in {
+}: {
   imports = [
     ./gameLite.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = pkg: true;
+  nixpkgs.config.allowUnfreePredicate = true;
 
-  home-manager.users.${username}.home.packages = with pkgs; [
-    # Games
+  # Testing fix for Deadlock crash
+  # Doesn't seem to fix anything
+  /*
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 1048576;
+  };
+  */
+
+  programs.cdemu.enable = true; # For emulating CD-Roms
+  programs.gamemode.enable = true; # Optimise system performance on demand
+
+  users.users.${config.username}.packages = with pkgs; [ 
+
+    # Utilities
     gamescope
+
+    # Emulators
     duckstation
     pcsx2
     rpcs3
     dolphin-emu
+
+    # Games
     xonotic
-    osu-lazer-bin
+    #osu-lazer-bin # Low fps on openGL, crashes on vulken
+    inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin # Works great on openGL :)
 
     # Minecraft
     (prismlauncher.override {
@@ -32,6 +46,11 @@ in {
         temurin-bin-17
       ];
     })
+
+    # Launchers
+    # Native GOG, Epic, and Amazon Games Launcher
+    #heroic # Only start background process but window never loads
+    heroic-unwrapped # This one's window opens
 
     (lutris.override {
       extraPkgs = pkgs: [
@@ -44,17 +63,19 @@ in {
     })
     #inputs.nix-gaming.packages.${pkgs.system}.viper
 
+    /*
     (retroarch.override {
       cores = with libretro; [
         snes9x
         pcsx-rearmed
         mgba
-        citra
+        #citra
         dolphin
         mupen64plus
         ppsspp
         #pcsx2
       ];
     })
+    */
   ];
 }
