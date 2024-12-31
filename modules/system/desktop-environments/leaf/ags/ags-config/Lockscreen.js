@@ -28,14 +28,14 @@ if (!GtkSessionLock.is_supported()) {
 //////////////////////////////////////////////////////////////////////
 
 const scss = `${App.configDir}/Style/style.scss`
-const css = `${App.configDir}/Style/style.css`
+const css = `${GLib.get_home_dir()}/.config/leaf-de/ags.css`
 Utils.exec(`sassc ${scss} ${css}`)
 Utils.monitorFile(
     `${App.configDir}/Style/_colors.scss`,
     function() {
         Utils.exec(`sassc ${scss} ${css}`)
         App.resetCss();
-        App.applyCss(`${App.configDir}/Style/style.css`);
+        App.applyCss(css);
     },
 );
 
