@@ -1,4 +1,5 @@
-@import '../../leaf-de/theme/ags-colors';
+//@import '../../leaf-de/theme/_ags-colors.scss'; // This also works but breaks when ags isn't ran from .config/ags
+@import '/home/eXia/.config/leaf-de/theme/_ags-colors.scss';
 @import 'variables';
 
 $highOpacity: 0.86;

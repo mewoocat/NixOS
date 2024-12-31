@@ -339,6 +339,11 @@ entry {
     }
     background-color: $accent2;
 }
+.normal-button-no-hover:hover {
+    > * {
+      background-color: transparent;
+    }
+}
 
 .bg-button > * {
     background-color: rgba($bg2, 0.3);

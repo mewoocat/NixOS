@@ -20,9 +20,19 @@ const buttonRevealer = Widget.Revealer({
                 setup: (self) => {
                     // Trying to fix the hover bug where the css :hover still stays active 
                     // when not hovered
-                    self.on("leave-notify-event", () => {
-                       self.toggleClassName("normal-button", false) 
-                       self.toggleClassName("normal-button", true) 
+                    self.on("enter-notify-event", () => {
+                        print("turning off")
+                        self.toggleClassName("normal-button-no-hover", false) 
+                    })
+                    self.on("button-press-event", () => {
+                        print("what")
+                        self.toggleClassName("normal-button-no-hover", true) 
+                        /*
+                        self.toggleClassName("normal-button", false) 
+                        setTimeout(() => {
+                            self.toggleClassName("normal-button", true) 
+                        }, 2000)
+                        */
                     })
                 },
             }).hook(SystemTray, self => {
