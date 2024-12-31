@@ -24,8 +24,8 @@
   adw-gtk3-leaf = pkgs.fetchFromGitHub {
     owner = "mewoocat";
     repo = "adw-gtk3-leaf";
-    rev = "7ca12c905e2ec1c98634f149b5f011b4e39ec0cc";
-    sha256 = "sha256-+b40wFEiV6BTrwYpX1ndh+r1ECV3CcYuewGyLXBftl4";
+    rev = "443594813831c00a7ba59f45a8442ebe9547a69d";
+    sha256 = "sha256-/9TKfZiyzcaaT+jb+Tk+mrlYYUlh+kqDpPVDCQoH+R8=";
   };
 
 in {
