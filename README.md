@@ -1,15 +1,14 @@
-# NixOS
-
-My personal NixOS system
-
 # Overview
+My personal NixOS system flake.  
 
-![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-3.png)
+![](./assets/powered-by-nixos.gif)
+
+![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-4.png)
 |   |   |
 | - | - |
 | Window Manager | Hyprland
-| Widgets | AGS
-| Editor | nvim
+| Shell | AGS
+| Editor | nvim-nvf
 | Terminal | Foot
 
 # Installation
@@ -29,21 +28,17 @@ reboot
 ```
 
 # Usage
-### Updating
-##### All inputs
+## Updating
+#### All inputs
 ```
 nix flake update ~/NixOS`
 ```
-##### A particular input
-```
-nix flake lock --update-input <input_name>
-```
-or
+#### A particular input
 ```
 nix flake update <input_name>
 ```
 
-### Rebuild NixOS configuration
+## Rebuild NixOS configuration
 ```
 nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)
 ```
@@ -58,4 +53,3 @@ rebuild
 ### Honorable mentions
 - nixpkgs src
 
-![](./assets/powered-by-nixos.gif)

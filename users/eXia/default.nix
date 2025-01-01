@@ -71,6 +71,7 @@
 
       zellij
       dconf-editor
+      inputs.ghostty.packages."${pkgs.system}".default
     ];
   };
 

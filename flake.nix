@@ -16,6 +16,7 @@
     myNvimNvf.url = "github:mewoocat/nvim-nvf";
     microfetch.url = "github:NotAShelf/microfetch";
     adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
+    ghostty.url = "github:ghostty-org/ghostty";
 
     hyprland = {
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
