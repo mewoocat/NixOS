@@ -7,6 +7,7 @@
 ## Backing Up Nextcloud Instance
 Not all files related to a Nextcloud instance are managed by Nix.  Here are instructions on what need to be backed up.
 ...
+? backup /var/lib/nextcloud ?
 ## Restoring Nextcloud Instance
 After installing this Nextcloud module, non Nix managed data, settings, and files can be restored from an existing Nextcloud instance.
 
@@ -17,7 +18,7 @@ After installing this Nextcloud module, non Nix managed data, settings, and file
 # Developing
 ## Local Development
 - Add the ip address of the server to `services.nextcloud.settings.trusted_domains`.
-- Disable SSL
+- Disable SSL and HTTPS
 - Access the server at `http://<ip_address>/login`
 
 ## Rebuilding Remotely
