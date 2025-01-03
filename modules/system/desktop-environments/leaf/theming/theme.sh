@@ -160,7 +160,7 @@ function generatePreset(){
     # Output preset information to json file 
 
     echo "Outputting preset as json"
-    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\",\n\t\"colorschemePath\": \"$colorschemePath\"\n}" > $themeOutputPath
+    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\",\n\t\"colorschemePath\": \"$colorschemePath\"\n}" > "$themeOutputPath"
 
 }
 

@@ -83,7 +83,7 @@ in {
         [Settings]
         gtk-cursor-theme-name=capitaine-cursors
         gtk-cursor-theme-size=24
-        gtk-icon-theme-name=whitesur-gtk-theme
+        gtk-icon-theme-name=kora
       '';
     };
 
