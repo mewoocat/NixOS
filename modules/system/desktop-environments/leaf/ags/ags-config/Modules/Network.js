@@ -4,7 +4,7 @@ import GObject from 'gi://GObject'
 
 import * as Global from '../Global.js'
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
-import * as Common from '../Common.js'
+import * as Common from '../Lib/Common.js'
 import * as Options from '../Options/options.js';
 import icons from '../icons.js';
 

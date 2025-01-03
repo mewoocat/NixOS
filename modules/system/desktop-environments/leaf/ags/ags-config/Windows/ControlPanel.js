@@ -4,6 +4,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import Gtk from 'gi://Gtk'
 
 // Modules
+import * as Common from '../Lib/Common.js';
 import * as Display from '../Modules/Display.js';
 import * as Audio from '../Modules/Audio.js';
 import * as Network from '../Modules/Network.js';
@@ -13,7 +14,6 @@ import * as SystemStats from '../Modules/SystemStats.js';
 import * as Theme from '../Modules/Theme.js'
 import * as Power from '../Modules/Power.js';
 import * as NightLight from '../Modules/NightLight.js';
-import * as Common from '../Common.js';
 import * as ScreenCapture from '../Modules/ScreenCapture.js';
 import * as Settings from '../Windows/Settings.js'
 import * as User from '../Modules/User.js';
@@ -94,7 +94,7 @@ const systemStatsWidget = ControlPanelBox(
 const buttonGrid = Global.Grid()
 buttonGrid.attach(NightLight.NightLightButton(Options.Options.system.small, Options.Options.system.small), 1, 1, 1, 1)
 buttonGrid.attach(Power.PowerProfilesButton(Options.Options.system.small, Options.Options.system.small), 1, 2, 1, 1)
-buttonGrid.attach(Theme.ThemeButton(Options.Options.system.small, Options.Options.system.small), 2, 1, 1, 1)
+buttonGrid.attach(Theme.ThemePanelButton(Options.Options.system.small, Options.Options.system.small), 2, 1, 1, 1)
 buttonGrid.attach(ScreenCapture.ScreenRecordButton(Options.Options.system.small, Options.Options.system.small), 2, 2, 1, 1)
 
 const sliders = Widget.Box({

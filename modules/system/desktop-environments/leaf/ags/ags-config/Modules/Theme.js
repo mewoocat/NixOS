@@ -9,7 +9,7 @@ import * as Global from '../Global.js'
 import icons from '../icons.js';
 
 
-export const ThemeButton = (w, h) => Widget.Button({
+export const ThemePanelButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
     css: `
         min-width: ${w}rem;

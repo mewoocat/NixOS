@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk';
 
 import * as DateTime from '../Modules/DateTime.js';
 import * as Notification from '../Modules/Notification.js';
-import * as Common from '../Common.js';
+import * as Common from '../Lib/Common.js';
 import * as Weather from '../Modules/Weather.js';
 import * as Media from '../Modules/Media.js'
 import * as ControlPanel from './ControlPanel.js'

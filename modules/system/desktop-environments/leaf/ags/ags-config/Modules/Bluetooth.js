@@ -5,7 +5,7 @@ import GObject from 'gi://GObject'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
 import * as Global from '../Global.js'
-import * as Common from '../Common.js'
+import * as Common from '../Lib/Common.js'
 
 // Holds current bluetooth device selected
 export const CurrentDevice = Variable({}, {})

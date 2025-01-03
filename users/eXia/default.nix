@@ -49,6 +49,8 @@
       stress 
       s-tui
       gcc14
+      zellij
+      dconf-editor
 
       # Applications
       vesktop
@@ -68,9 +70,7 @@
       #teams-for-linux # Borked
       newsflash
       obsidian
-
-      zellij
-      dconf-editor
+      vlc
       inputs.ghostty.packages."${pkgs.system}".default
     ];
   };

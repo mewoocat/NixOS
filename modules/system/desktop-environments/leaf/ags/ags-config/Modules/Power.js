@@ -3,7 +3,7 @@ import App from 'resource:///com/github/Aylur/ags/app.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
 
-import * as Common from '../Common.js'
+import * as Common from '../Lib/Common.js'
 import icons from '../icons.js'
 
 

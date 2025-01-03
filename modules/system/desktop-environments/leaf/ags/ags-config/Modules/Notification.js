@@ -4,7 +4,7 @@ import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio';
 
-import * as Common from './../Common.js';
+import * as Common from '../Lib/Common.js';
 import icons from '../icons.js';
 
 // Notification service config
