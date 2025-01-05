@@ -1,39 +1,188 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import Gtk from 'gi://Gtk'
+import Gio from 'gi://Gio';
 import GdkPixbuf from 'gi://GdkPixbuf'
 import GLib from 'gi://GLib'
-import Gio from 'gi://Gio';
 
 import * as Global from '../Global.js'
 import icons from '../icons.js';
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Globals
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const currentThemePath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
+const recentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-themes.json`
+
+const recentThemesJson = Variable(null)
+const currentThemeJson = Variable(null)
+
+const recentThemesMonitor = Utils.monitorFile(recentThemesPath, (file, event) => {
+    var contents = Utils.readFile(file)
+    recentThemesJson.value = JSON.parse(contents)
+})
+
+const currentThemeMonitor = Utils.monitorFile(currentThemePath, (file, event) => {
+    const contents = Utils.readFile(file)
+    currentThemeJson.value = JSON.parse(contents)
+})
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Helper functions
+////////////////////////////////////////////////////////////////////////////////////////////////////
+function GetThemeState() {
+    let CurrentThemeJson = JSON.parse(Utils.readFile(currentThemeJsonPath))
+    return CurrentThemeJson.mode
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Widgets
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const ThemeSelectionButton = (themeKey) => {
+    let theme = recentThemesJson[themeKey]
+
+    // Error checking
+    if (theme == null || theme.colorscheme == ""){
+        print("ERROR: Error processing theme")
+        return null
+    }
+
+    let wallpaperImage = theme.wallpaper
+
+    // Getting the colorsceheme
+    let colorschemeJsonPath = theme.colorschemePath
+    let colorschemeJson = null
+    print(`INFO: Attempting to read: ${colorschemeJsonPath}`)
+    const colorschemeFileData = Utils.readFile(colorschemeJsonPath)
+    //print(`INFO: fileData: ${JSON.stringify(colorschemeFileData)}`)
+    if (colorschemeFileData != "" && colorschemeFileData != null){
+    }
+    try {
+        colorschemeJson = JSON.parse(colorschemeFileData)
+    }
+    catch (err){
+        print(`ERROR: ${err}`)
+        print("ERROR: colorschemeFileData could not be read, skipping theme...")
+        return null
+    }
+
+    // Generating colorscheme widget
+    const colorGrid = Global.Grid()
+    let colors = colorschemeJson["colors"]
+
+    // Add all colors
+    /*
+    let colorNum = 0
+    for (let key in colors){
+        let color = colors[key]
+        print("Color = " + color)
+        let colorWidget = Widget.Box({
+            css: `
+                background-color: ${color};
+                min-width: 1em;
+                min-height: 1em;
+                border-radius: 100%;
+                margin: 0.2em;
+            `,
+        })
+        let col = colorNum < 8 ? colorNum + 1 : colorNum + 1 - 8
+        let row = colorNum < 8 ? 1 : 2
+        print(`row = ${row} | col = ${col}`)
+        // Usage: Grid.attach(widget, columnNum, rowNum, widthNum, heighNum) 
+        colorGrid.attach(colorWidget, col, row, 1, 1)
+        colorNum++
+    }
+    */
+
+    // Add colors 1-7
+    for (let i = 1; i < 8; i++){
+        let color = colors[`color${i}`]
+        let colorWidget = Widget.Box({
+            css: `
+                background-color: ${color};
+                min-width: 1em;
+                min-height: 1em;
+                border-radius: 100%;
+                margin: 0.2em;
+            `,
+        })
+        colorGrid.attach(colorWidget, i, 1, 1, 1)
+    }
+
+    //const wallaperImage = Gtk.Image.new_from_file(theme.wallpaper)
+
+    // Try to load the image
+    try {
+        print(`Info: Loading image ${wallpaperImage} ...`)
+        GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
+    }
+    catch (err){
+        print(err)
+        print("Info: Image load failed, using fallback")
+        wallpaperImage = icons.invalidWallpaper 
+    }
+
+    const themeWidget = Widget.Button({
+        class_name: "normal-button",
+        on_primary_click: () => {
+            print(`INFO: Setting active theme to ${theme.name}`)
+            Utils.execAsync(`theme -a ${theme.name}`)
+        },
+        child: Widget.Box({
+            vertical: true,
+            spacing: 8,
+            children: [
+                // Name
+                Widget.Label({
+                    hpack: "start",
+                    label: theme.name,
+                }),
+                Widget.Box({
+                    vertical: true,
+                    children: [
+                        Widget.Icon({
+                            icon: wallpaperImage, 
+                            size: 64,
+                        }),
+                        Widget.Box({
+                            css: `
+                                background-color: ${colorschemeJson.special.background};
+                                border-radius: 1em;
+                                padding: 0.4em;
+                            `,
+                            hpack: "center",
+                            hexpand: true,
+                            vpack: "center",
+                            children: [
+                                colorGrid,
+                            ],
+                        })
+                    ],
+                })
+                // Colorscheme
+                // Wallpaper
+            ]
+        })
+    })
+}
 
 export const ThemePanelButton = (w, h) => Widget.Button({
     class_name: "control-panel-button",
     css: `
         min-width: ${w}rem;
         min-height: ${h}rem;
-        font-size: 22px;
     `,
     on_primary_click: () => { 
         Global.ControlPanelTab.setValue("theme")
     },
     child: Widget.Icon({
-        icon: "org.gnome.Settings-color-symbolic",
+        icon: icons.theme,
+        size: 22,
     })
 })
 
-function GetThemeState() {
-    // WARNING: Assumes ags config dir is located at ~/.config/ags
-    let CurrentThemeJsonPath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
-    let CurrentThemeJson = JSON.parse(Utils.readFile(CurrentThemeJsonPath))
-    //print(JSON.stringify(CurrentThemeJson.mode))
-    return CurrentThemeJson.mode
-}
 
-// WARNING: Assumes ags config dir is located at ~/.config/ags
-const RecentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-themes.json`
+
 
 // Returns a list of the recent themes as widgets given the recent-themes.json as input
 const GenerateRecentThemeWidgets = (recentThemesJson) => {
@@ -43,136 +192,17 @@ const GenerateRecentThemeWidgets = (recentThemesJson) => {
     let recentThemesList = []
 
     for (let themeKey in recentThemesJson){
-        let theme = recentThemesJson[themeKey]
-
-        // Error checking
-        if (theme == null || theme.colorscheme == ""){
-            print("Error processing theme")
-            continue
-        }
-
-        let wallpaperImage = theme.wallpaper
-
-        // Generating colorscheme widget
-        let colorschemeJsonPath = theme.colorschemePath
-        let colorschemeJson = null
-        print(`INFO: Attempting to read: ${colorschemeJsonPath}`)
-        const colorschemeFileData = Utils.readFile(colorschemeJsonPath)
-        //print(`INFO: fileData: ${JSON.stringify(colorschemeFileData)}`)
-        if (colorschemeFileData != "" && colorschemeFileData != null){
-            colorschemeJson = JSON.parse(colorschemeFileData)
-        }
-        else {
-            print("ERROR: colorschemeFileData was null or empty, skipping theme...")
-            continue
-        }
-        const colorGrid = Global.Grid()
-        let colors = colorschemeJson["colors"]
-
-        // Add all colors
-        /*
-        let colorNum = 0
-        for (let key in colors){
-            let color = colors[key]
-            print("Color = " + color)
-            let colorWidget = Widget.Box({
-                css: `
-                    background-color: ${color};
-                    min-width: 1em;
-                    min-height: 1em;
-                    border-radius: 100%;
-                    margin: 0.2em;
-                `,
-            })
-            let col = colorNum < 8 ? colorNum + 1 : colorNum + 1 - 8
-            let row = colorNum < 8 ? 1 : 2
-            print(`row = ${row} | col = ${col}`)
-            // Usage: Grid.attach(widget, columnNum, rowNum, widthNum, heighNum) 
-            colorGrid.attach(colorWidget, col, row, 1, 1)
-            colorNum++
-        }
-        */
-
-        // Add colors 1-7
-        for (let i = 1; i < 8; i++){
-            let color = colors[`color${i}`]
-            let colorWidget = Widget.Box({
-                css: `
-                    background-color: ${color};
-                    min-width: 1em;
-                    min-height: 1em;
-                    border-radius: 100%;
-                    margin: 0.2em;
-                `,
-            })
-            colorGrid.attach(colorWidget, i, 1, 1, 1)
-        }
-
-        //const wallaperImage = Gtk.Image.new_from_file(theme.wallpaper)
-
-        // Try to load the image
-        try {
-            print(`Info: Loading image ${wallpaperImage} ...`)
-            GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
-        }
-        catch (err){
-            print(err)
-            print("Info: Image load failed, using fallback")
-            wallpaperImage = icons.invalidWallpaper 
-        }
-
-        const themeWidget = Widget.Button({
-            class_name: "normal-button",
-            on_primary_click: () => {
-                print(`INFO: Setting active theme to ${theme.name}`)
-                Utils.execAsync(`theme -a ${theme.name}`)
-            },
-            child: Widget.Box({
-                vertical: true,
-                spacing: 8,
-                children: [
-                    // Name
-                    Widget.Label({
-                        hpack: "start",
-                        label: theme.name,
-                    }),
-                    Widget.Box({
-                        vertical: true,
-                        children: [
-                            Widget.Icon({
-                                icon: wallpaperImage, 
-                                size: 64,
-                            }),
-                            Widget.Box({
-                                css: `
-                                    background-color: ${colorschemeJson.special.background};
-                                    border-radius: 1em;
-                                    padding: 0.4em;
-                                `,
-                                hpack: "center",
-                                hexpand: true,
-                                vpack: "center",
-                                children: [
-                                    colorGrid,
-                                ],
-                            })
-                        ],
-                    })
-                    // Colorscheme
-                    // Wallpaper
-                ]
-            })
-        })
+        //TODO
         recentThemesList.push(themeWidget)
     } 
     return recentThemesList
 }
 
 // Stores a list of the recent themes as widgets
-const recentThemesJson = JSON.parse(Utils.readFile(RecentThemesPath))
+const recentThemesJson = JSON.parse(Utils.readFile(recentThemesPath))
 const RecentThemes = Variable(GenerateRecentThemeWidgets(recentThemesJson))
 
-const RecentThemesMonitor = Utils.monitorFile(RecentThemesPath, (file, event) => {
+const RecentThemesMonitor = Utils.monitorFile(recentThemesPath, (file, event) => {
     var contents = Utils.readFile(file)
     // Regenerate the themes
     RecentThemes.value = GenerateRecentThemeWidgets(JSON.parse(contents))
