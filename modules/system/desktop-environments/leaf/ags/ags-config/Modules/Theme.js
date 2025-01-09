@@ -1,7 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
-import Gtk from 'gi://Gtk'
-import Gio from 'gi://Gio';
 import GdkPixbuf from 'gi://GdkPixbuf'
 import GLib from 'gi://GLib'
 
@@ -16,12 +14,12 @@ const recentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-theme
 
 const recentThemesJson = Variable(null)
 const currentThemeJson = Variable(null)
+export const ThemeState = Variable(GetThemeState(), {})
 
 const recentThemesMonitor = Utils.monitorFile(recentThemesPath, (file, event) => {
     var contents = Utils.readFile(file)
     recentThemesJson.value = JSON.parse(contents)
 })
-
 const currentThemeMonitor = Utils.monitorFile(currentThemePath, (file, event) => {
     const contents = Utils.readFile(file)
     currentThemeJson.value = JSON.parse(contents)
@@ -31,15 +29,42 @@ const currentThemeMonitor = Utils.monitorFile(currentThemePath, (file, event) =>
 // Helper functions
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 function GetThemeState() {
-    let CurrentThemeJson = JSON.parse(Utils.readFile(currentThemeJsonPath))
+    let CurrentThemeJson = JSON.parse(Utils.readFile(currentThemeJson.value))
     return CurrentThemeJson.mode
+}
+
+// Returns a list of the recent themes as widgets given the recent-themes.json as input
+const GenerateRecentThemeWidgets = (themesJson) => {
+    let themesList = []
+    for (let key in themesJson){
+        const theme = themesJson[key]
+        const widget = ThemeSelectionButton(theme)
+        if (widget != null){
+            themesList.push(widget)
+        }
+    } 
+    return themesList
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Widgets
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-const ThemeSelectionButton = (themeKey) => {
-    let theme = recentThemesJson[themeKey]
+export const ThemePanelButton = (w, h) => Widget.Button({
+    class_name: "control-panel-button",
+    css: `
+        min-width: ${w}rem;
+        min-height: ${h}rem;
+    `,
+    on_primary_click: () => { 
+        Global.ControlPanelTab.setValue("theme")
+    },
+    child: Widget.Icon({
+        icon: icons.theme,
+        size: 22,
+    })
+})
+
+const ThemeSelectionButton = (theme) => {
 
     // Error checking
     if (theme == null || theme.colorscheme == ""){
@@ -52,12 +77,9 @@ const ThemeSelectionButton = (themeKey) => {
     // Getting the colorsceheme
     let colorschemeJsonPath = theme.colorschemePath
     let colorschemeJson = null
-    print(`INFO: Attempting to read: ${colorschemeJsonPath}`)
-    const colorschemeFileData = Utils.readFile(colorschemeJsonPath)
-    //print(`INFO: fileData: ${JSON.stringify(colorschemeFileData)}`)
-    if (colorschemeFileData != "" && colorschemeFileData != null){
-    }
+    print(`INFO: Reading: ${colorschemeJsonPath}`)
     try {
+        const colorschemeFileData = Utils.readFile(colorschemeJsonPath)
         colorschemeJson = JSON.parse(colorschemeFileData)
     }
     catch (err){
@@ -117,7 +139,7 @@ const ThemeSelectionButton = (themeKey) => {
         GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
     }
     catch (err){
-        print(err)
+        print("Error: " + err)
         print("Info: Image load failed, using fallback")
         wallpaperImage = icons.invalidWallpaper 
     }
@@ -140,10 +162,12 @@ const ThemeSelectionButton = (themeKey) => {
                 Widget.Box({
                     vertical: true,
                     children: [
+                        // Wallpaper
                         Widget.Icon({
                             icon: wallpaperImage, 
                             size: 64,
                         }),
+                        // Colorscheme
                         Widget.Box({
                             css: `
                                 background-color: ${colorschemeJson.special.background};
@@ -159,58 +183,11 @@ const ThemeSelectionButton = (themeKey) => {
                         })
                     ],
                 })
-                // Colorscheme
-                // Wallpaper
             ]
         })
     })
 }
 
-export const ThemePanelButton = (w, h) => Widget.Button({
-    class_name: "control-panel-button",
-    css: `
-        min-width: ${w}rem;
-        min-height: ${h}rem;
-    `,
-    on_primary_click: () => { 
-        Global.ControlPanelTab.setValue("theme")
-    },
-    child: Widget.Icon({
-        icon: icons.theme,
-        size: 22,
-    })
-})
-
-
-
-
-// Returns a list of the recent themes as widgets given the recent-themes.json as input
-const GenerateRecentThemeWidgets = (recentThemesJson) => {
-    
-    //print(JSON.stringify(recentThemesJson, null, 4)) 
-
-    let recentThemesList = []
-
-    for (let themeKey in recentThemesJson){
-        //TODO
-        recentThemesList.push(themeWidget)
-    } 
-    return recentThemesList
-}
-
-// Stores a list of the recent themes as widgets
-const recentThemesJson = JSON.parse(Utils.readFile(recentThemesPath))
-const RecentThemes = Variable(GenerateRecentThemeWidgets(recentThemesJson))
-
-const RecentThemesMonitor = Utils.monitorFile(recentThemesPath, (file, event) => {
-    var contents = Utils.readFile(file)
-    // Regenerate the themes
-    RecentThemes.value = GenerateRecentThemeWidgets(JSON.parse(contents))
-})
-
-GetThemeState()
-
-export const ThemeState = Variable(GetThemeState(), {})
 export const ThemeMenu = () => Widget.Box({
     vertical: true,
     children: [
@@ -279,7 +256,9 @@ export const ThemeMenu = () => Widget.Box({
                 css: `
                     min-height: 1px;
                 `,
-                children: RecentThemes.bind(),
+                children: recentThemesJson.bind().as((v) => {
+                    return GenerateRecentThemeWidgets(v)
+                }),
             }),
         }),
     ]

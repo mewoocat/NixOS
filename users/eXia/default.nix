@@ -72,6 +72,7 @@
       obsidian
       vlc
       inputs.ghostty.packages."${pkgs.system}".default
+      yubikey-manager-qt
     ];
   };
 
