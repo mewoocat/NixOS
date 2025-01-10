@@ -6,6 +6,13 @@
 }: {
   system.stateVersion = "24.11";
 
+  nix = {
+    settings = {    
+      # Enable flakes
+      experimental-features = ["nix-command" "flakes"];
+    };
+  };
+
   # Networking
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   # Firewall

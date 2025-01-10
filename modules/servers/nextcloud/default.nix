@@ -12,7 +12,8 @@
   ];
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
-  environment.etc."nextcloud-admin-pass".text = "WhaT3#hiHuH?H0w2";
+  environment.etc."nextcloud-admin-pass".text = "WhaT3#hiHuH?H0w3";
+  environment.etc."nextcloud-db-pass".text = "WhaT3#hiHuH?H0w3";
 
   # WARNING: It appears that the first time nextcloud is enabled, it runs a setup script that
   # produces some state.  Future rebuilds don't seem to change certain options that were set, 
@@ -34,7 +35,7 @@
     #https = true;
     maxUploadSize = "1G";
     home = "/var/lib/nextcloud"; # Storage path of nextcloud.
-    config = {
+    config = { 
       # These two options appear to be only used during the initial nextcloud install
       # For these to take affect again, nextcloud must be fully reinstalled
       #
@@ -42,6 +43,16 @@
       # admin username and password and then changing them in the client later
       adminuser = "admin";
       adminpassFile = "/etc/nextcloud-admin-pass";
+
+      # I'm also guess that most if not all of these values are used for the intial setup script
+      # and cannot be declaritively changed
+      /*
+      dbuser = "nextcloud";
+      dbtype = "mysql";
+      dbpassFile = "/etc/nextcloud-db-pass";
+      dbname = "nextcloud";
+      */
+
     };
     settings = {
       trusted_domains = [
