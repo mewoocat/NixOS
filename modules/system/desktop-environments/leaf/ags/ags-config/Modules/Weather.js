@@ -274,6 +274,15 @@ function LookupWeatherCode(code){
                 image: "weather-fog",
                 name: "Fog",
             }
+        case 71:
+        case 73:
+        case 75:
+            return {
+                icon: "weather-snow-symbolic",
+                image: "weather-snow",
+                name: "Snow",
+            }
+
         case 51:
         case 53:
         case 55:
