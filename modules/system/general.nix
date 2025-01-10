@@ -44,6 +44,7 @@
   #services.envfs.enable = true; # Populate /usr/bin with binaries # This appears broken
   security.rtkit.enable = true; # rtkit is optional but recommended
   services.gvfs.enable = true; # File file manager func.
+  services.pcscd.enable = true; # For hardware keys
 
   programs.xfconf.enable = true;
 }
