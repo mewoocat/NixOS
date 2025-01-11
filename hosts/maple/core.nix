@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   system.stateVersion = "24.11";
@@ -25,6 +26,10 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    inputs.agenix.packages."${system}".default # Agenix client
+  ];
 
   users.users.root= {
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";

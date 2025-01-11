@@ -6,6 +6,7 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {inherit inputs;};
   modules = [
     inputs.disko.nixosModules.disko
+    inputs.agenix.nixosModules.default
 
     ./core.nix
     ./hardware-configuration.nix

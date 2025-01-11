@@ -8,7 +8,10 @@
 
 
   environment.systemPackages = with pkgs; [
-    sqlite
+    # Provide database related commands for management
+    # mariadb is a drop in replacement for mysql and is what is used in the nextcloud module
+    # when mysql is selected as the db 
+    mariadb
   ];
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
@@ -30,7 +33,7 @@
     enable = true;
     hostName = "localhost";
     #hostName = "nextcloud.example.org";
-    #database.createLocally = true;
+    database.createLocally = true; # Need to create mysql db if not manually creating it
     package = pkgs.nextcloud30;
     #https = true;
     maxUploadSize = "1G";
@@ -46,18 +49,21 @@
 
       # I'm also guess that most if not all of these values are used for the intial setup script
       # and cannot be declaritively changed
+      dbtype = "mysql";
       /*
       dbuser = "nextcloud";
-      dbtype = "mysql";
       dbpassFile = "/etc/nextcloud-db-pass";
       dbname = "nextcloud";
       */
-
+      objectstore.s3.secretFile = "/tmp/nextcloud-config-secret";
     };
     settings = {
       trusted_domains = [
         "192.168.0.100" # For local testing
       ];
+
+      # Might be able to declare the config.php secret property this way
+      #secret = ""; 
     };
   };
 
