@@ -5,6 +5,11 @@
   inputs,
   ...
 }: {
+
+  imports = [
+    inputs.agenix.nixosModules.default
+  ];
+
   nix = {
     settings = {
       # Cachix for Hyprland
@@ -38,6 +43,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.agenix.packages."${system}".default # Agenix cli client
     man-pages
   ];
 

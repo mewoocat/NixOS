@@ -17,6 +17,7 @@
     microfetch.url = "github:NotAShelf/microfetch";
     adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
     ghostty.url = "github:ghostty-org/ghostty";
+    agenix.url = "github:ryantm/agenix"; # For secret management
 
     hyprland = {
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
