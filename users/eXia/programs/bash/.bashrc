@@ -26,6 +26,10 @@ alias rebuild='nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname
 alias ls='ls -altr --color=auto'
 alias rm='rm -I'
 
+# Environment varialbes
+########################################################################################################
+export EDITOR='nvim'
+
 # Misc
 ########################################################################################################
 # Fix for gsettings no schema
