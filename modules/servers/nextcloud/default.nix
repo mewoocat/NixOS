@@ -3,13 +3,21 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   
   # Add Agenix secrets
   #age.secretsDir = "/tmp";
-  age.secrets.nextcloud-domain.file = ../../../secrets/nextcloud-domain.age;
-  age.secrets.nextcloud-admin-pass.file = ../../../secrets/nextcloud-admin-pass.age;
+  #age.secrets.nextcloud-domain.file = ../../../secrets/nextcloud-domain.age;
+  #age.secrets.nextcloud-admin-pass.file = ../../../secrets/nextcloud-admin-pass.age;
+  age.secrets.nextcloud-domain.file = inputs.secrets + "/nextcloud-domain.age";
+  age.secrets.nextcloud-admin-pass = {
+    file = inputs.secrets + "/nextcloud-admin-pass.age";
+    # File need to be access by the nextcloud user
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
 
 
   environment.systemPackages = with pkgs; [

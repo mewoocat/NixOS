@@ -3265,6 +3265,7 @@
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_16",
         "nixpkgs-stable": "nixpkgs-stable_2",
+        "secrets": "secrets",
         "zen-browser": "zen-browser"
       }
     },
@@ -3312,6 +3313,23 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736648124,
+        "narHash": "sha256-Z8g1+Q4NkaTq+x+TjxmY4Le9vYvZ7GXzlOcZXRd0aEE=",
+        "ref": "main",
+        "rev": "0c346192ea68efffc5c3c5d4e36023314b92b7d3",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/mewoocat/secrets"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/mewoocat/secrets"
       }
     },
     "systems": {

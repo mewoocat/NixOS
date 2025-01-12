@@ -19,7 +19,7 @@
     agenix.url = "github:ryantm/agenix"; # For secret management
     
     secrets = {
-      url = "git+ssh://git@github.com/mewoocat/secrets";
+      url = "git+ssh://git@github.com/mewoocat/secrets?ref=main";
       flake = false;
     };
 
