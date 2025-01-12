@@ -17,6 +17,12 @@
     microfetch.url = "github:NotAShelf/microfetch";
     adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
     agenix.url = "github:ryantm/agenix"; # For secret management
+    
+    secrets = {
+      url = "git+ssh://git@github.com/mewoocat/secrets";
+      flake = false;
+    };
+
 
     hyprland = {
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
