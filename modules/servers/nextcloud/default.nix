@@ -5,6 +5,11 @@
   pkgs,
   ...
 }: {
+  
+  # Add Agenix secrets
+  #age.secretsDir = "/tmp";
+  age.secrets.nextcloud-domain.file = ../../../secrets/nextcloud-domain.age;
+  age.secrets.nextcloud-admin-pass.file = ../../../secrets/nextcloud-admin-pass.age;
 
 
   environment.systemPackages = with pkgs; [
@@ -32,7 +37,7 @@
   services.nextcloud = {
     enable = true;
     hostName = "localhost";
-    #hostName = "nextcloud.example.org";
+    #hostName = builtins.readFile config.age.secrets.nextcloud-domain.path;
     database.createLocally = true; # Need to create mysql db if not manually creating it
     package = pkgs.nextcloud30;
     #https = true;
@@ -45,7 +50,8 @@
       # I think idealy that these options should just be used for initially setting the 
       # admin username and password and then changing them in the client later
       adminuser = "admin";
-      adminpassFile = "/etc/nextcloud-admin-pass";
+      #adminpassFile = "/etc/nextcloud-admin-pass";
+      adminpassFile = config.age.secrets.nextcloud-admin-pass.path;
 
       # I'm also guess that most if not all of these values are used for the intial setup script
       # and cannot be declaritively changed
