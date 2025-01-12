@@ -11,7 +11,7 @@
   #age.secretsDir = "/tmp";
   #age.secrets.nextcloud-domain.file = ../../../secrets/nextcloud-domain.age;
   #age.secrets.nextcloud-admin-pass.file = ../../../secrets/nextcloud-admin-pass.age;
-  age.secrets.nextcloud-domain.file = inputs.secrets + "/nextcloud-domain.age";
+  #age.secrets.nextcloud-domain.file = inputs.secrets + "/nextcloud-domain.age";
   age.secrets.nextcloud-admin-pass = {
     file = inputs.secrets + "/nextcloud-admin-pass.age";
     # File need to be access by the nextcloud user
@@ -44,11 +44,11 @@
   # Uses nginx reverse proxy by default
   services.nextcloud = {
     enable = true;
-    hostName = "localhost";
-    #hostName = builtins.readFile config.age.secrets.nextcloud-domain.path;
+    #hostName = "localhost";
+    hostName = "${builtins.readFile (inputs.secrets + "/plaintext/nextcloud-domain.txt")}";
     database.createLocally = true; # Need to create mysql db if not manually creating it
     package = pkgs.nextcloud30;
-    #https = true;
+    https = true;
     maxUploadSize = "1G";
     home = "/var/lib/nextcloud"; # Storage path of nextcloud.
     config = { 
@@ -73,7 +73,9 @@
     };
     settings = {
       trusted_domains = [
-        "192.168.0.100" # For local testing
+        #"192.168.0.100" # For local testing
+        "localhost" # For local testing
+        config.services.nextcloud.hostName
       ];
 
       # Might be able to declare the config.php secret property this way
@@ -88,8 +90,9 @@
   };
   */
 
-  /*
-  services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+
+  # TLS setup
+  services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {
     forceSSL = true;
     enableACME = true;
   };
@@ -97,8 +100,7 @@
   security.acme = {
     acceptTerms = true;   
     certs = { 
-      ${config.services.nextcloud.hostName}.email = "your-letsencrypt-email@example.com"; 
+      ${config.services.nextcloud.hostName}.email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
     }; 
   };
-  */
 }

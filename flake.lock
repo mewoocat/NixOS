@@ -3318,11 +3318,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1736648124,
-        "narHash": "sha256-Z8g1+Q4NkaTq+x+TjxmY4Le9vYvZ7GXzlOcZXRd0aEE=",
+        "lastModified": 1736717646,
+        "narHash": "sha256-fT9OaMaQGvlHk8XrIEbfkpKfUzJtPrXStSDG6bcBmjI=",
         "ref": "main",
-        "rev": "0c346192ea68efffc5c3c5d4e36023314b92b7d3",
-        "revCount": 2,
+        "rev": "bf69319737e8c3728f29def5f285abe453519153",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/mewoocat/secrets"
       },
