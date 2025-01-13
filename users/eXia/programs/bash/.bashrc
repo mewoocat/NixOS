@@ -15,7 +15,7 @@ FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
 # Throw it all together
-PS1="${RESET}${YELLOW}\h${RED}@${YELLOW}\u${NORMAL} [\T] \W \`${SELECT}\` ${YELLOW}>${NORMAL} "
+PS1="\n${RESET}${YELLOW}\h${RED}@${YELLOW}\u${NORMAL} [\T] \W \`${SELECT}\` ${YELLOW}>${NORMAL} "
 #######################
 
 
