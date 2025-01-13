@@ -51,6 +51,7 @@
       gcc14
       zellij
       dconf-editor
+      eza # ls replacement
 
       # Applications
       vesktop
