@@ -28,8 +28,6 @@
   ];
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
-  environment.etc."nextcloud-admin-pass".text = "WhaT3#hiHuH?H0w3";
-  environment.etc."nextcloud-db-pass".text = "WhaT3#hiHuH?H0w3";
 
   # WARNING: It appears that the first time nextcloud is enabled, it runs a setup script that
   # produces some state.  Future rebuilds don't seem to change certain options that were set, 
@@ -84,12 +82,14 @@
   };
 
   # Setup fail2ban which bans IPs that repeatedly fail to login
-  /*
   services.fail2ban = {
     enable = true;
+    maxretry = 3;
+    bantime = "30m";
+    bantime-increment = {
+      enable = true;
+    };
   };
-  */
-
 
   # TLS setup
   services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {
