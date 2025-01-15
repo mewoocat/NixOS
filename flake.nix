@@ -5,7 +5,7 @@
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     #nixpkgs.url = "github:NixOS/nixpkgs/0d40d3a1ff082aa0ea314d8170f46d66f0b82c8b"; # Unstable pinned
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     #ags.url = "github:Aylur/ags";
     #ags.url = "git+https://github.com/Aylur/ags?ref=refs/tags/v1.8.2";
@@ -15,7 +15,7 @@
     myNvim.url = "github:mewoocat/nvim-nix";
     myNvimNvf.url = "github:mewoocat/nvim-nvf";
     microfetch.url = "github:NotAShelf/microfetch";
-    adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
+    #adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
     agenix.url = "github:ryantm/agenix"; # For secret management
     
     secrets = {

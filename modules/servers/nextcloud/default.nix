@@ -79,6 +79,13 @@
       # Might be able to declare the config.php secret property this way
       #secret = ""; 
     };
+
+    # Instead of using pkgs.nextcloud29Packages.apps or similar,
+    # we'll reference the package version specified in services.nextcloud.package
+    extraApps = {
+      inherit (config.services.nextcloud.package.packages.apps) contacts calendar notes tasks;
+    };
+    extraAppsEnable = true;
   };
 
   # Setup fail2ban which bans IPs that repeatedly fail to login
