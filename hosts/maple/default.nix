@@ -10,12 +10,15 @@ inputs.nixpkgs.lib.nixosSystem {
 
     ./core.nix
     ./hardware-configuration.nix
-    ../../modules/servers/nextcloud
 
     ./disk-config.nix # Disk setup for nixos-anywhere
 
     # User
     #../../users/eXia # need to add user without all the other junk
+
+    # Services
+    ../../modules/servers/nextcloud
+    ../../modules/servers/ad-guard-home/
 
   ];
 }
