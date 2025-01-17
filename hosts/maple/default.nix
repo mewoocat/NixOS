@@ -18,7 +18,10 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # Services
     ../../modules/servers/nextcloud
-    ../../modules/servers/ad-guard-home/
+    ../../modules/servers/ad-guard-home
+
+    # Desktop environment
+    ../../modules/system/desktop-environments/kde
 
   ];
 }
