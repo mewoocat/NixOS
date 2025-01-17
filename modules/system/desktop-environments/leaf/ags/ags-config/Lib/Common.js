@@ -140,4 +140,26 @@ export function CircleButton(icon, action, params, size = 2){
     })
 }
 
-
+/*
+ *  Returns null or a json object
+ */
+export function ReadJSONFile(path){
+    print("INFO: Entered ReadJSONFile")
+    let contents = null
+    try {
+        contents = Utils.readFile(path)
+    }
+    catch (err) {
+        print(`ERROR: Could not read ${path}`)
+        return null;
+    }
+    print(`INFO: Common.js ReadJSONFile file contents for ${path}`)
+    print(contents)
+    try {
+        return JSON.parse(contents)
+    }
+    catch (err) {
+        print(`ERROR: Could not parse the contents of ${path} as json`)
+        return null;
+    }
+}

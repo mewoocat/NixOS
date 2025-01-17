@@ -4,34 +4,51 @@ import GdkPixbuf from 'gi://GdkPixbuf'
 import GLib from 'gi://GLib'
 
 import * as Global from '../Global.js'
+import * as Common from '../Lib/Common.js'
 import icons from '../icons.js';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Globals
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-const currentThemePath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
 const recentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-themes.json`
+const currentThemePath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
+
+// Doing this causes those gc errors 
+//const recentThemesJson = Variable(Common.ReadJSONFile(recentThemesPath))
+//const currentThemeJson = Variable(Common.ReadJSONFile(currentThemePath))
+//const themeState = Variable(Common.ReadJSONFile(currentThemeJson)?.mode)
 
 const recentThemesJson = Variable(null)
 const currentThemeJson = Variable(null)
-export const ThemeState = Variable(GetThemeState(), {})
+const themeState = Variable(null)
+
 
 const recentThemesMonitor = Utils.monitorFile(recentThemesPath, (file, event) => {
-    var contents = Utils.readFile(file)
-    recentThemesJson.value = JSON.parse(contents)
+    const json = Common.ReadJSONFile(file.get_path())
+    if (json == null) { 
+        return
+    }
+    recentThemesJson.value = json
 })
 const currentThemeMonitor = Utils.monitorFile(currentThemePath, (file, event) => {
-    const contents = Utils.readFile(file)
-    currentThemeJson.value = JSON.parse(contents)
+    const json = Common.ReadJSONFile(file.get_path())
+    if (json == null) { 
+        return
+    }
+    currentThemeJson.value = json
 })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Helper functions
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Probably no longer needed
+/*
 function GetThemeState() {
     let CurrentThemeJson = JSON.parse(Utils.readFile(currentThemeJson.value))
     return CurrentThemeJson.mode
 }
+*/
 
 // Returns a list of the recent themes as widgets given the recent-themes.json as input
 const GenerateRecentThemeWidgets = (themesJson) => {
@@ -198,7 +215,7 @@ export const ThemeMenu = () => Widget.Box({
             `,
             children: [
                 Widget.Label({
-                    label: ThemeState.bind().as(v => v[0].toUpperCase() + v.slice(1)),
+                    label: themeState.bind().as(v => v != null ? v[0].toUpperCase() + v.slice(1) : "..."),
                 }),
                 Widget.Switch({
                     class_name: "switch-off",
@@ -211,11 +228,11 @@ export const ThemeMenu = () => Widget.Box({
                         self.toggleClassName("switch-on", self.active)
                         print(self.active)
                         if (self.active){
-                            ThemeState.value = "Dark"
+                            themeState.value = "dark"
                             Utils.execAsync(`theme -D`)
                         }
                         else {
-                            ThemeState.value = "Light"
+                            themeState.value = "light"
                             Utils.execAsync(`theme -L`)
                         }
                     },
@@ -226,7 +243,7 @@ export const ThemeMenu = () => Widget.Box({
                         self.toggleClassName("switch-off", !self.active)
                         self.toggleClassName("switch-on", self.active)
                         
-                        if (ThemeState.value == "dark"){
+                        if (themeState.value == "dark"){
                             self.active = true
                         }
                         else{
