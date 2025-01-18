@@ -18,8 +18,9 @@ if [ ! -f $recentThemesPath ]; then
     echo "[]" > $recentThemesPath
 fi
 
-gtkThemeLight="adw-gtk3"
-gtkThemeDark="adw-gtk3-dark"
+gtkThemeLight="adw-gtk3" # Just using non modified since the adw-gtk3-leaf repo hasn't added variable support for the light theme yet
+#gtkThemeLight="adw-gtk3-leaf"
+gtkThemeDark="adw-gtk3-leaf-dark"
 
 # Globals variables
 wallpaper=""

@@ -65,7 +65,7 @@ in {
     shades-of-gray-theme
     nwg-look
 
-    inputs.adw-gtk3-leaf.packages.${system}.default
+    #inputs.adw-gtk3-leaf.packages.${system}.default
 
     wallust
     theme
