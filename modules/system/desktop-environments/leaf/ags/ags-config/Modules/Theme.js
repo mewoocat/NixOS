@@ -13,13 +13,10 @@ import icons from '../icons.js';
 const recentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-themes.json`
 const currentThemePath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
 
-// Doing this causes those gc errors 
-//const recentThemesJson = Variable(Common.ReadJSONFile(recentThemesPath))
-//const currentThemeJson = Variable(Common.ReadJSONFile(currentThemePath))
+const recentThemesJson = Variable(Common.ReadJSONFile(recentThemesPath))
+const currentThemeJson = Variable(Common.ReadJSONFile(currentThemePath))
 //const themeState = Variable(Common.ReadJSONFile(currentThemeJson)?.mode)
 
-const recentThemesJson = Variable(null)
-const currentThemeJson = Variable(null)
 const themeState = Variable(null)
 
 
@@ -92,16 +89,9 @@ const ThemeSelectionButton = (theme) => {
     let wallpaperImage = theme.wallpaper
 
     // Getting the colorsceheme
-    let colorschemeJsonPath = theme.colorschemePath
-    let colorschemeJson = null
-    print(`INFO: Reading: ${colorschemeJsonPath}`)
-    try {
-        const colorschemeFileData = Utils.readFile(colorschemeJsonPath)
-        colorschemeJson = JSON.parse(colorschemeFileData)
-    }
-    catch (err){
-        print(`ERROR: ${err}`)
-        print("ERROR: colorschemeFileData could not be read, skipping theme...")
+    const colorschemeJson = Common.ReadJSONFile((theme.colorschemePath))
+    if (colorschemeJson === null) {
+        print("ERROR: Colorscheme file could not be read, skipping creating widget for theme.")
         return null
     }
 
@@ -133,8 +123,8 @@ const ThemeSelectionButton = (theme) => {
     }
     */
 
-    // Add colors 1-7
-    for (let i = 1; i < 8; i++){
+    // Add colors 1-7 to grid
+    for (let i = 1; i < 8; i++){ 
         let color = colors[`color${i}`]
         let colorWidget = Widget.Box({
             css: `
@@ -148,16 +138,14 @@ const ThemeSelectionButton = (theme) => {
         colorGrid.attach(colorWidget, i, 1, 1, 1)
     }
 
-    //const wallaperImage = Gtk.Image.new_from_file(theme.wallpaper)
-
     // Try to load the image
     try {
-        print(`Info: Loading image ${wallpaperImage} ...`)
+        print(`INFO: Loading image from ${wallpaperImage} ...`)
         GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
     }
     catch (err){
-        print("Error: " + err)
-        print("Info: Image load failed, using fallback")
+        print("ERROR: " + err)
+        print("ERROR: Image load failed, using fallback")
         wallpaperImage = icons.invalidWallpaper 
     }
 
@@ -203,6 +191,8 @@ const ThemeSelectionButton = (theme) => {
             ]
         })
     })
+
+    return themeWidget
 }
 
 export const ThemeMenu = () => Widget.Box({
@@ -215,7 +205,8 @@ export const ThemeMenu = () => Widget.Box({
             `,
             children: [
                 Widget.Label({
-                    label: themeState.bind().as(v => v != null ? v[0].toUpperCase() + v.slice(1) : "..."),
+                    //label: themeState.bind().as(v => v != null ? v[0].toUpperCase() + v.slice(1) : "..."),
+                    label: currentThemeJson.bind().as(v => v.mode),
                 }),
                 Widget.Switch({
                     class_name: "switch-off",
@@ -228,11 +219,11 @@ export const ThemeMenu = () => Widget.Box({
                         self.toggleClassName("switch-on", self.active)
                         print(self.active)
                         if (self.active){
-                            themeState.value = "dark"
+                            currentThemeJson.value.mode = "dark"
                             Utils.execAsync(`theme -D`)
                         }
                         else {
-                            themeState.value = "light"
+                            currentThemeJson.value.mode = "light"
                             Utils.execAsync(`theme -L`)
                         }
                     },
@@ -243,7 +234,7 @@ export const ThemeMenu = () => Widget.Box({
                         self.toggleClassName("switch-off", !self.active)
                         self.toggleClassName("switch-on", self.active)
                         
-                        if (themeState.value == "dark"){
+                        if (currentThemeJson.value.mode == "dark"){
                             self.active = true
                         }
                         else{
