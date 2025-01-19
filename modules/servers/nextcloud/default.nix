@@ -110,4 +110,14 @@
       ${config.services.nextcloud.hostName}.email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
     }; 
   };
+
+  # Nextcloud backup
+  # See: https://wiki.nixos.org/wiki/Systemd/timers
+  /*
+  systemd.timers."nextcloud-backup" = {
+    wantedBy = [ "timers.target" ];
+    OnCalendar = "*-*-* 00:00:00"; # Should run daily at midnight (i think)
+    Unit = "nextcloud-backup.service";
+  };
+  */
 }
