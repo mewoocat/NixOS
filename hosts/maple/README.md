@@ -29,6 +29,8 @@ https://docs.nextcloud.com/server/latest/admin_manual/maintenance/restore.html
 It seems that importing a backup of a database into a new installation runs into a server exception if TOTP is setup.  I'm guessing this is due to the secret property in the config.php not matching.
 I'm not sure how to set this in the config.php yet.
 For now, I think disabling TOTP, exporting the database, then reenabling TOTP is the play.
+...
+I think the data/ backup may need to copied over to get the appdata for totp? (need to test this)
 
 Import database.sql with username "nextcloud" into database called "nextcloud"
 ```sh
@@ -38,10 +40,16 @@ sudo -u nextcloud -- mysql -u nextcloud nextcloud < database.sql
 ### Files & Configuration
 Restore desired files from `/var/lib/nextcloud` backup.
 ...
+Restoring data dir
+- Copy over `/var/lib/nextcloud` and make sure all the files are owned by the `nextcloud` user and group
+```sh
+chown -R nextcloud:nextcloud <backup_data_dir>
+```
 
 # Info
 - Default nextcloud admin username is `admin`
 - Default nextcloud install location is `/var/lib/nextcloud`
+- Nextcloud cli command: `nextcloud-occ`
 
 # Developing
 ## Local Development

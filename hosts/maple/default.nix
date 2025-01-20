@@ -21,7 +21,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/servers/ad-guard-home
 
     # Desktop environment
-    ../../modules/system/desktop-environments/kde
+    #../../modules/system/desktop-environments/kde
 
   ];
 }

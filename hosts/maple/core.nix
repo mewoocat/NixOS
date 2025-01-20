@@ -36,6 +36,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default # Agenix client
+    inputs.myNvimNvf.packages.x86_64-linux.default
   ];
 
   users.users.root= {
