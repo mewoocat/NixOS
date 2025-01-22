@@ -107,6 +107,13 @@ function Container(name, contents){
             */
             contents,
         ],
+        setup: (self) => {
+            // Trying to react to resizing
+            // Doesn't work :(
+            self.connect("size-allocate", (widget, allocation) =>{
+                Log.Info(`Window size: ${allocation.width}x${allocation.height}`)
+            })
+        }
     })
 }
 
@@ -261,13 +268,6 @@ export const SettingsWin = () => Window({
             App.closeWindow("Settings")
             return true
         })
-        // Trying to react to resizing
-        // Doesn't work :(
-        /*
-        self.connect("size-allocate", (widget, allocation) =>{
-            Log.Info(`Window size: ${JSON.stringify(allocation, null, 4)}`)
-        })
-        */
     },
 })
 
