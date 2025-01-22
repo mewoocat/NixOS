@@ -39,14 +39,6 @@ const currentThemeMonitor = Utils.monitorFile(currentThemePath, (file, event) =>
 // Helper functions
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Probably no longer needed
-/*
-function GetThemeState() {
-    let CurrentThemeJson = JSON.parse(Utils.readFile(currentThemeJson.value))
-    return CurrentThemeJson.mode
-}
-*/
-
 // Returns a list of the recent themes as widgets given the recent-themes.json as input
 const GenerateRecentThemeWidgets = (themesJson) => {
     let themesList = []

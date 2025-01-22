@@ -5,6 +5,7 @@ import GObject from 'gi://GObject'
 import * as Global from '../Global.js'
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import * as Common from '../Lib/Common.js'
+import * as Log from '../Lib/Log.js'
 import * as Options from '../Options/options.js';
 import icons from '../icons.js';
 
@@ -15,7 +16,11 @@ var apPassword = ""
 
 const Refresh = () => {
     print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
-    print('Scaning for Wi-Fi access points')
+    print('INFO: Scaning for Wi-Fi access points')
+    Log.Info("This is a info test")
+    Log.Warning("This is a warning test")
+    Log.Error("This is an error test")
+    
     Network.wifi.scan()
     /*
     IsRefreshing.value = true // Rotate refresh icon

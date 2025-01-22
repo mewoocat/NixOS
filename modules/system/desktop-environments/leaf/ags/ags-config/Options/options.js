@@ -4,10 +4,10 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
-import * as Style from '../Style/style.js'
 import * as Weather from '../Modules/Weather.js'
 import * as Global from '../Global.js'
 import * as Monitors from '../Monitors.js'
+import * as Common from '../Lib/Common.js'
 
 
 
@@ -322,6 +322,16 @@ function InitilizeOptions(){
 // Refreshes the contents of data
 export function GetOptions() {
     // Read in user settings
+    const configData = Common.ReadJSONFile(configPath + configName)
+    if (configData == null) {
+        print("ERROR: Could not read in user config")
+        App.quit() // Maybe we should continue execution here?
+    }
+    data = configData
+    InitilizeOptions()
+    
+    // Old code
+    /*
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
@@ -356,6 +366,7 @@ export function GetOptions() {
             App.quit()
         }
     }
+    */
 }
 
 function GetOptionValue(opt){
