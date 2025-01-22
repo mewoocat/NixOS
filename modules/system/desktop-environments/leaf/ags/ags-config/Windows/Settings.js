@@ -10,6 +10,7 @@ import * as Network from '../Modules/Network.js';
 import * as Audio from '../Modules/Audio.js';
 import * as Bluetooth from '../Modules/Bluetooth.js';
 import * as Settings from '../Modules/Settings.js'
+import * as Log from '../Lib/Log.js'
 import icons from '../icons.js';
 
 
@@ -260,6 +261,13 @@ export const SettingsWin = () => Window({
             App.closeWindow("Settings")
             return true
         })
+        // Trying to react to resizing
+        // Doesn't work :(
+        /*
+        self.connect("size-allocate", (widget, allocation) =>{
+            Log.Info(`Window size: ${JSON.stringify(allocation, null, 4)}`)
+        })
+        */
     },
-});
+})
 
