@@ -5,13 +5,16 @@ import GLib from 'gi://GLib'
 
 import * as Global from '../Global.js'
 import * as Common from '../Lib/Common.js'
+import * as Log from '../Lib/Log.js'
+
 import icons from '../icons.js';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Globals
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-const recentThemesPath = `${GLib.get_home_dir()}/.config/leaf/theme/recent-themes.json`
-const currentThemePath = `${GLib.get_home_dir()}/.config/leaf/theme/current-theme.json`
+const themeDir = `${GLib.get_home_dir()}/.config/leaf-de/theme/`
+const recentThemesPath = `${themeDir}/recent-themes.json`
+const currentThemePath = `${themeDir}/current-theme.json`
 
 const recentThemesJson = Variable(Common.ReadJSONFile(recentThemesPath))
 const currentThemeJson = Variable(Common.ReadJSONFile(currentThemePath))
@@ -74,7 +77,7 @@ const ThemeSelectionButton = (theme) => {
 
     // Error checking
     if (theme == null || theme.colorscheme == ""){
-        print("ERROR: Error processing theme")
+        Log.Error("Error processing theme")
         return null
     }
 
@@ -83,7 +86,7 @@ const ThemeSelectionButton = (theme) => {
     // Getting the colorsceheme
     const colorschemeJson = Common.ReadJSONFile((theme.colorschemePath))
     if (colorschemeJson === null) {
-        print("ERROR: Colorscheme file could not be read, skipping creating widget for theme.")
+        Log.Error("Colorscheme file could not be read, skipping creating widget for theme.")
         return null
     }
 
@@ -132,19 +135,19 @@ const ThemeSelectionButton = (theme) => {
 
     // Try to load the image
     try {
-        print(`INFO: Loading image from ${wallpaperImage} ...`)
+        Log.Info(`Loading image from ${wallpaperImage} ...`)
         GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
     }
     catch (err){
-        print("ERROR: " + err)
-        print("ERROR: Image load failed, using fallback")
+        Log.Error(err)
+        Log.Error("Image load failed, using fallback")
         wallpaperImage = icons.invalidWallpaper 
     }
 
     const themeWidget = Widget.Button({
         class_name: "normal-button",
         on_primary_click: () => {
-            print(`INFO: Setting active theme to ${theme.name}`)
+            Log.Info(`Setting active theme to ${theme.name}`)
             Utils.execAsync(`theme -a ${theme.name}`)
         },
         child: Widget.Box({
@@ -205,11 +208,8 @@ export const ThemeMenu = () => Widget.Box({
                     hexpand: true,
                     hpack: "end",
                     onActivate: (self) => {
-                        print("INFO: Switch onActivate called")
-                        print("INFO: self.active: " + self.active)
                         self.toggleClassName("switch-off", !self.active)
                         self.toggleClassName("switch-on", self.active)
-                        print(self.active)
                         if (self.active){
                             currentThemeJson.value.mode = "dark"
                             Utils.execAsync(`theme -D`)

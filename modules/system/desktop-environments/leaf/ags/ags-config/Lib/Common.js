@@ -3,6 +3,8 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gdk from 'gi://Gdk';
 
+import * as Log from './Log.js'
+
 /**
   * @param {number} length
   * @param {number=} start
@@ -144,13 +146,13 @@ export function CircleButton(icon, action, params, size = 2){
  *  Returns null or a json object
  */
 export function ReadJSONFile(path){
-    print(`INFO: Reading contents from ${path}`)
+    Log.Info(`Reading contents from ${path}`)
     let contents = null
     try {
         contents = Utils.readFile(path)
     }
     catch (err) {
-        print(`ERROR: Could not read ${path}`)
+        Log.Error(`Could not read ${path}`)
         return null;
     }
     // Logging
@@ -160,7 +162,7 @@ export function ReadJSONFile(path){
         return JSON.parse(contents)
     }
     catch (err) {
-        print(`ERROR: Could not parse the contents of ${path} as json`)
+        Log.Error(`Could not parse the contents of ${path} as json`)
         return null;
     }
 }

@@ -15,19 +15,16 @@ const IsRefreshing = Variable(false)
 var apPassword = ""
 
 const Refresh = () => {
-    print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
-    print('INFO: Scaning for Wi-Fi access points')
-    Log.Info("This is a info test")
-    Log.Warning("This is a warning test")
-    Log.Error("This is an error test")
-    
+    Log.Info(`Is wifi refreshing: ${IsRefreshing.value}`)
+    Log.Info('Scaning for Wi-Fi access points') 
+
     Network.wifi.scan()
     /*
     IsRefreshing.value = true // Rotate refresh icon
     setTimeout(() => IsRefreshing.value = false, 3000)
     */
     IsRefreshing.value = !IsRefreshing.value // Rotate refresh icon
-    print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
+    Log.Info(`IsRefreshing: ${IsRefreshing.value}`)
 }
 Refresh() // Initial network scan
 
