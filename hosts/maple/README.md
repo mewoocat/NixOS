@@ -8,10 +8,13 @@
 Not all files related to a Nextcloud instance are managed by Nix.  Here are instructions on what need to be backed up.
 Also see: https://docs.nextcloud.com/server/latest/admin_manual/maintenance/backup.html
 
-### Database (mysql/mariadb)
-Switch to maintenance mode.
+Switch to maintenance mode
 ...
+```sh
+nextcloud-occ maintenance:mode --on
+```
 
+### Database (mysql/mariadb)
 Backup the database
 ```sh
 sudo -u nextcloud -- mysqldump -u nextcloud nextcloud > database.sql
@@ -20,6 +23,13 @@ sudo -u nextcloud -- mysqldump -u nextcloud nextcloud > database.sql
 ### Files & Configuration
 backup /var/lib/nextcloud 
 ...
+The this includes the config.php and data/ dir
+
+Turn maintenance mode off
+```sh
+nextcloud-occ maintenance:mode --off
+```
+
 
 ## Restoring Nextcloud Instance
 After installing this Nextcloud module, non Nix managed data, settings, and files can be restored from an existing Nextcloud instance.
@@ -31,6 +41,9 @@ I'm not sure how to set this in the config.php yet.
 For now, I think disabling TOTP, exporting the database, then reenabling TOTP is the play.
 ...
 I think the data/ backup may need to copied over to get the appdata for totp? (need to test this)
+...
+^ This is the fix!  Can login just fine with existing TOTP setup
+Need to check if the secret and salt config values also needed to be copied over from backup.  Almost positive that the secret and salt need to be copied over.  Should do this
 
 Import database.sql with username "nextcloud" into database called "nextcloud"
 ```sh
