@@ -80,7 +80,7 @@ App.config({
     style: Style.css, 
     closeWindowDelay: {
         "ControlPanel":     150, // milliseconds
-        "applauncher":      150, // milliseconds
+        //"applauncher":      150, // milliseconds
         "ActivityCenter":   150, // milliseconds
         /*
         "ControlPanel":     0, // milliseconds
