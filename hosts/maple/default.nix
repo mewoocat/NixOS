@@ -19,6 +19,8 @@ inputs.nixpkgs.lib.nixosSystem {
     # Services
     ../../modules/servers/nextcloud
     ../../modules/servers/ad-guard-home
+    ../../modules/servers/owntracks
+    ../../modules/servers/fail2ban
 
     # Desktop environment
     #../../modules/system/desktop-environments/kde
