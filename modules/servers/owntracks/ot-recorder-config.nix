@@ -1,20 +1,17 @@
 {...}: {
-  /*
-  system.userActivationScripts = {
-    init-owntracks-dir.text = ''
-      mkdir -p /var/spool/owntracks/recorder/htdocs
-      #mkdir /var/spool/owntracks/recorder/store
-    '';
-  };
-  */
 
+  # Create directories that ot-recorder expects to exist
   systemd.tmpfiles.rules = [
     "d /var/spool/owntracks - owntracks users -"
     "d /var/spool/owntracks/recorder - owntracks users -"
     "d /var/spool/owntracks/recorder/htdocs - owntracks users -"
   ];
 
-  environment = {
+  environment = { 
+    sessionVariables = {
+      
+    };
+
     etc = {
       "default/ot-recorder" = {
         text = ''
@@ -66,13 +63,13 @@
           # MQTT clientid (default is constant+hostname+pid)
           #
 
-          OTR_CLIENTID=""
+          #OTR_CLIENTID=""
 
           # -----------------------------------------------------
           # Path to PEM-encoded CA certificate file for MQTT (no default)
           #
 
-          OTR_CAFILE=""
+          #OTR_CAFILE=""
 
           # -----------------------------------------------------
           # Address for the HTTP module to bind to (default: localhost)
@@ -95,13 +92,13 @@
           # access log. Default is to not log access
           #
 
-          OTR_HTTPLOGDIR=""
+          #OTR_HTTPLOGDIR=""
 
           # -----------------------------------------------------
           # API key for reverse-geo lookups
           #
 
-          OTR_GEOKEY=""
+          #OTR_GEOKEY=""
 
           # -----------------------------------------------------
           # Reverse geo precision
@@ -120,7 +117,7 @@
           # Browser API key for Google maps
           #
 
-          OTR_BROWSERAPIKEY=""
+          #OTR_BROWSERAPIKEY=""
 
           # -----------------------------------------------------
           # List of topics for MQTT to subscribe to, blank separated in a string
