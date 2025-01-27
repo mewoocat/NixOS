@@ -49,7 +49,7 @@ in {
       # Setup ot-recorder as a listener?
       {
         acl = [
-          "topic readwrite #"
+          "topic readwrite #" # Appears that this is needed
         ];
         port = 1883;
         omitPasswordAuth = true;
