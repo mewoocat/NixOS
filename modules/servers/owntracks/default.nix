@@ -1,3 +1,5 @@
+# NOTE: This module is in a highly unfunctional state
+
 {pkgs, inputs, ...}: let
   hostName = "${builtins.readFile (inputs.secrets + "/plaintext/nextcloud-domain.txt")}"; #TODO: change domain
   letsEncryptEmail = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt");
@@ -24,11 +26,34 @@ in {
 
   services.mosquitto = {
     enable = true;
+    logType = [ "debug" ];
+    settings = {
+      /*
+      connection_messages = true;
+      log_dest = "topic";
+      log_type = [ 
+        "error"
+        "warning"
+        "notice"
+        "information"
+        "all"
+        "debug"
+      ];
+      log_timestamp = true;
+      max_inflight_messages = 20;
+      max_queued_messages = 9000;
+      */
+    };
     listeners = [
+
+      # Setup ot-recorder as a listener?
       {
+        acl = [
+          "topic readwrite #"
+        ];
         port = 1883;
         omitPasswordAuth = true;
-        address = "127.0.0.1";
+        address = "0.0.0.0";
         settings = {
           allow_anonymous = true;
         };
@@ -38,33 +63,18 @@ in {
   
   networking.firewall.allowedTCPPorts = [ 
     80 # HTTP
-    1883 # MQTT
+    1883 # Mosquitto
+    #8883 # MQTT?
     8083 # OwnTracks web interface
   ];
 
   users.users.owntracks = {
+    #TODO: Probably could just make this a system user?
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
 
-  /*
-  [Unit]
-  Description=OwnTracks Recorder
-  Wants=network-online.target
-  After=network-online.target
-
-  [Service]
-  Type=simple
-  User=owntracks
-  WorkingDirectory=/
-  ExecStartPre=/bin/sleep 3
-  ExecStart=/usr/sbin/ot-recorder
-
-  [Install]
-  WantedBy=multi-user.target
-  */
   # From: https://github.com/owntracks/recorder/blob/master/etc/ot-recorder.service
-
   systemd.services.owntracks = {
     description = "OwnTracks Recorder";
     wants = [ "network-online.target" ];
@@ -83,6 +93,7 @@ in {
 
 
   # TLS setup
+  /*
   services.nginx.virtualHosts.${hostName} = {
     forceSSL = true;
     enableACME = true;
@@ -93,5 +104,5 @@ in {
       ${hostName}.email = letsEncryptEmail; 
     }; 
   };
-
+  */
 }

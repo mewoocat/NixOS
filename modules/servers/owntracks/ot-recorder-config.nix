@@ -32,7 +32,7 @@
           # Address or hostname of the MQTT broker
           #
 
-          OTR_HOST="localhost"
+          OTR_HOST="0.0.0.0"
 
           # -----------------------------------------------------
           # Port number of the MQTT broker. Defaults to 1883.
@@ -79,7 +79,7 @@
           # OTR_HTTPHOST = "[::]"
           #
 
-          OTR_HTTPHOST="localhost"
+          OTR_HTTPHOST="0.0.0.0"
 
           # -----------------------------------------------------
           # Port number for the HTTP module to bind to (default: 8083)

@@ -21,6 +21,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/servers/ad-guard-home
     ../../modules/servers/owntracks
     ../../modules/servers/fail2ban
+    #../../modules/servers/traccar
 
     # Desktop environment
     #../../modules/system/desktop-environments/kde
