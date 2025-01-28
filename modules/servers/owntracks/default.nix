@@ -27,6 +27,7 @@ in {
   services.mosquitto = {
     enable = true;
     logType = [ "debug" ];
+    logDest = [ "topic" "stderr" ];
     settings = {
       /*
       connection_messages = true;
@@ -49,11 +50,22 @@ in {
       # Setup ot-recorder as a listener?
       {
         acl = [
-          "topic readwrite #" # Appears that this is needed
+          "topic readwrite owntracks/#" # Appears that this is needed
+          "topic readwrite owntracks/testuser/#" # Appears that this is needed
+          "topic readwrite owntracks/testuser/starqltesq/status"
+          "topic readwrite owntracks/testuser/starqltesq"
         ];
         port = 1883;
         omitPasswordAuth = true;
         address = "0.0.0.0";
+        users = {
+          exia = {
+            acl = [
+              "readwrite owntracks/exia/#"
+            ];
+            password = "123456";
+          };
+        };
         settings = {
           allow_anonymous = true;
         };
