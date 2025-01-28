@@ -38,6 +38,10 @@ in {
     #logType = [ "debug" ];
     #logDest = [ "topic" ];
     settings = {
+      # For TLS?
+      #cafile = /path/to/file;
+      #certfile = /path/to/file;
+      #keyfile = /path/to/file;
     };
     listeners = [
       {
