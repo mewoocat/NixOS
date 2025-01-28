@@ -1,4 +1,4 @@
-{...}: {
+{config, pkgs, ...}: {
 
   # Create directories that ot-recorder expects to exist
   systemd.tmpfiles.rules = [
@@ -6,6 +6,14 @@
     "d /var/spool/owntracks/recorder - owntracks users -"
     "d /var/spool/owntracks/recorder/htdocs - owntracks users -"
   ];
+
+  # Set secret within ot-recorder config
+  system.activationScripts."ot-recorder-secret" = ''
+    secret=$(cat "${config.age.secrets.mosquitto-reader-pass.path}")
+    configFile=/etc/default/ot-recorder
+    # Replaces '@ot-recorder-password@' within /etc/default/ot-recorder with the secret
+    ${pkgs.gnused}/bin/sed -i "s#@ot-recorder-password@#$secret#" "$configFile"
+  '';
 
   environment = { 
     sessionVariables = {
@@ -51,7 +59,7 @@
           # Password for the MQTT connection
           #
 
-          OTR_PASS="123456"
+          OTR_PASS="@ot-recorder-password@"
 
           # -----------------------------------------------------
           # QoS for MQTT connection

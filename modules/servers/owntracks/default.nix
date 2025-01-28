@@ -1,6 +1,6 @@
 # NOTE: This module is in a highly unfunctional state
 
-{pkgs, inputs, ...}: let
+{config, pkgs, inputs, ...}: let
   hostName = "${builtins.readFile (inputs.secrets + "/plaintext/nextcloud-domain.txt")}"; #TODO: change domain
   letsEncryptEmail = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt");
 
@@ -25,6 +25,13 @@ in {
     mosquitto
   ];
 
+  age.secrets.mosquitto-reader-pass = {
+    file = inputs.secrets + "/mosquitto-reader-pass.age";
+    #owner = "nextcloud";
+    #group = "nextcloud";
+  };
+  age.secrets.mosquitto-exia-pass.file = inputs.secrets + "/mosquitto-exia-pass.age";
+  age.secrets.mosquitto-iris-pass.file = inputs.secrets + "/mosquitto-iris-pass.age";
 
   services.mosquitto = {
     enable = true;
@@ -42,7 +49,7 @@ in {
               "read owntracks/#"
               "write owntracks/+/+/cmd"
             ];
-            password = "123456";
+            passwordFile = config.age.secrets.mosquitto-reader-pass.path;
           };
           exia = {
             acl = [
@@ -51,7 +58,7 @@ in {
               "read owntracks/+/+/event"
               "read owntracks/+/+/info"
             ];
-            password = "123456";
+            passwordFile = config.age.secrets.mosquitto-exia-pass.path;
           };
           iris = {
             acl = [
@@ -60,7 +67,7 @@ in {
               "read owntracks/+/+/event"
               "read owntracks/+/+/info"
             ];
-            password = "123456";
+            passwordFile = config.age.secrets.mosquitto-iris-pass.path;
           };
         };
         #omitPasswordAuth = true;
@@ -85,6 +92,7 @@ in {
   };
 
   # From: https://github.com/owntracks/recorder/blob/master/etc/ot-recorder.service
+  #TODO: Force restart on rebuild, currently need to restart manaully
   systemd.services.owntracks = {
     description = "OwnTracks Recorder";
     wants = [ "network-online.target" ];
