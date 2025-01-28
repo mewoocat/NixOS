@@ -32,7 +32,7 @@
           # Address or hostname of the MQTT broker
           #
 
-          OTR_HOST="0.0.0.0"
+          OTR_HOST="127.0.0.1"
 
           # -----------------------------------------------------
           # Port number of the MQTT broker. Defaults to 1883.
@@ -45,13 +45,13 @@
           # Username for the MQTT connection
           #
 
-          OTR_USER=""
+          OTR_USER="recorder"
 
           # -----------------------------------------------------
           # Password for the MQTT connection
           #
 
-          OTR_PASS=""
+          OTR_PASS="123456"
 
           # -----------------------------------------------------
           # QoS for MQTT connection
@@ -63,7 +63,7 @@
           # MQTT clientid (default is constant+hostname+pid)
           #
 
-          #OTR_CLIENTID=""
+          OTR_CLIENTID="owntracks-recorder"
 
           # -----------------------------------------------------
           # Path to PEM-encoded CA certificate file for MQTT (no default)

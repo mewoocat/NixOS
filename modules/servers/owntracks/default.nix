@@ -20,54 +20,52 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [
+    # For the cli utilities
     owntracks-recorder
+    mosquitto
   ];
 
 
   services.mosquitto = {
     enable = true;
-    logType = [ "debug" ];
-    logDest = [ "topic" "stderr" ];
+    #logType = [ "debug" ];
+    #logDest = [ "topic" ];
     settings = {
-      /*
-      connection_messages = true;
-      log_dest = "topic";
-      log_type = [ 
-        "error"
-        "warning"
-        "notice"
-        "information"
-        "all"
-        "debug"
-      ];
-      log_timestamp = true;
-      max_inflight_messages = 20;
-      max_queued_messages = 9000;
-      */
     };
     listeners = [
-
-      # Setup ot-recorder as a listener?
       {
-        acl = [
-          "topic readwrite owntracks/#" # Appears that this is needed
-          "topic readwrite owntracks/testuser/#" # Appears that this is needed
-          "topic readwrite owntracks/testuser/starqltesq/status"
-          "topic readwrite owntracks/testuser/starqltesq"
-        ];
         port = 1883;
-        omitPasswordAuth = true;
         address = "0.0.0.0";
         users = {
+          recorder = {
+            acl = [
+              "read owntracks/#"
+              "write owntracks/+/+/cmd"
+            ];
+            password = "123456";
+          };
           exia = {
             acl = [
               "readwrite owntracks/exia/#"
+              "read owntracks/+/+"
+              "read owntracks/+/+/event"
+              "read owntracks/+/+/info"
+            ];
+            password = "123456";
+          };
+          iris = {
+            acl = [
+              "readwrite owntracks/iris/#"
+              "read owntracks/+/+"
+              "read owntracks/+/+/event"
+              "read owntracks/+/+/info"
             ];
             password = "123456";
           };
         };
+        #omitPasswordAuth = true;
         settings = {
-          allow_anonymous = true;
+          #allow_anonymous = true;
         };
       }
     ];
