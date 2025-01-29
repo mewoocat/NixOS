@@ -32,15 +32,20 @@ in {
   };
   age.secrets.mosquitto-exia-pass.file = inputs.secrets + "/mosquitto-exia-pass.age";
   age.secrets.mosquitto-iris-pass.file = inputs.secrets + "/mosquitto-iris-pass.age";
+  age.secrets.gandiv5-pat.file = inputs.secrets + "/gandiv5-pat.age";
 
-  # Create TLS certificats
+  # Create TLS certificates
   security.acme = {
     acceptTerms = true;
     certs = {
       owntracks = {
         email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
-        domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}}";
+        domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
         #directory = "/var/lib/acme/owntracks"; # Default
+
+        # Needed to generate certificates
+        dnsProvider = "gandiv5";
+        environmentFile = config.age.secrets.gandiv5-pat.path;
       };
     };
   };

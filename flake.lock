@@ -3266,11 +3266,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1738120948,
-        "narHash": "sha256-6VdVp9T+goiUgSuzAmLdVqHwnIivvpGiKkRrJ3UH8Jo=",
+        "lastModified": 1738123858,
+        "narHash": "sha256-g2uNegj2IXTbpOCmqkObUvQ8Ggky0A9p+od7uH853bQ=",
         "ref": "main",
-        "rev": "129743c7e6b637ad811ad5783d840b96b0ab4fe1",
-        "revCount": 9,
+        "rev": "50df59b5cd8b18061edd5cf4864a5d9af7880ffa",
+        "revCount": 12,
         "type": "git",
         "url": "ssh://git@github.com/mewoocat/secrets"
       },
