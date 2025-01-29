@@ -33,15 +33,30 @@ in {
   age.secrets.mosquitto-exia-pass.file = inputs.secrets + "/mosquitto-exia-pass.age";
   age.secrets.mosquitto-iris-pass.file = inputs.secrets + "/mosquitto-iris-pass.age";
 
+  # Create TLS certificats
+  security.acme = {
+    acceptTerms = true;
+    certs = {
+      owntracks = {
+        email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
+        domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}}";
+        #directory = "/var/lib/acme/owntracks"; # Default
+      };
+    };
+  };
+
+  # MQTT Broker
   services.mosquitto = {
     enable = true;
     #logType = [ "debug" ];
     #logDest = [ "topic" ];
     settings = {
-      # For TLS?
-      #cafile = /path/to/file;
-      #certfile = /path/to/file;
-      #keyfile = /path/to/file;
+      # For TLS
+      /*
+      cafile = "${config.security.acme.certs.owntracks.directory}/";
+      certfile = "${}";
+      keyfile = "${}";
+      */
     };
     listeners = [
       {
