@@ -51,6 +51,9 @@
   security.rtkit.enable = true; # rtkit is optional but recommended
   services.gvfs.enable = true; # File file manager func.
   services.pcscd.enable = true; # For hardware keys
+  services.udev.packages = with pkgs; [
+    #libfido2 # For hardware keys, not needed?
+  ];
 
   programs.xfconf.enable = true;
 }

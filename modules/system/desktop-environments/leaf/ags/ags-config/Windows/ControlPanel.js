@@ -347,13 +347,15 @@ const stack = Widget.Stack({
 
 
 const content = Widget.Revealer({
-    revealChild: false,
+    revealChild: true,
+    /*
     transitionDuration: 150,
     transition: "slide_left",
+    */
     setup: self => {
         self.hook(App, (self, windowName, visible) => {
             if (windowName === "ControlPanel"){
-                self.revealChild = visible
+                //self.revealChild = visible
                 Global.ControlPanelTab.setValue("main")
             }
         }, 'window-toggled')

@@ -23,14 +23,18 @@ const container = () => Widget.Box({
         padding: 1px;
     `,
     child: Widget.Revealer({
-        revealChild: false,
+        revealChild: true,
+        /*
         transitionDuration: 150,
         transition: 'slide_down',
+        */
         setup: self => {
             self.hook(App, (self, windowName, visible) => {
+                /*
                 if (windowName === "ActivityCenter"){
                     self.revealChild = visible
                 }
+                */
 
                 // Reset calendar date to today
                 Utils.execAsync(['date', '+%e %m %Y'])

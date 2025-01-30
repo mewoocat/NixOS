@@ -5,6 +5,7 @@ import GObject from 'gi://GObject'
 import * as Global from '../Global.js'
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import * as Common from '../Lib/Common.js'
+import * as Log from '../Lib/Log.js'
 import * as Options from '../Options/options.js';
 import icons from '../icons.js';
 
@@ -14,15 +15,16 @@ const IsRefreshing = Variable(false)
 var apPassword = ""
 
 const Refresh = () => {
-    print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
-    print('Scaning for Wi-Fi access points')
+    Log.Info(`Is wifi refreshing: ${IsRefreshing.value}`)
+    Log.Info('Scaning for Wi-Fi access points') 
+
     Network.wifi.scan()
     /*
     IsRefreshing.value = true // Rotate refresh icon
     setTimeout(() => IsRefreshing.value = false, 3000)
     */
     IsRefreshing.value = !IsRefreshing.value // Rotate refresh icon
-    print(`INFO: IsRefreshing: ${IsRefreshing.value}`)
+    Log.Info(`IsRefreshing: ${IsRefreshing.value}`)
 }
 Refresh() // Initial network scan
 

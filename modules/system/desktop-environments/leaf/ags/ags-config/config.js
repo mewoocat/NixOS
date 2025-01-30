@@ -3,13 +3,15 @@ import Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk'
 import GLib from 'gi://GLib'
 
+import * as Log from './Lib/Log.js'
+
 // Add icons in assets to icon set
 //Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
 // Need to do this before importing anything else since importing could try to eval an custom icon which has not been added yet
 // Doesn't seem to fix the issue tho
 App.addIcons(`${App.configDir}/assets`)
 
-print("importing options")
+Log.Info("Importing options")
 //import {data, GetOptions, Options, LoadOptionWidgets} from './Options/options.js';
 import * as Options from './Options/options.js'
 // Loads json config and options
@@ -22,7 +24,7 @@ Options.LoadOptionWidgets(Options.Options.user.display, Settings.displaySettings
 
 
 // Configure animations
-print(`Info: Ags animations?: ${Options.Options.user.general.ags_animations.value}`)
+Log.Info(`Ags animations?: ${Options.Options.user.general.ags_animations.value}`)
 // I think this only applys the option to the default window
 Gtk.Settings.get_default().gtk_enable_animations = Options.Options.user.general.ags_animations.value
 
@@ -30,13 +32,11 @@ Gtk.Settings.get_default().gtk_enable_animations = Options.Options.user.general.
 // Import windows
 import * as ActivityCenter from './Windows/ActivityCenter.js';
 import * as NotificationPopup from './Windows/NotificationPopups.js';
-import * as Dock from './Windows/Dock.js';
+//import * as Dock from './Windows/Dock.js';
 import * as Launcher from './Windows/Launcher.js';
 import * as Bar from './Windows/Bar.js';
 import * as ControlPanel from './Windows/ControlPanel.js';
 import * as Monitors from './Monitors.js'
-
-print("importing settings")
 import * as SettingsWin from './Windows/Settings.js';
 import * as Style from './Style/style.js'
 
@@ -45,7 +45,7 @@ Style.GenerateCSS()
 
 // Monitor for color changes and reapply
 Utils.monitorFile(`${GLib.get_home_dir()}/.config/leaf-de/theme/_ags-colors.scss`, () => {
-    print("INFO: Reloading css")
+    Log.Info("Reloading css")
     Style.GenerateCSS()
 });
 
@@ -59,7 +59,7 @@ function InitilizeWindows(){
         defaultMonitorID = Monitors.monitors[userDefaultMonitor]
     }
 
-    print("INFO: defaultMonitorID: " + defaultMonitorID)
+    Log.Info("defaultMonitorID: " + defaultMonitorID)
 
     const windows = [
         // What does ... do? Spread syntax allows you to deconstruct an array or object into separate variables.
@@ -79,14 +79,15 @@ function InitilizeWindows(){
 App.config({
     style: Style.css, 
     closeWindowDelay: {
+        // For delaying the closing of a window util the ags animation finished
+        /*
         "ControlPanel":     150, // milliseconds
         "applauncher":      150, // milliseconds
         "ActivityCenter":   150, // milliseconds
-        /*
+        */
         "ControlPanel":     0, // milliseconds
         "applauncher":      0, // milliseconds
         "ActivityCenter":   0, // milliseconds
-        */
     },
     windows: InitilizeWindows(),
 });

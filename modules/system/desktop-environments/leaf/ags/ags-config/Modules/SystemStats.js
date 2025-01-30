@@ -60,7 +60,6 @@ export const storage = Variable(0, {
         const available = storageArray[3]
         const used = total - available
         const usage = Math.round(used / total * 100000) / 100000 // Round to 5 decimal places
-        print(usage)
         return usage
     }]
 });
