@@ -42,7 +42,7 @@ in {
         email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
         domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
         #directory = "/var/lib/acme/owntracks"; # Default
-
+        group = "mosquitto"; # So mosquitto can access the certificates
         # Needed to generate certificates
         dnsProvider = "gandiv5";
         environmentFile = config.age.secrets.gandiv5-pat.path;
@@ -55,18 +55,22 @@ in {
     enable = true;
     #logType = [ "debug" ];
     #logDest = [ "topic" ];
-    settings = {
-      # For TLS
-      /*
-      cafile = "${config.security.acme.certs.owntracks.directory}/";
-      certfile = "${}";
-      keyfile = "${}";
-      */
-    };
     listeners = [
       {
-        port = 1883;
-        address = "0.0.0.0";
+        #port = 1883; # Non TLS
+        port = 8883;
+        address = "0.0.0.0"; # Listen on all network interfaces
+        #omitPasswordAuth = true;
+        settings = let 
+          certDir = config.security.acme.certs.owntracks.directory;
+          in {
+          #allow_anonymous = true;
+
+          # For TLS
+          cafile = "${certDir}/chain.pem";
+          certfile = "${certDir}/cert.pem";
+          keyfile = "${certDir}/key.pem";
+        };
         users = {
           recorder = {
             acl = [
@@ -94,18 +98,14 @@ in {
             passwordFile = config.age.secrets.mosquitto-iris-pass.path;
           };
         };
-        #omitPasswordAuth = true;
-        settings = {
-          #allow_anonymous = true;
-        };
       }
     ];
   };
   
   networking.firewall.allowedTCPPorts = [ 
     80 # HTTP
-    1883 # Mosquitto
-    #8883 # MQTT?
+    #1883 # MQTT
+    8883 # MQTT TLS
     8083 # OwnTracks web interface
   ];
 
