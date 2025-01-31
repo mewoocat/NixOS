@@ -22,6 +22,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/servers/owntracks
     ../../modules/servers/fail2ban
     #../../modules/servers/traccar
+    ../../modules/servers/minecraft
 
     # Desktop environment
     #../../modules/system/desktop-environments/kde

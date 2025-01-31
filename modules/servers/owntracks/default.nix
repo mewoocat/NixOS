@@ -53,7 +53,7 @@ in {
   # MQTT Broker
   services.mosquitto = {
     enable = true;
-    #logType = [ "debug" ];
+    logType = [ "debug" ];
     #logDest = [ "topic" ];
     listeners = [
       {
@@ -96,6 +96,21 @@ in {
               "read owntracks/+/+/info"
             ];
             passwordFile = config.age.secrets.mosquitto-iris-pass.path;
+          };
+        };
+      }
+      
+      # Local listener owntracks recorder
+      {
+        port = 1883; # Non TLS
+        address = "127.0.0.1"; # Listen on all network interfaces
+        users = {
+          recorder = {
+            acl = [
+              "read owntracks/#"
+              "write owntracks/+/+/cmd"
+            ];
+            passwordFile = config.age.secrets.mosquitto-reader-pass.path;
           };
         };
       }

@@ -47,7 +47,8 @@
           # MQTT can be disabled by setting this to 0.
           #
 
-          OTR_PORT=8883
+          # Force the recorder to connect without tls
+          OTR_PORT=1883
 
           # -----------------------------------------------------
           # Username for the MQTT connection
