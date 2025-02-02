@@ -79,7 +79,10 @@ For more info, see https://docs.nextcloud.com/server/latest/admin_manual/mainten
 - Access the server at `http://<ip_address>/login`
 
 ## Rebuilding Remotely
-`nixos-rebuild switch --flake </path/to/flake>#<hostname> --target-host "user@<host>" --use-remote-sudo`
+```sh
+nixos-rebuild switch --flake </path/to/flake>#<hostname> --target-host "user@<host>" --use-remote-sudo`
+```
+*Need to look into multiple password prompts*
 
 # Debugging
 ## Getting Nextcloud logs
