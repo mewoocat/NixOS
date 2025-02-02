@@ -28,17 +28,20 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
+    allowSFTP = false; # Not using this
     settings = {
       PasswordAuthentication = false;
+      PermitRootLogin = "no";
       LogLevel = "VERBOSE";
     };
   };
 
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default # Agenix client
-    inputs.myNvimNvf.packages.x86_64-linux.default
+    inputs.myNvimNvf.packages.x86_64-linux.default # My nvim config
   ];
 
+  /*
   users.users.root= {
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     openssh.authorizedKeys.keys = [
@@ -46,6 +49,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG0/QfL5fsRr2E0JGv8aOLTU0npRl2Mj6yHCZaU+2pae eXia@scythe"
     ];
   };
+  */
 
   time.timeZone = "America/Chicago";
 

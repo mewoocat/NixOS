@@ -1,41 +1,46 @@
 # Overview
-- This is my personal Nextcloud NixOS server
+- This is my personal Nextcloud NixOS server.
 
 # Usage
 ## Installation
 ...
 ## Backing Up Nextcloud Instance
-Not all files related to a Nextcloud instance are managed by Nix.  Here are instructions on what need to be backed up.
-Also see: https://docs.nextcloud.com/server/latest/admin_manual/maintenance/backup.html
 
-Switch to maintenance mode
-...
+Switch to maintenance mode.
+
 ```sh
 nextcloud-occ maintenance:mode --on
 ```
 
 ### Database (mysql/mariadb)
-Backup the database
+
+Backup the database, in this case the db name is `nextcloud`.
+
 ```sh
 sudo -u nextcloud -- mysqldump -u nextcloud nextcloud > database.sql
 ```
 
-### Files & Configuration
-backup /var/lib/nextcloud 
-...
-The this includes the config.php and data/ dir
-
 Turn maintenance mode off
+
 ```sh
 nextcloud-occ maintenance:mode --off
 ```
 
+For more details, see https://docs.nextcloud.com/server/latest/admin_manual/maintenance/backup.html.
+
+### Files & Configuration
+Backup the Nextcloud directory.  In this case the default is `/var/lib/nextcloud`.
+This includes the config.php and data/ directories.
+```sh
+rsync -Aavx nextcloud/ nextcloud-dirbkp_`date +"%Y%m%d"`/
+```
+
 
 ## Restoring Nextcloud Instance
-After installing this Nextcloud module, non Nix managed data, settings, and files can be restored from an existing Nextcloud instance.
-https://docs.nextcloud.com/server/latest/admin_manual/maintenance/restore.html
 
-### Database
+After installing this Nextcloud module, non Nix managed data, settings, and files can be restored from an existing Nextcloud instance.
+
+#### Database
 It seems that importing a backup of a database into a new installation runs into a server exception if TOTP is setup.  I'm guessing this is due to the secret property in the config.php not matching.
 I'm not sure how to set this in the config.php yet.
 For now, I think disabling TOTP, exporting the database, then reenabling TOTP is the play.
@@ -55,9 +60,12 @@ Restore desired files from `/var/lib/nextcloud` backup.
 ...
 Restoring data dir
 - Copy over `/var/lib/nextcloud` and make sure all the files are owned by the `nextcloud` user and group
+
 ```sh
 chown -R nextcloud:nextcloud <backup_data_dir>
 ```
+
+For more info, see https://docs.nextcloud.com/server/latest/admin_manual/maintenance/restore.html.
 
 # Info
 - Default nextcloud admin username is `admin`
@@ -71,15 +79,20 @@ chown -R nextcloud:nextcloud <backup_data_dir>
 - Access the server at `http://<ip_address>/login`
 
 ## Rebuilding Remotely
-`nixos-rebuild switch --flake </path/to/flake>#<hostname> --target-host "root@<ip_address>"`
+`nixos-rebuild switch --flake </path/to/flake>#<hostname> --target-host "user@<host>" --use-remote-sudo`
 
 # Debugging
 ## Getting Nextcloud logs
-nextcloud php logs?
+Nextcloud php logs?
+
 ```sh
 journalctl -r -u phpfpm-nextcloud.service
+
+journalctl -t Nextcloud
 ```
-## Checking for successful logins
+
+## Checking for successful SSH logins
+
 ```sh
-journalctl -u sshd -r | grep "Accepted publickey
+journalctl -r -u sshd | grep "Accepted publickey"
 ```

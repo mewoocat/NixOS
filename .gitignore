@@ -3,3 +3,4 @@ networks.txt
 modules/system/desktop-environments/leaf/ags/ags-config/Style/_colors.scss
 modules/system/desktop-environments/leaf/ags/ags-config/Style/style.css
 #secrets/
+.obsidian/
