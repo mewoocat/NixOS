@@ -6,7 +6,7 @@
 
 
 Installing this Nextcloud Module will setup the nextcloud instance with the provided configuration and a default "admin" user.  No database or user data is preconfigured.
-To import an existing Nextcloud installation see [Restoring Nextcloud Instance](##restoring-nextcloud-instance)
+To import an existing Nextcloud installation see [Restoring Nextcloud Instance](#restoring-nextcloud-instance)
 - Default nextcloud admin username is `admin`
 - Default nextcloud install location is `/var/lib/nextcloud`
 - Nextcloud cli command: `nextcloud-occ`
