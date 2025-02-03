@@ -5,43 +5,14 @@
 ## Installation
 
 
-Installing this Nextcloud Module will setup the nextcloud instance with the provided configuration and a default "admin" user.  No database or user data is preconfigured.
+Installing this Nextcloud Module will setup the nextcloud instance with the provided configuration and a default "admin" user.  No database or user data is pre-configured.
+
 To import an existing Nextcloud installation see [Restoring Nextcloud Instance](#restoring-nextcloud-instance)
-- Default nextcloud admin username is `admin`
-- Default nextcloud install location is `/var/lib/nextcloud`
-- Nextcloud cli command: `nextcloud-occ`
 
-## Backing Up Nextcloud Instance
-
-Switch to maintenance mode.
-
-```sh
-nextcloud-occ maintenance:mode --on
-```
-
-### Database (mysql/mariadb)
-
-Backup the database, in this case the db name is `nextcloud`.
-
-```sh
-sudo -u nextcloud -- mysqldump -u nextcloud nextcloud > database.sql
-```
-
-Turn maintenance mode off
-
-```sh
-nextcloud-occ maintenance:mode --off
-```
-
-For more details, see https://docs.nextcloud.com/server/latest/admin_manual/maintenance/backup.html.
-
-### Files & Configuration
-Backup the Nextcloud directory.  In this case the default is `/var/lib/nextcloud`.
-This includes the config.php and data/ directories.
-```sh
-rsync -Aavx nextcloud/ nextcloud-dirbkp_`date +"%Y%m%d"`/
-```
-
+Usefull installation info
+- Default Nextcloud admin username is `admin`
+- Default Nextcloud install location is `/var/lib/nextcloud`
+- Nextcloud CLI command: `nextcloud-occ`
 
 ## Restoring Nextcloud Instance
 
@@ -74,6 +45,37 @@ chown -R nextcloud:nextcloud <backup_data_dir>
 ```
 
 For more info, see https://docs.nextcloud.com/server/latest/admin_manual/maintenance/restore.html.
+
+## Backing Up Nextcloud Instance
+
+Switch to maintenance mode.
+
+```sh
+nextcloud-occ maintenance:mode --on
+```
+
+### Database (mysql/mariadb)
+
+Backup the database, in this case the db name is `nextcloud`.
+
+```sh
+sudo -u nextcloud -- mysqldump -u nextcloud nextcloud > database.sql
+```
+
+Turn maintenance mode off
+
+```sh
+nextcloud-occ maintenance:mode --off
+```
+
+For more details, see https://docs.nextcloud.com/server/latest/admin_manual/maintenance/backup.html.
+
+### Files & Configuration
+Backup the Nextcloud directory.  In this case the default is `/var/lib/nextcloud`.
+This includes the config.php and data/ directories.
+```sh
+rsync -Aavx nextcloud/ nextcloud-dirbkp_`date +"%Y%m%d"`/
+```
 
 # Developing
 ## Local Development
