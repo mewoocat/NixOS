@@ -1,5 +1,5 @@
 # Overview
-- This is my personal Nextcloud NixOS server.
+- This is my personal NixOS server.
 
 # Usage
 
