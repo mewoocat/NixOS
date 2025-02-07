@@ -11,6 +11,7 @@
     settings = {    
       # Enable flakes
       experimental-features = ["nix-command" "flakes"];
+      trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
     };
   };
 
