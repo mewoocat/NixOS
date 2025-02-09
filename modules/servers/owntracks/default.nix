@@ -1,9 +1,4 @@
-# NOTE: This module is in a highly unfunctional state
-
 {config, pkgs, inputs, ...}: let
-  hostName = "${builtins.readFile (inputs.secrets + "/plaintext/nextcloud-domain.txt")}"; #TODO: change domain
-  letsEncryptEmail = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt");
-
   init = pkgs.writeShellScriptBin "ot-recorder-init" ''  
     # Initilize the database if not already created
     DB_PATH=/var/spool/owntracks/recorder/store/ghash/data.mdb
@@ -12,7 +7,6 @@
       ${pkgs.owntracks-recorder}/bin/ot-recorder --initialize
     fi
   '';
-
 in {
 
   imports = [
@@ -25,14 +19,12 @@ in {
     mosquitto
   ];
 
-  age.secrets.mosquitto-reader-pass = {
-    file = inputs.secrets + "/mosquitto-reader-pass.age";
-    #owner = "nextcloud";
-    #group = "nextcloud";
+  age.secrets = {
+    mosquitto-reader-pass.file = inputs.secrets + "/mosquitto-reader-pass.age";
+    mosquitto-exia-pass.file = inputs.secrets + "/mosquitto-exia-pass.age";
+    mosquitto-iris-pass.file = inputs.secrets + "/mosquitto-iris-pass.age";
+    gandiv5-pat.file = inputs.secrets + "/gandiv5-pat.age";
   };
-  age.secrets.mosquitto-exia-pass.file = inputs.secrets + "/mosquitto-exia-pass.age";
-  age.secrets.mosquitto-iris-pass.file = inputs.secrets + "/mosquitto-iris-pass.age";
-  age.secrets.gandiv5-pat.file = inputs.secrets + "/gandiv5-pat.age";
 
   # Create TLS certificates
   security.acme = {
@@ -43,12 +35,21 @@ in {
         domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
         #directory = "/var/lib/acme/owntracks"; # Default
         group = "mosquitto"; # So mosquitto can access the certificates
+
         # Needed to generate certificates
         dnsProvider = "gandiv5";
         environmentFile = config.age.secrets.gandiv5-pat.path;
       };
     };
   };
+
+  # TLS
+  # Generates: ca server and client certs, as well as their corresponding keys
+  system.activationScripts."owntracks-tls" = ''
+    certDir=/var/lib/mosquitto/tls/
+    mkdir -p "$certDir"
+    
+  '';
 
   # MQTT Broker
   services.mosquitto = {
@@ -63,13 +64,17 @@ in {
         #omitPasswordAuth = true;
         settings = let 
           certDir = config.security.acme.certs.owntracks.directory;
-          in {
+        in {
           #allow_anonymous = true;
 
           # For TLS
           cafile = "${certDir}/chain.pem";
           certfile = "${certDir}/cert.pem";
           keyfile = "${certDir}/key.pem";
+
+          # For requiring client certificates to authenticate
+          require_certificate = true;
+          #use_identity_as_username = false;
         };
         users = {
           recorder = {
@@ -131,7 +136,7 @@ in {
   };
 
   # From: https://github.com/owntracks/recorder/blob/master/etc/ot-recorder.service
-  #TODO: Force restart on rebuild, currently need to restart manaully
+  # TODO: Force restart on rebuild, currently need to restart manaully
   systemd.services.owntracks = {
     description = "OwnTracks Recorder";
     wants = [ "network-online.target" ];
@@ -147,19 +152,5 @@ in {
       ExecStartPre = "${init}/bin/ot-recorder-init && ${pkgs.coreutils}/bin/sleep 3"; 
     };
   };
-
-
-  # TLS setup
-  /*
-  services.nginx.virtualHosts.${hostName} = {
-    forceSSL = true;
-    enableACME = true;
-  };
-  security.acme = {
-    acceptTerms = true;   
-    certs = { 
-      ${hostName}.email = letsEncryptEmail; 
-    }; 
-  };
-  */
 }
+

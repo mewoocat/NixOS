@@ -71,7 +71,7 @@
     };
     settings = {
       trusted_domains = [
-        #"192.168.0.100" # For local testing
+        "192.168.0.103" # For local testing
         "localhost" # For local testing
         config.services.nextcloud.hostName
       ];

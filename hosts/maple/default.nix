@@ -17,12 +17,12 @@ inputs.nixpkgs.lib.nixosSystem {
     #../../users/eXia # need to add user without all the other junk
 
     # Services
-    ../../modules/servers/nextcloud
-    ../../modules/servers/ad-guard-home
+    #../../modules/servers/nextcloud
+    #../../modules/servers/ad-guard-home
     ../../modules/servers/owntracks
     ../../modules/servers/fail2ban
     #../../modules/servers/traccar
-    ../../modules/servers/minecraft
+    #../../modules/servers/minecraft
 
     # Desktop environment
     #../../modules/system/desktop-environments/kde
