@@ -52,6 +52,7 @@
       zellij
       dconf-editor
       eza # ls replacement
+      openssl
 
       # Applications
       vesktop
