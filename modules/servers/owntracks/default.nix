@@ -48,7 +48,9 @@ in {
   system.activationScripts."owntracks-tls" = ''
     certDir=/var/lib/mosquitto/tls/
     mkdir -p "$certDir"
-    
+    cd $certDir
+    ${./generate-CA.sh} example@test.com
+    ${./generate-CA.sh} client ot-app 
   '';
 
   # MQTT Broker
