@@ -53,6 +53,7 @@
       dconf-editor
       eza # ls replacement
       openssl
+      arduino
 
       # Applications
       vesktop
