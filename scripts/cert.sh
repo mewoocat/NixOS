@@ -6,7 +6,8 @@ sslDir=/tmp/ssl
 numbits=4096
 days=365
 caCommonName="MyCA"
-serverCommonName="owntracks.plantbox-zgmf-x42s.xyz"
+serverCommonName="maple"
+serverDomainName="owntracks.plantbox-zgmf-x42s.xyz"
 clientCommonName="exia"
 
 mkdir -p $sslDir
@@ -36,9 +37,12 @@ openssl req \
     -out $sslDir/server.csr \
     -key $sslDir/server.key \
     -subj "/CN=$serverCommonName" \
+    -addext "subjectAltName = DNS:what.com" \
     -new
 
 # Sign the certificate using the previously created CA
+# Note that "-copy_extensions copy" is needed to copy the 
+# subject alt name from the csr
 openssl x509 \
     -req \
     -in $sslDir/server.csr \
@@ -46,6 +50,7 @@ openssl x509 \
     -CAkey $sslDir/ca.key \
     -CAcreateserial \
     -out $sslDir/server.crt \
+    -copy_extensions copy \
     -days $days
 
 # Client
