@@ -37,7 +37,7 @@ openssl req \
     -out $sslDir/server.csr \
     -key $sslDir/server.key \
     -subj "/CN=$serverCommonName" \
-    -addext "subjectAltName = DNS:what.com" \
+    -addext "subjectAltName = DNS:$serverDomainName" \
     -new
 
 # Sign the certificate using the previously created CA
