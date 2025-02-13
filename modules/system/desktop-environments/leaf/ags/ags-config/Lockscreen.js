@@ -10,6 +10,8 @@ import { UserIcon, UserName } from './Modules/User.js'
 import icons from './icons.js';
 
 
+import * as Log from './Lib/Log.js'
+import * as Monitors from './Monitors.js'
 import * as Options from './Options/options.js'
 Options.GetOptions()
 
@@ -179,8 +181,8 @@ function LockscreenContents(monitorID){
     })
 }
 
-function createLockWindow(monitor, id){
-
+function createLockWindow(monitor, id, isDefault){
+    const lockscreenContents = isDefault ? LockscreenContents(id) : null
     const window = new Gtk.Window({
         // Background image
         child: Widget.Box({
@@ -191,7 +193,7 @@ function createLockWindow(monitor, id){
                 background-size: cover;
             `,
             children: [
-                LockscreenContents(id),
+                lockscreenContents,
             ],
         })
     })    
@@ -201,10 +203,22 @@ function createLockWindow(monitor, id){
 
 function lockScreen(){
     const display = Gdk.Display.get_default()
+
+    const userDefaultMonitor = Options.Options.user.display.default_monitor.value
+    let defaultMonitorID = 0
+
+    // Find the id num associated with the monitor identifier
+    if (Monitors.monitors[userDefaultMonitor] != undefined){
+        defaultMonitorID = Monitors.monitors[userDefaultMonitor]
+    }
+
+    Log.Info("defaultMonitorID: " + defaultMonitorID)
+
     // For all current monitors
     for (let m = 0; m < display.get_n_monitors(); m++) {
         const monitor = display.get_monitor(m)
-        createLockWindow(monitor, m)
+        const isDefault = (m === defaultMonitorID)
+        createLockWindow(monitor, m, isDefault)
     }
     lock.lock_lock()
     windows.forEach(w => {
