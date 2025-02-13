@@ -6,6 +6,7 @@ import Gio from 'gi://Gio';
 
 import * as Common from '../Lib/Common.js';
 import icons from '../icons.js';
+import colors from '../colors.js';
 
 // Notification service config
 Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
@@ -157,11 +158,12 @@ export const NotifCountBarIcon = () => Widget.Box({
         return false
     }),
     css: `
-        background-color: red;
-        min-width: 1.2rem;
-        min-height: 1.2rem;
+        background-color: ${colors.critical};
+        min-height: 1.4rem;
+        min-width: 1.4rem;
         font-size: 0.8rem;
-        border-radius: 100%;
+        font-weight: bold;
+        border-radius: 1.4rem;
     `,
     child: Widget.Label({
         hexpand: true,
@@ -170,9 +172,9 @@ export const NotifCountBarIcon = () => Widget.Box({
         vpack: "center",
         label: Notifications.bind('notifications').as(v => {
             if (v.length >= 100) {
-                return "99+"
+                return " 99+ "
             }
-            return v.length.toString()
+            return " " +v.length.toString() + " "
         })
     })
 })
