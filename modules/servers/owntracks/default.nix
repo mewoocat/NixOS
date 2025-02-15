@@ -7,6 +7,9 @@
       ${pkgs.owntracks-recorder}/bin/ot-recorder --initialize
     fi
   '';
+
+  domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
+  email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
 in {
 
   imports = [
@@ -17,7 +20,15 @@ in {
     # For the cli utilities
     owntracks-recorder
     mosquitto
+    openssl # For generating certificates
   ];
+
+  # TLS
+  # Generates ca, server, and client certs, as well as their corresponding keys
+  # TODO: Fix openssl not found
+  system.activationScripts."generate-ot-certs" = ''
+    ${./cert.sh} "/etc/ssl/certs/owntracks" "Private-CA" "Owntracks-Server" ${domain} "Owntracks-Client"
+  '';
 
   age.secrets = {
     mosquitto-reader-pass.file = inputs.secrets + "/mosquitto-reader-pass.age";
@@ -31,8 +42,8 @@ in {
     acceptTerms = true;
     certs = {
       owntracks = {
-        email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
-        domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
+        email = email;
+        domain = domain;
         #directory = "/var/lib/acme/owntracks"; # Default
         group = "mosquitto"; # So mosquitto can access the certificates
 
@@ -42,16 +53,6 @@ in {
       };
     };
   };
-
-  # TLS
-  # Generates: ca server and client certs, as well as their corresponding keys
-  system.activationScripts."owntracks-tls" = ''
-    certDir=/var/lib/mosquitto/tls/
-    mkdir -p "$certDir"
-    cd $certDir
-    ${./generate-CA.sh} example@test.com
-    ${./generate-CA.sh} client ot-app 
-  '';
 
   # MQTT Broker
   services.mosquitto = {
