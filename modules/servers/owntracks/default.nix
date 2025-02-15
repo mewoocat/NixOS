@@ -8,6 +8,10 @@
     fi
   '';
 
+  gen-certa = pkgs.stdenv.mkDerivation {
+    name = "gen-certs";
+  };
+
   domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
   email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
 in {
