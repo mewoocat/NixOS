@@ -18,6 +18,7 @@
 
   domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
   email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
+  certDir = "/etc/ssl/certs/owntracks";
 in {
 
   imports = [
@@ -35,7 +36,7 @@ in {
   # Generates ca, server, and client certs, as well as their corresponding keys
   # TODO: Fix openssl not found
   system.activationScripts."generate-ot-certs" = ''
-    ${generate-ot-certs}/bin/generate-ot-certs "/var/certs" "Private-CA" "Owntracks-Server" ${domain} "Owntracks-Client"
+    ${generate-ot-certs}/bin/generate-ot-certs "${certDir}" "Private-CA" "Owntracks-Server" ${domain} "Owntracks-Client"
   '';
 
   age.secrets = {
@@ -75,12 +76,8 @@ in {
         port = 8883;
         address = "0.0.0.0"; # Listen on all network interfaces
         #omitPasswordAuth = true;
-        settings = let 
-          #certDir = config.security.acme.certs.owntracks.directory;
-          certDir = /var/certs;
-        in {
+        settings = {
           #allow_anonymous = true;
-
           # For TLS
           cafile = "${certDir}/ca.crt";
           certfile = "${certDir}/server.crt";

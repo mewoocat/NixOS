@@ -16,6 +16,8 @@ clientCommonName=$5
 ################################################################
 numbits=4096
 days=365
+user=mosquitto
+group=mosquitto
 
 # Create the dir if it doesn't exist
 mkdir -p "$sslDir"
@@ -24,22 +26,27 @@ mkdir -p "$sslDir"
 ################################################################
 # Only generates ca.key and ca.crt if either doesn't exist
 if test ! -f "$sslDir/ca.key" || test ! -f "$sslDir/ca.crt"; then 
+    echo "------MAKING CA"
     # Create CA certificate and associated key
     openssl req \
         -new \
         -x509 \
         -days $days \
         -extensions v3_ca \
-        -keyout ca.key \
-        -out ca.crt \
+        -keyout "$sslDir/ca.key" \
+        -out "$sslDir/ca.crt" \
         -nodes \
         -subj "/CN=$caCommonName"
 fi
+
+chown "$user":"$group" "$sslDir/ca.crt"
+chmod 640 "$sslDir/ca.crt"
 
 # Server
 ################################################################
 # Only generates server.key and server.crt if either doesn't exist
 if test ! -f "$sslDir/server.key" || test ! -f "$sslDir/server.crt"; then 
+    echo "------MAKING SERVER at $sslDir"
     # Generate server key (Without encryption!)
     openssl genrsa \
         -out "$sslDir/server.key" \
@@ -67,8 +74,14 @@ if test ! -f "$sslDir/server.key" || test ! -f "$sslDir/server.crt"; then
         -days "$days"
 fi
 
+chown "$user":"$group" "$sslDir/server.crt"
+chown "$user":"$group" "$sslDir/server.key"
+chmod 640 "$sslDir/server.crt"
+chmod 640 "$sslDir/server.key"
+
 # Client
 ################################################################
+echo "------MAKING CLIENT"
 # Only generates client.key and client.crt if either doesn't exist
 if test ! -f "$sslDir/client.key" || test ! -f "$sslDir/client.crt"; then 
     # Generate client key
@@ -93,3 +106,4 @@ if test ! -f "$sslDir/client.key" || test ! -f "$sslDir/client.crt"; then
         -out "$sslDir/client.crt" \
         -days $days
 fi
+
