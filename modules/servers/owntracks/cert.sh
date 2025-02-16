@@ -26,7 +26,6 @@ mkdir -p "$sslDir"
 ################################################################
 # Only generates ca.key and ca.crt if either doesn't exist
 if test ! -f "$sslDir/ca.key" || test ! -f "$sslDir/ca.crt"; then 
-    echo "------MAKING CA"
     # Create CA certificate and associated key
     openssl req \
         -new \
@@ -46,7 +45,6 @@ chmod 640 "$sslDir/ca.crt"
 ################################################################
 # Only generates server.key and server.crt if either doesn't exist
 if test ! -f "$sslDir/server.key" || test ! -f "$sslDir/server.crt"; then 
-    echo "------MAKING SERVER at $sslDir"
     # Generate server key (Without encryption!)
     openssl genrsa \
         -out "$sslDir/server.key" \
@@ -81,7 +79,6 @@ chmod 640 "$sslDir/server.key"
 
 # Client
 ################################################################
-echo "------MAKING CLIENT"
 # Only generates client.key and client.crt if either doesn't exist
 if test ! -f "$sslDir/client.key" || test ! -f "$sslDir/client.crt"; then 
     # Generate client key
