@@ -8,8 +8,12 @@
     fi
   '';
 
-  gen-certa = pkgs.stdenv.mkDerivation {
-    name = "gen-certs";
+  generate-ot-certs = pkgs.writeShellApplication {
+    name = "generate-ot-certs";
+    runtimeInputs = with pkgs; [  
+      openssl
+    ];
+    text = builtins.readFile ./cert.sh;
   };
 
   domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
@@ -31,7 +35,7 @@ in {
   # Generates ca, server, and client certs, as well as their corresponding keys
   # TODO: Fix openssl not found
   system.activationScripts."generate-ot-certs" = ''
-    ${./cert.sh} "/etc/ssl/certs/owntracks" "Private-CA" "Owntracks-Server" ${domain} "Owntracks-Client"
+    ${generate-ot-certs}/bin/generate-ot-certs "/var/certs" "Private-CA" "Owntracks-Server" ${domain} "Owntracks-Client"
   '';
 
   age.secrets = {
@@ -42,6 +46,7 @@ in {
   };
 
   # Create TLS certificates
+  /*
   security.acme = {
     acceptTerms = true;
     certs = {
@@ -57,6 +62,7 @@ in {
       };
     };
   };
+  */
 
   # MQTT Broker
   services.mosquitto = {
@@ -70,14 +76,15 @@ in {
         address = "0.0.0.0"; # Listen on all network interfaces
         #omitPasswordAuth = true;
         settings = let 
-          certDir = config.security.acme.certs.owntracks.directory;
+          #certDir = config.security.acme.certs.owntracks.directory;
+          certDir = /var/certs;
         in {
           #allow_anonymous = true;
 
           # For TLS
-          cafile = "${certDir}/chain.pem";
-          certfile = "${certDir}/cert.pem";
-          keyfile = "${certDir}/key.pem";
+          cafile = "${certDir}/ca.crt";
+          certfile = "${certDir}/server.crt";
+          keyfile = "${certDir}/server.key";
 
           # For requiring client certificates to authenticate
           require_certificate = true;

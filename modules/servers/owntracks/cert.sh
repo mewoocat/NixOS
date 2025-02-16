@@ -22,7 +22,7 @@ mkdir -p "$sslDir"
 
 # Certificate Authority (CA)
 ################################################################
-# Only generates server.key and server.crt if either doesn't exist
+# Only generates ca.key and ca.crt if either doesn't exist
 if test ! -f "$sslDir/ca.key" || test ! -f "$sslDir/ca.crt"; then 
     # Create CA certificate and associated key
     openssl req \
