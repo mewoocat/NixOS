@@ -17,7 +17,7 @@
   };
 
   domain = "${builtins.readFile (inputs.secrets + "/plaintext/owntracks-domain.txt")}";
-  email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
+  #email = "${builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt")}";
   certDir = "/etc/ssl/certs/owntracks";
 in {
 
@@ -34,7 +34,6 @@ in {
 
   # TLS
   # Generates ca, server, and client certs, as well as their corresponding keys
-  # TODO: Fix openssl not found
   system.activationScripts."generate-ot-certs" = ''
     ${generate-ot-certs}/bin/generate-ot-certs "${certDir}" "Private-CA" "Owntracks-Server" ${domain} "Owntracks-Client"
   '';
@@ -46,7 +45,7 @@ in {
     gandiv5-pat.file = inputs.secrets + "/gandiv5-pat.age";
   };
 
-  # Create TLS certificates
+  # Create TLS certificates using DNS provider
   /*
   security.acme = {
     acceptTerms = true;
@@ -69,15 +68,12 @@ in {
   services.mosquitto = {
     enable = true;
     logType = [ "debug" ];
-    #logDest = [ "topic" ];
     listeners = [
       {
         #port = 1883; # Non TLS
         port = 8883;
         address = "0.0.0.0"; # Listen on all network interfaces
-        #omitPasswordAuth = true;
         settings = {
-          #allow_anonymous = true;
           # For TLS
           cafile = "${certDir}/ca.crt";
           certfile = "${certDir}/server.crt";
@@ -85,7 +81,10 @@ in {
 
           # For requiring client certificates to authenticate
           require_certificate = true;
-          #use_identity_as_username = false;
+
+          # For allowing login without username and password.
+          # Pretty sure it uses the CN of the client cert to determine the username.
+          #use_identity_as_username = false; 
         };
         users = {
           recorder = {
@@ -134,7 +133,7 @@ in {
   };
   
   networking.firewall.allowedTCPPorts = [ 
-    80 # HTTP
+    #80 # HTTP
     #1883 # MQTT
     8883 # MQTT TLS
     8083 # OwnTracks web interface
@@ -147,7 +146,6 @@ in {
   };
 
   # From: https://github.com/owntracks/recorder/blob/master/etc/ot-recorder.service
-  # TODO: Force restart on rebuild, currently need to restart manaully
   systemd.services.owntracks = {
     description = "OwnTracks Recorder";
     wants = [ "network-online.target" ];

@@ -16,10 +16,6 @@
   '';
 
   environment = { 
-    sessionVariables = {
-      
-    };
-
     etc = {
       "default/ot-recorder" = {
         text = ''
