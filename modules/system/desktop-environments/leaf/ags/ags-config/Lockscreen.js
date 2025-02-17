@@ -13,6 +13,7 @@ import icons from './icons.js';
 import * as Log from './Lib/Log.js'
 import * as Monitors from './Monitors.js'
 import * as Options from './Options/options.js'
+import * as Global from './Global.js'
 Options.GetOptions()
 
 const WeatherWidget = Weather()
@@ -30,7 +31,7 @@ if (!GtkSessionLock.is_supported()) {
 //////////////////////////////////////////////////////////////////////
 
 const scss = `${App.configDir}/Style/style.scss`
-const css = `${GLib.get_home_dir()}/.config/leaf-de/ags.css`
+const css = `${Global.leafConfigDir}/ags.css`
 Utils.exec(`sassc ${scss} ${css}`)
 Utils.monitorFile(
     `${App.configDir}/Style/_colors.scss`,

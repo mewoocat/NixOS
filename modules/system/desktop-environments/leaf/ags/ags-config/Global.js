@@ -1,4 +1,7 @@
 import Gtk from 'gi://Gtk'
+import GLib from 'gi://GLib'
+
+export const leafConfigDir = `${GLib.get_home_dir()}/.config/leaf-de`
 
 // Widget subclasses 
 export const ComboBoxText = Widget.subclass(Gtk.ComboBoxText)
