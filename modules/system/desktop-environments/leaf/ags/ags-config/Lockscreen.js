@@ -124,9 +124,12 @@ function LockscreenWidget(widget, w, h) {
 }
 
 function LockscreenContents(monitorID){
+    // idk why this was added
+    /*
     if (monitorID != 0){
         return null
     }
+    */
     return Widget.Overlay({
         hexpand: true,
         child: Widget.Box({
