@@ -38,4 +38,5 @@ nix run github:nix-community/nixos-anywhere -- \
     --extra-files "$temp" \
     --flake ".#$hostname" \
     --target-host "$user@$ip"\
-    -i "$targetKeyPath"
+    -i "$targetKeyPath" \
+    --generate-hardware-config nixos-generate-config ./hardware-configuration.nix

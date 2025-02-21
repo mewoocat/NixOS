@@ -14,7 +14,8 @@ This host is designed to be installed remotely via [nixos-anywhere](https://gith
 
 ### Install
 
-This will also automatically generate the `hardware-configuration.nix` file.
+This script **must** be ran from this directory (NixOS/hosts/maple)!
+This will also automatically generate the `hardware-configuration.nix` file.  
 
 | Parameter | Description |
 | - | - |
@@ -23,7 +24,6 @@ This will also automatically generate the `hardware-configuration.nix` file.
 | target_ssh_key_path | Path to the private key to authenticate the login on the target machine |
 | host_ssh_key_path | Path to the new private key for the installed host, needed to decrypt secrets |
 
-*Make sure to run the script from somewhere within this repo or else it won't find this flake*
 ```
 ./install.sh <ip> <user> <target_ssh_key_path> <host_ssh_key_path>
 ```
