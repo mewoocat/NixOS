@@ -17,6 +17,8 @@ This host is designed to be installed remotely via [nixos-anywhere](https://gith
 This script **must** be ran from this directory (NixOS/hosts/maple)!
 This will also automatically generate the `hardware-configuration.nix` file.  
 
+Before running this script, also ensure that the correct storage device to install to is set in `./disk-config.nix`.
+
 | Parameter | Description |
 | - | - |
 | ip | IP address of target machine to install NixOS on |

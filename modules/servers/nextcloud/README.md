@@ -73,8 +73,21 @@ For more details, see https://docs.nextcloud.com/server/latest/admin_manual/main
 ### Files & Configuration
 Backup the Nextcloud directory.  In this case the default is `/var/lib/nextcloud`.
 This includes the config.php and data/ directories.
+
+Switch to maintenance mode.
+
+```sh
+nextcloud-occ maintenance:mode --on
+```
+
 ```sh
 rsync -Aavx nextcloud/ nextcloud-dirbkp_`date +"%Y%m%d"`/
+```
+
+Turn maintenance mode off
+
+```sh
+nextcloud-occ maintenance:mode --off
 ```
 
 # Developing
