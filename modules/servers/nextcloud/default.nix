@@ -63,8 +63,9 @@
       # and cannot be declaritively changed
       dbtype = "mysql";
       /*
-      dbuser = "nextcloud";
       dbpassFile = "/etc/nextcloud-db-pass";
+      // Defaults
+      dbuser = "nextcloud";
       dbname = "nextcloud";
       */
       objectstore.s3.secretFile = "/tmp/nextcloud-config-secret";

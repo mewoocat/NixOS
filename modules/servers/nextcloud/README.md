@@ -18,6 +18,8 @@ Usefull installation info
 
 After installing this Nextcloud module, non Nix managed data, settings, and files can be restored from an existing Nextcloud instance.
 
+Probably should enter maintenance mode while doing these steps?
+
 #### Database
 It seems that importing a backup of a database into a new installation runs into a server exception if TOTP is setup.  I'm guessing this is due to the secret property in the config.php not matching.
 I'm not sure how to set this in the config.php yet.
@@ -28,6 +30,9 @@ I think the data/ backup may need to copied over to get the appdata for totp? (n
 ^ This is the fix!  Can login just fine with existing TOTP setup
 Need to check if the secret and salt config values also needed to be copied over from backup.  Almost positive that the secret and salt need to be copied over.  Should do this
 ^nvm, pretty sure now that they don't need to be copied over
+
+OK, the secret and salt NEED TO BE COPIED OVER!!!
+Right now just manually copy the values for the backed up config.php and paste them in the newly generated config.php at `/var/lib/nextcloud/config.php`
 
 Import database.sql with username "nextcloud" into database called "nextcloud"
 ```sh
