@@ -4,7 +4,7 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/disk/by-id/wwn-0x50026b76827f43b4";
+        device = "/dev/disk/by-id/wwn-0x50026b76827f43b4"; # idk why the other drive id didn't work
         type = "disk";
         content = {
           type = "gpt";
