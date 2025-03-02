@@ -10,18 +10,14 @@ inputs.nixpkgs.lib.nixosSystem {
     # Hardware
     ./hardware-configuration.nix
 
-    # Core system components
-    ../../modules/system
 
     # Desktop environment
     ../../modules/system/desktop-environments/kde
 
-    # Users
-    ../../users/eXia
-    ../../modules/gaming/gameLite.nix
+    #../../modules/gaming/gameLite.nix
 
     # Utilities
-    ../../modules/utilities
+    #../../modules/utilities
 
   ];
 }
