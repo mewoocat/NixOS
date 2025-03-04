@@ -28,8 +28,9 @@ in {
     ags-package
 
     # Dependencies
-    sassc
-    wf-recorder
+    bun # For transpiling typescript
+    sassc # scss transpiler
+    wf-recorder # Screen recording
     slurp # Used to select screen in wf-recorder
     python312Packages.gpustat
   ];  

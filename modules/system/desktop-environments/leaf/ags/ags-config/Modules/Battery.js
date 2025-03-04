@@ -96,9 +96,12 @@ export const BatteryWidget = (w, h) => Widget.Box({
 
 const batteryMenu = Widget.Menu({
     children: [
+        // Seems to cause gc errors
+        /*
         Widget.MenuItem({
-            child: BatteryCircle(),
+            //child: BatteryCircle(),
         }),
+        */
     ],
 })
 
