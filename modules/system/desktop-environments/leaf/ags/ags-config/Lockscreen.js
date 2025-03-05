@@ -9,11 +9,21 @@ import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 import icons from './icons.js';
 
-
 import * as Log from './Lib/Log.js'
 import * as Monitors from './Monitors.js'
 import * as Options from './Options/options.js'
 import * as Global from './Global.js'
+
+import * as Battery from './Modules/Battery.js';
+import * as Notification from './Modules/Notification.js'
+/*
+// TODO: Importing the network module introduces a lot of gc errors
+import * as Network from './Modules/Network.js';
+import * as Bluetooth from './Modules/Bluetooth.js';
+import * as Audio from './Modules/Audio.js';
+import * as NightLight from './Modules/NightLight.js'
+*/
+
 Options.GetOptions()
 
 const WeatherWidget = Weather()
@@ -168,6 +178,24 @@ function LockscreenContents(monitorID){
                     icon: icons.lock,
                 }),
                 center_widget: Clock(),
+                end_widget: Widget.Box({
+                    hpack: "end",
+                    css: `margin-right: 1.6em;`,
+                    spacing: 24,
+                    children: [
+                        Battery.BatteryLabel(), 
+                        /*
+                        Notification.DndBarIcon(), 
+                        NightLight.BarIcon(),
+                        Audio.MicrophoneIcon(),
+                        */
+                        //Network.NetworkIndicator(),
+                        /*
+                        Bluetooth.BluetoothIcon(),
+                        Audio.VolumeIcon(),
+                        */
+                    ]
+                })
             }),
                 
             // Bottom left

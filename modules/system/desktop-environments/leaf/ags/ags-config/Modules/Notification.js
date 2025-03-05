@@ -189,7 +189,7 @@ export const DndBarIcon = () => Widget.Icon({
     `,
 })
 
-export const dndToggle = Widget.Button({
+export const dndToggle = () => Widget.Button({
     class_name: "normal-button bg-button",
     onPrimaryClick: () => Notifications.dnd = !Notifications.dnd,
     child: Widget.Icon({
@@ -203,7 +203,7 @@ export const dndToggle = Widget.Button({
     })
 })
 
-const closeAllNotifButton = Widget.Button({
+const closeAllNotifButton = () => Widget.Button({
     class_name: "normal-button bg-button",
     //on_primary_click: () => Notifications.clear(), // Can cause crashes
     on_primary_click: ClearNotifications, // Can cause crashes
@@ -249,8 +249,8 @@ export const NotificationWidget = (w,h) => Widget.Box({
                 hexpand: true,
                 hpack: "end",
                 children: [
-                    dndToggle,
-                    closeAllNotifButton,
+                    dndToggle(),
+                    closeAllNotifButton(),
                 ],
             }),
         }),

@@ -77,7 +77,7 @@ const wirelessWidget = ControlPanelBox(
         hexpand: true,
         vertical: true,
         children: [
-            Network.wifiButton2x1,
+            Network.wifiButton2x1(),
             Bluetooth.bluetoothButton2x1,
         ],
     }),

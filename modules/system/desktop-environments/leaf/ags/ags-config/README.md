@@ -1,14 +1,7 @@
 # Developing
 Run ags for the config instance within the flake instead of rebuilding after each change
 
-For running with changes to additional ags windows spawned via `ags -t <window_name>`, run them instead via the cli and specify the config file.  
-Otherwise, it will run it with the default config.
-For example
-```sh
-ags -c ~/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/config.js -t ControlPanel
-```
-
-Or if using typescript
+Typescript example
 ```sh
 bun build /home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.ts \
     --outdir /tmp/ags/js \
@@ -16,6 +9,23 @@ bun build /home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-conf
     --external "gi://*"
 ags -b testing -c /tmp/ags/js/main.js
 ```
+
+For running with changes to additional ags windows spawned via `ags -t <window_name>`, run them instead via the cli and specify the config file.  
+Otherwise, it will run it with the default config.
+For example, assuming that the Typescript has been already transpiled to Javascript at `/tmp/ags/js/main.js`
+```sh
+ags -c /tmp/ags/js/main.js -t ControlPanel
+```
+
+Running lockscreen
+```sh
+bun build /home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/Lockscreen.js \
+    --outdir /tmp/ags/js \
+    --external "resource://*" \
+    --external "gi://*"
+ags -b lockscreen -c /tmp/ags/js/Lockscreen.js
+```
+
 
 # Credits
 ty to Aylur and Kotontrion:)

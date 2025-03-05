@@ -162,7 +162,7 @@ export const NetworkIndicator = () => Widget.Box({
     //self.show_all() // ^
 }) 
 
-export const ssid = Widget.Box({
+export const ssid = () => Widget.Box({
     children:[
         Widget.Label({
             class_name: "sub-text",
@@ -195,13 +195,13 @@ export const WifiPanelButton = (w, h) => Widget.Button({
         class_name: "control-panel-button-content",
         children:[
             WifiIcon(true, null),
-            ssid,
+            ssid(),
         ]
     }),
 })
 
 // 2 width x 1 height for grid
-export const wifiButton2x1 = Widget.Box({
+export const wifiButton2x1 = () => Widget.Box({
     children: [
         Widget.Button({         
             vpack: "center",
@@ -228,7 +228,7 @@ export const wifiButton2x1 = Widget.Box({
                         label: "Wi-Fi",
                         hpack: "start",
                     }),
-                    ssid,
+                    ssid(),
                 ],
             }),
         }),
@@ -354,7 +354,7 @@ function DeleteAP(){
     Utils.execAsync(`nmcli connection delete \"${ssid}\"`) 
 }
 
-const connectError = Widget.Label({
+const connectError = () => Widget.Label({
     css: `color: red;`,
     wrap: true,
     maxWidthChars: 24,
@@ -365,7 +365,7 @@ const connectError = Widget.Label({
 
 
 // Password entry
-const passwordEntry = Widget.Entry({
+const passwordEntry = () => Widget.Entry({
     class_name: "app-entry",
     placeholder_text: "Password",
     hexpand: true,
@@ -425,8 +425,8 @@ export const AccessPoint = () => Widget.Box({
             ],
         }),
 
-        passwordEntry,
-        connectError, // Only shows if error occurs while connecting
+        passwordEntry(),
+        connectError(), // Only shows if error occurs while connecting
 
         Widget.Box({
             spacing: 8,
