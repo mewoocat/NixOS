@@ -1,7 +1,7 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
 
-//const entry = App.configDir + '/main.ts'
-const entry = '/home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.ts' // For development
+const entry = App.configDir + '/main.ts'
+//const entry = '/home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.ts' // For development
 const outdir = '/tmp/ags/js'
 
 try {

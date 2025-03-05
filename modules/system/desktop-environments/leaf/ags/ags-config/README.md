@@ -8,6 +8,15 @@ For example
 ags -c ~/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/config.js -t ControlPanel
 ```
 
+Or if using typescript
+```sh
+bun build /home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.ts \
+    --outdir /tmp/ags/js \
+    --external "resource://*" \
+    --external "gi://*"
+ags -b testing -c /tmp/ags/js/main.js
+```
+
 # Credits
 ty to Aylur and Kotontrion:)
 and everyone else along the way
