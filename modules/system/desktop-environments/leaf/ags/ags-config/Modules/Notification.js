@@ -170,11 +170,12 @@ export const NotifCountBarIcon = () => Widget.Box({
         vexpand: true,
         hpack: "center",
         vpack: "center",
+        class_name: "notif-count-bar-icon",
         label: Notifications.bind('notifications').as(v => {
             if (v.length >= 100) {
                 return " 99+ "
             }
-            return " " +v.length.toString() + " "
+            return " " + v.length.toString() + " "
         })
     })
 })
