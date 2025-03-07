@@ -17,10 +17,11 @@ These certificates are generated at `/etc/ssl/certs/owntracks` by default.
 ##### Installing CA Certificate
 Copy the ca.crt file to the client device and install it.
 
-**iOS Note** The certifcate will be untrusted by default so it should be manually marked as trusted from with the settings. 
+**iOS Note** The certifcate will be untrusted by default so it should be manually marked as trusted from within Settings > General > About > Certificate Trust Settings
 
 ##### Installing Client Certificate
 To install the client certificate an extra step is needed to prepare the cert and key.  The OwnTracks client requires the client certificate to be in this password protected format.
+
 ```
 openssl pkcs12 -legacy -export -in client.crt -inkey client.key -name "Owntracks Client Certificate" -out client.p12
 ```
