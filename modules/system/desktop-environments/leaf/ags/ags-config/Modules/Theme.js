@@ -148,7 +148,8 @@ const ThemeSelectionButton = (theme) => {
         class_name: "normal-button",
         on_primary_click: () => {
             Log.Info(`Setting active theme to ${theme.name}`)
-            Utils.execAsync(`theme -a ${theme.name}`)
+            Log.Info(`JSON theme object ${JSON.stringify(theme)}`)
+            Utils.execAsync(`theme -A '${JSON.stringify(theme)}'`) // Set theme from json object 
         },
         child: Widget.Box({
             vertical: true,
