@@ -133,15 +133,17 @@ const ThemeSelectionButton = (theme) => {
         colorGrid.attach(colorWidget, i, 1, 1, 1)
     }
 
+    let wallpaperImageThumbnail
+
     // Try to load the image
     try {
         Log.Info(`Loading image from ${wallpaperImage} ...`)
-        GdkPixbuf.Pixbuf.new_from_file(wallpaperImage) 
+        wallpaperImageThumbnail = GdkPixbuf.Pixbuf.new_from_file(wallpaperImage).scale_simple(64, 64, GdkPixbuf.InterpType.BILINEAR)
     }
     catch (err){
         Log.Error(err)
         Log.Error("Image load failed, using fallback")
-        wallpaperImage = icons.invalidWallpaper 
+        wallpaperImageThumbnail = icons.invalidWallpaper 
     }
 
     const themeWidget = Widget.Button({
@@ -165,7 +167,7 @@ const ThemeSelectionButton = (theme) => {
                     children: [
                         // Wallpaper
                         Widget.Icon({
-                            icon: wallpaperImage, 
+                            icon: wallpaperImageThumbnail, 
                             size: 64,
                         }),
                         // Colorscheme
