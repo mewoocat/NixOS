@@ -76,6 +76,7 @@
       vlc
       inputs.ghostty.packages."${pkgs.system}".default
       yubioath-flutter
+      librewolf
     ];
   };
 
