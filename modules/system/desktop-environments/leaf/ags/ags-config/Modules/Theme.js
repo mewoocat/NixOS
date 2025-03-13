@@ -2,6 +2,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import GdkPixbuf from 'gi://GdkPixbuf'
 import GLib from 'gi://GLib'
+import Gtk from 'gi://Gtk'
 
 import * as Global from '../Global.js'
 import * as Common from '../Lib/Common.js'
@@ -138,13 +139,42 @@ const ThemeSelectionButton = (theme) => {
     // Try to load the image
     try {
         Log.Info(`Loading image from ${wallpaperImage} ...`)
-        wallpaperImageThumbnail = GdkPixbuf.Pixbuf.new_from_file(wallpaperImage).scale_simple(64, 64, GdkPixbuf.InterpType.BILINEAR)
+
+        // Load image, crop to 16:9, and scale down
+        const wallpaper = GdkPixbuf.Pixbuf.new_from_file(wallpaperImage)
+        const targetWidth = 128
+        let width = wallpaper.get_width()
+        let height = wallpaper.get_height()
+        let xOrigin = 0
+        let yOrigin = 0
+        const aspectRatio = width / height
+        // If relative width is greater
+        if (aspectRatio > (16 / 9)) {
+            // Adjust width to match
+            const adjustedWidth = Math.floor(height * (16 / 9))
+            xOrigin = Math.floor((width - adjustedWidth) / 2)
+            width = adjustedWidth
+        }
+        // If relative height is greater
+        else if (aspectRatio < (16 / 9)) {
+            // Adjust height to match
+            const adjustedHeight = Math.floor(width * (9 / 16))
+            yOrigin = Math.floor((height - adjustedHeight) / 2)
+            height = adjustedHeight
+        }
+        const wallpaperCropped = wallpaper.new_subpixbuf(xOrigin, yOrigin, width, height)
+        const wallpaperScaled = wallpaperCropped.scale_simple(targetWidth, targetWidth * (9 / 16), GdkPixbuf.InterpType.BILINEAR)
+        wallpaperImageThumbnail = wallpaperScaled
+
     }
     catch (err){
         Log.Error(err)
         Log.Error("Image load failed, using fallback")
         wallpaperImageThumbnail = icons.invalidWallpaper 
     }
+
+    const imageWidget = new Gtk.Image()
+    imageWidget.set_from_pixbuf(wallpaperImageThumbnail)
 
     const themeWidget = Widget.Button({
         class_name: "normal-button",
@@ -166,10 +196,13 @@ const ThemeSelectionButton = (theme) => {
                     vertical: true,
                     children: [
                         // Wallpaper
+                        imageWidget,
+                        /*
                         Widget.Icon({
                             icon: wallpaperImageThumbnail, 
                             size: 64,
                         }),
+                        */
                         // Colorscheme
                         Widget.Box({
                             css: `
