@@ -142,7 +142,7 @@ const ThemeSelectionButton = (theme) => {
 
         // Load image, crop to 16:9, and scale down
         const wallpaper = GdkPixbuf.Pixbuf.new_from_file(wallpaperImage)
-        const targetWidth = 128
+        const targetWidth = 180
         let width = wallpaper.get_width()
         let height = wallpaper.get_height()
         let xOrigin = 0
@@ -190,19 +190,15 @@ const ThemeSelectionButton = (theme) => {
                 // Name
                 Widget.Label({
                     hpack: "start",
+                    css: `
+                        font-weight: bold;
+                    `,
                     label: theme.name,
                 }),
-                Widget.Box({
-                    vertical: true,
-                    children: [
-                        // Wallpaper
-                        imageWidget,
-                        /*
-                        Widget.Icon({
-                            icon: wallpaperImageThumbnail, 
-                            size: 64,
-                        }),
-                        */
+                Widget.Overlay({
+                    pass_through: true,
+                    child: imageWidget, // wallpaper
+                    overlays: [
                         // Colorscheme
                         Widget.Box({
                             css: `
