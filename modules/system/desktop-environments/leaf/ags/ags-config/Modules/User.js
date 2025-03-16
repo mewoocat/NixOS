@@ -1,6 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
-import App from 'resource:///com/github/Aylur/ags/app.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
+import GdkPixbuf from 'gi://GdkPixbuf'
 
 import * as Global from '../Global.js'
 import * as Log from '../Lib/Log.js'
@@ -9,7 +9,7 @@ export const user = Variable("...", {
     poll: [60000, 'whoami', out => out]
 });
 
-const defaultPFPPath = `${App.configDir}/assets/default-pfp.png`
+const defaultPFPPath = `${Global.leafDir}/assets/default-pfp.png`
 const pfpPath = `${Global.leafConfigDir}/pfp`
 
 export const UserIcon = (size = 2) => {
@@ -32,6 +32,7 @@ export const UserIcon = (size = 2) => {
     let widget
     // Try to load user provided pfp
     try {
+        GdkPixbuf.Pixbuf.new_from_file(pfpPath) // Just attempt to load the file to check if it's valid
         widget = createUserIconWidget(size, pfpPath)
     // If error occurs, use default
     } catch (error) {
