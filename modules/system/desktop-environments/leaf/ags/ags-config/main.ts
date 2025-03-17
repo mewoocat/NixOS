@@ -78,17 +78,14 @@ function InitilizeWindows(){
 
 App.config({
     style: Style.css, 
+    /*
     closeWindowDelay: {
         // For delaying the closing of a window util the ags animation finished
-        /*
-        "ControlPanel":     150, // milliseconds
-        "applauncher":      150, // milliseconds
-        "ActivityCenter":   150, // milliseconds
-        */
-        "ControlPanel":     0, // milliseconds
-        "applauncher":      0, // milliseconds
-        "ActivityCenter":   0, // milliseconds
+        "ControlPanel":     400, // milliseconds
+        "applauncher":      400, // milliseconds
+        "ActivityCenter":   400, // milliseconds
     },
+    */
     windows: InitilizeWindows(),
 });
 
