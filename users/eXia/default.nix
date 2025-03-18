@@ -77,6 +77,7 @@
       inputs.ghostty.packages."${pkgs.system}".default
       yubioath-flutter
       librewolf
+      onlyoffice-desktopeditors
     ];
   };
 
