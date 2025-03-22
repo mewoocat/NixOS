@@ -38,6 +38,7 @@ import * as Bar from './Windows/Bar.js';
 import * as ControlPanel from './Windows/ControlPanel.js';
 import * as Monitors from './Monitors.js'
 import * as SettingsWin from './Windows/Settings.js';
+import * as Keybinds from './Windows/keybinds.ts';
 import * as Style from './Style/style.js'
 
 // Compile and apply scss as css
@@ -71,7 +72,9 @@ function InitilizeWindows(){
         ActivityCenter.ActivityCenter(),
         NotificationPopup.NotificationPopup(), 
         SettingsWin.SettingsWin(),
+        Keybinds.Window(),
         //Dock.Dock()
+
     ]
     return windows
 }
