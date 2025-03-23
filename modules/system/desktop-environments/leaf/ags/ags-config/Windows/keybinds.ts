@@ -12,16 +12,10 @@ type keybind = {
     category: string
 }
 
-const sampleKeybind: keybind = {
-    keyCombo: "Super + x",
-    description: "Open app launcher",
-    category: "General"
-}
-
 const WINDOW_NAME = "Keybinds"
 
 const KeybindGrid = Global.Grid()
-let keybinds: keybind[] = [];
+let keybinds = {};
 /*
 keybinds.push(sampleKeybind)
 keybinds.push(sampleKeybind)
@@ -36,7 +30,16 @@ const readInKeybinds = (): void => {
     // of spaces between and around the words
     const keybindPattern = new RegExp("^(?!#) *bind *= *")
     const keyComboPattern = new RegExp("(?<= *bind *= *).*")
+    const mainModPattern = /^\s*\$mainMod\s*=\s*(.*)/
+    let mainMod = "N/A"
     for (const line of lines) {
+        // Check for mainMod value
+        const mainModMatch = mainModPattern.exec(line)
+        if (mainModMatch !== null) {
+            mainMod = mainModMatch[1] // Access first capturing group
+            Log.Info(`Found mainMod of ${mainMod}`)
+        }
+
         if (line.match(keybindPattern)){
             let keyCombo: string = "N/A"
             let description: string = "N/A"
@@ -45,14 +48,15 @@ const readInKeybinds = (): void => {
             const keyComboMatch = keyComboPattern.exec(line)?.toString().split(',')
             if (keyComboMatch !== undefined) {
                 Log.Info(keyComboMatch[0] + ' ' + keyComboMatch[1])
-                keyCombo = keyComboMatch[0] + ' ' + keyComboMatch[1]
+                keyCombo = keyComboMatch[0] + ' + ' + keyComboMatch[1]
+                //keyCombo = keyCombo.replace("$mainMod", mainMod)
             }
             const descriptionAndCategoryPattern = new RegExp("(?<=#).*")
             const descriptionAndCategoryMatch = descriptionAndCategoryPattern.exec(line)?.toString().split('#')
             if (descriptionAndCategoryMatch !== undefined) {
                 Log.Info(descriptionAndCategoryMatch)
-                description = descriptionAndCategoryMatch[0]
-                category = descriptionAndCategoryMatch[1]
+                category = descriptionAndCategoryMatch[0]
+                description = descriptionAndCategoryMatch[1]
             }
 
             const keybind = {
@@ -61,7 +65,10 @@ const readInKeybinds = (): void => {
                 category: category
             }
 
-            keybinds.push(keybind)
+            if (keybinds[category] === undefined) {
+                keybinds[category] = []
+            }
+            keybinds[category].push(keybind)
         }
     }
 }
@@ -73,26 +80,35 @@ const createKeybindWidget = (keybind: keybind): void => {
         children: [
             Widget.Label(keybind.keyCombo),
             Widget.Label(keybind.description),
-            Widget.Label(keybind.category),
         ]
     })
 }
 
+//Log.Info(JSON.stringify(keybinds, null, 4))
+
 const generateKeybindWidgets = (): void => {
     let row = 1
     let column = 1
-    for (const keybind of keybinds) {
-        const widget = createKeybindWidget(keybind)
-        KeybindGrid.attach(widget, column, row, 1, 1)
-        column++
-        if (column > 4) {
-            row++
-            column = 1 
+
+    const categories = Object.keys(keybinds)
+    Log.Info(`keybind categories: ${categories}`)
+    for (const category of categories) {
+        const categoryLabelWidget = Widget.Label(category)
+        const categoryGrid = Global.Grid()
+        let categoryRow = 2
+        let categoryColumn = 1
+        categoryGrid.attach(categoryLabelWidget, 1, 1, 1, 1)
+            Log.Info(`!!!!!!!!!!!!!!!! ${keybinds[category]}`)
+        for (const keybind of keybinds[category]) {
+            const widget = createKeybindWidget(keybind)
+            categoryGrid.attach(widget, categoryColumn, categoryRow, 1, 1)
+            categoryRow++
         }
+        KeybindGrid.attach(categoryGrid, column, row, 1, 1)
+        row++
     }
 }
 
-readInKeybinds()
 generateKeybindWidgets()
 
 const Container = () => Widget.Box({
