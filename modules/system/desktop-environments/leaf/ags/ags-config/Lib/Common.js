@@ -91,9 +91,9 @@ export function CloseOnClickAway(windowName, content, layout) {
                     vertical: true,
                     hexpand: false,
                     children: [
-                        ClickSpace(windowName),
+                        //ClickSpace(windowName),
                         content,
-                        ClickSpace(windowName)
+                        //ClickSpace(windowName)
                     ]
                 }),
                 ClickSpace(windowName),

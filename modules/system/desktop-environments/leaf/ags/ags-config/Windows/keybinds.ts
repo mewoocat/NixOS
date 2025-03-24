@@ -105,7 +105,12 @@ const generateKeybindWidgets = (): void => {
             categoryRow++
         }
         KeybindGrid.attach(categoryGrid, column, row, 1, 1)
-        row++
+        //row++
+        column++
+        if(column > 3){
+            column = 1
+            row++
+        }
     }
 }
 
@@ -114,6 +119,12 @@ generateKeybindWidgets()
 const Container = () => Widget.Box({
     class_name: "toggle-window",
     vertical: true,
+    /*
+    css: `
+        min-width: 1000px;
+        min-height: 500px;
+    `,
+    */
     children: [
         Widget.Label({
             label: "Keybinds"
