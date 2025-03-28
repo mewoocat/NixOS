@@ -93,7 +93,18 @@ const generateKeybindWidgets = (): void => {
     const categories = Object.keys(keybinds)
     Log.Info(`keybind categories: ${categories}`)
     for (const category of categories) {
-        const categoryLabelWidget = Widget.Label(category)
+        const categoryLabelWidget = Widget.Box({
+            vertical: true,
+            children: [
+                Widget.Label({
+                    class_name: "large-text",
+                    hpack: "start",
+                    label: category,
+                    css: `background-color: red;`
+                }),
+                Widget.Separator({class_name: "horizontal-separator"}),
+            ]
+        })
         const categoryGrid = Global.Grid()
         let categoryRow = 2
         let categoryColumn = 1
