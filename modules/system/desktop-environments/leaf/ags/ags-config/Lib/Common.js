@@ -83,20 +83,21 @@ export function CloseOnClickAway(windowName, content, layout) {
             ],
         })
     }
+    // TODO: In the future this layout should allow for an adjustable clickspace area
     else if (layout === "center") {
         return Widget.Box({
             children: [
-                ClickSpace(windowName),
+                //ClickSpace(windowName),
                 Widget.Box({
                     vertical: true,
-                    hexpand: false,
+                    hexpand: true,
                     children: [
                         //ClickSpace(windowName),
                         content,
                         //ClickSpace(windowName)
                     ]
                 }),
-                ClickSpace(windowName),
+                //ClickSpace(windowName),
             ],
         })
     }

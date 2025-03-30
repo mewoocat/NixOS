@@ -14,13 +14,13 @@ type keybind = {
 
 const WINDOW_NAME = "Keybinds"
 
-const KeybindGrid = Global.Grid()
+const keybindFlowBox = Widget.FlowBox({
+    //max_children_per_line: 3,
+    row_spacing: 8,
+    column_spacing: 8,
+})
+
 let keybinds = {};
-/*
-keybinds.push(sampleKeybind)
-keybinds.push(sampleKeybind)
-keybinds.push(sampleKeybind)
-*/
 
 const readInKeybinds = (): void => {
     const hyprlandConfigPath = `${GLib.get_home_dir()}/.config/hypr/hyprland.conf`
@@ -49,7 +49,7 @@ const readInKeybinds = (): void => {
             if (keyComboMatch !== undefined) {
                 Log.Info(keyComboMatch[0] + ' ' + keyComboMatch[1])
                 keyCombo = keyComboMatch[0] + ' + ' + keyComboMatch[1]
-                //keyCombo = keyCombo.replace("$mainMod", mainMod)
+                keyCombo = keyCombo.replace("$mainMod", mainMod)
             }
             const descriptionAndCategoryPattern = new RegExp("(?<=#).*")
             const descriptionAndCategoryMatch = descriptionAndCategoryPattern.exec(line)?.toString().split('#')
@@ -76,10 +76,17 @@ readInKeybinds()
 
 const createKeybindWidget = (keybind: keybind): void => {
     return Widget.Box({
-        spacing: 4,
+        css: `
+            padding: 0.2rem;
+        `,
+        spacing: 16,
         children: [
+            Widget.Label({
+                hexpand: true,
+                hpack: "start",
+                label: keybind.description,
+            }),
             Widget.Label(keybind.keyCombo),
-            Widget.Label(keybind.description),
         ]
     })
 }
@@ -87,12 +94,11 @@ const createKeybindWidget = (keybind: keybind): void => {
 //Log.Info(JSON.stringify(keybinds, null, 4))
 
 const generateKeybindWidgets = (): void => {
-    let row = 1
-    let column = 1
 
     const categories = Object.keys(keybinds)
-    Log.Info(`keybind categories: ${categories}`)
     for (const category of categories) {
+        let categoryChildren: Widget[] = []
+
         const categoryLabelWidget = Widget.Box({
             vertical: true,
             children: [
@@ -100,28 +106,21 @@ const generateKeybindWidgets = (): void => {
                     class_name: "large-text",
                     hpack: "start",
                     label: category,
-                    css: `background-color: red;`
                 }),
                 Widget.Separator({class_name: "horizontal-separator"}),
             ]
         })
-        const categoryGrid = Global.Grid()
-        let categoryRow = 2
-        let categoryColumn = 1
-        categoryGrid.attach(categoryLabelWidget, 1, 1, 1, 1)
-            Log.Info(`!!!!!!!!!!!!!!!! ${keybinds[category]}`)
+        categoryChildren.push(categoryLabelWidget)
+
         for (const keybind of keybinds[category]) {
             const widget = createKeybindWidget(keybind)
-            categoryGrid.attach(widget, categoryColumn, categoryRow, 1, 1)
-            categoryRow++
+            categoryChildren.push(widget)
         }
-        KeybindGrid.attach(categoryGrid, column, row, 1, 1)
-        //row++
-        column++
-        if(column > 3){
-            column = 1
-            row++
-        }
+        const categoryBox = Widget.Box({
+            vertical: true,
+            children: categoryChildren,
+        })
+        keybindFlowBox.add(categoryBox)
     }
 }
 
@@ -143,7 +142,7 @@ const Container = () => Widget.Box({
         Widget.Scrollable({
             vexpand: true,
             hscroll: "never",
-            child: KeybindGrid,
+            child: keybindFlowBox,
         })
     ],
 })
