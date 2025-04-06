@@ -1,7 +1,7 @@
 # Host: maple
 # Nextcloud home server
 {inputs}:
-inputs.nixpkgs.lib.nixosSystem {
+inputs.nixpkgs-server.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
