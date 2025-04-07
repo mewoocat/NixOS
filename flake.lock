@@ -1142,6 +1142,22 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/e9b51731911566bbf7e4895475a87fe06961de0b.tar.gz"
       }
     },
+    "nixpkgs-server": {
+      "locked": {
+        "lastModified": 1743813633,
+        "narHash": "sha256-BgkBz4NpV6Kg8XF7cmHDHRVGZYnKbvG0Y4p+jElwxaM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7819a0d29d1dd2bc331bec4b327f0776359b1fa6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1733423277,
@@ -3282,6 +3298,7 @@
         "myNvimNvf": "myNvimNvf",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_14",
+        "nixpkgs-server": "nixpkgs-server",
         "nixpkgs-stable": "nixpkgs-stable_3",
         "zen-browser": "zen-browser"
       }
