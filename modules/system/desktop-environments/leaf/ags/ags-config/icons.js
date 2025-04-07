@@ -19,4 +19,5 @@ export default{
     close: "window-close-symbolic",
     notification: "notification-symbolic",
     notificationDisabled: "notifications-disabled-symbolic",
+    theme: "org.gnome.Settings-color-symbolic",
 }

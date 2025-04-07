@@ -3,6 +3,8 @@ import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gdk from 'gi://Gdk';
 
+import * as Log from './Log.js'
+
 /**
   * @param {number} length
   * @param {number=} start
@@ -81,20 +83,21 @@ export function CloseOnClickAway(windowName, content, layout) {
             ],
         })
     }
+    // TODO: In the future this layout should allow for an adjustable clickspace area
     else if (layout === "center") {
         return Widget.Box({
             children: [
-                ClickSpace(windowName),
+                //ClickSpace(windowName),
                 Widget.Box({
                     vertical: true,
-                    hexpand: false,
+                    hexpand: true,
                     children: [
-                        ClickSpace(windowName),
+                        //ClickSpace(windowName),
                         content,
-                        ClickSpace(windowName)
+                        //ClickSpace(windowName)
                     ]
                 }),
-                ClickSpace(windowName),
+                //ClickSpace(windowName),
             ],
         })
     }
@@ -140,4 +143,27 @@ export function CircleButton(icon, action, params, size = 2){
     })
 }
 
-
+/*
+ *  Returns null or a json object
+ */
+export function ReadJSONFile(path){
+    Log.Info(`Reading contents from ${path}`)
+    let contents = null
+    try {
+        contents = Utils.readFile(path)
+    }
+    catch (err) {
+        Log.Error(`Could not read ${path}`)
+        return null;
+    }
+    // Logging
+    //print(`INFO: Common.js ReadJSONFile file contents for ${path}`)
+    //print(contents)
+    try {
+        return JSON.parse(contents)
+    }
+    catch (err) {
+        Log.Error(`Could not parse the contents of ${path} as json`)
+        return null;
+    }
+}

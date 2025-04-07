@@ -10,6 +10,7 @@ import * as Network from '../Modules/Network.js';
 import * as Audio from '../Modules/Audio.js';
 import * as Bluetooth from '../Modules/Bluetooth.js';
 import * as Settings from '../Modules/Settings.js'
+import * as Log from '../Lib/Log.js'
 import icons from '../icons.js';
 
 
@@ -106,6 +107,13 @@ function Container(name, contents){
             */
             contents,
         ],
+        setup: (self) => {
+            // Trying to react to resizing
+            // Doesn't work :(
+            self.connect("size-allocate", (widget, allocation) =>{
+                Log.Info(`Window size: ${allocation.width}x${allocation.height}`)
+            })
+        }
     })
 }
 
@@ -261,5 +269,5 @@ export const SettingsWin = () => Window({
             return true
         })
     },
-});
+})
 

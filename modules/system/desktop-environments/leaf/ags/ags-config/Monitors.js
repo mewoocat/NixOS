@@ -1,5 +1,6 @@
-
 import Gdk from 'gi://Gdk'
+
+import * as Log from './Lib/Log.js'
 
 // Obtaining monitor information
 const display = Gdk.Display.get_default()
@@ -10,6 +11,6 @@ for (var i = 0; i < numMonitors; i++){
     // Add monitor
     //monitors[`${i}`] = monitor.get_model();
     monitors[`${monitor.get_model()}`] = i;
-    print("INFO: Detected monitor id " + i + " as " + monitor.get_model())
+    Log.Info("Detected monitor id " + i + " as " + monitor.get_model())
 }
 

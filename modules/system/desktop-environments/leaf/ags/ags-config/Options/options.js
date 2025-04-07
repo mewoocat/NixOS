@@ -4,10 +4,11 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
 import Variable from 'resource:///com/github/Aylur/ags/variable.js'
 import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
-import * as Style from '../Style/style.js'
 import * as Weather from '../Modules/Weather.js'
 import * as Global from '../Global.js'
 import * as Monitors from '../Monitors.js'
+import * as Common from '../Lib/Common.js'
+import * as Log from '../Lib/Log.js'
 
 
 
@@ -55,8 +56,6 @@ export function CreateOptionWidget(option){
             return Widget.Switch({
                 class_name: "switch-off",
                 onActivate: (self) => {
-                    //print("INFO: Switch onActivate called")
-                    //print("INFO: self.active: " + self.active)
                     self.toggleClassName("switch-off", !self.active)
                     self.toggleClassName("switch-on", self.active)
                     settingsChanged.value = true
@@ -78,7 +77,6 @@ export function CreateOptionWidget(option){
                 increments: [1, 5],
                 value: option.value,
                 onValueChanged: (self) => {
-                    print(self.value)
                     settingsChanged.value = true
                 },
             })
@@ -114,20 +112,20 @@ export function CreateOptionWidget(option){
                     self.set_active_id(active.toString())
 
                     self.on("changed", self => {
-                        print("INFO: ComboBoxText modified to:" + self.get_active_text())
+                        Log.Info("ComboBoxText modified to:" + self.get_active_text())
                         settingsChanged.value = true
                     })
                 },
             })
         default:
-            print("Invalid CreateOptionWidget() type")
+            Log.Error("Invalid CreateOptionWidget() type")
             return null
     }
 }
 
 // Load in options as widgets to destination FlowBox
 export const LoadOptionWidgets = (options, dst) => {
-    print("Loading options into widgets...")
+    Log.Info("Loading options into widgets...")
 
     // Iterate over each option in the provided options object
     for (let key in options){
@@ -154,10 +152,10 @@ export const LoadOptionWidgets = (options, dst) => {
 function InitilizeOptions(){
     //data = JSON.parse(Utils.readFile(configPath + configName))
     if (data == null){
-        print("ERROR: Parsing UserSettings.json failed")
+        Log.Error("Parsing UserSettings.json failed")
         return
     }
-    print("Initing user options")
+    Log.Info("Initing user options")
 
     // Restart the weather polling variable
     // Since the lat and lon have been read in, it can retrieve the weather data
@@ -314,7 +312,7 @@ function InitilizeOptions(){
             }
         }
     }
-    print("User options initilized:")
+    Log.Info("User options initilized:")
     //print(JSON.stringify(Options.user, null, 4))
 }
 
@@ -322,6 +320,16 @@ function InitilizeOptions(){
 // Refreshes the contents of data
 export function GetOptions() {
     // Read in user settings
+    const configData = Common.ReadJSONFile(configPath + configName)
+    if (configData == null) {
+        Log.Error("Could not read in user config")
+        App.quit() // Maybe we should continue execution here?
+    }
+    data = configData
+    InitilizeOptions()
+    
+    // Old code
+    /*
     try {
         print(`Reading in ${configPath + configName}`)
         data = JSON.parse(Utils.readFile(configPath + configName))
@@ -356,6 +364,7 @@ export function GetOptions() {
             App.quit()
         }
     }
+    */
 }
 
 function GetOptionValue(opt){
@@ -372,7 +381,7 @@ function GetOptionValue(opt){
         value = opt.widget.get_active_text()
     }
     else{
-        print("ERROR: Invalid option type")
+        Log.Error("Invalid option type")
     }
     return value 
 }
@@ -396,7 +405,7 @@ export function ApplySettings(){
         for (let optKey in Options.user[categoryKey]){
             let opt = Options.user[categoryKey][optKey]
             let value = GetOptionValue(opt)
-            print("opt = " + opt)
+            Log.Info("opt = " + opt)
             // Set the updated value in the json data
             data.options[categoryKey][optKey] = value
 
@@ -409,11 +418,9 @@ export function ApplySettings(){
                 hyprlandConfig = hyprlandConfig.concat(opt.beforeStr + value + opt.afterStr + "\n")
             }
         }
-        print("value")
-        print(data.options.general.gaps_in.value)
     }
 
-    print("hyprlandConfig")
+    Info.Log("hyprlandConfig:")
     print(hyprlandConfig)
 
     // Write out Hyprland settings files
@@ -425,8 +432,6 @@ export function ApplySettings(){
     Hyprland.messageAsync(`reload`)
 
     WriteOutSettingsFile()
-
-    print("settingsChanged?")
     settingsChanged.value = false 
 }
 

@@ -5,6 +5,11 @@
   inputs,
   ...
 }: {
+
+  imports = [
+    inputs.agenix.nixosModules.default
+  ];
+
   nix = {
     settings = {
       # Cachix for Hyprland
@@ -38,12 +43,17 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.agenix.packages."${system}".default # Agenix cli client
     man-pages
   ];
 
   #services.envfs.enable = true; # Populate /usr/bin with binaries # This appears broken
   security.rtkit.enable = true; # rtkit is optional but recommended
   services.gvfs.enable = true; # File file manager func.
+  services.pcscd.enable = true; # For hardware keys
+  services.udev.packages = with pkgs; [
+    #libfido2 # For hardware keys, not needed?
+  ];
 
   programs.xfconf.enable = true;
 }

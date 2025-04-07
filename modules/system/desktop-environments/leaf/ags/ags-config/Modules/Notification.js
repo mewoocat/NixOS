@@ -4,8 +4,9 @@ import Utils from 'resource:///com/github/Aylur/ags/utils.js'
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio';
 
-import * as Common from './../Common.js';
+import * as Common from '../Lib/Common.js';
 import icons from '../icons.js';
+import colors from '../colors.js';
 
 // Notification service config
 Notifications.clearDelay = 100 // Helps prevent crashes when calling `Notifications.clear()`
@@ -157,18 +158,25 @@ export const NotifCountBarIcon = () => Widget.Box({
         return false
     }),
     css: `
-        background-color: red;
-        min-width: 1.2rem;
-        min-height: 1.2rem;
+        background-color: ${colors.critical};
+        min-height: 1.4rem;
+        min-width: 1.4rem;
         font-size: 0.8rem;
-        border-radius: 100%;
+        font-weight: bold;
+        border-radius: 1.4rem;
     `,
     child: Widget.Label({
         hexpand: true,
         vexpand: true,
         hpack: "center",
         vpack: "center",
-        label: Notifications.bind('notifications').as(v => v.length.toString())
+        class_name: "notif-count-bar-icon",
+        label: Notifications.bind('notifications').as(v => {
+            if (v.length >= 100) {
+                return " 99+ "
+            }
+            return " " + v.length.toString() + " "
+        })
     })
 })
 
@@ -182,7 +190,7 @@ export const DndBarIcon = () => Widget.Icon({
     `,
 })
 
-export const dndToggle = Widget.Button({
+export const dndToggle = () => Widget.Button({
     class_name: "normal-button bg-button",
     onPrimaryClick: () => Notifications.dnd = !Notifications.dnd,
     child: Widget.Icon({
@@ -196,7 +204,7 @@ export const dndToggle = Widget.Button({
     })
 })
 
-const closeAllNotifButton = Widget.Button({
+const closeAllNotifButton = () => Widget.Button({
     class_name: "normal-button bg-button",
     //on_primary_click: () => Notifications.clear(), // Can cause crashes
     on_primary_click: ClearNotifications, // Can cause crashes
@@ -242,8 +250,8 @@ export const NotificationWidget = (w,h) => Widget.Box({
                 hexpand: true,
                 hpack: "end",
                 children: [
-                    dndToggle,
-                    closeAllNotifButton,
+                    dndToggle(),
+                    closeAllNotifButton(),
                 ],
             }),
         }),

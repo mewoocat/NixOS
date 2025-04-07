@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LEAF_CONFIG_DIR=~/.config/leaf
+LEAF_CONFIG_DIR=~/.config/leaf-de
 
 themeDir="$LEAF_CONFIG_DIR/theme"
 presetDir="$LEAF_CONFIG_DIR/theme/presets"
@@ -18,8 +18,9 @@ if [ ! -f $recentThemesPath ]; then
     echo "[]" > $recentThemesPath
 fi
 
-gtkThemeLight="adw-gtk3"
-gtkThemeDark="adw-gtk3-dark"
+gtkThemeLight="adw-gtk3" # Just using non modified since the adw-gtk3-leaf repo hasn't added variable support for the light theme yet
+#gtkThemeLight="adw-gtk3-leaf"
+gtkThemeDark="adw-gtk3-leaf-dark"
 
 # Globals variables
 wallpaper=""
@@ -30,6 +31,7 @@ createPreset=false
 activatePreset=false
 presetName="default"
 themeOutputPath=""
+jsonTheme="{}" # JSON string object of a theme
 
 function usage(){
     echo "
@@ -40,8 +42,8 @@ function usage(){
         -c | --colorscheme <colorscheme-name>   (If no color scheme is provided, one will be 
                                                 generated from the wallpaper)
         -p | --pallets                          Select one of the wallust pallets (Defaults to dark)
-        -d | --dark                             Set a dark colorscheme (Default)
-        -l | --light                            Set a light colorscheme
+        #-d | --dark                             Set a dark colorscheme (Default)
+        #-l | --light                            Set a light colorscheme
         -g | --generate-preset                  Generate a preset based on the current theme 
                                                 being set
         -a | --activate-preset <preset-name>    Activate an existing preset
@@ -61,8 +63,8 @@ function usage(){
 
 function setWallpaper(){
     echo "INFO: setWallpaper()"
-    swww img -t "simple" --transition-step 255 $wallpaper;          # Set wallpaper
-    cp $wallpaper ~/.cache/wallpaper;                               # Cache wallpaper
+    swww img -t "simple" --transition-step 255 "$wallpaper";          # Set wallpaper
+    cp $wallpaper "$HOME/.cache/wallpaper";                               # Cache wallpaper
 }
 
 # Set QT theme
@@ -109,7 +111,7 @@ function setColors(){
         wallust run $wallpaper -p $mode
     # Use provided colorscheme
     else
-        colorschemePath=~/.config/wallust/pywal-colors/$mode/$colorscheme.json
+        colorschemePath="$HOME/.config/wallust/pywal-colors/$mode/$colorscheme.json"
         echo "colorschemePath = $colorschemePath"
         wallust cs $colorschemePath
     fi
@@ -148,6 +150,22 @@ function setTheme(){
     addThemeToRecents
 }
 
+# Sets theme from JSON string object
+setThemeFromJson(){
+
+    echo "jsonTheme = $jsonTheme"
+
+    wallpaper=$(echo $jsonTheme | jq -r .wallpaper) || (echo "Error reading JSON theme"; exit 1)
+    colorscheme=$(echo "$jsonTheme" | jq -r .colorscheme) || (echo "Error reading JSON theme"; exit 1)
+    mode=$(echo "$jsonTheme" | jq -r .mode) || (echo "Error reading JSON theme"; exit 1)
+
+    echo "color = $colorscheme"
+
+    setTheme
+
+    exit 0;
+}
+
 function generatePreset(){
     echo "Creating preset..."
     echo "Name: $presetName"
@@ -160,7 +178,7 @@ function generatePreset(){
     # Output preset information to json file 
 
     echo "Outputting preset as json"
-    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\",\n\t\"colorschemePath\": \"$colorschemePath\"\n}" > $themeOutputPath
+    echo -e "{\n\t\"name\": \"$presetName\",\n\t\"mode\": \"$mode\",\n\t\"wallpaper\": \"$wallpaper\",\n\t\"colorscheme\": \"$colorscheme\",\n\t\"colorschemePath\": \"$colorschemePath\"\n}" > "$themeOutputPath"
 
 }
 
@@ -221,7 +239,7 @@ function activatePreset(){
 }
 
 # Get input flags
-while getopts w:c:p:hga:n:DL flag
+while getopts w:c:p:hga:A:n:DL flag
 do
     case "${flag}" in
         w) wallpaper=${OPTARG}; ;;
@@ -229,6 +247,7 @@ do
         p) mode=${OPTARG} ;;
         g) createPreset=true ;;
         a) presetName=${OPTARG}; activatePreset=true ;;
+        A) jsonTheme=${OPTARG}; setThemeFromJson; exit 0 ;;
         n) presetName=${OPTARG} ;;
         D) presetName="default-dark"; activatePreset; exit 0 ;; 
         L) presetName="default-light"; activatePreset; exit 0 ;; 

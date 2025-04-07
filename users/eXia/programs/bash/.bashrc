@@ -15,7 +15,7 @@ FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
 # Throw it all together
-PS1="${RESET}${YELLOW}\h${RED}@${YELLOW}\u${NORMAL} [\T] \W \`${SELECT}\` ${YELLOW}>${NORMAL} "
+PS1="\n${RESET}${YELLOW}\h${RED}@${YELLOW}\u${NORMAL} [\T] \W \`${SELECT}\` ${YELLOW}>${NORMAL} "
 #######################
 
 
@@ -23,8 +23,13 @@ PS1="${RESET}${YELLOW}\h${RED}@${YELLOW}\u${NORMAL} [\T] \W \`${SELECT}\` ${YELL
 ########################################################################################################
 alias vi='nvim'
 alias rebuild='nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)'
-alias ls='ls -altr --color=auto'
+#alias ls='ls -altr --color=auto'
+alias ls='eza -al --icons=always'
 alias rm='rm -I'
+
+# Environment varialbes
+########################################################################################################
+export EDITOR='nvim'
 
 # Misc
 ########################################################################################################

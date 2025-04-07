@@ -1,6 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js'
-import * as Common from '../Common.js'
+import * as Common from '../Lib/Common.js'
 
 
 export function isAvailable(){
@@ -96,9 +96,12 @@ export const BatteryWidget = (w, h) => Widget.Box({
 
 const batteryMenu = Widget.Menu({
     children: [
+        // Seems to cause gc errors
+        /*
         Widget.MenuItem({
-            child: BatteryCircle(),
+            //child: BatteryCircle(),
         }),
+        */
     ],
 })
 

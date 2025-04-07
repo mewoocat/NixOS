@@ -24,8 +24,8 @@
   adw-gtk3-leaf = pkgs.fetchFromGitHub {
     owner = "mewoocat";
     repo = "adw-gtk3-leaf";
-    rev = "7ca12c905e2ec1c98634f149b5f011b4e39ec0cc";
-    sha256 = "sha256-+b40wFEiV6BTrwYpX1ndh+r1ECV3CcYuewGyLXBftl4";
+    rev = "443594813831c00a7ba59f45a8442ebe9547a69d";
+    sha256 = "sha256-/9TKfZiyzcaaT+jb+Tk+mrlYYUlh+kqDpPVDCQoH+R8=";
   };
 
 in {
@@ -65,7 +65,7 @@ in {
     shades-of-gray-theme
     nwg-look
 
-    inputs.adw-gtk3-leaf.packages.${system}.default
+    #inputs.adw-gtk3-leaf.packages.${system}.default
 
     wallust
     theme
@@ -83,7 +83,7 @@ in {
         [Settings]
         gtk-cursor-theme-name=capitaine-cursors
         gtk-cursor-theme-size=24
-        gtk-icon-theme-name=whitesur-gtk-theme
+        gtk-icon-theme-name=kora
       '';
     };
 

@@ -4,8 +4,7 @@ import Gtk from 'gi://Gtk'
 import GObject from 'gi://GObject'
 
 import * as Options from '../Options/options.js'
-
-print("INFO: Entered Weather.js <----------------")
+import * as Log from '../Lib/Log.js'
 
 ///////////////////////////////////
 //  Weather setup
@@ -32,7 +31,7 @@ setTimeout(() => {
 
 // Get data from apr
 async function getWeather(){
-    print("INFO: Getting weather data from internet")
+    Log.Info("Getting weather data from internet")
 
     // Get user lat lon
     //TODO add variables for units
@@ -41,14 +40,8 @@ async function getWeather(){
         var lon = Options.data.lon
     }
     else{
-        /*
-        print("ERROR: Invalid weather lat/lon.  Defaulting to 0,0")
-        var lat = 0
-        var lon = 0
-        */
-        print("ERROR: No location found to get weather for")
+        Log.Error("No user set location found to get weather for")
         return null
-
     }
 
     // Try to make request to weather api
@@ -82,7 +75,7 @@ async function getCord(cityName){
     let query = `?name=${cityName}&count=5&language=en&format=json`
     query = query.split(' ').join('+')
     let url = urlBase + query
-    print(`INFO: URL: ${url}`)
+    Log.Info(`Weather request URL: ${url}`)
 
     // Test 
     /*
@@ -98,7 +91,7 @@ async function getCord(cityName){
         const data = await Utils.fetch(url)
             .then(res => res.json())
             //.then(res => res.text())
-            .catch(err => print(err))
+            .catch(err => Log.Error(err))
         //print(JSON.stringify(data, null, 4))
         return data
     }
@@ -117,7 +110,8 @@ async function updateCities(text){
         searchResults.value = data.results
     }
     catch(err){
-        print(err)
+        Log.Error(err)
+        Log.Error("updateCities() failed")
     }
 }
 
@@ -145,7 +139,7 @@ function SelectedLocation(){
 export const locationSearch = Widget.Entry({
     placeholder_text: "Enter city",
     on_change: self => {
-        updateCities(self.text).catch(err => print(err))
+        updateCities(self.text).catch(err => Log.Error(err))
     },
     on_accept: (self) => {
         // Probably should do nothing when accepted and fully rely on the match-selected signal
@@ -156,11 +150,7 @@ export const locationSearch = Widget.Entry({
         locationData.value = listStore.get_value(iter, 1) // Retrive the value associated with the first suggestion
         completion.popup_completion = true
         
-
-        print("Entered.. ")
-        //print(locationData.value.city)
-        print(locationData.value.latitude)
-        print(locationData.value.longitude)
+        Log.Info(`Entered.. lat: ${locationData.value.latitude} lon: ${locationData.value.longitude}`)
 
         SelectedLocation()
     },
@@ -171,7 +161,7 @@ export const locationSearch = Widget.Entry({
     listStore.clear()
     const cities = searchResults.value
     for (const city of cities) {
-        print(city.name.toString()) 
+        Info.Log(`City name: ${city.name.toString()}`) 
         const iter = listStore.append()
         const cityText = city.name.toString() + ": " + (city.admin1 ?? " ").toString() + " " + city.country_code.toString()
         listStore.set(iter, [0, 1], [cityText, city]);
@@ -199,9 +189,7 @@ completion.connect("match-selected", (completion, model, iter) =>{
     completion.get_entry().text = listStore.get_value(iter, 0) // Set the entry text to the completed text
     locationData.value = listStore.get_value(iter, 1) // Retrive the value associated with the completed text
 
-    print("Entered..  via match-selected")
-    print(locationData.value.latitude)
-    print(locationData.value.longitude)
+    print(`Entered via match-selected.. lat: ${locationData.value.latitude} ${locationData.value.longitude}`)
 
     SelectedLocation()
 })
@@ -274,6 +262,15 @@ function LookupWeatherCode(code){
                 image: "weather-fog",
                 name: "Fog",
             }
+        case 71:
+        case 73:
+        case 75:
+            return {
+                icon: "weather-snow-symbolic",
+                image: "weather-snow",
+                name: "Snow",
+            }
+
         case 51:
         case 53:
         case 55:
@@ -298,7 +295,7 @@ function LookupWeatherCode(code){
             }
         // Need to add more
         default:
-            //print(`Weather code ${code} not recognized.`)
+            Info.Error(`Weather code: ${code} not recognized.`)
             return {
                 icon: "Unknown",
                 name: "Unknown",

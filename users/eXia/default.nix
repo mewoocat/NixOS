@@ -49,6 +49,11 @@
       stress 
       s-tui
       gcc14
+      zellij
+      dconf-editor
+      eza # ls replacement
+      openssl
+      arduino
 
       # Applications
       vesktop
@@ -68,9 +73,11 @@
       #teams-for-linux # Borked
       newsflash
       obsidian
-
-      zellij
-      dconf-editor
+      vlc
+      inputs.ghostty.packages."${pkgs.system}".default
+      yubioath-flutter
+      librewolf
+      onlyoffice-desktopeditors
     ];
   };
 

@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk';
 
 import * as DateTime from '../Modules/DateTime.js';
 import * as Notification from '../Modules/Notification.js';
-import * as Common from '../Common.js';
+import * as Common from '../Lib/Common.js';
 import * as Weather from '../Modules/Weather.js';
 import * as Media from '../Modules/Media.js'
 import * as ControlPanel from './ControlPanel.js'
@@ -23,14 +23,18 @@ const container = () => Widget.Box({
         padding: 1px;
     `,
     child: Widget.Revealer({
-        revealChild: false,
+        revealChild: true,
+        /*
         transitionDuration: 150,
         transition: 'slide_down',
+        */
         setup: self => {
             self.hook(App, (self, windowName, visible) => {
+                /*
                 if (windowName === "ActivityCenter"){
                     self.revealChild = visible
                 }
+                */
 
                 // Reset calendar date to today
                 Utils.execAsync(['date', '+%e %m %Y'])

@@ -2,7 +2,7 @@
   imports = [
     ./bash
     ./btop
-    ./firefox
+    #./firefox
     #./zellij
     ./foot.nix
     ./nextcloud.nix

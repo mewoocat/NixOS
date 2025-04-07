@@ -9,8 +9,21 @@ import { Clock } from './Modules/DateTime.js'
 import { UserIcon, UserName } from './Modules/User.js'
 import icons from './icons.js';
 
-
+import * as Log from './Lib/Log.js'
+import * as Monitors from './Monitors.js'
 import * as Options from './Options/options.js'
+import * as Global from './Global.js'
+
+import * as Battery from './Modules/Battery.js';
+import * as Notification from './Modules/Notification.js'
+/*
+// TODO: Importing the network module introduces a lot of gc errors
+import * as Network from './Modules/Network.js';
+import * as Bluetooth from './Modules/Bluetooth.js';
+import * as Audio from './Modules/Audio.js';
+import * as NightLight from './Modules/NightLight.js'
+*/
+
 Options.GetOptions()
 
 const WeatherWidget = Weather()
@@ -28,14 +41,14 @@ if (!GtkSessionLock.is_supported()) {
 //////////////////////////////////////////////////////////////////////
 
 const scss = `${App.configDir}/Style/style.scss`
-const css = `${App.configDir}/Style/style.css`
+const css = `${Global.leafConfigDir}/ags.css`
 Utils.exec(`sassc ${scss} ${css}`)
 Utils.monitorFile(
     `${App.configDir}/Style/_colors.scss`,
     function() {
         Utils.exec(`sassc ${scss} ${css}`)
         App.resetCss();
-        App.applyCss(`${App.configDir}/Style/style.css`);
+        App.applyCss(css);
     },
 );
 
@@ -122,9 +135,12 @@ function LockscreenWidget(widget, w, h) {
 }
 
 function LockscreenContents(monitorID){
+    // idk why this was added
+    /*
     if (monitorID != 0){
         return null
     }
+    */
     return Widget.Overlay({
         hexpand: true,
         child: Widget.Box({
@@ -162,6 +178,24 @@ function LockscreenContents(monitorID){
                     icon: icons.lock,
                 }),
                 center_widget: Clock(),
+                end_widget: Widget.Box({
+                    hpack: "end",
+                    css: `margin-right: 1.6em;`,
+                    spacing: 24,
+                    children: [
+                        Battery.BatteryLabel(), 
+                        /*
+                        Notification.DndBarIcon(), 
+                        NightLight.BarIcon(),
+                        Audio.MicrophoneIcon(),
+                        */
+                        //Network.NetworkIndicator(),
+                        /*
+                        Bluetooth.BluetoothIcon(),
+                        Audio.VolumeIcon(),
+                        */
+                    ]
+                })
             }),
                 
             // Bottom left
@@ -179,8 +213,8 @@ function LockscreenContents(monitorID){
     })
 }
 
-function createLockWindow(monitor, id){
-
+function createLockWindow(monitor, id, isDefault){
+    const lockscreenContents = isDefault ? LockscreenContents(id) : null
     const window = new Gtk.Window({
         // Background image
         child: Widget.Box({
@@ -191,7 +225,7 @@ function createLockWindow(monitor, id){
                 background-size: cover;
             `,
             children: [
-                LockscreenContents(id),
+                lockscreenContents,
             ],
         })
     })    
@@ -201,10 +235,22 @@ function createLockWindow(monitor, id){
 
 function lockScreen(){
     const display = Gdk.Display.get_default()
+
+    const userDefaultMonitor = Options.Options.user.display.default_monitor.value
+    let defaultMonitorID = 0
+
+    // Find the id num associated with the monitor identifier
+    if (Monitors.monitors[userDefaultMonitor] != undefined){
+        defaultMonitorID = Monitors.monitors[userDefaultMonitor]
+    }
+
+    Log.Info("defaultMonitorID: " + defaultMonitorID)
+
     // For all current monitors
     for (let m = 0; m < display.get_n_monitors(); m++) {
         const monitor = display.get_monitor(m)
-        createLockWindow(monitor, m)
+        const isDefault = (m === defaultMonitorID)
+        createLockWindow(monitor, m, isDefault)
     }
     lock.lock_lock()
     windows.forEach(w => {

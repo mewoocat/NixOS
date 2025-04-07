@@ -10,6 +10,7 @@
     #Hyprland
     exec uwsm start hyprland-uwsm.desktop # Run hyprland as a systemd service
                                           # This is needed to start the graphical-session.target
+    #systemctl --user start hyprland
   '';
 in {
   users.users.${config.username} = {

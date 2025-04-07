@@ -1,13 +1,14 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Utils from 'resource:///com/github/Aylur/ags/utils.js';
-import * as Common from '../Common.js';
+import * as Common from '../Lib/Common.js';
 import * as Applications from '../Modules/Applications.js';
 
 const WINDOW_NAME = 'applauncher';
 
 const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer({
-    revealChild: false,
+    revealChild: true,
+    /*
     transitionDuration: 150,
     transition: "slide_right",
     setup: self => {
@@ -17,6 +18,7 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
             }
         }, 'window-toggled')
     },
+    */
     child: Widget.Box({
         vertical: true,
         css: 'padding: 1px;', //Gives box a defined size when revealer is showing anything
