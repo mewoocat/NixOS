@@ -6,7 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-server.url = "github:NixOS/nixpkgs/nixos-24.11";
     #nixpkgs.url = "github:NixOS/nixpkgs/0d40d3a1ff082aa0ea314d8170f46d66f0b82c8b"; # Unstable pinned
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     #ags.url = "github:Aylur/ags";
     #ags.url = "git+https://github.com/Aylur/ags?ref=refs/tags/v1.8.2";
@@ -17,8 +17,14 @@
     myNvimNvf.url = "github:mewoocat/nvim-nvf";
     microfetch.url = "github:NotAShelf/microfetch";
     #adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
-    ghostty.url = "github:ghostty-org/ghostty";
     agenix.url = "github:ryantm/agenix"; # For secret management
+    
+    secrets = {
+      url = "git+ssh://git@github.com/mewoocat/secrets?ref=main";
+      flake = false;
+    };
+
+    ghostty.url = "github:ghostty-org/ghostty";
 
     hyprland = {
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -64,6 +70,7 @@
     */
     
     zen-browser.url = "github:MarceColl/zen-browser-flake";
+    disko.url = "github:nix-community/disko";
 
     hjem.url = "github:feel-co/hjem";
 
