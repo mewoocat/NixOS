@@ -35,7 +35,7 @@ in {
     python312Packages.gpustat
   ];  
 
-  homes.eXia = {
+  hjem.users.eXia = {
     enable = true;
     files = {
       ".config/ags" = {

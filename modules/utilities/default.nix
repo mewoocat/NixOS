@@ -5,8 +5,8 @@
   ...
 }: {
   imports = [
-    ./virtualization.nix
-    ./overclocking.nix
+    #./virtualization.nix
+    #./overclocking.nix
     ./vpn.nix
   ];
 }

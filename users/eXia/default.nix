@@ -68,13 +68,13 @@
       evince # Gnome PDF viewer
       qdirstat
       gucharmap
-      brasero
+      #brasero
       ungoogled-chromium
       #teams-for-linux # Borked
       newsflash
       obsidian
       vlc
-      inputs.ghostty.packages."${pkgs.system}".default
+      #inputs.ghostty.packages."${pkgs.system}".default
       yubioath-flutter
       librewolf
       onlyoffice-desktopeditors

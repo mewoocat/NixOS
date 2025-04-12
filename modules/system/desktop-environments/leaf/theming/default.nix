@@ -10,7 +10,7 @@
   theme = pkgs.writeShellScriptBin "theme" src;
 
   # Wallust packaging
-  wallust = pkgs.callPackage ./wallust.nix {};
+  #wallust = pkgs.callPackage ./wallust.nix {};
 
   # Default GTK theme
   /*
@@ -76,7 +76,7 @@ in {
     swww
   ];
 
-  homes.${config.username}.files = {
+  hjem.users.${config.username}.files = {
     ".config/gtk-3.0/settings.ini" = {
       clobber = true;
       text = ''

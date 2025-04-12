@@ -31,8 +31,13 @@
       #url = "git+https://github.com/hyprwm/Hyprland?rev=a71207434c0bc2c8e05e94b1619e68059a002879&submodules=1";
       #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.39.1&submodules=1";
       #url = "git+https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.41.1&submodules=1"; # The only good version
-      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1";
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.42.0&submodules=1"; # TF2 works on this one
       #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1"; 
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.47.0&submodules=1"; # No gpu found error
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
+      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.48.1&submodules=1";
+
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1"; # Latest stable compatible version
     };
 
     hyprland-wlr = {
@@ -83,6 +88,8 @@
     hosts = import ./hosts {inputs = inputs;};
   in {
     formatter."x86_64-linux" = inputs.alejandra.defaultPackage."x86_64-linux";
+
+    # My machines :)
     nixosConfigurations = hosts;
   };
 }

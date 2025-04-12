@@ -7,7 +7,7 @@
   username = "eXia";
 in
 {
-  homes.${username} = {
+  hjem.users.${username} = {
     enable = true;
     files = {
       ".bashrc" = {

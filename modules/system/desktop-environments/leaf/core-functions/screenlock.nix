@@ -80,7 +80,7 @@ in{
   };
 
   # hypridle config
-  homes.eXia = {
+  hjem.users.eXia = {
     enable = true;
     files = {
       ".config/hypr/hypridle.conf" = {

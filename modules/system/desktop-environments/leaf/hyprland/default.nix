@@ -5,9 +5,18 @@
   ...
 }: {
   
+  /*
   systemd.tmpfiles.rules = [
     "L+ /home/${config.username}/.config/hypr/hyprland.conf - - - - ${./hyprland.conf}"
   ];
+  */
+
+  hjem.users.${config.username}.files = {
+    ".config/hyprland/hyprland.conf" = {
+      clobber = true;
+      source = ./hyprland.conf;
+    };
+  };
 
   programs.hyprland = {
     enable = true;

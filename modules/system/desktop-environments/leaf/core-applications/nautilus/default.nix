@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  homes.${config.username}.files = {
+  hjem.users.${config.username}.files = {
     "Templates/" = {
       clobber = true;
       source = ./Templates;

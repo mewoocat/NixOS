@@ -2,6 +2,7 @@
   pkgs,
   ...
 }: let
+  /*
   wmctl = pkgs.rustPlatform.buildRustPackage rec {
     pname = "wmctl";
     version = "0.0.1";
@@ -24,6 +25,7 @@
     };      
   };
   lumactl = pkgs.callPackage ./lumactl.nix {};
+  */
 in{
   imports = [
     ./sound.nix
@@ -32,8 +34,8 @@ in{
   ];
 
   environment.systemPackages = with pkgs; [
-    lumactl
-    wmctl
+    #lumactl
+    #wmctl
   ];
 
 }

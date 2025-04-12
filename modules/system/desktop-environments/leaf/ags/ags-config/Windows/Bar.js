@@ -70,6 +70,7 @@ export const Bar = (monitor = 0) => Widget.Window({
     class_name: 'bar-window',
     monitor: monitor,
     anchor: ['top', 'left', 'right'],
+    layer: "overlay",
     exclusivity: 'exclusive',
     child: Widget.CenterBox({
         start_widget: Left(),

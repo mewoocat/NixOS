@@ -49,7 +49,7 @@ export const Launcher = () => Widget.Window({
     name: WINDOW_NAME,
     css: `background-color: unset;`,
     visible: false,
-    layer: "overlay",
+    //layer: "overlay",
     keymode: "exclusive",
     anchor: ["top", "bottom", "left", "right"], // Anchoring on all corners is used to stretch the window across the whole screen 
     //anchor: ["top", "left", "bottom"], // Debugging // idk why removing bottom from here causes the window to not open 
