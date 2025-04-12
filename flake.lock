@@ -631,6 +631,36 @@
         "url": "https://github.com/hyprwm/hyprland"
       }
     },
+    "hyprland-plugins": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "hyprland-plugins",
+          "hyprland",
+          "nixpkgs"
+        ],
+        "systems": [
+          "hyprland-plugins",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743950622,
+        "narHash": "sha256-8qjDapcQeDqxQUIm5gA0x6XZtowV/14bOs3K0tCSMoU=",
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "rev": "be6b9875dd5c586fb401d294bb98c31973849651",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "type": "github"
+      }
+    },
     "hyprland-protocols": {
       "inputs": {
         "nixpkgs": [
@@ -3470,6 +3500,7 @@
         "hypridle": "hypridle",
         "hyprland": "hyprland",
         "hyprland-laptop": "hyprland-laptop",
+        "hyprland-plugins": "hyprland-plugins",
         "hyprland-wlr": "hyprland-wlr",
         "matugen": "matugen",
         "microfetch": "microfetch",

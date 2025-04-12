@@ -4,6 +4,9 @@
   inputs,
   ...
 }: {
+  imports = [
+    inputs.hyprland.nixosModules.default # Use hyprland nixos module from hyprland flake
+  ];
   
   /*
   systemd.tmpfiles.rules = [
@@ -23,6 +26,9 @@
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     portalPackage = inputs.hyprland.packages."${pkgs.system}".xdg-desktop-portal-hyprland;
     withUWSM = true;
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    ];
   };
 
   users.users.${config.username}.packages = with pkgs; [
