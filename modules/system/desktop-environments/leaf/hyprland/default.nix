@@ -7,12 +7,16 @@
   imports = [
     inputs.hyprland.nixosModules.default # Use hyprland nixos module from hyprland flake
   ];
-  
+ 
   hjem.users.${config.username}.files = {
+    
     ".config/hypr/hyprland.conf" = {
       clobber = true;
-      source = ./hyprland.conf;
+      #source = ./hyprland.conf;
+      # For development
+      source = "/home/${config.username}/NixOS/modules/system/desktop-environments/leaf/hyprland/hyprland.conf";
     };
+    
     # To load the plugins when hyprland starts
     ".config/hypr/nixManaged.conf" = {
       clobber = true;
