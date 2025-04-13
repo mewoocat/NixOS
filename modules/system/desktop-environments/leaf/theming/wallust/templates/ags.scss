@@ -2,19 +2,19 @@
 {# Conditionally darken/light based on pallete #}
 {% if palette[:4] == "dark" %}
     $bg0: {{background | lighten(0.0)}};
-    $bg1: {{background | lighten(0.2)}};
-    $bg2: {{background | lighten(0.4)}};
-    $bg3: {{background | lighten(0.6)}};
+    $bg1: {{background | lighten(0.1)}};
+    $bg2: {{background | lighten(0.2)}};
+    $bg3: {{background | lighten(0.3)}};
 
-    $fgDim: {{foreground | darken(0.4)}};
+    $fgDim: {{foreground | darken(0.2)}};
     $fgAlt: {{foreground | darken(1)}};
 {% else %}
     $bg0: {{background | darken(0.0)}};
-    $bg1: {{background | darken(0.2)}};
-    $bg2: {{background | darken(0.4)}};
-    $bg3: {{background | darken(0.6)}};
+    $bg1: {{background | darken(0.1)}};
+    $bg2: {{background | darken(0.2)}};
+    $bg3: {{background | darken(0.3)}};
 
-    $fgDim: {{foreground | lighten(0.4)}};
+    $fgDim: {{foreground | lighten(0.2)}};
     $fgAlt: {{foreground | lighten(1)}};
 {% endif %}
 
