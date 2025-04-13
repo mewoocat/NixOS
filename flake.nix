@@ -55,15 +55,15 @@
     hypridle = {
       url = "github:hyprwm/hypridle";
     };
-    /*
-    hyprspace = {
-      url = github:KZDKM/Hyprspace;
-      inputs.hyprland.follows = "hyprland";
-    };
-    */
 
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
       inputs.hyprland.follows = "hyprland";
     };
 

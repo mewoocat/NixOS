@@ -8,21 +8,19 @@
     inputs.hyprland.nixosModules.default # Use hyprland nixos module from hyprland flake
   ];
   
-  /*
-  systemd.tmpfiles.rules = [
-    "L+ /home/${config.username}/.config/hypr/hyprland.conf - - - - ${./hyprland.conf}"
-  ];
-  */
-
   hjem.users.${config.username}.files = {
     ".config/hypr/hyprland.conf" = {
       clobber = true;
       source = ./hyprland.conf;
     };
+    # To load the plugins when hyprland starts
     ".config/hypr/nixManaged.conf" = {
       clobber = true;
       text = ''
         plugin = ${inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars}/lib/libhyprbars.so
+        exec-once = hyprctl plugin load ${inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars}/lib/libhyprbars.so
+        plugin = ${inputs.Hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so
+        exec-once = hyprctl plugin load ${inputs.Hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so
       '';
     };
   };
@@ -37,6 +35,7 @@
     # Manully adding it to the main config file above
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+      inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
     ];
   };
 
