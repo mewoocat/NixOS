@@ -59,13 +59,13 @@ export const ToggleScratchpad = () => Widget.Button({
 
 // Creates a widget for a given app
 const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
+    attribute: { app },
     child: Widget.Button({
         class_name: "app-button",
         on_clicked: () => {
             App.closeWindow(WINDOW_NAME);
             app.launch();
         },
-        attribute: { app },
         child: Widget.Box({
             children: [
                 Widget.Icon({

@@ -14,6 +14,7 @@
       eog
       gthumb
       gnome-text-editor
+      nemo-with-extensions
     ];
   };
 }
