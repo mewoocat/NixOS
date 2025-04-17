@@ -6,8 +6,8 @@ Typescript example
 bun build /home/eXia/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.ts \
     --outdir /tmp/ags/js \
     --external "resource://*" \
-    --external "gi://*"
-ags -b testing -c /tmp/ags/js/main.js
+    --external "gi://*" &&
+ags -b testing -c /tmp/ags/js/main.js -t applauncher
 ```
 
 The scss entry point is hard coded to the .config dir so the ags css file must be manually regenerated

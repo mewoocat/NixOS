@@ -20,7 +20,6 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
     },
     */
     child: Widget.Box({
-        vertical: true,
         css: 'padding: 1px;', //Gives box a defined size when revealer is showing anything
         spacing: 8,
         class_name: "toggle-window",
@@ -29,6 +28,7 @@ const Content = ({ width = 300, height = 400, spacing = 0 }) => Widget.Revealer(
             min-height: ${height}px;
         `,
         children: [
+            Applications.VerticalAppPanel(),
             Applications.AppLauncher(WINDOW_NAME),
         ],
     })

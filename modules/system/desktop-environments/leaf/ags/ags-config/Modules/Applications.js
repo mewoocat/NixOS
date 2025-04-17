@@ -2,6 +2,9 @@ import Applications from 'resource:///com/github/Aylur/ags/service/applications.
 import App from 'resource:///com/github/Aylur/ags/app.js'
 import Widget from 'resource:///com/github/Aylur/ags/widget.js'
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
+import * as Log from '../Lib/Log.js'
+import Gdk from 'gi://Gdk';
+import Gtk from 'gi://Gtk'
 
 const WINDOW_NAME = 'applauncher';
 
@@ -54,38 +57,51 @@ export const ToggleScratchpad = () => Widget.Button({
 
 
 
+// Creates a widget for a given app
+const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
+    child: Widget.Button({
+        class_name: "app-button",
+        on_clicked: () => {
+            App.closeWindow(WINDOW_NAME);
+            app.launch();
+        },
+        attribute: { app },
+        child: Widget.Box({
+            children: [
+                Widget.Icon({
+                    icon: app.icon_name || '',
+                    size: size,
+                }),
+                showText ? Widget.Label({
+                    //class_name: 'app-button-label',
+                    label: app.name,
+                    xalign: 0,
+                    vpack: 'center',
+                    truncate: 'end',
+                }) : undefined,
+            ],
+        }),
+    setup: (self) => {
+        self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, [Gtk.TargetEntry.new("what", Gtk.TargetFlags.SAME_APP, 0)], Gdk.DragAction.MOVE)
+        self.connect("drag-begin", (widget, context) => {
+            Log.Info("drag begin")
+        }) 
+        self.connect("drag-drop", (widget, context, x, y, time) => {
+            Log.Info("drap drop")
+        }) 
+        self.connect("drag-data-get", (widget, context, data, info, time) => {
+            Log.Info("drag get")
+        }) 
+    }
+    })
+})
 
 /////////////////////////////////////////////////////////////////
 // Application Launcher
 /////////////////////////////////////////////////////////////////
 
-// Creates a widget for a given app
-const AppItem = app => Widget.Button({
-    class_name: "app-button",
-    on_clicked: () => {
-        App.closeWindow(WINDOW_NAME);
-        app.launch();
-    },
-    attribute: { app },
-    child: Widget.Box({
-        children: [
-            Widget.Icon({
-                icon: app.icon_name || '',
-                size: 42,
-            }),
-            Widget.Label({
-                //class_name: 'app-button-label',
-                label: app.name,
-                xalign: 0,
-                vpack: 'center',
-                truncate: 'end',
-            }),
-        ],
-    }),
-});
-
 // Generate the list of application widgets on startup
-let appWidgets = Applications.query('').map(AppItem)
+let appWidgets = Applications.query('').map((app) => AppItem(app))
 
 function filterApps(filter = "") {
     appWidgets.forEach(appWidget => {
@@ -167,3 +183,25 @@ export const AppLauncher = (WINDOW_NAME) => Widget.Box({
         }
     }),
 })
+
+
+/////////////////////////////////////////////////////////////////
+// Vertical App Panel
+/////////////////////////////////////////////////////////////////
+
+const Applet = (app) => {
+    return Widget.Box({
+
+    })
+}
+
+const testApps = Applications.list.splice(0,5).map((app) => {
+    return AppItem(app, 28, false)
+})
+
+export const VerticalAppPanel = () => {
+    return Widget.Box({
+        vertical: true,
+        children: testApps,
+    })
+}
