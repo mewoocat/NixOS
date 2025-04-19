@@ -99,7 +99,6 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
         )
 
         self.connect("drag-begin", (widget, context) => {
-            Log.Info("drag begin: widget = " + widget)
             widget.drag_source_set_icon_name(dragIcon) // Doesn't work if in setup block
         }) 
         /*
@@ -108,15 +107,21 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
         }) 
         */
         self.connect("drag-data-get", (widget, context, data, info, time) => {
-            const text = "test"
+            const text = JSON.stringify(app)
             const setTextResult = data.set_text(text, text.length)
             Log.Info("Set text result = " + setTextResult)
             Log.Info("drag get: data: " + data.get_text())            
         }) 
 
         self.connect("drag-data-received", (widget, context, x, y, data, info, time) => {
-            Log.Info("drag received: data: " + data.get_text())  
-            Log.Info("drag received widget = " + widget)
+            const app = JSON.parse(data.get_text())
+            Log.Info("drag received: data: " + JSON.stringify(app))
+            const iconSize = self.child.children[0].size
+            const ourIcon = self.child.children[0].icon
+            const theirIcon = app["icon-name"]
+            Log.Info(`Their icon ${theirIcon} and our icon ${ourIcon}`)
+            self.child.children[0].set_from_icon_name(theirIcon, iconSize)
+            //widget.child.children[0].set_from_icon_name(ourIcon, iconSize)
         }) 
     }
     })
