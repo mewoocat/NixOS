@@ -37,24 +37,24 @@ const readInKeybinds = (): void => {
         const mainModMatch = mainModPattern.exec(line)
         if (mainModMatch !== null) {
             mainMod = mainModMatch[1] // Access first capturing group
-            Log.Info(`Found mainMod of ${mainMod}`)
+            //Log.Info(`Found mainMod of ${mainMod}`)
         }
 
         if (line.match(keybindPattern)){
             let keyCombo: string = "N/A"
             let description: string = "N/A"
             let category: string = "N/A"
-            Log.Info(line)
+            //Log.Info(line)
             const keyComboMatch = keyComboPattern.exec(line)?.toString().split(',')
             if (keyComboMatch !== undefined) {
-                Log.Info(keyComboMatch[0] + ' ' + keyComboMatch[1])
+                //Log.Info(keyComboMatch[0] + ' ' + keyComboMatch[1])
                 keyCombo = keyComboMatch[0] + ' + ' + keyComboMatch[1]
                 keyCombo = keyCombo.replace("$mainMod", mainMod)
             }
             const descriptionAndCategoryPattern = new RegExp("(?<=#).*")
             const descriptionAndCategoryMatch = descriptionAndCategoryPattern.exec(line)?.toString().split('#')
             if (descriptionAndCategoryMatch !== undefined) {
-                Log.Info(descriptionAndCategoryMatch)
+                //Log.Info(descriptionAndCategoryMatch)
                 category = descriptionAndCategoryMatch[0]
                 description = descriptionAndCategoryMatch[1]
             }

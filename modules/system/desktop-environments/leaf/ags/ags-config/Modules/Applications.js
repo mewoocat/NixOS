@@ -5,8 +5,11 @@ import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js'
 import * as Log from '../Lib/Log.js'
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk'
+import icons from '../icons.js'
+import GdkPixbuf from 'gi://GdkPixbuf'
 
 const WINDOW_NAME = 'applauncher';
+const appDragTarget = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, 0)]
 
 export const ClientTitle = () => Widget.Label({
     class_name: 'client-title',
@@ -35,7 +38,7 @@ export const ClientIcon = () => Widget.Icon({
         else {
             // null if it wasn't found in the current Icon Theme
             // Return place holder icon
-            return "video-display-symbolic"
+            return icons.desktop
         }
 })
 
@@ -54,10 +57,7 @@ export const ToggleScratchpad = () => Widget.Button({
 })
 
 
-
-
-
-// Creates a widget for a given app
+// Creates a button widget for a given app
 const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
     attribute: { app },
     child: Widget.Button({
@@ -82,15 +82,41 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
             ],
         }),
     setup: (self) => {
-        self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, [Gtk.TargetEntry.new("what", Gtk.TargetFlags.SAME_APP, 0)], Gdk.DragAction.MOVE)
+        const dragIcon = app.icon_name ? app.icon_name : icons.desktop
+
+        // Set this widget as the source for a drag
+        self.drag_source_set(
+            Gdk.ModifierType.BUTTON1_MASK,
+            appDragTarget,
+            Gdk.DragAction.COPY
+        )
+
+        // Set this widget as a destination for a drag
+        self.drag_dest_set(
+            Gtk.DestDefaults.ALL,
+            appDragTarget,
+            Gdk.DragAction.COPY
+        )
+
         self.connect("drag-begin", (widget, context) => {
-            Log.Info("drag begin")
+            Log.Info("drag begin: widget = " + widget)
+            widget.drag_source_set_icon_name(dragIcon) // Doesn't work if in setup block
         }) 
+        /*
         self.connect("drag-drop", (widget, context, x, y, time) => {
             Log.Info("drap drop")
         }) 
+        */
         self.connect("drag-data-get", (widget, context, data, info, time) => {
-            Log.Info("drag get")
+            const text = "test"
+            const setTextResult = data.set_text(text, text.length)
+            Log.Info("Set text result = " + setTextResult)
+            Log.Info("drag get: data: " + data.get_text())            
+        }) 
+
+        self.connect("drag-data-received", (widget, context, x, y, data, info, time) => {
+            Log.Info("drag received: data: " + data.get_text())  
+            Log.Info("drag received widget = " + widget)
         }) 
     }
     })

@@ -20,4 +20,5 @@ export default{
     notification: "notification-symbolic",
     notificationDisabled: "notifications-disabled-symbolic",
     theme: "org.gnome.Settings-color-symbolic",
+    desktop: "video-display-symbolic",
 }
