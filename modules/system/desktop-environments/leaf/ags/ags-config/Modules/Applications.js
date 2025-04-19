@@ -10,6 +10,9 @@ import GdkPixbuf from 'gi://GdkPixbuf'
 
 const WINDOW_NAME = 'applauncher';
 const appDragTarget = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, 0)]
+// When doing a drag and drop operation the source widget is stored here in order to 
+// reference it from within the destination handler
+let dragSource = undefined
 
 export const ClientTitle = () => Widget.Label({
     class_name: 'client-title',
@@ -100,6 +103,11 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
 
         self.connect("drag-begin", (widget, context) => {
             widget.drag_source_set_icon_name(dragIcon) // Doesn't work if in setup block
+            dragSource = widget
+            // Set a reference to the source widget from within the context
+            // Doesn't work
+            //context.set_data("widget", widget)
+            
         }) 
         /*
         self.connect("drag-drop", (widget, context, x, y, time) => {
@@ -121,7 +129,8 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
             const theirIcon = app["icon-name"]
             Log.Info(`Their icon ${theirIcon} and our icon ${ourIcon}`)
             self.child.children[0].set_from_icon_name(theirIcon, iconSize)
-            //widget.child.children[0].set_from_icon_name(ourIcon, iconSize)
+
+            dragSource.child.children[0].set_from_icon_name(ourIcon, iconSize)
         }) 
     }
     })
