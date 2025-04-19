@@ -273,10 +273,11 @@ entry {
 
 // App launcher button
 .app-button {
-    all: unset;
+    //all: unset;
     padding: 0.4rem;
     border-radius: 1rem;
     margin-right: 0.8rem;
+    background-color: unset;
 }
 .app-button:hover {
     background-color: $accent1;
@@ -284,12 +285,14 @@ entry {
         color: $bg0; 
     }
 }
+/*
 .app-button:focus {
     background-color: $accent1;
     label {
         color: $bg0; 
     }
 }
+*/
 
 
 // Search entry

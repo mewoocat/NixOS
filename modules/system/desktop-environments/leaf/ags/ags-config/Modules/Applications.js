@@ -61,9 +61,8 @@ export const ToggleScratchpad = () => Widget.Button({
 
 
 // Creates a button widget for a given app
-const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
-    attribute: { app },
-    child: Widget.Button({
+const AppItem = (app, size = 42, showText = true) => Widget.Button({
+        attribute: { app },
         class_name: "app-button",
         on_clicked: () => {
             App.closeWindow(WINDOW_NAME);
@@ -102,18 +101,13 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
         )
 
         self.connect("drag-begin", (widget, context) => {
+            const iconSize = self.child.children[0].size
+            Log.Info("Setting drag icon")
             widget.drag_source_set_icon_name(dragIcon) // Doesn't work if in setup block
-            dragSource = widget
-            // Set a reference to the source widget from within the context
-            // Doesn't work
-            //context.set_data("widget", widget)
-            
+            dragSource = widget 
+            //widget.child.children[0].clear() // Removes the image for the source
+            widget.child.children[0].set_from_icon_name("box", iconSize)
         }) 
-        /*
-        self.connect("drag-drop", (widget, context, x, y, time) => {
-            Log.Info("drap drop")
-        }) 
-        */
         self.connect("drag-data-get", (widget, context, data, info, time) => {
             const text = JSON.stringify(app)
             const setTextResult = data.set_text(text, text.length)
@@ -132,8 +126,12 @@ const AppItem = (app, size = 42, showText = true) => Widget.EventBox({
 
             dragSource.child.children[0].set_from_icon_name(ourIcon, iconSize)
         }) 
+
+        self.connect("drag-drop", (widget, context, x, y, time) => {
+            Log.Info("drap drop")
+            Gtk.drag_finish(context, true, false, time) // Not sure what this is actually doing
+        }) 
     }
-    })
 })
 
 /////////////////////////////////////////////////////////////////
