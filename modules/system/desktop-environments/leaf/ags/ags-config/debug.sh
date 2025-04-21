@@ -5,4 +5,4 @@ bun build ~/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.t
     --outdir /tmp/ags/js \
     --external "resource://*" \
     --external "gi://*" &&
-ags -b testing -c /tmp/ags/js/main.js -t applauncher
+ags -b testing -c /tmp/ags/js/main.js -t applauncher inspector

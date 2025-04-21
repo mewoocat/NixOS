@@ -6,7 +6,6 @@ import * as Log from '../Lib/Log.js'
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk'
 import icons from '../icons.js'
-import GdkPixbuf from 'gi://GdkPixbuf'
 
 const WINDOW_NAME = 'applauncher';
 const appDragTarget = [Gtk.TargetEntry.new("text/plain", Gtk.TargetFlags.SAME_APP, 0)]
@@ -61,28 +60,28 @@ export const ToggleScratchpad = () => Widget.Button({
 
 
 // Creates a button widget for a given app
-const AppItem = (app, size = 42, showText = true) => Widget.Button({
-        attribute: { app },
-        class_name: "app-button",
-        on_clicked: () => {
-            App.closeWindow(WINDOW_NAME);
-            app.launch();
-        },
-        child: Widget.Box({
-            children: [
-                Widget.Icon({
-                    icon: app.icon_name || '',
-                    size: size,
-                }),
-                showText ? Widget.Label({
-                    //class_name: 'app-button-label',
-                    label: app.name,
-                    xalign: 0,
-                    vpack: 'center',
-                    truncate: 'end',
-                }) : undefined,
-            ],
-        }),
+const AppItem = (app, size = 42, showText = true, editable = false) => Widget.Button({
+    attribute: { app, editable: editable },
+    class_name: "app-button",
+    on_clicked: () => {
+        App.closeWindow(WINDOW_NAME);
+        app.launch();
+    },
+    child: Widget.Box({
+        children: [
+            Widget.Icon({
+                icon: app.icon_name || '',
+                size: size,
+            }),
+            showText ? Widget.Label({
+                //class_name: 'app-button-label',
+                label: app.name,
+                xalign: 0,
+                vpack: 'center',
+                truncate: 'end',
+            }) : undefined,
+        ],
+    }),
     setup: (self) => {
         const dragIcon = app.icon_name ? app.icon_name : icons.desktop
 
@@ -93,44 +92,91 @@ const AppItem = (app, size = 42, showText = true) => Widget.Button({
             Gdk.DragAction.COPY
         )
 
-        // Set this widget as a destination for a drag
-        self.drag_dest_set(
-            Gtk.DestDefaults.ALL,
-            appDragTarget,
-            Gdk.DragAction.COPY
-        )
-
         self.connect("drag-begin", (widget, context) => {
+            Log.Info("drag-begin")
             const iconSize = self.child.children[0].size
-            Log.Info("Setting drag icon")
             widget.drag_source_set_icon_name(dragIcon) // Doesn't work if in setup block
             dragSource = widget 
-            //widget.child.children[0].clear() // Removes the image for the source
-            widget.child.children[0].set_from_icon_name("box", iconSize)
+            // Set a placeholder icon if modifying source
+            if (editable) { 
+                widget.child.children[0].set_from_icon_name("box", iconSize)
+            }
         }) 
         self.connect("drag-data-get", (widget, context, data, info, time) => {
             const text = JSON.stringify(app)
             const setTextResult = data.set_text(text, text.length)
-            Log.Info("Set text result = " + setTextResult)
-            Log.Info("drag get: data: " + data.get_text())            
         }) 
 
-        self.connect("drag-data-received", (widget, context, x, y, data, info, time) => {
-            const app = JSON.parse(data.get_text())
-            Log.Info("drag received: data: " + JSON.stringify(app))
-            const iconSize = self.child.children[0].size
-            const ourIcon = self.child.children[0].icon
-            const theirIcon = app["icon-name"]
-            Log.Info(`Their icon ${theirIcon} and our icon ${ourIcon}`)
-            self.child.children[0].set_from_icon_name(theirIcon, iconSize)
+        // If edtiable then set this widget as a drag destination
+        if (editable) {
+            // Set this widget as a destination for a drag
+            self.drag_dest_set(
+                Gtk.DestDefaults.ALL,
+                appDragTarget,
+                Gdk.DragAction.COPY
+            )
+            self.connect("drag-data-received", (widget, context, x, y, data, info, time) => {
+                Log.Info("drag-data-received")
+                /*
+                const ourApp = app
+                const theirApp = JSON.parse(data.get_text())
+                const iconSize = self.child.children[0].size
+                const ourIcon = self.child.children[0].icon
+                const theirIcon = app["icon-name"]
+                */
 
-            dragSource.child.children[0].set_from_icon_name(ourIcon, iconSize)
-        }) 
+                //self.child.children[0].set_from_icon_name(theirIcon, iconSize)
+                //dragSource.child.children[0].set_from_icon_name(ourIcon, iconSize)
+                const dstParent = widget.parent
+                const sourceParent = dragSource.parent
+                const dstIndex = dstParent.children.findIndex(item => item === widget)
+                const sourceIndex = sourceParent.children.findIndex(item => item === dragSource)
+                // i don't think it works like this lol
+                //dstParent[dstIndex] = dragSource
+                //sourceParent[sourceIndex] = widget
+                Log.Info(`dstIndex = ${dstIndex} | sourceIndex = ${sourceIndex}`)
 
-        self.connect("drag-drop", (widget, context, x, y, time) => {
-            Log.Info("drap drop")
-            Gtk.drag_finish(context, true, false, time) // Not sure what this is actually doing
-        }) 
+
+                const isSourceEditable = dragSource.attribute.editable
+                // Swap source and destination
+                if (isSourceEditable) {
+                    Log.Info("Swapping")
+                    // Move destination to source
+                    dstParent.remove(widget)
+                    sourceParent.add(widget)
+                    sourceParent.reorder_child(widget, sourceIndex)
+
+                    // Move source to destination
+                    sourceParent.remove(dragSource)
+                    dstParent.add(dragSource)
+                    dstParent.reorder_child(dragSource, dstIndex)
+                }
+
+                //
+                else {
+                    Log.Info("Copying")
+                    // Move source to destination
+                    dstParent.remove(widget)
+                    //widget.destroy()
+                    const dragSourceNew = AppItem(dragSource.attribute.app, 28, false, true)
+                    dstParent.add(dragSourceNew) 
+                    dstParent.reorder_child(dragSourceNew, dstIndex)
+                    dstParent.show_all()
+                }
+                
+            }) 
+
+            self.connect("drag-drop", (widget, context, x, y, time) => {
+                Log.Info("drag-drop")
+                Gtk.drag_finish(context, true, false, time) // Not sure what this is actually doing
+
+
+                const iconSize = dragSource.child.children[0].size
+                Log.Info(`size = ${iconSize}`)
+                dragSource.child.children[0].set_from_icon_name(dragSource.attribute.app["icon-name"], iconSize)
+            }) 
+
+        }
     }
 })
 
@@ -234,7 +280,7 @@ const Applet = (app) => {
 }
 
 const testApps = Applications.list.splice(0,5).map((app) => {
-    return AppItem(app, 28, false)
+    return AppItem(app, 28, false, true)
 })
 
 export const VerticalAppPanel = () => {
