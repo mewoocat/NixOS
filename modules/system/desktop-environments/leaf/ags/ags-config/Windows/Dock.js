@@ -1,6 +1,7 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import * as Helper from '../Lib/Helper.ts'
+import * as Log from '../Lib/Log.js'
 
 
 //const prefix = "1"  // Identifier for minimized workspace
@@ -59,57 +60,74 @@ const Client = (client = null) => Widget.Box({
 })
 
 
-const appButton = (client = null) => Widget.Button({
-    class_name: "normal-button",
-    tooltip_text: client.title,
-    on_primary_click: () => toggleClient(client),
-    child: Widget.Box({
-        vertical: true,
-        children: [
-            Widget.Box({
+const appButton = (client = null) => Widget.Box({
+    attribute: {
+        client: client
+    },
+    children: [
+        Widget.Box({
+            class_name: "dock-app-indicator",
+            vpack: "center",
+            setup: (self) => {
+                self.hook(Hyprland, () => {
+                    //self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
+                    self.toggleClassName("dock-app-indicator-active", Hyprland.active.client.address === client.address)
+                }, 'event')
+            }
+        }),
+
+        Widget.Button({
+            class_name: "normal-button",
+            tooltip_text: client.title,
+            on_primary_click: () => toggleClient(client),
+            child: Widget.Box({
+                vertical: true,
                 children: [
                     Widget.Box({
-                        class_name: "dock-app-indicator",
-                        vpack: "center",
-                        setup: (self) => {
-                            self.hook(Hyprland, () => {
-                                //self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
-                                self.toggleClassName("dock-app-indicator-active", Hyprland.active.client.address === client.address)
-                            }, 'event')
-                        }
+                        children: [
+                            Widget.Icon({
+                                class_name: 'client-icon',
+                                css: 'font-size: 2rem;',
+                                icon: Helper.lookupClientIcon(client.class),
+                            }),         
+                        ],
                     }),
-                    Widget.Icon({
-                        class_name: 'client-icon',
-                        css: 'font-size: 2rem;',
-                        icon: Helper.lookupClientIcon(client.class),
-                    }),         
-                ],
-            }),
-            Widget.Label({
-                label: Helper.formatClientName(client.class),
-                class_name: 'small-text',
-                truncate: 'end',
-                maxWidthChars: 8,
-            })                
-        ],
-    }),
-});
-
-const clientList = Widget.Scrollable({
-    hscroll: "never",
-    child: Widget.Box({
-        class_name: "dock-container",
-        css: "min-height: 6rem;",
-        css: "min-width: 4rem;",
-        vertical: true,
-    }).hook(Hyprland, self => {
-        //check if ws is empty
-        self.children = Hyprland.clients.filter(client => client.class != "" &&
-            (client.workspace.id === Hyprland.active.workspace.id || 
-                client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id))).map(client => {
-            return appButton(client)
+                    Widget.Label({
+                        label: Helper.formatClientName(client.class),
+                        class_name: 'small-text',
+                        truncate: 'end',
+                        maxWidthChars: 8,
+                    })                
+                ]
+            })
         })
-    })
+    ]
+})
+
+
+const clientList = Widget.Box({
+    class_name: "dock-container",
+    css: "min-height: 6rem;",
+    css: "min-width: 6rem;",
+    vertical: true,
+}).hook(Hyprland, self => {
+    //check if ws is empty
+    const clients = Hyprland.clients.filter(client => client.class != "" && (
+        client.workspace.id === Hyprland.active.workspace.id || 
+        client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id)
+    )) 
+    Log.Info(JSON.stringify(clients, null, 4))
+    // Only update if "needed"
+    if (
+        clients.length !== self.children.length ||
+        !clients.every((client, index) => {
+            Log.Info("new = " + client.pid)
+            Log.Info("old = " + self.children[index].attribute.client.pid)
+            client.pid === self.children[index].attribute.client.pid
+        })
+    ) {
+        self.children = clients.map(client => appButton(client))
+    }
 })
 
 export const Dock = (monitor = 0) => Widget.Window({
