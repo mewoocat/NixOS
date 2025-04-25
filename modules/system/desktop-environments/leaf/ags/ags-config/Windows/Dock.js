@@ -1,18 +1,22 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import * as Helper from '../Lib/Helper.ts'
 
 
-const prefix = "100"  // Identifier for minimized workspace
+//const prefix = "1"  // Identifier for minimized workspace
 
 function getMinimizedWS(maximizedWS){
-    return parseInt(prefix + maximizedWS)
+    //return parseInt(prefix + maximizedWS)
+    return -maximizedWS
 }
 
 function getMaximizedWS(minimizedWS){
-    return parseInt(minimizedWS.toString().substring(prefix.length))
+    //return parseInt(minimizedWS.toString().substring(prefix.length))
+    return -minimizedWS
 }
 
 function isMinimized(ws){
+    /*
     ws = ws.toString()
     if (ws.length > 3 || ws.slice(0, prefix.length) == prefix){
         return true 
@@ -20,10 +24,15 @@ function isMinimized(ws){
     else{
         return false
     }
+    */
+    if (ws < 0){
+        return true
+    }
+    return false
 }
 
 
-const focusClient = (client) => {
+const toggleClient = (client) => {
 
     // If minimized
     if (isMinimized(client.workspace.id)){ 
@@ -51,9 +60,9 @@ const Client = (client = null) => Widget.Box({
 
 
 const appButton = (client = null) => Widget.Button({
-    class_name: "dock-button",
+    class_name: "normal-button",
     tooltip_text: client.title,
-    on_primary_click: () => focusClient(client),
+    on_primary_click: () => toggleClient(client),
     child: Widget.Box({
         vertical: true,
         children: [
@@ -69,17 +78,16 @@ const appButton = (client = null) => Widget.Button({
                             }, 'event')
                         }
                     }),
-                    /*
                     Widget.Icon({
                         class_name: 'client-icon',
-                        css: 'font-size: 3rem;',
-                        icon: client.class,
+                        css: 'font-size: 2rem;',
+                        icon: Helper.lookupClientIcon(client.class),
                     }),         
-                    */
                 ],
             }),
             Widget.Label({
-                label: client.class,
+                label: Helper.formatClientName(client.class),
+                class_name: 'small-text',
                 truncate: 'end',
                 maxWidthChars: 8,
             })                
@@ -92,11 +100,13 @@ const clientList = Widget.Scrollable({
     child: Widget.Box({
         class_name: "dock-container",
         css: "min-height: 6rem;",
-        css: "min-width: 6rem;",
+        css: "min-width: 4rem;",
         vertical: true,
     }).hook(Hyprland, self => {
         //check if ws is empty
-        self.children = Hyprland.clients.filter(client => client.class != "" && (client.workspace.id === Hyprland.active.workspace.id || client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id))).map(client => {
+        self.children = Hyprland.clients.filter(client => client.class != "" &&
+            (client.workspace.id === Hyprland.active.workspace.id || 
+                client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id))).map(client => {
             return appButton(client)
         })
     })
@@ -105,7 +115,7 @@ const clientList = Widget.Scrollable({
 export const Dock = (monitor = 0) => Widget.Window({
     name: `Dock`, // name has to be unique
     monitor,
-    visible: false,
+    visible: true,
     //margins: [4,64,4,64],
     //margins: [8,8,8,8],
     anchor: ['bottom', 'left', 'top'],

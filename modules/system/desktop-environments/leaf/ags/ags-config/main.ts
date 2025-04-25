@@ -32,7 +32,7 @@ Gtk.Settings.get_default().gtk_enable_animations = Options.Options.user.general.
 // Import windows
 import * as ActivityCenter from './Windows/ActivityCenter.js';
 import * as NotificationPopup from './Windows/NotificationPopups.js';
-//import * as Dock from './Windows/Dock.js';
+import * as Dock from './Windows/Dock.js';
 import * as Launcher from './Windows/Launcher.js';
 import * as Bar from './Windows/Bar.js';
 import * as ControlPanel from './Windows/ControlPanel.js';
@@ -73,7 +73,7 @@ function InitilizeWindows(){
         NotificationPopup.NotificationPopup(), 
         SettingsWin.SettingsWin(),
         Keybinds.Window(),
-        //Dock.Dock()
+        Dock.Dock()
 
     ]
     return windows

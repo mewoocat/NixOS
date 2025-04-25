@@ -371,8 +371,9 @@ entry {
 // Dock
 ////////////////////////////////////////////////////////////////////////////
 .dock-button > box {
-    padding: 0.6rem 0.6rem;
-    margin: 0.4rem;
+    all: unset;
+    padding: 0.2rem 0.2rem;
+    margin: 0.2rem;
     border-radius: 1rem;
     min-width: 4rem;
     min-height: 4rem;
@@ -388,7 +389,7 @@ entry {
     min-width: 0.4rem;
     min-height: 0.4rem;
     border-radius: 1rem;
-    margin-right: 0.6rem;
+    margin-right: 0.2rem;
     background-color: rgba(0,0,0,0);
 }
 .dock-app-indicator-active{
