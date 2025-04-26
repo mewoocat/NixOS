@@ -50,6 +50,7 @@ const toggleClient = (client) => {
         // Focus window
         //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
         Hyprland.messageAsync(`dispatch alterzorder top,address:${client.address}`)
+        client.workspace.name = maximizedWS
     }
     
     // If maximized
@@ -59,19 +60,12 @@ const toggleClient = (client) => {
         var minimizedWS = getMinimizedWS(client.workspace.id)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS},address:${client.address}`)
         */
-        const minimizedWS = `${prefix + client.workspace.id}`
+        const minimizedWS = `${prefix + client.workspace.name}`
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS}, address:${client.address}`)
+        client.workspace.name = minimizedWS
     }
     
 }
-
-const Client = (client = null) => Widget.Box({ 
-    // Attributes
-    attribute: {
-        returnWS: client.workspace,
-    }, 
-})
-
 
 const appButton = (client = null) => Widget.Box({
     attribute: {
@@ -92,7 +86,11 @@ const appButton = (client = null) => Widget.Box({
         Widget.Button({
             class_name: "normal-button",
             tooltip_text: client.title,
-            on_primary_click: () => toggleClient(client),
+            on_primary_click: (self) => {
+                toggleClient(client)
+                // Update the client state
+                //self.parent.attribute.client = Hyprland.getClient(self.parent.attribute.client.address)
+            },
             child: Widget.Box({
                 vertical: true,
                 children: [
@@ -123,6 +121,11 @@ const clientList = Widget.Box({
     css: "min-height: 6rem;",
     css: "min-width: 6rem;",
     vertical: true,
+    // Initalize the clients on the active workspace
+    children: Hyprland.clients.filter(client => client.class != "" && (
+        client.workspace.id === Hyprland.active.workspace.id || 
+        client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
+    )).map(client => appButton(client))
 // Note that the signal method args are tacked onto the self arg (i think)
 }).hook(Hyprland, (self, name, data) => {
     //check if ws is empty
@@ -149,11 +152,8 @@ const clientList = Widget.Box({
 
     // If client was added
     if (name === "openwindow") {
-        Log.Info(`openwindow data = ${data}`)
         const address = "0x" + data.split(',')[0]
-        Log.Info(`address = ${address}`)
         const newClient = Hyprland.getClient(address)
-        Log.Info(`client = ${JSON.stringify(newClient)}`)
         self.add(appButton(newClient))
     }
     
@@ -161,6 +161,14 @@ const clientList = Widget.Box({
     else if (name === "closewindow") {
         Log.Info(`closeWindow event`)
         Log.Info(`closewindow data = ${data}`)
+        const address = "0x" + data.split(',')[0]
+        for (const client of self.children) {
+            if (client.attribute.client.address === address) {
+                self.remove(client)
+                client.destroy()
+                break
+            }
+        }
     }
 
     // If workspace changed

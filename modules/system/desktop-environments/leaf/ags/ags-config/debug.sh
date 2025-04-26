@@ -6,5 +6,5 @@ bun build ~/NixOS/modules/system/desktop-environments/leaf/ags/ags-config/main.t
     --external "resource://*" \
     --external "gi://*" &&
 ags -b testing -c /tmp/ags/js/main.js \
-    inspector
-    #-t applauncher \
+    inspector 
+    #-t ControlPanel 
