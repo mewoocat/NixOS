@@ -5,15 +5,17 @@ import * as Log from '../Lib/Log.js'
 
 
 //const prefix = "1"  // Identifier for minimized workspace
+const prefix = "special:minimized-"  // Identifier for minimized workspace
 
 function getMinimizedWS(maximizedWS){
     //return parseInt(prefix + maximizedWS)
-    return -maximizedWS
+    return `${prefix + maximizedWS}`
 }
 
 function getMaximizedWS(minimizedWS){
     //return parseInt(minimizedWS.toString().substring(prefix.length))
-    return -minimizedWS
+    // Remove the prefix
+    return minimizedWS.replace(prefix, "")
 }
 
 function isMinimized(ws){
@@ -26,7 +28,9 @@ function isMinimized(ws){
         return false
     }
     */
-    if (ws < 0){
+    Log.Info(`isMinimized(): ws = ${ws}`)
+    ws = ws.toString()
+    if (ws.startsWith(prefix)){
         return true
     }
     return false
@@ -36,9 +40,10 @@ function isMinimized(ws){
 const toggleClient = (client) => {
 
     // If minimized
-    if (isMinimized(client.workspace.id)){ 
+    if (isMinimized(client.workspace.name)){ 
+        Log.Info("Showing")
         var maximizedWS = getMaximizedWS(client.workspace.id)
-        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${maximizedWS},address:${client.address}`)
+        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${maximizedWS}, address:${client.address}`)
         // Focus window
         //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
         Hyprland.messageAsync(`dispatch alterzorder top,address:${client.address}`)
@@ -46,8 +51,13 @@ const toggleClient = (client) => {
     
     // If maximized
     else{
+        Log.Info("Hiding")
+        /*
         var minimizedWS = getMinimizedWS(client.workspace.id)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS},address:${client.address}`)
+        */
+        const minimizedWS = `${prefix + client.workspace.id}`
+        Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS}, address:${client.address}`)
     }
     
 }
@@ -114,18 +124,16 @@ const clientList = Widget.Box({
     //check if ws is empty
     const clients = Hyprland.clients.filter(client => client.class != "" && (
         client.workspace.id === Hyprland.active.workspace.id || 
-        client.workspace.id === getMinimizedWS(Hyprland.active.workspace.id)
+        client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
     )) 
-    Log.Info(JSON.stringify(clients, null, 4))
     // Only update if "needed"
     if (
         clients.length !== self.children.length ||
         !clients.every((client, index) => {
-            Log.Info("new = " + client.pid)
-            Log.Info("old = " + self.children[index].attribute.client.pid)
-            client.pid === self.children[index].attribute.client.pid
+            return client.pid === self.children[index].attribute.client.pid
         })
     ) {
+        Log.Info("dock children updated")
         self.children = clients.map(client => appButton(client))
     }
 })
