@@ -15,7 +15,7 @@ function getMinimizedWS(maximizedWS){
 function getMaximizedWS(minimizedWS){
     //return parseInt(minimizedWS.toString().substring(prefix.length))
     // Remove the prefix
-    return minimizedWS.replace(prefix, "")
+    return minimizedWS.toString().replace(prefix, "")
 }
 
 function isMinimized(ws){
@@ -39,10 +39,13 @@ function isMinimized(ws){
 
 const toggleClient = (client) => {
 
+    Log.Info(`Client JSON: ${JSON.stringify(client)}`)
+
     // If minimized
     if (isMinimized(client.workspace.name)){ 
         Log.Info("Showing")
-        var maximizedWS = getMaximizedWS(client.workspace.id)
+        const maximizedWS = getMaximizedWS(client.workspace.name)
+        Log.Info(`Maximized: ${maximizedWS}}`)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${maximizedWS}, address:${client.address}`)
         // Focus window
         //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
@@ -127,15 +130,17 @@ const clientList = Widget.Box({
         client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
     )) 
     // Only update if "needed"
+    // Warning: this causes issues with showing/hiding
     if (
         clients.length !== self.children.length ||
         !clients.every((client, index) => {
             return client.pid === self.children[index].attribute.client.pid
         })
     ) {
-        Log.Info("dock children updated")
-        self.children = clients.map(client => appButton(client))
+        //Log.Info("dock children updated")
+        //self.children = clients.map(client => appButton(client))
     }
+    self.children = clients.map(client => appButton(client))
 })
 
 export const Dock = (monitor = 0) => Widget.Window({
