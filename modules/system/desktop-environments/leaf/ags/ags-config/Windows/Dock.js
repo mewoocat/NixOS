@@ -123,14 +123,18 @@ const clientList = Widget.Box({
     css: "min-height: 6rem;",
     css: "min-width: 6rem;",
     vertical: true,
-}).hook(Hyprland, self => {
+// Note that the signal method args are tacked onto the self arg (i think)
+}).hook(Hyprland, (self, name, data) => {
     //check if ws is empty
+    /*
     const clients = Hyprland.clients.filter(client => client.class != "" && (
         client.workspace.id === Hyprland.active.workspace.id || 
         client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
     )) 
+    */
     // Only update if "needed"
     // Warning: this causes issues with showing/hiding
+    /*
     if (
         clients.length !== self.children.length ||
         !clients.every((client, index) => {
@@ -141,7 +145,46 @@ const clientList = Widget.Box({
         //self.children = clients.map(client => appButton(client))
     }
     self.children = clients.map(client => appButton(client))
-})
+    */
+
+    // If client was added
+    if (name === "openwindow") {
+        Log.Info(`openwindow data = ${data}`)
+        const address = "0x" + data.split(',')[0]
+        Log.Info(`address = ${address}`)
+        const newClient = Hyprland.getClient(address)
+        Log.Info(`client = ${JSON.stringify(newClient)}`)
+        self.add(appButton(newClient))
+    }
+    
+    // If client was removed
+    else if (name === "closewindow") {
+        Log.Info(`closeWindow event`)
+        Log.Info(`closewindow data = ${data}`)
+    }
+
+    // If workspace changed
+    else if (name === "workspace" || name === "workspacev2") {
+        Log.Info("workspace event")
+        Log.Info(`window data = ${data}`)
+        const clients = Hyprland.clients.filter(client => client.class != "" && (
+            client.workspace.id === Hyprland.active.workspace.id || 
+            client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
+        )) 
+        self.children = clients.map(client => appButton(client))
+    }
+    
+    // If client was moved to the current workspace
+    else if (name === "movewindow") {
+        Log.Info(`movewindow data = ${data}`)
+    }
+
+    // Some other event occured
+    else {
+        Log.Info(`Some other event occured\n\tname = ${name}\n\tdata = ${data}`)
+    }
+
+}, "event") // Hyprland IPC events
 
 export const Dock = (monitor = 0) => Widget.Window({
     name: `Dock`, // name has to be unique
