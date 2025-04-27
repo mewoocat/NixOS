@@ -60,3 +60,6 @@ vim.dst = '~/.cache/wallust/colors_neopywal.vim'
 zellij.src = 'zellij.kdl'
 zellij.dst = '~/.config/zellij/themes/default.kdl'
 
+hypr.src = 'hypr.conf'
+hypr.dst = '~/.config/leaf-de/hypr/colors.conf'
+
