@@ -102,7 +102,7 @@ const appButton = (clientAddress = null) => {
                             children: [
                                 Widget.Icon({
                                     class_name: 'client-icon',
-                                    css: 'font-size: 2rem;',
+                                    css: 'font-size: 2.4rem;',
                                     icon: Helper.lookupClientIcon(client.class),
                                 }),         
                             ],
