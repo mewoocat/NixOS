@@ -4,6 +4,7 @@ import Gtk from 'gi://Gtk'
 import GLib from 'gi://GLib'
 
 import * as Log from './Lib/Log.js'
+import './Controller.ts'
 
 // Add icons in assets to icon set
 //Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
@@ -91,4 +92,5 @@ App.config({
     */
     windows: InitilizeWindows(),
 });
+
 

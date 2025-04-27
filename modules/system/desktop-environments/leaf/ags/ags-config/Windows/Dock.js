@@ -37,8 +37,10 @@ function isMinimized(ws){
 }
 
 
-const toggleClient = (client) => {
+export const toggleClient = (clientAddress) => {
 
+    const client = Hyprland.getClient(clientAddress)
+    Log.Info(`Client address = ${client.address}`)
     Log.Info(`Client JSON: ${JSON.stringify(client)}`)
 
     // If minimized
@@ -49,7 +51,7 @@ const toggleClient = (client) => {
         // Focus window
         //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
         Hyprland.messageAsync(`dispatch alterzorder top,address:${client.address}`)
-        client.workspace.name = maximizedWS
+        //client.workspace.name = maximizedWS
     }
     
     // If maximized
@@ -61,58 +63,62 @@ const toggleClient = (client) => {
         const minimizedWS = `${prefix + client.workspace.name}`
         Log.Info(`Window is maximized.  Minimizing: moving from ${client.workspace.name} ${minimizedWS}}`)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS}, address:${client.address}`)
-        client.workspace.name = minimizedWS
+        //client.workspace.name = minimizedWS
     }
     
 }
 
-const appButton = (client = null) => Widget.Box({
-    attribute: {
-        client: client
-    },
-    children: [
-        Widget.Box({
-            class_name: "dock-app-indicator",
-            vpack: "center",
-            setup: (self) => {
-                self.hook(Hyprland, () => {
-                    //self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
-                    self.toggleClassName("dock-app-indicator-active", Hyprland.active.client.address === client.address)
-                }, 'event')
-            }
-        }),
+const appButton = (clientAddress = null) => {
+    const client = Hyprland.getClient(clientAddress)
 
-        Widget.Button({
-            class_name: "normal-button",
-            tooltip_text: client.title,
-            on_primary_click_release: (self) => {
-                toggleClient(client)
-                // Update the client state
-                //self.parent.attribute.client = Hyprland.getClient(self.parent.attribute.client.address)
-            },
-            child: Widget.Box({
-                vertical: true,
-                children: [
-                    Widget.Box({
-                        children: [
-                            Widget.Icon({
-                                class_name: 'client-icon',
-                                css: 'font-size: 2rem;',
-                                icon: Helper.lookupClientIcon(client.class),
-                            }),         
-                        ],
-                    }),
-                    Widget.Label({
-                        label: Helper.formatClientName(client.class),
-                        class_name: 'small-text',
-                        truncate: 'end',
-                        maxWidthChars: 8,
-                    })                
-                ]
+    return Widget.Box({
+        attribute: {
+            client: client
+        },
+        children: [
+            Widget.Box({
+                class_name: "dock-app-indicator",
+                vpack: "center",
+                setup: (self) => {
+                    self.hook(Hyprland, () => {
+                        //self.toggleClassName("dock-button-current", Hyprland.active.client.address === client.address)
+                        self.toggleClassName("dock-app-indicator-active", Hyprland.active.client.address === client.address)
+                    }, 'event')
+                }
+            }),
+
+            Widget.Button({
+                class_name: "normal-button",
+                tooltip_text: client.title,
+                on_primary_click_release: (self) => {
+                    toggleClient(clientAddress)
+                    // Update the client state
+                    //self.parent.attribute.client = Hyprland.getClient(self.parent.attribute.client.address)
+                },
+                child: Widget.Box({
+                    vertical: true,
+                    children: [
+                        Widget.Box({
+                            children: [
+                                Widget.Icon({
+                                    class_name: 'client-icon',
+                                    css: 'font-size: 2rem;',
+                                    icon: Helper.lookupClientIcon(client.class),
+                                }),         
+                            ],
+                        }),
+                        Widget.Label({
+                            label: Helper.formatClientName(client.class),
+                            class_name: 'small-text',
+                            truncate: 'end',
+                            maxWidthChars: 8,
+                        })                
+                    ]
+                })
             })
-        })
-    ]
-})
+        ]
+    })
+}
 
 
 const clientList = Widget.Box({
@@ -124,7 +130,7 @@ const clientList = Widget.Box({
     children: Hyprland.clients.filter(client => client.class != "" && (
         client.workspace.id === Hyprland.active.workspace.id || 
         client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
-    )).map(client => appButton(client))
+    )).map(client => appButton(client.address))
 // Note that the signal method args are tacked onto the self arg (i think)
 }).hook(Hyprland, (self, name, data) => {
     //check if ws is empty
@@ -152,8 +158,7 @@ const clientList = Widget.Box({
     // If client was added
     if (name === "openwindow") {
         const address = "0x" + data.split(',')[0]
-        const newClient = Hyprland.getClient(address)
-        self.add(appButton(newClient))
+        self.add(appButton(address))
     }
     
     // If client was removed
@@ -178,7 +183,7 @@ const clientList = Widget.Box({
             client.workspace.id === Hyprland.active.workspace.id || 
             client.workspace.name === getMinimizedWS(Hyprland.active.workspace.id)
         )) 
-        self.children = clients.map(client => appButton(client))
+        self.children = clients.map(client => appButton(client.address))
     }
     
     // If client was moved to the current workspace
