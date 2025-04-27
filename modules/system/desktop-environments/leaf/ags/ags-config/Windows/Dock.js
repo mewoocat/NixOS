@@ -43,9 +43,8 @@ const toggleClient = (client) => {
 
     // If minimized
     if (isMinimized(client.workspace.name)){ 
-        Log.Info("Showing")
         const maximizedWS = getMaximizedWS(client.workspace.name)
-        Log.Info(`Maximized: ${maximizedWS}}`)
+        Log.Info(`Window is minimized.  Maximizing: moving from ${client.workspace.name} ${maximizedWS}}`)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${maximizedWS}, address:${client.address}`)
         // Focus window
         //Hyprland.messageAsync(`dispatch focuswindow address:${client.address}`)
@@ -55,12 +54,12 @@ const toggleClient = (client) => {
     
     // If maximized
     else{
-        Log.Info("Hiding")
         /*
         var minimizedWS = getMinimizedWS(client.workspace.id)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS},address:${client.address}`)
         */
         const minimizedWS = `${prefix + client.workspace.name}`
+        Log.Info(`Window is maximized.  Minimizing: moving from ${client.workspace.name} ${minimizedWS}}`)
         Hyprland.messageAsync(`dispatch movetoworkspacesilent ${minimizedWS}, address:${client.address}`)
         client.workspace.name = minimizedWS
     }
@@ -86,7 +85,7 @@ const appButton = (client = null) => Widget.Box({
         Widget.Button({
             class_name: "normal-button",
             tooltip_text: client.title,
-            on_primary_click: (self) => {
+            on_primary_click_release: (self) => {
                 toggleClient(client)
                 // Update the client state
                 //self.parent.attribute.client = Hyprland.getClient(self.parent.attribute.client.address)
@@ -184,12 +183,12 @@ const clientList = Widget.Box({
     
     // If client was moved to the current workspace
     else if (name === "movewindow") {
-        Log.Info(`movewindow data = ${data}`)
+        //Log.Info(`movewindow data = ${data}`)
     }
 
     // Some other event occured
     else {
-        Log.Info(`Some other event occured\n\tname = ${name}\n\tdata = ${data}`)
+        //Log.Info(`Some other event occured\n\tname = ${name}\n\tdata = ${data}`)
     }
 
 }, "event") // Hyprland IPC events
