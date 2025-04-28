@@ -40,6 +40,8 @@ import * as ControlPanel from './Windows/ControlPanel.js';
 import * as Monitors from './Monitors.js'
 import * as SettingsWin from './Windows/Settings.js';
 import * as Keybinds from './Windows/keybinds.ts';
+import * as Workspaces from './Windows/Workspaces.ts';
+
 import * as Style from './Style/style.js'
 
 // Compile and apply scss as css
@@ -74,8 +76,8 @@ function InitilizeWindows(){
         NotificationPopup.NotificationPopup(), 
         SettingsWin.SettingsWin(),
         Keybinds.Window(),
-        Dock.Dock()
-
+        Dock.Dock(),
+        Workspaces.Workspaces(),
     ]
     return windows
 }
