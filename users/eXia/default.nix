@@ -22,7 +22,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
     isNormalUser = true;
-    extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers" "cdrom"]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+      "docker"
+      "vboxusers"
+      "cdrom"
+      "dialout" # Allows user to access serial devices, used for flashgbx
+    ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
 
       # Utilities
@@ -78,6 +86,7 @@
       yubioath-flutter
       librewolf
       onlyoffice-desktopeditors
+      flashgbx
     ];
   };
 
