@@ -16,6 +16,7 @@ in{
     ./hyprland
     ./theming
     ./dynamic
+    ./quickshell
   ];
 
   programs.light.enable = true;

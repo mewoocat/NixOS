@@ -119,6 +119,7 @@ in {
       source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark/gtk-4.0/gtk.css";
     };
 
+    /*
     ".config/qt5ct" = {
       clobber = true;
       source = ./qt-configs/qt5ct;
@@ -128,5 +129,6 @@ in {
       clobber = true;
       source = ./qt-configs/qt6ct;
     };
+    */
   };
 }

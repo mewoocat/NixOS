@@ -84,6 +84,11 @@
 
     hjem.url = "github:feel-co/hjem";
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   # The `@` syntax here is used to alias the attribute set of the
