@@ -1,5 +1,5 @@
 import QtQuick
-import "Singletons" as Sin
+import "root:/Singletons" as Sin
 
 Text {
     id: clock

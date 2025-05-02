@@ -19,7 +19,7 @@ RowLayout {
         }
         */
         Rectangle {
-            color: Hyprland.focusedMonitor.activeWorkspace.id === modelData.id ? "green" : "grey"
+            //color: Hyprland.focusedMonitor.activeWorkspace.id === modelData.id ? "green" : "grey"
             // Todo fix
             width: modelData.lastIpcObject.windows < 1 ? 16 : 24
             height: 16

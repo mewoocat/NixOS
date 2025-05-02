@@ -3,6 +3,7 @@ import Quickshell.Io // For Process
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import "root:/" as Root
 
 Scope {
     property string time;
@@ -31,11 +32,10 @@ Scope {
                     anchors.fill: parent
                     //implicitWidth: clock.width
                     //implicitHeight: clock.height
-                    Button {
-                        //text: "what"
-                        //icon.name: 'media-floppy'
+                    RoundButton {
                         icon.name: "distributor-logo-nixos"
-                        //icon.source: "Icons/nightlight-symbolic.svg"
+                        anchors.leftMargin: 16
+                        onClicked: Root.State.launcherVisibility = !Root.State.launcherVisibility
                     }
                     Workspaces {}
                     Clock {}
