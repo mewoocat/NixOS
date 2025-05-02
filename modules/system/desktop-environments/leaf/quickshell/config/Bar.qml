@@ -37,6 +37,7 @@ Scope {
                         icon.name: "distributor-logo-nixos"
                         //icon.source: "Icons/nightlight-symbolic.svg"
                     }
+                    Workspaces {}
                     Clock {}
                     Rectangle {
                         color: "green"

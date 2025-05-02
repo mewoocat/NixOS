@@ -5,6 +5,6 @@ Text {
     id: clock
     color: "#ffffff"
     // Centers relative to parent
-    anchors.centerIn: parent
+    //anchors.centerIn: parent
     text: Sin.Time.time
 }
