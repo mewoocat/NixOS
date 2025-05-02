@@ -29,9 +29,27 @@ PanelWindow {
         radius: 12
         ColumnLayout {
             anchors.fill: parent
-            TextField {
+
+            // Search field
+            Rectangle {
+                color: "transparent"
+                height: 40
                 Layout.fillWidth: true
+                //Layout.fillWidth: true
+                //Layout.fillHeight: true
+                TextField {
+                    anchors.margins: 8
+                    anchors.fill: parent
+                    Layout.fillWidth: true
+                    background: Rectangle {
+                        anchors.fill: parent
+                        color: "grey"
+                        radius: 16
+                    }
+                }
             }
+
+            // Application list
             ScrollView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -41,16 +59,29 @@ PanelWindow {
                     Repeater {
                         model: DesktopEntries.applications
                         Component.onCompleted: console.log(`model = ${model}`)
-                        Rectangle {
-                            color: mouseArea.containsMouse ? "#00ff00" : "#222222"
+                        MouseArea {
                             Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            height: 40
-                            MouseArea {
-                                id: mouseArea
-                                hoverEnabled: true
-                                onClicked: modelData.execute()
+                            //Layout.fillHeight: true
+                            height: 60
+                            id: mouseArea
+                            hoverEnabled: true
+                            onClicked: modelData.execute()
+                            Rectangle {
                                 anchors.fill: parent
+                                anchors {
+                                    leftMargin: 16
+                                    rightMargin: 16
+                                    topMargin: 4
+                                    bottomMargin: 4
+                                }
+                                /*
+                                implicitWidth: 200
+                                implicitHeight: 40
+                                */
+                                //Layout.fillWidth: true
+                                //Layout.fillHeight: true
+                                color: mouseArea.containsMouse ? "#00ff00" : "transparent"
+                                radius: 10
                                 RowLayout {
                                     anchors.fill: parent
                                     IconImage {
@@ -70,3 +101,5 @@ PanelWindow {
         }
     }
 }
+
+
