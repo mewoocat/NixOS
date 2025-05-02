@@ -3,6 +3,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell.Hyprland
 
 import "root:/" as Root
 
@@ -23,6 +24,42 @@ PanelWindow {
         left: 16
         top: 16
     }
+
+    /////////////////////////////////////////////////////////////////////////
+    // Close on click away
+
+    // Create a timer that sets the grab active state after a delay
+    // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
+    // signal for the window occurs before the window is actually created
+    // This would cause the grab to not find the window
+    Timer {
+        id: delay
+        triggeredOnStart: false
+        interval: 100
+        repeat: false
+        onTriggered: grab.active = Root.State.launcherVisibility
+    }
+    // Connects to the launcher onVisibleChanged signal
+    // Starts a small delay which then sets the grab active state to match the 
+    Connections {
+        target: launcher
+        function onVisibleChanged() {
+            delay.start()
+            console.log(`visible ${visible}`)
+        }
+    }
+    HyprlandFocusGrab {
+        id: grab
+        active: false
+        windows: [ launcher ]
+        // Function to run when the Cleared signal is emitted
+        onCleared: () => {
+            console.log("cleared")
+            Root.State.launcherVisibility = false
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////
+
     Rectangle {
         anchors.fill: parent
         color: "#aa000000"

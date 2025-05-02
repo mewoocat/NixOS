@@ -35,7 +35,9 @@ Scope {
                     RoundButton {
                         icon.name: "distributor-logo-nixos"
                         anchors.leftMargin: 16
-                        onClicked: Root.State.launcherVisibility = !Root.State.launcherVisibility
+                        onClicked: {
+                            Root.State.launcherVisibility = !Root.State.launcherVisibility
+                        }
                     }
                     Workspaces {}
                     Clock {}
