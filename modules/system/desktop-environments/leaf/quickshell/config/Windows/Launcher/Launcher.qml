@@ -86,6 +86,7 @@ PanelWindow {
                 color: "transparent"
                 implicitHeight: 48
                 Layout.fillWidth: true
+                //Layout.fillHeight: true
                 TextField {
                     id: textField
                     focus: true // Make this have focus by default
@@ -104,25 +105,30 @@ PanelWindow {
                     }
                     Keys.onUpPressed: {
                         listView.decrementCurrentIndex()
+                        listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
                     }
                     Keys.onDownPressed: {
                         listView.incrementCurrentIndex()
+                        listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
                     }
                 }
             }
 
             // Application list
+            /*
             ScrollView {
-                clip: true // Ensure that scrolled items don't go outside the widget
                 //focus: true
                 Layout.fillWidth: true
+                //clip: true // Ensure that scrolled items don't go outside the widget
                 Layout.fillHeight: true
+            */
                 ListView {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                     //cacheBuffer: 0
                     maximumFlickVelocity: 100 // Increases bound overshoot?
                     id: listView
                     keyNavigationEnabled: true
-                    anchors.fill: parent
                     model: ScriptModel {
                         values: DesktopEntries.applications.values
                             .filter(app => app.name.toLowerCase().includes(searchText.toLowerCase()))
@@ -131,6 +137,9 @@ PanelWindow {
 
                     snapMode: ListView.SnapToItem
                     Component.onCompleted: console.log(`model = ${model}`)
+                    // Add a scroll bar to the list
+                    // idk where this ScrollBar.vertical property is defined
+                    ScrollBar.vertical: ScrollBar { }
 
                     delegate: MouseArea {
                         //focusPolicy: Qt.TabFocus
@@ -164,7 +173,7 @@ PanelWindow {
                                     source: Quickshell.iconPath(modelData.icon)
                                 }
                                 Text{
-                                    anchors.left: icon.right
+                                    Layout.fillWidth: true
                                     leftPadding: 8
                                     color: "#ffffff"
                                     text: modelData.name
@@ -173,7 +182,7 @@ PanelWindow {
                         }
                     }
                 }
-            }
+            //}
         }
     }
 }
