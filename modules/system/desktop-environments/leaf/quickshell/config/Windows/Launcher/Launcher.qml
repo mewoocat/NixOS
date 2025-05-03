@@ -97,18 +97,19 @@ PanelWindow {
                 Layout.fillHeight: true
                 ColumnLayout {
                     anchors.fill: parent
-                    Repeater {
+                    ListView {
                         focus: true
                         //anchors.fill: parent
                         model: DesktopEntries.applications
+
                         Component.onCompleted: console.log(`model = ${model}`)
 
-                        MouseArea {
+                        delegate: MouseArea {
                             focus: true
                             id: mouseArea
-                            property var app: modelData
+                            property var app: model
 
-                            Component.onCompleted: console.log(`model = ${app.name}`)
+                            Component.onCompleted: console.log(`app = ${app.values}`)
 
                             // Filter using search text
                             visible: {
