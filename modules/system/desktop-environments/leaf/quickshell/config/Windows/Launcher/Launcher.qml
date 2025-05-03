@@ -11,6 +11,19 @@ PanelWindow {
     // Stores the current search
     property string searchText: ""
 
+    /*
+    // Can't seem to access from outside the file, i think it needs a instance of this object
+    function toggleWindow(): void { 
+        Root.State.launcherVisibility = !Root.State.launcherVisibility
+    }
+    */
+
+    onVisibleChanged: {
+        searchText = "" 
+        textField.text = ""
+        listView.currentIndex = 0
+    }
+
     id: launcher
     visible: Root.State.launcherVisibility
     anchors {
@@ -74,6 +87,8 @@ PanelWindow {
                 implicitHeight: 48
                 Layout.fillWidth: true
                 TextField {
+                    id: textField
+                    focus: true // Make this have focus by default
                     placeholderText: "Seach..."
                     anchors.margins: 8
                     anchors.fill: parent
@@ -85,65 +100,74 @@ PanelWindow {
                     }
                     onTextChanged: () => {
                         searchText = text
-                        console.log(`searchText: ${searchText}`)
+                        listView.currentIndex = 0
+                    }
+                    Keys.onUpPressed: {
+                        listView.decrementCurrentIndex()
+                    }
+                    Keys.onDownPressed: {
+                        listView.incrementCurrentIndex()
                     }
                 }
             }
 
             // Application list
             ScrollView {
-                focus: true
+                clip: true // Ensure that scrolled items don't go outside the widget
+                //focus: true
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                ColumnLayout {
+                ListView {
+                    //cacheBuffer: 0
+                    maximumFlickVelocity: 100 // Increases bound overshoot?
+                    id: listView
+                    keyNavigationEnabled: true
                     anchors.fill: parent
-                    ListView {
-                        focus: true
-                        //anchors.fill: parent
-                        model: DesktopEntries.applications
+                    model: ScriptModel {
+                        values: DesktopEntries.applications.values
+                            .filter(app => app.name.toLowerCase().includes(searchText.toLowerCase()))
+                            //.filter(app => true)
+                    }
 
-                        Component.onCompleted: console.log(`model = ${model}`)
+                    snapMode: ListView.SnapToItem
+                    Component.onCompleted: console.log(`model = ${model}`)
 
-                        delegate: MouseArea {
-                            focus: true
-                            id: mouseArea
-                            property var app: model
+                    delegate: MouseArea {
+                        //focusPolicy: Qt.TabFocus
+                        //focus: true
+                        id: mouseArea
+                        required property DesktopEntry modelData
+                        //property DesktopEntry app: mouseArea.modelData
+                        Component.onCompleted: console.log(`app = ${modelData.name}`)
 
-                            Component.onCompleted: console.log(`app = ${app.values}`)
+                        height: 60
+                        width: listView.width
 
-                            // Filter using search text
-                            visible: {
-                                if (
-                                    app.name.toLowerCase().includes(app.name.toLowerCase())
-                                ) {
-                                    return true
-                                }
-                                return false
+                        hoverEnabled: true
+                        onClicked: modelData.execute()
+                        Keys.onReturnPressed: modelData.execute()
+                        Rectangle {
+                            anchors.fill: parent
+                            anchors {
+                                leftMargin: 16
+                                rightMargin: 16
+                                topMargin: 4
+                                bottomMargin: 4
                             }
-                            Layout.fillWidth: true
-                            height: 60
-                            hoverEnabled: true
-                            onClicked: app.execute()
-                            Rectangle {
+                            color: mouseArea.containsMouse || mouseArea.focus ? "#00ff00" : "transparent"
+                            radius: 10
+                            RowLayout {
                                 anchors.fill: parent
-                                anchors {
-                                    leftMargin: 16
-                                    rightMargin: 16
-                                    topMargin: 4
-                                    bottomMargin: 4
+                                IconImage {
+                                    id: icon
+                                    implicitSize: 32
+                                    source: Quickshell.iconPath(modelData.icon)
                                 }
-                                color: mouseArea.containsMouse ? "#00ff00" : "transparent"
-                                radius: 10
-                                RowLayout {
-                                    anchors.fill: parent
-                                    IconImage {
-                                        implicitSize: 32
-                                        source: Quickshell.iconPath(app.icon)
-                                    }
-                                    Text{
-                                        color: "#ffffff"
-                                        text: app.name
-                                    }
+                                Text{
+                                    anchors.left: icon.right
+                                    leftPadding: 8
+                                    color: "#ffffff"
+                                    text: modelData.name
                                 }
                             }
                         }
