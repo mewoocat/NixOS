@@ -8,13 +8,14 @@ import Quickshell.Hyprland
 import "root:/" as Root
 
 PanelWindow {
+    // Stores the current search
+    property string searchText: ""
+
     id: launcher
     visible: Root.State.launcherVisibility
     anchors {
-        //top: true
-        //left: true
-        bottom: true
-        right: true
+        top: true
+        left: true
     }
     focusable: true // Enable keyboard focus
     width: 300
@@ -70,39 +71,58 @@ PanelWindow {
             // Search field
             Rectangle {
                 color: "transparent"
-                height: 40
+                implicitHeight: 48
                 Layout.fillWidth: true
-                //Layout.fillWidth: true
-                //Layout.fillHeight: true
                 TextField {
+                    placeholderText: "Seach..."
                     anchors.margins: 8
                     anchors.fill: parent
-                    Layout.fillWidth: true
+                    leftPadding: 12
+                    rightPadding: 12
                     background: Rectangle {
-                        anchors.fill: parent
-                        color: "grey"
+                        color: "gray"
                         radius: 16
+                    }
+                    onTextChanged: () => {
+                        searchText = text
+                        console.log(`searchText: ${searchText}`)
                     }
                 }
             }
 
             // Application list
             ScrollView {
+                focus: true
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 ColumnLayout {
                     anchors.fill: parent
-                    spacing: 0
                     Repeater {
+                        focus: true
+                        //anchors.fill: parent
                         model: DesktopEntries.applications
                         Component.onCompleted: console.log(`model = ${model}`)
+
                         MouseArea {
-                            Layout.fillWidth: true
-                            //Layout.fillHeight: true
-                            height: 60
+                            focus: true
                             id: mouseArea
+                            property var app: modelData
+
+                            Component.onCompleted: console.log(`model = ${app.name}`)
+
+                            // Filter using search text
+                            visible: {
+                                if (
+                                    app.name.toLowerCase().includes(app.name.toLowerCase())
+                                ) {
+                                    return true
+                                }
+                                return false
+                            }
+                            Layout.fillWidth: true
+                            height: 60
                             hoverEnabled: true
-                            onClicked: modelData.execute()
+                            onClicked: app.execute()
                             Rectangle {
                                 anchors.fill: parent
                                 anchors {
@@ -111,23 +131,17 @@ PanelWindow {
                                     topMargin: 4
                                     bottomMargin: 4
                                 }
-                                /*
-                                implicitWidth: 200
-                                implicitHeight: 40
-                                */
-                                //Layout.fillWidth: true
-                                //Layout.fillHeight: true
                                 color: mouseArea.containsMouse ? "#00ff00" : "transparent"
                                 radius: 10
                                 RowLayout {
                                     anchors.fill: parent
                                     IconImage {
                                         implicitSize: 32
-                                        source: Quickshell.iconPath(modelData.icon)
+                                        source: Quickshell.iconPath(app.icon)
                                     }
                                     Text{
-                                        color: "#ff00ff"
-                                        text: modelData.name
+                                        color: "#ffffff"
+                                        text: app.name
                                     }
                                 }
                             }
