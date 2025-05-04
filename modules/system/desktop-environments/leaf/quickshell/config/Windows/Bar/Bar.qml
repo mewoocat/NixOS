@@ -28,25 +28,41 @@ Scope {
                     right: true
                 }
                 height: 40
-                RowLayout {
+                Item {
                     anchors.fill: parent
-                    //implicitWidth: clock.width
-                    //implicitHeight: clock.height
-                    RoundButton {
-                        icon.name: "distributor-logo-nixos"
-                        anchors.leftMargin: 16
-                        onClicked: {
-                            Root.State.launcherVisibility = !Root.State.launcherVisibility
+                    // Left
+                    RowLayout {
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        RoundButton {
+                            icon.name: "distributor-logo-nixos"
+                            anchors.leftMargin: 16
+                            onClicked: {
+                                Root.State.launcherVisibility = !Root.State.launcherVisibility
+                            }
                         }
+                        Workspaces {}
                     }
-                    Workspaces {}
-                    Clock {}
-                    Rectangle {
-                        color: "green"
-                        x: 40
-                        y: 60
-                        width: 20
-                        height: 10
+                    // Center
+                    RowLayout {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignCenter
+                        Clock {}
+                    }
+                    // Right
+                    RowLayout {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        Rectangle {
+                            color: "green"
+                            x: 40
+                            y: 60
+                            width: 20
+                            height: 10
+                        }
                     }
                 }
             }

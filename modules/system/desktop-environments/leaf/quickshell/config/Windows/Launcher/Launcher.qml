@@ -105,11 +105,11 @@ PanelWindow {
                     }
                     Keys.onUpPressed: {
                         listView.decrementCurrentIndex()
-                        listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
+                        //listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
                     }
                     Keys.onDownPressed: {
                         listView.incrementCurrentIndex()
-                        listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
+                        //listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
                     }
                 }
             }
@@ -123,6 +123,8 @@ PanelWindow {
                 Layout.fillHeight: true
             */
                 ListView {
+                    highlightMoveDuration: 0
+                    clip: true // Ensure that scrolled items don't go outside the widget
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     //cacheBuffer: 0
