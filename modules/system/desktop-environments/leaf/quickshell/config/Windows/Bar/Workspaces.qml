@@ -21,9 +21,20 @@ RowLayout {
         MouseArea {
             id: mouseArea
             property int wsID: modelData + 1
-            property int wsWidth: {
+            // Either active, inactive, or empty
+            property string wsState: {
                 const wsObj = Services.Hyprland.workspaceMap[wsID] 
                 if (wsObj !== undefined && wsObj.id === Services.Hyprland.activeWsId) {
+                    return "active"
+                }
+                if (wsObj === undefined || wsObj.lastIpcObject.windows < 1) {
+                    return "empty"
+                }
+                return "inactive"
+            }
+            property int wsWidth: {
+                console.log(`ws ${wsID} state: ${wsState}`)
+                if (wsState === "active") {
                     return 36
                 }
                 return 18
@@ -37,20 +48,40 @@ RowLayout {
             Rectangle {
                 anchors.centerIn: parent
                 radius: 24
-                implicitWidth: mouseArea.wsWidth
-                height: 18
-                //color: Hyprland.focusedMonitor.activeWorkspace.id === modelData.id ? "green" : "grey"
-                // Todo fix
-                color: mouseArea.containsMouse || Services.Hyprland.activeWsId === wsID ? "#00ff00" : "#ff0000"
+                implicitWidth: {
+                    if (mouseArea.wsState === "empty") {
+                        return 8
+                    }
+                    return mouseArea.wsWidth
+                }
+                implicitHeight: {
+                    if (mouseArea.wsState === "empty") {
+                        return 8
+                    }
+                    return 18
+                }
+                Behavior on implicitWidth {
+                    PropertyAnimation {duration: 100}
+                }
                 /*
-                Component.onCompleted: {
-                    console.log("WS: " + Services.Hyprland.activeWsId)
-                    console.log("window: " + modelData.lastIpcObject)
+                Behavior on implicitHeight {
+                    PropertyAnimation {duration: 100}
                 }
                 */
+                color: mouseArea.containsMouse || Services.Hyprland.activeWsId === wsID ? "#00ff00" : "#ff0000"
+                Component.onCompleted: {
+                    //console.log("WS: " + Services.Hyprland.activeWsId)
+                    //console.log("window: " + modelData.lastIpcObject)
+                    //console.log(`ws: ${Services.Hyprland.workspaceMap[wsID]}`)
+                }
                 Text {
                     anchors.centerIn: parent
-                    text: wsID    
+                    text: {
+                        if (mouseArea.wsState !== "empty" || mouseArea.wsState === "active") {
+                            return wsID    
+                        }
+                        return ""
+                    }
                     font.pointSize: 8
                 }
            }
