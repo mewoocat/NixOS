@@ -8,14 +8,19 @@ Singleton {
         console.log("Enabling Hyprland Service")
     }
     property int activeWsId: Hyprland.focusedMonitor.activeWorkspace.id
+    property var workspaceMap: {
+        let map = {}
+        Hyprland.workspaces.values.forEach(w => map[w.id] = w)
+        return map
+    }
     Connections {
         target: Hyprland
         function onRawEvent(event) {
-            console.log(event.name + " | " + event.data)
-            
+            Hyprland.refreshWorkspaces()
+            console.log(event.name + " | " + event.data) 
             if (event.name === "workspace") {
                 activeWsId = event.data
-            }
+            } 
         }
     }
 }

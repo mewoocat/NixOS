@@ -6,7 +6,6 @@ import Quickshell.Hyprland
 
 import "root:/Services/" as Services
 
-
 RowLayout {
     property int numWorkspaces: 10
     Repeater {
@@ -20,28 +19,35 @@ RowLayout {
         }
         */
         MouseArea {
-            Layout.fillHeight: true
-            width: 20
             id: mouseArea
             property int wsID: modelData + 1
+            property int wsWidth: {
+                const wsObj = Services.Hyprland.workspaceMap[wsID] 
+                if (wsObj !== undefined && wsObj.id === Services.Hyprland.activeWsId) {
+                    return 36
+                }
+                return 18
+            }
+            implicitWidth: wsWidth
+            //Layout.alignment: Qt.AlignLeft
+            Layout.fillHeight: true
             hoverEnabled: true
             //text: modelData.name
-            onClicked: {
-                console.log(`wsID: ${wsID}`)
-                Hyprland.dispatch(`workspace ${wsID}`)
-            }
+            onClicked: { Hyprland.dispatch(`workspace ${wsID}`) }
             Rectangle {
                 anchors.centerIn: parent
                 radius: 24
-                width: 18
+                implicitWidth: mouseArea.wsWidth
                 height: 18
                 //color: Hyprland.focusedMonitor.activeWorkspace.id === modelData.id ? "green" : "grey"
                 // Todo fix
-                //width: modelData.lastIpcObject.windows < 1 ? 16 : 24
                 color: mouseArea.containsMouse || Services.Hyprland.activeWsId === wsID ? "#00ff00" : "#ff0000"
+                /*
                 Component.onCompleted: {
                     console.log("WS: " + Services.Hyprland.activeWsId)
+                    console.log("window: " + modelData.lastIpcObject)
                 }
+                */
                 Text {
                     anchors.centerIn: parent
                     text: wsID    
