@@ -4,6 +4,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/" as Root
+import "root:/Modules/Ui" as Ui
+import "root:/Windows/ControlPanel"
 
 Scope {
     property string time;
@@ -35,12 +37,9 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        RoundButton {
-                            icon.name: "distributor-logo-nixos"
-                            anchors.leftMargin: 16
-                            onClicked: {
-                                Root.State.launcherVisibility = !Root.State.launcherVisibility
-                            }
+                        Ui.NormalButton {
+                            action: () => Launcher.toggleWindow()
+                            iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
                     }
@@ -49,7 +48,17 @@ Scope {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         Layout.alignment: Qt.AlignCenter
-                        Clock {}
+                        //Clock {}
+                        Rectangle {
+                            implicitWidth: text.width
+                            implicitHeight: text.height
+                            color: "green"
+                            Text {
+                                id: text
+                                color: "#ff0000"
+                                text: "hiiiiiiii"
+                            }
+                        }
                     }
                     // Right
                     RowLayout {
@@ -62,6 +71,10 @@ Scope {
                             y: 60
                             width: 20
                             height: 10
+                        }
+                        Ui.NormalButton {
+                            action: () => ControlPanel.toggleWindow()
+                            iconName: "view-grid-symbolic"
                         }
                     }
                 }

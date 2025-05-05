@@ -33,7 +33,7 @@ RowLayout {
                 return "inactive"
             }
             property int wsWidth: {
-                console.log(`ws ${wsID} state: ${wsState}`)
+                //console.log(`ws ${wsID} state: ${wsState}`)
                 if (wsState === "active") {
                     return 36
                 }

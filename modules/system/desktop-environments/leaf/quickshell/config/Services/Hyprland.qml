@@ -22,7 +22,7 @@ Singleton {
                 console.log(`key: ${key}, windows: ${workspaceMap[key].lastIpcObject.windows}`)
             }
             */
-            console.log(event.name + " | " + event.data) 
+            //console.log(event.name + " | " + event.data) 
             if (event.name === "workspace") {
                 activeWsId = event.data
             } 

@@ -1,10 +1,8 @@
 import QtQuick
 import "root:/Singletons" as Sin
+import "root:/Modules/Ui" as Ui
 
-Text {
-    id: clock
-    color: "#ffffff"
-    // Centers relative to parent
-    //anchors.centerIn: parent
+Ui.NormalButton {
+    action: () => console.log("what")
     text: Sin.Time.time
 }

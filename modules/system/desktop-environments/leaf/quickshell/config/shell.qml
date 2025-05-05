@@ -1,9 +1,10 @@
 import Quickshell
 import QtQuick
 import Quickshell.Hyprland
+import "Services" as Services
 import "Windows/Bar"
 import "Windows/Launcher"
-import "Services" as Services
+import "Windows/ControlPanel"
 
 ShellRoot {
     // Logic
@@ -15,4 +16,5 @@ ShellRoot {
     // Visual
     Bar {} 
     Launcher {}
+    //ControlPanel.children {}
 }
