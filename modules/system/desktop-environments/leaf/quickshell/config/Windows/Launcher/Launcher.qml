@@ -8,8 +8,13 @@ import Quickshell.Hyprland
 import "root:/" as Root
 
 PanelWindow {
+    id: launcher
     // Stores the current search
     property string searchText: ""
+
+    Component.onCompleted: {
+        Root.State.launcher = launcher
+    }
 
     function toggleWindow() {
         Root.State.launcherVisibility = !Root.State.launcherVisibility
@@ -33,7 +38,6 @@ PanelWindow {
         */
     }
 
-    id: launcher
     visible: Root.State.launcherVisibility
     anchors {
         top: true
@@ -124,76 +128,68 @@ PanelWindow {
             }
 
             // Application list
-            /*
-            ScrollView {
-                //focus: true
+            ListView {
+                highlightMoveDuration: 0
+                clip: true // Ensure that scrolled items don't go outside the widget
                 Layout.fillWidth: true
-                //clip: true // Ensure that scrolled items don't go outside the widget
                 Layout.fillHeight: true
-            */
-                ListView {
-                    highlightMoveDuration: 0
-                    clip: true // Ensure that scrolled items don't go outside the widget
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    //cacheBuffer: 0
-                    maximumFlickVelocity: 100 // Increases bound overshoot?
-                    id: listView
-                    keyNavigationEnabled: true
-                    model: ScriptModel {
-                        values: DesktopEntries.applications.values
-                            .filter(app => app.name.toLowerCase().includes(searchText.toLowerCase()))
-                            //.filter(app => true)
-                    }
+                //cacheBuffer: 0
+                maximumFlickVelocity: 100 // Increases bound overshoot?
+                id: listView
+                keyNavigationEnabled: true
+                model: ScriptModel {
+                    values: DesktopEntries.applications.values
+                        .filter(app => app.name.toLowerCase().includes(searchText.toLowerCase()))
+                        //.filter(app => true)
+                }
 
-                    snapMode: ListView.SnapToItem
-                    Component.onCompleted: console.log(`model = ${model}`)
-                    // Add a scroll bar to the list
-                    // idk where this ScrollBar.vertical property is defined
-                    ScrollBar.vertical: ScrollBar { }
+                snapMode: ListView.SnapToItem
+                Component.onCompleted: console.log(`model = ${model}`)
+                // Add a scroll bar to the list
+                // idk where this ScrollBar.vertical property is defined
+                ScrollBar.vertical: ScrollBar { }
 
-                    delegate: MouseArea {
-                        //focusPolicy: Qt.TabFocus
-                        //focus: true
-                        id: mouseArea
-                        required property DesktopEntry modelData
-                        //property DesktopEntry app: mouseArea.modelData
-                        //Component.onCompleted: console.log(`app = ${modelData.name}`)
+                delegate: MouseArea {
+                    //focusPolicy: Qt.TabFocus
+                    //focus: true
+                    id: mouseArea
+                    required property DesktopEntry modelData
+                    //property DesktopEntry app: mouseArea.modelData
+                    //Component.onCompleted: console.log(`app = ${modelData.name}`)
 
-                        height: 60
-                        width: listView.width
+                    height: 60
+                    width: listView.width
 
-                        hoverEnabled: true
-                        onClicked: modelData.execute()
-                        Keys.onReturnPressed: modelData.execute()
-                        Rectangle {
+                    hoverEnabled: true
+                    onClicked: modelData.execute()
+                    Keys.onReturnPressed: modelData.execute()
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors {
+                            leftMargin: 16
+                            rightMargin: 16
+                            topMargin: 4
+                            bottomMargin: 4
+                        }
+                        color: mouseArea.containsMouse || mouseArea.focus ? "#00ff00" : "transparent"
+                        radius: 10
+                        RowLayout {
                             anchors.fill: parent
-                            anchors {
-                                leftMargin: 16
-                                rightMargin: 16
-                                topMargin: 4
-                                bottomMargin: 4
+                            IconImage {
+                                id: icon
+                                implicitSize: 32
+                                source: Quickshell.iconPath(modelData.icon)
                             }
-                            color: mouseArea.containsMouse || mouseArea.focus ? "#00ff00" : "transparent"
-                            radius: 10
-                            RowLayout {
-                                anchors.fill: parent
-                                IconImage {
-                                    id: icon
-                                    implicitSize: 32
-                                    source: Quickshell.iconPath(modelData.icon)
-                                }
-                                Text{
-                                    Layout.fillWidth: true
-                                    leftPadding: 8
-                                    color: "#ffffff"
-                                    text: modelData.name
-                                }
+                            Text{
+                                Layout.fillWidth: true
+                                leftPadding: 8
+                                color: "#ffffff"
+                                text: modelData.name
                             }
                         }
                     }
                 }
-            //}
+            }
         }
     }
 }

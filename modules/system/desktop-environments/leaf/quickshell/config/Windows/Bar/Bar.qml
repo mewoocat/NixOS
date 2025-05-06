@@ -44,7 +44,7 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         Ui.NormalButton {
-                            action: () => Launcher.toggleWindow()
+                            action: () => Root.State.launcher.toggleWindow()
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
