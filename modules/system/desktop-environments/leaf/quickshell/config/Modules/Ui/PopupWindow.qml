@@ -55,7 +55,7 @@ PanelWindow {
     HyprlandFocusGrab {
         id: grab
         active: false
-        windows: [ window ]
+        windows: [ window  ]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
             console.log("cleared")

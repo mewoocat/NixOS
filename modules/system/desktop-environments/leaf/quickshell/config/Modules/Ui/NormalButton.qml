@@ -8,14 +8,15 @@ MouseArea {
     required property var action
     property string iconName: ""
     property string text: ""
-    implicitWidth: 48
+    implicitWidth: box.width
     implicitHeight: parent.height
     hoverEnabled: true
     onClicked: action()
     Rectangle {
+        id: box
         anchors.centerIn: parent
-        implicitWidth: text.width + icon.width
-        implicitHeight: 32
+        implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
+        implicitHeight: 28
         radius: 24
         color: mouseArea.containsMouse ? "grey" : "#00000000"
         Component.onCompleted: {

@@ -3,6 +3,7 @@ import Quickshell.Io // For Process
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Quickshell.Wayland
 import "root:/" as Root
 import "root:/Modules/Ui" as Ui
 import "root:/Windows/ControlPanel"
@@ -19,6 +20,7 @@ Scope {
             // Delegate is a default property and can be skipped as well
         delegate: Component {
             PanelWindow {
+                id: bar
                 color: "#aa000000"
                 // The screen from the screens list will be injected into this property
                 property var modelData
@@ -30,6 +32,7 @@ Scope {
                     right: true
                 }
                 height: 40
+                WlrLayershell.namespace: "Bar" // Set layer name
                 Item {
                     anchors.fill: parent
                     // Left
@@ -47,30 +50,21 @@ Scope {
                     RowLayout {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        Layout.alignment: Qt.AlignCenter
-                        //Clock {}
-                        Rectangle {
-                            implicitWidth: text.width
-                            implicitHeight: text.height
-                            color: "green"
-                            Text {
-                                id: text
-                                color: "#ff0000"
-                                text: "hiiiiiiii"
-                            }
-                        }
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        //Layout.alignment: Qt.AlignCenter
+
+                        Clock {}
                     }
                     // Right
                     RowLayout {
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        Rectangle {
-                            color: "green"
-                            x: 40
-                            y: 60
-                            width: 20
-                            height: 10
+
+                        Ui.NormalButton {
+                            action: () => {}
+                            text: "ewwie gooie"
                         }
                         Ui.NormalButton {
                             action: () => ControlPanel.toggleWindow()
