@@ -6,6 +6,7 @@ import "Windows" as Windows
 import "Windows/Bar"
 import "Windows/Launcher"
 import "Windows/ControlPanel"
+import "Windows/ActivityCenter"
 
 ShellRoot {
     // Logic
@@ -14,10 +15,11 @@ ShellRoot {
         Services.Hyprland.enable()
     }
 
-    children: Windows.render()
     // Visual
-    //Bar {} 
-    //Launcher {}
+    Bar {} 
+    Launcher {}
+    ControlPanel {}
+    ActivityCenter {}
 
     //ControlPanel.children {}
 }

@@ -10,11 +10,12 @@ import "root:/" as Root
 
 PanelWindow {
     id: window
-    required property string name
-
-    required property var content
-
-    onVisibleChanged: {
+    required property string name // Needs to be camelCase
+    required property var content // Thing to place in window
+ 
+    Component.onCompleted: {
+        Root.State[name] = window // Set the window ref in state
+        console.log(`POPUP ref: ${Root.State.windows[name]}`)
     }
 
     visible: Root.State.controlPanelVisibility
@@ -49,13 +50,21 @@ PanelWindow {
         target: window
         function onVisibleChanged() {
             delay.start()
-            //console.log(`visible ${visible}`)
         }
     }
     HyprlandFocusGrab {
         id: grab
         active: false
-        windows: [ window  ]
+        windows: [ 
+            window, // Self
+            Root.State.bar
+        ]
+        /*
+        windows: [ 
+            window, // Self
+            Root.State.windows["Bar"]
+        ]
+        */
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
             console.log("cleared")

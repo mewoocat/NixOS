@@ -2,11 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import "root:/Singletons" as Sin
 import "root:/Modules/Ui" as Ui
+import "root:/" as Root
 
 Ui.NormalButton {
     //implicitWidth: child.width
     //height: 500
-    Layout.fillHeight: true
-    action: () => console.log("what")
+    //Layout.fillHeight: true
+    action: () => Root.State.activityCenter.toggleWindow()
     text: Sin.Time.time
 }

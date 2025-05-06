@@ -20,6 +20,9 @@ Scope {
             // Delegate is a default property and can be skipped as well
         delegate: Component {
             PanelWindow {
+                Component.onCompleted: {
+                    Root.State.bar = bar
+                }
                 id: bar
                 color: "#aa000000"
                 // The screen from the screens list will be injected into this property
@@ -67,7 +70,8 @@ Scope {
                             text: "ewwie gooie"
                         }
                         Ui.NormalButton {
-                            action: () => ControlPanel.toggleWindow()
+                            //action: () => ControlPanel.toggleWindow()
+                            action: () => Root.State.windows.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                         }
                     }

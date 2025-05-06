@@ -1,20 +1,18 @@
-pragma Singleton
+//pragma Singleton
 import "root:/Modules/Ui" as Ui
 import QtQuick
 import Quickshell
 import "root:/" as Root
 
-Singleton {
-
-    function toggleWindow(){
-        console.log("toggle window")
-        Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
-    } 
+//Singleton {
 
     Ui.PopupWindow {
-        //id: window
+        name: "controlPanel"
         visible: Root.State.controlPanelVisibility
-        name: "ControlPanel"
+        function toggleWindow(){
+            console.log("toggle window")
+            Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
+        } 
         anchors {
             top: true
             right: true
@@ -23,5 +21,4 @@ Singleton {
             text: "pwiughprhugpiuebpiun"
         }
     }
-}
-
+//}

@@ -11,6 +11,13 @@ PanelWindow {
     // Stores the current search
     property string searchText: ""
 
+    function toggleWindow() {
+        Root.State.launcherVisibility = !Root.State.launcherVisibility
+        searchText = "" 
+        textField.text = ""
+        listView.currentIndex = 0
+    }
+
     /*
     // Can't seem to access from outside the file, i think it needs a instance of this object
     function toggleWindow(): void { 
@@ -19,9 +26,11 @@ PanelWindow {
     */
 
     onVisibleChanged: {
+        /*
         searchText = "" 
         textField.text = ""
         listView.currentIndex = 0
+        */
     }
 
     id: launcher
@@ -149,7 +158,7 @@ PanelWindow {
                         id: mouseArea
                         required property DesktopEntry modelData
                         //property DesktopEntry app: mouseArea.modelData
-                        Component.onCompleted: console.log(`app = ${modelData.name}`)
+                        //Component.onCompleted: console.log(`app = ${modelData.name}`)
 
                         height: 60
                         width: listView.width
