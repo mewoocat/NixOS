@@ -6,15 +6,19 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 
 import "root:/" as Root
+import "root:/Modules/Ui" as Ui
 
-PanelWindow {
+Ui.PopupWindow {
     id: launcher
+    name: "launcher"
     // Stores the current search
     property string searchText: ""
 
+    /*
     Component.onCompleted: {
         Root.State.launcher = launcher
     }
+    */
 
     function toggleWindow() {
         Root.State.launcherVisibility = !Root.State.launcherVisibility
@@ -59,6 +63,7 @@ PanelWindow {
     // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
     // signal for the window occurs before the window is actually created
     // This would cause the grab to not find the window
+    /*
     Timer {
         id: delay
         triggeredOnStart: false
@@ -78,13 +83,14 @@ PanelWindow {
     HyprlandFocusGrab {
         id: grab
         active: false
-        windows: [ launcher ]
+        windows: [ launcher, Root.State.bar ]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
             console.log("cleared")
             Root.State.launcherVisibility = false
         }
     }
+    */
     /////////////////////////////////////////////////////////////////////////
 
     Rectangle {
