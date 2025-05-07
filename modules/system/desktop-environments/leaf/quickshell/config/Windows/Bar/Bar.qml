@@ -20,6 +20,7 @@ Scope {
             // Delegate is a default property and can be skipped as well
         delegate: Component {
             PanelWindow {
+                //WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 Component.onCompleted: {
                     Root.State.bar = bar
                 }
@@ -35,7 +36,7 @@ Scope {
                     right: true
                 }
                 height: 40
-                WlrLayershell.namespace: "Bar" // Set layer name
+                WlrLayershell.namespace: "bar" // Set layer name
                 Item {
                     anchors.fill: parent
                     // Left
@@ -65,13 +66,15 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
+                        /*
                         Ui.NormalButton {
                             action: () => {}
                             text: "ewwie gooie"
                         }
+                        */
+                        Battery {}
                         Ui.NormalButton {
-                            //action: () => ControlPanel.toggleWindow()
-                            action: () => Root.State.windows.controlPanel.toggleWindow()
+                            action: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                         }
                     }

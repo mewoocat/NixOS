@@ -13,7 +13,6 @@ Ui.PopupWindow {
     visible: Root.State.activityCenterVisibility
     anchors {
         top: true
-        right: true
     }
     content: Text {
         color: "white"

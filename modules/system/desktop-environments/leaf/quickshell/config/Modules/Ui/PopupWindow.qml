@@ -42,7 +42,11 @@ PanelWindow {
         triggeredOnStart: false
         interval: 100
         repeat: false
-        onTriggered: grab.active = window.visible
+        onTriggered: {
+            //grab.windows.push(window)
+            grab.active = window.visible
+            //content.forceActiveFocus() // Seems to make it not focus the textfield when hovering
+        }
     }
     // Connects to the launcher onVisibleChanged signal
     // Starts a small delay which then sets the grab active state to match the 
@@ -57,14 +61,8 @@ PanelWindow {
         active: false
         windows: [ 
             window, // Self
-            Root.State.bar
+            //Root.State.bar // Disabling for now as it causes popup window to loose focus until hovered
         ]
-        /*
-        windows: [ 
-            window, // Self
-            Root.State.windows["Bar"]
-        ]
-        */
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
             console.log("cleared")
@@ -84,5 +82,4 @@ PanelWindow {
         ]
     }
 }
-
 

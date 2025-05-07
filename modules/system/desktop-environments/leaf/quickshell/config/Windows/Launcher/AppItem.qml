@@ -22,7 +22,7 @@ MouseArea {
         return false
     }
     Layout.fillWidth: true
-    height: 60
+    height: 36
     hoverEnabled: true
     onClicked: app.execute()
     Rectangle {

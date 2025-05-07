@@ -4,11 +4,14 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Hyprland
+import Quickshell.Wayland
 
 import "root:/" as Root
 import "root:/Modules/Ui" as Ui
 
 Ui.PopupWindow {
+    // Doesn't seem to force focus
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
     name: "launcher"
     // Stores the current search
@@ -25,6 +28,11 @@ Ui.PopupWindow {
         searchText = "" 
         textField.text = ""
         listView.currentIndex = 0
+        /*
+        textField.focusable = false
+        textField.focusable = true
+        */
+
     }
 
     /*
@@ -93,7 +101,7 @@ Ui.PopupWindow {
     */
     /////////////////////////////////////////////////////////////////////////
 
-    Rectangle {
+    content: Rectangle {
         anchors.fill: parent
         color: "#aa000000"
         radius: 12
@@ -109,7 +117,7 @@ Ui.PopupWindow {
                 TextField {
                     id: textField
                     focus: true // Make this have focus by default
-                    placeholderText: "Seach..."
+                    placeholderText: "Search..."
                     anchors.margins: 8
                     anchors.fill: parent
                     leftPadding: 12
@@ -125,10 +133,22 @@ Ui.PopupWindow {
                     Keys.onUpPressed: {
                         listView.decrementCurrentIndex()
                         //listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
+                        console.log(listView.currentIndex)
+                        console.log(listView.currentItem.modelData.name)
                     }
                     Keys.onDownPressed: {
                         listView.incrementCurrentIndex()
                         //listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
+                        console.log(listView.currentIndex)
+                        console.log(listView.currentItem.modelData.name)
+                        consooe.log(listView.currentItem.modelData.execute)
+                    }
+                    Keys.onReturnPressed: {
+                        console.log(listView.itemAtIndex(listView.currentIndex).modelData.name)
+                        console.log(listView.currentItem.modelData.name)
+                        //listView.itemAtIndex(listView.currentIndex).modelData.execute()
+                        listView.currentItem.modelData.execute()
+                        launcher.toggleWindow() // Needs to be after the execute since this will reset the current index
                     }
                 }
             }
@@ -168,7 +188,6 @@ Ui.PopupWindow {
 
                     hoverEnabled: true
                     onClicked: modelData.execute()
-                    Keys.onReturnPressed: modelData.execute()
                     Rectangle {
                         anchors.fill: parent
                         anchors {

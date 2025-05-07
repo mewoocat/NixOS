@@ -15,7 +15,8 @@ MouseArea {
     Rectangle {
         id: box
         anchors.centerIn: parent
-        implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
+        //implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
+        implicitWidth: icon.width + text.width + 16
         implicitHeight: 28
         radius: 24
         color: mouseArea.containsMouse ? "grey" : "#00000000"
@@ -24,7 +25,8 @@ MouseArea {
         IconImage {
             id: icon
             visible: mouseArea.iconName != ""
-            anchors.centerIn: parent
+            anchors.verticalCenter: parent
+            anchors.left: parent.left
             implicitSize: 20
             source: Quickshell.iconPath(mouseArea.iconName)
             // Recoloring icon
@@ -37,7 +39,8 @@ MouseArea {
         Text {
             id: text
             visible: mouseArea.text != ""
-            anchors.centerIn: parent
+            anchors.right: parent.right
+            anchors.horizontalCenter: parent
             color: "#ffffff"
             text: mouseArea.text
             font.pointSize: 12
