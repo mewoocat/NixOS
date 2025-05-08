@@ -13,7 +13,7 @@ Singleton {
         target: "control"
 
         function toggleLauncher() {
-            Root.State.launcherVisibility = !Root.State.launcherVisibility
+            Root.State.launcher.toggleWindow()
         }
     }
 }

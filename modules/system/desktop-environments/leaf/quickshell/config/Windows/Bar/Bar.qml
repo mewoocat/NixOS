@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Wayland
+import Quickshell.Services.Pipewire
 import "root:/" as Root
 import "root:/Modules/Ui" as Ui
 import "root:/Windows/ControlPanel"
@@ -53,7 +54,7 @@ Scope {
                     // Center
                     RowLayout {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
+                        //anchors.verticalCenter: parent.verticalCenter
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         //Layout.alignment: Qt.AlignCenter
@@ -67,10 +68,32 @@ Scope {
                         anchors.bottom: parent.bottom
 
                         /*
-                        Ui.NormalButton {
-                            action: () => {}
-                            text: "ewwie gooie"
+                        MouseArea {
+                            implicitWidth: row.width
+                            implicitHeight: 30
+                            onClicked: () => text.text = "bbbb"
+                            Rectangle {
+                                anchors.fill: parent
+                                RowLayout {
+                                    id: row
+                                    implicitWidth: text.width
+                                    Text {
+                                        id: text
+                                        text: "aa"
+                                    }
+                                }
+                            }
                         }
+                        */
+
+                        /*
+                        Ui.NormalButton {
+                            id: test
+                            action: () => { test.text = "hiii"}
+                            text: "a"
+                            iconName: "view-grid-symbolic"
+                        }
+                        Battery {}
                         */
                         Battery {}
                         Ui.NormalButton {

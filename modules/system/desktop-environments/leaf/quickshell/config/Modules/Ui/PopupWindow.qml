@@ -8,14 +8,18 @@ import Quickshell.Hyprland
 
 import "root:/" as Root
 
+// I think that the required keyword doesn't trigger an error on missing 
+// prop with the PanelWindow type (need to test)
 PanelWindow {
     id: window
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
+    required property var closewindow
+    //required property var action
+    required property var toggleWindow
  
     Component.onCompleted: {
         Root.State[name] = window // Set the window ref in state
-        console.log(`POPUP ref: ${Root.State.windows[name]}`)
     }
 
     visible: Root.State.controlPanelVisibility
@@ -40,7 +44,7 @@ PanelWindow {
     Timer {
         id: delay
         triggeredOnStart: false
-        interval: 100
+        interval: 1000
         repeat: false
         onTriggered: {
             //grab.windows.push(window)
@@ -67,7 +71,8 @@ PanelWindow {
         onCleared: () => {
             console.log("cleared")
             //Root.State.launcherVisibility = false
-            toggleWindow()
+            //toggleWindow()
+            closeWindow()
         }
     }
     /////////////////////////////////////////////////////////////////////////

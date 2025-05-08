@@ -22,9 +22,20 @@ Ui.PopupWindow {
         Root.State.launcher = launcher
     }
     */
+    
+    /*
+    closeWindow: () => {
+        Root.State.launcherVisibility = false
+        searchText = "" 
+        textField.text = ""
+        listView.currentIndex = 0
+    }
+    */
 
-    function toggleWindow() {
+    toggleWindow: () => {
+        console.log(`old vis: ${Root.State.launcherVisibility}`)
         Root.State.launcherVisibility = !Root.State.launcherVisibility
+        console.log(`new vis: ${Root.State.launcherVisibility}`)
         searchText = "" 
         textField.text = ""
         listView.currentIndex = 0
@@ -34,13 +45,6 @@ Ui.PopupWindow {
         */
 
     }
-
-    /*
-    // Can't seem to access from outside the file, i think it needs a instance of this object
-    function toggleWindow(): void { 
-        Root.State.launcherVisibility = !Root.State.launcherVisibility
-    }
-    */
 
     onVisibleChanged: {
         /*

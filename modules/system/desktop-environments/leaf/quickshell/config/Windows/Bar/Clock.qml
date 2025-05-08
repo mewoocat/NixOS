@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 import "root:/Singletons" as Sin
 import "root:/Modules/Ui" as Ui
 import "root:/" as Root
@@ -9,5 +8,6 @@ Ui.NormalButton {
     //height: 500
     //Layout.fillHeight: true
     action: () => Root.State.activityCenter.toggleWindow()
+    iconName: "security-low"
     text: Sin.Time.time
 }

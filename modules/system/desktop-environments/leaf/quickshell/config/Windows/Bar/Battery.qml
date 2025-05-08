@@ -5,6 +5,7 @@ import "root:/" as Root
 
 Ui.NormalButton {
     action: () => {}
-    iconName: "battery-070-charging"
-    text: `${UPower.displayDevice.percentage * 100}%`
+    iconName: UPower.displayDevice.iconName
+    //text: `${UPower.displayDevice.percentage * 100}`
+    text: UPower.displayDevice.percentage.toString()
 }
