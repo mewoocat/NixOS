@@ -1,6 +1,7 @@
 //pragma Singleton
 import "root:/Modules/Ui" as Ui
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import "root:/" as Root
 
@@ -15,7 +16,18 @@ Ui.PopupWindow {
         top: true
         right: true
     }
-    content: Text {
-        text: "pwiughprhugpiuebpiun"
+    content: GridLayout {
+        columns: 4
+        rows: 4
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
     }
+
 }

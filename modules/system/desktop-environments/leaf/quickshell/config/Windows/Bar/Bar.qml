@@ -95,6 +95,7 @@ Scope {
                         }
                         Battery {}
                         */
+                        Audio {}
                         Battery {}
                         Ui.NormalButton {
                             action: () => Root.State.controlPanel.toggleWindow()

@@ -23,14 +23,12 @@ Ui.PopupWindow {
     }
     */
     
-    /*
     closeWindow: () => {
         Root.State.launcherVisibility = false
         searchText = "" 
         textField.text = ""
         listView.currentIndex = 0
     }
-    */
 
     toggleWindow: () => {
         console.log(`old vis: ${Root.State.launcherVisibility}`)
