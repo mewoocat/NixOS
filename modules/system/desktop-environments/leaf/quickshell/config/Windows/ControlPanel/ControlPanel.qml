@@ -23,10 +23,17 @@ Ui.PopupWindow {
     content: GridLayout {
         //uniformCellWidths: true
         //uniformCellHeights: true
-        implicitWidth: parent.width
-        implicitHeight: parent.height
-        columns: 2
-        rows: 4
+        width: parent.width
+        height: rows * (parent.width / columns)
+        columns: 4
+        rows: 3
+        rowSpacing: 0
+        columnSpacing: 0
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+        PanelItem { iconName: "ymuse-home-symbolic"}
+
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}

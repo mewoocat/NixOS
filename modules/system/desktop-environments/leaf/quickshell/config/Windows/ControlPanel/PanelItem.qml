@@ -9,8 +9,12 @@ MouseArea {
     required property var action
     property string iconName: ""
     property bool isClickable: true
-    property real size
 
+    Layout.fillHeight: true
+    Layout.fillWidth: true
+
+    /*
+    property real size
     Layout.preferredWidth: size
     Layout.preferredHeight: size
 
@@ -18,6 +22,7 @@ MouseArea {
         size = parent.width / 2
         console.log("size: " + size)
     }
+    */
 
     //Layout.fillWidth: parent.width / 2
     /*
@@ -41,7 +46,7 @@ MouseArea {
     Rectangle {
         id: box
         anchors.fill: parent
-        anchors.margins: 8
+        anchors.margins: 4
         //anchors.centerIn: parent
         //implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
         //implicitWidth: 72

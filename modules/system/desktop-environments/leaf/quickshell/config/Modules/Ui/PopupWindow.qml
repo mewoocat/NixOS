@@ -44,7 +44,7 @@ PanelWindow {
     Timer {
         id: delay
         triggeredOnStart: false
-        interval: 100
+        interval: 10
         repeat: false
         onTriggered: {
             //grab.windows.push(window)
