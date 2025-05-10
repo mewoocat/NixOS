@@ -8,16 +8,24 @@ import "root:/" as Root
 Ui.PopupWindow {
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility
-    function toggleWindow(){
-        console.log("toggle window")
+    width: 300
+    height: content.height
+    toggleWindow: () => {
         Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
+    } 
+    closeWindow: () => {
+        Root.State.controlPanelVisibility = false
     } 
     anchors {
         top: true
         right: true
     }
     content: GridLayout {
-        columns: 4
+        //uniformCellWidths: true
+        //uniformCellHeights: true
+        implicitWidth: parent.width
+        implicitHeight: parent.height
+        columns: 2
         rows: 4
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}

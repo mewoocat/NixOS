@@ -8,57 +8,53 @@ MouseArea {
     id: mouseArea
     required property var action
     property string iconName: ""
-    property string text: ""
     property bool isClickable: true
-    implicitWidth: box.width
-    //implicitHeight: parent.height
-    implicitHeight: 40
+    property real size
+
+    Layout.preferredWidth: size
+    Layout.preferredHeight: size
+
+    Component.onCompleted: {
+        size = parent.width / 2
+        console.log("size: " + size)
+    }
+
+    //Layout.fillWidth: parent.width / 2
+    /*
+    implicitHeight: 80
+    onWidthChanged: {
+        console.log("width: " + width)
+    }
+    //Layout.fillHeight: true
+    //implicitHeight: parent.width
+    Component.onCompleted: {
+        console.log(parent.width / 2)
+        mouseArea.implicitHeight = width
+    }
+    */
+
     enabled: isClickable // Whether mouse events are accepted
+    //implicitWidth: 80
+    //implicitHeight: 80
     hoverEnabled: true
     onClicked: action()
     Rectangle {
         id: box
-        anchors.centerIn: parent
+        anchors.fill: parent
+        anchors.margins: 8
+        //anchors.centerIn: parent
         //implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
-        implicitWidth: row.width
-        implicitHeight: 28
+        //implicitWidth: 72
+        //implicitHeight: 72
         radius: 24
         color: mouseArea.containsMouse ? "grey" : "#00000000"
 
-        RowLayout {
-            id: row
-            implicitWidth: text.width + icon.width + 8 + 8 + 4
-            height: parent.height
-            spacing: 4
-            IconImage {
-                //Rectangle { anchors.fill: parent; color: "#9900ff00" }
-                Layout.leftMargin: 8
-                Layout.rightMargin: mouseArea.text === "" ? 8 : 0
-                id: icon
-                visible: mouseArea.iconName != ""
-                implicitSize: 20
-                source: Quickshell.iconPath(mouseArea.iconName)
-                // Recoloring icon
-                /*
-                layer.enabled: true
-                layer.effect: MultiEffect {
-                    colorization: 1
-                    colorizationColor: "#ff0000"
-                }
-                */
-            }
-            Text {
-                id: text
-                //Rectangle { anchors.fill: parent; color: "#990000ff" }
-                //Layout.fillWidth: true
-                visible: mouseArea.text != ""
-                Layout.alignment: Qt.AlignHCenter
-                Layout.leftMargin: mouseArea.icon === "" ? 8 : 0
-                Layout.rightMargin: 8
-                color: "#ffffff"
-                text: mouseArea.text
-                font.pointSize: 12
-            }
+        IconImage {
+            //Rectangle { anchors.fill: parent; color: "#9900ff00" }
+            anchors.centerIn: parent
+            id: icon
+            implicitSize: 32
+            source: Quickshell.iconPath(mouseArea.iconName)
         }
    }
 }
