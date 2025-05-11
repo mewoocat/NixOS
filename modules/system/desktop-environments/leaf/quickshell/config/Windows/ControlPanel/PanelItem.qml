@@ -11,7 +11,7 @@ MouseArea {
     property bool isClickable: true
     property real size
 
-    Layout.preferredWidth: size
+    Layout.preferredWidth: Layout.columnSpan > 1 ? size * Layout.columnSpan : size
     Layout.preferredHeight: size
 
     Component.onCompleted: {

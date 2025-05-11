@@ -23,19 +23,23 @@ Ui.PopupWindow {
     content: GridLayout {
         //uniformCellWidths: true
         //uniformCellHeights: true
+        columnSpacing: 0
+        rowSpacing: 0
         implicitWidth: parent.width
         implicitHeight: parent.height
         columns: 2
-        rows: 4
+        rows: 2
+        PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
+        AudioPanel {}
 
+        /*
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}
         PanelItem { iconName: "ymuse-home-symbolic"}
+        */
     }
 
 }
