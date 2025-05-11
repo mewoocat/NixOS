@@ -13,6 +13,7 @@ ShellRoot {
     Component.onCompleted: {
         Controller.enable()
         Services.Hyprland.enable()
+        Services.Brightness.enable()
     }
 
     // Visual
