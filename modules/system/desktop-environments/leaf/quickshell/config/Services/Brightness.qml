@@ -26,7 +26,7 @@ Singleton {
             brightnessFile.watchChanges = false
             brightnessSet.running = true
             //brightnessSet.startDetached()
-            brightnessFile.watchChanges = true
+            //brightnessFile.watchChanges = true
         }
     }
     
@@ -38,7 +38,6 @@ Singleton {
         onFileChanged: () => {
             brightnessFile.reload()
             console.log("Brightness file changed: text: " + brightnessFile.text())
-            //brightnessGet.running = false
             brightnessGet.running = true
             //console.log("brightnessFile.text(): " + brightnessFile.text())
             //root.value = brightnessFile.text() / root.max
@@ -92,6 +91,7 @@ Singleton {
         //command: ["echo", "test"]
         running: false
         onExited: (code, status) => {
+            brightnessFile.watchChanges = true
             running = false
             console.log(`exited with code ${code} and status ${status}`)
         }
