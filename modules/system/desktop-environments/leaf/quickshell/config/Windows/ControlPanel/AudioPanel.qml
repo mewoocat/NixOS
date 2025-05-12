@@ -20,10 +20,10 @@ RowLayout {
     Slider {
         from: 0
         value: Services.Brightness.value
+        stepSize: 0.1
         onValueChanged: {
             Services.Brightness.value = value
         }
-        //to: Services.Brightness.max
         to: 1
 
     }
