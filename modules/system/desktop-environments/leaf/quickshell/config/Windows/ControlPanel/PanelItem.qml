@@ -25,35 +25,15 @@ MouseArea {
     }
     */
 
-    //Layout.fillWidth: parent.width / 2
-    /*
-    implicitHeight: 80
-    onWidthChanged: {
-        console.log("width: " + width)
-    }
-    //Layout.fillHeight: true
-    //implicitHeight: parent.width
-    Component.onCompleted: {
-        console.log(parent.width / 2)
-        mouseArea.implicitHeight = width
-    }
-    */
-
     enabled: isClickable // Whether mouse events are accepted
-    //implicitWidth: 80
-    //implicitHeight: 80
     hoverEnabled: true
     onClicked: action()
     Rectangle {
         id: box
         anchors.fill: parent
-        anchors.margins: 8
-        //anchors.centerIn: parent
-        //implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
-        //implicitWidth: 72
-        //implicitHeight: 72
-        radius: 24
-        color: mouseArea.containsMouse ? "grey" : "#00000000"
+        anchors.margins: 4
+        radius: 16
+        color: mouseArea.containsMouse ? "grey" : "#99000000"
 
         children: [
             content
