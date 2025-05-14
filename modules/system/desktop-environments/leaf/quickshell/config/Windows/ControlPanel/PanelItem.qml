@@ -6,18 +6,24 @@ import QtQuick.Layouts
 
 MouseArea {
     id: mouseArea
-    required property var action
+    required property var action // Action on click
+    required property var content // Object to display
     property string iconName: ""
     property bool isClickable: true
     property real size
 
+    Layout.fillWidth: true
+    Layout.fillHeight: true
+
+    // Wack solution
+    /*
     Layout.preferredWidth: Layout.columnSpan > 1 ? size * Layout.columnSpan : size
     Layout.preferredHeight: size
-
     Component.onCompleted: {
         size = parent.width / 2
         console.log("size: " + size)
     }
+    */
 
     //Layout.fillWidth: parent.width / 2
     /*
@@ -49,12 +55,8 @@ MouseArea {
         radius: 24
         color: mouseArea.containsMouse ? "grey" : "#00000000"
 
-        IconImage {
-            //Rectangle { anchors.fill: parent; color: "#9900ff00" }
-            anchors.centerIn: parent
-            id: icon
-            implicitSize: 32
-            source: Quickshell.iconPath(mouseArea.iconName)
-        }
+        children: [
+            content
+        ]
    }
 }

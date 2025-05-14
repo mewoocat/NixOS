@@ -1,8 +1,8 @@
-//pragma Singleton
 import "root:/Modules/Ui" as Ui
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Widgets
 import "root:/" as Root
 
 Ui.PopupWindow {
@@ -26,13 +26,26 @@ Ui.PopupWindow {
         columnSpacing: 0
         rowSpacing: 0
         implicitWidth: parent.width
-        implicitHeight: parent.height
+        implicitHeight: (parent.width / rows) * columns
         columns: 2
         rows: 2
-        PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        AudioPanel {}
+
+        //PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
+        PanelItem { 
+            action: () => {}
+            content: IconImage {
+                anchors.centerIn: parent
+                implicitSize: 32
+                source: Quickshell.iconPath("ymuse-home-symbolic")
+            }
+        }
+
+        PanelItem { 
+            action: () => {}
+            content: SliderPanel {}
+            Layout.columnSpan: 2;
+        }
+
 
         /*
         PanelItem { iconName: "ymuse-home-symbolic"}
