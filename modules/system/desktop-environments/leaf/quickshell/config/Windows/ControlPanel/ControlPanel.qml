@@ -27,10 +27,12 @@ Ui.PopupWindow {
 
         // Setting this with implicit width/height causes the height to be 
         // basically 0 after hiding and showing the window
+        // **Likely an upstream bug in qt quick**
         //implicitWidth: parent.width
         //implicitHeight: (parent.width / rows) * columns
         width: parent.width
         height: (parent.width / rows) * columns
+
         columns: 2
         columnSpacing: 0
         rows: 2

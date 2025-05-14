@@ -25,6 +25,7 @@ MouseArea {
     }
     */
 
+
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
     onClicked: action()
@@ -33,7 +34,7 @@ MouseArea {
         anchors.fill: parent
         anchors.margins: 4
         radius: 16
-        color: mouseArea.containsMouse ? "grey" : "#99000000"
+        color: mouseArea.containsMouse ? "grey" : "#990ff000"
 
         children: [
             content
