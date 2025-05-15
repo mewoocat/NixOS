@@ -13,6 +13,8 @@ Singleton {
     property var controlPanel: null
     property var activityCenter: null
 
+    property int controlPanelPage: 0
+
     //property var Bar: Bar {}
     /*
     Scope {

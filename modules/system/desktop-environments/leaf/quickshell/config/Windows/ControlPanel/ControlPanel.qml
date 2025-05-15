@@ -1,9 +1,11 @@
 import "root:/Modules/Ui" as Ui
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import "root:/" as Root
+import "./Pages" as Pages
 
 Ui.PopupWindow {
     name: "controlPanel"
@@ -20,82 +22,27 @@ Ui.PopupWindow {
         top: true
         right: true
     }
-    content: GridLayout {
-        id: grid
-        //uniformCellWidths: true
-        //uniformCellHeights: true
-
-        // Setting this with implicit width/height causes the height to be 
-        // basically 0 after hiding and showing the window
-        // **Likely an upstream bug in qt quick**
-        //implicitWidth: parent.width
-        //implicitHeight: (parent.width / rows) * columns
-        width: parent.width
-        height: (parent.width / rows) * columns
-
-        columns: 2
-        columnSpacing: 0
-        rows: 2
-        rowSpacing: 0
-
-        //PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
-        PanelItem { 
-            action: () => {grid.height = grid.height + 100}
-            content: IconImage {
-                anchors.centerIn: parent
-                implicitSize: 32
-                source: Quickshell.iconPath("ymuse-home-symbolic")
-            }
+    content: ColumnLayout { 
+        implicitWidth: parent.width
+        implicitHeight: childrenRect.height
+        SwipeView {
+            id: swipeView
+            implicitWidth: parent.width
+            // can't use contentHeight since it uses the implicit size of the children
+            // and due to a bug, we need to use non implicit size for the grid child
+            implicitHeight: contentChildren[currentIndex].height
+            currentIndex: Root.State.controlPanelPage
+            Pages.Main {} 
+            Pages.Audio {}
         }
 
-        PanelGrid {
-            PanelItem { 
-                action: () => {}
-                content: IconImage {
-                    anchors.centerIn: parent
-                    implicitSize: 32
-                    source: Quickshell.iconPath("ymuse-home-symbolic")
-                }
-            }
-            PanelItem { 
-                action: () => {}
-                content: IconImage {
-                    anchors.centerIn: parent
-                    implicitSize: 32
-                    source: Quickshell.iconPath("ymuse-home-symbolic")
-                }
-            }
-            PanelItem { 
-                action: () => {}
-                content: IconImage {
-                    anchors.centerIn: parent
-                    implicitSize: 32
-                    source: Quickshell.iconPath("ymuse-home-symbolic")
-                }
-            }
-            PanelItem { 
-                action: () => {}
-                content: IconImage {
-                    anchors.centerIn: parent
-                    implicitSize: 32
-                    source: Quickshell.iconPath("ymuse-home-symbolic")
-                }
-            }
+        PageIndicator {
+            id: pageIndicator
+            count: swipeView.count
+            currentIndex: swipeView.currentIndex
+            //anchors.bottom: swipeView.bottom
+            //anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
         }
-
-        PanelItem { 
-            action: () => {}
-            content: SliderPanel {}
-            Layout.columnSpan: 2;
-        }
-
-
-        /*
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        */
     }
-
 }

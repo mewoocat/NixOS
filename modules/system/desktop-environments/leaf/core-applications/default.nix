@@ -16,9 +16,10 @@
       gnome-text-editor
       nemo-with-extensions
 
-      # idk how these differ
+      # idk how these two differ
       kdePackages.dolphin
       libsForQt5.dolphin
+      kdePackages.qtsvg # Needed for icons to work in dolphin
     ];
   };
 }
