@@ -1,5 +1,7 @@
 import "root:/Modules/Ui" as Ui
 import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import Quickshell
 import "root:/" as Root
 
@@ -14,9 +16,15 @@ Ui.PopupWindow {
     anchors {
         top: true
     }
-    content: Text {
-        color: "white"
-        text: "pwiughprhugpiuebpiun"
+    content: GridLayout {
+        columns: 1
+        rows: 2
+        Text {
+            color: "white"
+            text: "pwiughprhugpiuebpiun"
+        }
+        MonthGrid {
+        }
     }
 }
 

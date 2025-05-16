@@ -7,6 +7,7 @@ import "Windows/Bar"
 import "Windows/Launcher"
 import "Windows/ControlPanel"
 import "Windows/ActivityCenter"
+import Quickshell.Services.NetworkManager
 
 ShellRoot {
     // Logic

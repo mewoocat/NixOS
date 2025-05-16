@@ -42,6 +42,8 @@ in {
     #style = "adwaita-dark";
 
     platformTheme = "qt5ct";
+    style = "kvantum";
+
 
   };
 
@@ -74,6 +76,9 @@ in {
     qt6Packages.qt6ct
     pywal
     swww
+
+    libsForQt5.qtstyleplugin-kvantum
+    gruvbox-kvantum
   ];
 
   hjem.users.${config.username}.files = {
