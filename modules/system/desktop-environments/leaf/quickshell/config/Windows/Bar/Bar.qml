@@ -67,34 +67,8 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
-                        /*
-                        MouseArea {
-                            implicitWidth: row.width
-                            implicitHeight: 30
-                            onClicked: () => text.text = "bbbb"
-                            Rectangle {
-                                anchors.fill: parent
-                                RowLayout {
-                                    id: row
-                                    implicitWidth: text.width
-                                    Text {
-                                        id: text
-                                        text: "aa"
-                                    }
-                                }
-                            }
-                        }
-                        */
-
-                        /*
-                        Ui.NormalButton {
-                            id: test
-                            action: () => { test.text = "hiii"}
-                            text: "a"
-                            iconName: "view-grid-symbolic"
-                        }
-                        Battery {}
-                        */
+                        //Sys {}
+                        SystemTray {window: bar}
                         Audio {}
                         Battery {}
                         Ui.NormalButton {

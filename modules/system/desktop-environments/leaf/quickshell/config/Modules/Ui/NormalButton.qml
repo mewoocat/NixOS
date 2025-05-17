@@ -6,8 +6,15 @@ import QtQuick.Layouts
 
 MouseArea {
     id: mouseArea
-    required property var action
+    
+    // On mouse click functions
+    property var leftClick
+    property var rightClick
+    property var middleClick
+    property var action // !! Deprecated
+
     property string iconName: ""
+    property string iconSource: "" // Source url of an icon to use
     property string text: ""
     property bool isClickable: true
     implicitWidth: box.width
@@ -15,7 +22,19 @@ MouseArea {
     implicitHeight: 40
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
-    onClicked: action()
+    onClicked: (event) => {
+        console.log("what")
+        if (event.button === Qt.LeftButton && leftClick != null) {
+            rightClick()
+            //leftClick()
+        }
+        else if (event.button === Qt.RightButton && rightClick != null) {
+            rightClick()
+        }
+        else if (event.button === Qt.MiddleButton != null) {
+            middleClick()
+        }
+    }
     Rectangle {
         id: box
         anchors.centerIn: parent
@@ -35,9 +54,9 @@ MouseArea {
                 Layout.leftMargin: 8
                 Layout.rightMargin: mouseArea.text === "" ? 8 : 0
                 id: icon
-                visible: mouseArea.iconName != ""
+                visible: mouseArea.iconName != "" || mouseArea.iconSource != ""
                 implicitSize: 20
-                source: Quickshell.iconPath(mouseArea.iconName)
+                source: mouseArea.iconName == "" ? mouseArea.iconSource : Quickshell.iconPath(mouseArea.iconName)
                 // Recoloring icon
                 /*
                 layer.enabled: true
