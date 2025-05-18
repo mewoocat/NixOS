@@ -46,7 +46,7 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         Ui.NormalButton {
-                            action: () => Root.State.launcher.toggleWindow()
+                            leftClick: () => Root.State.launcher.toggleWindow()
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
@@ -67,12 +67,11 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
-                        //Sys {}
-                        SystemTray {window: bar}
+                        SystemTray {}
                         Audio {}
                         Battery {}
                         Ui.NormalButton {
-                            action: () => Root.State.controlPanel.toggleWindow()
+                            leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                         }
                     }
