@@ -22,17 +22,21 @@ MouseArea {
     implicitHeight: 40
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
+    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
     onClicked: (event) => {
-        console.log("what")
-        if (event.button === Qt.LeftButton && leftClick != null) {
-            rightClick()
-            //leftClick()
-        }
-        else if (event.button === Qt.RightButton && rightClick != null) {
-            rightClick()
-        }
-        else if (event.button === Qt.MiddleButton != null) {
-            middleClick()
+        console.log(`button event: ${event.button}`)
+        switch(event.button) {
+            case Qt.LeftButton:
+                if (leftClick != null){ leftClick() }
+                break
+            case Qt.RightButton:
+                if (rightClick != null){ rightClick() }
+                break
+            case Qt.MiddleButton:
+                if (MiddleButton != null){ middleClick() }
+                break
+            default:
+                console.log("button problem")
         }
     }
     Rectangle {
