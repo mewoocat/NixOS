@@ -13,6 +13,8 @@ MouseArea {
     property var middleClick
     property var action // !! Deprecated
 
+    property Item iconItem: icon
+
     property string iconName: ""
     property string iconSource: "" // Source url of an icon to use
     property string text: ""
@@ -39,6 +41,7 @@ MouseArea {
                 console.log("button problem")
         }
     }
+
     Rectangle {
         id: box
         anchors.centerIn: parent
@@ -69,6 +72,10 @@ MouseArea {
                     colorizationColor: "#ff0000"
                 }
                 */
+                // Animate changes to the rotation property
+                Behavior on rotation {
+                    PropertyAnimation { property: "rotation"; duration: 300 }
+                }
             }
             Text {
                 id: text

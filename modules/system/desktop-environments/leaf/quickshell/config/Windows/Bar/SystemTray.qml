@@ -11,18 +11,41 @@ RowLayout {
     spacing: 0
     property var toggle: () => {
         if (tray.state === "hidden") {
+            toggleButton.iconItem.rotation = 0
             tray.state = "default"
+            trayBox.state = "default"
         }
         else {
+            toggleButton.iconItem.rotation = 180
             tray.state = "hidden"
+            trayBox.state = "hidden"
         }
     }
-    // Idk why i can't get a Rectangle to work here
     Rectangle {
+        id: trayBox
         implicitWidth: tray.width
         implicitHeight: tray.height
         color: "transparent"
         clip: true
+
+        states: [
+            State {
+                name: "default"
+            },
+            State {
+                name: "hidden"
+                PropertyChanges {
+                    target: trayBox
+                    implicitWidth: 0
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                PropertyAnimation { property: "implicitWidth"; duration: 300 }
+                //reversible: true
+            }
+        ]
 
         Rectangle {
             id: tray
@@ -103,5 +126,14 @@ RowLayout {
         id: toggleButton
         leftClick: root.toggle
         iconName: "pan-start-symbolic"
+
+        // Animating rotation
+        /*
+        transitions: [
+            Transition {
+                PropertyAnimation { property: "rotation"; duration: 300 }
+            }
+        ]
+        */
     }
 }
