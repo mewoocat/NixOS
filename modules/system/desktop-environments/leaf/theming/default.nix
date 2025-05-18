@@ -42,7 +42,7 @@ in {
     #style = "adwaita-dark";
 
     platformTheme = "qt5ct";
-    style = "kvantum";
+    #style = "kvantum";
 
 
   };

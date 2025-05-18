@@ -29,13 +29,32 @@ RowLayout {
             rightClick: () => {
                 console.log("rightClick")
                 //modelData.display(root.QSWindow,0,0)
+                menuAnchor.open()
             }
 
             // Popup menu
             // probably need to give a size to the anchor rectangle for it to show anything?
             QsMenuAnchor {
+                id: menuAnchor
                 //anchor.window: bar
-                anchor.window: button.QsWindow.window
+                anchor {
+                    window: button.QsWindow.window
+                    edges: Edges.Bottom | Edges.Left
+                    // Get a rect for the popup that is relative to the button item
+                    // The returned rect is then in the context of the window
+                    rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(0, 0, 0, 40))
+                    //rect: button.QsWindow.window.mapFromItem(button, 100, 100, 400, 400)
+                    /*
+                    rect {
+                        //x: 100
+                        //y: 100
+                        //width: 300
+                        //height: 300
+                        //w: 300
+                        //h: 300
+                    }
+                    */
+                }
                 menu: modelData.menu
             }
 
