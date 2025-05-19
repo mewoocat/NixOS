@@ -10,6 +10,7 @@ MouseArea {
     required property var content // Object to display
     property string iconName: ""
     property bool isClickable: true
+    property real size
 
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -21,19 +22,6 @@ MouseArea {
     Component.onCompleted: {
         size = parent.width / 2
         console.log("size: " + size)
-    }
-
-    //Layout.fillWidth: parent.width / 2
-    /*
-    implicitHeight: 80
-    onWidthChanged: {
-        console.log("width: " + width)
-    }
-    //Layout.fillHeight: true
-    //implicitHeight: parent.width
-    Component.onCompleted: {
-        console.log(parent.width / 2)
-        mouseArea.implicitHeight = width
     }
     */
 

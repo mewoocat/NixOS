@@ -6,8 +6,17 @@ import QtQuick.Layouts
 
 MouseArea {
     id: mouseArea
-    required property var action
+    
+    // On mouse click functions
+    property var leftClick
+    property var rightClick
+    property var middleClick
+    property var action // !! Deprecated
+
+    property Item iconItem: icon
+
     property string iconName: ""
+    property string iconSource: "" // Source url of an icon to use
     property string text: ""
     property bool isClickable: true
     implicitWidth: box.width
@@ -15,7 +24,24 @@ MouseArea {
     implicitHeight: 40
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
-    onClicked: action()
+    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+    onClicked: (event) => {
+        console.log(`button event: ${event.button}`)
+        switch(event.button) {
+            case Qt.LeftButton:
+                if (leftClick != null){ leftClick() }
+                break
+            case Qt.RightButton:
+                if (rightClick != null){ rightClick() }
+                break
+            case Qt.MiddleButton:
+                if (MiddleButton != null){ middleClick() }
+                break
+            default:
+                console.log("button problem")
+        }
+    }
+
     Rectangle {
         id: box
         anchors.centerIn: parent
@@ -35,9 +61,9 @@ MouseArea {
                 Layout.leftMargin: 8
                 Layout.rightMargin: mouseArea.text === "" ? 8 : 0
                 id: icon
-                visible: mouseArea.iconName != ""
+                visible: mouseArea.iconName != "" || mouseArea.iconSource != ""
                 implicitSize: 20
-                source: Quickshell.iconPath(mouseArea.iconName)
+                source: mouseArea.iconName == "" ? mouseArea.iconSource : Quickshell.iconPath(mouseArea.iconName)
                 // Recoloring icon
                 /*
                 layer.enabled: true
@@ -46,6 +72,10 @@ MouseArea {
                     colorizationColor: "#ff0000"
                 }
                 */
+                // Animate changes to the rotation property
+                Behavior on rotation {
+                    PropertyAnimation { property: "rotation"; duration: 300 }
+                }
             }
             Text {
                 id: text

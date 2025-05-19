@@ -1,9 +1,11 @@
-//pragma Singleton
 import "root:/Modules/Ui" as Ui
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
+import Quickshell.Widgets
 import "root:/" as Root
+import "./Pages" as Pages
 
 Ui.PopupWindow {
     name: "controlPanel"
@@ -20,29 +22,46 @@ Ui.PopupWindow {
         top: true
         right: true
     }
-    content: GridLayout {
-        //uniformCellWidths: true
-        //uniformCellHeights: true
+
+    //content: Pages.Main {} 
+    content: SwipeView {
+        id: swipeView
         width: parent.width
-        height: rows * (parent.width / columns)
-        columns: 4
-        rows: 3
-        rowSpacing: 0
-        columnSpacing: 0
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
-        PanelItem { iconName: "ymuse-home-symbolic"}
+        // can't use contentHeight since it uses the implicit size of the children
+        // and due to a bug, we need to use non implicit size for the grid child
+        height: currentItem.height // / 2
+        //implicitHeight: 400
+        currentIndex: Root.State.controlPanelPage
+        // Multiple items here seems to make the width of the swipeview expand when accessed?
+        Pages.Main {} 
+        //Pages.Audio {}
+        //Pages.Audio {}
     }
 
+    /*
+    content: ColumnLayout { 
+        implicitWidth: parent.width
+        implicitHeight: childrenRect.height
+        SwipeView {
+            id: swipeView
+            implicitWidth: parent.width
+            // can't use contentHeight since it uses the implicit size of the children
+            // and due to a bug, we need to use non implicit size for the grid child
+            implicitHeight: contentChildren[currentIndex].height
+            currentIndex: Root.State.controlPanelPage
+            Pages.Main {} 
+            Pages.Audio {}
+            Pages.Audio {}
+        }
+
+        PageIndicator {
+            id: pageIndicator
+            count: swipeView.count
+            currentIndex: swipeView.currentIndex
+            //anchors.bottom: swipeView.bottom
+            //anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
+        }
+    }
+    */
 }

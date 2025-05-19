@@ -1,12 +1,17 @@
-import "root:/Modules/Ui" as Ui
 import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 import Quickshell
 import "root:/" as Root
+import "root:/Modules" as Modules
+import "root:/Modules/Ui" as Ui
 
 Ui.PopupWindow {
-    function toggleWindow(){
-        console.log("toggle window")
+    toggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
+    } 
+    closeWindow: () => {
+        Root.State.activityCenterVisibility = false
     } 
     //id: window
     name: "activityCenter"
@@ -14,9 +19,19 @@ Ui.PopupWindow {
     anchors {
         top: true
     }
-    content: Text {
-        color: "white"
-        text: "pwiughprhugpiuebpiun"
+    width: 520
+    height: content.height
+    content: GridLayout {
+        width: parent.width
+        height: parent.width / columns * rows
+        columns: 3
+        rows: 2
+        Modules.PanelItem { content: Modules.Calendar {} }
+        Modules.PanelItem { content: Modules.Calendar {} }
+        Modules.PanelItem { content: Modules.Calendar {} }
+        Modules.PanelItem { content: Modules.Calendar {} }
+        Modules.PanelItem { content: Modules.Calendar {} }
+        Modules.PanelItem { content: Modules.Calendar {} }
     }
 }
 
