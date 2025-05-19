@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import "../"
 import "root:/" as Root
+import "root:/Services" as Services
 
 GridLayout {
     id: grid
@@ -81,10 +82,9 @@ GridLayout {
     }
 
     PanelItem { 
-        content: IconImage {
-            anchors.centerIn: parent
-            implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+        content: Text {
+            color: "white"
+            text: Services.SystemStats.cpuUsage
         }
     }
     PanelItem { 

@@ -7,10 +7,10 @@ import "root:/Modules" as Modules
 import "root:/Modules/Ui" as Ui
 
 Ui.PopupWindow {
-    function toggleWindow(){
+    toggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
     } 
-    function closeWindow(){
+    closeWindow: () => {
         Root.State.activityCenterVisibility = false
     } 
     //id: window
