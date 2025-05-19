@@ -7,7 +7,7 @@ Ui.NormalButton {
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
     }
-    action: () => {
+    leftClick: () => {
         //console.log(`audio: ${JSON.stringify(Pipewire.defaultAudioSink.audio)}`)
         console.log(`audio: ${JSON.stringify(Pipewire.defaultAudioSink, null, 2)}`)
     }

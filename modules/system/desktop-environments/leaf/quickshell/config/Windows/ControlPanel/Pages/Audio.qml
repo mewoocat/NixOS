@@ -8,7 +8,7 @@ import "root:/Modules/Ui" as Ui
 ColumnLayout {
     Ui.NormalButton {
         text: "Back"
-        action: () => Root.State.controlPanelPage = 0
+        leftClick: () => Root.State.controlPanelPage = 0
     }
     Button {
         text: "test"

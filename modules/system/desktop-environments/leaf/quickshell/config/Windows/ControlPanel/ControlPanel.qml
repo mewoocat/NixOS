@@ -22,6 +22,23 @@ Ui.PopupWindow {
         top: true
         right: true
     }
+
+    //content: Pages.Main {} 
+    content: SwipeView {
+        id: swipeView
+        width: parent.width
+        // can't use contentHeight since it uses the implicit size of the children
+        // and due to a bug, we need to use non implicit size for the grid child
+        height: currentItem.height // / 2
+        //implicitHeight: 400
+        currentIndex: Root.State.controlPanelPage
+        // Multiple items here seems to make the width of the swipeview expand when accessed?
+        Pages.Main {} 
+        Pages.Audio {}
+        //Pages.Audio {}
+    }
+
+    /*
     content: ColumnLayout { 
         implicitWidth: parent.width
         implicitHeight: childrenRect.height
@@ -34,6 +51,7 @@ Ui.PopupWindow {
             currentIndex: Root.State.controlPanelPage
             Pages.Main {} 
             Pages.Audio {}
+            Pages.Audio {}
         }
 
         PageIndicator {
@@ -45,4 +63,5 @@ Ui.PopupWindow {
             Layout.alignment: Qt.AlignHCenter
         }
     }
+    */
 }

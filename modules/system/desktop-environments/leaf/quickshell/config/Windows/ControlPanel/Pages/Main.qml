@@ -15,14 +15,17 @@ GridLayout {
     // **Likely an upstream bug in qt quick**
     //implicitWidth: parent.width
     //implicitHeight: (parent.width / rows) * columns
-    //width: parent.width
-    //height: (parent.width / rows) * columns
-    width: 300
-    height: 300
+    width: parent.width
+    height: parent.width * grid.rows / grid.columns
+
+    //width: 300
+    //height: 300
+
+    //view
 
     columns: 2
     columnSpacing: 0
-    rows: 2
+    rows: 3
     rowSpacing: 0
 
     //PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
@@ -41,7 +44,13 @@ GridLayout {
 
     PanelGrid {
         PanelItem { 
-            action: () => {}
+            action: () => {
+                console.log("width: " + grid.width)
+                console.log(`height: ` + grid.height)
+                console.log(`parent.width: ${grid.parent.width}`)
+                console.log(`parent.height: ${grid.parent.height}`)
+                console.log(`parent.count: ${grid.parent.count}`)
+            }
             content: IconImage {
                 anchors.centerIn: parent
                 implicitSize: 32
@@ -49,7 +58,6 @@ GridLayout {
             }
         }
         PanelItem { 
-            action: () => {}
             content: IconImage {
                 anchors.centerIn: parent
                 implicitSize: 32
@@ -57,7 +65,6 @@ GridLayout {
             }
         }
         PanelItem { 
-            action: () => {}
             content: IconImage {
                 anchors.centerIn: parent
                 implicitSize: 32
@@ -65,7 +72,6 @@ GridLayout {
             }
         }
         PanelItem { 
-            action: () => {}
             content: IconImage {
                 anchors.centerIn: parent
                 implicitSize: 32
@@ -75,7 +81,21 @@ GridLayout {
     }
 
     PanelItem { 
-        action: () => {}
+        content: IconImage {
+            anchors.centerIn: parent
+            implicitSize: 32
+            source: Quickshell.iconPath("ymuse-home-symbolic")
+        }
+    }
+    PanelItem { 
+        content: IconImage {
+            anchors.centerIn: parent
+            implicitSize: 32
+            source: Quickshell.iconPath("ymuse-home-symbolic")
+        }
+    }
+
+    PanelItem { 
         content: SliderPanel {}
         Layout.columnSpan: 2;
     }

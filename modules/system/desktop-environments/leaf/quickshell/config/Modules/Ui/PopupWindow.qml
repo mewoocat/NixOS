@@ -24,8 +24,8 @@ PanelWindow {
 
     visible: Root.State.controlPanelVisibility
     focusable: true // Enable keyboard focus
-    width: 300
-    height: 400
+    //width: 300
+    //height: 400
     color: "transparent"
     margins {
         top: 16
