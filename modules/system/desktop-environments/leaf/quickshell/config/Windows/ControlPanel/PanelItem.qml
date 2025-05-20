@@ -34,7 +34,7 @@ MouseArea {
         anchors.fill: parent
         anchors.margins: 4
         radius: 16
-        color: mouseArea.containsMouse ? "grey" : "#990ff000"
+        color: mouseArea.containsMouse ? "grey" : palette.active.base
 
         children: [
             content

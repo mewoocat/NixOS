@@ -1,3 +1,5 @@
+// WARNING: Unused atm
+
 import QtQuick.Controls
 import QtQuick
 import Quickshell
@@ -9,7 +11,6 @@ required property var app
 
 MouseArea {
     id: appItem
-
     Component.onCompleted: console.log(`model = ${app.name}`)
 
     // Filter using search text
@@ -41,8 +42,13 @@ MouseArea {
                 implicitSize: 32
                 source: Quickshell.iconPath(app.icon)
             }
+            Text {
+                text: "wtf"
+            }
             Text{
-                color: "#ffffff"
+                width: 80
+                color: "red"
+                clip: true
                 text: app.name
             }
         }

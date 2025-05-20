@@ -15,5 +15,11 @@ Singleton {
         function toggleLauncher() {
             Root.State.launcher.toggleWindow()
         }
+        function toggleActivityCenter() {
+            Root.State.activityCenter.toggleWindow()
+        }
+        function toggleControlPanel() {
+            Root.State.controlPanel.toggleWindow()
+        }
     }
 }

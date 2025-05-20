@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import "../"
 import "root:/" as Root
 import "root:/Services" as Services
+import "root:/Modules" as Modules
 
 GridLayout {
     id: grid
@@ -82,9 +83,8 @@ GridLayout {
     }
 
     PanelItem { 
-        content: Text {
-            color: "white"
-            text: Services.SystemStats.cpuUsage
+        content: Modules.SystemStats {
+            anchors.centerIn: parent
         }
     }
     PanelItem { 

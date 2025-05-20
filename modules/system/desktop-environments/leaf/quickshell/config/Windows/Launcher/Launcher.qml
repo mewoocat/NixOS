@@ -105,7 +105,8 @@ Ui.PopupWindow {
 
     content: Rectangle {
         anchors.fill: parent
-        color: "#aa000000"
+        //color: "#aa000000"
+        color: palette.window
         radius: 12
         ColumnLayout {
             anchors.fill: parent
@@ -203,6 +204,7 @@ Ui.PopupWindow {
                         RowLayout {
                             anchors.fill: parent
                             IconImage {
+                                Layout.leftMargin: 8
                                 id: icon
                                 implicitSize: 32
                                 source: Quickshell.iconPath(modelData.icon)
@@ -210,8 +212,10 @@ Ui.PopupWindow {
                             Text{
                                 Layout.fillWidth: true
                                 leftPadding: 8
-                                color: "#ffffff"
+                                rightPadding: 8
+                                elide: Text.ElideRight // Truncate with ... on the right
                                 text: modelData.name
+                                color: palette.text
                             }
                         }
                     }

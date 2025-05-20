@@ -11,7 +11,6 @@ Rectangle {
         anchors.centerIn: parent
         delegate: Text {
             text: model.day
-            color: "white"
             font.pointSize: 8
         }
     }

@@ -79,7 +79,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#aa000000"
+        color: palette.window
         radius: 12
 
         children: [

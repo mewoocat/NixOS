@@ -26,7 +26,8 @@ Ui.PopupWindow {
     //content: Pages.Main {} 
     content: SwipeView {
         id: swipeView
-        width: parent.width
+        //width: parent.width
+        width: 300
         // can't use contentHeight since it uses the implicit size of the children
         // and due to a bug, we need to use non implicit size for the grid child
         height: currentItem.height // / 2

@@ -26,7 +26,6 @@ Scope {
                     Root.State.bar = bar
                 }
                 id: bar
-                color: "#aa000000"
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 // Set the window's screen to the injected property
@@ -38,7 +37,8 @@ Scope {
                 }
                 height: 40
                 WlrLayershell.namespace: "bar" // Set layer name
-                Item {
+                Rectangle {
+                    color: palette.base
                     anchors.fill: parent
                     // Left
                     RowLayout {
@@ -46,7 +46,9 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         Ui.NormalButton {
-                            leftClick: () => Root.State.launcher.toggleWindow()
+                            leftClick: () => {
+                                Root.State.launcher.toggleWindow()
+                            }
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}

@@ -8,9 +8,9 @@ MouseArea {
     id: mouseArea
     
     // On mouse click functions
-    property var leftClick
-    property var rightClick
-    property var middleClick
+    property var leftClick: null
+    property var rightClick: null
+    property var middleClick: null
     property var action // !! Deprecated
 
     property Item iconItem: icon
@@ -49,7 +49,7 @@ MouseArea {
         implicitWidth: row.width
         implicitHeight: 28
         radius: 24
-        color: mouseArea.containsMouse ? "grey" : "#00000000"
+        color: mouseArea.containsMouse ? palette.highlight : "#00000000"
 
         RowLayout {
             id: row
@@ -85,9 +85,9 @@ MouseArea {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.leftMargin: mouseArea.icon === "" ? 8 : 0
                 Layout.rightMargin: 8
-                color: "#ffffff"
                 text: mouseArea.text
                 font.pointSize: 12
+                color: palette.text
             }
         }
    }
