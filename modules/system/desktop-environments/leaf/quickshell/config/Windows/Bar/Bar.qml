@@ -38,7 +38,7 @@ Scope {
                 height: 40
                 WlrLayershell.namespace: "bar" // Set layer name
                 Rectangle {
-                    color: palette.base
+                    color: palette.window
                     anchors.fill: parent
                     // Left
                     RowLayout {

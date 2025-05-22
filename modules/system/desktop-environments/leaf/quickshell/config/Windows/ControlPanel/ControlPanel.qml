@@ -35,7 +35,7 @@ Ui.PopupWindow {
         currentIndex: Root.State.controlPanelPage
         // Multiple items here seems to make the width of the swipeview expand when accessed?
         Pages.Main {} 
-        //Pages.Audio {}
+        Pages.Audio {}
         //Pages.Audio {}
     }
 

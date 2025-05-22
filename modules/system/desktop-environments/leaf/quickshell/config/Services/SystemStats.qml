@@ -10,8 +10,8 @@ Singleton {
     property real cpuUsage: 0
     property real memUsage: 0
     property string memUsageText: ""
-
     property real storageUsage: 0
+    property string storageUsageText: ""
     property string storageDrive: "/" // Defaults to root
     
     Process {
@@ -41,7 +41,7 @@ Singleton {
                     return
                 }
                 const GBinKiB = 0.000001024
-                const memArray = data
+                const memArray = line
                     .split('\n')  // idk why this works since it should be iterating over everylien with the SplitParser?
                     .find(line => line.includes('Mem:'))
                     .split(/\s+/)
@@ -53,6 +53,8 @@ Singleton {
             }
         }
     }
+    //    poll: [6000, ['bash', '-c', "fastfetch --packages-disabled nix --logo none --cpu-temp | grep 'CPU:' | rev | cut -d ' ' -f1 | cut -c 4- | rev"], out => Math.round(out)
+
 
     Process {
         id: storageUsageProc
@@ -70,13 +72,22 @@ Singleton {
                 console.log(`data: ${data}`)
                 const storageArray = data.split(/\s+/) // Split on spaces
                 console.log(`log: ${storageArray}`)
-                const total = storageArray[1]
-                const available = storageArray[3]
-                const used = total - available
-                const usage = Math.round(used / total * 100000) / 100000 // Round to 5 decimal places
+                let total = storageArray[1]
+                let available = storageArray[3]
+                let used = total - available
+                let usage = Math.round(used / total * 100000) / 100000 // Round to 5 decimal places
+                usage = usage * 100 // 0 -> 100
                 
+                const GBinKiB = 0.000001024
+                total = Math.round(storageArray[1] * GBinKiB * 10) / 10 // Round to 1 decimal place
+                available = Math.round(storageArray[3] * GBinKiB * 10) / 10 // Round to 1 decimal place
+                used = Math.round((total - available) * 10) / 10 // Round to 1 decimal place
+                const storageFormatted = `Usage of /: ${used} GB / ${total} GB`
+
                 console.log(`storage: ${usage}`)
+
                 root.storageUsage = usage
+                root.storageUsageText = storageFormatted
             }
         }
     }

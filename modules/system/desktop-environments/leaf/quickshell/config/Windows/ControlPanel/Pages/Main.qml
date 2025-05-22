@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import "../"
@@ -18,7 +19,7 @@ GridLayout {
     //implicitWidth: parent.width
     //implicitHeight: (parent.width / rows) * columns
     width: parent.width
-    height: parent.width * grid.rows / grid.columns
+    height: parent.width * grid.rows / grid.columns / 2
 
     //width: 300
     //height: 300
@@ -88,10 +89,8 @@ GridLayout {
         }
     }
     PanelItem { 
-        content: IconImage {
-            anchors.centerIn: parent
-            implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+        content: ComboBox {
+            model: ["First", "Second", "Third"]
         }
     }
 

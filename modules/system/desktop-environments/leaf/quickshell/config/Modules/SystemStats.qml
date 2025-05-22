@@ -97,15 +97,25 @@ ColumnLayout {
         }
         Text {
             text: {
-                Math.round(Services.SystemStats.cpuUsage) + '%'
+                Math.round(Services.SystemStats.storageUsage) + '%'
             }
             color: palette.text
         }
         ProgressBar {
+            id: storageProg
             Layout.fillWidth: true
             from: 0
-            value: Services.SystemStats.cpuUsage
+            value: Services.SystemStats.storageUsage
             to: 100
+            ToolTip {
+                delay: 300
+                text: Services.SystemStats.storageUsageText
+                visible: storageProg.hovered
+                background: Rectangle {
+                    radius: 20
+                    color: palette.window
+                }
+            }
         }
     }
 }
