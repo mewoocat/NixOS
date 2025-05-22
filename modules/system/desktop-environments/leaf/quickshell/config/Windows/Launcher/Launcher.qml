@@ -16,12 +16,6 @@ Ui.PopupWindow {
     name: "launcher"
     // Stores the current search
     property string searchText: ""
-
-    /*
-    Component.onCompleted: {
-        Root.State.launcher = launcher
-    }
-    */
     
     closeWindow: () => {
         Root.State.launcherVisibility = false
@@ -31,27 +25,11 @@ Ui.PopupWindow {
     }
 
     toggleWindow: () => {
-        console.log(`old vis: ${Root.State.launcherVisibility}`)
         Root.State.launcherVisibility = !Root.State.launcherVisibility
-        console.log(`new vis: ${Root.State.launcherVisibility}`)
         searchText = "" 
         textField.text = ""
         listView.currentIndex = 0
-        /*
-        textField.focusable = false
-        textField.focusable = true
-        */
-
     }
-
-    onVisibleChanged: {
-        /*
-        searchText = "" 
-        textField.text = ""
-        listView.currentIndex = 0
-        */
-    }
-
     visible: Root.State.launcherVisibility
     anchors {
         top: true
@@ -65,44 +43,6 @@ Ui.PopupWindow {
         left: 16
         top: 16
     }
-
-    /////////////////////////////////////////////////////////////////////////
-    // Close on click away
-
-    // Create a timer that sets the grab active state after a delay
-    // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
-    // signal for the window occurs before the window is actually created
-    // This would cause the grab to not find the window
-    /*
-    Timer {
-        id: delay
-        triggeredOnStart: false
-        interval: 100
-        repeat: false
-        onTriggered: grab.active = Root.State.launcherVisibility
-    }
-    // Connects to the launcher onVisibleChanged signal
-    // Starts a small delay which then sets the grab active state to match the 
-    Connections {
-        target: launcher
-        function onVisibleChanged() {
-            delay.start()
-            console.log(`visible ${visible}`)
-        }
-    }
-    HyprlandFocusGrab {
-        id: grab
-        active: false
-        windows: [ launcher, Root.State.bar ]
-        // Function to run when the Cleared signal is emitted
-        onCleared: () => {
-            console.log("cleared")
-            Root.State.launcherVisibility = false
-        }
-    }
-    */
-    /////////////////////////////////////////////////////////////////////////
-
     content: Rectangle {
         anchors.fill: parent
         //color: "#aa000000"
@@ -126,7 +66,7 @@ Ui.PopupWindow {
                     leftPadding: 12
                     rightPadding: 12
                     background: Rectangle {
-                        color: "gray"
+                        color: palette.active.base
                         radius: 16
                     }
                     onTextChanged: () => {
@@ -135,21 +75,11 @@ Ui.PopupWindow {
                     }
                     Keys.onUpPressed: {
                         listView.decrementCurrentIndex()
-                        //listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
-                        console.log(listView.currentIndex)
-                        console.log(listView.currentItem.modelData.name)
                     }
                     Keys.onDownPressed: {
                         listView.incrementCurrentIndex()
-                        //listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
-                        console.log(listView.currentIndex)
-                        console.log(listView.currentItem.modelData.name)
-                        consooe.log(listView.currentItem.modelData.execute)
                     }
                     Keys.onReturnPressed: {
-                        console.log(listView.itemAtIndex(listView.currentIndex).modelData.name)
-                        console.log(listView.currentItem.modelData.name)
-                        //listView.itemAtIndex(listView.currentIndex).modelData.execute()
                         listView.currentItem.modelData.execute()
                         launcher.toggleWindow() // Needs to be after the execute since this will reset the current index
                     }
@@ -173,22 +103,15 @@ Ui.PopupWindow {
                 }
 
                 snapMode: ListView.SnapToItem
-                Component.onCompleted: console.log(`model = ${model}`)
                 // Add a scroll bar to the list
                 // idk where this ScrollBar.vertical property is defined
                 ScrollBar.vertical: ScrollBar { }
 
                 delegate: MouseArea {
-                    //focusPolicy: Qt.TabFocus
-                    //focus: true
                     id: mouseArea
                     required property DesktopEntry modelData
-                    //property DesktopEntry app: mouseArea.modelData
-                    //Component.onCompleted: console.log(`app = ${modelData.name}`)
-
                     height: 60
                     width: listView.width
-
                     hoverEnabled: true
                     onClicked: modelData.execute()
                     Rectangle {

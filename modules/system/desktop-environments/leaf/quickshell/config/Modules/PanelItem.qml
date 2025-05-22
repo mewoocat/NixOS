@@ -21,7 +21,6 @@ MouseArea {
     Layout.preferredHeight: size
     Component.onCompleted: {
         size = parent.width / 2
-        console.log("size: " + size)
     }
     */
 

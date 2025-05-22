@@ -17,11 +17,6 @@ Singleton {
         target: Hyprland
         function onRawEvent(event) {
             Hyprland.refreshWorkspaces()
-            /*
-            for (let key in workspaceMap){
-                console.log(`key: ${key}, windows: ${workspaceMap[key].lastIpcObject.windows}`)
-            }
-            */
             //console.log(event.name + " | " + event.data) 
             if (event.name === "workspace") {
                 activeWsId = event.data

@@ -69,9 +69,7 @@ Singleton {
                 if (!data.endsWith(root.storageDrive)) {
                     return
                 }
-                console.log(`data: ${data}`)
                 const storageArray = data.split(/\s+/) // Split on spaces
-                console.log(`log: ${storageArray}`)
                 let total = storageArray[1]
                 let available = storageArray[3]
                 let used = total - available
@@ -83,8 +81,6 @@ Singleton {
                 available = Math.round(storageArray[3] * GBinKiB * 10) / 10 // Round to 1 decimal place
                 used = Math.round((total - available) * 10) / 10 // Round to 1 decimal place
                 const storageFormatted = `Usage of /: ${used} GB / ${total} GB`
-
-                console.log(`storage: ${usage}`)
 
                 root.storageUsage = usage
                 root.storageUsageText = storageFormatted

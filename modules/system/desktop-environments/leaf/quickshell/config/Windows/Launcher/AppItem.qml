@@ -11,7 +11,6 @@ required property var app
 
 MouseArea {
     id: appItem
-    Component.onCompleted: console.log(`model = ${app.name}`)
 
     // Filter using search text
     visible: {

@@ -24,8 +24,6 @@ PanelWindow {
 
     visible: Root.State.controlPanelVisibility
     focusable: true // Enable keyboard focus
-    //width: 300
-    //height: 400
     color: "transparent"
     margins {
         top: 16
@@ -69,9 +67,6 @@ PanelWindow {
         ]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            console.log("cleared")
-            //Root.State.launcherVisibility = false
-            //toggleWindow()
             closeWindow()
         }
     }
@@ -81,7 +76,6 @@ PanelWindow {
         anchors.fill: parent
         color: palette.window
         radius: 12
-
         children: [
             content
         ]

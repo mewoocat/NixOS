@@ -26,7 +26,6 @@ MouseArea {
     hoverEnabled: true
     acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
     onClicked: (event) => {
-        console.log(`button event: ${event.button}`)
         switch(event.button) {
             case Qt.LeftButton:
                 if (leftClick != null){ leftClick() }
