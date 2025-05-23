@@ -70,7 +70,7 @@ Scope {
                         anchors.bottom: parent.bottom
 
                         Audio {}
-                        SystemTray {}
+                        //SystemTray {}
                         Battery {}
                         Ui.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()

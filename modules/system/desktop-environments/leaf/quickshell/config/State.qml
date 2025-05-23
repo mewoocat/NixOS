@@ -7,11 +7,13 @@ Singleton {
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
     property bool activityCenterVisibility: false
+    property bool workspacesVisibility: false
 
     property var bar: null
     property var launcher: null
     property var controlPanel: null
     property var activityCenter: null
+    property var workspaces: null
 
     property int controlPanelPage: 0
 

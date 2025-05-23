@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Hyprland
+import "root:/" as Root
 import "root:/Services/" as Services
 
 RowLayout {
@@ -31,7 +32,19 @@ RowLayout {
             implicitWidth: wsWidth
             Layout.fillHeight: true
             hoverEnabled: true
-            onClicked: { Hyprland.dispatch(`workspace ${wsID}`) }
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+            onClicked: (event) => {
+                switch(event.button) {
+                    case Qt.LeftButton:
+                        Hyprland.dispatch(`workspace ${wsID}`) 
+                        break
+                    case Qt.RightButton:
+                        Root.State.workspaces.toggleWindow()
+                        break
+                    default:
+                        console.log("button problem")
+                }
+            }
             Rectangle {
                 anchors.centerIn: parent
                 radius: 24
