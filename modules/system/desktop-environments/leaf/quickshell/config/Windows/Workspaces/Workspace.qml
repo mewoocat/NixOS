@@ -37,6 +37,8 @@ MouseArea {
         if (!wsObj) {
             return 1
         }
+        //console.log(`ww: ${widgetWidth}, mw: ${wsObj.monitor.width}`)
+        //console.log(`ret: ${widgetWidth / wsObj.monitor.width}`)
         return widgetWidth / wsObj.monitor.width
     }
 
@@ -76,29 +78,15 @@ MouseArea {
             Repeater {
                 model: Services.Hyprland.clientMap[root.wsId]
                 // Each window in the workspace
-                MouseArea {
-                    id: window
+                Client {
                     required property var modelData
-                    // Need to subtract the monitor positon to account for any monitor offsets
-                    x: Math.round((modelData.at[0] - wsObj.monitor.x) * widgetScale * wsObj.monitor.scale)
-                    y: Math.round((modelData.at[1] - wsObj.monitor.y) * widgetScale * wsObj.monitor.scale)
-                    width: Math.round(modelData.size[0] * widgetScale * wsObj.monitor.scale) 
-                    height: Math.round(modelData.size[1] * widgetScale * wsObj.monitor.scale)
-                    hoverEnabled: true
-                    Rectangle {
-                        anchors.fill: parent
-                        color: window.containsMouse ? palette.highlight : palette.window
-                        radius: 4
-                        Text {
-                            anchors.centerIn: parent
-                            color: palette.text
-                            text: window.modelData.class
-                        }
-                        Component.onCompleted: {
-                            //console.log(`modelData for ${wsId}: ${JSON.stringify(modelData)}`)
-                            //console.log(`x: ${window.width}, y: ${window.height}, w: ${window.width}, h: ${window.height}`)
-                            //console.log("widgetScale " + widgetScale)
-                        }
+                    clientObj: modelData
+                    widgetScale: root.widgetScale
+                    monitorScale: wsObj.monitor.scale
+                    monitorX: wsObj.monitor.x
+                    monitorY: wsObj.monitor.y
+                    Component.onCompleted: {
+                        console.log(`widget scale: ${widgetScale}`)
                     }
                 }
             }
