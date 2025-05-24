@@ -7,6 +7,7 @@ import "root:/Services/" as Services
 
 RowLayout {
     property int numWorkspaces: 10
+    spacing: 0
     Repeater {
         model: numWorkspaces
         MouseArea {
@@ -29,7 +30,7 @@ RowLayout {
                 }
                 return 18
             }
-            implicitWidth: wsWidth
+            implicitWidth: wsWidth + 4 // add padding
             Layout.fillHeight: true
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton

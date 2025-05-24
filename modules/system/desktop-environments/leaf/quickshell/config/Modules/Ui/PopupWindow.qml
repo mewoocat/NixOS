@@ -79,6 +79,12 @@ PanelWindow {
         children: [
             content
         ]
+        focus: true
+        Keys.onPressed: (event) => {
+            if (event.key == Qt.Key_Escape) {
+                window.closeWindow()
+            }
+        }
     }
 }
 

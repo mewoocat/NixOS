@@ -10,7 +10,10 @@ Singleton {
     property int activeWsId: Hyprland.focusedMonitor.activeWorkspace.id
     property var workspaceMap: {
         let map = {}
-        Hyprland.workspaces.values.forEach(w => map[w.id] = w)
+        Hyprland.workspaces.values.forEach(w => {
+            map[w.id] = w
+            //console.log("ws: " + map[w.id])
+        })
         return map
     }
     Connections {
