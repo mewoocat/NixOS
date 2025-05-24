@@ -70,6 +70,8 @@ MouseArea {
         color: palette.base
 
         Loader {
+            anchors.fill: parent
+            // Only try to render clients if the workspace exists
             active: wsObj !== undefined
             Repeater {
                 model: Services.Hyprland.clientMap[root.wsId]

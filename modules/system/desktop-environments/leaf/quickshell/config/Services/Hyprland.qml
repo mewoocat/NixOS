@@ -20,13 +20,15 @@ Singleton {
     }
 
     // Map of workspace id's to array of client objects
-    property var clientMap: {}
+    property var clientMap: {
+        return {}
+    }
     Process {
         id: clientProc
-        command: ["sh", "-c", "hyprctl clients -j"]
+        command: ["sh", "-c", "hyprctl clients -j | jq -c"]
         running: true
         stdout: SplitParser {
-            splitMarker: ""
+            //splitMarker: "\n"
             onRead: data => {
                 //console.log("data: " + data)
                 const jsonData = JSON.parse(data)
