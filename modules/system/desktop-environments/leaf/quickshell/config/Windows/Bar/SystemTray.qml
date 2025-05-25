@@ -3,8 +3,7 @@ import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
-import "root:/Modules/Ui" as Ui
-
+import "root:/Modules/Common" as Common
 
 RowLayout {
     id: root
@@ -85,18 +84,7 @@ RowLayout {
                 */
                 Repeater {
                     model: SystemTray.items
-                    /*
-                    model: ScriptModel {
-                        values: [...SystemTray.items.values]
-                    }
-                    */
-                    /*
-                    IconImage {
-                        source: modelData.icon
-                        implicitSize: 18
-                    }
-                    */
-                    Ui.NormalButton {
+                    Common.NormalButton {
                         required property SystemTrayItem modelData
 
                         id: button
@@ -122,7 +110,7 @@ RowLayout {
             }
         }
     }
-    Ui.NormalButton {
+    Common.NormalButton {
         id: toggleButton
         leftClick: root.toggle
         iconName: "pan-start-symbolic"

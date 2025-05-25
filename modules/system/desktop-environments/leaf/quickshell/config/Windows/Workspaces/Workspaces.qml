@@ -5,9 +5,9 @@ import Quickshell
 import "root:/" as Root
 import "root:/Services" as Services
 import "root:/Modules" as Modules
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 
-Ui.PopupWindow {
+Common.PopupWindow {
     toggleWindow: () => {
         Root.State.workspacesVisibility = !Root.State.workspacesVisibility
     } 

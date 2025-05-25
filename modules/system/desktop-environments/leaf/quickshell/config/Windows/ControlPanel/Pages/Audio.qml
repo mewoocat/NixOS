@@ -3,10 +3,10 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import "root:/" as Root
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 
 ColumnLayout {
-    Ui.NormalButton {
+    Common.NormalButton {
         text: "Back"
         leftClick: () => Root.State.controlPanelPage = 0
     }

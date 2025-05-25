@@ -6,7 +6,7 @@ import Quickshell.Hyprland
 import "root:/" as Root
 import "root:/Modules" as Modules
 import "root:/Services" as Services
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 
 MouseArea {
     id: root

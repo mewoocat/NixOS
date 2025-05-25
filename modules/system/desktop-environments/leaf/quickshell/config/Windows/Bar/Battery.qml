@@ -1,9 +1,9 @@
 import QtQuick
 import Quickshell.Services.UPower
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 import "root:/" as Root
 
-Ui.NormalButton {
+Common.NormalButton {
     action: () => {}
     isClickable: false
     iconName: UPower.displayDevice.iconName

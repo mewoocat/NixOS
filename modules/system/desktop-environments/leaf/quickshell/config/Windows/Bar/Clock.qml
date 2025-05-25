@@ -1,12 +1,9 @@
 import QtQuick
-import "root:/Singletons" as Sin
-import "root:/Modules/Ui" as Ui
 import "root:/" as Root
+import "root:/Singletons" as Sin
+import "root:/Modules/Common" as Common
 
-Ui.NormalButton {
-    //implicitWidth: child.width
-    //height: 500
-    //Layout.fillHeight: true
+Common.NormalButton {
     leftClick: () => Root.State.activityCenter.toggleWindow()
     iconName: "security-low"
     text: Sin.Time.time

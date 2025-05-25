@@ -11,20 +11,8 @@ MouseArea {
     property string iconName: ""
     property bool isClickable: true
     property real size
-
     Layout.fillWidth: true
     Layout.fillHeight: true
-
-    // Wack solution
-    /*
-    Layout.preferredWidth: Layout.columnSpan > 1 ? size * Layout.columnSpan : size
-    Layout.preferredHeight: size
-    Component.onCompleted: {
-        size = parent.width / 2
-    }
-    */
-
-
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
     onClicked: action()
@@ -34,7 +22,6 @@ MouseArea {
         anchors.margins: 4
         radius: 16
         color: mouseArea.containsMouse ? palette.highlight : palette.base
-
         children: [
             content
         ]

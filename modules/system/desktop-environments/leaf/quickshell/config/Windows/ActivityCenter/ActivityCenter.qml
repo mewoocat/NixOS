@@ -4,9 +4,9 @@ import QtQuick.Layouts
 import Quickshell
 import "root:/" as Root
 import "root:/Modules" as Modules
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 
-Ui.PopupWindow {
+Common.PopupWindow {
     toggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
     } 
@@ -26,12 +26,15 @@ Ui.PopupWindow {
         height: parent.width / columns * rows
         columns: 3
         rows: 2
-        Modules.PanelItem { content: Modules.Calendar {} }
-        Modules.PanelItem { content: Modules.Calendar {} }
-        Modules.PanelItem { content: Modules.Calendar {} }
-        Modules.PanelItem { content: Modules.Calendar {} }
-        Modules.PanelItem { content: Modules.Calendar {} }
-        Modules.PanelItem { content: Modules.Weather {} }
+
+        Common.PanelItem { 
+            isClickable: false; 
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            content: Modules.Weather {}
+        }
     }
 }
 

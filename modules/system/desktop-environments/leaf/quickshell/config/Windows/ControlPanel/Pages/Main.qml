@@ -7,6 +7,7 @@ import "../"
 import "root:/" as Root
 import "root:/Services" as Services
 import "root:/Modules" as Modules
+import "root:/Modules/Common" as Common
 
 GridLayout {
     id: grid
@@ -21,18 +22,13 @@ GridLayout {
     width: parent.width
     height: parent.width * grid.rows / grid.columns / 2
 
-    //width: 300
-    //height: 300
-
-    //view
-
     columns: 2
     columnSpacing: 0
     rows: 3
     rowSpacing: 0
 
     //PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
-    PanelItem { 
+    Common.PanelItem { 
         //action: () => {grid.height = grid.height + 100}
         action: () => {
             console.log("clicked")
@@ -46,7 +42,7 @@ GridLayout {
     }
 
     PanelGrid {
-        PanelItem { 
+        Common.PanelItem { 
             action: () => {
                 console.log("width: " + grid.width)
                 console.log(`height: ` + grid.height)
@@ -60,14 +56,14 @@ GridLayout {
                 source: Quickshell.iconPath("ymuse-home-symbolic")
             }
         }
-        PanelItem { 
+        Common.PanelItem { 
             content: IconImage {
                 anchors.centerIn: parent
                 implicitSize: 32
                 source: Quickshell.iconPath("ymuse-home-symbolic")
             }
         }
-        PanelItem { 
+        Common.PanelItem { 
             content: IconImage {
                 anchors.centerIn: parent
                 implicitSize: 32

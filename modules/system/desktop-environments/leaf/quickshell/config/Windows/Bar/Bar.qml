@@ -6,7 +6,7 @@ import QtQuick.Controls
 import Quickshell.Wayland
 import Quickshell.Services.Pipewire
 import "root:/" as Root
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 import "root:/Windows/ControlPanel"
 
 Scope {
@@ -45,7 +45,7 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        Ui.NormalButton {
+                        Common.NormalButton {
                             leftClick: () => {
                                 Root.State.launcher.toggleWindow()
                             }
@@ -72,7 +72,7 @@ Scope {
                         Audio {}
                         //SystemTray {}
                         Battery {}
-                        Ui.NormalButton {
+                        Common.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                         }

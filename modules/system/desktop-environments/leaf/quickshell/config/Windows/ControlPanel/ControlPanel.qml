@@ -1,13 +1,13 @@
-import "root:/Modules/Ui" as Ui
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import "root:/" as Root
+import "root:/Modules/Common" as Common
 import "./Pages" as Pages
 
-Ui.PopupWindow {
+Common.PopupWindow {
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility
     implicitWidth: 300

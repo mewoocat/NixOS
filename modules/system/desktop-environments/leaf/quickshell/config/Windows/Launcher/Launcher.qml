@@ -7,9 +7,9 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 
 import "root:/" as Root
-import "root:/Modules/Ui" as Ui
+import "root:/Modules/Common" as Common
 
-Ui.PopupWindow {
+Common.PopupWindow {
     // Doesn't seem to force focus
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
