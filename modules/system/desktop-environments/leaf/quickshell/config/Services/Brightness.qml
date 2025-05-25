@@ -54,7 +54,7 @@ Singleton {
             // Listen for the read signal, which returns the data
             // that was read from stdout
             onRead: data => {
-                console.log("backlight device name: " + data)
+                //console.log("backlight device name: " + data)
                 deviceName = data
                 brightnessMax.running = true
             }
@@ -84,7 +84,7 @@ Singleton {
         onExited: (code, status) => {
             brightnessFile.watchChanges = true
             running = false
-            console.log(`exited with code ${code} and status ${status}`)
+            //console.log(`exited with code ${code} and status ${status}`)
         }
     }
 

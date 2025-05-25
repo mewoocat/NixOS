@@ -33,7 +33,7 @@ ColumnLayout {
     }
     Text {
         color: palette.text
-        //text: `what: ${Root.State.jsonData.what}`
+        text: `lat/lon: ${Services.Weather.latitude}/${Services.Weather.longitude}`
     }
 
     /*

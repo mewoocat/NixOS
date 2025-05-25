@@ -24,21 +24,16 @@ MouseArea {
     // The height is calculated using the width and aspect ratio
     property int widgetWidth: 300
     property real aspectRatio: {
-        if (wsObj === undefined) {
-            //console.log(`wsObj is undefined`)
+        if (wsObj === undefined || wsObj.monitor === null) {
             return 0.5
         }
-        const ratio = wsObj.monitor.height / wsObj.monitor.width
-        //console.log("aspectRatio: " + ratio)
-        return ratio
+        return wsObj.monitor.height / wsObj.monitor.width
     }
     // Scale of virtual size to actual size
     property real widgetScale: {
-        if (!wsObj) {
+        if (!wsObj || wsObj.monitor === null) {
             return 1
         }
-        //console.log(`ww: ${widgetWidth}, mw: ${wsObj.monitor.width}`)
-        //console.log(`ret: ${widgetWidth / wsObj.monitor.width}`)
         return widgetWidth / wsObj.monitor.width
     }
 

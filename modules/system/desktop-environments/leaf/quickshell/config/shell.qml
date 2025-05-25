@@ -14,12 +14,15 @@ import "Windows/Workspaces"
 
 ShellRoot {
     // Logic
+    /*
     Component.onCompleted: {
         Controller.enable()
         Services.Weather.enable()
         Services.Hyprland.enable()
         Services.Brightness.enable()
+        Services.Audio.enable()
     }
+    */
 
     // Visual
     Bar {} 

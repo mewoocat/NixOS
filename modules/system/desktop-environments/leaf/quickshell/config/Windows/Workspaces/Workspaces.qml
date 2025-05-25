@@ -21,12 +21,14 @@ Ui.PopupWindow {
     implicitHeight: content.height
     content: Rectangle {
         id: padding
+        property int margins: 10
         color: "transparent"
-        implicitWidth: childrenRect.width + 20
-        implicitHeight: childrenRect.height + 20
+        implicitWidth: grid.width + padding.margins * 2
+        implicitHeight: grid.height + padding.margins * 2
         GridLayout {
-            anchors.centerIn: parent
-            //anchors.margins: 20
+            id: grid
+            x: padding.margins
+            y: padding.margins
             // Assuming a max of 10 workspaces
             rows: 3
             columns: 4

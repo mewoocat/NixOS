@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Pipewire
-import "root:/Services/" as Services
+import "root:/Services" as Services
 
 ColumnLayout {    
     anchors.fill: parent
@@ -14,7 +14,7 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
         from: 0
-        value: Pipewire.defaultAudioSink.audio.volume
+        value: Services.Audio.getVolume(Pipewire.defaultAudioSink)
         onValueChanged: Pipewire.defaultAudioSink.audio.volume = value
         to: 1
     }

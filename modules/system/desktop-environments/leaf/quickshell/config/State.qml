@@ -42,7 +42,7 @@ Singleton {
             console.log(`File load failed with ${err}`)
         }
         onLoaded: {
-            console.log(`Load ok, text = ${configFile.text()}`) 
+            //console.log(`Load ok, text = ${configFile.text()}`) 
         }
 
         // Adapter between qml object and json
