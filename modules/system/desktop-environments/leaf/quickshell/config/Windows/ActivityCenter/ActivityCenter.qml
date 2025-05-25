@@ -31,7 +31,7 @@ Ui.PopupWindow {
         Modules.PanelItem { content: Modules.Calendar {} }
         Modules.PanelItem { content: Modules.Calendar {} }
         Modules.PanelItem { content: Modules.Calendar {} }
-        Modules.PanelItem { content: Modules.Calendar {} }
+        Modules.PanelItem { content: Modules.Weather {} }
     }
 }
 

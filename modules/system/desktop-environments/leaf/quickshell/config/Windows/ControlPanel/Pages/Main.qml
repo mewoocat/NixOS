@@ -73,6 +73,12 @@ GridLayout {
                 implicitSize: 32
                 source: Quickshell.iconPath("ymuse-home-symbolic")
             }
+            action: () => {
+                console.log('action:')
+                console.log(Root.State.config.location.latitude)
+                Root.State.config.location.latitude = 3
+                console.log(Root.State.config.location.latitude)
+            }
         }
         PanelItem { 
             content: IconImage {

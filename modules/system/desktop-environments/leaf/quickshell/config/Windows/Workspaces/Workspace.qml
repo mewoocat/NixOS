@@ -86,7 +86,7 @@ MouseArea {
                     monitorX: wsObj.monitor.x
                     monitorY: wsObj.monitor.y
                     Component.onCompleted: {
-                        console.log(`widget scale: ${widgetScale}`)
+                        //console.log(`widget scale: ${widgetScale}`)
                     }
                 }
             }

@@ -17,7 +17,7 @@ MouseArea {
     height: Math.round(clientObj.size[1] * scaleFactor)
     hoverEnabled: true
     Component.onCompleted: {
-        console.log(`client: ${widgetScale}, ${monitorScale}`)
+        //console.log(`client: ${widgetScale}, ${monitorScale}`)
     }
     Rectangle {
         anchors.fill: parent

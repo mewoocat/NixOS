@@ -1,9 +1,15 @@
 pragma Singleton
 
 import Quickshell
+import Quickshell.Io
 import "Windows/Bar"
 
 Singleton {
+    id: root
+
+    property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
+    property var config: configFile.adapter
+
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
     property bool activityCenterVisibility: false
@@ -16,6 +22,63 @@ Singleton {
     property var workspaces: null
 
     property int controlPanelPage: 0
+
+    FileView {
+        id: configFile
+        path: settingsJsonPath
+
+        // Reload the file if it changes
+        watchChanges: true 
+        onFileChanged: reload()
+
+        // If the adapter's contents change, update the file
+        onAdapterUpdated: writeAdapter()
+
+        onLoadFailed: (err) => {
+            console.log(`File load failed with ${err}`)
+        }
+        onLoaded: {
+            console.log(`Load ok, text = ${configFile.text()}`) 
+        }
+
+        // Adapter between qml object and json
+        // Values set here are the defaults
+        adapter: JsonAdapter {
+            id: json
+            property JsonObject location: JsonObject {
+                property real latitude: 0
+                property real longitude: 0
+            }
+        }
+        
+    }
+
+    /*
+    FileView {
+        id: jsonFile
+        path: Qt.resolvedUrl(settingsJsonPath)
+        // Forces the file to be loaded by the time we call JSON.parse().
+        // see blockLoading's property documentation for details.
+        blockLoading: true
+        //blockAllReads: true
+        //watchChanges: true
+        //onFileChanged: this.reload()
+        onLoadFailed: (err) => {
+            console.log(`File load failed with ${err}`)
+        }
+        onLoaded: {
+            console.log(`Load ok, text = ${jsonFile.text()}`) 
+        }
+    }
+
+    readonly property var jsonData: {
+        console.log("we getting here?")
+        const data = JSON.parse(jsonFile.text())
+        console.log("and here?")
+        console.log(`Settingss: ${JSON.stringify(data)}`)
+        return data
+    }
+    */
 
     //property var Bar: Bar {}
     /*
