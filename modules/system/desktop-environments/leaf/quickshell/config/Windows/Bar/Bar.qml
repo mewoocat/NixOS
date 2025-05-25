@@ -35,7 +35,7 @@ Scope {
                     left: true
                     right: true
                 }
-                height: 40
+                implicitHeight: 40
                 WlrLayershell.namespace: "bar" // Set layer name
                 Rectangle {
                     color: palette.window

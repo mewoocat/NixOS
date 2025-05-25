@@ -28,8 +28,13 @@ Singleton {
     // Updates the value whenever the brightness file changes
     FileView {
         id: brightnessFile
+        preload: false // Waits, which allows for the path to be calculated before accessing the file
+        //printErrors: false
         path: root.brightnessPath
         watchChanges: false
+        onLoadFailed: (err) => {
+            console.error(err)
+        }
         onFileChanged: () => {
             brightnessFile.reload()
             brightnessGet.running = true

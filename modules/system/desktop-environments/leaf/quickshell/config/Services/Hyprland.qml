@@ -9,7 +9,13 @@ Singleton {
     function enable(){
         console.log("Enabling Hyprland Service")
     }
-    property int activeWsId: Hyprland.focusedMonitor.activeWorkspace.id
+    property int activeWsId: {
+        // Can be null, default to 0
+        if (Hyprland.focusedMonitor === null) {
+            return 0
+        }
+        return Hyprland.focusedMonitor.activeWorkspace.id
+    }
     property var workspaceMap: {
         let map = {}
         Hyprland.workspaces.values.forEach(w => {
