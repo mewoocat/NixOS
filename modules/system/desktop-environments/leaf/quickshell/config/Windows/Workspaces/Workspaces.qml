@@ -17,8 +17,8 @@ Ui.PopupWindow {
     name: "workspaces"
     visible: Root.State.workspacesVisibility
     anchors {}
-    width: content.width
-    height: content.height
+    implicitWidth: content.width
+    implicitHeight: content.height
     content: Rectangle {
         id: padding
         color: "transparent"

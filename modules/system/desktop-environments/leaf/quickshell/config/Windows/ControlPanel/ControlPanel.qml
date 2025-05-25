@@ -10,8 +10,8 @@ import "./Pages" as Pages
 Ui.PopupWindow {
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility
-    width: 300
-    height: content.height
+    implicitWidth: 300
+    implicitHeight: content.height
     toggleWindow: () => {
         Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
     } 

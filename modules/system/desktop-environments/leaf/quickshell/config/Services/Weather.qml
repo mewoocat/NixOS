@@ -2,14 +2,13 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import "root:/" as Root
 
 Singleton {
     id: root
 
-    property QtObject location: QtObject {
-        property real latitude: 0
-        property real longitude: 0
-    }
+    property real latitude: Root.State.configFile.location.latitude
+    property real longitude: Root.State.configFile.location.longitude
 
     property QtObject current: QtObject {
         property real temperature_2m: 0
@@ -19,21 +18,18 @@ Singleton {
         property real relative_humidity_2m: 0
     }
 
-    property string url: generateUrl()
-    onLocationChanged: () => {
-        root.url = generateUrl()
-    }
-    
     function enable(){
         console.log("Enabling Weather service")
     }
 
+    /*
     function generateUrl() {
         const lat = location.latitude
         const lon = location.longitude
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch`    
         return url
     }
+    */
 
     // Weather status code lookup
     function lookupCode(code) {
@@ -67,7 +63,6 @@ Singleton {
             mode=""
         }
 
-        console.log(`code: ${code}`)
         switch(code) {
             case 0:
                 return {
@@ -133,7 +128,7 @@ Singleton {
                 }
             // Need to add more
             default:
-                Info.Error(`Weather code: ${code} not recognized.`)
+                console.error(`Weather code: ${code} not recognized.`)
                 return {
                     icon: "Unknown",
                     name: "Unknown",
@@ -156,7 +151,7 @@ Singleton {
         // For some reason when curling this url, we need to pipe it into jq to get an output
         // Update: not needed anymore since a fix was made in quickshell
         //command: ["sh", "-c", "curl 'https://api.open-meteo.com/v1/forecast?latitude=0&longitude=0&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch' | jq -c"]
-        command: ["sh", "-c", `curl 'https://api.open-meteo.com/v1/forecast?latitude=${Root.State.jsonData.location.latitude}&longitude=${Root.State.jsonData.location.longitude}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch'`]
+        command: ["sh", "-c", `curl 'https://api.open-meteo.com/v1/forecast?latitude=${root.latitude}&longitude=${root.longitude}&current=temperature_2m,apparent_temperature,precipitation,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=ms&precipitation_unit=inch'`]
         running: true
         stdout: SplitParser {
             onRead: data => {

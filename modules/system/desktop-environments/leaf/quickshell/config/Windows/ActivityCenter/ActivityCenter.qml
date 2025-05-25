@@ -19,8 +19,8 @@ Ui.PopupWindow {
     anchors {
         top: true
     }
-    width: 520
-    height: content.height
+    implicitWidth: 520
+    implicitHeight: content.height
     content: GridLayout {
         width: parent.width
         height: parent.width / columns * rows

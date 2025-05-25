@@ -36,8 +36,8 @@ Ui.PopupWindow {
         left: true
     }
     focusable: true // Enable keyboard focus
-    width: 300
-    height: 400
+    implicitWidth: 300
+    implicitHeight: 400
     color: "transparent"
     margins {
         left: 16

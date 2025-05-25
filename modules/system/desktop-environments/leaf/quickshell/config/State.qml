@@ -27,6 +27,10 @@ Singleton {
         id: configFile
         path: settingsJsonPath
 
+        // Block all operations until the file is loaded
+        // I think this would be useful for not starting the weather api call until the lat/lon are read in (untested)
+        blockLoading: true
+
         // Reload the file if it changes
         watchChanges: true 
         onFileChanged: reload()
@@ -44,7 +48,6 @@ Singleton {
         // Adapter between qml object and json
         // Values set here are the defaults
         adapter: JsonAdapter {
-            id: json
             property JsonObject location: JsonObject {
                 property real latitude: 0
                 property real longitude: 0
