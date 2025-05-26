@@ -113,7 +113,10 @@ Common.PopupWindow {
                     height: 60
                     width: listView.width
                     hoverEnabled: true
-                    onClicked: modelData.execute()
+                    onClicked: {
+                        Root.State.launcher.closeWindow()
+                        modelData.execute()
+                    }
                     Rectangle {
                         anchors.fill: parent
                         anchors {

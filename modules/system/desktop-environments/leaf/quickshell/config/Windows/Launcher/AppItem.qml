@@ -5,6 +5,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 import QtQuick.Layouts
+import "root:/" as Root
 
 Item {
 required property var app
@@ -24,7 +25,11 @@ MouseArea {
     Layout.fillWidth: true
     height: 36
     hoverEnabled: true
-    onClicked: app.execute()
+    onClicked: {
+        console.log('app click')
+        Root.State.launcher.toggleWindow()
+        app.execute()
+    }
     Rectangle {
         anchors.fill: parent
         anchors {

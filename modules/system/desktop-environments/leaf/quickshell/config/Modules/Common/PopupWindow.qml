@@ -31,7 +31,7 @@ PanelWindow {
         left: 16
         bottom: 16
     }
-    WlrLayershell.namespace: name // Set layer name
+    WlrLayershell.namespace: 'quickshell-' + name // Set layer name
 
     /////////////////////////////////////////////////////////////////////////
     // Close on click away:

@@ -21,6 +21,7 @@ Scope {
             // Delegate is a default property and can be skipped as well
         delegate: Component {
             PanelWindow {
+                color: "transparent"
                 //WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 Component.onCompleted: {
                     Root.State.bar = bar

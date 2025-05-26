@@ -63,8 +63,8 @@ MouseArea {
         // If the workspace doesn't exist, set a fixed smaller size
         implicitWidth: wsObj !== undefined ? parent.width : 64
         implicitHeight: wsObj !== undefined ? parent.height : 64
-        //radius: 16
-        color: palette.base
+        radius: wsObj === undefined ? 16 : 0
+        color: root.containsMouse ? palette.highlight : palette.base
 
         Loader {
             anchors.fill: parent
