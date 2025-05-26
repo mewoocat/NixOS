@@ -19,7 +19,7 @@ Common.PopupWindow {
     anchors {
         top: true
     }
-    implicitWidth: 520
+    implicitWidth: 600
     implicitHeight: content.height
     content: GridLayout {
         width: parent.width
@@ -27,6 +27,22 @@ Common.PopupWindow {
         columns: 3
         rows: 2
 
+        Common.PanelItem { 
+            isClickable: false; 
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            content: Modules.Calendar {} 
+        }
         Common.PanelItem { 
             isClickable: false; 
             content: Modules.Calendar {} 
