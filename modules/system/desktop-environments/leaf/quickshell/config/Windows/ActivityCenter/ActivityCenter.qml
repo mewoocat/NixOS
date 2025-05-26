@@ -33,22 +33,6 @@ Common.PopupWindow {
         }
         Common.PanelItem { 
             isClickable: false; 
-            content: Modules.Calendar {} 
-        }
-        Common.PanelItem { 
-            isClickable: false; 
-            content: Modules.Calendar {} 
-        }
-        Common.PanelItem { 
-            isClickable: false; 
-            content: Modules.Calendar {} 
-        }
-        Common.PanelItem { 
-            isClickable: false; 
-            content: Modules.Calendar {} 
-        }
-        Common.PanelItem { 
-            isClickable: false; 
             content: Modules.Weather {}
         }
     }

@@ -5,18 +5,15 @@ import Quickshell
 import "root:/" as Root
 import "root:/Modules/Common" as Common
 
-
 ColumnLayout {
     anchors.centerIn: parent
-    Rectangle {
-        //color: "red"
-        color: "transparent"
+    spacing: 0
+    // Note that the NormalButtons have margins which increase the size of the RowLayout height
+    RowLayout {
+        spacing: 0
         Layout.fillWidth: true
-        implicitHeight: 40
         Common.NormalButton {
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
+            Layout.alignment: Qt.AlignLeft
             iconName: "arrow-left"
             leftClick: () => {
                 if (monthGrid.month === Calendar.January) {
@@ -28,19 +25,13 @@ ColumnLayout {
             }
         }
         Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
+            Layout.fillWidth: true
             text: monthGrid.locale.monthName(monthGrid.month)
-            verticalAlignment: Text.AlignVCenter
-            //Rectangle {anchors.fill: parent; color: "#9900ff00"}
-            font.pointSize: 12
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 10
             color: palette.text
         }
         Common.NormalButton {
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
             iconName: "arrow-right"
             leftClick: () => {
                 if (monthGrid.month === Calendar.December) {
@@ -54,15 +45,29 @@ ColumnLayout {
     }
     MonthGrid {
         id: monthGrid
-        delegate: Text {
-            text: model.day
+        spacing: 0
+        delegate: Rectangle {
+            radius: 20
+            implicitHeight: text.height
+            implicitWidth: text.width
             color: {
-                if (model.month != monthGrid.month) {
-                    return palette.window
+                if (model.today) {
+                    return palette.highlight
                 }
-                return palette.text
+                return "transparent"
             }
-            font.pointSize: 10
+            Text {
+                id: text
+                text: model.day
+                padding: 4
+                color: {
+                    if (model.month != monthGrid.month) {
+                        return palette.window
+                    }
+                    return palette.text
+                }
+                font.pointSize: 10
+            }
         }
     }
 }
