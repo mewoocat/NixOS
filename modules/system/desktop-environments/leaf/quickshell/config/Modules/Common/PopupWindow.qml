@@ -72,18 +72,28 @@ PanelWindow {
     }
     /////////////////////////////////////////////////////////////////////////
 
-    Rectangle {
+    // FocusScope is used to ensure the last item with focus set to true
+    // receives the actual focus.  This is useful for a text field in
+    // a window, as we would want that to have focus but then any non handled
+    // key events would automatically propogate up back to the window and
+    // handled here.
+    // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
+    FocusScope {
         anchors.fill: parent
-        color: palette.window
-        radius: 12
-        children: [
-            content
-        ]
         focus: true
         Keys.onPressed: (event) => {
             if (event.key == Qt.Key_Escape) {
                 window.closeWindow()
             }
+        }
+        Rectangle {
+            id: box
+            anchors.fill: parent
+            color: palette.window
+            radius: 12
+            children: [
+                content
+            ]
         }
     }
 }
