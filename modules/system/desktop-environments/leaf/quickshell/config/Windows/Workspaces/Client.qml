@@ -1,5 +1,8 @@
 import Quickshell
+import Quickshell.Widgets
+import Quickshell.Hyprland
 import QtQuick
+import "root:/" as Root
 
 
 MouseArea {
@@ -16,6 +19,10 @@ MouseArea {
     width: Math.round(clientObj.size[0] * scaleFactor) 
     height: Math.round(clientObj.size[1] * scaleFactor)
     hoverEnabled: true
+    onClicked: () => {
+        Hyprland.dispatch(`focuswindow address:${clientObj.address}`) 
+        Root.State.workspaces.closeWindow()
+    }
     Component.onCompleted: {
         //console.log(`client: ${widgetScale}, ${monitorScale}`)
     }
@@ -24,9 +31,13 @@ MouseArea {
         color: window.containsMouse ? palette.highlight : palette.window
         radius: 4
         Text {
-            anchors.centerIn: parent
             color: palette.text
             text: window.clientObj.class
+        }
+        IconImage {
+            anchors.centerIn: parent
+            implicitSize: 32
+            source: Quickshell.iconPath(window.clientObj.class)
         }
         Component.onCompleted: {
             //console.log(`modelData for ${wsId}: ${JSON.stringify(clientObj)}`)

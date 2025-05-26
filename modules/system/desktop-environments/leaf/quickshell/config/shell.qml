@@ -15,7 +15,7 @@ import "Windows/Workspaces"
 ShellRoot {
     // Logic
     Component.onCompleted: {
-        Controller.enable()
+        Controller.enable() // Need to call something from the controller to init it
         //Services.Weather.enable()
         //Services.Hyprland.enable()
         //Services.Brightness.enable()
@@ -29,5 +29,4 @@ ShellRoot {
     ActivityCenter {}
     Workspaces {}
 
-    //ControlPanel.children {}
 }

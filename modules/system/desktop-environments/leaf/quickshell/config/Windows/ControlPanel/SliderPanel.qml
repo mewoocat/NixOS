@@ -7,9 +7,6 @@ import "root:/Services" as Services
 
 ColumnLayout {    
     anchors.fill: parent
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
-    }
     Slider {
         Layout.fillWidth: true
         Layout.fillHeight: true
