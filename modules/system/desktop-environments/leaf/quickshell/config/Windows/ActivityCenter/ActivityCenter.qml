@@ -19,21 +19,81 @@ Common.PopupWindow {
     anchors {
         top: true
     }
-    implicitWidth: 600
+    implicitWidth: content.width
     implicitHeight: content.height
+
+    /*
     content: GridLayout {
         width: parent.width
         height: parent.width / columns * rows
-        columns: 3
-        rows: 2
+        columns: 8
+        rows: 4
 
         Common.PanelItem { 
             isClickable: false; 
+            Layout.columnSpan: 2
+            Layout.rowSpan: 2
             content: Modules.Calendar {} 
         }
         Common.PanelItem { 
             isClickable: false; 
+            Layout.columnSpan: 2
+            Layout.rowSpan: 2
             content: Modules.Weather {}
+        }
+    }
+    */
+
+    // Something weird's going on here
+    content: Common.PanelGrid {
+        columns: 4
+        rows: 8
+
+        /*
+        Common.PanelItem {
+            isClickable: true
+            rows: 1
+            columns: 1
+            content: Modules.Image {}
+            action: () => {
+                console.log(`${Layout.row} x ${Layout.column}`)
+            }
+        }
+
+        Common.PanelItem {
+            isClickable: true
+            rows: 1
+            columns: 1
+            content: Modules.Image {}
+            action: () => {
+                console.log(`${Layout.row} x ${Layout.column}`)
+            }
+        } 
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        */
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Weather {}
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Calendar {} 
         }
     }
 }

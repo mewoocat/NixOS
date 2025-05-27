@@ -51,7 +51,8 @@ Singleton {
             property JsonObject location: JsonObject {
                 property real latitude: 0
                 property real longitude: 0
-            }
+            } 
+            property string funImage: ""
         }
         
     }

@@ -2,7 +2,9 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
 import QtQuick
+import QtQuick.Controls
 import "root:/" as Root
+import "root:/Services" as Services
 
 
 MouseArea {
@@ -30,14 +32,36 @@ MouseArea {
         anchors.fill: parent
         color: window.containsMouse ? palette.highlight : palette.window
         radius: 4
-        Text {
-            color: palette.text
-            text: window.clientObj.class
-        }
-        IconImage {
-            anchors.centerIn: parent
-            implicitSize: 32
-            source: Quickshell.iconPath(window.clientObj.class)
+
+        // App indicator
+        Rectangle {
+        anchors.fill: parent
+            color: "transparent"
+            visible: width < 40 || height < 40 ? false : true
+
+            IconImage {
+                id: icon
+                anchors.centerIn: parent
+                implicitSize: 32
+                source: Quickshell.iconPath(window.clientObj.class)
+            }
+            Text {
+                anchors.horizontalCenter: icon.horizontalCenter
+                anchors.top: icon.bottom
+                color: palette.text
+                text: Services.Applications.formatClientName(window.clientObj.class)
+                font.pointSize: 8
+            }
+
+            ToolTip {
+                delay: 300
+                text: window.clientObj.class
+                visible: window.containsMouse
+                background: Rectangle {
+                    radius: 20
+                    color: palette.window
+                }
+            }
         }
         Component.onCompleted: {
             //console.log(`modelData for ${wsId}: ${JSON.stringify(clientObj)}`)

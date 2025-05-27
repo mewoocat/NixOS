@@ -41,7 +41,15 @@ GridLayout {
         }
     }
 
-    PanelGrid {
+    // 2x2 box of panels
+    GridLayout {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        columnSpacing: 0
+        rowSpacing: 0
+        columns: 2
+        rows: 2
+
         Common.PanelItem { 
             action: () => {
                 console.log("width: " + grid.width)
