@@ -46,7 +46,7 @@ Common.PopupWindow {
 
     // Something weird's going on here
     content: Common.PanelGrid {
-        columns: 4
+        columns: 6
         rows: 8
 
         /*
@@ -69,8 +69,23 @@ Common.PopupWindow {
                 console.log(`${Layout.row} x ${Layout.column}`)
             }
         } 
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         */
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Weather {}
+        }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Weather {}
+        }
         Common.PanelItem { 
             isClickable: false; 
             rows: 2
@@ -95,6 +110,13 @@ Common.PopupWindow {
             columns: 2
             content: Modules.Calendar {} 
         }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.Calendar {} 
+        }
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
     }
 }
 
