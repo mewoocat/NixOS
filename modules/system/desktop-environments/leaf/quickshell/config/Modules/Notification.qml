@@ -11,11 +11,12 @@ MouseArea {
 
     required property Notification notification
     
-    //anchors.fill: parent
-    //Layout.fillWidth: true
     implicitWidth: parent.width
-    //implicitHeight: parent.height
-    implicitHeight: 80
+    implicitHeight: 100
+
+    drag.target: root
+    drag.axis: Drag.XAxis
+
     enabled: true // Whether mouse events are accepted
     hoverEnabled: true
     acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
@@ -33,31 +34,65 @@ MouseArea {
     }
 
     Rectangle {
+        clip: true
         id: box
-        anchors.fill: parent
-        radius: 24
-        color: root.containsMouse ? palette.highlight : "transparent"
+        anchors {
+            fill: parent
+            margins: 8
+        }
+        radius: 12
+        color: root.containsMouse ? palette.window : palette.button
 
-        RowLayout {
-            id: row
-            height: parent.height
-            spacing: 4
-            IconImage {
+        ColumnLayout {
+            spacing: 0
+            RowLayout {
+                id: row
+                height: parent.height
+                spacing: 4
                 Layout.leftMargin: 8
-                Layout.rightMargin: 8
-                id: icon
-                implicitSize: 32
-                source: Quickshell.iconPath(root.notification.appIcon)
+                Layout.topMargin: 8
+                // App icon
+                IconImage {
+                    implicitSize: 16
+                    source: {
+                        let name = notification.appIcon
+                        if (name === "") {
+                            name = notification.appName.toLowerCase()
+                        }
+                        Quickshell.iconPath(name, "dialog-question")
+                    }
+                }
+                // App name
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    color: palette.text
+                    font.pointSize: 8
+                    text: notification.appName
+                }
             }
-            Text {
-                id: text
-                Layout.alignment: Qt.AlignHCenter
-                Layout.leftMargin: 8
-                Layout.rightMargin: 8
-                text: root.notification.appName
-                font.pointSize: 12
-                color: palette.text
+            WrapperItem {
+                margin: 8
+                RowLayout {
+                    spacing: 0
+                    IconImage {
+                        Layout.margins: 4
+                        implicitSize: 32
+                        source: root.notification.image
+                    }
+                    ColumnLayout {
+                        Layout.leftMargin: 8
+                        Text {
+                            text: notification.summary
+                            color: palette.text
+                        }
+                        Text {
+                            text: notification.body
+                            font.pointSize: 8
+                            color: palette.text
+                        }
+                    }
+                }
             }
         }
-   }
+    }
 }

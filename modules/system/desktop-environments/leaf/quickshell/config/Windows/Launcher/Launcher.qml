@@ -93,7 +93,7 @@ Common.PopupWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 //cacheBuffer: 0
-                maximumFlickVelocity: 100 // Increases bound overshoot?
+                maximumFlickVelocity: 1000 // Increases bound overshoot?
                 id: listView
                 keyNavigationEnabled: true
                 model: ScriptModel {
