@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import "root:/" as Root
+import "root:/Services" as Services
 import "root:/Modules" as Modules
 import "root:/Modules/Common" as Common
 
@@ -72,20 +73,8 @@ Common.PopupWindow {
         */
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { 
-            isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Modules.Weather {}
-        }
-        Common.PanelItem { 
-            isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Modules.Weather {}
-        }
+        //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { 
             isClickable: false; 
             rows: 2
@@ -100,21 +89,9 @@ Common.PopupWindow {
         }
         Common.PanelItem { 
             isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Modules.Calendar {} 
-        }
-        Common.PanelItem { 
-            isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Modules.Calendar {} 
-        }
-        Common.PanelItem { 
-            isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Modules.Calendar {} 
+            rows: 4
+            columns: 4
+            content: Modules.Notifications {} 
         }
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
     }

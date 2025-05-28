@@ -10,12 +10,14 @@ import "Windows/Launcher"
 import "Windows/ControlPanel"
 import "Windows/ActivityCenter"
 import "Windows/Workspaces"
+import "Windows/Notifications"
 //import Quickshell.Services.NetworkManager
 
 ShellRoot {
     // Logic
     Component.onCompleted: {
         Controller.enable() // Need to call something from the controller to init it
+        Services.Notifications.enable()
         //Services.Weather.enable()
         //Services.Hyprland.enable()
         //Services.Brightness.enable()
@@ -28,5 +30,6 @@ ShellRoot {
     ControlPanel {}
     ActivityCenter {}
     Workspaces {}
+    Notifications {}
 
 }
