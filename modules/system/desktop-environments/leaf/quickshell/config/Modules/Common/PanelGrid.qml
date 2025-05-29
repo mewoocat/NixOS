@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 GridLayout {
     id: grid
-    property int unitSize: 100
+    property int unitSize: 80
 
     //uniformCellHeights: true
     //uniformCellWidths: true
