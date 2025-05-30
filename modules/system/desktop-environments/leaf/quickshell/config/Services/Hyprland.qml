@@ -6,8 +6,16 @@ import Quickshell.Hyprland
 
 Singleton {
     id: root
+
+    // This no work
+    //property ObjectModel<HyprlandMonitor> monitors: Hyprland.monitors
+    property list<HyprlandMonitor> monitorsObjs: Hyprland.monitors.values
+
     function enable(){
         console.log("Enabling Hyprland Service")
+    }
+    Component.onCompleted: {
+        //console.log(monitorsObjs)
     }
     property int activeWsId: {
         // Can be null, default to 0
@@ -59,6 +67,9 @@ Singleton {
         target: Hyprland
         function onRawEvent(event) {
             Hyprland.refreshWorkspaces()
+
+            Hyprland.refreshMonitors()
+            Monitors.generateId()
 
             // TODO: optimize when this is ran
             clientProc.running = true
