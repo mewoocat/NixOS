@@ -13,21 +13,29 @@ Singleton {
     }
 
     // Array of `hyprctl monitors -j` objects
+    // Useful if properties of the HyprlandMonitor.lastIpcObject are needed
+    /*
     property var monitorObjs: Hyprland.monitors.values.map(monitor => {
         Hyprland.refreshMonitors() // Is this not updating the prop before we access it?
-        console.log('property set')
+        //console.log('property set')
         if (monitor.lastIpcObject === undefined) {
             return null
         }
         return monitor.lastIpcObject
     })
+    */
+
+    // Holds a list to each visual monitor element
+    property list<var> visualMonitors: []
+
+    property list<HyprlandMonitor> monitors: Hyprland.monitors.values
 
     Connections {
         target: Hyprland
         function onRawEvent(event) {
             Hyprland.refreshMonitors()
-            console.log(`values: ${Hyprland.monitors.values}`)
-            console.log(`monitorObjs: ${root.monitorObjs}`)
+            //console.log(`values: ${Hyprland.monitors.values}`)
+            //console.log(`monitorObjs: ${root.monitorObjs}`)
             //monitorObjs = Hyprland.monitor.values.map(m => monitor.lastIpcObj)
         }
     }
@@ -39,7 +47,6 @@ Singleton {
             id = id + `${m.name}-${m.make}-${m.model}-${m.serial}`
         }
         */
-        console.log(monitorObjs)
         return id
     }
     function enable(){

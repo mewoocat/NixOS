@@ -1,5 +1,5 @@
 //@ pragma UseQApplication
-// //@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
+//@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
 import Quickshell
 import QtQuick
 import Quickshell.Hyprland

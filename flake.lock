@@ -1224,11 +1224,11 @@
         "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1734066270,
-        "narHash": "sha256-FyFsuX3AJQ+G/7ukrr5jnaP61maIWlAfQE8QeTObNhs=",
+        "lastModified": 1748705151,
+        "narHash": "sha256-X8MFwaPFFz++qcWOklEoTkGC3r7DZArPF7CZZPyErQE=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "81dac51c6a37e7a151fb0f0a5b16208e0ed6d367",
+        "rev": "97869811d9200d270c516acb330c41d5eb97df56",
         "type": "github"
       },
       "original": {
