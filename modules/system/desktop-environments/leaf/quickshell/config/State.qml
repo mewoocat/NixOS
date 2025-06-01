@@ -6,6 +6,7 @@ import Quickshell.Io
 Singleton {
     id: root
 
+    property string leafPath: "/home/eXia/.config/leaf-de/"
     property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
     property var config: configFile.adapter
 

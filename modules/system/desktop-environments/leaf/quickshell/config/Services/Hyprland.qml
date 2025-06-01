@@ -70,7 +70,6 @@ Singleton {
             Hyprland.refreshWorkspaces()
 
             Hyprland.refreshMonitors()
-            Monitors.generateId()
 
             // TODO: optimize when this is ran
             clientProc.running = true

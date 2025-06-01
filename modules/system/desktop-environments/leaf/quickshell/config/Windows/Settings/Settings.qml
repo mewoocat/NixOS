@@ -1,6 +1,8 @@
+
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Hyprland
 import "../../Services/" as Services
@@ -14,11 +16,13 @@ FloatingWindow {
     
     property var selectedMonitorId: 0 
 
+    // Visual type to represent a monitor
     component Monitor: MouseArea {
         id: mouseArea
         required property HyprlandMonitor monitor
         property int actualX: x - area.offset
         property int actualY: y - area.offset
+
         x: monitor.x + area.offset
         y: monitor.y + area.offset
         width: monitor.width
@@ -39,7 +43,7 @@ FloatingWindow {
                 scale: 1 / area.scale
 
                 anchors.centerIn: parent
-                //text: monitor.name
+                text: monitor.name
                 color: palette.dark
             }
         }
@@ -73,6 +77,7 @@ FloatingWindow {
     }
 
     WrapperRectangle {     
+        margin: 16
         anchors.bottom: parent.bottom
         color: palette.base
         RowLayout {
@@ -80,23 +85,63 @@ FloatingWindow {
                 id: box
                 // can be undefined
                 property var selectedMonitor: Services.Monitors.visualMonitors[selectedMonitorId]
+
+                //name
                 Text {
                     text: `Name: ${box.selectedMonitor !== undefined ? box.selectedMonitor.monitor.name : "?"}`
                     color: palette.text
                 }
-                Text {
-                    text: `x: ${box.selectedMonitor !== undefined ? box.selectedMonitor.actualX : "?"}`
-                    color: palette.text
+                // x position
+                RowLayout {
+                    Text {
+                        text: `X: `
+                        color: palette.text
+                    }
+                    SpinBox {
+                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualX : 0
+                        from: -10000
+                        to: 10000
+                        onValueModified: () => {
+                            box.selectedMonitor.x = value + area.offset
+                        }
+                    }
                 }
-                Text {
-                    text: `y: ${box.selectedMonitor !== undefined ? box.selectedMonitor.actualY : "?"}`
-                    color: palette.text
+                // y position
+                RowLayout {
+                    Text {
+                        text: `Y: `
+                        color: palette.text
+                    }
+                    SpinBox {
+                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualY : 0
+                        from: -10000
+                        to: 10000
+                        onValueModified: () => {
+                            box.selectedMonitor.y = value + area.offset
+                        }
+                    }
+                }
+                // scale
+                RowLayout {
+                    Text {
+                        text: `Scale: `
+                        color: palette.text
+                    }
+                    SpinBox {
+                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualY : 0
+                        from: 0
+                        to: 5 
+                        stepSize: 1
+                        onValueModified: () => {
+                            console.log(`scale changed`)
+                        }
+                    }
                 }
             }
             Common.NormalButton {
                 text: "Apply"
                 leftClick: () => {
-                    console.log(Services.Monitors.visualMonitors[0].x)
+                    Services.Monitors.generateHyprlandConf()
                 }
             }
         }
