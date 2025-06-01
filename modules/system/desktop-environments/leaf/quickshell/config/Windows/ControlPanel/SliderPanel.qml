@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Pipewire
-import "root:/Services" as Services
+import "../../Services" as Services
 
 ColumnLayout {    
     anchors.fill: parent

@@ -2,7 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Services.Pipewire
-import "root:/" as Root
+import "../" as Root
 
 Singleton {
     // Binding a Pipewire object makes all of its properties available

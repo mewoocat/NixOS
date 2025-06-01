@@ -1,17 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell.Hyprland
-import "root:/" as Root
-import "root:/Services/" as Services
+import "../" as Root
+import "../../Services/" as Services
 
 RowLayout {
+    id: root
     property int numWorkspaces: 10
     spacing: 0
     Repeater {
-        model: numWorkspaces
+        model: root.numWorkspaces
         MouseArea {
             id: mouseArea
+            required property var modelData
             property int wsID: modelData + 1
             // Either active, inactive, or empty
             property string wsState: {
@@ -72,7 +73,7 @@ RowLayout {
                     anchors.centerIn: parent
                     text: {
                         if (mouseArea.wsState !== "empty" || mouseArea.wsState === "active") {
-                            return wsID    
+                            return mouseArea.wsID    
                         }
                         return ""
                     }

@@ -96,47 +96,10 @@
   outputs = {self, ...} @ inputs: let
     # Call the function in ./hosts/default.nix with inputs as the argument
     hosts = import ./hosts {inputs = inputs;};
-
-    systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
-    forAllSystems = fn:
-      inputs.nixpkgs.lib.genAttrs systems (
-        system: fn (import inputs.nixpkgs {system = system;})
-      );
   in {
     formatter."x86_64-linux" = inputs.alejandra.defaultPackage."x86_64-linux";
 
     # My machines :)
     nixosConfigurations = hosts;
-    devShells = forAllSystems (pkgs: {
-      quickshell = let
-        qs = inputs.quickshell.packages.${pkgs.system}.default.override {
-          withJemalloc = true;
-          withQtSvg = true;
-          withWayland = true;
-          withX11 = false;
-          withPipewire = true;
-          withPam = true;
-          withHyprland = true;
-          withI3 = false;
-        };
-        qtDeps = [
-          qs
-          pkgs.kdePackages.qtbase
-          pkgs.kdePackages.qtdeclarative
-        ];
-      in pkgs.mkShell {
-        shellHook = let
-          qmlPath = pkgs.lib.pipe qtDeps [
-            (builtins.map (lib: "${lib}/lib/qt-6/qml"))
-            (builtins.concatStringsSep ":")
-          ];
-        in ''
-          export QML2_IMPORT_PATH="$QML2_IMPORT_PATH:${qmlPath}"
-          SHELL=bash
-        '';
-        buildInputs = qtDeps;
-        packages = [pkgs.material-symbols];
-      };
-    });
   };
 }

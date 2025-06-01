@@ -55,7 +55,7 @@ Singleton {
             // that was read from stdout
             onRead: data => {
                 //console.log("backlight device name: " + data)
-                deviceName = data
+                root.deviceName = data
                 brightnessMax.running = true
             }
         }

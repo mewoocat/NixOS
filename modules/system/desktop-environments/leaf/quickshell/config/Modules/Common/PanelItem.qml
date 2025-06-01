@@ -1,3 +1,4 @@
+
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -7,11 +8,11 @@ import QtQuick.Layouts
 // Designed to be used as a child of the PanelGrid type
 MouseArea {
     id: mouseArea
-    required property var action // Action on click
     required property var content // Object to display
     required property int rows // how many rows this element will span
     required property int columns // how many columns this element will span
 
+    property var action // Action on click
     property bool isClickable: true
 
     implicitHeight: parent.unitSize * rows
@@ -32,7 +33,7 @@ MouseArea {
         radius: 16
         color: mouseArea.containsMouse ? palette.highlight : palette.base
         children: [
-            content
+            mouseArea.content
         ]
    }
 }

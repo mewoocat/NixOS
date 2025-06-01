@@ -2,7 +2,6 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
-import "root:/" as Root
 
 Singleton {
     // Used to initialize this singleton
@@ -13,13 +12,13 @@ Singleton {
         target: "control"
 
         function toggleLauncher() {
-            Root.State.launcher.toggleWindow()
+            State.launcher.toggleWindow()
         }
         function toggleActivityCenter() {
-            Root.State.activityCenter.toggleWindow()
+            State.activityCenter.toggleWindow()
         }
         function toggleControlPanel() {
-            Root.State.controlPanel.toggleWindow()
+            State.controlPanel.toggleWindow()
         }
     }
 }

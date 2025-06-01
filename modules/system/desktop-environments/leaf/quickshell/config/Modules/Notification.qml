@@ -55,9 +55,9 @@ MouseArea {
                 IconImage {
                     implicitSize: 16
                     source: {
-                        let name = notification.appIcon
+                        let name = root.notification.appIcon
                         if (name === "") {
-                            name = notification.appName.toLowerCase()
+                            name = root.notification.appName.toLowerCase()
                         }
                         Quickshell.iconPath(name, "dialog-question")
                     }
@@ -67,7 +67,7 @@ MouseArea {
                     Layout.alignment: Qt.AlignHCenter
                     color: palette.text
                     font.pointSize: 8
-                    text: notification.appName
+                    text: root.notification.appName
                 }
             }
             WrapperItem {
@@ -82,11 +82,11 @@ MouseArea {
                     ColumnLayout {
                         Layout.leftMargin: 8
                         Text {
-                            text: notification.summary
+                            text: root.notification.summary
                             color: palette.text
                         }
                         Text {
-                            text: notification.body
+                            text: root.notification.body
                             font.pointSize: 8
                             color: palette.text
                         }

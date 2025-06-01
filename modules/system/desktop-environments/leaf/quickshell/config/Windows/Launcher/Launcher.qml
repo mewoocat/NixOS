@@ -1,13 +1,14 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell.Hyprland
 import Quickshell.Wayland
 
-import "root:/" as Root
-import "root:/Modules/Common" as Common
+import "../../" as Root
+import "../../Modules/Common" as Common
 
 Common.PopupWindow {
     // Doesn't seem to force focus
@@ -70,7 +71,7 @@ Common.PopupWindow {
                         radius: 16
                     }
                     onTextChanged: () => {
-                        searchText = text
+                        launcher.searchText = text
                         listView.currentIndex = 0
                     }
                     Keys.onUpPressed: {
@@ -133,14 +134,14 @@ Common.PopupWindow {
                                 Layout.leftMargin: 8
                                 id: icon
                                 implicitSize: 32
-                                source: Quickshell.iconPath(modelData.icon)
+                                source: Quickshell.iconPath(mouseArea.modelData.icon)
                             }
                             Text{
                                 Layout.fillWidth: true
                                 leftPadding: 8
                                 rightPadding: 8
                                 elide: Text.ElideRight // Truncate with ... on the right
-                                text: modelData.name
+                                text: mouseArea.modelData.name
                                 color: palette.text
                             }
                         }

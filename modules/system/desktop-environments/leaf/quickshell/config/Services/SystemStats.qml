@@ -23,7 +23,7 @@ Singleton {
 
         stdout: SplitParser {
             onRead: data => {
-                cpuUsage = data
+                root.cpuUsage = data
             }
         }
     }

@@ -1,12 +1,9 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
-import "root:/" as Root
-import "root:/Modules" as Modules
-import "root:/Services" as Services
-import "root:/Modules/Common" as Common
+import "../../Services" as Services
 
 MouseArea {
     id: root
@@ -61,15 +58,15 @@ MouseArea {
         id: box
         anchors.centerIn: parent
         // If the workspace doesn't exist, set a fixed smaller size
-        implicitWidth: wsObj !== undefined ? parent.width : 64
-        implicitHeight: wsObj !== undefined ? parent.height : 64
-        radius: wsObj === undefined ? 16 : 0
-        color: wsObj === undefined && root.containsMouse ? palette.highlight : palette.base
+        implicitWidth: root.wsObj !== undefined ? parent.width : 64
+        implicitHeight: root.wsObj !== undefined ? parent.height : 64
+        radius: root.wsObj === undefined ? 16 : 0
+        color: root.wsObj === undefined && root.containsMouse ? palette.highlight : palette.base
 
         Loader {
             anchors.fill: parent
             // Only try to render clients if the workspace exists
-            active: wsObj !== undefined
+            active: root.wsObj !== undefined
             Repeater {
                 model: Services.Hyprland.clientMap[root.wsId]
                 // Each window in the workspace
@@ -77,9 +74,9 @@ MouseArea {
                     required property var modelData
                     clientObj: modelData
                     widgetScale: root.widgetScale
-                    monitorScale: wsObj.monitor.scale
-                    monitorX: wsObj.monitor.x
-                    monitorY: wsObj.monitor.y
+                    monitorScale: root.wsObj.monitor.scale
+                    monitorX: root.wsObj.monitor.x
+                    monitorY: root.wsObj.monitor.y
                     Component.onCompleted: {
                         //console.log(`widget scale: ${widgetScale}`)
                     }

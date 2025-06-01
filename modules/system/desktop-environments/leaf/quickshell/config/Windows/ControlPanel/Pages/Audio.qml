@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
-import "root:/" as Root
-import "root:/Modules/Common" as Common
+import "../../../" as Root
+import "../../../Modules/Common" as Common
 
 ColumnLayout {
     Common.NormalButton {

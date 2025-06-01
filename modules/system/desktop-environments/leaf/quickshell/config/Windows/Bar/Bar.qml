@@ -1,13 +1,11 @@
+
 import Quickshell
-import Quickshell.Io // For Process
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell.Wayland
-import Quickshell.Services.Pipewire
-import "root:/" as Root
-import "root:/Modules/Common" as Common
-import "root:/Windows/ControlPanel"
+import "../../" as Root
+import "../../Modules/Common" as Common
+import "../../Windows/ControlPanel"
 
 Scope {
     property string time;

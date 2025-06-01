@@ -1,12 +1,6 @@
 import Quickshell
-import QtQuick
 import QtQuick.Layouts
-import "root:/" as Root
-import "root:/Modules" as Modules
-import "root:/Modules/Common" as Common
-import "root:/Services" as Services
-
-import Quickshell.Services.Notifications
+import "../../Modules/Common" as Common
 
 Common.PopupWindow {
     name: "notifications"

@@ -2,7 +2,6 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
-import "Windows/Bar"
 
 Singleton {
     id: root
@@ -25,7 +24,7 @@ Singleton {
 
     FileView {
         id: configFile
-        path: settingsJsonPath
+        path: root.settingsJsonPath
 
         // Block all operations until the file is loaded
         // I think this would be useful for not starting the weather api call until the lat/lon are read in (untested)

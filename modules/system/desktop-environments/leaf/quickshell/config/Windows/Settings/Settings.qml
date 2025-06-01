@@ -3,8 +3,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
-import "root:/Services/" as Services
-import "root:/Modules/Common" as Common
+import "../../Services/" as Services
+import "../../Modules/Common" as Common
 
 FloatingWindow {
     // No work?
@@ -39,7 +39,7 @@ FloatingWindow {
                 scale: 1 / area.scale
 
                 anchors.centerIn: parent
-                text: monitor.name
+                //text: monitor.name
                 color: palette.dark
             }
         }

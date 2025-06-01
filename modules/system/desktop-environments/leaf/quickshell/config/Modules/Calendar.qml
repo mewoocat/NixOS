@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import "root:/" as Root
-import "root:/Modules/Common" as Common
+import "../" as Root
+import "../Modules/Common" as Common
 
 ColumnLayout {
     anchors.centerIn: parent
@@ -47,6 +47,8 @@ ColumnLayout {
         id: monthGrid
         spacing: 0
         delegate: Rectangle {
+            id: day
+            required property var model
             radius: 20
             implicitHeight: text.height
             implicitWidth: text.width
@@ -58,10 +60,10 @@ ColumnLayout {
             }
             Text {
                 id: text
-                text: model.day
+                text: day.model.day
                 padding: 4
                 color: {
-                    if (model.month != monthGrid.month) {
+                    if (day.model.month != monthGrid.month) {
                         return palette.window
                     }
                     return palette.text

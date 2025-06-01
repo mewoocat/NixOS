@@ -1,3 +1,4 @@
+//// Allows for Quickshell to use styles from global QT style
 //@ pragma UseQApplication
 //@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
 import Quickshell

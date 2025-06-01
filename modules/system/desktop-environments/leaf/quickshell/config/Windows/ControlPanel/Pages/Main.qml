@@ -4,10 +4,10 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import "../"
-import "root:/" as Root
-import "root:/Services" as Services
-import "root:/Modules" as Modules
-import "root:/Modules/Common" as Common
+import "../../../" as Root
+import "../../../Services" as Services
+import "../../../Modules" as Modules
+import "../../../Modules/Common" as Common
 
 Common.PanelGrid {
     columns: 4

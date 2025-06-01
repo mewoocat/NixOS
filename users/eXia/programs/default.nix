@@ -3,7 +3,7 @@
     ./bash
     ./btop
     #./firefox
-    #./zellij
+    ./zellij
     ./foot.nix
     ./nextcloud.nix
     ./obs.nix

@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell.Services.UPower
-import "root:/Modules/Common" as Common
-import "root:/" as Root
+import "../../Modules/Common" as Common
 
 Common.NormalButton {
     action: () => {}

@@ -1,9 +1,8 @@
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
-import "root:/Modules/Common" as Common
+import "../../Modules/Common" as Common
 
 RowLayout {
     id: root
@@ -103,7 +102,7 @@ RowLayout {
                                 // The returned rect is then in the context of the window
                                 rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(0, 0, 0, 40))
                             }
-                            menu: modelData.menu
+                            menu: button.modelData.menu
                         }
                     }
                 }

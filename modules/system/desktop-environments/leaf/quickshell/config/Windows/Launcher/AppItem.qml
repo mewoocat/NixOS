@@ -5,7 +5,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 import QtQuick.Layouts
-import "root:/" as Root
+//import "root:/" as Root
 
 Item {
 required property var app

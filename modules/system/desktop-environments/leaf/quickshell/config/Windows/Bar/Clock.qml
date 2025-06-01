@@ -1,7 +1,7 @@
 import QtQuick
-import "root:/" as Root
-import "root:/Singletons" as Sin
-import "root:/Modules/Common" as Common
+import "../../" as Root
+import "../../Singletons" as Sin
+import "../../Modules/Common" as Common
 
 Common.NormalButton {
     leftClick: () => Root.State.activityCenter.toggleWindow()

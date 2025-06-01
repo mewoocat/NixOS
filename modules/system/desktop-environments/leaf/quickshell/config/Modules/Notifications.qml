@@ -3,8 +3,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Services.Notifications
-import "root:/Services" as Services
-import "root:/Modules" as Modules
+import "../Services" as Services
+import "../Modules" as Modules
 
 ListView {
     model: Services.Notifications.notifications

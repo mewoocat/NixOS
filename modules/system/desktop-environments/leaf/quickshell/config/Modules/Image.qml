@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
-import "root:/" as Root
 
 IconImage {
     implicitSize: 64

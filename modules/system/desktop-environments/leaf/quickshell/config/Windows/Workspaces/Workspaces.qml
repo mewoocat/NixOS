@@ -1,11 +1,7 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell
-import "root:/" as Root
-import "root:/Services" as Services
-import "root:/Modules" as Modules
-import "root:/Modules/Common" as Common
+import "../../" as Root
+import "../../Modules/Common" as Common
 
 Common.PopupWindow {
     toggleWindow: () => {

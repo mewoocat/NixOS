@@ -1,12 +1,9 @@
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Widgets
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
 import Quickshell.Hyprland
 
-import "root:/" as Root
+import "../../" as Root
 
 // TODO: I think that the required keyword doesn't trigger an error on missing 
 // prop with the PanelWindow type (need to test)
@@ -67,7 +64,7 @@ PanelWindow {
         ]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            closeWindow()
+            window.closeWindow()
         }
     }
     /////////////////////////////////////////////////////////////////////////
@@ -92,7 +89,7 @@ PanelWindow {
             color: palette.window
             radius: 12
             children: [
-                content
+                window.content
             ]
         }
     }
