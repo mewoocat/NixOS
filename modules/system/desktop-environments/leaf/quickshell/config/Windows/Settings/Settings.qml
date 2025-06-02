@@ -138,10 +138,12 @@ FloatingWindow {
                     }
                 }
             }
+
+            // Apply button
             Common.NormalButton {
                 text: "Apply"
                 leftClick: () => {
-                    Services.Monitors.generateHyprlandConf()
+                    Services.Monitors.applyConf()
                 }
             }
         }
