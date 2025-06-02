@@ -113,8 +113,8 @@ Singleton {
         // *Note* This does not create the file with the default values.  It instead 
         // will use these values if they cannot be found in the specified file.
         adapter: JsonAdapter {
-            // Empty object needs a value to not be interpreted as undefined
-            property var configs: {"dummy": "value"} // map of id's to conf's
+            // `()` fixes undefined issue when modifying
+            property var configs: ({}) // map of id's to conf's
         }
         
     }
