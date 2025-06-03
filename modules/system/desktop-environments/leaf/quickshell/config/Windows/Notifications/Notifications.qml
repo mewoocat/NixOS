@@ -18,9 +18,13 @@ PanelWindow {
     implicitHeight: 300
     color: "transparent"
     //color: "red"
+    
+    // All other clicks besides on this region pass through the window to ones behind it.
+    mask: Region { item: notifList }
 
     // TODO: Add new notifications for a limited period of time (osd)
     ListView {
+        id: notifList
 
         model: ScriptModel {
             values: Services.Notifications.popupNotifications

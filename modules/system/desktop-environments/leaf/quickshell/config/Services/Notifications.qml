@@ -12,7 +12,7 @@ Singleton {
     }
 
     property int popupIndex: 0
-    property list<var> popupNotifications: []
+    property var popupNotifications: []
 
     NotificationServer {
         actionIconsSupported: true
@@ -28,15 +28,17 @@ Singleton {
             console.log("notification server init")
         }
         onNotification: (notif) => {
-            console.log("recieved notification")
+            console.log("recieved notification: " + notif)
             notif.tracked = true
             console.log(`notification: ${notif.id}, ${notif.appName}, tracked? ${notif.tracked}, icon: ${notif.appIcon}, desktop entry: ${notif.desktopEntry}`)
 
             console.log(`tracked notifications: ${server.trackedNotifications.values}`)
+            console.log(`popup notifications: ${root.popupNotifications[1]}`)
             
             root.popupNotifications.push(notif)
             const index = root.popupNotifications - 1
             // Create a timer to remove the popup notif
+            /*
             const timer = Qt.createComponent("Timer.qml")
             //TODO: timer doesn't seem to work
             timer.interval = 3000 // 3 sec
@@ -46,6 +48,7 @@ Singleton {
                 popupNotifications.splice(index, 1) // Remove and condense
                 timer.destroy()
             }
+            */
         }
     }
 }
