@@ -20,14 +20,25 @@ FloatingWindow {
     component Monitor: MouseArea {
         id: mouseArea
         required property HyprlandMonitor monitor
-        property int actualX: x - area.offset
-        property int actualY: y - area.offset
+
+        // Modifiable monitor properties
+        property int actualX: x - area.offsetX
+        property int actualY: y - area.offsetY
+        property real actualScale: monitor.scale
+
 
         x: monitor.x + area.offset
         y: monitor.y + area.offset
-        width: monitor.width
-        height: monitor.height
+        width: monitor.width / monitor.scale
+        height: monitor.height / monitor.scale
+
         drag.target: mouseArea
+        // restrict drag region to area
+        drag.minimumX: 0
+        drag.maximumX: area.width - width
+        drag.minimumY: 0
+        drag.maximumY: area.height - height
+
         onPressed: () => {
             selectedMonitorId = monitor.id
         }
@@ -51,13 +62,14 @@ FloatingWindow {
     Rectangle {
         anchors.centerIn: parent
         id: area
-        property int areaSize: 10000
-        property int offset: areaSize / 2
+        property int areaSize: 6000
         // Set to large enough size to accommodate the native size of multiple monitors
         implicitWidth: areaSize 
         implicitHeight: areaSize * 0.6
+        property int offsetX: areaSize / 2 
+        property int offsetY: areaSize * 0.6 / 2 
         // Scale down the size to actually be usable
-        scale: 0.05
+        scale: 0.1
         color: palette.base
 
 
@@ -91,6 +103,12 @@ FloatingWindow {
                     text: `Name: ${box.selectedMonitor !== undefined ? box.selectedMonitor.monitor.name : "?"}`
                     color: palette.text
                 }
+
+                // resolution
+                Text {
+                    text: `Resolution: ${box.selectedMonitor !== undefined ? `${box.selectedMonitor.monitor.width}x${box.selectedMonitor.monitor.height}` : "?"}`
+                    color: palette.text
+                }
                 // x position
                 RowLayout {
                     Text {
@@ -118,6 +136,7 @@ FloatingWindow {
                         to: 10000
                         onValueModified: () => {
                             box.selectedMonitor.y = value + area.offset
+                            console.log(`value: ${value}`)
                         }
                     }
                 }
@@ -128,12 +147,13 @@ FloatingWindow {
                         color: palette.text
                     }
                     SpinBox {
-                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualY : 0
-                        from: 0
+                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualScale : 1
+                        from: 1
                         to: 5 
                         stepSize: 1
                         onValueModified: () => {
                             console.log(`scale changed`)
+                            box.selectedMonitor.actualScale = value
                         }
                     }
                 }

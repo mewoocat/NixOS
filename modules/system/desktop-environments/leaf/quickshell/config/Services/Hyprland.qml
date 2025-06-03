@@ -38,6 +38,7 @@ Singleton {
     property var clientMap: {
         return {}
     }
+    // TODO: Rewrite using a socket
     Process {
         id: clientProc
         command: ["sh", "-c", "hyprctl clients -j | jq -c"]
