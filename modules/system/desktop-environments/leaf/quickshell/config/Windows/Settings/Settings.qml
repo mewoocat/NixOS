@@ -13,6 +13,7 @@ FloatingWindow {
     //minimumSize: "200x300"
     id: root    
     color: contentItem.palette.window
+    visible: false
     
     property var selectedMonitorId: 0 
 

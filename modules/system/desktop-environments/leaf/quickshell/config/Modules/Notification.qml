@@ -4,6 +4,7 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
+import "../Services" as Services
 
 // Visual element to represent a single notification
 MouseArea {
@@ -11,7 +12,8 @@ MouseArea {
 
     required property Notification notification
     
-    implicitWidth: parent.width
+    //implicitWidth: parent.width
+    implicitWidth: 400
     implicitHeight: 100
 
     drag.target: root

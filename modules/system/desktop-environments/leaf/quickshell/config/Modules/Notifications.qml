@@ -7,7 +7,7 @@ import "../Services" as Services
 import "../Modules" as Modules
 
 ListView {
-    model: Services.Notifications.notifications
+    model: Services.Notifications.notificationModel
     anchors.fill: parent
     flickDeceleration: 0.00001
     maximumFlickVelocity: 10000
@@ -17,6 +17,6 @@ ListView {
     delegate: Modules.Notification {
         Layout.fillWidth: true
         required property var modelData
-        notification: modelData
+        notification: modelData.notifObj
     }
 }

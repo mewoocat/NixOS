@@ -1,20 +1,58 @@
 pragma Singleton
 import Quickshell
 import QtQuick
-import Quickshell.Services.Notifications
+import Quickshell.Services.Notifications as QsNotifications
 
 Singleton {
     id: root
-    readonly property var notifications: server.trackedNotifications
+
+    // All tracked notifications
+    property list<Notification> notifications: []
+    property var notificationModel: ScriptModel {
+        // Need to create a copy with ...
+        // Avoids `Unable to assign QQmlListReference to QVariantList` error
+        values: [...notifications]
+    }
+
+    // Currently popped up notifications
+    property list<Notification> notificationPopups: []
+    property var notificationPopupModel: ScriptModel {
+        // Need to create a copy with ...
+        // Avoids `Unable to assign QQmlListReference to QVariantList` error
+        values: [...notificationPopups]
+    }
 
     function enable() {
         console.log("enabling notifications")
     }
 
-    property int popupIndex: 0
-    property var popupNotifications: []
+    // Inline component
+    component Notification: QtObject {
+        id: n
+        required property QsNotifications.Notification notifObj
+        required property Notifications notifService
+        // Timer to run for popup
+        property QtObject timer: Timer {
+            interval: 3000
+            running: true
+            onTriggered: {
+                console.log(`notif popup timed out for: ${n.notifObj.id}`)
+                root.notificationPopups.splice(0, 1) // pop first element
+                console.log("popups length: " + notifService.notificationPopups.length)
+            }
+            Component.onCompleted: {
+                console.log(`Created timer for: ${n.notifObj.id}`)
+            }
+        }
+    }
 
-    NotificationServer {
+    Component {
+        id: notificationComp
+        Notification {}
+    }
+
+    // Listens for notifications
+    QsNotifications.NotificationServer {
         actionIconsSupported: true
         actionsSupported: true
         bodyHyperlinksSupported: true
@@ -28,27 +66,37 @@ Singleton {
             console.log("notification server init")
         }
         onNotification: (notif) => {
-            console.log("recieved notification: " + notif)
             notif.tracked = true
-            console.log(`notification: ${notif.id}, ${notif.appName}, tracked? ${notif.tracked}, icon: ${notif.appIcon}, desktop entry: ${notif.desktopEntry}`)
-
-            console.log(`tracked notifications: ${server.trackedNotifications.values}`)
-            console.log(`popup notifications: ${root.popupNotifications[1]}`)
-            
-            root.popupNotifications.push(notif)
-            const index = root.popupNotifications - 1
-            // Create a timer to remove the popup notif
-            /*
-            const timer = Qt.createComponent("Timer.qml")
-            //TODO: timer doesn't seem to work
-            timer.interval = 3000 // 3 sec
-            timer.running = true // start it
-            timer.onTriggered = () => {
-                console.log(`notif popup timed out`)
-                popupNotifications.splice(index, 1) // Remove and condense
-                timer.destroy()
-            }
-            */
+            const notifObject = notificationComp.createObject(null, {notifService: root, notifObj: notif})
+            root.notifications.push(notifObject)
+            root.notificationPopups.push(notifObject)
         }
     }
+    
+    // Define a component inline (doesn't create any instances)
+    // A Component is just like a .qml file
+    /*
+    Component {
+        id: popupTimer
+        // WARNING! this timer implementation 
+        Timer {
+            required property int index
+            interval: 3000
+            running: true
+            // Looks like this sometimes doesn't trigger
+            onTriggered: {
+                console.log(`notif popup timed out for index: ${index}`)
+                //root.popupNotifications.splice(index, 1) // Remove and condense // No worky?
+                root.popupNotifications.splice(0, 1) // pop first element
+                console.log("popups length: " + root.popupNotifications.length)
+                //root.popupNotifications.pop()
+                //timer.destroy()
+            }
+            Component.onCompleted: {
+                console.log(`Created timer for index: ${index}`)
+            }
+        }
+    }
+    */
+
 }
