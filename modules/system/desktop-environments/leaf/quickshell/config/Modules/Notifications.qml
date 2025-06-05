@@ -2,7 +2,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell.Services.Notifications
+import Quickshell.Services.Notifications as QsNotifications
 import "../Services" as Services
 import "../Modules" as Modules
 

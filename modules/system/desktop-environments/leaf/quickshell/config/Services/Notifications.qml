@@ -45,7 +45,13 @@ Singleton {
             }
         }
         function dismiss() {
-            notifObject.dismiss()
+            // TODO: fix issue with dismissing a popup i
+            console.log("dismissing notification")
+            // Remove from notif lists first
+            root.notifications.splice(root.notifications.indexOf(n), 1)
+            root.notificationPopups.splice(root.notificationPopups.indexOf(n), 1)
+            // Dismiss and destroy self
+            notifObj.dismiss()
             destroy()
         }
     }
@@ -72,8 +78,11 @@ Singleton {
         onNotification: (notif) => {
             notif.tracked = true
             const notifObject = notificationComp.createObject(null, {notifService: root, notifObj: notif})
+            console.log(`notif: ${notif.id}`)
             root.notifications.push(notifObject)
             root.notificationPopups.push(notifObject)
+
+            // Only show 3 popups max at a time
             if (root.notificationPopups.length > 3) {
                 console.log("what")
                 root.notificationPopups.splice(3, root.notificationPopups.length - 1)

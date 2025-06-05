@@ -1,6 +1,6 @@
 import Quickshell
 import Quickshell.Widgets
-//import Quickshell.Services.Notifications
+import Quickshell.Services.Notifications as QsNotifications
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
@@ -13,7 +13,7 @@ MouseArea {
     id: root
 
     required property var notification // Internal notification type
-    property var qsNotif: notification.notifObj // Quickshell notification
+    property QsNotifications.Notification qsNotif: notification.notifObj // Quickshell notification
     
     implicitWidth: parent === null ? 1 : parent.width // Not sure why parent is null sometimes
     implicitHeight: 100
@@ -85,7 +85,7 @@ MouseArea {
                     implicitHeight: 32
                     //Layout.alignment: Qt.AlignRight // This no work?
                     iconName: 'gtk-close'
-                    leftClick: qsNotif.dismiss()
+                    leftClick: root.notification.dismiss
                 }
             }
             WrapperItem {
