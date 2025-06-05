@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Effects
 import QtQuick.Layouts
 import "../Services" as Services
@@ -70,6 +71,9 @@ MouseArea {
                     color: palette.text
                     font.pointSize: 8
                     text: root.notification.appName
+                }
+                Button {
+                    text: "close"
                 }
             }
             WrapperItem {

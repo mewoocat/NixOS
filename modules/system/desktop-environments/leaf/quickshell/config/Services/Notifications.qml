@@ -19,7 +19,7 @@ Singleton {
     property var notificationPopupModel: ScriptModel {
         // Need to create a copy with ...
         // Avoids `Unable to assign QQmlListReference to QVariantList` error
-        values: [...notificationPopups]
+        values: [...notificationPopups].reverse()
     }
 
     function enable() {
