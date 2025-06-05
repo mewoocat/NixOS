@@ -17,6 +17,6 @@ ListView {
     delegate: Modules.Notification {
         Layout.fillWidth: true
         required property var modelData
-        notification: modelData.notifObj
+        notification: modelData
     }
 }

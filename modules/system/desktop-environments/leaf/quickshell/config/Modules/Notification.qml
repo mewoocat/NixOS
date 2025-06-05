@@ -1,20 +1,21 @@
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Services.Notifications
+//import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
 import QtQuick.Layouts
 import "../Services" as Services
+import "../Modules/Common" as Common
 
 // Visual element to represent a single notification
 MouseArea {
     id: root
 
-    required property Notification notification
+    required property var notification // Internal notification type
+    property var qsNotif: notification.notifObj // Quickshell notification
     
-    //implicitWidth: parent.width
-    implicitWidth: 400
+    implicitWidth: parent === null ? 1 : parent.width // Not sure why parent is null sometimes
     implicitHeight: 100
 
     drag.target: root
@@ -47,33 +48,44 @@ MouseArea {
         color: root.containsMouse ? palette.window : palette.button
 
         ColumnLayout {
+            anchors.fill: parent
             spacing: 0
             RowLayout {
                 id: row
-                height: parent.height
-                spacing: 4
                 Layout.leftMargin: 8
-                Layout.topMargin: 8
+                Layout.rightMargin: 8
+                //Layout.topMargin: 8
+                Layout.fillWidth: true
+                spacing: 0
+                width: 400
+                height: 50
+
                 // App icon
                 IconImage {
+                    id: appIcon
                     implicitSize: 16
                     source: {
-                        let name = root.notification.appIcon
+                        let name = root.qsNotif.appIcon
                         if (name === "") {
-                            name = root.notification.appName.toLowerCase()
+                            name = root.qsNotif.appName.toLowerCase()
                         }
                         Quickshell.iconPath(name, "dialog-question")
                     }
                 }
                 // App name
                 Text {
-                    Layout.alignment: Qt.AlignHCenter
                     color: palette.text
                     font.pointSize: 8
-                    text: root.notification.appName
+                    text: root.qsNotif.appName
                 }
-                Button {
-                    text: "close"
+                // Spacer to push close button to right
+                Rectangle {Layout.fillWidth: true;}
+
+                Common.NormalButton {
+                    implicitHeight: 32
+                    //Layout.alignment: Qt.AlignRight // This no work?
+                    iconName: 'gtk-close'
+                    leftClick: qsNotif.dismiss()
                 }
             }
             WrapperItem {
@@ -83,16 +95,16 @@ MouseArea {
                     IconImage {
                         Layout.margins: 4
                         implicitSize: 32
-                        source: root.notification.image
+                        source: root.qsNotif.image
                     }
                     ColumnLayout {
                         Layout.leftMargin: 8
                         Text {
-                            text: root.notification.summary
+                            text: root.qsNotif.summary
                             color: palette.text
                         }
                         Text {
-                            text: root.notification.body
+                            text: root.qsNotif.body
                             font.pointSize: 8
                             color: palette.text
                         }

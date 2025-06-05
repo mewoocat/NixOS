@@ -31,99 +31,45 @@ PanelWindow {
         ListView {
             id: notifList
             implicitWidth: 400
-            //implicitHeight: count < 1 ? 0 : itemAtIndex(0).height * count
-            //implicitHeight: 400
-            //implicitHeight: contentHeight
             height: parent.height
-            //model: Services.Notifications.notifications
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
             model: Services.Notifications.notificationPopupModel
-
-            //verticalLayoutDirection: ListView.BottomToTop
+            property int animationSpeed: 300 // ms
 
             // Animations 
-
-            // When implicitHeight changes
-            /*
-            Behavior on implicitHeight {
-                SequentialAnimation {
-                    // Adds delay to allow for list item animation to play
-                    PropertyAnimation {
-                        target: notifList
-                        properties: ""
-                        duration: 0
-                    }
-                    // Then set the ListView to it's new height
-                    PropertyAnimation {
-                        properties: "implicitHeight"
-                        duration: 0
-                    }
-
-                }
-            }
-            */
             add: Transition {
-                SequentialAnimation {
-                    /*
-                    PropertyAction {
-                        alwaysRunToEnd: true
-                        target: notifList
-                        property: "height"
-                        value: notifList.contentHeight
-                    }
-                    */
-                    /*
-                    ScriptAction {
-                        script: {
-                            console.log("anim add")
-                            //notif.height = (notif.count + 1) * 100
-                        }
-                    }
-                    */
-                    NumberAnimation {
-                        properties: "y"
-                        from: -200
-                        duration: 600
-                    }
+                NumberAnimation {
+                    properties: "y"
+                    from: -100
+                    duration: notifList.animationSpeed
                 }
             }
-            /*
             addDisplaced: Transition {
                 NumberAnimation {
                     properties: "y"
-                    duration: 600
+                    duration: notifList.animationSpeed
                 }
             }
-            */
             remove: Transition {
                 SequentialAnimation {
                     NumberAnimation {
+                        properties: "x"
+                        to: -20
+                        duration: 100
+                    }
+                    NumberAnimation {
                         properties: "y"
-                        to: 1000
-                        duration: 600
+                        to: -100
+                        duration: notifList.animationSpeed
                     }
-                    /*
-                    ScriptAction {
-                        alwaysRunToEnd: true
-                        script: {
-                            console.log("anim remove")
-                            notif.height = notif.count * 100
-                        }
-                    }
-                    */
-                    /*
-                    PropertyAction {
-                        alwaysRunToEnd: true
-                        target: notifList
-                        property: "height"
-                        value: notifList.contentHeight
-                    }
-                    */
                 }
             }
+
             delegate: Modules.Notification {
                 Layout.fillWidth: true
                 required property var modelData
-                notification: modelData.notifObj
+                notification: modelData
             }
         }
     }

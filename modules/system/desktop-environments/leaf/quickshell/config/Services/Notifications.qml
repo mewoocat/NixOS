@@ -44,6 +44,10 @@ Singleton {
                 console.log(`Created timer for: ${n.notifObj.id}`)
             }
         }
+        function dismiss() {
+            notifObject.dismiss()
+            destroy()
+        }
     }
 
     Component {
@@ -70,33 +74,10 @@ Singleton {
             const notifObject = notificationComp.createObject(null, {notifService: root, notifObj: notif})
             root.notifications.push(notifObject)
             root.notificationPopups.push(notifObject)
-        }
-    }
-    
-    // Define a component inline (doesn't create any instances)
-    // A Component is just like a .qml file
-    /*
-    Component {
-        id: popupTimer
-        // WARNING! this timer implementation 
-        Timer {
-            required property int index
-            interval: 3000
-            running: true
-            // Looks like this sometimes doesn't trigger
-            onTriggered: {
-                console.log(`notif popup timed out for index: ${index}`)
-                //root.popupNotifications.splice(index, 1) // Remove and condense // No worky?
-                root.popupNotifications.splice(0, 1) // pop first element
-                console.log("popups length: " + root.popupNotifications.length)
-                //root.popupNotifications.pop()
-                //timer.destroy()
-            }
-            Component.onCompleted: {
-                console.log(`Created timer for index: ${index}`)
+            if (root.notificationPopups.length > 3) {
+                console.log("what")
+                root.notificationPopups.splice(3, root.notificationPopups.length - 1)
             }
         }
     }
-    */
-
 }

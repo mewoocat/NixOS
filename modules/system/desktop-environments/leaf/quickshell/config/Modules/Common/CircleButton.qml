@@ -1,3 +1,4 @@
+// WARNING: TODO
 
 import Quickshell
 import Quickshell.Widgets
@@ -12,7 +13,6 @@ MouseArea {
     property var leftClick: null
     property var rightClick: null
     property var middleClick: null
-    property var action // !! Deprecated
 
     property Item iconItem: icon
 
@@ -62,7 +62,7 @@ MouseArea {
                 Layout.rightMargin: mouseArea.text === "" ? 8 : 0
                 id: icon
                 visible: mouseArea.iconName != "" || mouseArea.iconSource != ""
-                implicitSize: mouseArea.height / 2
+                implicitSize: 20
                 source: mouseArea.iconName == "" ? mouseArea.iconSource : Quickshell.iconPath(mouseArea.iconName)
                 // Recoloring icon
                 /*
