@@ -33,18 +33,28 @@ Singleton {
         required property Notifications notifService
 
         required property string id
+        required property string image
         required property string appName
         required property string appIcon
         required property string body
         required property string summary
 
+        // Should ensure that the notifObj is not ever destroyed until 
+        // this object is destroyed.  Not needed since we copy over the 
+        // properties from the qs notif to this notif component. However,
+        // this object may come handy later on.
+        property var qsNotifLock: RetainableLock {
+          object: n.notifObj
+          locked: true
+        }
+
         // Timer to run for popup
         property QtObject timer: Timer {
             id: timer
-            interval: 9000
+            interval: 3000
             running: true
             onTriggered: {
-                console.log(`notif popup timed out for: ${n.notification.id}`)
+                console.log(`notif popup timed out for: ${n.id}`)
                 root.notificationPopups.splice(0, 1) // pop first element
                 console.log("popups length: " + notifService.notificationPopups.length)
             }
@@ -54,11 +64,11 @@ Singleton {
         }
         function dismiss() {
             console.log("dismissing notification")
+            notifObj.dismiss()
             // Remove from notif lists first
             root.notifications.splice(root.notifications.indexOf(n), 1)
             root.notificationPopups.splice(root.notificationPopups.indexOf(n), 1)
             // Dismiss and destroy self
-            notifObj.dismiss()
             //destroy()
         }
     }
@@ -89,6 +99,7 @@ Singleton {
                 notifObj: notif,
 
                 id: notif.id,
+                image: notif.image,
                 appName: notif.appName,
                 appIcon: notif.appIcon,
                 body: notif.body,

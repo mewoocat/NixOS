@@ -17,6 +17,12 @@ Singleton {
         property int weather_code: 0
         property real relative_humidity_2m: 0
     }
+    
+    property QtObject daily: QtObject {
+        property list<string> time: []
+        property list<real> temperature_2m_max: []
+        property list<real> temperature_2m_min: []
+    }
 
     function enable(){
         console.log("Enabling Weather service")
@@ -35,11 +41,15 @@ Singleton {
                 const jsonData = JSON.parse(data)
                 //console.log(jsonData)
 
-                root.current.temperature_2m = jsonData.current.temperature_2m
+                root.current.temperature_2m = Math.round(jsonData.current.temperature_2m)
                 root.current.apparent_temperature = jsonData.current.apparent_temperature
                 root.current.precipitation = jsonData.current.precipitation
                 root.current.weather_code = jsonData.current.weather_code
                 root.current.relative_humidity_2m = jsonData.current.relative_humidity_2m
+
+                root.daily.time = jsonData.daily.time
+                root.daily.temperature_2m_max = jsonData.daily.temperature_2m_max.map(v => Math.round(v))
+                root.daily.temperature_2m_min = jsonData.daily.temperature_2m_min.map(v => Math.round(v))
             }
         }
     }
