@@ -14,7 +14,7 @@ MouseArea {
 
     required property var notification // Internal notification type
     property QsNotifications.Notification qsNotif: notification.notifObj // Quickshell notification
-    
+ 
     implicitWidth: parent === null ? 1 : parent.width // Not sure why parent is null sometimes
     implicitHeight: 100
 
@@ -65,9 +65,9 @@ MouseArea {
                     id: appIcon
                     implicitSize: 16
                     source: {
-                        let name = root.qsNotif.appIcon
+                        let name = root.notification.appIcon
                         if (name === "") {
-                            name = root.qsNotif.appName.toLowerCase()
+                            name = root.notification.appName.toLowerCase()
                         }
                         Quickshell.iconPath(name, "dialog-question")
                     }
@@ -76,7 +76,7 @@ MouseArea {
                 Text {
                     color: palette.text
                     font.pointSize: 8
-                    text: root.qsNotif.appName
+                    text: root.notification.appName
                 }
                 // Spacer to push close button to right
                 Rectangle {Layout.fillWidth: true;}
@@ -95,16 +95,16 @@ MouseArea {
                     IconImage {
                         Layout.margins: 4
                         implicitSize: 32
-                        source: root.qsNotif.image
+                        source: root.notification.image
                     }
                     ColumnLayout {
                         Layout.leftMargin: 8
                         Text {
-                            text: root.qsNotif.summary
+                            text: root.notification.summary
                             color: palette.text
                         }
                         Text {
-                            text: root.qsNotif.body
+                            text: root.notification.body
                             font.pointSize: 8
                             color: palette.text
                         }

@@ -31,12 +31,20 @@ Singleton {
         id: n
         required property QsNotifications.Notification notifObj
         required property Notifications notifService
+
+        required property string id
+        required property string appName
+        required property string appIcon
+        required property string body
+        required property string summary
+
         // Timer to run for popup
         property QtObject timer: Timer {
-            interval: 3000
+            id: timer
+            interval: 9000
             running: true
             onTriggered: {
-                console.log(`notif popup timed out for: ${n.notifObj.id}`)
+                console.log(`notif popup timed out for: ${n.notification.id}`)
                 root.notificationPopups.splice(0, 1) // pop first element
                 console.log("popups length: " + notifService.notificationPopups.length)
             }
@@ -45,14 +53,13 @@ Singleton {
             }
         }
         function dismiss() {
-            // TODO: fix issue with dismissing a popup i
             console.log("dismissing notification")
             // Remove from notif lists first
             root.notifications.splice(root.notifications.indexOf(n), 1)
             root.notificationPopups.splice(root.notificationPopups.indexOf(n), 1)
             // Dismiss and destroy self
             notifObj.dismiss()
-            destroy()
+            //destroy()
         }
     }
 
@@ -77,7 +84,18 @@ Singleton {
         }
         onNotification: (notif) => {
             notif.tracked = true
-            const notifObject = notificationComp.createObject(null, {notifService: root, notifObj: notif})
+            const notifObject = notificationComp.createObject(null, {
+                notifService: root,
+                notifObj: notif,
+
+                id: notif.id,
+                appName: notif.appName,
+                appIcon: notif.appIcon,
+                body: notif.body,
+                summary: notif.summary,
+
+
+            })
             console.log(`notif: ${notif.id}`)
             root.notifications.push(notifObject)
             root.notificationPopups.push(notifObject)
