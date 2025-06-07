@@ -54,6 +54,9 @@ MouseArea {
         // This would cause the layout to expand and space out it's children?
         Item {
             ColumnLayout {
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.top: parent.top
                 implicitWidth: parent.width
                 spacing: 0
 

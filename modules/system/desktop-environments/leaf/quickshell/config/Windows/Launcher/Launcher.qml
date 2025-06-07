@@ -9,6 +9,7 @@ import Quickshell.Wayland
 
 import "../../" as Root
 import "../../Modules/Common" as Common
+import "../../Services" as Services
 
 Common.PopupWindow {
     // Doesn't seem to force focus
@@ -99,7 +100,35 @@ Common.PopupWindow {
                 keyNavigationEnabled: true
                 model: ScriptModel {
                     values: DesktopEntries.applications.values
-                        .filter(app => app.name.toLowerCase().includes(searchText.toLowerCase()))
+                        // Filter by search text
+                        .filter(app => {
+                            const formattedSearchText = searchText.toLowerCase()
+                            if (app.name.toLowerCase().includes(formattedSearchText)) {
+                                return true
+                            }
+                            if (app.genericName.toLowerCase().includes(formattedSearchText)) {
+                                return true
+                            }
+                            app.categories.forEach(category => {
+                                if (category.toLowerCase().includes(formattedSearchText)) {
+                                    return true
+                                }
+                            })
+                            return false
+                        })
+                        // Sort by most frequently launched
+                        .sort((appA, appB) => {
+                            const appFreqMap = Services.Applications.appFreqMap 
+                            const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
+                            const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
+                            if (appAFreq > appBFreq) {
+                                return -1
+                            }
+                            if (appAFreq < appBFreq) {
+                                return 1
+                            }
+                            return 0 // They are equal
+                        })
                         //.filter(app => true)
                 }
 
@@ -116,6 +145,7 @@ Common.PopupWindow {
                     hoverEnabled: true
                     onClicked: {
                         Root.State.launcher.closeWindow()
+                        Services.Applications.incrementFreq(modelData.id)
                         modelData.execute()
                     }
                     Rectangle {

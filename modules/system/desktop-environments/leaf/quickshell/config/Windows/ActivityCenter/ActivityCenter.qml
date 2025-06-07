@@ -46,7 +46,7 @@ Common.PopupWindow {
 
     // Something weird's going on here
     content: Common.PanelGrid {
-        columns: 8
+        columns: 16
         rows: 6
 
         /*
@@ -88,8 +88,8 @@ Common.PopupWindow {
         }
         Common.PanelItem { 
             isClickable: false; 
-            rows: 4
-            columns: 4
+            rows: 6
+            columns: 6
             content: Modules.Notifications {} 
         }
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
