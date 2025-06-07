@@ -59,14 +59,16 @@ ColumnLayout {
                 return "transparent"
             }
             Text {
+                anchors.centerIn: parent
                 id: text
                 text: day.model.day
                 padding: 4
-                color: {
+                color: palette.text
+                opacity: {
                     if (day.model.month != monthGrid.month) {
-                        return palette.window
+                        return 0.3
                     }
-                    return palette.text
+                    return 1
                 }
                 font.pointSize: 10
             }

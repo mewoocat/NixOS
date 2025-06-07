@@ -6,17 +6,34 @@ import Quickshell.Services.Notifications as QsNotifications
 import "../Services" as Services
 import "../Modules" as Modules
 
-ListView {
-    model: Services.Notifications.notificationModel
+ColumnLayout {
+    anchors.margins: 8
     anchors.fill: parent
-    flickDeceleration: 0.00001
-    maximumFlickVelocity: 10000
-    clip: true // Ensure that scrolled items don't go outside the widget
-    keyNavigationEnabled: true
-    ScrollBar.vertical: ScrollBar { }
-    delegate: Modules.Notification {
+    Text {
         Layout.fillWidth: true
-        required property var modelData
-        notification: modelData
+        text: "Notifications"
+        color: palette.text
+    }
+    // Horizontal line
+    Rectangle {
+        color: palette.text
+        Layout.fillWidth: true
+        implicitHeight: 1
+        opacity: 0.2
+    }
+    ListView {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        model: Services.Notifications.notificationModel
+        flickDeceleration: 0.00001
+        maximumFlickVelocity: 10000
+        clip: true // Ensure that scrolled items don't go outside the widget
+        keyNavigationEnabled: true
+        ScrollBar.vertical: ScrollBar { }
+        delegate: Modules.Notification {
+            Layout.fillWidth: true
+            required property var modelData
+            notification: modelData
+        }
     }
 }

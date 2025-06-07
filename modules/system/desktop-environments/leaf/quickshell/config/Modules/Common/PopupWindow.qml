@@ -16,6 +16,7 @@ PanelWindow {
     required property var toggleWindow
  
     Component.onCompleted: {
+        console.log(`setting state for window: ${name}`)
         Root.State[name] = window // Set the window ref in state
     }
 

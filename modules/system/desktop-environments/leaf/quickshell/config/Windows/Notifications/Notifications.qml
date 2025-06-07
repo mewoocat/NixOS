@@ -11,6 +11,7 @@ PanelWindow {
     id: window
     property string name: "notifications"
     WlrLayershell.namespace: 'quickshell-' + name // Set layer name
+    WlrLayershell.layer: WlrLayer.Overlay
     visible: true
     anchors {
         top: true

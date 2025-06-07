@@ -16,7 +16,7 @@ MouseArea {
     property QsNotifications.Notification qsNotif: notification.notifObj // Quickshell notification
  
     implicitWidth: parent === null ? 1 : parent.width // Not sure why parent is null sometimes
-    implicitHeight: 100
+    implicitHeight: 116
 
     drag.target: root
     drag.axis: Drag.XAxis
@@ -37,7 +37,8 @@ MouseArea {
         }
     }
 
-    Rectangle {
+    // Keep in mind that doing an anchor fill on a Wrapper will do an anchor fill on the child
+    WrapperRectangle {
         clip: true
         id: box
         anchors {
@@ -46,67 +47,74 @@ MouseArea {
         }
         radius: 12
         color: root.containsMouse ? palette.window : palette.button
+        margin: 8
+        topMargin: 0 // Counteract the extra spacing for the close button
 
-        ColumnLayout {
-            anchors.fill: parent
-            spacing: 0
-            RowLayout {
-                id: row
-                Layout.leftMargin: 8
-                Layout.rightMargin: 8
-                //Layout.topMargin: 8
-                Layout.fillWidth: true
+        // Wrap the layout in an item so that the layout doesn't get anchored to all corners
+        // This would cause the layout to expand and space out it's children?
+        Item {
+            ColumnLayout {
+                implicitWidth: parent.width
                 spacing: 0
-                width: 400
-                height: 50
 
-                // App icon
-                IconImage {
-                    id: appIcon
-                    implicitSize: 16
-                    source: {
-                        let name = root.notification.appIcon
-                        if (name === "") {
-                            name = root.notification.appName.toLowerCase()
+                RowLayout {
+                    id: row
+                    // App icon
+                    IconImage {
+                        id: appIcon
+                        implicitSize: 16
+                        source: {
+                            let name = root.notification.appIcon
+                            if (name === "") {
+                                name = root.notification.appName.toLowerCase()
+                            }
+                            Quickshell.iconPath(name, "dialog-question")
                         }
-                        Quickshell.iconPath(name, "dialog-question")
+                    }
+                    // App name
+                    Text {
+                        color: palette.text
+                        font.pointSize: 8
+                        text: root.notification.appName
+                    }
+                    // Spacer to push close button to right
+                    Rectangle {Layout.fillWidth: true;}
+
+                    // Close button
+                    Common.NormalButton {
+                        implicitHeight: 32
+                        //Layout.alignment: Qt.AlignRight // This no work?
+                        iconName: 'gtk-close'
+                        leftClick: root.notification.dismiss
                     }
                 }
-                // App name
-                Text {
-                    color: palette.text
-                    font.pointSize: 8
-                    text: root.notification.appName
-                }
-                // Spacer to push close button to right
-                Rectangle {Layout.fillWidth: true;}
-
-                Common.NormalButton {
-                    implicitHeight: 32
-                    //Layout.alignment: Qt.AlignRight // This no work?
-                    iconName: 'gtk-close'
-                    leftClick: root.notification.dismiss
-                }
-            }
-            WrapperItem {
-                margin: 8
                 RowLayout {
+                    //Layout.alignment: Qt.AlignTop
                     spacing: 0
                     IconImage {
+                        //Layout.alignment: Qt.AlignTop
+                        visible: root.notification.image != ""
                         Layout.margins: 4
-                        implicitSize: 32
+                        implicitSize: 40
                         source: root.notification.image
                     }
                     ColumnLayout {
-                        Layout.leftMargin: 8
+                        // Summary
                         Text {
+                            Layout.fillWidth: true
                             text: root.notification.summary
+                            elide: Text.ElideRight // Truncate with ... on the right
                             color: palette.text
                         }
+
+                        // Body
                         Text {
+                            Layout.fillWidth: true
                             text: root.notification.body
+                            elide: Text.ElideRight // Truncate with ... on the right
                             font.pointSize: 8
                             color: palette.text
+                            wrapMode: Text.Wrap
                         }
                     }
                 }
