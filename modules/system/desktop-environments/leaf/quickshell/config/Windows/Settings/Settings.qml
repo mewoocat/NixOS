@@ -7,6 +7,7 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 import "../../Services/" as Services
 import "../../Modules/Common" as Common
+import "../../" as Root
 
 FloatingWindow {
     // No work?
@@ -14,6 +15,19 @@ FloatingWindow {
     id: root    
     color: contentItem.palette.window
     visible: false
+
+    Component.onCompleted: {
+        console.log("adding settings to state")
+        Root.State["settings"] = root // Set the window ref in state
+    }
+
+    function openWindow() {
+        console.log('open windwo')
+        root.visible = true
+    }
+    function closeWindow() {
+        root.visible = false
+    }
     
     property var selectedMonitorId: 0 
 

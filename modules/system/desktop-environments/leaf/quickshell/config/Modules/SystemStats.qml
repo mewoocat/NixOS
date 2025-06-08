@@ -27,11 +27,9 @@ ColumnLayout {
                 color: palette.text
             }
             ProgressBar {
-                id: cpuProg
                 Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.cpuUsage
-                hoverEnabled: true
                 to: 100
             }
         }
@@ -54,19 +52,10 @@ ColumnLayout {
                 color: palette.text
             }
             ProgressBar {
-                id: memProg
                 Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.memUsage
                 to: 100
-                ToolTip {
-                    delay: 300
-                    visible: memProg.hovered
-                    background: Rectangle {
-                        radius: 20
-                        color: palette.window
-                    }
-                }
             }
         }
     }

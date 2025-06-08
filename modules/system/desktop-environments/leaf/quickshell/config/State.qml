@@ -15,11 +15,13 @@ Singleton {
     property bool activityCenterVisibility: false
     property bool workspacesVisibility: false
 
+    // Window refs
     property var bar: null
     property var launcher: null
     property var controlPanel: null
     property var activityCenter: null
     property var workspaces: null
+    property var settings: null
 
     property int controlPanelPage: 0
 

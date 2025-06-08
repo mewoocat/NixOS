@@ -28,6 +28,8 @@ in {
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
     inputs.quickshell.packages.${pkgs.system}.default # Quickshell package
 
+    kdePackages.qt5compat # For Qt5Compat.GraphicalEffects
+
     # For styling QtQuick controls within Quickshell
     kdePackages.qqc2-desktop-style
     kdePackages.sonnet

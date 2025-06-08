@@ -90,6 +90,7 @@ Common.PanelGrid {
 
     Common.PanelItem { 
         content: SliderPanel {}
+        isClickable: false
         rows: 2
         columns: 4
     }
