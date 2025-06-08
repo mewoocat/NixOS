@@ -78,7 +78,6 @@ Common.PanelGrid {
         columns: 2
         isClickable: false
         content: Modules.SystemStats {
-            anchors.centerIn: parent
         }
     }
     Common.PanelItem { 

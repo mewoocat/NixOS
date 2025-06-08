@@ -4,117 +4,115 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "root:/Services" as Services
+import "root:/Modules/Common" as Common
 
 ColumnLayout {
     anchors.margins: 8
     anchors.fill: parent
 
     // CPU
-    RowLayout {
-        IconImage {
-            implicitSize: 20
-            source: Quickshell.iconPath("cpu")
-        }
-        Text {
-            text: {
-                Math.round(Services.SystemStats.cpuUsage) + '%'
+    Common.ToolTipArea {
+        //text: Services.SystemStats.cpuUsageText // Text for tooltip
+        text: "Cpu usage"
+        Layout.fillWidth: true
+        RowLayout {
+            IconImage {
+                implicitSize: 20
+                source: Quickshell.iconPath("cpu")
             }
-            color: palette.text
-        }
-        ProgressBar {
-            id: cpuProg
-            Layout.fillWidth: true
-            from: 0
-            value: Services.SystemStats.cpuUsage
-            to: 100
-            ToolTip {
-                delay: 300
-                text: "Cpu usage"
-                visible: cpuProg.hovered
-                background: Rectangle {
-                    radius: 20
-                    color: palette.window
+            Text {
+                text: {
+                    Math.round(Services.SystemStats.cpuUsage) + '%'
                 }
+                color: palette.text
+            }
+            ProgressBar {
+                id: cpuProg
+                Layout.fillWidth: true
+                from: 0
+                value: Services.SystemStats.cpuUsage
+                hoverEnabled: true
+                to: 100
             }
         }
     }
 
     // Memory
-    RowLayout {
-        IconImage {
-            implicitSize: 20
-            source: Quickshell.iconPath("memory")
-        }
-        Text {
-            text: {
-                Math.round(Services.SystemStats.memUsage) + '%'
+    Common.ToolTipArea {
+        text: Services.SystemStats.memUsageText // Text for tooltip
+        Layout.fillWidth: true // For some reason the width of the progress bar expands when using a Wrapper here.  
+                               // Setting the fillWidth here restricts the size to the parent ig
+        RowLayout {
+            IconImage {
+                implicitSize: 20
+                source: Quickshell.iconPath("memory")
             }
-            color: palette.text
-        }
-        ProgressBar {
-            id: memProg
-            Layout.fillWidth: true
-            from: 0
-            value: Services.SystemStats.memUsage
-            to: 100
-            ToolTip {
-                delay: 300
-                text: Services.SystemStats.memUsageText
-                visible: memProg.hovered
-                background: Rectangle {
-                    radius: 20
-                    color: palette.window
+            Text {
+                text: {
+                    Math.round(Services.SystemStats.memUsage) + '%'
+                }
+                color: palette.text
+            }
+            ProgressBar {
+                id: memProg
+                Layout.fillWidth: true
+                from: 0
+                value: Services.SystemStats.memUsage
+                to: 100
+                ToolTip {
+                    delay: 300
+                    visible: memProg.hovered
+                    background: Rectangle {
+                        radius: 20
+                        color: palette.window
+                    }
                 }
             }
         }
     }
 
     // Temp
-    RowLayout {
-        IconImage {
-            implicitSize: 20
-            source: Quickshell.iconPath("temp-symbolic")
-        }
-        Text {
-            text: {
-                Math.round(Services.SystemStats.cpuUsage) + '°C'
+    Common.ToolTipArea {
+        text: "CPU Temperature"
+        Layout.fillWidth: true
+        RowLayout {
+            IconImage {
+                implicitSize: 20
+                source: Quickshell.iconPath("temp-symbolic")
             }
-            color: palette.text
-        }
-        ProgressBar {
-            Layout.fillWidth: true
-            from: 0
-            value: Services.SystemStats.cpuUsage
-            to: 100
+            Text {
+                text: {
+                    Math.round(Services.SystemStats.cpuUsage) + '°C'
+                }
+                color: palette.text
+            }
+            ProgressBar {
+                Layout.fillWidth: true
+                from: 0
+                value: Services.SystemStats.cpuUsage
+                to: 100
+            }
         }
     }
 
     // Disk usage
-    RowLayout {
-        IconImage {
-            implicitSize: 20
-            source: Quickshell.iconPath("drive-harddisk")
-        }
-        Text {
-            text: {
-                Math.round(Services.SystemStats.storageUsage) + '%'
+    Common.ToolTipArea {
+        text: Services.SystemStats.storageUsageText
+        Layout.fillWidth: true
+        RowLayout {
+            IconImage {
+                implicitSize: 20
+                source: Quickshell.iconPath("drive-harddisk")
             }
-            color: palette.text
-        }
-        ProgressBar {
-            id: storageProg
-            Layout.fillWidth: true
-            from: 0
-            value: Services.SystemStats.storageUsage
-            to: 100
-            ToolTip {
-                delay: 300
-                text: Services.SystemStats.storageUsageText
-                visible: storageProg.hovered
-                background: Rectangle {
-                    radius: 20
-                    color: palette.window
-                }
+            Text {
+                text: Math.round(Services.SystemStats.storageUsage) + '%'
+                color: palette.text
+            }
+            ProgressBar {
+                Layout.fillWidth: true
+                from: 0
+                value: Services.SystemStats.storageUsage
+                to: 100
             }
         }
     }
