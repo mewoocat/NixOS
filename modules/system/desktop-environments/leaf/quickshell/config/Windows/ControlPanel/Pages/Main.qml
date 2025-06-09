@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
 import "../"
@@ -33,10 +34,18 @@ Common.PanelGrid {
     Common.PanelItem { 
         rows: 1
         columns: 1
+        action: () => Services.NightLight.toggle()
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+            source: `file://${Quickshell.shellRoot}/Icons/nightlight-symbolic.svg`
+
+            // Recolor
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                colorization: 1 // Full re-color
+                colorizationColor: palette.text
+            }
         }
     }
     Common.PanelItem { 

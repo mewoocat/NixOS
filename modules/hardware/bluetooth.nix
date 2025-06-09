@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: {
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    Policy = {
-      AutoEnable = "false";
+  hardware.bluetooth = {
+    enable = true;
+    settings = {
+      Policy.AutoEnable = "false";
     };
   };
 }

@@ -64,7 +64,6 @@ MouseArea {
                 visible: mouseArea.iconName != "" || mouseArea.iconSource != ""
                 implicitSize: mouseArea.height / 2
                 source: mouseArea.iconName == "" ? mouseArea.iconSource : Quickshell.iconPath(mouseArea.iconName)
-                // Recoloring icon
                 /*
                 layer.enabled: true
                 layer.effect: MultiEffect {

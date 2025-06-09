@@ -88,13 +88,6 @@ Common.PopupWindow {
                             imgPath: Quickshell.iconPath(desktopEntry.icon)
                         }
                     }
-                    SidePanelItem {
-                        imgPath: Quickshell.iconPath('systemsettings')
-                    }
-                    SidePanelItem {
-                        imgPath: Quickshell.iconPath('systemsettings')
-                    }
-
                 }
                 Item {Layout.fillHeight: true;} // Idk why, but needed to push the siblings to the top and bottom
                 // Bottom
