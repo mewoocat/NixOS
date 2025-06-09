@@ -18,7 +18,6 @@ Singleton {
         id: cpuUsageProc
         // Todo: optimize
         command: ['bash', '-c', "top -bn 1 | awk '/Cpu/{print 100-$8}'"]
-        //command: ["whoami"]
         running: true
 
         stdout: SplitParser {

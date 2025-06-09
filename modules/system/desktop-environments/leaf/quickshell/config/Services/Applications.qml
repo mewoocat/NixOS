@@ -28,6 +28,10 @@ Singleton {
         // Write the changes to the file (needed since these properties on the js obj are not tracked)
         appOrderFile.writeAdapter() // Known bug which sometimes crashes, waiting for fix
     }
+    
+    function findDesktopEntryById(id: string): DesktopEntry {
+        return DesktopEntries.applications.values.find(entry => entry.id === id)
+    }
 
     FileView {
         id: appOrderFile

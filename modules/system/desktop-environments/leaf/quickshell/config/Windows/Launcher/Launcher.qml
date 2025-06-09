@@ -33,6 +33,15 @@ Common.PopupWindow {
         textField.text = ""
         listView.currentIndex = 0
     }
+
+
+    function launchApp(app: DesktopEntry) {
+        console.log(`Launching app: ${app.id}`)
+        Services.Applications.incrementFreq(app.id) // Update it's frequency
+        app.execute()
+        launcher.closeWindow() // Needs to be after the execute since this will reset the current index?
+    }
+
     visible: Root.State.launcherVisibility
     anchors {
         top: true
@@ -57,16 +66,28 @@ Common.PopupWindow {
 
             // Left side panel
             ColumnLayout {
-                Layout.margins: 8
+                Layout.margins: 4
                 Layout.fillHeight: true
                 spacing: 0
 
                 //Rectangle {implicitWidth: 32;Layout.fillHeight: true;color: "red"}
                 // Top
+                // Pinned apps
                 ColumnLayout { 
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                     Layout.fillHeight: true
+                    Repeater {
+                        model: Root.State.config.pinnedApps
+                        delegate: SidePanelItem {
+                            id: item
+                            required property string modelData
+                            property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
+                            property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
+                            Component.onCompleted: console.log(`comp app id: ${appId}`)
+                            imgPath: Quickshell.iconPath(desktopEntry.icon)
+                        }
+                    }
                     SidePanelItem {
                         imgPath: Quickshell.iconPath('systemsettings')
                     }
@@ -83,37 +104,15 @@ Common.PopupWindow {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                     
                     SidePanelItem {
+                        //onClicked: 
+                        imgPath: Quickshell.iconPath('system-shutdown-symbolic')
+                        imgSize: 22
+                    }
+                    SidePanelItem {
                         onClicked: Root.State.settings.openWindow()
                         imgPath: Quickshell.iconPath('systemsettings')
                     }
-                    SidePanelItem {
-                        imgPath: Services.User.pfpPath
-                    }
-                    
-                    // pfp
-                    WrapperMouseArea {
-                        id: root
-                        enabled: true
-                        hoverEnabled: true
-                        onClicked: console.log("clicked")
-                        margin: 4
-                        WrapperRectangle {
-                            margin: 4
-                            radius: 12
-                            //color: root.containsMouse ? palette.highlight : palette.base
-                            color: "transparent"
-                            Modules.ProfilePicture {
-
-                            }
-                        }
-                    }
-
-                    //Rectangle {implicitWidth: 32;implicitHeight: 32;color: "red"}
-
-                    //Modules.ProfilePicture {
-                    //    implicitWidth: 40
-                    //    implicitHeight: 40
-                    //}
+                    ProfilePictureItem {}
                 }
             }
 
@@ -150,10 +149,7 @@ Common.PopupWindow {
                         Keys.onDownPressed: {
                             listView.incrementCurrentIndex()
                         }
-                        Keys.onReturnPressed: {
-                            listView.currentItem.modelData.execute()
-                            launcher.toggleWindow() // Needs to be after the execute since this will reset the current index
-                        }
+                        Keys.onReturnPressed: launchApp(listView.currentItem.modelData)
                     }
                 }
 
@@ -212,11 +208,7 @@ Common.PopupWindow {
                         height: 60
                         width: listView.width
                         hoverEnabled: true
-                        onClicked: {
-                            Root.State.launcher.closeWindow()
-                            Services.Applications.incrementFreq(modelData.id)
-                            modelData.execute()
-                        }
+                        onClicked: launchApp(modelData)
                         Rectangle {
                             anchors.fill: parent
                             anchors {

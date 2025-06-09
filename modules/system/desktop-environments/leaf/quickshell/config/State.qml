@@ -55,6 +55,7 @@ Singleton {
                 property real longitude: 0
             } 
             property string funImage: ""
+            property list<string> pinnedApps: []
         }
         
     }

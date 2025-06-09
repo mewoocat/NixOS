@@ -6,8 +6,9 @@ import Quickshell.Services.Notifications as QsNotifications
 import "../Services" as Services
 import "../Modules" as Modules
 
+// A widget to list all tracked notifications
 ColumnLayout {
-    anchors.margins: 8
+    anchors.margins: 16
     anchors.fill: parent
     Text {
         Layout.fillWidth: true
