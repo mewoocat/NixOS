@@ -109,7 +109,7 @@ Singleton {
 
     Timer {
         id: waitToLoadConfig
-        interval: 2000
+        interval: 400
         running: false
         onTriggered: loadConfig()
     }
@@ -133,7 +133,7 @@ Singleton {
                     }
 
                     // Load in a saved monitor config after timeout
-                    // Needs timeout because lastIpcObject is undefined for the new monitor when it tries to generate the id
+                    // Needs timeout because lastIpcObject is empty for the new monitor when it tries to generate the id
                     waitToLoadConfig.running = true
 
                 case "openwindow":
