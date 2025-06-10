@@ -41,12 +41,15 @@ FloatingWindow {
         property int actualY: y - area.offsetY
         property real actualScale: monitor.scale
 
+        // Set monitor element placement given the offset
+        x: monitor.x + area.offsetX
+        y: monitor.y + area.offsetY
 
-        x: monitor.x + area.offset
-        y: monitor.y + area.offset
+        // Adjust size to match scale (required by hyprland)
         width: monitor.width / monitor.scale
         height: monitor.height / monitor.scale
 
+        // Dragging
         drag.target: mouseArea
         // restrict drag region to area
         drag.minimumX: 0
@@ -57,17 +60,13 @@ FloatingWindow {
         onPressed: () => {
             selectedMonitorId = monitor.id
         }
+
         Rectangle {
             anchors.fill: parent
             color: palette.highlight
             Text { 
-                // Scale up and back to it's original position
-                /*
-                x: (width / 2) * (1 / area.scale)
-                y: (height / 2) * (1 / area.scale)
-                */
                 scale: 1 / area.scale
-
+                // Scale the text back up to be readable
                 anchors.centerIn: parent
                 text: monitor.name
                 color: palette.dark
@@ -96,6 +95,9 @@ FloatingWindow {
                 required property HyprlandMonitor modelData
                 monitor: modelData
                 Component.onCompleted: {
+                    console.log(`monitor modeldata: ${modelData.x}x${modelData.y}`)
+                    console.log(`monitor ${monitor.name}: ${actualX}, ${actualY}`)
+                    console.log(`monitor ${monitor.name}: ${x}, ${y}`)
                     Services.Monitors.visualMonitors[monitor.id] = visualMonitor
                 }
             }
