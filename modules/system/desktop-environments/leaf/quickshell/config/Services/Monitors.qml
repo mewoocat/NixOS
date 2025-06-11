@@ -107,6 +107,7 @@ Singleton {
         console.log('Enabling Monitor service')
     }
 
+    // Workaround
     Timer {
         id: waitToLoadConfig
         interval: 400

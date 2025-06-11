@@ -13,20 +13,23 @@ import "../../../Modules/Common" as Common
 Common.PanelGrid {
     columns: 4
     //rows: 4
+    //width: 400
+    //height: 400
+
+    Component.onCompleted: console.log(`panel grid: ${width}x${height}`)
 
     //PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
     Common.PanelItem { 
         rows: 2
         columns: 2
         //action: () => {grid.height = grid.height + 100}
-        action: () => {
-            console.log("clicked")
-            Root.State.controlPanelPage = 1
-        }
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
             source: Quickshell.iconPath("ymuse-home-symbolic")
+        }
+        action: () => {
+            Root.State.controlPanelPage = 2
         }
     }
 

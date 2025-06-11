@@ -4,6 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Pipewire
 import "../../Services" as Services
+import "../../" as Root
 import "../../Modules/Common" as Common
 
 ColumnLayout {    
@@ -13,6 +14,10 @@ ColumnLayout {
         Common.NormalButton {
             iconName: Services.Audio.getIcon(Pipewire.defaultAudioSink)
             text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
+            leftClick: () => {
+                console.log("clicked")
+                Root.State.controlPanelPage = 1
+            }
         }
         Slider {
             Layout.fillWidth: true
