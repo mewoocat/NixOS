@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Controls
+import Quickshell
+import Quickshell.Widgets
 import "../../" as Root
 import "../../Modules/Common" as Common
 import "./Pages" as Pages

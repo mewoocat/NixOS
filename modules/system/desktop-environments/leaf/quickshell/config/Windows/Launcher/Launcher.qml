@@ -96,7 +96,29 @@ Common.PopupWindow {
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                     
+
+                    PopupWindow {
+                        anchor {
+                            window: launcher
+                            item: power
+                            edges: Edges.Top
+                            gravity: Edges.Top
+                        }
+                        visible: power.containsMouse
+                        width: 200
+                        height: 60
+                        WrapperRectangle {
+                            color: palette.window
+                            radius: 16
+                            margin: 8
+                            Text {
+                                color: palette.text
+                                text: "what"
+                            }
+                        }
+                    }
                     SidePanelItem {
+                        id: power
                         //onClicked: 
                         imgPath: Quickshell.iconPath('system-shutdown-symbolic')
                         imgSize: 22
