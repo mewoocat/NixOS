@@ -14,7 +14,7 @@ import "../../Services" as Services
 
 Common.PopupWindow {
     // Doesn't seem to force focus
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
     name: "launcher"
     // Stores the current search
@@ -210,7 +210,7 @@ Common.PopupWindow {
                                 topMargin: 4
                                 bottomMargin: 4
                             }
-                            color: mouseArea.containsMouse || mouseArea.focus ? "#00ff00" : "transparent"
+                            color: mouseArea.containsMouse || mouseArea.focus ? palette.highlight : "transparent"
                             radius: 10
                             RowLayout {
                                 anchors.fill: parent

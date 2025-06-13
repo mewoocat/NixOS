@@ -58,8 +58,10 @@ Scope {
                         //anchors.verticalCenter: parent.verticalCenter
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        spacing: 0
                         //Layout.alignment: Qt.AlignCenter
 
+                        NotificationIndicator {}
                         Clock {}
                     }
                     // Right

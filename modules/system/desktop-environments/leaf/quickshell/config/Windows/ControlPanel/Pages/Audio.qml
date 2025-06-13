@@ -28,6 +28,23 @@ ColumnLayout {
         node: Pipewire.defaultAudioSink
     }
 
+    // Output device selector
+    ComboBox {
+        model: Pipewire.nodes.values
+            .filter(n => n.isSink) // filter nodes for sinks (Output devices)
+            .map(n => n.description) // Map to just the output name string (Results in a list of string names)
+        /*
+        delegate: WrapperMouseArea {
+            id: item
+            required property PwNode modelData
+            Text {
+                color: palette.text
+                text: `name: ${item.modelData.name}`
+            }
+        }
+        */
+    }
+
     // Track all nodes outputting to the default output
     PwNodeLinkTracker {
         id: defaultOutputLinkTracker

@@ -5,6 +5,6 @@ import "../../Modules/Common" as Common
 
 Common.NormalButton {
     leftClick: () => Root.State.activityCenter.toggleWindow()
-    iconName: "security-low"
+    //iconName: "security-low"
     text: Sin.Time.time
 }
