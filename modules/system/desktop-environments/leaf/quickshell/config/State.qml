@@ -2,6 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import QtQuick
 
 Singleton {
     id: root
@@ -22,6 +23,8 @@ Singleton {
     property var activityCenter: null
     property var workspaces: null
     property var settings: null
+
+    property list<QtObject> focusGrabIgnore: []
 
     property int controlPanelPage: 0
 

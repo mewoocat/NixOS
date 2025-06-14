@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Wayland
+import Quickshell.Hyprland
 
 import "../../" as Root
 import "../../Modules/Common" as Common
@@ -97,29 +98,67 @@ Common.PopupWindow {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
                     
 
+                    // Power options popup menu
+                    // TODO: refractor this into it's own file
+                    // TODO: wrap in loader so that popup is only loaded when it needs to be seen
+                    // TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 
+                    //       doesn't receive focus right away and thus gets hidden before it can be hovered
                     PopupWindow {
+                        id: popup
                         anchor {
                             window: launcher
                             item: power
                             edges: Edges.Top
                             gravity: Edges.Top
                         }
-                        visible: power.containsMouse
-                        width: 200
-                        height: 60
-                        WrapperRectangle {
-                            color: palette.window
-                            radius: 16
-                            margin: 8
-                            Text {
-                                color: palette.text
-                                text: "what"
+                        visible: power.containsMouse || popupArea.containsMouse
+                        onVisibleChanged: {
+                            // If just became visible
+                            if (popup.visible) {
+                                Root.State.focusGrabIgnore.push(popup) // Add the popup to the ignore list, so that it can receive mouse focus
+                            }
+                            // Else just hidden
+                            else {
+                                // Remove self from the ignore list
+                                const popupIndex = Root.State.focusGrabIgnore.indexOf(popup)
+                                Root.State.focusGrabIgnore.splice(popupIndex)
+                            }
+                        }
+                        implicitWidth: popupArea.width
+                        implicitHeight: popupArea.height
+                        color: "transparent"
+                        WrapperMouseArea {
+                            id: popupArea
+                            enabled: true
+                            focus: true
+                            hoverEnabled: true
+                            onEntered: { console.log("entered") }
+                            onExited: { console.log("exited") }
+                            WrapperRectangle {
+                                id: box
+                                //color: palette.window
+                                color: "#aa111111"
+                                radius: 16
+                                margin: 16
+                                ColumnLayout {
+                                    Text {
+                                        color: palette.text
+                                        text: "Shutdown"
+                                    }
+                                    Text {
+                                        color: palette.text
+                                        text: "Restart"
+                                    }
+                                    Text {
+                                        color: palette.text
+                                        text: "Sleep"
+                                    }
+                                }
                             }
                         }
                     }
                     SidePanelItem {
                         id: power
-                        //onClicked: 
                         imgPath: Quickshell.iconPath('system-shutdown-symbolic')
                         imgSize: 22
                     }

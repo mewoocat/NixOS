@@ -62,6 +62,7 @@ PanelWindow {
         windows: [ 
             window, // Self
             //Root.State.bar // Disabling for now as it causes popup window to loose focus until hovered
+            ...Root.State.focusGrabIgnore
         ]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
