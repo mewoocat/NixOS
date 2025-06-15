@@ -110,6 +110,8 @@ Common.PopupWindow {
                             item: power
                             edges: Edges.Top
                             gravity: Edges.Top
+                            rect.y: 1 // Push the window down a pixel to not have it skip between hoving
+                                      // the button and popup
                         }
                         visible: power.containsMouse || popupArea.containsMouse
                         onVisibleChanged: {
