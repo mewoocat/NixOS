@@ -25,8 +25,11 @@ Singleton {
     property var settings: null
 
     property list<QtObject> focusGrabIgnore: []
+    property bool popupActive: false
 
     property int controlPanelPage: 0
+
+    property int rounding: 8
 
     FileView {
         id: configFile

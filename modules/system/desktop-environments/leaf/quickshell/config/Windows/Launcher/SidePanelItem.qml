@@ -7,11 +7,12 @@ import Quickshell.Widgets
 WrapperMouseArea {
     id: root
     required property string imgPath
+    required property var action
     property int imgSize: 32
 
     enabled: true
     hoverEnabled: true
-    onClicked: console.log("clicked")
+    onClicked: action()
     margin: 4
     WrapperRectangle {
         margin: 4

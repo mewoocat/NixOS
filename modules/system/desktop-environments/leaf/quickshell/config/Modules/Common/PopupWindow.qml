@@ -43,8 +43,11 @@ PanelWindow {
         interval: 10
         repeat: false
         onTriggered: {
+            console.log('panel grab triggered for ' + window.visible)
             //grab.windows.push(window)
-            grab.active = window.visible
+            if (!Root.State.popupActive) {
+                grab.active = window.visible
+            }
             //content.forceActiveFocus() // Seems to make it not focus the textfield when hovering
         }
     }
@@ -66,7 +69,10 @@ PanelWindow {
         ]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            window.closeWindow()
+            console.log('clearing panel')
+            if (!Root.State.popupActive) {
+                window.closeWindow()
+            }
         }
     }
     /////////////////////////////////////////////////////////////////////////

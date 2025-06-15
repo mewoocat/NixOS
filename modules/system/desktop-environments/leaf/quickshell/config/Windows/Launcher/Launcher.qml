@@ -87,6 +87,7 @@ Common.PopupWindow {
                             property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
                             Component.onCompleted: console.log(`comp app id: ${appId}`)
                             imgPath: Quickshell.iconPath(desktopEntry.icon)
+                            action: desktopEntry.execute
                         }
                     }
                 }
@@ -105,26 +106,76 @@ Common.PopupWindow {
                     //       doesn't receive focus right away and thus gets hidden before it can be hovered
                     PopupWindow {
                         id: popup
+
+                        /////////////////////////////////////////////////////////////////////////
+                        // Close on click away:
+                        // Create a timer that sets the grab active state after a delay
+                        // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
+                        // signal for the window occurs before the window is actually created
+                        // This would cause the grab to not find the window
+                        Timer {
+                            id: delay
+                            triggeredOnStart: false
+                            interval: 100
+                            repeat: false
+                            onTriggered: {
+                                console.log('popup grab triggered')
+                                Root.State.popupActive = true
+                                grab.active = popup.visible
+                            }
+                        }
+                        // Connects to the launcher onVisibleChanged signal
+                        // Starts a small delay which then sets the grab active state to match the 
+                        Connections {
+                            target: popup
+                            function onVisibleChanged() {
+                                // Only start grab if popup was just made visible
+                                if (popup.visible) {
+                                    delay.start()
+                                }
+                            }
+                        }
+                        HyprlandFocusGrab {
+                            id: grab
+                            active: false
+                            windows: [ 
+                                popup, // Self
+                            ]
+                            // Function to run when the Cleared signal is emitted
+                            onCleared: () => {
+                                console.log('cleared popup')
+                                popup.visible = false
+                                Root.State.popupActive = false
+                            }
+                        }
+
                         anchor {
                             window: launcher
                             item: power
-                            edges: Edges.Top
-                            gravity: Edges.Top
+                            edges: Edges.Bottom | Edges.Right
+                            gravity: Edges.Top | Edges.Right
+                            /*
                             rect.y: 1 // Push the window down a pixel to not have it skip between hoving
                                       // the button and popup
+                            */
                         }
-                        visible: power.containsMouse || popupArea.containsMouse
+                        //visible: power.containsMouse || popupArea.containsMouse
+                        visible: false
+                        //TODO: causes crash
                         onVisibleChanged: {
+                            console.log('on vis change')
                             // If just became visible
                             if (popup.visible) {
                                 Root.State.focusGrabIgnore.push(popup) // Add the popup to the ignore list, so that it can receive mouse focus
                             }
                             // Else just hidden
+                            /*
                             else {
                                 // Remove self from the ignore list
                                 const popupIndex = Root.State.focusGrabIgnore.indexOf(popup)
-                                Root.State.focusGrabIgnore.splice(popupIndex)
+                                Root.State.focusGrabIgnore.splice(popupIndex, 1)
                             }
+                            */
                         }
                         implicitWidth: popupArea.width
                         implicitHeight: popupArea.height
@@ -140,21 +191,13 @@ Common.PopupWindow {
                                 id: box
                                 //color: palette.window
                                 color: "#aa111111"
-                                radius: 16
-                                margin: 16
+                                radius: 8
+                                margin: 8
                                 ColumnLayout {
-                                    Text {
-                                        color: palette.text
-                                        text: "Shutdown"
-                                    }
-                                    Text {
-                                        color: palette.text
-                                        text: "Restart"
-                                    }
-                                    Text {
-                                        color: palette.text
-                                        text: "Sleep"
-                                    }
+                                    PopupMenuItem { text: "Shutdown"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
+                                    PopupMenuItem { text: "Hibernate"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
+                                    PopupMenuItem { text: "Restart"; action: ()=>{}; iconName: "system-restart-symbolic"}
+                                    PopupMenuItem { text: "Sleep"; action: ()=>{}; iconName: "system-suspend-symbolic"}
                                 }
                             }
                         }
@@ -163,6 +206,9 @@ Common.PopupWindow {
                         id: power
                         imgPath: Quickshell.iconPath('system-shutdown-symbolic')
                         imgSize: 22
+                        action: () => {
+                            popup.visible = true
+                        }
                     }
                     SidePanelItem {
                         onClicked: Root.State.settings.openWindow()
