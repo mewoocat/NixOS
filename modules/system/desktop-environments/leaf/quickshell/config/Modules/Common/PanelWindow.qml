@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import QtQuick
 
 import "../../" as Root
@@ -21,13 +22,15 @@ PanelWindow {
     }
 
     // Visibility
-    visible: Root.State.controlPanelVisibility // TODO: need to change this
+    //visible: Root.State.controlPanelVisibility // TODO: need to change this
+    visible: false
+    property bool prevVisible: false
     onVisibleChanged: {
-        console.log(`panel window vis changed to ${window.visible}`)
-
-        if (window.visible) {
-            Services.Hyprland.addGrabWindow(window, [window])
+        if (visible !== prevVisible) {
+            console.log(`panel window vis changed to ${window.visible}`)
+            delay.start() // Set grab active status
         }
+        prevVisible = visible
     }
 
     focusable: true // Enable keyboard focus
@@ -41,8 +44,54 @@ PanelWindow {
     WlrLayershell.namespace: 'quickshell-' + name // Set layer name
 
 
+    //////////////////////////////////////////////////////////////// 
+    // Focus Grab
+    //////////////////////////////////////////////////////////////// 
+    Timer {
+        id: delay
+        triggeredOnStart: false
+        interval: 10
+        repeat: false
+        onTriggered: {
+            if (grab.active !== window.visible) { 
+                console.log('PANEL: grab triggered for ' + window.visible)
+                grab.active = window.visible
+            }
+        }
+    }
+    // Connects to the active grab window onVisibleChanged signal
+    // Starts a small delay which then sets the grab active state to match the window visible state
+    /*
+    Connections {
+        target: window
+        function onVisibleChanged() {
+            console.log(`window visible changed to: ${window.visible}`)
+            if (!window.visible) {
+                delay.start() // Set grab active status
+            }
+        }
+    }
+    */
+    HyprlandFocusGrab {
+        id: grab
+        Component.onCompleted: {
+            Root.State.panelGrab = grab
+        }
+        active: false
+        onActiveChanged: console.log(`PANEL: grab active set to: ${grab.active}`)
+        windows: [window]
+        onWindowsChanged: console.log(`PANEL: grab windows changed`)
+        // Function to run when the Cleared signal is emitted
+        onCleared: () => {
+            console.log('PANEL: clearing grab')
+            window.closeWindow() // Assumes this method exists
+        }
+    }
 
+
+    //////////////////////////////////////////////////////////////// 
     // FocusScope is used to ensure the last item with focus set to true
+    //////////////////////////////////////////////////////////////// 
     // receives the actual focus.  This is useful for a text field in
     // a window, as we would want that to have focus but then any non handled
     // key events would automatically propogate up back to the window and

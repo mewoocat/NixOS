@@ -85,7 +85,7 @@ Singleton {
 
 
 
-
+    /*
     //////////////////////////////////////////////////////////////// 
     // Focus Grab
     //////////////////////////////////////////////////////////////// 
@@ -101,17 +101,15 @@ Singleton {
                                          // back to the previous grabbed window when a nested grab focus occurs
     onIgnoredGrabWindowsChanged: {
         console.log('ignore list changed')
-        delay.start()
+        //delay.start()
     }
     function addGrabWindow(window: QtObject, ignoredWindows: list<QtObject>) { 
         // Save the previous grab context
-        /*
-        const previousGrab = {
-            activeGrabWindow: root.activeGrabWindow,
-            ignoredGrabWindows: root.ignoredGrabWindows
-        }
-        previousGrabs.push(previousGrab)
-        */
+        //const previousGrab = {
+        //    activeGrabWindow: root.activeGrabWindow,
+        //    ignoredGrabWindows: root.ignoredGrabWindows
+        //}
+        //previousGrabs.push(previousGrab)
 
         // Set the new grab context
         //const prevGrabState = grab.active
@@ -120,6 +118,7 @@ Singleton {
         //root.ignoredGrabWindows = [window]
         root.ignoredGrabWindows = [...ignoredWindows] // For some reason we need to copy the array in
         //grab.active = prevGrabState
+        delay.start() // Set grab active status
     }
     Timer {
         id: delay
@@ -150,16 +149,14 @@ Singleton {
             root.activeGrabWindow.closeWindow() // Assumes this method exists
 
             // Revert to the previous grab context
-            /*
-            if (root.previousGrabs.length > 0) {
-                const previousGrab = root.previousGrabs.pop()
-                root.activeGrabWindow = previousGrab.activeGrabWindow
-                root.ignoredGrabWindows = previousGrab.ignoredGrabWindows
-
-            }
-            */
+            //if (root.previousGrabs.length > 0) {
+            //    const previousGrab = root.previousGrabs.pop()
+            //    root.activeGrabWindow = previousGrab.activeGrabWindow
+            //    root.ignoredGrabWindows = previousGrab.ignoredGrabWindows
+            //}
         }
     }
     /////////////////////////////////////////////////////////////////////////
+    */
 
 }

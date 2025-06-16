@@ -1,8 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Widgets
 import "../../Services" as Services
+import "../../" as Root
 
 // TODO: wrap in loader so that popup is only loaded when it needs to be seen
 // TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 
@@ -29,6 +31,7 @@ PopupWindow {
     //visible: power.containsMouse || popupArea.containsMouse // For hovering to open
     visible: false
     //TODO: causes crash
+    /*
     onVisibleChanged: {
         console.log('Common.PopupWindow on vis change')
         if (root.visible) {
@@ -42,14 +45,56 @@ PopupWindow {
             Root.State.focusGrabIgnore.push(popup) // Add the popup to the ignore list, so that it can receive mouse focus
         }
         // Else just hidden
-        /*
         else {
             // Remove self from the ignore list
             const popupIndex = Root.State.focusGrabIgnore.indexOf(popup)
             Root.State.focusGrabIgnore.splice(popupIndex, 1)
         }
-        */
     }
+    */
+
+    //////////////////////////////////////////////////////////////// 
+    // Focus Grab
+    //////////////////////////////////////////////////////////////// 
+    Timer {
+        id: delay
+        triggeredOnStart: false
+        interval: 10
+        repeat: false
+        onTriggered: {
+            if (root.visible) {
+                console.log('POPUP: grab triggered for ' + root.visible)
+                Root.State.panelGrab.active = false
+                grab.active = root.visible
+            }
+        }
+    }
+    // Connects to the active grab window onVisibleChanged signal
+    // Starts a small delay which then sets the grab active state to match the window visible state
+    Connections {
+        target: root
+        function onVisibleChanged() {
+            console.log(`POPUP: window visible changed to: ${root.visible}`)
+            delay.start() // Set grab active status
+        }
+    }
+    HyprlandFocusGrab {
+        id: grab
+        Component.onCompleted: {
+            Root.State.popupGrab = grab
+        }
+        active: false
+        onActiveChanged: console.log(`POPUP: grab active set to: ${grab.active}`)
+        windows: [root]
+        // Function to run when the Cleared signal is emitted
+        onCleared: () => {
+            console.log('POPUP: clearing grab')
+            Root.State.panelGrab.active = true
+            root.closeWindow() // Assumes this method exists
+        }
+    }
+
+
     implicitWidth: popupArea.width
     implicitHeight: popupArea.height
     color: "transparent"

@@ -24,8 +24,9 @@ Singleton {
     property var workspaces: null
     property var settings: null
 
-    property list<QtObject> focusGrabIgnore: []
-    property bool popupActive: false
+    //property list<QtObject> focusGrabIgnore: []
+    property var panelGrab: null
+    property var popupGrab: null
 
     property int controlPanelPage: 0
 
