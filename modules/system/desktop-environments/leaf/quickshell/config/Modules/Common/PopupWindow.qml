@@ -62,10 +62,15 @@ PopupWindow {
         interval: 10
         repeat: false
         onTriggered: {
+            // Only active grab if window is visible
             if (root.visible) {
                 console.log('POPUP: grab triggered for ' + root.visible)
-                Root.State.panelGrab.active = false
-                grab.active = root.visible
+                Root.State.panelGrab.active = false // Need to set the parent window grab to false or else it's cleared will get triggered somehow
+                grab.active = true
+            }
+            // Other wise the window was hidden, deactivate the grab
+            else {
+                grab.active = false
             }
         }
     }
@@ -89,8 +94,8 @@ PopupWindow {
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
             console.log('POPUP: clearing grab')
-            Root.State.panelGrab.active = true
             root.closeWindow() // Assumes this method exists
+            Root.State.panelGrab.active = true // Re-enable the parent grab
         }
     }
 
