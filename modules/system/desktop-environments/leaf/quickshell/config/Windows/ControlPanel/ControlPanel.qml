@@ -6,7 +6,7 @@ import "../../" as Root
 import "../../Modules/Common" as Common
 import "./Pages" as Pages
 
-Common.PopupWindow {
+Common.PanelWindow {
     id: root
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility

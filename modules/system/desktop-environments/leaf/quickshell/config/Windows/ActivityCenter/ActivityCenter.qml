@@ -6,7 +6,7 @@ import "../../Services" as Services
 import "../../Modules" as Modules
 import "../../Modules/Common" as Common
 
-Common.PopupWindow {
+Common.PanelWindow {
     toggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
     } 

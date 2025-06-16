@@ -1,105 +1,77 @@
-import Quickshell
-import Quickshell.Wayland
 import QtQuick
-import Quickshell.Hyprland
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Widgets
+import "../../Services" as Services
 
-import "../../" as Root
+// TODO: wrap in loader so that popup is only loaded when it needs to be seen
+// TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 
+//       doesn't receive focus right away and thus gets hidden before it can be hovered
+PopupWindow {
+    id: root
 
-// TODO: I think that the required keyword doesn't trigger an error on missing 
-// prop with the PanelWindow type (need to test)
-PanelWindow {
-    id: window
-    required property string name // Needs to be camelCase
-    required property var content // Thing to place in window
-    required property var closeWindow
-    //required property var action
-    required property var toggleWindow
- 
-    Component.onCompleted: {
-        console.log(`setting state for window: ${name}`)
-        Root.State[name] = window // Set the window ref in state
+    anchor {
+        //window: root.window
+        //item: root.item
+        //edges: Edges.Bottom | Edges.Right
+        //gravity: Edges.Top | Edges.Right
+        /*
+        rect.y: 1 // Push the window down a pixel to not have it skip between hoving
+                  // the button and popup
+        */
     }
 
-    visible: Root.State.controlPanelVisibility
-    focusable: true // Enable keyboard focus
+    function closeWindow() {
+        console.log('popup close window')
+        root.visible = false
+    }
+
+    //visible: power.containsMouse || popupArea.containsMouse // For hovering to open
+    visible: false
+    //TODO: causes crash
+    onVisibleChanged: {
+        console.log('Common.PopupWindow on vis change')
+        if (root.visible) {
+            Services.Hyprland.addGrabWindow(root, [root])
+        }
+
+        /*
+        // Hovering to open logic
+        // If just became visible
+        if (popup.visible) {
+            Root.State.focusGrabIgnore.push(popup) // Add the popup to the ignore list, so that it can receive mouse focus
+        }
+        // Else just hidden
+        /*
+        else {
+            // Remove self from the ignore list
+            const popupIndex = Root.State.focusGrabIgnore.indexOf(popup)
+            Root.State.focusGrabIgnore.splice(popupIndex, 1)
+        }
+        */
+    }
+    implicitWidth: popupArea.width
+    implicitHeight: popupArea.height
     color: "transparent"
-    margins {
-        top: 16
-        right: 16
-        left: 16
-        bottom: 16
-    }
-    WlrLayershell.namespace: 'quickshell-' + name // Set layer name
-
-    /////////////////////////////////////////////////////////////////////////
-    // Close on click away:
-    // Create a timer that sets the grab active state after a delay
-    // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
-    // signal for the window occurs before the window is actually created
-    // This would cause the grab to not find the window
-    Timer {
-        id: delay
-        triggeredOnStart: false
-        interval: 10
-        repeat: false
-        onTriggered: {
-            console.log('panel grab triggered for ' + window.visible)
-            //grab.windows.push(window)
-            if (!Root.State.popupActive) {
-                grab.active = window.visible
-            }
-            //content.forceActiveFocus() // Seems to make it not focus the textfield when hovering
-        }
-    }
-    // Connects to the launcher onVisibleChanged signal
-    // Starts a small delay which then sets the grab active state to match the 
-    Connections {
-        target: window
-        function onVisibleChanged() {
-            delay.start()
-        }
-    }
-    HyprlandFocusGrab {
-        id: grab
-        active: false
-        windows: [ 
-            window, // Self
-            //Root.State.bar // Disabling for now as it causes popup window to loose focus until hovered
-            ...Root.State.focusGrabIgnore
-        ]
-        // Function to run when the Cleared signal is emitted
-        onCleared: () => {
-            console.log('clearing panel')
-            if (!Root.State.popupActive) {
-                window.closeWindow()
-            }
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////
-
-    // FocusScope is used to ensure the last item with focus set to true
-    // receives the actual focus.  This is useful for a text field in
-    // a window, as we would want that to have focus but then any non handled
-    // key events would automatically propogate up back to the window and
-    // handled here.
-    // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
-    FocusScope {
-        anchors.fill: parent
+    WrapperMouseArea {
+        id: popupArea
+        enabled: true
         focus: true
-        Keys.onPressed: (event) => {
-            if (event.key == Qt.Key_Escape) {
-                window.closeWindow()
-            }
-        }
-        Rectangle {
+        hoverEnabled: true
+        onEntered: { console.log("entered") }
+        onExited: { console.log("exited") }
+        WrapperRectangle {
             id: box
-            anchors.fill: parent
-            color: palette.window
-            radius: 12
-            children: [
-                window.content
-            ]
+            //color: palette.window
+            color: "#aa111111"
+            radius: 8
+            margin: 8
+            ColumnLayout {
+                PopupMenuItem { text: "Shutdown"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
+                PopupMenuItem { text: "Hibernate"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
+                PopupMenuItem { text: "Restart"; action: ()=>{}; iconName: "system-restart-symbolic"}
+                PopupMenuItem { text: "Sleep"; action: ()=>{}; iconName: "system-suspend-symbolic"}
+            }
         }
     }
 }
-

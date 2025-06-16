@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
+import "../" as Root
 
 Singleton {
     id: root
@@ -81,4 +82,84 @@ Singleton {
             } 
         }
     }
+
+
+
+
+    //////////////////////////////////////////////////////////////// 
+    // Focus Grab
+    //////////////////////////////////////////////////////////////// 
+    // Close on click away:
+    // Create a timer that sets the grab active state after a delay
+    // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
+    // signal for the window occurs before the window is actually created
+    // This would cause the grab to not find the window
+
+    property list<QtObject> ignoredGrabWindows: []
+    property QtObject activeGrabWindow: null
+    property list<var> previousGrabs: [] // Holds the previous grab configurations.  Used to reset the HyprlandFocusGrab
+                                         // back to the previous grabbed window when a nested grab focus occurs
+    onIgnoredGrabWindowsChanged: {
+        console.log('ignore list changed')
+        delay.start()
+    }
+    function addGrabWindow(window: QtObject, ignoredWindows: list<QtObject>) { 
+        // Save the previous grab context
+        /*
+        const previousGrab = {
+            activeGrabWindow: root.activeGrabWindow,
+            ignoredGrabWindows: root.ignoredGrabWindows
+        }
+        previousGrabs.push(previousGrab)
+        */
+
+        // Set the new grab context
+        //const prevGrabState = grab.active
+        grab.active = false
+        root.activeGrabWindow = window
+        //root.ignoredGrabWindows = [window]
+        root.ignoredGrabWindows = [...ignoredWindows] // For some reason we need to copy the array in
+        //grab.active = prevGrabState
+    }
+    Timer {
+        id: delay
+        triggeredOnStart: false
+        interval: 10
+        repeat: false
+        onTriggered: {
+            console.log('grab triggered for ' + root.activeGrabWindow.visible)
+            grab.active = root.activeGrabWindow.visible
+        }
+    }
+    // Connects to the active grab window onVisibleChanged signal
+    // Starts a small delay which then sets the grab active state to match the window visible state
+    Connections {
+        target: root.activeGrabWindow
+        function onVisibleChanged() {
+            //delay.start() // Set grab active status
+        }
+    }
+    HyprlandFocusGrab {
+        id: grab
+        active: false
+        windows: root.ignoredGrabWindows
+        //windows: [ root.activeGrabWindow ]
+        // Function to run when the Cleared signal is emitted
+        onCleared: () => {
+            console.log('clearing grab')
+            root.activeGrabWindow.closeWindow() // Assumes this method exists
+
+            // Revert to the previous grab context
+            /*
+            if (root.previousGrabs.length > 0) {
+                const previousGrab = root.previousGrabs.pop()
+                root.activeGrabWindow = previousGrab.activeGrabWindow
+                root.ignoredGrabWindows = previousGrab.ignoredGrabWindows
+
+            }
+            */
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////
+
 }

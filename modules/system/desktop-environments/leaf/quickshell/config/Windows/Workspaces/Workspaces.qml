@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import "../../" as Root
 import "../../Modules/Common" as Common
 
-Common.PopupWindow {
+Common.PanelWindow {
     toggleWindow: () => {
         Root.State.workspacesVisibility = !Root.State.workspacesVisibility
     } 

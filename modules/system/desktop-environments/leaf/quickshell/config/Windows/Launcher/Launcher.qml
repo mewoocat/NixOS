@@ -13,7 +13,7 @@ import "../../Modules/Common" as Common
 import "../../Modules" as Modules
 import "../../Services" as Services
 
-Common.PopupWindow {
+Common.PanelWindow {
     // Doesn't seem to force focus
     //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
@@ -101,114 +101,25 @@ Common.PopupWindow {
 
                     // Power options popup menu
                     // TODO: refractor this into it's own file
-                    // TODO: wrap in loader so that popup is only loaded when it needs to be seen
-                    // TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 
-                    //       doesn't receive focus right away and thus gets hidden before it can be hovered
-                    PopupWindow {
-                        id: popup
-
-                        /////////////////////////////////////////////////////////////////////////
-                        // Close on click away:
-                        // Create a timer that sets the grab active state after a delay
-                        // Used to workaround a race condition with HyprlandFocusGrab where the onVisibleChanged
-                        // signal for the window occurs before the window is actually created
-                        // This would cause the grab to not find the window
-                        Timer {
-                            id: delay
-                            triggeredOnStart: false
-                            interval: 100
-                            repeat: false
-                            onTriggered: {
-                                console.log('popup grab triggered')
-                                Root.State.popupActive = true
-                                grab.active = popup.visible
-                            }
-                        }
-                        // Connects to the launcher onVisibleChanged signal
-                        // Starts a small delay which then sets the grab active state to match the 
-                        Connections {
-                            target: popup
-                            function onVisibleChanged() {
-                                // Only start grab if popup was just made visible
-                                if (popup.visible) {
-                                    delay.start()
-                                }
-                            }
-                        }
-                        HyprlandFocusGrab {
-                            id: grab
-                            active: false
-                            windows: [ 
-                                popup, // Self
-                            ]
-                            // Function to run when the Cleared signal is emitted
-                            onCleared: () => {
-                                console.log('cleared popup')
-                                popup.visible = false
-                                Root.State.popupActive = false
-                            }
-                        }
-
-                        anchor {
-                            window: launcher
-                            item: power
-                            edges: Edges.Bottom | Edges.Right
-                            gravity: Edges.Top | Edges.Right
-                            /*
-                            rect.y: 1 // Push the window down a pixel to not have it skip between hoving
-                                      // the button and popup
-                            */
-                        }
-                        //visible: power.containsMouse || popupArea.containsMouse
-                        visible: false
-                        //TODO: causes crash
-                        onVisibleChanged: {
-                            console.log('on vis change')
-                            // If just became visible
-                            if (popup.visible) {
-                                Root.State.focusGrabIgnore.push(popup) // Add the popup to the ignore list, so that it can receive mouse focus
-                            }
-                            // Else just hidden
-                            /*
-                            else {
-                                // Remove self from the ignore list
-                                const popupIndex = Root.State.focusGrabIgnore.indexOf(popup)
-                                Root.State.focusGrabIgnore.splice(popupIndex, 1)
-                            }
-                            */
-                        }
-                        implicitWidth: popupArea.width
-                        implicitHeight: popupArea.height
-                        color: "transparent"
-                        WrapperMouseArea {
-                            id: popupArea
-                            enabled: true
-                            focus: true
-                            hoverEnabled: true
-                            onEntered: { console.log("entered") }
-                            onExited: { console.log("exited") }
-                            WrapperRectangle {
-                                id: box
-                                //color: palette.window
-                                color: "#aa111111"
-                                radius: 8
-                                margin: 8
-                                ColumnLayout {
-                                    PopupMenuItem { text: "Shutdown"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
-                                    PopupMenuItem { text: "Hibernate"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
-                                    PopupMenuItem { text: "Restart"; action: ()=>{}; iconName: "system-restart-symbolic"}
-                                    PopupMenuItem { text: "Sleep"; action: ()=>{}; iconName: "system-suspend-symbolic"}
-                                }
-                            }
-                        }
-                    }
                     SidePanelItem {
                         id: power
                         imgPath: Quickshell.iconPath('system-shutdown-symbolic')
                         imgSize: 22
                         action: () => {
-                            popup.visible = true
+                            console.log("click")
+                            powerPopup.visible = true
                         }
+                        Common.PopupWindow {
+                            id: powerPopup
+
+                            anchor {
+                                window: launcher
+                                item: power
+                                edges: Edges.Bottom | Edges.Right
+                                gravity: Edges.Top | Edges.Right
+                            }
+                        }
+
                     }
                     SidePanelItem {
                         onClicked: Root.State.settings.openWindow()
