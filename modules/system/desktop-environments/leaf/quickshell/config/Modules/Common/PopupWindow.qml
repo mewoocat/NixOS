@@ -9,6 +9,7 @@ import "../../" as Root
 // TODO: wrap in loader so that popup is only loaded when it needs to be seen
 // TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 
 //       doesn't receive focus right away and thus gets hidden before it can be hovered
+// TODO: Add param to set the parent window so that if it has a focus grab we can deactive and active it as needed
 PopupWindow {
     id: root
 
@@ -56,6 +57,8 @@ PopupWindow {
     //////////////////////////////////////////////////////////////// 
     // Focus Grab
     //////////////////////////////////////////////////////////////// 
+    // Note: It appears that setting a HyprlandFocusGrab to active will trigger
+    // the cleared signal on any other HyprlandFocusGrab
     Timer {
         id: delay
         triggeredOnStart: false

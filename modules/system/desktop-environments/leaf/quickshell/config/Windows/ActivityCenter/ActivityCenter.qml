@@ -4,6 +4,7 @@ import Quickshell
 import "../../" as Root
 import "../../Services" as Services
 import "../../Modules" as Modules
+import "../../Modules/Tetris"
 import "../../Modules/Common" as Common
 
 Common.PanelWindow {
@@ -74,6 +75,12 @@ Common.PanelWindow {
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 3
+            columns: 3
+            content: Tetris {}
+        }
         Common.PanelItem { 
             isClickable: false; 
             rows: 2
