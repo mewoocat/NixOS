@@ -13,7 +13,7 @@ Item {
     */
 
     required property list<Block> blocks // References to the Blocks that compose this shape
-    required property list<Rotation> rotations // A list of possible rotations
+    required property list<var> rotations // A list of possible rotations
 
     //////////////////////////////////////////////////////////////// 
     // Functions
@@ -30,7 +30,7 @@ Item {
     }
 
     function moveDown() {
-
+        console.log('moving down')
     }
 
     function rotateRight() {

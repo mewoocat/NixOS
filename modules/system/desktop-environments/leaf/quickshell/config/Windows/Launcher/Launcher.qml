@@ -85,7 +85,7 @@ Common.PanelWindow {
                             required property string modelData
                             property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
                             property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
-                            Component.onCompleted: console.log(`comp app id: ${appId}`)
+                            //Component.onCompleted: console.log(`comp app id: ${appId}`)
                             imgPath: Quickshell.iconPath(desktopEntry.icon)
                             action: desktopEntry.execute
                         }

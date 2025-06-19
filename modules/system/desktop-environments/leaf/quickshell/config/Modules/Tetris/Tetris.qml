@@ -10,13 +10,30 @@ import "../Common" as Common
 // Wiget container
 WrapperItem {
     id: root
+    implicitHeight: 160
+    implicitWidth: 80
 
-    //property list<list<int>> gameGrid: [[]] // Stupid syntax error
-    property var gameGrid: [[]] // 2D array that holds gameboard state
-    property int gridWidth: 10
-    property int gridHeight: 20
+    property int gridRows: 20
+    property int gridColumns: 10
     //property list<QtObject> blocks: [] // Holds all blocks on the board
     property int blockSize: 20
+    // 2D array that holds gameboard state
+    // Each item is undefined (empty), or a ref to the block obj
+    //property list<list<int>> gameGrid: [[]] // Stupid syntax error
+    property var gameGrid: {
+        let grid = new Array(root.gridRows)
+        // Initialize with nulls
+            // I could have sworn that you can just insert into whatever index you want 
+            // but it's throwing a type error if I do that
+        for (let x = 0; x < root.gridRows; x++) {
+            grid[x] = new Array(root.gridColumns)
+            for (let y = 0; y < root.gridColumns; y++) {
+                //grid[x][y] = null
+            }
+        }
+        console.log(`grid: ${grid}`)
+        return grid
+    }
 
     // Inline component that defines how to create a shape
     /*
@@ -28,57 +45,126 @@ WrapperItem {
 
     property Shape activeShape: null
 
-    GridLayout {
-        id: gameBoard
-        
-        Common.NormalButton {text: "start"; leftClick: gameBoard.addShape}
-        O {}
 
-        function addShape() {
-            console.log('adding shape')
-            const shapeComponent = "O"
-            const component = Qt.createComponent(shapeComponent)
-            root.activeShape = component.createObject(gameBoard, {})
-        }
-        //Component.onCompleted: addShape()
+    //Common.NormalButton {text: "start"; leftClick: gameBoard.addShape}
 
-        Timer {
-            id: timer
-            triggeredOnStart: true
-            interval: 1000
-            repeat: true
-            onTriggered: {
-                console.log('moving down')
-                //root.activeShape.moveDown()
+    WrapperRectangle {
+        margin: 8
+        color:"green"
+        GridLayout {
+            id: gameBoard
+            implicitWidth: 200
+            implicitHeight: 200
+            
+
+            /* vestigial
+            Component {
+                id: shapeComp
+                O {
+
+                }
             }
-        }
+            */
 
-        rows: root.gridWidth 
-        columns: root.gridHeight
-
-        // Render all active blocks
-        // Each row
-        Repeater {
-            id: rows
-            model: ScriptModel {
-                values: root.gameGrid
+            function addShape() {
+                console.log('adding shape')
+                //console.log(root.gameGrid)
+                //const shapeComponent = "O.qml"
+                // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
+                let component = Qt.createComponent("Shapes/O.qml")
+                root.activeShape = component.createObject(null, {})
+                console.log(`active shape: ${root.activeShape}`)
+                root.activeShape.blocks.forEach((block) => {
+                    console.log(`block: ${block.xPos}, ${block.yPos}`)
+                    root.gameGrid[block.xPos][block.yPos] = block
+                })
+                
+                // Ok this works to create the shape
+                //root.activeShape = shapeComp.createObject(gameBoard, {})
             }
-            // Each column
+            //Component.onCompleted: addShape()
+
+            Timer {
+                id: timer
+                running: true
+                triggeredOnStart: false
+                interval: 3000
+                repeat: true
+                onTriggered: {
+                    //console.log('moving down')
+                    //root.activeShape.moveDown()
+                    //console.log(root.gameGrid)
+                    gameBoard.addShape()
+                }
+            }
+
+            rows: root.gridRows
+            columns: root.gridColumns
+            rowSpacing: 0
+            columnSpacing: 0
+
+            // Render all active blocks
+
+            /*
             Repeater {
-                id: columns
-                required property list<Block> modelData
                 model: ScriptModel {
-                    values: [...columns.modelData]
+                    values: root.gameGrid.join()
+                    onValuesChanged: console.log('values changed')
                 }
                 // Render the block
-                WrapperItem {
+                WrapperRectangle {
+                    //color: "grey"
+                    margin: 2
                     required property Block modelData
+                    Component.onCompleted: console.log(`rendering block... ${modelData}`)
+                    //children: [ Block { xPos: 0; yPos: 0; style: "red"}]
                     children: [ modelData ]
                 }
+                
             }
-        }
+            */
 
-        //children: root.blocks
+            /*
+            children: {
+                let blocks = root.gameGrid.join()
+                console.log(`block list: ${blocks}`)
+                return blocks
+            }
+            */
+            Component.onCompleted: {
+                addShape()
+                console.log(`children: ${children}`)
+            }
+            /*
+            children: [
+                Block { xPos: 0; yPos: 0; style: "red"}
+            ]
+            */
+            
+            // Each row
+            Repeater {
+                id: rows
+                model: ScriptModel {
+                    values: root.gameGrid
+                }
+                // Each column
+                Repeater {
+                    id: columns
+                    required property list<Block> modelData
+                    model: ScriptModel {
+                        values: [...columns.modelData]
+                    }
+                    // Render the block
+                    WrapperItem {
+                        required property Block modelData
+                        Component.onCompleted: console.log(`rendering block... ${modelData}`)
+                        children: [ modelData ]
+                    }
+                }
+            }
+
+            //children: root.blocks
+        }
     }
 } 
 

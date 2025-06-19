@@ -54,7 +54,7 @@ Singleton {
             console.log(`File load failed with ${err}`)
         }
         onLoaded: {
-            console.log(`Loaded ${root.appOrderPath} text = ${appOrderFile.text()}`) 
+            //console.log(`Loaded ${root.appOrderPath} text = ${appOrderFile.text()}`) 
         }
 
         // Adapter between qml object and json

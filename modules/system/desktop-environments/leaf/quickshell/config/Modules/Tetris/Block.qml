@@ -11,7 +11,7 @@ Rectangle {
     required property int xPos
     required property int yPos
     required property string style // Just a color right now
-    property int size: 20
+    property int size: 8
 
     implicitWidth: root.size
     implicitHeight: root.size
