@@ -7,7 +7,6 @@ import Quickshell.Widgets
 // Will be used within a GridLayout
 Rectangle {
     id: root
-    anchors.centerIn: parent
 
     required property int xPos
     required property int yPos
@@ -19,4 +18,8 @@ Rectangle {
     color: root.style
     //Layout.row: root.xPos
     //Layout.column: root.yPos
+    
+    x: xPos * size
+    y: yPos * size
+    Component.onCompleted: console.log(`created block with pos: ${x},${y}`)
 }

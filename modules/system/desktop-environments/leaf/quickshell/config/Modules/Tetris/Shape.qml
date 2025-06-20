@@ -12,8 +12,10 @@ Item {
     }
     */
 
-    required property list<Block> blocks // References to the Blocks that compose this shape
+    required property list<BlockDef> blockDefs
     required property list<var> rotations // A list of possible rotations
+
+    property list<Block> blocks // References to the Blocks that compose this shape
 
     //////////////////////////////////////////////////////////////// 
     // Functions
@@ -32,7 +34,7 @@ Item {
     function moveDown() {
         console.log('moving down')
         root.blocks.forEach((block) => {
-            console.log(`block: ${block}`)
+            console.log(`moving down block: ${block} from ${block.yPos}`)
             block.yPos = block.yPos + 1
         })
     }
