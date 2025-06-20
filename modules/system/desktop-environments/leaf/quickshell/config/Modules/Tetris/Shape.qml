@@ -31,6 +31,10 @@ Item {
 
     function moveDown() {
         console.log('moving down')
+        root.blocks.forEach((block) => {
+            console.log(`block: ${block}`)
+            block.yPos = block.yPos + 1
+        })
     }
 
     function rotateRight() {

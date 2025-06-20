@@ -77,7 +77,7 @@ Common.PanelWindow {
         //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { 
             isClickable: false; 
-            rows: 3
+            rows: 6
             columns: 3
             content: Tetris {}
         }
