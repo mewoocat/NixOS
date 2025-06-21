@@ -3,6 +3,8 @@ pragma Singleton
 import Quickshell
 import QtQuick
 
+import './Shapes'
+
 Singleton {
     id: root
 
@@ -52,27 +54,32 @@ Singleton {
         }
 
         console.log(`shapeIndex: ${shapeIndex}`)
-        const shapeComponent = `Shapes/${shapes[shapeIndex]}.qml`
+        const shapeComponent = `Shapes/T.qml`
         // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
         let component = Qt.createComponent(shapeComponent)
         root.activeShape = component.createObject(null, {})
 
-        console.log(`active shape: ${State.activeShape}`)
+        console.log(`active shape: ${root.activeShape}`)
 
         // For each block definition within the shape
-        root.activeShape.blockDefs.forEach((def) => {
+        for (let i; i < root.activeShape.blockDefs; i++) {
+            const def = root.activeShape.blockDefs[i]
             // Instantiate
             let blockComp = Qt.createComponent("Block.qml")
+            console.log(`adding block at ${root.activeShape.rotations[0]}`)
             let blockRef = blockComp.createObject(root.gameBoard, {
-                xPos: def.xPos,
-                yPos: def.yPos,
-                style: def.style
+                //xPos: def.xPos,
+                //yPos: def.yPos,
+                xPos: root.activeShape.rotations[0][i].x,
+                yPos: root.activeShape.rotations[0][i].y,
+                style: def.style,
             })
 
             // Add the block ref to the active shape
             root.activeShape.blocks.push(blockRef)
-        })     
+        }
     }
+
 
     Timer {
         id: timer
