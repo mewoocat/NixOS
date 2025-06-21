@@ -39,10 +39,20 @@ Singleton {
         timer.running = true
     }
 
+    property int lastShapeIndex: 0
     function addShape() {
         console.log('adding shape')
         // Todo: add random shape picker here
-        const shapeComponent = "Shapes/O.qml"
+        const shapes = ["O", "T", "L", "S", "Z", "J"]
+        // Get random number 0 -> shapes.length
+        // And ensure that it wasn't the last picked shape
+        let shapeIndex = lastShapeIndex
+        while (shapeIndex === lastShapeIndex) {
+            shapeIndex = Math.floor(Math.random() * shapes.length)
+        }
+
+        console.log(`shapeIndex: ${shapeIndex}`)
+        const shapeComponent = `Shapes/${shapes[shapeIndex]}.qml`
         // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
         let component = Qt.createComponent(shapeComponent)
         root.activeShape = component.createObject(null, {})

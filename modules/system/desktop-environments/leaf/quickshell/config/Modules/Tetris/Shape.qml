@@ -22,18 +22,31 @@ Item {
     //////////////////////////////////////////////////////////////// 
 
     function moveLeft() {
+        for (const block of root.blocks) {
+            if (block.xPos - 1 < 0) {
+                console.log('hit right')
+                return
+            }
+        }
         root.blocks.forEach((block) => block.xPos--)
     }
 
     function moveRight() {
+        for (const block of root.blocks) {
+            if (block.xPos + 1 >= Tetris.gridColumns) {
+                console.log('hit right')
+                return
+            }
+        }
+
         root.blocks.forEach((block) => block.xPos++)
     }
 
     function moveDown() {
-        console.log('moving down')
+        //console.log('moving down')
         // Check if movement is allowed
         for (const block of root.blocks) {
-            console.log(`${block.yPos}`)
+            //console.log(`${block.yPos}`)
             // Lock shape if bottom of board is hit
             if (block.yPos + 1 >= Tetris.gridRows) {
                 console.log('hit bottom')
