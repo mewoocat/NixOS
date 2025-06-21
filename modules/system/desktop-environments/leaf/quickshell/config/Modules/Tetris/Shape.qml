@@ -22,25 +22,46 @@ Item {
     //////////////////////////////////////////////////////////////// 
 
     function moveLeft() {
-        blocks.forEach((block) => {
-            block.row - 1
-        })
+        root.blocks.forEach((block) => block.xPos--)
     }
 
     function moveRight() {
-
+        root.blocks.forEach((block) => block.xPos++)
     }
 
     function moveDown() {
         console.log('moving down')
+        // Check if movement is allowed
+        for (const block of root.blocks) {
+            console.log(`${block.yPos}`)
+            // Lock shape if bottom of board is hit
+            if (block.yPos + 1 >= Tetris.gridRows) {
+                console.log('hit bottom')
+                // Lock Shape
+                root.blocks.forEach((block) => {
+                    Tetris.gameGrid[block.xPos][block.yPos] = block // Lock Block
+                })
+                Tetris.addShape()
+                return
+            }
+            // Lock shape if another block is hit
+            if (Tetris.gameGrid[block.xPos][block.yPos + 1] !== null) {
+                console.log('hit block')
+                // Lock Shape
+                root.blocks.forEach((block) => {
+                    Tetris.gameGrid[block.xPos][block.yPos] = block // Lock Block
+                })
+                Tetris.addShape()
+                return
+            }
+        }
+        // Then perform actual movement
         root.blocks.forEach((block) => {
-            console.log(`moving down block: ${block} from ${block.yPos}`)
             block.yPos = block.yPos + 1
         })
     }
 
     function rotateRight() {
-
     }
 
     function rotateLeft() {

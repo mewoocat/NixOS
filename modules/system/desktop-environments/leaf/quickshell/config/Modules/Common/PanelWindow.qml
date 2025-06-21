@@ -91,7 +91,6 @@ PanelWindow {
 
     //////////////////////////////////////////////////////////////// 
     // FocusScope is used to ensure the last item with focus set to true
-    //////////////////////////////////////////////////////////////// 
     // receives the actual focus.  This is useful for a text field in
     // a window, as we would want that to have focus but then any non handled
     // key events would automatically propogate up back to the window and
