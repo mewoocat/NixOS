@@ -8,12 +8,14 @@ import "./Shapes"
 import "../Common" as Common
 
 FocusScope {
+    
     focus: true
     Keys.onPressed: (event) => {
         console.log('hi')
         if (event.key == Qt.Key_A) { Tetris.activeShape.moveLeft() }
         if (event.key == Qt.Key_D) { Tetris.activeShape.moveRight() }
         if (event.key == Qt.Key_S) { Tetris.activeShape.moveDown() }
+        if (event.key == Qt.Key_Space) { Tetris.activeShape.rotateRight() }
     }
     ColumnLayout {
 

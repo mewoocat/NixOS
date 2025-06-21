@@ -61,18 +61,19 @@ Singleton {
 
         console.log(`active shape: ${root.activeShape}`)
 
-        // For each block definition within the shape
-        for (let i; i < root.activeShape.blockDefs; i++) {
-            const def = root.activeShape.blockDefs[i]
+        let orientationIndex = 0 // Default orientation
+        // For each block within the shape
+        for (let i = 0; i < root.activeShape.orientations[orientationIndex].length; i++) {
+
+            let xPos = root.activeShape.originPos.x + root.activeShape.orientations[orientationIndex][i].x
+            let yPos = root.activeShape.originPos.y + root.activeShape.orientations[orientationIndex][i].y
+
             // Instantiate
             let blockComp = Qt.createComponent("Block.qml")
-            console.log(`adding block at ${root.activeShape.rotations[0]}`)
             let blockRef = blockComp.createObject(root.gameBoard, {
-                //xPos: def.xPos,
-                //yPos: def.yPos,
-                xPos: root.activeShape.rotations[0][i].x,
-                yPos: root.activeShape.rotations[0][i].y,
-                style: def.style,
+                xPos: xPos,
+                yPos: yPos,
+                style: root.activeShape.color,
             })
 
             // Add the block ref to the active shape
@@ -88,6 +89,7 @@ Singleton {
         interval: 1000
         repeat: true
         onTriggered: {
+            console.log('tick')
             root.activeShape.moveDown()
         }
     }

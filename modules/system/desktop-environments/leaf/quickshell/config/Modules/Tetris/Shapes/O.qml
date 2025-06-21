@@ -9,5 +9,5 @@ Shape {
         BlockDef { xPos: 4; yPos: 1; style: root.color },
         BlockDef { xPos: 5; yPos: 1; style: root.color }
     ]
-    rotations: []
+    orientations: []
 }

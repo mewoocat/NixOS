@@ -4,18 +4,11 @@ import Quickshell
 Item {
     id: root
 
-    // Inline component representing a rotation for a single block of a shape
-    /*
-    component Rotation: QtObject {
-        required property int xTransform
-        required property int yTransform
-    }
-    */
-
-    required property list<BlockDef> blockDefs
-    required property list<var> rotations // A list of possible rotations
-
+    required property list<var> orientations // A list of possible rotations
+    property int currentOrientation: 0 // Index of the current orientation
     property list<Block> blocks // References to the Blocks that compose this shape
+    property var originPos: ({x: 0, y: 0}) // current position of the top left corner of the shape.  All blocks belonging to this 
+                                            // shape are placing using their orientation position relative to this position
 
     //////////////////////////////////////////////////////////////// 
     // Functions
@@ -28,7 +21,13 @@ Item {
                 return
             }
         }
-        root.blocks.forEach((block) => block.xPos--)
+
+        root.originPos.x -= 1 // Move origin position left
+        // Then perform actual movement
+        for (let i = 0; i < root.blocks.length; i++){
+            // Move each block down by setting it's position to its origin + offset
+            blocks[i].xPos = root.originPos.x + root.orientations[currentOrientation][i].x
+        }
     }
 
     function moveRight() {
@@ -39,11 +38,17 @@ Item {
             }
         }
 
-        root.blocks.forEach((block) => block.xPos++)
+        root.originPos.x += 1 // Move origin position right
+        // Then perform actual movement
+        for (let i = 0; i < root.blocks.length; i++){
+            // Move each block down by setting it's position to its origin + offset
+            blocks[i].xPos = root.originPos.x + root.orientations[currentOrientation][i].x
+        }
     }
 
     function moveDown() {
         //console.log('moving down')
+
         // Check if movement is allowed
         for (const block of root.blocks) {
             //console.log(`${block.yPos}`)
@@ -68,13 +73,28 @@ Item {
                 return
             }
         }
+        root.originPos.y += 1 // Move origin position down
         // Then perform actual movement
-        root.blocks.forEach((block) => {
-            block.yPos = block.yPos + 1
-        })
+        for (let i = 0; i < root.blocks.length; i++){
+            // Move each block down by setting it's position to its origin + offset
+            blocks[i].yPos = root.originPos.y + root.orientations[currentOrientation][i].y
+        }
     }
 
-    function rotateRight() {
+    function rotateRight() { 
+        root.currentOrientation++
+        // Reset to 0 if was at last index
+        if (root.currentOrientation >= root.orientations.length) {
+            root.currentOrientation = 0
+        }
+        // New orientation
+        let orientation = root.orientations[currentOrientation]
+        // For each block
+        for (let i = 0; i < root.blocks.length; i++) {
+            // Apply the corresponding transform
+            blocks[i].xPos = root.originPos.x + orientation[i].x
+            blocks[i].yPos = root.originPos.y + orientation[i].y
+        }
     }
 
     function rotateLeft() {
