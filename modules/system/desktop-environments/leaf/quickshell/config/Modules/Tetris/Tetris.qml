@@ -89,10 +89,10 @@ WrapperItem {
                 id: timer
                 running: true
                 triggeredOnStart: false
-                interval: 3000
+                interval: 1000
                 repeat: true
                 onTriggered: {
-                    //root.activeShape.moveDown()
+                    root.activeShape.moveDown()
                     //console.log(root.gameGrid)
                     //gameBoard.addShape()
                 }
