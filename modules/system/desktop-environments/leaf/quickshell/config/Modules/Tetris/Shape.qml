@@ -8,16 +8,23 @@ Item {
     property int currentOrientation: 0 // Index of the current orientation
     property list<Block> blocks // References to the Blocks that compose this shape
     property var originPos: ({x: 0, y: 0}) // current position of the top left corner of the shape.  All blocks belonging to this 
-                                            // shape are placing using their orientation position relative to this position
+                                            // shape are placed using their orientation position relative to this position
 
     //////////////////////////////////////////////////////////////// 
     // Functions
     //////////////////////////////////////////////////////////////// 
 
     function moveLeft() {
+        // Check for out of bounds
         for (const block of root.blocks) {
             if (block.xPos - 1 < 0) {
                 console.log('hit right')
+                return
+            }
+
+            // Check for collision with block
+            if (Tetris.gameGrid[block.xPos - 1][block.yPos] !== null) {
+                console.log('hit block')
                 return
             }
         }
@@ -31,9 +38,16 @@ Item {
     }
 
     function moveRight() {
+        // Check for out of bounds
         for (const block of root.blocks) {
             if (block.xPos + 1 >= Tetris.gridColumns) {
                 console.log('hit right')
+                return
+            }
+
+            // Check for collision with block
+            if (Tetris.gameGrid[block.xPos + 1][block.yPos] !== null) {
+                console.log('hit block')
                 return
             }
         }
@@ -47,8 +61,6 @@ Item {
     }
 
     function moveDown() {
-        //console.log('moving down')
-
         // Check if movement is allowed
         for (const block of root.blocks) {
             //console.log(`${block.yPos}`)

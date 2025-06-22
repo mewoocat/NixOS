@@ -14,11 +14,9 @@ Singleton {
 
     property Rectangle gameBoard: null // Ref to gameBoard
     property Shape activeShape: null // Player controlled shape
-    property list<BlockDef> blocks: [] // All blocks on the board by definition
 
     // 2D array that holds gameboard state
-    // Each item is undefined (empty), or a ref to the block obj
-    //property list<list<int>> gameGrid: [[]] // Stupid syntax error
+    // Each item is null, or a ref to the block obj
     property var gameGrid: {
         let grid = new Array(root.gridRows)
         // Initialize with nulls
@@ -45,7 +43,7 @@ Singleton {
     function addShape() {
         console.log('adding shape')
         // Todo: add random shape picker here
-        const shapes = ["O", "T", "L", "S", "Z", "J"]
+        const shapes = ["O", "T", "L", "S", "Z", "J", "I"]
         // Get random number 0 -> shapes.length
         // And ensure that it wasn't the last picked shape
         let shapeIndex = lastShapeIndex
@@ -53,8 +51,7 @@ Singleton {
             shapeIndex = Math.floor(Math.random() * shapes.length)
         }
 
-        console.log(`shapeIndex: ${shapeIndex}`)
-        const shapeComponent = `Shapes/T.qml`
+        const shapeComponent = `Shapes/${shapes[shapeIndex]}.qml`
         // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
         let component = Qt.createComponent(shapeComponent)
         root.activeShape = component.createObject(null, {})

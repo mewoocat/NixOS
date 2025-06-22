@@ -11,7 +11,6 @@ FocusScope {
     
     focus: true
     Keys.onPressed: (event) => {
-        console.log('hi')
         if (event.key == Qt.Key_A) { Tetris.activeShape.moveLeft() }
         if (event.key == Qt.Key_D) { Tetris.activeShape.moveRight() }
         if (event.key == Qt.Key_S) { Tetris.activeShape.moveDown() }
