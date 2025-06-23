@@ -60,6 +60,44 @@ Item {
         }
     }
 
+    function checkAndClearLines() {
+        let currentMoveDownAmount = 0
+
+        // For each row, starting at the bottom
+        for (int y = Tetris.gridRows - 1; y >= 0; y--) {
+            // Assume the row is full
+            let isFullRow = true
+            // For each column in the row
+            for (int x = 0; x < Tetris.gridColumns; x++) {
+                // If empty space found
+                if (Tetris.gameGrid[x][y] === null) {
+                    isFullRow = false
+                    // If the row needs to be moved down
+                    if (currentMoveDownAmount > 0) {
+                        // Move it down by the amount needed
+                        for (const block in Tetris.gameGrid[x]) {
+                            gameGrid[x][block.YPos] = null // unset the previous position
+                            block.YPos += currentMoveDownAmount // Move the block down
+                            gameGrid[x][block.YPos] = block // set the new position
+                        }
+                    }
+                    break
+                }
+            }
+
+            // The row was full, perform line clear
+            if (isFullRow) {    
+                // For each column in the row
+                for (int x = 0; x < Tetris.gridColumns; x++) {
+                    Tetris.gameGrid[x][y].destroy() // Destory the block
+                    Tetris.gameGrid[x][y] = null // Unset it's position
+                }
+                currentMoveDownAmount++ // Since a line was cleared, anything above it will need to be moved down by 1 + the amount of other line clears below it
+            }
+
+        }
+    }
+
     function moveDown() {
         // Check if movement is allowed
         for (const block of root.blocks) {
