@@ -23,7 +23,7 @@ Item {
             }
 
             // Check for collision with block
-            if (Tetris.gameGrid[block.xPos - 1][block.yPos] !== null) {
+            if (Tetris.gameGrid[block.yPos][block.xPos - 1] !== null) {
                 console.log('hit block')
                 return
             }
@@ -46,7 +46,7 @@ Item {
             }
 
             // Check for collision with block
-            if (Tetris.gameGrid[block.xPos + 1][block.yPos] !== null) {
+            if (Tetris.gameGrid[block.yPos][block.xPos + 1] !== null) {
                 console.log('hit block')
                 return
             }
@@ -63,36 +63,56 @@ Item {
     function checkAndClearLines() {
         let currentMoveDownAmount = 0
 
+        Tetris.printGrid()
+
         // For each row, starting at the bottom
-        for (int y = Tetris.gridRows - 1; y >= 0; y--) {
+        for (let y = Tetris.gridRows - 1; y >= 0; y--) {
+            console.log(`checking row ${y}`)
             // Assume the row is full
             let isFullRow = true
+
             // For each column in the row
-            for (int x = 0; x < Tetris.gridColumns; x++) {
+            for (let x = 0; x < Tetris.gridColumns; x++) {
                 // If empty space found
-                if (Tetris.gameGrid[x][y] === null) {
+                if (Tetris.gameGrid[y][x] === null) {
                     isFullRow = false
                     // If the row needs to be moved down
                     if (currentMoveDownAmount > 0) {
+                        // For each block in the row
                         // Move it down by the amount needed
-                        for (const block in Tetris.gameGrid[x]) {
-                            gameGrid[x][block.YPos] = null // unset the previous position
-                            block.YPos += currentMoveDownAmount // Move the block down
-                            gameGrid[x][block.YPos] = block // set the new position
+                        Tetris.printGrid()
+                        console.log('row = ' + Tetris.gameGrid[y])
+                        for (let x = 0; x < Tetris.gridColumns; x++) {
+                            let block = Tetris.gameGrid[y][x]
+                            console.log(`looking at block: ${block}`)
+                            // If the block space is empty, skip
+                            if (block === null || block === 0) {
+                                console.log('block skipped....')
+                                continue
+                            }
+                            console.log(`original block: ${block}: ${block.yPos}, ${block.xPos}`)
+                            gameGrid[block.yPos][block.xPos] = null // unset the previous position
+                            block.yPos += currentMoveDownAmount // Move the block down
+                            console.log(`moved down block: ${block.yPos}, ${block.xPos}`)
+                            gameGrid[block.yPos][block.xPos] = block // set the new position
                         }
+                        console.log(`finished moving down row`)
                     }
-                    break
+                    break // No need to continue through the row
                 }
             }
 
             // The row was full, perform line clear
             if (isFullRow) {    
+                console.log(`performing line clear`)
                 // For each column in the row
-                for (int x = 0; x < Tetris.gridColumns; x++) {
-                    Tetris.gameGrid[x][y].destroy() // Destory the block
-                    Tetris.gameGrid[x][y] = null // Unset it's position
+                for (let x = 0; x < Tetris.gridColumns; x++) {
+                    Tetris.gameGrid[y][x].destroy() // Destory the block
+                    Tetris.gameGrid[y][x] = null // Unset it's position
                 }
-                currentMoveDownAmount++ // Since a line was cleared, anything above it will need to be moved down by 1 + the amount of other line clears below it
+                // Since a line was cleared, anything above it will need to be moved 
+                // down by 1 + the amount of other line clears below it
+                currentMoveDownAmount++
             }
 
         }
@@ -107,18 +127,20 @@ Item {
                 console.log('hit bottom')
                 // Lock Shape
                 root.blocks.forEach((block) => {
-                    Tetris.gameGrid[block.xPos][block.yPos] = block // Lock Block
+                    Tetris.gameGrid[block.yPos][block.xPos] = block // Lock Block
                 })
+                checkAndClearLines()
                 Tetris.addShape()
                 return
             }
             // Lock shape if another block is hit
-            if (Tetris.gameGrid[block.xPos][block.yPos + 1] !== null) {
+            if (Tetris.gameGrid[block.yPos + 1][block.xPos] !== null) {
                 console.log('hit block')
                 // Lock Shape
                 root.blocks.forEach((block) => {
-                    Tetris.gameGrid[block.xPos][block.yPos] = block // Lock Block
+                    Tetris.gameGrid[block.yPos][block.xPos] = block // Lock Block
                 })
+                checkAndClearLines()
                 Tetris.addShape()
                 return
             }

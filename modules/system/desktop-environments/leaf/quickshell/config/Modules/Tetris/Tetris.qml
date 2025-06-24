@@ -22,14 +22,25 @@ Singleton {
         // Initialize with nulls
             // I could have sworn that you can just insert into whatever index you want 
             // but it's throwing a type error if I do that
-        for (let x = 0; x < root.gridColumns; x++) {
-            grid[x] = new Array(root.gridColumns)
-            for (let y = 0; y < root.gridRows; y++) {
-                grid[x][y] = null
+        for (let y = 0; y < root.gridRows; y++) {
+            grid[y] = new Array(root.gridRows)
+            for (let x = 0; x < root.gridColumns; x++) {
+                grid[y][x] = null
             }
         }
-        console.log(`grid: ${grid}`)
+        //root.printGrid()
         return grid
+    }
+
+    function printGrid() {
+        console.log("PRINTING GRID///////////////////////////////////////////////////")
+        for (let y = 0; y < root.gridRows; y++) {
+            let row = ""
+            for (let x = 0; x < root.gridColumns; x++) {
+                row += ` ${root.gameGrid[y][x]}`
+            }
+            console.log(row)
+        }
     }
 
 
