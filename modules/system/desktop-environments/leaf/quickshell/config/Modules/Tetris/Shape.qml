@@ -154,14 +154,28 @@ Item {
     }
 
     function rotateRight() { 
+        const previousOrientation = root.currentOrientation
         root.currentOrientation++
         // Reset to 0 if was at last index
         if (root.currentOrientation >= root.orientations.length) {
             root.currentOrientation = 0
         }
+
         // New orientation
         let orientation = root.orientations[currentOrientation]
-        // For each block
+
+        // Check if block can be rotated
+        for (let i = 0; i < root.blocks.length; i++) {
+            const x = root.originPos.x + orientation[i].x
+            const y = root.originPos.y + orientation[i].y
+            // If any of the blocks can't be rotated, cancel the rotate
+            if (Tetris.gameGrid[y][x] !== null) {
+                root.currentOrientation = previousOrientation
+                return
+            }
+        }
+
+        // Rotate each block
         for (let i = 0; i < root.blocks.length; i++) {
             // Apply the corresponding transform
             blocks[i].xPos = root.originPos.x + orientation[i].x
