@@ -28,11 +28,32 @@ FocusScope {
             Component.onCompleted: Tetris.gameBoard = gameBoard
 
         }
-        
-        // TODO: Scoreboard and next shape goes here
-        Common.NormalButton {text: "start"; leftClick: () => {
-            console.log('click')
-            Tetris.start()
-        }}
+
+        RowLayout {
+            Text {
+                color: palette.text
+                text: `Score: ${Tetris.score}`
+            } 
+            Common.NormalButton {
+                text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
+                leftClick: () => {
+                    if (!Tetris.isRunning || Tetris.isPaused) {
+                        Tetris.start()
+                    }
+                    else {
+                        Tetris.pause()
+                    }
+                }
+            }
+            Rectangle {
+                id: nextShapeBoard
+                color: "black"
+                implicitWidth: Tetris.blockSize * 4
+                implicitHeight: Tetris.blockSize * 4
+
+                Component.onCompleted: Tetris.nextShapeBoard = nextShapeBoard
+
+            }
+        }
     }
 }

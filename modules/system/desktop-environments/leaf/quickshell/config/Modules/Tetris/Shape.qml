@@ -61,6 +61,8 @@ Item {
     }
 
     function checkAndClearLines() {
+        // How much to move down blocks by after line clears
+        // + tells how many rows have been cleared
         let currentMoveDownAmount = 0
 
         Tetris.printGrid()
@@ -116,6 +118,18 @@ Item {
             }
 
         }
+
+        // Score amount per lines cleared
+        // Derived from the NES level 0 as seen here: https://tetris.wiki/Scoring
+        let scoreChart = [
+            0,
+            40,
+            100,
+            300,
+            1200
+        ]
+        // Increase score
+        Tetris.score += scoreChart[currentMoveDownAmount]
     }
 
     function moveDown() {
@@ -130,7 +144,7 @@ Item {
                     Tetris.gameGrid[block.yPos][block.xPos] = block // Lock Block
                 })
                 checkAndClearLines()
-                Tetris.addShape()
+                Tetris.spawnShape()
                 return
             }
             // Lock shape if another block is hit
@@ -141,7 +155,7 @@ Item {
                     Tetris.gameGrid[block.yPos][block.xPos] = block // Lock Block
                 })
                 checkAndClearLines()
-                Tetris.addShape()
+                Tetris.spawnShape()
                 return
             }
         }

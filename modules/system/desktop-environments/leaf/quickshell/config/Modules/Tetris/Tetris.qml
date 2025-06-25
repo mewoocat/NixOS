@@ -13,7 +13,16 @@ Singleton {
     property int blockSize: 20
 
     property Rectangle gameBoard: null // Ref to gameBoard
+    property Rectangle nextShapeBoard: null // Ref to the nextShapeBoard
     property Shape activeShape: null // Player controlled shape
+    property Shape nextShape: null // Next shape to spawn
+
+    property bool isRunning: false
+    property bool isPaused: false
+    property int score: 0
+
+    property list<string> shapes: ["O", "T", "L", "S", "Z", "J", "I"]
+    property int lastShapeIndex: 0
 
     // 2D array that holds gameboard state
     // Each item is null, or a ref to the block obj
@@ -46,30 +55,62 @@ Singleton {
 
     function start() {
         console.log(`Starting tetris state singleton`)
-        root.addShape()
+        // Add shape if game is first starting
+        if (!Tetris.isPaused) {
+            root.isRunning = true
+            root.spawnShape()
+        }
+        Tetris.isPaused = false
         timer.running = true
     }
 
-    property int lastShapeIndex: 0
-    function addShape() {
-        console.log('adding shape')
-        // Todo: add random shape picker here
-        const shapes = ["O", "T", "L", "S", "Z", "J", "I"]
+    function pause() {
+        console.log(`Pausing tetris`)
+        Tetris.isPaused = true
+        timer.running = false
+    }
+
+
+    function createShape() {
+        console.log('creating shape')
+
         // Get random number 0 -> shapes.length
         // And ensure that it wasn't the last picked shape
-        let shapeIndex = lastShapeIndex
-        while (shapeIndex === lastShapeIndex) {
-            shapeIndex = Math.floor(Math.random() * shapes.length)
+        let shapeIndex = root.lastShapeIndex
+        while (shapeIndex === root.lastShapeIndex) {
+            shapeIndex = Math.floor(Math.random() * root.shapes.length)
         }
 
-        const shapeComponent = `Shapes/${shapes[shapeIndex]}.qml`
         // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
+        const shapeComponent = `Shapes/${root.shapes[shapeIndex]}.qml`
         let component = Qt.createComponent(shapeComponent)
-        root.activeShape = component.createObject(null, {})
+        let shape = component.createObject(null, {})
 
+        return shape
+    }
+
+    function spawnShape() {
+        console.log('spawning shape')
+        if (activeShape === null) {
+            root.activeShape = createShape()
+        }
+        else {
+            // Destroy all rendered blocks for the previous nextShape
+            // Since we will recreate them when rendering it as the active shape
+            root.nextShape.blocks.forEach((block) => {
+                block.destroy()
+            })
+            root.nextShape.blocks = [] // Remove the stale refs
+            root.activeShape = root.nextShape // Set this as the active shape now
+        }
         console.log(`active shape: ${root.activeShape}`)
+        
+        // Create the next shape
+        root.nextShape = createShape()
 
         let orientationIndex = 0 // Default orientation
+
+        // Render active shape
         // For each block within the shape
         for (let i = 0; i < root.activeShape.orientations[orientationIndex].length; i++) {
 
@@ -86,6 +127,26 @@ Singleton {
 
             // Add the block ref to the active shape
             root.activeShape.blocks.push(blockRef)
+        }
+
+
+        // Render next shape
+        // For each block within the shape
+        for (let i = 0; i < root.nextShape.orientations[orientationIndex].length; i++) {
+
+            let xPos = root.nextShape.originPos.x + root.nextShape.orientations[orientationIndex][i].x
+            let yPos = root.nextShape.originPos.y + root.nextShape.orientations[orientationIndex][i].y
+
+            // Instantiate
+            let blockComp = Qt.createComponent("Block.qml")
+            let blockRef = blockComp.createObject(root.nextShapeBoard, {
+                xPos: xPos,
+                yPos: yPos,
+                style: root.nextShape.color,
+            })
+
+            // Add the block ref to the active shape
+            root.nextShape.blocks.push(blockRef)
         }
     }
 
