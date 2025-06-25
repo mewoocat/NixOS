@@ -8,6 +8,7 @@ import "./Shapes"
 import "../Common" as Common
 
 FocusScope {
+    anchors.fill: parent
     
     focus: true
     Keys.onPressed: (event) => {
@@ -16,7 +17,9 @@ FocusScope {
         if (event.key == Qt.Key_S) { Tetris.activeShape.moveDown() }
         if (event.key == Qt.Key_Space) { Tetris.activeShape.rotateRight() }
     }
-    ColumnLayout {
+    RowLayout {
+    anchors.centerIn: parent
+    anchors.fill: parent
 
         // Main game board
         Rectangle {
@@ -29,24 +32,34 @@ FocusScope {
 
         }
 
-        RowLayout {
-            Text {
-                color: palette.text
-                text: `Score: ${Tetris.score}`
-            } 
-            Common.NormalButton {
-                text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
-                leftClick: () => {
-                    if (!Tetris.isRunning || Tetris.isPaused) {
-                        Tetris.start()
-                    }
-                    else {
-                        Tetris.pause()
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text {
+                    color: palette.text
+                    text: `Score: ${Tetris.score}`
+                } 
+                Common.NormalButton {
+                    text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
+                    leftClick: () => {
+                        if (!Tetris.isRunning || Tetris.isPaused) {
+                            Tetris.start()
+                        }
+                        else {
+                            Tetris.pause()
+                        }
                     }
                 }
             }
+
+            // Next shape display
             Rectangle {
+                anchors.horizontalCenter: parent.horizontalCenter
                 id: nextShapeBoard
+                anchors.bottom: parent.bottom
                 color: "black"
                 implicitWidth: Tetris.blockSize * 4
                 implicitHeight: Tetris.blockSize * 4
