@@ -89,6 +89,12 @@ Singleton {
         return shape
     }
 
+    function gameOver() {
+        console.log(`game over`)
+        timer.running = false
+        root.isRunning = false
+    }
+
     function spawnShape() {
         console.log('spawning shape')
         if (activeShape === null) {
@@ -128,6 +134,14 @@ Singleton {
             // Add the block ref to the active shape
             root.activeShape.blocks.push(blockRef)
         }
+
+        // Gameover if spawned block overlaps existing
+        root.activeShape.blocks.forEach(block => {
+            if (root.gameGrid[block.yPos][block.xPos] !== null) {
+                gameOver()
+                return
+            }
+        })
 
 
         // Render next shape

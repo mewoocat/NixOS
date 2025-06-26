@@ -15,6 +15,9 @@ in {
     extraCompatPackages = [
       pkgs.proton-ge-bin
     ];
+
+    extraPackages = [
+    ];
   };
 
   # Required for steam to run?

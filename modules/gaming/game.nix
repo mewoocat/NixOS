@@ -30,6 +30,7 @@
 
     # Utilities
     gamescope
+    protontricks # Causes build error if installed in steam.extraPackages
 
     # Emulators
     duckstation
