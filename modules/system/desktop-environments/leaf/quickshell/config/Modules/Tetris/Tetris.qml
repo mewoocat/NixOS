@@ -10,7 +10,7 @@ Singleton {
 
     property int gridRows: 20
     property int gridColumns: 10
-    property int blockSize: 20
+    property int blockSize: 16
 
     property Rectangle gameBoard: null // Ref to gameBoard
     property Rectangle nextShapeBoard: null // Ref to the nextShapeBoard
@@ -68,6 +68,10 @@ Singleton {
         console.log(`Pausing tetris`)
         Tetris.isPaused = true
         timer.running = false
+    }
+
+    function reset() {
+        console.log(`Resetting tetris`)
     }
 
 
