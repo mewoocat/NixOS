@@ -63,6 +63,7 @@ Singleton {
             } 
             property string funImage: ""
             property list<string> pinnedApps: []
+            property string pfpImage: ""
         }
         
     }
