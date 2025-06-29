@@ -118,6 +118,13 @@ Common.PanelWindow {
                                 edges: Edges.Bottom | Edges.Right
                                 gravity: Edges.Top | Edges.Right
                             }
+
+                            content: ColumnLayout {
+                                Common.PopupMenuItem { text: "Shutdown"; action: () => Services.Power.shutdown(); iconName: "system-shutdown-symbolic"}
+                                Common.PopupMenuItem { text: "Hibernate"; action: () => Services.Power.hibernate(); iconName: "system-shutdown-symbolic"}
+                                Common.PopupMenuItem { text: "Restart"; action: () => Services.Power.restart(); iconName: "system-restart-symbolic"}
+                                Common.PopupMenuItem { text: "Sleep"; action: () => Services.Power.sleep(); iconName: "system-suspend-symbolic"}
+                            }
                         }
 
                     }

@@ -13,6 +13,8 @@ import "../../" as Root
 PopupWindow {
     id: root
 
+    required property Item content
+
     anchor {
         //window: root.window
         //item: root.item
@@ -106,6 +108,7 @@ PopupWindow {
     implicitWidth: popupArea.width
     implicitHeight: popupArea.height
     color: "transparent"
+
     WrapperMouseArea {
         id: popupArea
         enabled: true
@@ -119,12 +122,7 @@ PopupWindow {
             color: "#aa111111"
             radius: 8
             margin: 8
-            ColumnLayout {
-                PopupMenuItem { text: "Shutdown"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
-                PopupMenuItem { text: "Hibernate"; action: ()=>{}; iconName: "system-shutdown-symbolic"}
-                PopupMenuItem { text: "Restart"; action: ()=>{}; iconName: "system-restart-symbolic"}
-                PopupMenuItem { text: "Sleep"; action: ()=>{}; iconName: "system-suspend-symbolic"}
-            }
+            children: [ root.content ]
         }
     }
 }
