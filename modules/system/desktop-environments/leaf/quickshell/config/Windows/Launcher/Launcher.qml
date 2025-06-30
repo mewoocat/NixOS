@@ -50,7 +50,7 @@ Common.PanelWindow {
     }
     focusable: true // Enable keyboard focus
     implicitWidth: 400
-    implicitHeight: 460
+    implicitHeight: 600
     color: "transparent"
     margins {
         left: 16
@@ -132,7 +132,29 @@ Common.PanelWindow {
                         onClicked: Root.State.settings.openWindow()
                         imgPath: Quickshell.iconPath('systemsettings')
                     }
-                    ProfilePictureItem {}
+                    ProfilePictureItem {
+                        id: user
+                        onClicked: () => {
+                            console.log("click")
+                            userPopup.visible = true
+                        }
+                        Common.PopupWindow {
+                            id: userPopup
+
+                            anchor {
+                                window: launcher
+                                item: user
+                                edges: Edges.Bottom | Edges.Right
+                                gravity: Edges.Top | Edges.Right
+                            }
+
+                            content: ColumnLayout {
+                                Text { color: palette.text; text: Services.User.username }
+                                Common.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
+                                Common.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
+                            }
+                        }
+                    }
                 }
             }
 
@@ -174,11 +196,18 @@ Common.PanelWindow {
                 }
 
                 // Application list
-                ListView {
-                    highlightMoveDuration: 0
-                    clip: true // Ensure that scrolled items don't go outside the widget
+                Rectangle {
+                    id: listBox
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    color: "transparent"
+
+                ListView {
+                    //anchors.fill: parent
+                    implicitWidth: parent.width - scrollBar.width
+                    implicitHeight: parent.height
+                    highlightMoveDuration: 0
+                    clip: true // Ensure that scrolled items don't go outside the widget
                     //cacheBuffer: 0
                     maximumFlickVelocity: 1000 // Increases bound overshoot?
                     id: listView
@@ -220,12 +249,18 @@ Common.PanelWindow {
                     snapMode: ListView.SnapToItem
                     // Add a scroll bar to the list
                     // idk where this ScrollBar.vertical property is defined
-                    ScrollBar.vertical: ScrollBar { }
+                    ScrollBar.vertical: ScrollBar {
+                        id: scrollBar
+                        parent: listView.parent
+                        anchors.left: listView.right
+                        anchors.top: listView.top
+                        anchors.bottom: listView.bottom
+                    }
 
                     delegate: MouseArea {
                         id: mouseArea
                         required property DesktopEntry modelData
-                        height: 60
+                        height: 48
                         width: listView.width
                         hoverEnabled: true
                         onClicked: launchApp(modelData)
@@ -242,7 +277,7 @@ Common.PanelWindow {
                             RowLayout {
                                 anchors.fill: parent
                                 IconImage {
-                                    Layout.leftMargin: 8
+                                    Layout.leftMargin: 4
                                     id: icon
                                     implicitSize: 32
                                     source: Quickshell.iconPath(mouseArea.modelData.icon)
@@ -258,6 +293,7 @@ Common.PanelWindow {
                             }
                         }
                     }
+                }
                 }
             }
         }
