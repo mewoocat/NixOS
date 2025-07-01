@@ -130,7 +130,7 @@ Common.PanelWindow {
                     }
                     SidePanelItem {
                         onClicked: Root.State.settings.openWindow()
-                        imgPath: Quickshell.iconPath('systemsettings')
+                        imgPath: Quickshell.iconPath('application-menu-symbolic')
                     }
                     ProfilePictureItem {
                         id: user

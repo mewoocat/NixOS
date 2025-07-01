@@ -4,10 +4,9 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell.Hyprland
-import "../../Services/" as Services
-import "../../Modules/Common" as Common
 import "../../" as Root
+import "../../Services" as Services
+import "./Pages/" as Pages
 
 FloatingWindow {
     // No work?
@@ -31,160 +30,151 @@ FloatingWindow {
     
     property var selectedMonitorId: 0 
 
-    // Visual type to represent a monitor
-    component Monitor: MouseArea {
-        id: mouseArea
-        required property HyprlandMonitor monitor
+    Rectangle {
+        id: box
+        color: "transparent"
+        anchors.fill: parent
 
-        // Modifiable monitor properties
-        property int actualX: x - area.offsetX
-        property int actualY: y - area.offsetY
-        property real actualScale: monitor.scale
+        /*
+        PageIndicator {
+            id: pageIndicator
+            count: swipeView.count
+            currentIndex: swipeView.currentIndex
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            implicitWidth: 120
+        }
+        */
+        Rectangle {
+            id: pageIndicator
+            color: "#00000000"
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            implicitWidth: 240 - scrollBar.width
 
-        // Set monitor element placement given the offset
-        x: monitor.x + area.offsetX
-        y: monitor.y + area.offsetY
+            component UserPageButton: MouseArea {
+                id: pageButton
+                enabled: true
+                hoverEnabled: true
+                required property string text
+                required property string icon
+                anchors.left: parent.left
+                anchors.right: parent.right
+                implicitHeight: 64
+                Rectangle {
+                    radius: 16
+                    anchors.margins: 4
+                    anchors.fill: parent
+                    color: pageButton.containsMouse ? palette.accent: "transparent"
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 8
+                        ClippingRectangle {
+                            id: pfp
+                            property int size: 48
+                            radius: size
+                            implicitWidth: size
+                            implicitHeight: size
+                            IconImage {
+                                implicitSize: pfp.size
+                                anchors.centerIn: parent
+                                source: Services.User.pfpPath
+                            }
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: Services.User.username
+                            color: palette.text
+                        }
+                    }
+                }
+            }
 
-        // Adjust size to match scale (required by hyprland)
-        width: monitor.width / monitor.scale
-        height: monitor.height / monitor.scale
+            // Button to pick the current settings page
+            component PageButton: MouseArea {
+                id: pageButton
+                enabled: true
+                hoverEnabled: true
+                required property string text
+                required property string icon
+                anchors.left: parent.left
+                anchors.right: parent.right
+                implicitHeight: 48
+                Rectangle {
+                    radius: 16
+                    anchors.margins: 4
+                    anchors.fill: parent
+                    color: pageButton.containsMouse ? palette.accent: "transparent"
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.leftMargin: 8
+                        IconImage {
+                            implicitSize: 24
+                            source: Quickshell.iconPath(pageButton.icon)
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: pageButton.text
+                            color: palette.text
+                        }
+                    }
+                }
+            }
 
-        // Dragging
-        drag.target: mouseArea
-        // restrict drag region to area
-        drag.minimumX: 0
-        drag.maximumX: area.width - width
-        drag.minimumY: 0
-        drag.maximumY: area.height - height
+            Flickable {
+                id: listView
+                anchors.fill: parent
+                anchors.margins: 16
+                flickDeceleration: 0.00001
+                maximumFlickVelocity: 10000
+                clip: true // Ensure that scrolled items don't go outside the widget
+                ScrollBar.vertical: ScrollBar {
+                    id: scrollBar
+                    parent: listView.parent
+                    anchors.left: listView.right
+                    anchors.top: listView.top
+                    anchors.bottom: listView.bottom
+                }
 
-        onPressed: () => {
-            selectedMonitorId = monitor.id
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    UserPageButton { }
+                    PageButton { text: "General"; icon: "systemsettings" }
+                    PageButton { text: "Display"; icon: "video-display" }
+                    PageButton { text: "Appearance"; icon: "preferences-desktop-display-color" }
+                    PageButton { text: "Network"; icon: "applications-network" }
+                    PageButton { text: "Bluetooth"; icon: "bluetooth" }
+                    PageButton { text: "Sound"; icon: "preferences-sound" }
+                    PageButton { text: "Notifications"; icon: "notifyconf" }
+                    PageButton { text: "About"; icon: "stock_about" }
+                }
+            }
+            ColumnLayout {
+                anchors.fill: parent
+            }
         }
 
         Rectangle {
-            anchors.fill: parent
-            color: palette.highlight
-            Text { 
-                scale: 1 / area.scale
-                // Scale the text back up to be readable
-                anchors.centerIn: parent
-                text: monitor.name
-                color: palette.dark
+            anchors.left: pageIndicator.right
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            color: palette.base
+            SwipeView {
+                anchors.fill: parent
+                id: swipeView
+                orientation: Qt.Vertical
+                currentIndex: Root.State.controlPanelPage
+
+                Text {text: "hi"}
+                Pages.Monitors {}
             }
         }
     }
-    Rectangle {
-        anchors.centerIn: parent
-        id: area
-        property int areaSize: 6000
-        // Set to large enough size to accommodate the native size of multiple monitors
-        implicitWidth: areaSize 
-        implicitHeight: areaSize * 0.6
-        property int offsetX: areaSize / 2 
-        property int offsetY: areaSize * 0.6 / 2 
-        // Scale down the size to actually be usable
-        scale: 0.1
-        color: palette.base
 
-
-        Repeater {
-            model: Hyprland.monitors
-
-            Monitor {
-                id: visualMonitor
-                required property HyprlandMonitor modelData
-                monitor: modelData
-                Component.onCompleted: {
-                    console.log(`monitor modeldata: ${modelData.x}x${modelData.y}`)
-                    console.log(`monitor ${monitor.name}: ${actualX}, ${actualY}`)
-                    console.log(`monitor ${monitor.name}: ${x}, ${y}`)
-                    Services.Monitors.visualMonitors[monitor.id] = visualMonitor
-                }
-            }
-        }
-
-    }
-
-    WrapperRectangle {     
-        margin: 16
-        anchors.bottom: parent.bottom
-        color: palette.base
-        RowLayout {
-            ColumnLayout {
-                id: box
-                // can be undefined
-                property var selectedMonitor: Services.Monitors.visualMonitors[selectedMonitorId]
-
-                //name
-                Text {
-                    text: `Name: ${box.selectedMonitor !== undefined ? box.selectedMonitor.monitor.name : "?"}`
-                    color: palette.text
-                }
-
-                // resolution
-                Text {
-                    text: `Resolution: ${box.selectedMonitor !== undefined ? `${box.selectedMonitor.monitor.width}x${box.selectedMonitor.monitor.height}` : "?"}`
-                    color: palette.text
-                }
-                // x position
-                RowLayout {
-                    Text {
-                        text: `X: `
-                        color: palette.text
-                    }
-                    SpinBox {
-                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualX : 0
-                        from: -10000
-                        to: 10000
-                        onValueModified: () => {
-                            box.selectedMonitor.x = value + area.offset
-                        }
-                    }
-                }
-                // y position
-                RowLayout {
-                    Text {
-                        text: `Y: `
-                        color: palette.text
-                    }
-                    SpinBox {
-                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualY : 0
-                        from: -10000
-                        to: 10000
-                        onValueModified: () => {
-                            box.selectedMonitor.y = value + area.offset
-                            console.log(`value: ${value}`)
-                        }
-                    }
-                }
-                // scale
-                RowLayout {
-                    Text {
-                        text: `Scale: `
-                        color: palette.text
-                    }
-                    SpinBox {
-                        value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualScale : 1
-                        from: 1
-                        to: 5 
-                        stepSize: 1
-                        onValueModified: () => {
-                            console.log(`scale changed`)
-                            box.selectedMonitor.actualScale = value
-                        }
-                    }
-                }
-            }
-
-            // Apply button
-            Common.NormalButton {
-                text: "Apply"
-                leftClick: () => {
-                    Services.Monitors.applyConf()
-                }
-            }
-        }
-    }
 
 
 }
