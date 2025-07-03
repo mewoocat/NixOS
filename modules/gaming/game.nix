@@ -23,7 +23,7 @@
   programs.gamemode.enable = true; # Optimise system performance on demand
 
   services.udev.packages = with pkgs; [
-    dolphin # Needed for controllers to work? Doesn't seem fix the issue
+    #dolphin # Needed for controllers to work? Doesn't seem fix the issue
   ];
 
   users.users.${config.username}.packages = with pkgs; [ 

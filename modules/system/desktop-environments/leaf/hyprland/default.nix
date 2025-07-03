@@ -20,12 +20,15 @@
     # To load the plugins when hyprland starts
     ".config/hypr/nixManaged.conf" = {
       clobber = true;
+      #text = '''';
       text = ''
         plugin = ${inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars}/lib/libhyprbars.so
         exec-once = hyprctl plugin load ${inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars}/lib/libhyprbars.so
-        plugin = ${inputs.Hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so
-        exec-once = hyprctl plugin load ${inputs.Hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so
       '';
+        /*
+        #plugin = ${inputs.Hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so
+        #exec-once = hyprctl plugin load ${inputs.Hyprspace.packages.${pkgs.system}.Hyprspace}/lib/libHyprspace.so
+        */
     };
   };
 
@@ -39,7 +42,7 @@
     # Manully adding it to the main config file above
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-      inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+      #inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
     ];
   };
 
