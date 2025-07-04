@@ -29,6 +29,7 @@ FloatingWindow {
     }
     
     property var selectedMonitorId: 0 
+    property SwipeView settingsView: null
 
     Rectangle {
         id: box
@@ -60,8 +61,7 @@ FloatingWindow {
                 hoverEnabled: true
                 required property string text
                 required property string icon
-                anchors.left: parent.left
-                anchors.right: parent.right
+                Layout.fillWidth: true
                 implicitHeight: 64
                 Rectangle {
                     radius: 16
@@ -95,13 +95,16 @@ FloatingWindow {
             // Button to pick the current settings page
             component PageButton: MouseArea {
                 id: pageButton
-                enabled: true
-                hoverEnabled: true
+                required property int pageIndex
                 required property string text
                 required property string icon
-                anchors.left: parent.left
-                anchors.right: parent.right
+                enabled: true
+                hoverEnabled: true
+                Layout.fillWidth: true
                 implicitHeight: 48
+                onClicked: () => {
+                    root.settingsView.setCurrentIndex(pageIndex)    
+                }
                 Rectangle {
                     radius: 16
                     anchors.margins: 4
@@ -123,12 +126,10 @@ FloatingWindow {
                 }
             }
 
-            Flickable {
+            ScrollView {
                 id: listView
                 anchors.fill: parent
                 anchors.margins: 16
-                flickDeceleration: 0.00001
-                maximumFlickVelocity: 10000
                 clip: true // Ensure that scrolled items don't go outside the widget
                 ScrollBar.vertical: ScrollBar {
                     id: scrollBar
@@ -138,22 +139,35 @@ FloatingWindow {
                     anchors.bottom: listView.bottom
                 }
 
+                //implicitWidth: content.width
+                //implicitHeight: content.height
                 ColumnLayout {
+                    id: content
                     anchors.left: parent.left
                     anchors.right: parent.right
                     UserPageButton { }
-                    PageButton { text: "General"; icon: "systemsettings" }
-                    PageButton { text: "Display"; icon: "video-display" }
-                    PageButton { text: "Appearance"; icon: "preferences-desktop-display-color" }
-                    PageButton { text: "Network"; icon: "applications-network" }
-                    PageButton { text: "Bluetooth"; icon: "bluetooth" }
-                    PageButton { text: "Sound"; icon: "preferences-sound" }
-                    PageButton { text: "Notifications"; icon: "notifyconf" }
-                    PageButton { text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 0; text: "General"; icon: "systemsettings" }
+                    PageButton { pageIndex: 1; text: "Display"; icon: "video-display" }
+                    PageButton { pageIndex: 2; text: "Appearance"; icon: "preferences-desktop-display-color" }
+                    PageButton { pageIndex: 3; text: "Network"; icon: "applications-network" }
+                    PageButton { pageIndex: 4; text: "Bluetooth"; icon: "bluetooth" }
+                    PageButton { pageIndex: 5; text: "Sound"; icon: "preferences-sound" }
+                    PageButton { pageIndex: 6; text: "Notifications"; icon: "notifyconf" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
+                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
                 }
-            }
-            ColumnLayout {
-                anchors.fill: parent
             }
         }
 
@@ -165,12 +179,22 @@ FloatingWindow {
             color: palette.base
             SwipeView {
                 anchors.fill: parent
+                //interactive: false
                 id: swipeView
                 orientation: Qt.Vertical
                 currentIndex: Root.State.controlPanelPage
+                Component.onCompleted: () => {
+                    root.settingsView = swipeView
+                }
 
-                Text {text: "hi"}
+                Pages.General {}
                 Pages.Monitors {}
+                Pages.Appearance {}
+                Pages.Network {}
+                Pages.Bluetooth {}
+                Pages.Sound {}
+                Pages.Notifications {}
+                Pages.About {}
             }
         }
     }
