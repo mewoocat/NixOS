@@ -13,6 +13,7 @@ import "Windows/ActivityCenter"
 import "Windows/Workspaces"
 import "Windows/Notifications"
 import "Windows/Settings"
+import "Windows/OnScreenDisplay"
 //import Quickshell.Services.NetworkManager
 
 ShellRoot {
@@ -35,5 +36,6 @@ ShellRoot {
     Workspaces {}
     Notifications {}
     Settings {}
+    OnScreenDisplay {}
 
 }

@@ -14,9 +14,13 @@ ColumnLayout {
     }
 
     Text {
-        text: "network stuff goes here"
+        //text: `network stuff goes here: ${Services.Network.test}`
+        color: palette.text
     }
     Button {
         text: "test"
+        onClicked: () => {
+            Services.OSD.visible = !Services.OSD.visible
+        }
     }
 }

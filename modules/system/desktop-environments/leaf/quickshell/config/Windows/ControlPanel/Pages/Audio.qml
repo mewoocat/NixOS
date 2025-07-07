@@ -30,11 +30,19 @@ ColumnLayout {
 
     // Output device selector
     ComboBox {
+        implicitWidth: parent.width
         model: Pipewire.nodes.values
             .filter(n => n.isSink) // filter nodes for sinks (Output devices)
+            .filter(n => !n.isStream) // filter only programs
             .map(n => n.description) // Map to just the output name string (Results in a list of string names)
+            onActivated: (index) => { 
+                console.log(index)
+            }
         /*
         delegate: WrapperMouseArea {
+            Component.onCompleted: () => {
+                console.log(`------------------------------modelData: ${modelData.ready} - ${modelData.description} - stream? ${modelData.isStream}`)
+            }
             id: item
             required property PwNode modelData
             Text {

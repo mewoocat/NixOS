@@ -21,6 +21,7 @@
 
   programs.cdemu.enable = true; # For emulating CD-Roms
   programs.gamemode.enable = true; # Optimise system performance on demand
+  programs.gamescope.enable = true;
 
   services.udev.packages = with pkgs; [
     #dolphin # Needed for controllers to work? Doesn't seem fix the issue
@@ -29,7 +30,7 @@
   users.users.${config.username}.packages = with pkgs; [ 
 
     # Utilities
-    gamescope
+    #gamescope
     protontricks # Causes build error if installed in steam.extraPackages
 
     # Emulators
