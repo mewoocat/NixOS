@@ -1,0 +1,4 @@
+
+PageBase {
+    pageName: "Network"
+}
