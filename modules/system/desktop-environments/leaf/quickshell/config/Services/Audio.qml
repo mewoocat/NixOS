@@ -34,4 +34,8 @@ Singleton {
         return node.audio.volume
     }
 
+    property list<PwNode> outputDevices: Pipewire.nodes.values
+        .filter(n => n.isSink) // filter nodes for sinks (Output devices)
+        .filter(n => !n.isStream) // filter only hardware
+
 }
