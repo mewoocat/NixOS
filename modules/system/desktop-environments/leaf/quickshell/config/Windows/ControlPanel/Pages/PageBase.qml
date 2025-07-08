@@ -46,7 +46,8 @@ Item {
             anchors.top: header.bottom
             anchors.bottom: parent.bottom
             children: [ root.content ]
-            color: "#2200ff00"
+            //color: "#2200ff00"
+            color: "transparent"
         }
         
     }

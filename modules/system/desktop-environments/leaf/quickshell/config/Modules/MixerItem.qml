@@ -24,16 +24,34 @@ ColumnLayout {
             implicitSize: 24
             // For some reason application.icon-name is "", using .name instead
             //source: Quickshell.iconPath(root.node.properties["application.icon-name"])
-            source: Quickshell.iconPath(root.node.properties["application.name"])
+            source: {
+                const properties = root.node.properties
+                if (properties["application.name"] !== undefined) {
+                    return Quickshell.iconPath(root.node.properties["application.name"].toLowerCase())
+                }
+                else {
+                    return Quickshell.iconPath(Services.Audio.getIcon(Pipewire.defaultAudioSink))
+                }
+            }
         }
         // Source name
         Text {
             Layout.fillWidth: true
             color: palette.text
             elide: Text.ElideRight
-            text: `Source: ${root.node.name}`
+            text: root.node.properties["application.name"]
         }
     }
+    /* Debug
+    Button {
+        text: "text"
+        onClicked: () => {
+            console.log(`app.icon-name: ${root.node.properties["application.icon-name"]}`)
+            console.log(`app.name: ${root.node.properties["application.name"]}`)
+            console.log(`media.name: ${root.node.properties["media.name"]}`)
+        }
+    }
+    */
     Slider {
         Layout.fillWidth: true
         from: 0

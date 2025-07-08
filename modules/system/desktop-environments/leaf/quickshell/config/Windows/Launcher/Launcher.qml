@@ -281,6 +281,7 @@ Common.PanelWindow {
                                     id: icon
                                     implicitSize: 32
                                     source: Quickshell.iconPath(mouseArea.modelData.icon)
+                                    Component.onCompleted: () => console.log(mouseArea.modelData.icon)
                                 }
                                 Text{
                                     Layout.fillWidth: true
