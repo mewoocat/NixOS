@@ -39,10 +39,12 @@ ColumnLayout {
             Layout.fillWidth: true
             color: palette.text
             elide: Text.ElideRight
-            text: root.node.properties["application.name"]
+            text:  root.node.properties["application.name"]
         }
     }
-    /* Debug
+
+    // Debug
+    /*
     Button {
         text: "text"
         onClicked: () => {
@@ -52,6 +54,7 @@ ColumnLayout {
         }
     }
     */
+
     Slider {
         Layout.fillWidth: true
         from: 0

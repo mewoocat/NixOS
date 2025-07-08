@@ -2,6 +2,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import '../../../Modules/Common/' as Common
 import '../../../' as Root
 
@@ -11,19 +12,20 @@ Item {
     id: root
     required property string pageName
     required property Item content
-    Rectangle {
-        // Anchor the column in order to set it's width and place it at top
+
+    ColumnLayout {
         anchors.margins: 16
+        id: header
+        //uniformCellSizes: false
         anchors.fill: parent
-        color: "transparent"
+        /*
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.left: parent.left
+        */
 
         // Header
         RowLayout {
-            id: header
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.left: parent.left
-
             // Back button
             Common.NormalButton {
                 text: "Back"
@@ -41,14 +43,18 @@ Item {
         }
 
         Rectangle {
-            anchors.right: parent.right
-            anchors.left: parent.left
-            anchors.top: header.bottom
-            anchors.bottom: parent.bottom
+            Layout.fillWidth: true
+            radius: 20
+            implicitHeight: 1
+            color: "#777777"
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
             children: [ root.content ]
             //color: "#2200ff00"
             color: "transparent"
         }
-        
     }
 }

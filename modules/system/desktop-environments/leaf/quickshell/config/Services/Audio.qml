@@ -9,6 +9,11 @@ Singleton {
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
     }
+
+    //////////////////////////////////////////////////////////////// 
+    // Functions
+    //////////////////////////////////////////////////////////////// 
+    
     function enable() {
         console.log("Enabling sound service")
     }

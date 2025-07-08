@@ -13,14 +13,19 @@ import "./Templates"
 PageBase {
     pageName: "Audio" 
     content: ColumnLayout {
+        anchors.top: parent.top
         anchors.right: parent.right
         anchors.left: parent.left
+        anchors.bottom: parent.bottom
+
+        SectionBase { name: "Output"}
 
         // Default output
         Modules.MixerItem {
             implicitWidth: parent.width
             node: Pipewire.defaultAudioSink
         }
+
 
         // Output device selector
         ComboBox {
@@ -47,25 +52,34 @@ PageBase {
             */
         }
 
-        // Track all nodes outputting to the default output
-        PwNodeLinkTracker {
-            id: defaultOutputLinkTracker
-            node: Pipewire.defaultAudioSink
-        }
+        SectionBase { name: "Mixer"}
 
-        ColumnLayout {
-            //Layout.fillHeight: true
+        WrapperRectangle {
+            Layout.fillHeight: true
             Layout.fillWidth: true
-            Repeater {
-                // For each source outputting to the default output
-                // i.e. Each program, etc.
-                // A link is a connection between two nodes
-                model: defaultOutputLinkTracker.linkGroups
-                Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
+            color: "transparent"
+            Common.Scrollable {
+                //implicitHeight: 100
+                anchors.fill: parent
+                content: ColumnLayout {
+                    // Track all nodes outputting to the default output
+                    // Useful for mixer entries
+                    PwNodeLinkTracker {
+                        id: defaultOutputLinkTracker
+                        node: Pipewire.defaultAudioSink
+                    }
+                    Repeater {
+                        // For each source outputting to the default output
+                        // i.e. Each program, etc.
+                        // A link is a connection between two nodes
+                        model: defaultOutputLinkTracker.linkGroups
+                        Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
 
-                // MixerItem
-                Modules.MixerItem {
-                }
+                        // MixerItem
+                        Modules.MixerItem {
+                        }
+                    }
+                } 
             }
         }
     }
