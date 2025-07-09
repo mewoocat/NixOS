@@ -131,6 +131,7 @@ Common.PanelWindow {
                     SidePanelItem {
                         onClicked: Root.State.settings.openWindow()
                         imgPath: Quickshell.iconPath('application-menu-symbolic')
+                        imgSize: 24
                     }
                     ProfilePictureItem {
                         id: user

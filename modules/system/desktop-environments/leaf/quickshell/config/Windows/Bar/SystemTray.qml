@@ -14,22 +14,7 @@ Rectangle {
     property Item toggleButton: null
     implicitHeight: parent.height
     implicitWidth: trayBackground.width + root.margin
-    //color: "transparent"
-    property var toggle: () => {
-        root.isExpanded = !root.isExpanded
-        /*
-        if (tray.state === "hidden") {
-            toggleButton.iconItem.rotation = 0
-            tray.state = "default"
-            trayBox.state = "default"
-        }
-        else {
-            toggleButton.iconItem.rotation = 180
-            tray.state = "hidden"
-            trayBox.state = "hidden"
-        }
-        */
-    }
+    property var toggle: () => root.isExpanded = !root.isExpanded
     Rectangle {
         id: trayBackground
         color: palette.base

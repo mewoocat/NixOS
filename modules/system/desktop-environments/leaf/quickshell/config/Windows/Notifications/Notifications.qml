@@ -56,7 +56,7 @@ PanelWindow {
                 SequentialAnimation {
                     NumberAnimation {
                         properties: "x"
-                        to: -20
+                        to: -8
                         duration: 100
                     }
                     NumberAnimation {

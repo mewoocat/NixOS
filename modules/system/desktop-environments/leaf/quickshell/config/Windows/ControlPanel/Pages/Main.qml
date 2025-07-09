@@ -57,7 +57,7 @@ Common.PanelGrid {
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+            source: Quickshell.iconPath("color-profile")
         }
     }
     Common.PanelItem { 
@@ -66,13 +66,15 @@ Common.PanelGrid {
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+            source: Quickshell.iconPath("media-record-symbolic")
+            // Recolor
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                colorization: 1 // Full re-color
+                colorizationColor: "#ee1111"
+            }
         }
         action: () => {
-            console.log('action:')
-            console.log(Root.State.config.location.latitude)
-            Root.State.config.location.latitude = 3
-            console.log(Root.State.config.location.latitude)
         }
     }
     Common.PanelItem { 
@@ -81,7 +83,7 @@ Common.PanelGrid {
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+            source: Quickshell.iconPath("preferences-system-power-management")
         }
     }
 
