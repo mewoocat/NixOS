@@ -7,11 +7,19 @@ import Quickshell.Services.Pipewire
 import "../../" as Root
 import "../Services" as Services
 
-ColumnLayout {
-    Layout.fillWidth: true
+Rectangle {
+    //Layout.fillWidth: true
+    implicitHeight: column.height
+    implicitWidth: parent.width
+    color: "transparent"
+    //color: "red"
     id: root
     required property PwLinkGroup modelData
     property PwNode node: modelData.source // The source node
+ColumnLayout {
+    id: column
+    anchors.left: parent.left
+    anchors.right: parent.right
 
     // Binding this node so all of its properties are available
     PwObjectTracker {
@@ -62,4 +70,5 @@ ColumnLayout {
         onValueChanged: root.node.audio.volume = value
         to: 1
     }
+}
 }

@@ -61,24 +61,22 @@ PageBase {
             Common.Scrollable {
                 //implicitHeight: 100
                 anchors.fill: parent
-                content: ColumnLayout {
-                    // Track all nodes outputting to the default output
-                    // Useful for mixer entries
-                    PwNodeLinkTracker {
-                        id: defaultOutputLinkTracker
-                        node: Pipewire.defaultAudioSink
-                    }
-                    Repeater {
-                        // For each source outputting to the default output
-                        // i.e. Each program, etc.
-                        // A link is a connection between two nodes
-                        model: defaultOutputLinkTracker.linkGroups
-                        Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
 
-                        // MixerItem
-                        Modules.MixerItem {
-                        }
-                    }
+                // Track all nodes outputting to the default output
+                // Useful for mixer entries
+                PwNodeLinkTracker {
+                    id: defaultOutputLinkTracker
+                    node: Pipewire.defaultAudioSink
+                }
+                content: Repeater {
+                    // For each source outputting to the default output
+                    // i.e. Each program, etc.
+                    // A link is a connection between two nodes
+                    model: defaultOutputLinkTracker.linkGroups
+                    Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
+
+                    // MixerItem
+                    Modules.MixerItem {}
                 } 
             }
         }

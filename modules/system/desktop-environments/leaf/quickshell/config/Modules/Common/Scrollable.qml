@@ -15,6 +15,7 @@ Rectangle {
         id: scrollBar
         parent: root
         anchors.left: scrollView.right
+        //anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         policy: ScrollBar.AlwaysOn // Doesn't work?
@@ -22,16 +23,35 @@ Rectangle {
 
     // Content
     ScrollView {
-        implicitWidth: parent.width - scrollBar.width
+        /*
+        anchors.leftMargin: 16
+        anchors.topMargin: 16
+        anchors.bottomMargin: 16
+        */
+        //anchors.margins: 16
+
+        implicitWidth: parent.width //- scrollBar.width
         id: scrollView
-        anchors.right: scrollView.left
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-        ScrollBar.vertical: scrollBar
+        //ScrollBar.vertical: scrollBar
 
-        contentChildren: [ root.content ]
+        // Idk why this works
+        contentChildren: Rectangle {
+            color: "transparent"
+            //color: "#2200ff00"
+            implicitWidth: scrollView.width - scrollBar.width
+            implicitHeight: column.height + 16
+
+            ColumnLayout {
+                anchors.centerIn: parent
+                id: column
+                implicitWidth: parent.width - 16
+                children: [ root.content ]
+            }    
+        }
         /*
         contentChildren: [ 
             WrapperRectangle {
