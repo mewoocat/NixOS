@@ -50,7 +50,7 @@ PanelWindow {
     Timer {
         id: delay
         triggeredOnStart: false
-        interval: 10
+        interval: 100 // If windows are closing right after opening, try adjusting this value
         repeat: false
         onTriggered: {
             if (grab.active !== window.visible) { 
