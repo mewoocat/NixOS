@@ -17,7 +17,7 @@ PanelWindow {
     required property var toggleWindow
  
     Component.onCompleted: {
-        console.log(`setting state for window: ${name}`)
+        //console.log(`setting state for window: ${name}`)
         Root.State[name] = window // Set the window ref in state
     }
 
@@ -27,7 +27,7 @@ PanelWindow {
     property bool prevVisible: false
     onVisibleChanged: {
         if (visible !== prevVisible) {
-            console.log(`panel window vis changed to ${window.visible}`)
+            //console.log(`panel window vis changed to ${window.visible}`)
             delay.start() // Set grab active status
         }
         prevVisible = visible
@@ -54,7 +54,7 @@ PanelWindow {
         repeat: false
         onTriggered: {
             if (grab.active !== window.visible) { 
-                console.log('PANEL: grab triggered for ' + window.visible)
+                //console.log('PANEL: grab triggered for ' + window.visible)
                 grab.active = window.visible
             }
         }
@@ -78,12 +78,12 @@ PanelWindow {
             Root.State.panelGrab = grab
         }
         active: false
-        onActiveChanged: console.log(`PANEL: grab active set to: ${grab.active}`)
+        //onActiveChanged: console.log(`PANEL: grab active set to: ${grab.active}`)
         windows: [window]
-        onWindowsChanged: console.log(`PANEL: grab windows changed`)
+        //onWindowsChanged: console.log(`PANEL: grab windows changed`)
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            console.log('PANEL: clearing grab')
+            //console.log('PANEL: clearing grab')
             window.closeWindow() // Assumes this method exists
         }
     }

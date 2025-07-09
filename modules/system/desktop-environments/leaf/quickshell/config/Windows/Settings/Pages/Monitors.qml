@@ -82,9 +82,9 @@ PageBase {
                     required property HyprlandMonitor modelData
                     monitor: modelData
                     Component.onCompleted: {
-                        console.log(`monitor modeldata: ${modelData.x}x${modelData.y}`)
-                        console.log(`monitor ${monitor.name}: ${actualX}, ${actualY}`)
-                        console.log(`monitor ${monitor.name}: ${x}, ${y}`)
+                        //console.log(`monitor modeldata: ${modelData.x}x${modelData.y}`)
+                        //console.log(`monitor ${monitor.name}: ${actualX}, ${actualY}`)
+                        //console.log(`monitor ${monitor.name}: ${x}, ${y}`)
                         Services.Monitors.visualMonitors[monitor.id] = visualMonitor
                     }
                 }

@@ -75,7 +75,7 @@ Singleton {
     // Loads any saved config for the current monitors and ports
     function loadConfig(): void { 
         const id = generateId()
-        console.log(`loading config for id: ${id}`)
+        //console.log(`loading config for id: ${id}`)
         let conf = ""
         // If a saved config exists
         if (monitorMapFile.adapter.configs[id]) {    
@@ -126,11 +126,11 @@ Singleton {
                 case "monitoraddedv2":
                 case "monitorremoved":
                 case "monitorremovedv2":
-                    console.log("monitor event occured")
+                    //console.log("monitor event occured")
                     console.log(event.data)
                     Hyprland.refreshMonitors()
                     Hyprland.onMonitorsChanged = () => {
-                        console.log(`onMonitorsChanged`)
+                        //console.log(`onMonitorsChanged`)
                     }
 
                     // Load in a saved monitor config after timeout
@@ -171,7 +171,7 @@ Singleton {
 
         // If the adapter's contents change, update the file
         onAdapterUpdated: {
-            console.log(`adapter updated`)
+            //console.log(`adapter updated`)
             writeAdapter()
         }
 
@@ -179,7 +179,7 @@ Singleton {
             console.log(`File ${path} load failed with ${err}`)
         }
         onLoaded: {
-            console.log(`File ${path} load ok, text = ${monitorMapFile.text()}`) 
+            //console.log(`File ${path} load ok, text = ${monitorMapFile.text()}`) 
         }
 
         // Adapter between qml object and json
@@ -196,7 +196,7 @@ Singleton {
         id: monitorConfFile
         path: Root.State.leafPath + "/hypr/monitors.conf"
         onLoaded: {
-            console.log(`File ${path} load ok, text = ${text()}`) 
+            //console.log(`File ${path} load ok, text = ${text()}`) 
         }
     }
 }

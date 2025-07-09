@@ -34,7 +34,7 @@ Rectangle {
         }
     }
 
-    ScrollBar.vertical: ScrollBar {
+    ScrollBar {
         id: scrollBar
         parent: root
         anchors.right: parent.right

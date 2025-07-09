@@ -23,7 +23,7 @@ ColumnLayout {
 
     // Binding this node so all of its properties are available
     PwObjectTracker {
-        objects: [root.node]
+        objects: [ root.node ]
     }
 
     RowLayout {
@@ -33,13 +33,15 @@ ColumnLayout {
             // For some reason application.icon-name is "", using .name instead
             //source: Quickshell.iconPath(root.node.properties["application.icon-name"])
             source: {
-                const properties = root.node.properties
-                if (properties["application.name"] !== undefined) {
-                    return Quickshell.iconPath(root.node.properties["application.name"].toLowerCase())
+                // If node is set and is bound
+                if (root.node && root.node.ready) {
+                    const properties = root.node.properties
+                    if (properties["application.name"] !== undefined) {
+                        return Quickshell.iconPath(root.node.properties["application.name"].toLowerCase())
+                    }
                 }
-                else {
-                    return Quickshell.iconPath(Services.Audio.getIcon(Pipewire.defaultAudioSink))
-                }
+                // fallback
+                return Quickshell.iconPath(Services.Audio.getIcon(Pipewire.defaultAudioSink))
             }
         }
         // Source name
@@ -47,7 +49,11 @@ ColumnLayout {
             Layout.fillWidth: true
             color: palette.text
             elide: Text.ElideRight
-            text:  root.node.properties["application.name"]
+            text: {
+                const text = root.node.properties["application.name"]
+                if (text === undefined) { return "n/a" }
+                return text
+            }
         }
     }
 
@@ -67,7 +73,8 @@ ColumnLayout {
         Layout.fillWidth: true
         from: 0
         value: Services.Audio.getVolume(root.node)
-        onValueChanged: root.node.audio.volume = value
+        // Don't allow for value to be changed until node is bound
+        onValueChanged: root.node.ready ? root.node.audio.volume = value : null
         to: 1
     }
 }
