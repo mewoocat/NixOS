@@ -143,7 +143,7 @@ Common.PanelWindow {
                             id: userPopup
 
                             anchor {
-                                window: launcher
+                                //window: launcher
                                 item: user
                                 edges: Edges.Bottom | Edges.Right
                                 gravity: Edges.Top | Edges.Right

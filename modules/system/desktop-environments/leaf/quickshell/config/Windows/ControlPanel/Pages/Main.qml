@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Services.UPower
 import "../"
 import "../../../" as Root
 import "../../../Services" as Services
@@ -41,7 +42,7 @@ Common.PanelGrid {
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: `file://${Quickshell.shellRoot}/Icons/nightlight-symbolic.svg`
+            source: `file://${Quickshell.configDir}/Icons/nightlight-symbolic.svg` // For some reason configDir exists but shellRoot doesn't
 
             // Recolor
             layer.enabled: true
@@ -78,12 +79,34 @@ Common.PanelGrid {
         }
     }
     Common.PanelItem { 
+        id: testPanelItem
         rows: 1
         columns: 1
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: Quickshell.iconPath("preferences-system-power-management")
+            source: Quickshell.iconPath("power-profile-balanced-symbolic")
+        }
+        action: () => {
+            console.log("action")
+            powerProfilePopup.visible = true
+        }
+        //TODO: The reason this triggers the focus grab for the parent window is because the panelGrab state is set again for each
+        // Common.PanelWindow created.  Need to store the references in the state using a map or something
+        // also, commenting out the launcher in the shell.qml allows for this popup to work
+        Common.PopupWindow {
+            id: powerProfilePopup
+            
+            anchor {
+                //window: Root.State.controlPanel
+                item: testPanelItem
+                edges: Edges.Bottom | Edges.Left
+                gravity: Edges.Top | Edges.Left
+            }
+
+            content: ColumnLayout {
+                Text { color: palette.text; text: "wtf" }
+            }
         }
     }
 
@@ -97,8 +120,17 @@ Common.PanelGrid {
     Common.PanelItem { 
         rows: 2
         columns: 2
-        content: ComboBox {
-            model: ["First", "Second", "Third"]
+        content: ColumnLayout {
+            Text {
+                color: palette.text
+                //text: "what: " + Services.Power.currentProfile
+                text: {
+                    return "profile: " + PowerProfile.toString(PowerProfiles.profile)
+                }
+            }
+            ComboBox {
+                model: ["First", "Second", "Third"]
+            }
         }
     }
 

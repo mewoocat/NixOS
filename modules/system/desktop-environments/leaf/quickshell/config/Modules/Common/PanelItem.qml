@@ -29,7 +29,7 @@ MouseArea {
     Rectangle {
         id: box
         anchors.fill: parent
-        anchors.margins: 4
+        anchors.margins: 6
         radius: 16
         color: mouseArea.containsMouse ? palette.highlight : palette.base
         children: [

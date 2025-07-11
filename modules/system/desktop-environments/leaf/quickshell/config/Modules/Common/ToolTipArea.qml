@@ -16,15 +16,15 @@ WrapperMouseArea {
         visible: area.containsMouse
         background: Rectangle {
             radius: 20
-            color: "#000000"
+            color: "#77000000"
         }
     }
 
     onEntered: {
-        console.log("entered")
+        //console.log("entered")
     }
 
     onExited: {
-        console.log("exited")
+        //console.log("exited")
     }
 }

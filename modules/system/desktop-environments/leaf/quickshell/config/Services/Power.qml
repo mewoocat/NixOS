@@ -2,6 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.UPower
 
 Singleton {
     id: root
@@ -18,4 +19,7 @@ Singleton {
     function restart() { restartProc.running = true }
     function hibernate() { hibernateProc.running = true }
     function sleep() { sleepProc.running = true }
+
+    property var currentProfile: PowerProfiles.profile
+
 }
