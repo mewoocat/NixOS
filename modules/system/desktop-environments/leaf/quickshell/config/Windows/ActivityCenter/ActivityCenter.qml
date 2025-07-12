@@ -71,8 +71,12 @@ Common.PanelWindow {
             }
         } 
         */
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { 
+            isClickable: false; 
+            rows: 6
+            columns: 6
+            content: Modules.Notifications {} 
+        }
         //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { 
@@ -93,12 +97,8 @@ Common.PanelWindow {
             columns: 3
             content: Modules.Calendar {} 
         }
-        Common.PanelItem { 
-            isClickable: false; 
-            rows: 6
-            columns: 6
-            content: Modules.Notifications {} 
-        }
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
     }
 }

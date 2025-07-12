@@ -54,30 +54,34 @@ PageBase {
 
         SectionBase { name: "Mixer"}
 
-        WrapperRectangle {
+        Common.Scrollable {
+            // If some apps are outputting to the default output
+            visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
             Layout.fillHeight: true
             Layout.fillWidth: true
-            color: "transparent"
-            Common.Scrollable {
-                //implicitHeight: 100
-                anchors.fill: parent
 
-                // Track all nodes outputting to the default output
-                // Useful for mixer entries
-                PwNodeLinkTracker {
-                    id: defaultOutputLinkTracker
-                    node: Pipewire.defaultAudioSink
-                }
-                content: Repeater {
-                    // For each source outputting to the default output
-                    // i.e. Each program, etc.
-                    // A link is a connection between two nodes
-                    model: defaultOutputLinkTracker.linkGroups
-                    Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
+            content: Repeater {
+                // For each source outputting to the default output
+                // i.e. Each program, etc.
+                // A link is a connection between two nodes
+                model: Services.Audio.defaultOutputLinkTracker.linkGroups
+                Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
 
-                    // MixerItem
-                    Modules.MixerItem {}
-                } 
+                // MixerItem
+                Modules.MixerItem {}
+            } 
+        }
+        
+        // No mixer items placeholder
+        Item {
+            // If no apps are outputting to the default output
+            visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length <= 0
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Text {
+                anchors.centerIn: parent
+                color: palette.text
+                text: "Nothing to mix :/"
             }
         }
     }

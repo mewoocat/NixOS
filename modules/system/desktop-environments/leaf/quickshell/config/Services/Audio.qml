@@ -10,6 +10,12 @@ Singleton {
         objects: [Pipewire.defaultAudioSink]
     }
 
+    // Track all nodes outputting to the default output
+    // Useful for mixer entries
+    property PwNodeLinkTracker defaultOutputLinkTracker: PwNodeLinkTracker {
+        node: Pipewire.defaultAudioSink
+    }
+
     //////////////////////////////////////////////////////////////// 
     // Functions
     //////////////////////////////////////////////////////////////// 

@@ -46,7 +46,8 @@ MouseArea {
             margins: 8
         }
         radius: 12
-        color: root.containsMouse ? palette.window : palette.button
+        //color: root.containsMouse ? palette.window : palette.button
+        color: palette.window
         margin: 8
         topMargin: 0 // Counteract the extra spacing for the close button
 

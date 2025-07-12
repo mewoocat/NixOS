@@ -1,10 +1,12 @@
 import Quickshell
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Services.Notifications as QsNotifications
 import "../Services" as Services
 import "../Modules" as Modules
+import "./Common" as Common
 
 // A widget to list all tracked notifications
 ColumnLayout {
@@ -22,7 +24,10 @@ ColumnLayout {
         implicitHeight: 1
         opacity: 0.2
     }
+    // Old ListView impl
+    /*
     ListView {
+        visible: Services.Notifications.notifications.length > 0
         Layout.fillHeight: true
         Layout.fillWidth: true
         model: Services.Notifications.notificationModel
@@ -35,6 +40,33 @@ ColumnLayout {
             Layout.fillWidth: true
             required property var modelData
             notification: modelData
+        }
+    }
+    */
+    Common.Scrollable {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        visible: Services.Notifications.notifications.length > 0
+        color: "transparent"
+        content: Repeater {
+            model: Services.Notifications.notificationModel
+            Modules.Notification {
+                Layout.fillWidth: true
+                required property var modelData
+                notification: modelData
+            }
+        }
+    }
+
+    // No notification placeholder
+    Item {
+        visible: Services.Notifications.notifications.length <= 0
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        Text {
+            anchors.centerIn: parent
+            color: palette.text
+            text: "All caught up :)"
         }
     }
 }
