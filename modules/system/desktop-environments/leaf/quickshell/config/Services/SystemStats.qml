@@ -4,10 +4,10 @@ import Quickshell
 import Quickshell.Io
 
 Singleton {
-    id: root
+    id: root 
 
-    
     property real cpuUsage: 0
+    property real cpuTemp: 0
     property real memUsage: 0
     property string memUsageText: ""
     property real storageUsage: 0
@@ -24,6 +24,17 @@ Singleton {
             onRead: data => {
                 root.cpuUsage = data
             }
+        }
+    }
+
+    Process {
+        id: cpuTempProc
+        // Todo: pls remove fastfetch dep omg
+        command: ['bash', '-c', "fastfetch --packages-disabled nix --logo none --cpu-temp | grep 'CPU:' | rev | cut -d ' ' -f1 | cut -c 4- | rev"]
+        running: true
+
+        stdout: SplitParser {
+            onRead: data => root.cpuTemp = data
         }
     }
 

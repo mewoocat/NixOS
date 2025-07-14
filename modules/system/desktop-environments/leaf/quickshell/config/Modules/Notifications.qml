@@ -65,7 +65,7 @@ ColumnLayout {
         Layout.fillWidth: true
         Text {
             anchors.centerIn: parent
-            color: palette.text
+            color: palette.placeholderText
             text: "All caught up :)"
         }
     }

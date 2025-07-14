@@ -26,6 +26,17 @@ MouseArea {
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
     onClicked: action()
+
+    // Shadow for the Rectangle
+    RectangularShadow {
+        anchors.fill: box
+        offset.x: -4
+        offset.y: -4
+        radius: box.radius
+        blur: 16
+        spread: 4
+        color: Qt.alpha(Qt.darker(palette.base, 2), 0.8)
+    }
     Rectangle {
         id: box
         anchors.fill: parent

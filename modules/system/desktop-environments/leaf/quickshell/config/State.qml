@@ -28,9 +28,15 @@ Singleton {
     property var panelGrab: null // The grab object for the active panel
     property var popupGrab: null // The grab object for the active popup
 
+    // Index of the current page in control panel
     property int controlPanelPage: 0
 
+    // Styling
     property int rounding: 8
+    property int smallSpace: 4
+    property int mediumSpace: 8
+    property int largeSpace: 8
+
 
     FileView {
         id: configFile

@@ -18,7 +18,9 @@
 
     # Icon theme
     kdePackages.breeze
-
+    
+    # Qt styles
+    darkly
   ];
 
   hjem.users.eXia = {

@@ -31,6 +31,9 @@ ColumnLayout {
                 from: 0
                 value: Services.SystemStats.cpuUsage
                 to: 100
+                contentItem: Label {
+                    text: "hi"
+                }
             }
         }
     }
@@ -71,14 +74,14 @@ ColumnLayout {
             }
             Text {
                 text: {
-                    Math.round(Services.SystemStats.cpuUsage) + '°C'
+                    Math.round(Services.SystemStats.cpuTemp) + '°C'
                 }
                 color: palette.text
             }
             ProgressBar {
                 Layout.fillWidth: true
                 from: 0
-                value: Services.SystemStats.cpuUsage
+                value: Services.SystemStats.cpuTemp
                 to: 100
             }
         }
