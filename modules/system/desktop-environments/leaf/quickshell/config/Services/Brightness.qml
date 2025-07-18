@@ -13,6 +13,10 @@ Singleton {
     property string brightnessPath: `/sys/class/backlight/${root.deviceName}/brightness`
     property bool ready: false
 
+    function getIcon() {
+        return "brightness-high-symbolic"
+    }
+
     function enable(){
         console.log("Enabling brightness service")
     }

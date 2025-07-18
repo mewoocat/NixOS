@@ -5,6 +5,7 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.UPower
+import Quickshell.Services.Pipewire
 import "../"
 import "../../../" as Root
 import "../../../Services" as Services
@@ -12,10 +13,10 @@ import "../../../Modules" as Modules
 import "../../../Modules/Common" as Common
 
 Common.PanelGrid {
+    // Apparently, if you don't assign both the rows and columns for a grid, it's size will be 0x0 if
+    // the grid's parent size is set to the grid's size
     columns: 4
-    //rows: 4
-    //width: 400
-    //height: 400
+    rows: 4
 
     Component.onCompleted: console.log(`panel grid: ${width}x${height}`)
 
@@ -24,10 +25,38 @@ Common.PanelGrid {
         rows: 2
         columns: 2
         //action: () => {grid.height = grid.height + 100}
-        content: IconImage {
-            anchors.centerIn: parent
-            implicitSize: 32
-            source: Quickshell.iconPath("ymuse-home-symbolic")
+        content: ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: 16
+            spacing: 16
+            // Internet
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                RoundButton {
+                    text: "a"
+                }
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    radius: Root.State.rounding 
+                    color: palette.accent
+                }
+            }
+            // Bluetooth
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                RoundButton {
+                    text: "a"
+                }
+                Rectangle {
+                    radius: Root.State.rounding
+                    color: palette.accent
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+            }
         }
         action: () => {
             Root.State.controlPanelPage = 2
@@ -135,12 +164,62 @@ Common.PanelGrid {
     }
 
     Common.PanelItem { 
-        content: SliderPanel {}
         isClickable: false
         rows: 2
         columns: 4
-    }
+        content: WrapperRectangle {
+            anchors.fill: parent
+            color: "transparent"
+            margin: 8
 
+        ColumnLayout {    
+            //anchors.fill: parent
+            RowLayout {
+                Common.NormalButton {
+                    iconName: Services.Audio.getIcon(Pipewire.defaultAudioSink)
+                    text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
+                    leftClick: () => {
+                        console.log("clicked")
+                        Root.State.controlPanelPage = 1
+                    }
+                    Layout.minimumWidth: 86
+                }
+                Slider {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    stepSize: 0.01
+                    from: 0
+                    value: Services.Audio.getVolume(Pipewire.defaultAudioSink)
+                    onValueChanged: Pipewire.defaultAudioSink.audio.volume = value
+                    to: 1
+                }
+            }
+
+            RowLayout {
+                Common.NormalButton {
+                    iconName: Services.Brightness.getIcon()
+                    text: Math.ceil(Services.Brightness.value * 100) + '%'
+                    leftClick: () => {
+                        console.log("clicked")
+                        Root.State.controlPanelPage = 1
+                    }
+                    Layout.minimumWidth: 86
+                }
+                Slider {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    from: 0.01
+                    value: Services.Brightness.value
+                    stepSize: 0.01
+                    onValueChanged: {
+                        Services.Brightness.value = value
+                    }
+                    to: 1
+                }
+            }
+        }
+        }
+    }
 
     /*
     PanelItem { iconName: "ymuse-home-symbolic"}

@@ -31,9 +31,6 @@ ColumnLayout {
                 from: 0
                 value: Services.SystemStats.cpuUsage
                 to: 100
-                contentItem: Label {
-                    text: "hi"
-                }
             }
         }
     }

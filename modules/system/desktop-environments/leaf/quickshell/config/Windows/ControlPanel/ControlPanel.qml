@@ -16,13 +16,16 @@ Common.PanelWindow {
     implicitWidth: unitSize * 4
     implicitHeight: unitSize * 6
     */
-    implicitWidth: content.width
-    implicitHeight: content.height
     //implicitWidth: 400
     //implicitHeight: 400
+    //
+    implicitWidth: content.width
+    implicitHeight: content.height
 
     toggleWindow: () => {
         Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
+        console.log(swipeView.contentChildren[0].width + "x" + swipeView.contentChildren[0].height)
+        console.log("test: " + swipeView.test)
     } 
     closeWindow: () => {
         Root.State.controlPanelVisibility = false
@@ -34,22 +37,26 @@ Common.PanelWindow {
 
     //content: Pages.Main {} 
     content: SwipeView {
-        // Need to calculate these based on rows, cols, and unitSize of main panel grid
-        // That what it ensures that all pages will show as the same size
-        implicitWidth: 320 
-        implicitHeight: 480
-        //anchors.fill: parent
-        id: stackView
-        //width: 300
+        Component.onCompleted: {
+            console.log(`${itemAt(0).implicitWidth} x ${itemAt(0).implicitHeight}`)
+            console.log(currentItem)
+        }
+        id: swipeView
+
         // can't use contentHeight since it uses the implicit size of the children
         // and due to a bug, we need to use non implicit size for the grid child
 
-        //implicitHeight: currentItem.height
-        //implicitWidth: currentItem.width
+        // Need to use implicit sizes here for some reason
+        // In order to properly size this element to the GridLayout child with no fixed size
+        implicitWidth: itemAt(0).implicitWidth
+        implicitHeight: itemAt(0).implicitHeight
         currentIndex: Root.State.controlPanelPage
+
+        property Item test: main
 
         // Multiple items here seems to make the width of the swipeview expand when accessed?
         Pages.Main {
+            id: main
             //unitSize: root.unitSize
         } 
         Pages.Audio {}

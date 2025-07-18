@@ -33,9 +33,9 @@ ShellRoot {
     ControlPanel {}
     ActivityCenter {}
     Notifications {}
-    /*
     Workspaces {}
     Settings {}
+    /*
     OnScreenDisplay {}
     */
 
