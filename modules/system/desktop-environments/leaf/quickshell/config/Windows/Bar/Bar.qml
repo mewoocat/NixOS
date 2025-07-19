@@ -34,7 +34,7 @@ Scope {
                     left: true
                     right: true
                 }
-                implicitHeight: 40
+                implicitHeight: 40 // Bar height
                 WlrLayershell.namespace: "bar" // Set layer name
                 Rectangle {
                     color: palette.window
@@ -69,9 +69,12 @@ Scope {
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        spacing: 0
 
-                        Audio {}
                         SystemTray {}
+                        Audio {}
+                        Network {}
+                        Bluetooth {}
                         Battery {}
                         Common.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()

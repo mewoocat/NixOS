@@ -6,23 +6,32 @@ import QtQuick.Effects
 import QtQuick.Layouts
 
 MouseArea {
-    id: mouseArea
+    id: root
     
-    // On mouse click functions
+    // Mouse clicks
+    property bool isClickable: true
     property var leftClick: null
     property var rightClick: null
     property var middleClick: null
     property var action // !! Deprecated
 
+    // Content
     property Item iconItem: icon
-
     property string iconName: ""
     property string iconSource: "" // Source url of an icon to use
     property string text: ""
-    property bool isClickable: true
-    implicitWidth: box.width
-    //implicitHeight: parent.height
-    implicitHeight: 40
+    property bool recolorIcon: false
+
+    // Size and Margins
+    property int buttonHeight: 40 // Default height
+    property int internalHeight: implicitHeight - internalMargin * 2
+    property int internalMargin: 4
+    property int iconSize: implicitHeight / 2
+    //implicitHeight: parent.height // Ensure the button's mouse area is as tall as it's parent by default
+    implicitWidth: box.width + internalMargin * 2
+    implicitHeight: buttonHeight
+
+    //implicitHeight: box.height + internalMargin
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
     acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
@@ -47,30 +56,29 @@ MouseArea {
         anchors.centerIn: parent
         //implicitWidth: iconName != "" ? icon.width + 16 : text.width + 16
         implicitWidth: row.width
-        implicitHeight: parent.height - 12
+        implicitHeight: root.internalHeight
         radius: 24
-        color: mouseArea.containsMouse ? palette.highlight : "#00000000"
+        color: root.containsMouse ? palette.highlight : "#00000000"
 
         RowLayout {
             id: row
-            implicitWidth: text.width + icon.width + 8 + 8 + 4
+            //implicitWidth: text.width + icon.width + 8 + 8 + 4
             height: parent.height
             spacing: 4
             IconImage {
                 //Rectangle { anchors.fill: parent; color: "#9900ff00" }
                 Layout.leftMargin: 8
-                Layout.rightMargin: mouseArea.text === "" ? 8 : 0
+                Layout.rightMargin: root.text === "" ? 8 : 0
                 id: icon
-                visible: mouseArea.iconName != "" || mouseArea.iconSource != ""
-                implicitSize: mouseArea.height / 2
-                source: mouseArea.iconName == "" ? mouseArea.iconSource : Quickshell.iconPath(mouseArea.iconName)
-                /*
-                layer.enabled: true
+                visible: root.iconName != "" || root.iconSource != ""
+                implicitSize: root.iconSize
+                source: root.iconName == "" ? root.iconSource : Quickshell.iconPath(root.iconName)
+                // Icon recoloring
+                layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
-                    colorizationColor: "#ff0000"
+                    colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
                 }
-                */
                 // Animate changes to the rotation property
                 Behavior on rotation {
                     PropertyAnimation { property: "rotation"; duration: 300 }
@@ -80,13 +88,13 @@ MouseArea {
                 id: text
                 //Rectangle { anchors.fill: parent; color: "#990000ff" }
                 //Layout.fillWidth: true
-                visible: mouseArea.text != ""
+                visible: root.text != ""
                 Layout.alignment: Qt.AlignHCenter
-                Layout.leftMargin: mouseArea.icon === "" ? 8 : 0
+                Layout.leftMargin: root.icon === "" ? 8 : 0
                 Layout.rightMargin: 8
-                text: mouseArea.text
+                text: root.text
                 font.pointSize: 12
-                color: palette.text
+                color: root.containsMouse ? palette.highlightedText : palette.text
             }
         }
    }
