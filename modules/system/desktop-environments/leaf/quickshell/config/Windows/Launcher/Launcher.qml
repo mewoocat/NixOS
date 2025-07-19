@@ -286,7 +286,7 @@ Common.PanelWindow {
                                     rightPadding: 8
                                     elide: Text.ElideRight // Truncate with ... on the right
                                     text: mouseArea.modelData.name
-                                    color: palette.text
+                                    color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
                                 }
                             }
                         }

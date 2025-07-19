@@ -26,8 +26,6 @@ Common.PanelWindow {
         right: true
     }
 
-    content: Pages.Main {} 
-    /*
     content: SwipeView {
         id: swipeView
         currentIndex: Root.State.controlPanelPage
@@ -55,5 +53,4 @@ Common.PanelWindow {
         //    Layout.alignment: Qt.AlignHCenter
         //}
     }
-    */
 }

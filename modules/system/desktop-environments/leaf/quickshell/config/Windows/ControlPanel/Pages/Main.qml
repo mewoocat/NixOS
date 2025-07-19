@@ -20,50 +20,72 @@ Common.PanelGrid {
         rows: 2
         columns: 2
         isClickable: false
+        action: () => {
+            Root.State.controlPanelPage = 2
+        }
         
         //action: () => {grid.height = grid.height + 100}
         content: ColumnLayout {
-            anchors.fill: parent
             anchors.margins: 12
-            spacing: 12
-            // Internet
-            RowLayout {
+            spacing: 20
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            component RowItem: RowLayout {
+                id: rowItem
+                required property string iconName
+                required property string title
+                required property string subtext
+                property var toggleAction: () => {}
+                property var normalAction: () => {}
+
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 RoundButton {
-                    text: "a"
+                    icon.name: rowItem.iconName
+                    icon.height: 16
+                    icon.width: 16
                 }
-                Rectangle {
+                WrapperMouseArea {
+                    id: mouseArea
+                    enabled: true
+                    hoverEnabled: true
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    radius: Root.State.rounding 
-                    color: palette.accent
-                    ColumnLayout {
-                        anchors.centerIn: parent
-                        Text { color: palette.text; text: "WiFi"}
-                        Text { color: palette.text; text: "my ssid"
-                            font.pointSize: 8
+                    WrapperRectangle {
+                        //anchors.verticalCenter: parent.verticalCenter // Doesn't seem to do anything lol
+                        //anchors.left: parent.left
+                        radius: Root.State.rounding 
+                        color: mouseArea.containsMouse ? palette.accent : "transparent"
+                        margin: 4
+                        ColumnLayout {
+                            spacing: 0
+                            Text {
+                                color: palette.text;
+                                text: rowItem.title
+                                font.pointSize: 10
+                            }
+                            Text { 
+                                color: palette.placeholderText;
+                                text: rowItem.subtext
+                                font.pointSize: 8
+                            }
                         }
                     }
                 }
             }
-            // Bluetooth
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                RoundButton {
-                    text: "a"
-                }
-                Rectangle {
-                    radius: Root.State.rounding
-                    color: palette.accent
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
+            // Internet
+            RowItem {
+                title: "Wifi"
+                subtext: "my-ssid"
+                iconName: "network-wireless-symbolic"
             }
-        }
-        action: () => {
-            Root.State.controlPanelPage = 2
+            // Bluetooth
+            RowItem {
+                title: "Bluetooth"
+                subtext: "my-device"
+                iconName: "network-bluetooth"
+            }
         }
     }
 
