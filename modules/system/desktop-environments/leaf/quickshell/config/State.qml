@@ -32,7 +32,7 @@ Singleton {
     property int controlPanelPage: 0
 
     // Styling
-    property int rounding: 8
+    property int rounding: 12
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 8

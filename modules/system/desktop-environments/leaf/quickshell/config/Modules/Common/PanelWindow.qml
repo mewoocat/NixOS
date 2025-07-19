@@ -110,7 +110,7 @@ PanelWindow {
             id: box
             anchors.fill: parent
             color: palette.window
-            radius: 12
+            radius: Root.State.rounding
             children: [
                 window.content
             ]

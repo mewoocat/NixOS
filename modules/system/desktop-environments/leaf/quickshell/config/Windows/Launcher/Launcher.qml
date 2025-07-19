@@ -269,7 +269,7 @@ Common.PanelWindow {
                                 topMargin: 4
                                 bottomMargin: 4
                             }
-                            color: mouseArea.containsMouse || mouseArea.focus ? palette.highlight : "transparent"
+                            color: mouseArea.containsMouse || mouseArea.focus ? palette.accent : "transparent"
                             radius: 10
                             RowLayout {
                                 anchors.fill: parent

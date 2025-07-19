@@ -4,6 +4,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
+import '../../' as Root
 
 // Designed to be used as a child of the PanelGrid type
 MouseArea {
@@ -43,7 +44,7 @@ MouseArea {
         id: box
         anchors.fill: parent
         anchors.margins: 6
-        radius: 16
+        radius: Root.State.rounding
         color: mouseArea.containsMouse ? palette.highlight : palette.base
         children: [
             mouseArea.content

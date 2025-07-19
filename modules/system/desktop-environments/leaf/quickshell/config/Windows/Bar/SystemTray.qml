@@ -74,7 +74,7 @@ Rectangle {
                         required property SystemTrayItem modelData
 
                         id: button
-                        buttonHeight: parent.height
+                        buttonHeight: root.height - internalMargin * 2
                         iconSource: modelData.icon != undefined ? modelData.icon : ""
                         leftClick: modelData.activate
                         rightClick: menuAnchor.open

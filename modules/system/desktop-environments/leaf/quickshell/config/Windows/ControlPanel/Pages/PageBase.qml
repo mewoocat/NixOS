@@ -16,18 +16,15 @@ Item {
     ColumnLayout {
         anchors.margins: 16
         id: header
-        //uniformCellSizes: false
         anchors.fill: parent
-        /*
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.left: parent.left
-        */
+        spacing: 12
 
         // Header
         RowLayout {
             // Back button
             Common.NormalButton {
+                defaultInternalMargin: 2
+                buttonHeight: 32
                 text: "Back"
                 leftClick: () => Root.State.controlPanelPage = 0
             } 

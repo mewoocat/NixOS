@@ -173,9 +173,11 @@ Common.PanelGrid {
         }
     }
     Common.PanelItem { 
+        isClickable: false
         rows: 2
         columns: 2
         content: ColumnLayout {
+            /*
             Text {
                 color: palette.text
                 //text: "what: " + Services.Power.currentProfile
@@ -186,6 +188,7 @@ Common.PanelGrid {
             ComboBox {
                 model: ["First", "Second", "Third"]
             }
+            */
         }
     }
 
