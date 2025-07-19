@@ -11,11 +11,12 @@ import "../../Modules/Common" as Common
 Rectangle {
     id: root
     property int internalMargin: 4
+    property int externalMargin: 8
     property bool isExpanded: true // Whether tray is showing all it's contents
     property Item toggleButton: null // Reference to the to toggle button
     property var toggle: () => root.isExpanded = !root.isExpanded
 
-    implicitHeight: parent.height - root.internalMargin
+    implicitHeight: parent.height - root.externalMargin
     implicitWidth: root.isExpanded ? trayContent.width : root.toggleButton.width
 
     color: palette.base
@@ -26,8 +27,8 @@ Rectangle {
     Behavior on implicitWidth {
         PropertyAnimation { 
             duration: 500
-            //easing.type: Easing.InOutQuint
-            easing.type: Easing.InOutBack
+            easing.type: Easing.InOutQuint
+            //easing.type: Easing.InOutBack
         }
     }
     /* also works
@@ -60,38 +61,42 @@ Rectangle {
         spacing: 0
 
         // System tray items
-        RowLayout {
-            id: trayItems
-            implicitHeight: parent.height
-            spacing: 0
-            
-            Repeater {
-                model: SystemTray.items
-                Common.NormalButton {
-                    required property SystemTrayItem modelData
+        WrapperItem {
+            margin: root.internalMargin
+            RowLayout {
+                id: trayItems
+                implicitHeight: root.height - externalMargin
+                spacing: 0
+                
+                Repeater {
+                    model: SystemTray.items
+                    Common.NormalButton {
+                        required property SystemTrayItem modelData
 
-                    id: button
-                    buttonHeight: parent.height
-                    iconSource: modelData.icon != undefined ? modelData.icon : ""
-                    leftClick: modelData.activate
-                    rightClick: menuAnchor.open
+                        id: button
+                        buttonHeight: parent.height
+                        iconSource: modelData.icon != undefined ? modelData.icon : ""
+                        leftClick: modelData.activate
+                        rightClick: menuAnchor.open
+                        defaultInternalMargin: 0
+                        iconSize: 16
 
-                    // Popup menu
-                    QsMenuAnchor {
-                        id: menuAnchor
-                        //anchor.window: bar
-                        anchor {
-                            window: button.QsWindow.window
-                            edges: Edges.Bottom | Edges.Left
-                            // Get a rect for the popup that is relative to the button item
-                            // The returned rect is then in the context of the window
-                            rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(0, 0, 0, 40))
+                        // Popup menu
+                        QsMenuAnchor {
+                            id: menuAnchor
+                            //anchor.window: bar
+                            anchor {
+                                window: button.QsWindow.window
+                                edges: Edges.Bottom | Edges.Left
+                                // Get a rect for the popup that is relative to the button item
+                                // The returned rect is then in the context of the window
+                                rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(0, 0, 0, 40))
+                            }
+                            menu: button.modelData.menu
                         }
-                        menu: button.modelData.menu
                     }
                 }
             }
-
         }
 
         // Spacer
@@ -108,7 +113,12 @@ Rectangle {
             iconItem.rotation: root.isExpanded ? 0 : 180
             leftClick: root.toggle
             iconName: "pan-start-symbolic"
+            leftInternalMargin: 4
+            rightInternalMargin: 4
             Component.onCompleted: root.toggleButton = toggleButton
+            Behavior on implicitWidth {
+
+            }
         }
     }
 }

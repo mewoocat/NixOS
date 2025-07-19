@@ -1,7 +1,7 @@
 import QtQuick
 import "../../Modules/Common" as Common
 
-Common.NormalButton {
-    isClickable: false
+BarButton {
     iconName: "network-wireless-connected-75"
+    iconSize: 24
 }

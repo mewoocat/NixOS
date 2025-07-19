@@ -1,7 +1,7 @@
 import QtQuick
 import "../../Modules/Common" as Common
 
-Common.NormalButton {
-    isClickable: false
+BarButton {
     iconName: "bluetooth-active"
+    iconSize: 22
 }

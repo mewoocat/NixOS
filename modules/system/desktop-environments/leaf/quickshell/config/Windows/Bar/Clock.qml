@@ -3,8 +3,8 @@ import "../../" as Root
 import "../../Singletons" as Sin
 import "../../Modules/Common" as Common
 
-Common.NormalButton {
+BarButton {
     leftClick: () => Root.State.activityCenter.toggleWindow()
     //iconName: "security-low"
-    text: Sin.Time.time
+    text:  Sin.Time.time
 }

@@ -45,9 +45,8 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         Common.NormalButton {
-                            leftClick: () => {
-                                Root.State.launcher.toggleWindow()
-                            }
+                            leftClick: () => Root.State.launcher.toggleWindow()
+                            defaultInternalMargin: 6
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
@@ -72,13 +71,14 @@ Scope {
                         spacing: 0
 
                         SystemTray {}
-                        Audio {}
                         Network {}
                         Bluetooth {}
+                        Audio {}
                         Battery {}
                         Common.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
+                            defaultInternalMargin: 6
                         }
                     }
                 }

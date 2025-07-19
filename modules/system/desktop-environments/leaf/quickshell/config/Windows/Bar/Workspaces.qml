@@ -68,7 +68,9 @@ RowLayout {
                 Behavior on implicitHeight {
                     PropertyAnimation {duration: 10}
                 }
-                color: mouseArea.containsMouse || Services.Hyprland.activeWsId === wsID ? palette.highlight : palette.accent
+                color: {
+                    mouseArea.containsMouse || Services.Hyprland.activeWsId === wsID ? palette.accent : mouseArea.wsState === "empty" ? palette.base :palette.link
+                }
                 Text {
                     anchors.centerIn: parent
                     text: {

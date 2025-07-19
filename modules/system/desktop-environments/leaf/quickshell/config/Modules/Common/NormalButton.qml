@@ -24,11 +24,14 @@ MouseArea {
 
     // Size and Margins
     property int buttonHeight: 40 // Default height
-    property int internalHeight: implicitHeight - internalMargin * 2
-    property int internalMargin: 4
+    property int internalHeight: implicitHeight - topInternalMargin - bottomInternalMargin
+    property int defaultInternalMargin: 4
+    property int leftInternalMargin: defaultInternalMargin
+    property int rightInternalMargin: defaultInternalMargin
+    property int topInternalMargin: defaultInternalMargin
+    property int bottomInternalMargin: defaultInternalMargin
     property int iconSize: implicitHeight / 2
-    //implicitHeight: parent.height // Ensure the button's mouse area is as tall as it's parent by default
-    implicitWidth: box.width + internalMargin * 2
+    implicitWidth: box.width + leftInternalMargin + rightInternalMargin
     implicitHeight: buttonHeight
 
     //implicitHeight: box.height + internalMargin
@@ -73,12 +76,15 @@ MouseArea {
                 visible: root.iconName != "" || root.iconSource != ""
                 implicitSize: root.iconSize
                 source: root.iconName == "" ? root.iconSource : Quickshell.iconPath(root.iconName)
+
                 // Icon recoloring
-                layer.enabled: root.recolorIcon
+                layer.enabled: false
+                //layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
                     colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
                 }
+
                 // Animate changes to the rotation property
                 Behavior on rotation {
                     PropertyAnimation { property: "rotation"; duration: 300 }
@@ -90,11 +96,12 @@ MouseArea {
                 //Layout.fillWidth: true
                 visible: root.text != ""
                 Layout.alignment: Qt.AlignHCenter
-                Layout.leftMargin: root.icon === "" ? 8 : 0
+                Layout.leftMargin: root.iconName === "" ? 8 : 0
                 Layout.rightMargin: 8
                 text: root.text
                 font.pointSize: 12
-                color: root.containsMouse ? palette.highlightedText : palette.text
+                //color: root.containsMouse ? palette.highlightedText : palette.text
+                color: palette.text
             }
         }
    }
