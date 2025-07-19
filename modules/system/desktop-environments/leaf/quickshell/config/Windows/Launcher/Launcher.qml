@@ -51,16 +51,12 @@ Common.PanelWindow {
     focusable: true // Enable keyboard focus
     implicitWidth: 400
     implicitHeight: 600
-    color: "transparent"
     margins {
         left: 16
         top: 16
     }
-    content: Rectangle {
+    content: Item {
         anchors.fill: parent
-        //color: "#aa000000"
-        color: palette.window
-        radius: 12
         RowLayout {
             spacing: 0
             anchors.fill: parent

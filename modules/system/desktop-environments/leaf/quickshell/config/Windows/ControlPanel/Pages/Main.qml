@@ -13,22 +13,19 @@ import "../../../Modules" as Modules
 import "../../../Modules/Common" as Common
 
 Common.PanelGrid {
-    // Apparently, if you don't assign both the rows and columns for a grid, it's size will be 0x0 if
-    // the grid's parent size is set to the grid's size
     columns: 4
     rows: 4
 
-    Component.onCompleted: console.log(`panel grid: ${width}x${height}`)
-
-    //PanelItem { Layout.columnSpan: 2; iconName: "ymuse-home-symbolic"}
     Common.PanelItem { 
         rows: 2
         columns: 2
+        isClickable: false
+        
         //action: () => {grid.height = grid.height + 100}
         content: ColumnLayout {
             anchors.fill: parent
-            anchors.margins: 16
-            spacing: 16
+            anchors.margins: 12
+            spacing: 12
             // Internet
             RowLayout {
                 Layout.fillWidth: true
@@ -41,6 +38,13 @@ Common.PanelGrid {
                     Layout.fillHeight: true
                     radius: Root.State.rounding 
                     color: palette.accent
+                    ColumnLayout {
+                        anchors.centerIn: parent
+                        Text { color: palette.text; text: "WiFi"}
+                        Text { color: palette.text; text: "my ssid"
+                            font.pointSize: 8
+                        }
+                    }
                 }
             }
             // Bluetooth

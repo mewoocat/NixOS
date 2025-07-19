@@ -28,15 +28,17 @@ MouseArea {
     onClicked: action()
 
     // Shadow for the Rectangle
+    // Note: If shadow extends beyond the window, it will create sharp corners
     RectangularShadow {
         anchors.fill: box
-        offset.x: -4
-        offset.y: -4
+        offset.x: -1
+        offset.y: -1
         radius: box.radius
-        blur: 16
+        blur: 4
         spread: 4
-        color: Qt.alpha(Qt.darker(palette.base, 2), 0.8)
+        color: Qt.alpha(Qt.darker(palette.base, 2), 0.4)
     }
+
     Rectangle {
         id: box
         anchors.fill: parent

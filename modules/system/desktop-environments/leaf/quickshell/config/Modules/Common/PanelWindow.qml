@@ -21,6 +21,8 @@ PanelWindow {
         Root.State[name] = window // Set the window ref in state
     }
 
+    exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
+
     // Visibility
     //visible: Root.State.controlPanelVisibility // TODO: need to change this
     visible: false
