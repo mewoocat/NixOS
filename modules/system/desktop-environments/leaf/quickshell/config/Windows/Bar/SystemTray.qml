@@ -4,6 +4,7 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
 import "../../Modules/Common" as Common
+import "../../" as Root
 
 // The animation jitters here, easy to see on linear easing. UPDATE: jittering fixed.  It was
 // due to nesting the animated rectangle within another rectangle which wasn't animated.
@@ -77,6 +78,40 @@ Rectangle {
                         buttonHeight: root.height - internalMargin * 2
                         iconSource: modelData.icon != undefined ? modelData.icon : ""
                         leftClick: modelData.activate
+                        rightClick: () => popupWindow.visible = true
+                        defaultInternalMargin: 0
+                        iconSize: 16
+
+                        property var popupWindow: Common.PopupWindow {
+                            id: trayPopup
+
+                            anchor {
+                                // Only window or item should be set at a time, otherwise a crash can occur
+                                //window: Root.State.controlPanel
+                                item: button
+                                edges: Edges.Bottom | Edges.Right
+                                gravity: Edges.Bottom | Edges.Left
+                                margins.top: 32
+                            }
+
+                            content: ColumnLayout {
+                                Common.PopupMenuItem { text: "Sleep"; action: () => {}; iconName: "system-suspend-symbolic"}
+                                Common.PopupMenuItem { text: "Sleep"; action: () => {}; iconName: "system-suspend-symbolic"}
+                                Common.PopupMenuItem { text: "Sleep"; action: () => {}; iconName: "system-suspend-symbolic"}
+                                Common.PopupMenuItem { text: "Sleep"; action: () => {}; iconName: "system-suspend-symbolic"}
+                            }
+                        }
+                    }
+
+                    // Using native/platform menu
+                    /*
+                    Common.NormalButton {
+                        required property SystemTrayItem modelData
+
+                        id: button
+                        buttonHeight: root.height - internalMargin * 2
+                        iconSource: modelData.icon != undefined ? modelData.icon : ""
+                        leftClick: modelData.activate
                         rightClick: menuAnchor.open
                         defaultInternalMargin: 0
                         iconSize: 16
@@ -87,14 +122,15 @@ Rectangle {
                             //anchor.window: bar
                             anchor {
                                 window: button.QsWindow.window
-                                edges: Edges.Bottom | Edges.Left
+                                edges: Edges.Bottom | Edges.Right
                                 // Get a rect for the popup that is relative to the button item
                                 // The returned rect is then in the context of the window
-                                rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(0, 0, 0, 40))
+                                rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(-20, 16, 0, 0))
                             }
                             menu: button.modelData.menu
                         }
                     }
+                    */
                 }
             }
         }

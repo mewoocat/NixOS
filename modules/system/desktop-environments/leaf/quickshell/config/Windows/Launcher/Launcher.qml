@@ -107,9 +107,11 @@ Common.PanelWindow {
                         }
                         Common.PopupWindow {
                             id: powerPopup
+                            parentWindowHasGrab: true // Since this popup is relative to a window which also has a HyprlandFocusGrab
 
                             anchor {
-                                window: launcher
+                                // Only window or item should be set at a time, otherwise a crash can occur
+                                //window: launcher
                                 item: power
                                 edges: Edges.Bottom | Edges.Right
                                 gravity: Edges.Top | Edges.Right

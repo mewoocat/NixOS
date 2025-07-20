@@ -21,6 +21,9 @@
     
     # Qt styles
     darkly
+    adwaita-qt6
+    kdePackages.oxygen
+    libsForQt5.qtstyleplugins
   ];
 
   hjem.users.eXia = {

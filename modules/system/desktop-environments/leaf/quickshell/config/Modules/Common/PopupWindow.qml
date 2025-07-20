@@ -14,6 +14,9 @@ PopupWindow {
     id: root
 
     required property Item content
+    property bool parentWindowHasGrab: false // Whether the parent window of this has a HyprlandFocusGrab active
+                                             // Used to disable and re-enable the parents grab while handling the 
+                                             // one for this popup
 
     anchor {
         //window: root.window
@@ -76,6 +79,8 @@ PopupWindow {
             // Other wise the window was hidden, deactivate the grab
             else {
                 grab.active = false
+                // TODO: this is temp fix for non nested popup
+                //Root.State.panelGrab.active = false // Need to set the parent window grab to false or else it's cleared will get triggered somehow
             }
         }
     }
@@ -100,7 +105,10 @@ PopupWindow {
         onCleared: () => {
             console.log('POPUP: clearing grab')
             root.closeWindow() // Assumes this method exists
-            Root.State.panelGrab.active = true // Re-enable the parent grab
+            // Re-enable the parent grab if needed
+            if (root.parentWindowHasGrab) {
+                Root.State.panelGrab.active = true
+            }
         }
     }
 
