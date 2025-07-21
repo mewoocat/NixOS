@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import "../../" as Root
 
+// For generic popup menus
 WrapperMouseArea { 
     id: root
     required property string text

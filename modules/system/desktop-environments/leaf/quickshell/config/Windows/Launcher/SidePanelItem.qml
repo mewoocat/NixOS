@@ -17,7 +17,7 @@ WrapperMouseArea {
     WrapperRectangle {
         margin: 4
         radius: 12
-        color: root.containsMouse ? palette.highlight : palette.base
+        color: root.containsMouse ? palette.highlight : "transparent"
         Rectangle {
             color: "transparent"
             implicitHeight: 32

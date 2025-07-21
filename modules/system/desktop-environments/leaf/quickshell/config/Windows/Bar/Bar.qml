@@ -6,6 +6,7 @@ import Quickshell.Wayland
 import "../../" as Root
 import "../../Modules/Common" as Common
 import "../../Windows/ControlPanel"
+import "./SystemTray"
 
 Scope {
     property string time;
@@ -78,7 +79,7 @@ Scope {
                         Common.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
-                            defaultInternalMargin: 6
+                           defaultInternalMargin: 6
                         }
                     }
                 }

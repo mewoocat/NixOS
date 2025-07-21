@@ -128,8 +128,8 @@ PopupWindow {
             id: box
             //color: palette.window
             color: "#aa111111"
-            radius: 8
-            margin: 8
+            radius: Root.State.rounding
+            margin: 4
             children: [ root.content ]
         }
     }
