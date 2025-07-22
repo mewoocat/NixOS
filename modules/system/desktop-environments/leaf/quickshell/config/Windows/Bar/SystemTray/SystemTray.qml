@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
@@ -99,7 +101,7 @@ Rectangle {
                             // Used to extract the menu items from the menu
                             QsMenuOpener {
                                 id: menuOpener
-                                menu: modelData.menu
+                                menu: button.modelData.menu
                             }
 
                             content: ColumnLayout {
@@ -107,6 +109,7 @@ Rectangle {
                                 Repeater {
                                     model: menuOpener.children
                                     delegate: Loader {
+                                        id: loader
                                         required property QsMenuEntry modelData
                                         // This seems to be required when wrapping with a loader
                                         Layout.fillWidth: true // It appears that this propagates through the 
@@ -119,93 +122,16 @@ Rectangle {
                                         property Component menuSeperator: Rectangle {
                                             implicitHeight: 1
                                             implicitWidth: menu.width
+                                            color: "#44ffffff"
                                         }
                                         property Component menuItem: MenuEntry { 
-                                            entry: modelData
+                                            entry: loader.modelData
                                             //Layout.fillWidth: true // It appears that this propagates through the 
                                         }
                                         // The selected component is instantiated here
                                         sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
                                     }
                                 }
-
-                                /*
-                                Repeater {
-                                    model: menuOpener.children
-                                    delegate: MenuItem {
-                                        required property QsMenuEntry modelData
-                                        entry: modelData
-                                    }
-                                }
-                                */
-
-                                /*
-                                Repeater {
-                                    model: menuOpener.children
-                                    MouseArea {
-                                        required property QsMenuEntry modelData
-                                        implicitHeight: background.height
-                                        implicitWidth: row.width // Default to text's width
-                                        Layout.fillWidth: true // But expand if allowed
-                                        id: mouseArea
-                                        enabled: true
-                                        hoverEnabled: true
-
-                                        Rectangle {
-                                            id: background
-                                            color: mouseArea.containsMouse ? palette.accent : "transparent"
-                                            radius: Root.State.rounding
-                                            implicitHeight: text.height
-                                            implicitWidth: parent.width
-                                            //Component.onCompleted: console.log(`blue width: ${implicitWidth}`) 
-                                            RowLayout {
-                                                id: row
-                                                Text { 
-                                                    id: text
-                                                    color: palette.text
-                                                    text: modelData.text
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                */
-                                /*
-                                Repeater {
-                                    //Layout.fillWidth: true
-                                    model: menuOpener.children
-                                    delegate: Loader {
-                                        required property QsMenuEntry modelData
-                                        active: true
-                                        // These are the possible components that would need to be loaded here
-                                        // They are only Components which define a type to be created, not actual
-                                        // instances of the type
-                                        // Event though it looks like these are creating the component, the Component type
-                                        // here should be coercing it into a Component instead
-                                        property Component menuSeperator: Rectangle {
-                                            implicitHeight: 1
-                                            implicitWidth: menu.width
-                                            //Layout.
-                                        }
-                                        property Component menuItem: Common.PopupMenuItem { 
-                                            id: thing
-                                            text: modelData.text
-                                            action: () => {}
-                                            iconName: modelData.icon
-                                            Layout.fillWidth: true // It appears that this propagates through the 
-                                        }
-                                        // The selected component is instantiated here
-                                        sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
-
-                                        //sourceComponent: Rectangle {
-                                        //    Layout.fillWidth: true
-                                        //    color: "blue"
-                                        //    implicitHeight: 20
-                                        //    implicitWidth: modelData.isSeparator ? 40 : 80
-                                        //}
-                                    }
-                                }
-                                */
                             }
                         }
                     }
