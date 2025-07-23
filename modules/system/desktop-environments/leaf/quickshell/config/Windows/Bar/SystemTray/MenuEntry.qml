@@ -35,7 +35,7 @@ MouseArea {
     Loader {
         id: loader
         active: root.entry.hasChildren
-        onActiveChanged: console.log(`nested loader: ${root.entry.hasChildren}`)
+        //onActiveChanged: console.log(`nested loader: ${root.entry.hasChildren}`)
         property Component trayPopupMenu: BoundComponent {
             id: trayPopup
             source: "TrayPopupMenu.qml"

@@ -14,56 +14,39 @@ PopupWindow {
     id: root
 
     required property Item content
-    property bool parentWindowHasGrab: false // Whether the parent window of this has a HyprlandFocusGrab active
+    property bool parentWindowHasGrab: true // Whether the parent window of this has a HyprlandFocusGrab active
                                              // Used to disable and re-enable the parents grab while handling the 
                                              // one for this popup
-
-    anchor {
-        //window: root.window
-        //item: root.item
-        //edges: Edges.Bottom | Edges.Right
-        //gravity: Edges.Top | Edges.Right
-        /*
-        rect.y: 1 // Push the window down a pixel to not have it skip between hoving
-                  // the button and popup
-        */
-    }
+    property HyprlandFocusGrab previousGrab: null
+    implicitWidth: popupArea.width
+    implicitHeight: popupArea.height
+    color: "transparent"
 
     function closeWindow() {
         console.log('popup close window')
         root.visible = false
     }
 
-    //visible: power.containsMouse || popupArea.containsMouse // For hovering to open
     visible: false
-    //TODO: causes crash
-    /*
     onVisibleChanged: {
-        console.log('Common.PopupWindow on vis change')
-        if (root.visible) {
-            Services.Hyprland.addGrabWindow(root, [root])
+        if (visible) {
+            root.previousGrab = Root.State.activeGrab // Store previous grab in this component
+            Root.State.activeGrab = grab
+            console.log(`PREVIOUS GRAB SET TO: ${root.previousGrabChanged}`)
+            console.log(`ACTIVE GRAB SET TO: ${Root.State.activeGrab}`) 
         }
-
-        /*
-        // Hovering to open logic
-        // If just became visible
-        if (popup.visible) {
-            Root.State.focusGrabIgnore.push(popup) // Add the popup to the ignore list, so that it can receive mouse focus
-        }
-        // Else just hidden
         else {
-            // Remove self from the ignore list
-            const popupIndex = Root.State.focusGrabIgnore.indexOf(popup)
-            Root.State.focusGrabIgnore.splice(popupIndex, 1)
+            Root.State.activeGrab = root.previousGrab
+            Root.State.activeGrab.active = true
         }
     }
-    */
 
     //////////////////////////////////////////////////////////////// 
     // Focus Grab
     //////////////////////////////////////////////////////////////// 
     // Note: It appears that setting a HyprlandFocusGrab to active will trigger
     // the cleared signal on any other HyprlandFocusGrab
+    // Yep, this is the expected behavior, only one grab can be active at a time
     Timer {
         id: delay
         triggeredOnStart: false
@@ -73,7 +56,8 @@ PopupWindow {
             // Only active grab if window is visible
             if (root.visible) {
                 console.log('POPUP: grab triggered for ' + root.visible)
-                Root.State.panelGrab.active = false // Need to set the parent window grab to false or else it's cleared will get triggered somehow
+                //Root.State.panelGrab.active = false // Need to set the parent window grab to false or else it's cleared will get triggered somehow
+                root.previousGrab.active = false
                 grab.active = true
             }
             // Other wise the window was hidden, deactivate the grab
@@ -95,35 +79,25 @@ PopupWindow {
     }
     HyprlandFocusGrab {
         id: grab
-        Component.onCompleted: {
-            Root.State.popupGrab = grab
-        }
         active: false
-        onActiveChanged: console.log(`POPUP: grab active set to: ${grab.active}`)
         windows: [root]
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            console.log('POPUP: clearing grab')
+            console.log(`POPUP: clearing grab for ${grab}`)
             root.closeWindow() // Assumes this method exists
             // Re-enable the parent grab if needed
             if (root.parentWindowHasGrab) {
-                Root.State.panelGrab.active = true
+                //Root.State.panelGrab.active = true
+                root.previousGrab.active = true
             }
         }
     }
-
-
-    implicitWidth: popupArea.width
-    implicitHeight: popupArea.height
-    color: "transparent"
 
     WrapperMouseArea {
         id: popupArea
         enabled: true
         focus: true
         hoverEnabled: true
-        onEntered: { console.log("entered") }
-        onExited: { console.log("exited") }
         WrapperRectangle {
             id: box
             //color: palette.window

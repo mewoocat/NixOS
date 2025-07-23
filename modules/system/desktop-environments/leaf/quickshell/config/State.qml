@@ -25,8 +25,9 @@ Singleton {
     property var settings: null
 
     //property list<QtObject> focusGrabIgnore: []
-    property var panelGrab: null // The grab object for the active panel
-    property var popupGrab: null // The grab object for the active popup
+    property var panelGrab: null // The grab object for the active panel (old)
+    property var popupGrab: null // The grab object for the active popup (old)
+    property var activeGrab: null // The active grab object (either popup or panel) (new)
 
     // Index of the current page in control panel
     property int controlPanelPage: 0
