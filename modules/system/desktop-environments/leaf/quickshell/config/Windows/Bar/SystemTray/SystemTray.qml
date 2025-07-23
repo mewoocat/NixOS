@@ -1,4 +1,4 @@
-pragma ComponentBehavior: Bound
+//pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
@@ -70,7 +70,7 @@ Rectangle {
             margin: root.internalMargin
             RowLayout {
                 id: trayItems
-                implicitHeight: root.height - externalMargin
+                implicitHeight: root.height - root.externalMargin
                 spacing: 0
                 
                 Repeater {
@@ -79,12 +79,20 @@ Rectangle {
                         required property SystemTrayItem modelData
 
                         id: button
-                        buttonHeight: root.height - internalMargin * 2
+                        buttonHeight: root.height - root.internalMargin * 2
                         iconSource: modelData.icon != undefined ? modelData.icon : ""
                         leftClick: modelData.activate
                         rightClick: () => popupWindow.visible = true
                         defaultInternalMargin: 0
                         iconSize: 16
+
+                        /*
+                        property var popupWindow: TrayPopupMenu {
+                            id: trayPopup
+                            menu: button.modelData.menu
+                            parentButton: button
+                        }
+                        */
 
                         property var popupWindow: Common.PopupWindow {
                             id: trayPopup
@@ -101,31 +109,34 @@ Rectangle {
                             // Used to extract the menu items from the menu
                             QsMenuOpener {
                                 id: menuOpener
-                                menu: button.modelData.menu
+                                menu: button.modelData?.menu
                             }
 
                             content: ColumnLayout {
                                 id: menu
                                 Repeater {
                                     model: menuOpener.children
+                                    //onModelChanged: console.log("menuOpener.children: " + menuOpener.children.values)
                                     delegate: Loader {
                                         id: loader
                                         required property QsMenuEntry modelData
+                                        //onModelDataChanged: console.log(`modelData: ${modelData}`)
                                         // This seems to be required when wrapping with a loader
                                         Layout.fillWidth: true // It appears that this propagates through the 
                                         active: true
                                         // These are the possible components that would need to be loaded here
                                         // They are only Components which define a type to be created, not actual
                                         // instances of the type
-                                        // Event though it looks like these are creating the component, the Component type
+                                        // Event though it looks like these are creating the element, the Component type
                                         // here should be coercing it into a Component instead
                                         property Component menuSeperator: Rectangle {
                                             implicitHeight: 1
                                             implicitWidth: menu.width
                                             color: "#44ffffff"
                                         }
-                                        property Component menuItem: MenuEntry { 
-                                            entry: loader.modelData
+                                        property Component menuItem: BoundComponent {
+                                            property QsMenuEntry entry: loader.modelData
+                                            sourceComponent: MenuEntry {}
                                             //Layout.fillWidth: true // It appears that this propagates through the 
                                         }
                                         // The selected component is instantiated here
