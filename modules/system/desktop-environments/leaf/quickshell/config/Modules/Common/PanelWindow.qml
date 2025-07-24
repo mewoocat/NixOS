@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import QtQuick
 
 import "../../" as Root
@@ -22,19 +21,6 @@ PanelWindow {
     }
 
     exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
-
-    // Visibility
-    //visible: Root.State.controlPanelVisibility // TODO: need to change this
-    visible: false
-    property bool prevVisible: false
-    onVisibleChanged: {
-        if (visible !== prevVisible) {
-            //console.log(`panel window vis changed to ${window.visible}`)
-            delay.start() // Set grab active status
-        }
-        prevVisible = visible
-    }
-
     focusable: true // Enable keyboard focus
     color: "transparent"
     margins {
@@ -45,51 +31,14 @@ PanelWindow {
     }
     WlrLayershell.namespace: 'quickshell-' + name // Set layer name
 
-
-    //////////////////////////////////////////////////////////////// 
-    // Focus Grab
-    //////////////////////////////////////////////////////////////// 
-    Timer {
-        id: delay
-        triggeredOnStart: false
-        interval: 100 // If windows are closing right after opening, try adjusting this value
-        repeat: false
-        onTriggered: {
-            if (grab.active !== window.visible) { 
-                //console.log('PANEL: grab triggered for ' + window.visible)
-                grab.active = window.visible
-            }
+    // Visibility
+    visible: false
+    onVisibleChanged: {
+        if (visible) {
+            console.log(`panel window vis changed to ${window.visible}`)
+            Services.Hyprland.addGrabWindow(window)
         }
     }
-    // Connects to the active grab window onVisibleChanged signal
-    // Starts a small delay which then sets the grab active state to match the window visible state
-    /*
-    Connections {
-        target: window
-        function onVisibleChanged() {
-            console.log(`window visible changed to: ${window.visible}`)
-            if (!window.visible) {
-                delay.start() // Set grab active status
-            }
-        }
-    }
-    */
-    HyprlandFocusGrab {
-        id: grab
-        Component.onCompleted: {
-            Root.State.panelGrab = grab
-        }
-        active: false
-        //onActiveChanged: console.log(`PANEL: grab active set to: ${grab.active}`)
-        windows: [window]
-        //onWindowsChanged: console.log(`PANEL: grab windows changed`)
-        // Function to run when the Cleared signal is emitted
-        onCleared: () => {
-            //console.log('PANEL: clearing grab')
-            window.closeWindow() // Assumes this method exists
-        }
-    }
-
 
     //////////////////////////////////////////////////////////////// 
     // FocusScope is used to ensure the last item with focus set to true
