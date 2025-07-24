@@ -17,8 +17,8 @@ MouseArea {
     implicitHeight: background.height
     implicitWidth: box.width // 
     //Layout.fillWidth: true // But expand if allowed
-    enabled: true
-    hoverEnabled: true
+    enabled: entry.enabled//true
+    hoverEnabled: entry.enabled//true
     onClicked: {
         console.log('clicked')
         if (root.entry.hasChildren) {
@@ -66,6 +66,11 @@ MouseArea {
                         id: content
                         required property QsMenuEntry entry
                         IconImage {
+                            visible: content.entry.hasChildren
+                            implicitSize: content.entry.hasChildren ? 16 : 0
+                            source: Quickshell.iconPath("pan-start-symbolic")
+                        }
+                        IconImage {
                             visible: content.entry.icon === ""
                             implicitSize: content.entry.icon !== "" ? 16 : 0
                             source: content.entry.icon
@@ -79,12 +84,8 @@ MouseArea {
                         }
                         Text { 
                             id: text
-                            color: palette.text
+                            color: content.entry.enabled ? palette.text : palette.placeholderText
                             text: content.entry.text
-                        }
-                        Text { 
-                            color: palette.text
-                            text: content.entry.hasChildren
                         }
                     }
                 }

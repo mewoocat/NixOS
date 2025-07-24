@@ -11,15 +11,14 @@ Common.PopupWindow {
     required property var menu // The menu object that describes the content
     property bool isNested: false
     Component.onCompleted: console.log(`isNested: ${isNested}`)
-    implicitHeight: 400
-    implicitWidth: 400
 
     anchor {
         // Only window or item should be set at a time, otherwise a crash can occur
         item: parentButton
-        edges: Edges.Bottom | Edges.Right
+        edges: Edges.Top | Edges.Left
         gravity: Edges.Bottom | Edges.Left
-        margins.top: 32
+        //margins.top: 32
+        margins.left: -8
     }
 
     // Used to extract the menu items from the menu

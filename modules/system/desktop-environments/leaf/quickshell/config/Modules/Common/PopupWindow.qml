@@ -14,7 +14,7 @@ PopupWindow {
     id: root
 
     required property Item content
-    property bool parentWindowHasGrab: true // Whether the parent window of this has a HyprlandFocusGrab active
+    property bool parentWindowHasGrab: false // Whether the parent window of this has a HyprlandFocusGrab active
                                              // Used to disable and re-enable the parents grab while handling the 
                                              // one for this popup
     property HyprlandFocusGrab previousGrab: null
@@ -30,14 +30,8 @@ PopupWindow {
     visible: false
     onVisibleChanged: {
         if (visible) {
-            root.previousGrab = Root.State.activeGrab // Store previous grab in this component
-            Root.State.activeGrab = grab
-            console.log(`PREVIOUS GRAB SET TO: ${root.previousGrabChanged}`)
-            console.log(`ACTIVE GRAB SET TO: ${Root.State.activeGrab}`) 
         }
         else {
-            Root.State.activeGrab = root.previousGrab
-            Root.State.activeGrab.active = true
         }
     }
 
@@ -55,14 +49,28 @@ PopupWindow {
         onTriggered: {
             // Only active grab if window is visible
             if (root.visible) {
-                console.log('POPUP: grab triggered for ' + root.visible)
+                console.log(`Deactivating preious and activating current`)
                 //Root.State.panelGrab.active = false // Need to set the parent window grab to false or else it's cleared will get triggered somehow
-                root.previousGrab.active = false
+                if (Root.State.activeGrab !== null) {
+                    root.previousGrab = Root.State.activeGrab // Store previous grab in this component
+                    root.previousGrab.active = false
+                }
+                Root.State.activeGrab = grab
                 grab.active = true
             }
             // Other wise the window was hidden, deactivate the grab
             else {
+                console.log(`tried window vis was false when timer ran`)
                 grab.active = false
+                // Reactive the previous grab (if it exists)
+                if (root.previousGrab !== null) {
+                    Root.State.activeGrab = root.previousGrab
+                    Root.State.activeGrab.active = true
+                }
+                // Otherwise there is not a parent grab, so set the active to null
+                else {
+                    Root.State.activeGrab = null
+                }
                 // TODO: this is temp fix for non nested popup
                 //Root.State.panelGrab.active = false // Need to set the parent window grab to false or else it's cleared will get triggered somehow
             }
