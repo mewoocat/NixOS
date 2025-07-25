@@ -121,7 +121,7 @@ Singleton {
     Timer {
         id: delay
         triggeredOnStart: false
-        interval: 10
+        interval: 100
         repeat: false
         onTriggered: {
             console.log('grab active for ' + root.activeGrabWindow)

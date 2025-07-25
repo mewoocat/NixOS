@@ -48,7 +48,8 @@ Scope {
                         Common.NormalButton {
                             leftClick: () => Root.State.launcher.toggleWindow()
                             defaultInternalMargin: 6
-                            iconName: "distributor-logo-nixos"
+                            //iconName: "distributor-logo-nixos"
+                            iconSource: `file://${Quickshell.configDir}/Icons/nix-rainbow.svg`
                         }
                         Workspaces {}
                     }

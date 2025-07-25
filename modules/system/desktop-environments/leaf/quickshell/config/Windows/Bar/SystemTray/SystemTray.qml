@@ -1,10 +1,11 @@
-//pragma ComponentBehavior: Bound
+pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import "../../../Modules/Common" as Common
 import "../../../" as Root
 
@@ -13,13 +14,16 @@ import "../../../" as Root
 // Found there was no need for the nested rectangles so they were combined
 //
 // TODO: Optimize by using only one popup window and lazyloading it
-Rectangle {
+
+// Clipping rectangle used to clip off the seperator given the rounded corners
+ClippingRectangle {
     id: root
     property int internalMargin: 4
     property int externalMargin: 8
     property bool isExpanded: true // Whether tray is showing all it's contents
     property Item toggleButton: null // Reference to the to toggle button
     property var toggle: () => root.isExpanded = !root.isExpanded
+    property int trayButtonWidth: 0 // The tray buttons will overwrite this when loaded
 
     implicitHeight: parent.height - root.externalMargin
     implicitWidth: root.isExpanded ? trayContent.width : root.toggleButton.width
@@ -65,116 +69,134 @@ Rectangle {
         implicitHeight: parent.height
         spacing: 0
 
-        // System tray items
-        WrapperItem {
-            margin: root.internalMargin
-            RowLayout {
-                id: trayItems
-                implicitHeight: root.height - root.externalMargin
-                spacing: 0
-                
-                Repeater {
-                    model: SystemTray.items
-                    Common.NormalButton {
-                        required property SystemTrayItem modelData
+        ScrollView {
+            property int trayItemWidth: trayItems.implicitWidth / SystemTray.items
+            Layout.maximumWidth: trayButtonWidth * 5 + root.internalMargin * 2 // Set width to 5 items
+            ScrollBar.horizontal {
+                policy: ScrollBar.AlwaysOff
+            }
+            /*
+            WheelHandler {
+                target: parent
+                onWheel: (event) => {
+                    console.log(`wheel event: ${event}`)
+                }
+            }
+            */
+            WrapperItem {
+                margin: root.internalMargin
+                // System tray items
+                RowLayout {
+                    id: trayItems
+                    implicitHeight: root.height - root.externalMargin
+                    spacing: 0
+                    
+                    Repeater {
+                        model: SystemTray.items
+                        Common.NormalButton {
+                            required property SystemTrayItem modelData
 
-                        id: button
-                        buttonHeight: root.height - root.internalMargin * 2
-                        iconSource: modelData.icon != undefined ? modelData.icon : ""
-                        leftClick: modelData.activate
-                        rightClick: () => popupWindow.visible = true
-                        defaultInternalMargin: 0
-                        iconSize: 16
-
-                        /*
-                        property var popupWindow: TrayPopupMenu {
-                            id: trayPopup
-                            menu: button.modelData.menu
-                            parentButton: button
-                        }
-                        */
-
-                        property var popupWindow: Common.PopupWindow {
-                            id: trayPopup
-
-                            anchor {
-                                // Only window or item should be set at a time, otherwise a crash can occur
-                                //window: Root.State.controlPanel
-                                item: button
-                                edges: Edges.Bottom | Edges.Right
-                                gravity: Edges.Bottom | Edges.Left
-                                margins.top: 32
+                            id: button
+                            buttonHeight: root.height - root.internalMargin * 2
+                            iconSource: modelData.icon != undefined ? modelData.icon : ""
+                            leftClick: modelData.activate
+                            rightClick: () => popupWindow.visible = true
+                            defaultInternalMargin: 0
+                            iconSize: 16
+                            Component.onCompleted: {
+                                root.trayButtonWidth = button.width
                             }
 
-                            // Used to extract the menu items from the menu
-                            QsMenuOpener {
-                                id: menuOpener
-                                menu: button.modelData?.menu
+                            /*
+                            property var popupWindow: TrayPopupMenu {
+                                id: trayPopup
+                                menu: button.modelData.menu
+                                parentButton: button
                             }
+                            */
 
-                            content: ColumnLayout {
-                                id: menu
-                                Repeater {
-                                    model: menuOpener.children
-                                    //onModelChanged: console.log("menuOpener.children: " + menuOpener.children.values)
-                                    delegate: Loader {
-                                        id: loader
-                                        required property QsMenuEntry modelData
-                                        //onModelDataChanged: console.log(`modelData: ${modelData}`)
-                                        // This seems to be required when wrapping with a loader
-                                        Layout.fillWidth: true // It appears that this propagates through the 
-                                        active: true
-                                        // These are the possible components that would need to be loaded here
-                                        // They are only Components which define a type to be created, not actual
-                                        // instances of the type
-                                        // Event though it looks like these are creating the element, the Component type
-                                        // here should be coercing it into a Component instead
-                                        property Component menuSeperator: Rectangle {
-                                            implicitHeight: 1
-                                            implicitWidth: menu.width
-                                            color: "#44ffffff"
+                            property var popupWindow: Common.PopupWindow {
+                                id: trayPopup
+
+                                anchor {
+                                    // Only window or item should be set at a time, otherwise a crash can occur
+                                    //window: Root.State.controlPanel
+                                    item: button
+                                    edges: Edges.Bottom | Edges.Right
+                                    gravity: Edges.Bottom | Edges.Left
+                                    margins.top: 32
+                                }
+
+                                // Used to extract the menu items from the menu
+                                QsMenuOpener {
+                                    id: menuOpener
+                                    menu: button.modelData?.menu
+                                }
+
+                                content: ColumnLayout {
+                                    id: menu
+                                    Repeater {
+                                        model: menuOpener.children
+                                        //onModelChanged: console.log("menuOpener.children: " + menuOpener.children.values)
+                                        delegate: Loader {
+                                            id: loader
+                                            required property QsMenuEntry modelData
+                                            //onModelDataChanged: console.log(`modelData: ${modelData}`)
+                                            // This seems to be required when wrapping with a loader
+                                            Layout.fillWidth: true // It appears that this propagates through the 
+                                            active: true
+                                            // These are the possible components that would need to be loaded here
+                                            // They are only Components which define a type to be created, not actual
+                                            // instances of the type
+                                            // Event though it looks like these are creating the element, the Component type
+                                            // here should be coercing it into a Component instead
+                                            property Component menuSeperator: Rectangle {
+                                                implicitHeight: 1
+                                                implicitWidth: menu.width
+                                                color: "#44ffffff"
+                                            }
+                                            property Component menuItem: BoundComponent {
+                                                property QsMenuEntry entry: loader.modelData
+                                                sourceComponent: MenuEntry {}
+                                                //Layout.fillWidth: true // It appears that this propagates through the 
+                                            }
+                                            // The selected component is instantiated here
+                                            sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
                                         }
-                                        property Component menuItem: BoundComponent {
-                                            property QsMenuEntry entry: loader.modelData
-                                            sourceComponent: MenuEntry {}
-                                            //Layout.fillWidth: true // It appears that this propagates through the 
-                                        }
-                                        // The selected component is instantiated here
-                                        sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
                                     }
                                 }
                             }
                         }
-                    }
 
-                    // Using native/platform menu
-                    /*
-                    Common.NormalButton {
-                        required property SystemTrayItem modelData
+                        // Using native/platform menu
+                        /*
+                        Common.NormalButton {
+                            required property SystemTrayItem modelData
 
-                        id: button
-                        buttonHeight: root.height - internalMargin * 2
-                        iconSource: modelData.icon != undefined ? modelData.icon : ""
-                        leftClick: modelData.activate
-                        rightClick: menuAnchor.open
-                        defaultInternalMargin: 0
-                        iconSize: 16
+                            id: button
+                            buttonHeight: root.height - internalMargin * 2
+                            iconSource: modelData.icon != undefined ? modelData.icon : ""
+                            leftClick: modelData.activate
+                            rightClick: menuAnchor.open
+                            defaultInternalMargin: 0
+                            iconSize: 16
 
-                        // Popup menu
-                        QsMenuAnchor {
-                            id: menuAnchor
-                            //anchor.window: bar
-                            anchor {
-                                window: button.QsWindow.window
-                                edges: Edges.Bottom | Edges.Right
-                                // Get a rect for the popup that is relative to the button item
-                                // The returned rect is then in the context of the window
-                                rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(-20, 16, 0, 0))
+                            // Popup menu
+                            QsMenuAnchor {
+                                id: menuAnchor
+                                //anchor.window: bar
+                                anchor {
+                                    window: button.QsWindow.window
+                                    edges: Edges.Bottom | Edges.Right
+                                    // Get a rect for the popup that is relative to the button item
+                                    // The returned rect is then in the context of the window
+                                    rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(-20, 16, 0, 0))
+                                }
+                                menu: button.modelData.menu
                             }
-                            menu: button.modelData.menu
                         }
+                        */
                     }
-                    */
                 }
             }
         }
