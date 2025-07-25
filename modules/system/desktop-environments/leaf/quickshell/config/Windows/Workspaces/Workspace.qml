@@ -68,11 +68,13 @@ MouseArea {
             // Only try to render clients if the workspace exists
             active: root.wsObj !== undefined
             Repeater {
-                model: Services.Hyprland.clientMap[root.wsId]
+                //model: Services.Hyprland.clientMap[root.wsId]
+                model: Hyprland.toplevels.values.filter(toplevel => toplevel.workspace.id === root.wsId)
                 // Each window in the workspace
                 Client {
                     required property var modelData
-                    clientObj: modelData
+                    toplevel: modelData
+                    clientObj: modelData.lastIpcObject
                     widgetScale: root.widgetScale
                     monitorScale: root.wsObj.monitor.scale
                     monitorX: root.wsObj.monitor.x

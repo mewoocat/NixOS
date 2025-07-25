@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
 import "../../" as Root
@@ -9,6 +10,7 @@ import "../../Services" as Services
 
 MouseArea {
     id: window
+    required property HyprlandToplevel toplevel
     required property var clientObj
     required property real widgetScale
     required property real monitorScale
@@ -28,6 +30,11 @@ MouseArea {
     Component.onCompleted: {
         //console.log(`client: ${widgetScale}, ${monitorScale}`)
     }
+    ScreencopyView {
+        anchors.fill: parent
+        captureSource: window.toplevel.wayland
+    }
+    /*
     Rectangle {
         anchors.fill: parent
         color: window.containsMouse ? palette.highlight : palette.window
@@ -35,7 +42,7 @@ MouseArea {
 
         // App indicator
         Rectangle {
-        anchors.fill: parent
+            anchors.fill: parent
             color: "transparent"
             visible: width < 40 || height < 40 ? false : true
 
@@ -69,4 +76,5 @@ MouseArea {
             //console.log("widgetScale " + widgetScale)
         }
     }
+    */
 }

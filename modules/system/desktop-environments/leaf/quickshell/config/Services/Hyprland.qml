@@ -70,8 +70,8 @@ Singleton {
         target: Hyprland
         function onRawEvent(event) {
             Hyprland.refreshWorkspaces()
-
             Hyprland.refreshMonitors()
+            Hyprland.refreshToplevels() // Clients
 
             // TODO: optimize when this is ran
             clientProc.running = true
@@ -121,7 +121,7 @@ Singleton {
     Timer {
         id: delay
         triggeredOnStart: false
-        interval: 10
+        interval: 100
         repeat: false
         onTriggered: {
             console.log('grab active for ' + root.activeGrabWindow)
