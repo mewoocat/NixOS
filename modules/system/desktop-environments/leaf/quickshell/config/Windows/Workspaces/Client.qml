@@ -27,19 +27,24 @@ MouseArea {
         Hyprland.dispatch(`focuswindow address:${clientObj.address}`) 
         Root.State.workspaces.closeWindow()
     }
-    Component.onCompleted: {
-        //console.log(`client: ${widgetScale}, ${monitorScale}`)
-    }
     ScreencopyView {
         anchors.fill: parent
+        live: true // TODO: need to investigate performance impact
         captureSource: window.toplevel.wayland
     }
-    /*
+    // Boarder highlight
     Rectangle {
-        anchors.fill: parent
-        color: window.containsMouse ? palette.highlight : palette.window
+        property int borderSize: 4
+        x: -borderSize / 2; y: -borderSize / 2
+        implicitWidth: window.width + borderSize
+        implicitHeight: window.height + borderSize
+        border.width: borderSize
+        border.color: window.containsMouse ? palette.highlight : palette.window
+        color: "transparent"
         radius: 4
+    }
 
+    /*
         // App indicator
         Rectangle {
             anchors.fill: parent
@@ -75,6 +80,5 @@ MouseArea {
             //console.log(`x: ${window.width}, y: ${window.height}, w: ${window.width}, h: ${window.height}`)
             //console.log("widgetScale " + widgetScale)
         }
-    }
     */
 }
