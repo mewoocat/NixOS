@@ -20,5 +20,8 @@ Singleton {
         function toggleControlPanel() {
             State.controlPanel.toggleWindow()
         }
+        function toggleWorkspaces() {
+            State.workspaces.toggleWindow()
+        }
     }
 }

@@ -85,23 +85,24 @@ MouseArea {
                 }
             }
         }
-        /*
+    }
+
+    // Workspace number indicator
+    Rectangle {
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 8
+        anchors.topMargin: 8
+        radius: 16
+        implicitHeight: 16
+        implicitWidth: 20
+        color: palette.accent
         Text {
-            color: palette.text
-            text: {
-                if (root.wsObj === undefined) {
-                    return ""
-                    //return `ws: ${root.wsId} inactive`
-                }
-                //return `ws: ${root.wsId} focused?: ${root.wsObj.focused}`
-                let thing = ""
-                for (const client of Services.Hyprland.clientMap[root.wsId]) {
-                    thing += client.title + "\n"
-                }
-                return thing
-            }
+            anchors.centerIn: parent
+            text: root.wsId
+            font.pointSize: 10
+            color: palette.highlightedText
         }
-        */
-   }
+    }
 }
 

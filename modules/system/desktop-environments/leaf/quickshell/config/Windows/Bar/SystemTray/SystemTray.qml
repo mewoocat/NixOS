@@ -13,7 +13,7 @@ import "../../../" as Root
 // Found there was no need for the nested rectangles so they were combined
 //
 // TODO: Optimize by using only one popup window and lazyloading it
-Rectangle {
+ClippingRectangle {
     id: root
     property int internalMargin: 4
     property int externalMargin: 8
