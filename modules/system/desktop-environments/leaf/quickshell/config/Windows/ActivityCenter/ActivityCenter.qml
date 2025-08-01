@@ -93,6 +93,12 @@ Common.PanelWindow {
         }
         Common.PanelItem { 
             isClickable: false; 
+            rows: 2
+            columns: 2
+            content: Modules.AnalogClock {} 
+        }
+        Common.PanelItem { 
+            isClickable: false; 
             rows: 3
             columns: 3
             content: Modules.Calendar {} 
