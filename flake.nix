@@ -35,7 +35,8 @@
       #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.47.0&submodules=1"; # No gpu found error
       #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1";
       #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.48.1&submodules=1";
-      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.49.0&submodules=1"; # Hypr bars fails
+      #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.49.0&submodules=1"; # Hypr bars fails
+      url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.50.1&submodules=1";
       #url = "github:hyprwm/Hyprland";
 
       #url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.45.2&submodules=1"; # Latest stable compatible version
@@ -62,7 +63,8 @@
     };
 
     hyprland-plugins = {
-      url = "git+https://github.com/hyprwm/hyprland-plugins?rev=c1fdf38bfcd716130ce022cf21a1fca7582482d1";
+      #url = "git+https://github.com/hyprwm/hyprland-plugins?rev=c1fdf38bfcd716130ce022cf21a1fca7582482d1";
+      url = "git+https://github.com/hyprwm/hyprland-plugins?ref=refs/tags/v0.50.0";
       #url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
