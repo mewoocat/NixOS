@@ -1,10 +1,9 @@
 import QtQuick
 import "../../" as Root
-import "../../Singletons" as Sin
-import "../../Modules/Common" as Common
+import "../../Services/" as Services
 
 BarButton {
     leftClick: () => Root.State.activityCenter.toggleWindow()
     //iconName: "security-low"
-    text:  Sin.Time.time
+    text:  Services.Time.time
 }
