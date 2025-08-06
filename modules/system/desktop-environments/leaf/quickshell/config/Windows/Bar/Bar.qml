@@ -21,6 +21,7 @@ Scope {
         delegate: Component {
             PanelWindow {
                 color: "transparent"
+                focusable: true
                 //WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 Component.onCompleted: {
                     Root.State.bar = bar

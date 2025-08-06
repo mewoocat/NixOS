@@ -66,8 +66,20 @@ ClippingRectangle {
         spacing: 0
 
         // System tray items
-        WrapperItem {
+        WrapperMouseArea {
             margin: root.internalMargin 
+            // Allow for vertical scrolling (i.e. normal mouses) to horizontally scroll
+            onWheel: (event) => {
+                //console.log(`wheel ${event.angleDelta.x}, ${event.angleDelta.y}`)
+                if (!trayItems.flicking) {
+                    if (event.angleDelta.y > 0) {
+                        trayItems.flick(300, 0)
+                    }
+                    else {
+                        trayItems.flick(-300, 0)
+                    }
+                }
+            }
             ListView {
                 id: trayItems
                 property int numItems: SystemTray.items.values.length
@@ -79,6 +91,25 @@ ClippingRectangle {
                 layoutDirection: Qt.RightToLeft
                 clip: true
                 model: SystemTray.items
+                
+                // Can't get this to work :(
+                WheelHandler {
+                    enabled: true
+                    property: "contentX"
+                    onWheel: console.log(`wheel`)
+                }
+
+                // Also doesn't work?
+                /*
+                focus: true
+                Keys.onPressed: (event) => {
+                    console.log(`key`)
+                    if (event.key == Qt.Key_Escape) {
+                        console.log('escape')
+                    }
+                }
+                */
+
                 delegate: Common.NormalButton {
                     id: button
                     required property SystemTrayItem modelData
