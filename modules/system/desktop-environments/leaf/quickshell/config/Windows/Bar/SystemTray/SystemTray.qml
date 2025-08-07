@@ -66,9 +66,10 @@ ClippingRectangle {
         spacing: 0
 
         // System tray items
-        WrapperMouseArea {
+        WrapperItem {
             margin: root.internalMargin 
             // Allow for vertical scrolling (i.e. normal mouses) to horizontally scroll
+            /*
             onWheel: (event) => {
                 //console.log(`wheel ${event.angleDelta.x}, ${event.angleDelta.y}`)
                 if (!trayItems.flicking) {
@@ -79,97 +80,127 @@ ClippingRectangle {
                         trayItems.flick(-300, 0)
                     }
                 }
+                event.accepted = true
             }
-            ListView {
-                id: trayItems
-                property int numItems: SystemTray.items.values.length
-                property int maxNumItems: 4
-                implicitHeight: root.height - root.externalMargin
-                //implicitWidth: 32 * 4 //TODO: get tray button width instead of hard coding it
-                implicitWidth: numItems < maxNumItems ? 32 * numItems : 32 * maxNumItems
-                orientation: ListView.Horizontal
-                layoutDirection: Qt.RightToLeft
-                clip: true
-                model: SystemTray.items
-                
-                // Can't get this to work :(
-                WheelHandler {
-                    enabled: true
-                    property: "contentX"
-                    onWheel: console.log(`wheel`)
-                }
-
-                // Also doesn't work?
-                /*
-                focus: true
-                Keys.onPressed: (event) => {
-                    console.log(`key`)
-                    if (event.key == Qt.Key_Escape) {
-                        console.log('escape')
+            */
+            Item {
+                implicitWidth: trayItems.width
+                implicitHeight: trayItems.height
+                ListView {
+                    id: trayItems
+                    property int numItems: SystemTray.items.values.length
+                    property int maxNumItems: 4
+                    implicitHeight: root.height - root.externalMargin
+                    //implicitWidth: 32 * 4 //TODO: get tray button width instead of hard coding it
+                    implicitWidth: numItems < maxNumItems ? 32 * numItems : 32 * maxNumItems
+                    orientation: ListView.Horizontal
+                    layoutDirection: Qt.RightToLeft
+                    clip: true
+                    model: SystemTray.items
+                    
+                    // Can't get this to work :(
+                    /*
+                    WheelHandler {
+                        enabled: true
+                        property: "contentX"
+                        onWheel: console.log(`wheel`)
                     }
-                }
-                */
+                    */
 
-                delegate: Common.NormalButton {
-                    id: button
-                    required property SystemTrayItem modelData
-                    buttonHeight: root.height - root.internalMargin * 2
-                    iconSource: modelData.icon != undefined ? modelData.icon : ""
-                    leftClick: modelData.activate
-                    rightClick: () => popupWindow.visible = true
-                    defaultInternalMargin: 0
-                    iconSize: 16
-
-                    property var popupWindow: Common.PopupWindow {
-                        id: trayPopup
-
-                        anchor {
-                            // Only window or item should be set at a time, otherwise a crash can occur
-                            //window: Root.State.controlPanel
-                            item: button
-                            edges: Edges.Bottom | Edges.Right
-                            gravity: Edges.Bottom | Edges.Left
-                            margins.top: 32
+                    // Also doesn't work?
+                    /*
+                    focus: true
+                    Keys.onPressed: (event) => {
+                        console.log(`key`)
+                        if (event.key == Qt.Key_Escape) {
+                            console.log('escape')
                         }
+                    }
+                    */
 
-                        // Used to extract the menu items from the menu
-                        QsMenuOpener {
-                            id: menuOpener
-                            menu: button.modelData?.menu
-                        }
+                    delegate: Common.NormalButton {
+                        id: button
+                        required property SystemTrayItem modelData
+                        buttonHeight: root.height - root.internalMargin * 2
+                        iconSource: modelData.icon != undefined ? modelData.icon : ""
+                        leftClick: modelData.activate
+                        rightClick: () => popupWindow.visible = true
+                        defaultInternalMargin: 0
+                        iconSize: 16
 
-                        content: ColumnLayout {
-                            id: menu
-                            Repeater {
-                                model: menuOpener.children
-                                //onModelChanged: console.log("menuOpener.children: " + menuOpener.children.values)
-                                delegate: Loader {
-                                    id: loader
-                                    required property QsMenuEntry modelData
-                                    //onModelDataChanged: console.log(`modelData: ${modelData}`)
-                                    // This seems to be required when wrapping with a loader
-                                    Layout.fillWidth: true // It appears that this propagates through the 
-                                    active: true
-                                    // These are the possible components that would need to be loaded here
-                                    // They are only Components which define a type to be created, not actual
-                                    // instances of the type
-                                    // Event though it looks like these are creating the element, the Component type
-                                    // here should be coercing it into a Component instead
-                                    property Component menuSeperator: Rectangle {
-                                        implicitHeight: 1
-                                        implicitWidth: menu.width
-                                        color: "#44ffffff"
+                        property var popupWindow: Common.PopupWindow {
+                            id: trayPopup
+
+                            anchor {
+                                // Only window or item should be set at a time, otherwise a crash can occur
+                                //window: Root.State.controlPanel
+                                item: button
+                                edges: Edges.Bottom | Edges.Right
+                                gravity: Edges.Bottom | Edges.Left
+                                margins.top: 32
+                            }
+
+                            // Used to extract the menu items from the menu
+                            QsMenuOpener {
+                                id: menuOpener
+                                menu: button.modelData?.menu
+                            }
+
+                            content: ColumnLayout {
+                                id: menu
+                                Repeater {
+                                    model: menuOpener.children
+                                    //onModelChanged: console.log("menuOpener.children: " + menuOpener.children.values)
+                                    delegate: Loader {
+                                        id: loader
+                                        required property QsMenuEntry modelData
+                                        //onModelDataChanged: console.log(`modelData: ${modelData}`)
+                                        // This seems to be required when wrapping with a loader
+                                        Layout.fillWidth: true // It appears that this propagates through the 
+                                        active: true
+                                        // These are the possible components that would need to be loaded here
+                                        // They are only Components which define a type to be created, not actual
+                                        // instances of the type
+                                        // Event though it looks like these are creating the element, the Component type
+                                        // here should be coercing it into a Component instead
+                                        property Component menuSeperator: Rectangle {
+                                            implicitHeight: 1
+                                            implicitWidth: menu.width
+                                            color: "#44ffffff"
+                                        }
+                                        property Component menuItem: BoundComponent {
+                                            property QsMenuEntry entry: loader.modelData
+                                            sourceComponent: MenuEntry {}
+                                            //Layout.fillWidth: true // It appears that this propagates through the 
+                                        }
+                                        // The selected component is instantiated here
+                                        sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
                                     }
-                                    property Component menuItem: BoundComponent {
-                                        property QsMenuEntry entry: loader.modelData
-                                        sourceComponent: MenuEntry {}
-                                        //Layout.fillWidth: true // It appears that this propagates through the 
-                                    }
-                                    // The selected component is instantiated here
-                                    sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
                                 }
                             }
                         }
+                    }
+                }
+                // Capture all mouse events for custom handling
+                MouseArea {
+                    anchors.fill: parent
+                    enabled: true
+                    onPressed: (event) => {
+                        console.log(`pressed`)
+                        event.accepted = false // Propagate click events
+                    }
+                    onWheel: (event) => {
+                        console.log(`wheel ${event.angleDelta.x}, ${event.angleDelta.y}`)
+                        if (event.angleDelta.y > 0 || event.angleDelta.x > 0) {
+                            trayItems.flick(400, 0)
+                        }
+                        else if (event.angleDelta.y < 0 || event.angleDelta.x < 0) {
+                            trayItems.flick(-400, 0)
+                        }
+                        else {
+
+                        }
+                        event.accepted = true // Don't propagate event
                     }
                 }
             }
