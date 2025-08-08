@@ -1,9 +1,9 @@
 //// Allows for Quickshell to use styles from global QT style
 //@ pragma UseQApplication
-////@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
+//@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Material
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Imagine
-//@ pragma Env QT_QUICK_CONTROLS_STYLE=Universal
+////@ pragma Env QT_QUICK_CONTROLS_STYLE=Universal
 import Quickshell
 import QtQuick
 import Quickshell.Hyprland

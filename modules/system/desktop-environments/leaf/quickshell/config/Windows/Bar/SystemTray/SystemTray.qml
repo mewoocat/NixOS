@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import "../../../Modules/Common" as Common
 import "../../../" as Root
@@ -24,7 +25,8 @@ ClippingRectangle {
     implicitHeight: parent.height - root.externalMargin
     implicitWidth: root.isExpanded ? trayContent.width : root.toggleButton.width
 
-    color: palette.base
+    color: palette.highlight
+
     radius: 24
     //anchors.centerIn: parent
     clip: true
@@ -66,7 +68,14 @@ ClippingRectangle {
         spacing: 0
 
         // System tray items
+        ClippingRectangle {
+            clip: true
+            radius: 16
+            implicitWidth: trayItemsContainer.width
+            implicitHeight: trayItemsContainer.height
+            color: "transparent"
         WrapperItem {
+            id: trayItemsContainer
             margin: root.internalMargin 
             // Allow for vertical scrolling (i.e. normal mouses) to horizontally scroll
             /*
@@ -86,6 +95,20 @@ ClippingRectangle {
             Item {
                 implicitWidth: trayItems.width
                 implicitHeight: trayItems.height
+                Rectangle {
+                    parent: root
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    radius: 16
+                    implicitWidth: trayItems.width + 8
+                    color: "brown"
+                    gradient: Gradient {
+                        orientation: Gradient.Horizontal
+                        GradientStop { position: 0.7; color: "transparent" }
+                        GradientStop { position: 1.0; color: "#77000000" }
+                    }
+                }
                 ListView {
                     id: trayItems
                     property int numItems: SystemTray.items.values.length
@@ -95,8 +118,18 @@ ClippingRectangle {
                     implicitWidth: numItems < maxNumItems ? 32 * numItems : 32 * maxNumItems
                     orientation: ListView.Horizontal
                     layoutDirection: Qt.RightToLeft
-                    clip: true
                     model: SystemTray.items
+
+                    /*
+                    ScrollBar.horizontal: ScrollBar {
+                        id: scrollBar
+                        implicitHeight: 1
+                        parent: trayItems.parent
+                        anchors.left: trayItems.left
+                        anchors.top: trayItems.bottom
+                        anchors.right: trayItems.right
+                    }
+                    */
                     
                     // Can't get this to work :(
                     /*
@@ -181,8 +214,24 @@ ClippingRectangle {
                         }
                     }
                 }
+
+                // Gradient to indicate scrollable
+                /*
+                Rectangle {
+                    anchors.fill: parent
+                    visible: false
+                    radius: 12
+                    gradient: Gradient {
+                        orientation: Gradient.Horizontal
+                        GradientStop { position: 0; color: "#77000000" }
+                        GradientStop { position: 0.3; color: "transparent" }
+                    }
+                }
+                */
+
                 // Capture all mouse events for custom handling
                 MouseArea {
+                    id: mouseArea
                     anchors.fill: parent
                     enabled: true
                     onPressed: (event) => {
@@ -204,6 +253,7 @@ ClippingRectangle {
                     }
                 }
             }
+        }
         }
 
         /*
@@ -250,11 +300,13 @@ ClippingRectangle {
         */
 
         // Spacer
+        /*
         Rectangle {
             implicitHeight: 18
             implicitWidth: 1
             radius: 16
         }
+        */
 
         // Toggle button
         Common.NormalButton {
