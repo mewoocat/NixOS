@@ -11,7 +11,8 @@ Rectangle {
     id: root
     required property string pageName
     required property Item content
-    color: "#2200ff00"
+    //color: "#2200ff00"
+    color: "transparent"
     // Header
     Rectangle {
         id: header
@@ -20,7 +21,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.margins: 16
         implicitHeight: 64
-        color: "#22ff0000"
+        //color: "#22ff0000"
+        color: "transparent"
         Text {
             anchors {
                 verticalCenter: parent.verticalCenter

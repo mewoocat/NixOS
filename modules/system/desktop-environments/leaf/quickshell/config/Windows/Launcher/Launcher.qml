@@ -126,7 +126,10 @@ Common.PanelWindow {
 
                     }
                     SidePanelItem {
-                        onClicked: Root.State.settings.openWindow()
+                        onClicked: {
+                            Root.State.settings.openWindow()
+                            launcher.closeWindow()
+                        }
                         imgPath: Quickshell.iconPath('application-menu-symbolic')
                         imgSize: 24
                     }

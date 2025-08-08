@@ -176,7 +176,7 @@ FloatingWindow {
             anchors.top: parent.top
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            color: palette.base
+            color: palette.window
             SwipeView {
                 anchors.fill: parent
                 //interactive: false

@@ -96,6 +96,7 @@ ClippingRectangle {
                 implicitWidth: trayItems.width
                 implicitHeight: trayItems.height
                 Rectangle {
+                    visible: false
                     parent: root
                     anchors.left: parent.left
                     anchors.top: parent.top
