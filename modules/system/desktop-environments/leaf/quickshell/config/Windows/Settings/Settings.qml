@@ -187,6 +187,7 @@ FloatingWindow {
                     root.settingsView = swipeView
                 }
 
+                // It appears these children are auto given the parent's size?
                 Pages.General {}
                 Pages.Monitors {}
                 Pages.Appearance {}

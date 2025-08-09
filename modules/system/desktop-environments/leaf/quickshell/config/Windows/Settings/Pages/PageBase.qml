@@ -11,8 +11,9 @@ Rectangle {
     id: root
     required property string pageName
     required property Item content
-    //color: "#2200ff00"
-    color: "transparent"
+    color: "#2200ff00"
+    //color: "transparent"
+
     // Header
     Rectangle {
         id: header
@@ -36,6 +37,7 @@ Rectangle {
         }
     }
 
+    /*
     ScrollBar {
         id: scrollBar
         parent: root
@@ -43,16 +45,17 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
     }
+    */
 
     // Content
     ScrollView {
-        implicitWidth: parent.width - scrollBar.width
+        implicitWidth: parent.width
         id: scrollView
         anchors.left: parent.left
         anchors.top: header.bottom
         anchors.bottom: parent.bottom
 
-        ScrollBar.vertical: scrollBar
+        //ScrollBar.vertical: scrollBar
 
         contentChildren: [ root.content ]
     }
