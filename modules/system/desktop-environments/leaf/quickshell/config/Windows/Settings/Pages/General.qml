@@ -24,6 +24,17 @@ PageBase {
                     Option{}
                 ]
             }
+
+            PageSection {
+                options: [
+                    Option{},
+                    Option{},
+                    Option{},
+                    Option{},
+                    Option{},
+                    Option{}
+                ]
+            }
         }
     }
 }

@@ -11,8 +11,7 @@ Rectangle {
     id: root
     required property string pageName
     required property Item content
-    color: "#2200ff00"
-    //color: "transparent"
+    color: "#0000ff00"
 
     // Header
     Rectangle {
