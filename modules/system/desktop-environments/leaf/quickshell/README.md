@@ -1,3 +1,9 @@
+# Dubugging
+```
+    quickshell --debug <PORT> --waitfordebug
+```
+and then using QtCreator, go to Debug > Start Debugging > Attach to QML port...
+
 # Credits:
     Thanks to everyone whose helped :)
 

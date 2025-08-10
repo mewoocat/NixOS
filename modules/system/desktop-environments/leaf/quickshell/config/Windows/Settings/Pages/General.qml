@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "../../../" as Root
+import "../Components"
 
 PageBase {
     id: root
@@ -14,25 +15,25 @@ PageBase {
         margin: 24
         ColumnLayout {
             implicitWidth: root.width - 24 * 2
-            PageSection {
+            spacing: 24
+            OptionSection {
+                name: "Input"
                 options: [
-                    Option{},
-                    Option{},
-                    Option{},
-                    Option{},
-                    Option{},
-                    Option{}
+                    SwitchOption {},
+                    ComboOption {},
+                    SliderOption {},
+                    SpinOption {},
+                    TextOption {}
                 ]
             }
 
-            PageSection {
+            OptionSection {
+                name: "Other"
                 options: [
-                    Option{},
-                    Option{},
-                    Option{},
-                    Option{},
-                    Option{},
-                    Option{}
+                    SwitchOption {},
+                    SwitchOption {},
+                    SwitchOption {},
+                    SwitchOption {}
                 ]
             }
         }

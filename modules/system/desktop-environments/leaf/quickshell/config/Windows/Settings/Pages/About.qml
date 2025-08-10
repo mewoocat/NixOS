@@ -3,6 +3,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
+import "../Components"
+
 PageBase {
     pageName: "About"
     content: RowLayout {

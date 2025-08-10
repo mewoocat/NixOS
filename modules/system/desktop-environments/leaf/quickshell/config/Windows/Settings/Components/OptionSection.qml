@@ -5,30 +5,31 @@ import QtQuick.Layouts
 
 ColumnLayout {
     id: root
+    required property string name
     required property list<Item> options // An item with options as it's children
     //implicitWidth: root.width
     Layout.fillWidth: true
     Layout.maximumWidth: 700
     Layout.minimumWidth: 200
     Layout.alignment: Qt.AlignHCenter
-    spacing: 16
 
     // Sub header
     WrapperRectangle {
         id: header
-        //margin: 4
-        color: "#00000000"
+        margin: 4
+        color: "#ffff0000"
         Text {
-            text: "Little header......."
+            text: root.name
             color: palette.text
         }
     }
 
     // Options
-    Item {
+    Rectangle {
         id: box
         Layout.fillWidth: true
-        implicitHeight: optionsList.height
+        implicitHeight: childrenRect.height
+        color: "#ff00ff00"
         WrapperRectangle {
             radius: 16
             margin: 16

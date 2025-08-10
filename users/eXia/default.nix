@@ -87,6 +87,7 @@
       librewolf
       onlyoffice-desktopeditors
       flashgbx
+      qtcreator
     ];
   };
 
