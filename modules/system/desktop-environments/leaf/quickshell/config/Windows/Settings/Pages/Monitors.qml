@@ -27,7 +27,11 @@ PageBase {
             Layout.minimumWidth: root.minWidth
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
-            implicitHeight: 700
+
+            // TODO!! both these eval to 347, however the dyanmic calc causes the width to get stuck at 300, pls fix
+            //implicitHeight: (area.height / 12) + settings.height + (16 * 2)
+            implicitHeight: 347
+
             //color: palette.base
             color: "red"
             radius: 16
@@ -84,10 +88,13 @@ PageBase {
                 // Monitor configuring area
                 Rectangle {
                     id: area
+                    implicitWidth: parent.width
+                    implicitHeight: parent.width * 0.5
+                Rectangle {
                     // Set to large enough size to accommodate the native size of multiple monitors
                     property int areaSize: parent.width * marginBox.scaleFactor
                     implicitWidth: areaSize 
-                    implicitHeight: areaSize * 0.6
+                    implicitHeight: areaSize * 0.5
 
                     // Scale down the size to actually be usable
                     // Note that using the scale element via the transform prop appears properly scale
@@ -100,7 +107,7 @@ PageBase {
                     }
 
                     property int offsetX: areaSize / 2 
-                    property int offsetY: areaSize * 0.6 / 2 
+                    property int offsetY: areaSize * 0.5 / 2 
                     color: "orange"
 
                     Repeater {
@@ -119,9 +126,9 @@ PageBase {
                         }
                     }
                 }
+                }
 
                 // Monitor settings
-                /*
                 Rectangle {     
                     id: settings
                     anchors.left: parent.left
@@ -130,7 +137,7 @@ PageBase {
                     implicitHeight: childrenRect.height
                     color: palette.base
                     RowLayout {
-                        anchors.fill: parent
+                        implicitWidth: parent.width
                         ColumnLayout {
                             id: box
                             Layout.fillWidth: true
@@ -207,7 +214,6 @@ PageBase {
                         }
                     }
                 }
-                */
             }
         }
 
