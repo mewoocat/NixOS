@@ -45,6 +45,13 @@ Rectangle {
         anchors.bottom: parent.bottom
     }
     */
+    Button {
+        text: "scrollview"
+        onClicked: {
+            console.log(`scrollview width = ${scrollView.width}`)
+            console.log(`scrollView = ${scrollView}`)
+        }
+    }
 
     // Content
     ScrollView {
@@ -56,6 +63,8 @@ Rectangle {
 
         //ScrollBar.vertical: scrollBar
 
-        contentChildren: [ root.content ]
+        contentChildren: [ 
+            root.content
+        ]
     }
 }
