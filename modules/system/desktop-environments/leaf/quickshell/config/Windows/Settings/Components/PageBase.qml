@@ -64,7 +64,16 @@ Rectangle {
         //ScrollBar.vertical: scrollBar
 
         contentChildren: [ 
-            root.content
+            // For some reason wrapping the content in an top center anchored Rectangle is needed to avoid weird
+            // sizing issues for a Layout root.content type
+            Rectangle {
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                implicitHeight: childrenRect.height
+                color: "lightgreen"
+                children: [ root.content ]
+            }
         ]
     }
 }

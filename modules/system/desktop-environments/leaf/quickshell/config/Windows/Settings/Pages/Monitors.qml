@@ -15,19 +15,11 @@ PageBase {
     id: root
     pageName: "Display"
     property int maxWidth: 700
-    property int minWidth: 300
+    property int minWidth: 400
     content: ColumnLayout {
-        id: thing
-
-        // !!! For some reason, using the implicitWidth to set the width of this ColumnLayout to
-        // parent width doesn't match.  Using anchors seems to work fine though.
-        // Also note that this issue doesn't seem to occur unless a nested child sets it's height
-        // using implicitHeight based of a parent height.
-        // Scratch that &
-        implicitWidth: parent.parent.parent.width // THIS IS FIX
-        //anchors.left: root.left
-        //anchors.right: root.right
-
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
         spacing: 16
         
         // Visual config
@@ -37,12 +29,8 @@ PageBase {
             Layout.minimumWidth: root.minWidth
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
-            property int scaleFactor: 12
-
-            // TODO!! both these eval to 347, however the dyanmic calc causes the width to get stuck at 300, pls fix
-            //implicitHeight: (area.height / 12) + settings.height + (16 * 2)
-            //implicitHeight: area.height + settings.height
-            implicitHeight: 400
+            implicitHeight: area.height + settings.height
+            property int scaleFactor: 1
 
             //color: palette.base
             color: "#ffff0000"
@@ -63,8 +51,8 @@ PageBase {
                 y: monitor.y + area.offsetY
 
                 // Adjust size to match scale (required by hyprland)
-                width: monitor.width / monitor.scale
-                height: monitor.height / monitor.scale
+                width: 100 //monitor.width / monitor.scale
+                height: 100 //monitor.height / monitor.scale
 
                 // Dragging
                 drag.target: mouseArea
@@ -93,15 +81,16 @@ PageBase {
             // Monitor configuring area
             Rectangle {
                 id: area
-                implicitWidth: parent.width
-                implicitHeight: parent.width * 0.5
-                color: "blue"
-            /*
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                implicitHeight: 400
+
             Rectangle {
                 // Set to large enough size to accommodate the native size of multiple monitors
-                property int areaSize: parent.width * marginBox.scaleFactor
+                property int areaSize: parent.width * visualBox.scaleFactor
                 implicitWidth: areaSize 
-                implicitHeight: areaSize * 0.5
+                implicitHeight: parent.height * visualBox.scaleFactor
 
                 // Scale down the size to actually be usable
                 // Note that using the scale element via the transform prop appears properly scale
@@ -133,7 +122,6 @@ PageBase {
                     }
                 }
             }
-            */
             }
 
             // Monitor settings
