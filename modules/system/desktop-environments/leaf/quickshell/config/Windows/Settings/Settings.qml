@@ -154,19 +154,6 @@ FloatingWindow {
                     PageButton { pageIndex: 5; text: "Sound"; icon: "preferences-sound" }
                     PageButton { pageIndex: 6; text: "Notifications"; icon: "notifyconf" }
                     PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
-                    PageButton { pageIndex: 7; text: "About"; icon: "stock_about" }
                 }
             }
         }

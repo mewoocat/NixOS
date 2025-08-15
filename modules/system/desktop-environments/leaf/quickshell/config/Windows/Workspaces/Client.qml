@@ -29,7 +29,7 @@ MouseArea {
     }
     ScreencopyView {
         anchors.fill: parent
-        live: true // TODO: need to investigate performance impact
+        //live: true // TODO: need to investigate performance impact
         captureSource: window.toplevel.wayland
     }
     // Boarder highlight

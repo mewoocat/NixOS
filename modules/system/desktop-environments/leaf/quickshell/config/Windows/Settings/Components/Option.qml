@@ -8,6 +8,8 @@ import "../../../" as Root
 Rectangle {
     id: root
     required property Item content
+    required property string title
+    property string subtitle: ""
     radius: Root.State.rounding
     color: palette.base
     Layout.fillWidth: true
@@ -30,12 +32,12 @@ Rectangle {
                     //Layout.alignment: Qt.AlignVCenter
                     Text {
                         color: palette.text
-                        text: "Option thingy"
+                        text: root.title
                     }
                     Text {
                         color: palette.text
                         font.pointSize: 8
-                        text: "Option thingy"
+                        text: root.subtitle
                     }
                 }
             }

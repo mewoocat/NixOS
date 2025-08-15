@@ -13,22 +13,22 @@ Scope {
 
     // This creates an instance for each screen
     Variants {
-        model: Quickshell.screens
+        model: [ Quickshell.screens[0] ] // just for one screen
 
         // Note: 
             // Component (s) can be defined implicitly, so it could be ommited here
             // Delegate is a default property and can be skipped as well
         delegate: Component {
             PanelWindow {
+                id: bar
+                // The screen from the screens list will be injected into this property
+                property var modelData
                 color: "transparent"
                 focusable: true
                 //WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 Component.onCompleted: {
                     Root.State.bar = bar
                 }
-                id: bar
-                // The screen from the screens list will be injected into this property
-                property var modelData
                 // Set the window's screen to the injected property
                 screen: modelData
                 anchors {

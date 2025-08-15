@@ -23,12 +23,16 @@ PageBase {
         spacing: 16
         
         // Visual config
-        Rectangle { 
-            id: visualBox
+        WrapperRectangle {
+            margin: 16
+            color: "red"
             Layout.maximumWidth: root.maxWidth
             Layout.minimumWidth: root.minWidth
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter
+
+        Rectangle { 
+            id: visualBox
             implicitHeight: area.height + settings.height
             property int scaleFactor: 1
 
@@ -210,6 +214,7 @@ PageBase {
                     }
                 }
             }
+        }
         }
 
         // Options

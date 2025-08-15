@@ -17,22 +17,46 @@ PageBase {
             implicitWidth: root.width - 24 * 2
             spacing: 24
             OptionSection {
-                name: "Input"
+                name: "Workspaces"
                 options: [
-                    SwitchOption {},
-                    ComboOption {},
-                    SliderOption {},
-                    SpinOption {},
-                    TextOption {}
+                    ComboOption {
+                        title: "Workspace"
+                        subtitle: "The workspace to modify"
+                        options: [
+                            "Workspace 1",
+                            "Workspace 2",
+                            "Workspace 3"
+                        ]
+                    },
+                    TextOption {
+                        title: "Name"
+                    },
+                    ComboOption {
+                        title: "Monitor"
+                        subtitle: "The monitor to assign this workspace to"
+                        options: [
+                            "Monitor 1",
+                            "Monitor 2",
+                            "Monitor 3"
+                        ]
+                    },
+                    SpinOption {
+                        title: "Outer gaps"
+                    },
+                    SpinOption {
+                        title: "Inner gaps"
+                    }
                 ]
             }
 
             OptionSection {
                 name: "Other"
                 options: [
-                    SwitchOption {},
-                    SwitchOption {},
-                    SwitchOption {},
+                    SwitchOption {
+                        title: "what"
+                    },
+                    SliderOption {},
+                    SpinOption {},
                     SwitchOption {}
                 ]
             }
