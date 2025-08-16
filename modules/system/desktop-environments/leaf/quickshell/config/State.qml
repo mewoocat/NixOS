@@ -80,14 +80,24 @@ Singleton {
             //property string workspaceMap: "{}" // json for workspace config map
 
             property JsonObject workspaces: JsonObject {
-                // Looks like using a JsonObject type here causes a qs crash
-                // Stores a list of json monitor objects
-                property list<var> wsList: [
-                    /*
-                    Services.Hyprland.Workspace { wsId: 1; isDefault: true; },
-                    Services.Hyprland.Workspace { wsId: 2; isDefault: false; },
-                    */
-                ]
+                // Default workspace configuration
+                // Note that the number of workspaces is hardcoded since using a JsonObject
+                // type here causes a qs crash.  If a dynamic amount of workspaces is desired,
+                // the maximum supported should be defined here and then each workspace should
+                // have some sort of enabled property.
+                // Alternatively a list of var type should also work but I prefer this approach for now
+                property JsonObject wsMap: JsonObject {
+                    property JsonObject ws1: Services.Hyprland.Workspace { wsId: 1; isDefault: true }
+                    property JsonObject ws2: Services.Hyprland.Workspace { wsId: 2 }
+                    property JsonObject ws3: Services.Hyprland.Workspace { wsId: 3 }
+                    property JsonObject ws4: Services.Hyprland.Workspace { wsId: 4 }
+                    property JsonObject ws5: Services.Hyprland.Workspace { wsId: 5 }
+                    property JsonObject ws6: Services.Hyprland.Workspace { wsId: 6 }
+                    property JsonObject ws7: Services.Hyprland.Workspace { wsId: 7 }
+                    property JsonObject ws8: Services.Hyprland.Workspace { wsId: 8 }
+                    property JsonObject ws9: Services.Hyprland.Workspace { wsId: 9 }
+                    property JsonObject ws10: Services.Hyprland.Workspace { wsId: 10 }
+                }
             }
         }
  
