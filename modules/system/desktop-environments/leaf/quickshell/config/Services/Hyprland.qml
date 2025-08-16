@@ -162,8 +162,12 @@ Singleton {
     // Workspace Management
     //////////////////////////////////////////////////////////////// 
     
+    property var selectedWorkspace: 0 // Id of selected workspace for configuring
     
     // Inline component for a json workspace
+    // no work :(
+    // HOWEVER, this type should be identical to the "var" json for each workspace
+    /*
     component Workspace: JsonObject {
         required property int wsId
         required property bool isDefault
@@ -173,5 +177,6 @@ Singleton {
         property int gapsout: 16
         property bool rounding: true
     }
+    */
 
 }

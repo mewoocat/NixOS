@@ -80,20 +80,12 @@ Singleton {
             //property string workspaceMap: "{}" // json for workspace config map
 
             property JsonObject workspaces: JsonObject {
-                // TODO: some reason the Workspace version of this no work
-                property list<string> wsList: [
-                //property list<Services.Hyprland.Workspace> wsList: [
+                // Looks like using a JsonObject type here causes a qs crash
+                // Stores a list of json monitor objects
+                property list<var> wsList: [
                     /*
                     Services.Hyprland.Workspace { wsId: 1; isDefault: true; },
                     Services.Hyprland.Workspace { wsId: 2; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 3; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 4; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 5; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 6; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 7; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 8; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 9; isDefault: false; },
-                    Services.Hyprland.Workspace { wsId: 10; isDefault: false; }
                     */
                 ]
             }
