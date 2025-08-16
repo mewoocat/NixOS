@@ -30,6 +30,15 @@ PageBase {
                     },
                     TextOption {
                         title: "Name"
+                        // no work/
+                        /*
+                        Component.onCompleted: {
+                            content.onAccepted = () => {
+                                console.log("accepted")
+                                Root.State.config.workspaces.list[0].name = text
+                            }
+                        }
+                        */
                     },
                     ComboOption {
                         title: "Monitor"

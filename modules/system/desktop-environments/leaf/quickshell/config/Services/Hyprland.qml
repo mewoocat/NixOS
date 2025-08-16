@@ -130,6 +130,7 @@ Singleton {
         }
     }
 
+    // A single focus grab instance which is shared
     HyprlandFocusGrab {
         id: grab
         active: false
@@ -156,4 +157,21 @@ Singleton {
             }
         }
     }
+
+    //////////////////////////////////////////////////////////////// 
+    // Workspace Management
+    //////////////////////////////////////////////////////////////// 
+    
+    
+    // Inline component for a json workspace
+    component Workspace: JsonObject {
+        required property int wsId
+        required property bool isDefault
+        property string name: ""
+        property string monitor: ""
+        property int gapsin: 8
+        property int gapsout: 16
+        property bool rounding: true
+    }
+
 }

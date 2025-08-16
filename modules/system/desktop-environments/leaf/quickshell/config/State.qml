@@ -4,11 +4,15 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 
+//import qs.Services as Services
+import "./Services/" as Services
+
 Singleton {
     id: root
 
     property string leafPath: "/home/eXia/.config/leaf-de/"
     property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
+    property var configFileView: configFile
     property var config: configFile.adapter
 
     property bool launcherVisibility: false
@@ -37,7 +41,6 @@ Singleton {
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 8
-
 
     FileView {
         id: configFile
@@ -71,8 +74,31 @@ Singleton {
             property string funImage: ""
             property list<string> pinnedApps: []
             property string pfpImage: ""
+
+            // TODO: migrate config file to this
+            //property string monitorMap: "{}" // Stores json of monitor configuration map
+            //property string workspaceMap: "{}" // json for workspace config map
+
+            property JsonObject workspaces: JsonObject {
+                // TODO: some reason the Workspace version of this no work
+                property list<string> wsList: [
+                //property list<Services.Hyprland.Workspace> wsList: [
+                    /*
+                    Services.Hyprland.Workspace { wsId: 1; isDefault: true; },
+                    Services.Hyprland.Workspace { wsId: 2; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 3; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 4; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 5; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 6; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 7; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 8; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 9; isDefault: false; },
+                    Services.Hyprland.Workspace { wsId: 10; isDefault: false; }
+                    */
+                ]
+            }
         }
-        
+ 
     }
 
     /*

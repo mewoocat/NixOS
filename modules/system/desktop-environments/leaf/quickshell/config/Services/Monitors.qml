@@ -8,6 +8,12 @@ import "../Services" as Services
 
 import Quickshell.Hyprland
 
+////////////////////////////////////////////////////////////////
+// Monitor Service for Hyprland
+// - Saves monitor config map at ~/.config/leaf-de/hypr/monitorMap.json
+// - Saves Hyprland monitor config at ~/.config/leaf-de/hypr/monitors.conf
+////////////////////////////////////////////////////////////////
+
 Singleton {
     id: root
     component MonitorType: QtObject {
