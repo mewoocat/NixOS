@@ -14,9 +14,10 @@ RowLayout {
             id: mouseArea
             required property var modelData
             property int wsID: modelData + 1
+            property var wsObj: Services.Hyprland.workspaceMap[wsID] 
             // Either active, inactive, or empty
             property string wsState: {
-                const wsObj = Services.Hyprland.workspaceMap[wsID] 
+                //const wsObj = Services.Hyprland.workspaceMap[wsID] 
                 if (wsObj !== undefined && wsObj.id === Services.Hyprland.activeWsId) {
                     return "active"
                 }
@@ -74,10 +75,14 @@ RowLayout {
                 Text {
                     anchors.centerIn: parent
                     text: {
-                        if (mouseArea.wsState !== "empty" || mouseArea.wsState === "active") {
+                        console.log("text: " + JSON.stringify(mouseArea.wsObj.name))
+                        if (mouseArea.wsState === "empty") {
+                            return ""
+                        }
+                        if (mouseArea.wsState === "inactive") {
                             return mouseArea.wsID    
                         }
-                        return ""
+                        return mouseArea.wsObj.name
                     }
                     font.pointSize: 8
                 }
