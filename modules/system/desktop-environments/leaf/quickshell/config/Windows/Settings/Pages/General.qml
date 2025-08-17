@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "../../../" as Root
+import "../../../Services" as Services
 import "../Components"
 
 PageBase {
@@ -19,6 +20,18 @@ PageBase {
             OptionSection {
                 name: "Workspaces"
                 options: [
+                    Option {
+                        title: "Rounding"
+                        content: Switch {
+                            //text: "what"
+                            //contentItem: null // Remove default text element which was reserving space
+                            onClicked: {
+                                Services.Hyprland.selectedWorkspace.rounding = checked
+                                console.log(`rounding: ${Services.Hyprland.selectedWorkspace.rounding}`)
+                                Services.Hyprland.applyWsConf()
+                            }
+                        }
+                    },
                     ComboOption {
                         title: "Workspace"
                         subtitle: "The workspace to modify"

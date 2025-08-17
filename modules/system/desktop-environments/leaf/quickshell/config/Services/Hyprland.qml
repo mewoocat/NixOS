@@ -163,11 +163,8 @@ Singleton {
     //////////////////////////////////////////////////////////////// 
     
     property var selectedWorkspaceId: 1 // Id of selected workspace for configuring
+    // Currently selected workspace for configuration
     property Workspace selectedWorkspace: Root.State.config.workspaces.wsMap[`ws${selectedWorkspaceId}`]
-
-    function setWsName(text): void {
-        selectedWorkspace.name = text
-    }
     
     // Inline component for a json workspace
     // HOWEVER, this type should be identical to the "var" json for each workspace
@@ -197,7 +194,7 @@ Singleton {
         for (let id = 1; id <= 10; id++) {
             const idStr = "ws" + id
             const ws = wsMap[idStr]
-            //workspace = 10, monitor:eDP-1
+            // TODO: defaultName no work
             conf += `workspace = ${ws.wsId}, name:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${ws.gapsin}, gapsout:${ws.gapsout}\n`
         }
         console.log(conf)
