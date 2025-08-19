@@ -6,9 +6,9 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "../../../Services/" as Services
-import "../../../Modules/Common" as Common
-import "../../../" as Root
+import qs as Root
+import qs.Services as Services
+import qs.Modules.Common as Common
 import "../Components"
 
 PageBase {

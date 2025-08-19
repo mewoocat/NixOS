@@ -3,7 +3,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "root:/Services" as Services
+import qs.Services as Services
 
 Item {
     anchors.margins: 16

@@ -3,7 +3,6 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 
-
 WrapperMouseArea {
     id: root
     required property string imgPath

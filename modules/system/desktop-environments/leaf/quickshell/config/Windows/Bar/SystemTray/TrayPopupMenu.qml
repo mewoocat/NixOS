@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import '../../../Modules/Common/' as Common
+import qs.Modules.Common as Common
 
 
 Common.PopupWindow {

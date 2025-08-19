@@ -1,17 +1,15 @@
 pragma ComponentBehavior: Bound
 
-import Quickshell
-import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Wayland
+import Quickshell.Widgets
 import Quickshell.Hyprland
-
-import "../../" as Root
-import "../../Modules/Common" as Common
-import "../../Modules" as Modules
-import "../../Services" as Services
+import qs as Root
+import qs.Services as Services
+import qs.Modules.Common as Common
 
 Common.PanelWindow {
     // Doesn't seem to force focus

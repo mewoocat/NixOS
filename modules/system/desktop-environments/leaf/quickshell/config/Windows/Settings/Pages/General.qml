@@ -3,8 +3,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../../../" as Root
-import "../../../Services" as Services
+import qs as Root
+import qs.Services as Services
 import "../Components"
 
 PageBase {

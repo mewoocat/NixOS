@@ -3,10 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Pipewire
-import "../../../" as Root
-import "../../../Services" as Services
-import "../../../Modules/Common" as Common
-import "./Templates/"
+import qs.Services as Services
 
 PageBase {
     pageName: "Network"

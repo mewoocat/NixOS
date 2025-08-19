@@ -1,6 +1,6 @@
 import QtQuick.Controls
-import "../../../" as Root
-import "../../../Services" as Services
+import qs as Root
+import qs.Services as Services
 
 Option {
     content: TextField {

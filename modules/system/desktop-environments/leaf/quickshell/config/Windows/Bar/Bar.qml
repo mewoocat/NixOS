@@ -3,9 +3,9 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Wayland
-import "../../" as Root
-import "../../Modules/Common" as Common
-import "../../Windows/ControlPanel"
+import qs as Root
+import qs.Modules.Common as Common
+import qs.Windows.ControlPanel
 import "./SystemTray"
 
 Scope {

@@ -2,8 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
-import "../../Modules" as Modules
-import "../../Services" as Services
+import qs.Services as Services
 
 WrapperMouseArea {
     id: root

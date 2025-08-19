@@ -3,8 +3,8 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Widgets
-import "../../Services" as Services
-import "../../" as Root
+import qs.Services as Services
+import qs as Root
 
 // TODO: wrap in loader so that popup is only loaded when it needs to be seen
 // TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 

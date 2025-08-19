@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
-import "../" as Root
+import qs as Root
 
 Singleton {
     id: root

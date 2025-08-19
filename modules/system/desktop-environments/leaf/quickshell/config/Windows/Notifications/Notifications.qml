@@ -2,9 +2,8 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
-import "../../Services" as Services
-import "../../Modules" as Modules
-import "../../Modules/Common" as Common
+import qs.Services as Services
+import qs.Modules as Modules
 
 // OSD: This is a transparent window that shows any new notifications for a short time
 PanelWindow {

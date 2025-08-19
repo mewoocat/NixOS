@@ -3,8 +3,8 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import "../" as Root
-import "../Services" as Services
+import qs as Root
+import qs.Services as Services
 
 import Quickshell.Hyprland
 

@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
-import "../../" as Root
-import "../../Services/" as Services
+import qs as Root
+import qs.Services as Services
 
 RowLayout {
     id: root

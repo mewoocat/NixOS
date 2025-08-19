@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell.Services.UPower
-import "../../Modules/Common" as Common
 
 BarButton {
     action: () => {}

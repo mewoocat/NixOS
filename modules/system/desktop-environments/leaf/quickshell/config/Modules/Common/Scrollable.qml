@@ -1,9 +1,7 @@
 import Quickshell
-import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import '../../' as Root
 
 Rectangle {
     id: root
