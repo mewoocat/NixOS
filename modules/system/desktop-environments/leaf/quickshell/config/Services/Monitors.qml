@@ -126,6 +126,7 @@ Singleton {
         function onRawEvent(event) {
             //console.log(`hyprland event: ${event.name}`)
 
+            // TODO: optimize by combining with the other hyprland connection in Hyprland.qml
             //Hyprland.refreshMonitors()
             switch (event.name) {
                 case "monitoradded":

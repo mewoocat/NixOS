@@ -80,9 +80,9 @@ Singleton {
             //property string workspaceMap: "{}" // json for workspace config map
 
             property JsonObject workspaces: JsonObject {
-                // Default workspace configuration
+                // Current workspace configuration (the literal values here are the default)
                 // Note that the number of workspaces is hardcoded since using a JsonObject
-                // type here causes a qs crash.  If a dynamic amount of workspaces is desired,
+                // type within a list causes a qs crash.  If a dynamic amount of workspaces is desired,
                 // the maximum supported should be defined here and then each workspace should
                 // have some sort of enabled property.
                 // Alternatively a list of var type should also work but I prefer this approach for now
@@ -98,6 +98,14 @@ Singleton {
                     property JsonObject ws9: Services.Hyprland.Workspace { wsId: 9 }
                     property JsonObject ws10: Services.Hyprland.Workspace { wsId: 10 }
                 }
+
+                // Map of monitor state to workspace configuration
+                // Becomes populated with keys (which are a generated monitor config id)
+                // and the associated values are a map of each monitor to a list of workspace ids assigned to that monitor
+                // Example
+                // { "monitorA-monitorB": " {"monitorA": [1,2,3,4,5], "monitorB": [6,7,8,9,10] }}
+                // `()` fixes undefined issue when modifying
+                property var wsConfigMap: ({})
             }
         }
  
