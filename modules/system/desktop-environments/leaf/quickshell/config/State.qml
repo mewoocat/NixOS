@@ -55,7 +55,10 @@ Singleton {
         onFileChanged: reload()
 
         // If the adapter's contents change, update the file
-        onAdapterUpdated: writeAdapter()
+        onAdapterUpdated: {
+            console.log(`Writing to ${path}`)
+            writeAdapter()
+        }
 
         onLoadFailed: (err) => {
             console.log(`File load failed with ${err}`)

@@ -247,7 +247,7 @@ Singleton {
         console.log(`monitorToWsMap: ${JSON.stringify(monitorToWsMap)}`)
         // TODO: seems that the config isn't getting written out to the settings.json file with these changes
         Root.State.config.workspaces.wsConfigMap[currentMonitorConfigId] = monitorToWsMap
-
+        Root.State.configFileView.writeAdapter() // Need to manually write adapter since sub properties on inline json are not tracked
     }
 
 }
