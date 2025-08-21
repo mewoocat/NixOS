@@ -21,7 +21,7 @@ Singleton {
     //////////////////////////////////////////////////////////////// 
     
     function enable() {
-        console.log("Enabling sound service")
+        //console.log("Enabling sound service")
     }
     function getIcon(node: PwNode): string {
         if (node === null) {

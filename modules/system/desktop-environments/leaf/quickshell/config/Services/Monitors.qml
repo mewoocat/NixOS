@@ -110,7 +110,7 @@ Singleton {
     }
 
     function enable(){
-        console.log('Enabling Monitor service')
+        //console.log('Enabling Monitor service')
     }
 
     // Workaround

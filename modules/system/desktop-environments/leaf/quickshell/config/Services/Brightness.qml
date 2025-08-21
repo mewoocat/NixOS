@@ -18,7 +18,7 @@ Singleton {
     }
 
     function enable(){
-        console.log("Enabling brightness service")
+        //console.log("Enabling brightness service")
     }
 
     onValueChanged: () => {

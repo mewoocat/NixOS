@@ -61,10 +61,7 @@ PageBase {
                 // i.e. Each program, etc.
                 // A link is a connection between two nodes
                 model: Services.Audio.defaultOutputLinkTracker.linkGroups
-                Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
-
-                // MixerItem
-                Modules.MixerItem {}
+                delegate: Modules.MixerItem {}
             } 
         }
         
@@ -76,7 +73,7 @@ PageBase {
             Layout.fillHeight: true
             Text {
                 anchors.centerIn: parent
-                color: palette.text
+                color: palette.placeholderText
                 text: "Nothing to mix :/"
             }
         }

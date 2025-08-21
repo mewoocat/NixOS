@@ -96,7 +96,7 @@ Common.PanelGrid {
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: `file://${Quickshell.configDir}/Icons/nightlight-symbolic.svg` // For some reason configDir exists but shellRoot doesn't
+            source: `file://${Quickshell.shellDir}/Icons/nightlight-symbolic.svg` // For some reason configDir exists but shellRoot doesn't
 
             // Recolor
             layer.enabled: true

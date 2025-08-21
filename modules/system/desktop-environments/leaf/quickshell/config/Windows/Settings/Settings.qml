@@ -9,14 +9,12 @@ import qs.Services as Services
 import "./Pages/" as Pages
 
 FloatingWindow {
-    // No work?
-    //minimumSize: "200x300"
     id: root    
+    minimumSize: "600x400"
     color: contentItem.palette.window
     visible: false
 
     Component.onCompleted: {
-        console.log("adding settings to state")
         Root.State["settings"] = root // Set the window ref in state
     }
 

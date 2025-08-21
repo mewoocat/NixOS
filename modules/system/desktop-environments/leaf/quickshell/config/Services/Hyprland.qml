@@ -16,7 +16,7 @@ Singleton {
     property list<HyprlandMonitor> monitorsObjs: Hyprland.monitors.values
 
     function enable(){
-        console.log("Enabling Hyprland Service")
+        //console.log("Enabling Hyprland Service")
     }
     Component.onCompleted: {
         //console.log(monitorsObjs)

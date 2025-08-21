@@ -25,7 +25,7 @@ Singleton {
     }
 
     function enable(){
-        console.log("Enabling Weather service")
+        //console.log("Enabling Weather service")
     }
 
     Process {

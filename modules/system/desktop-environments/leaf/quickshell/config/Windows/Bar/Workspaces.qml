@@ -75,7 +75,7 @@ RowLayout {
                 Text {
                     anchors.centerIn: parent
                     text: {
-                        console.log("text: " + JSON.stringify(mouseArea.wsObj.name))
+                        //console.log("text: " + JSON.stringify(mouseArea.wsObj.name))
                         if (mouseArea.wsState === "empty") {
                             return ""
                         }

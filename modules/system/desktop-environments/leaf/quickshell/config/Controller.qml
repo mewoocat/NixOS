@@ -6,7 +6,7 @@ import Quickshell.Io
 Singleton {
     // Used to initialize this singleton
     function enable(){
-        console.log("Enabling Controller Singleton")
+        //console.log("Enabling Controller Singleton")
     }
     IpcHandler {
         target: "control"
