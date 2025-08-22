@@ -118,7 +118,10 @@ Singleton {
         id: waitToLoadConfig
         interval: 400
         running: false
-        onTriggered: loadConfig()
+        onTriggered: {
+            loadConfig() // Load monitor config
+            Services.Hyprland.loadWsConfig() // Load workspace config
+        }
     }
 
     Connections {
