@@ -3,8 +3,8 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import '../../../Modules/Common/' as Common
-import '../../../' as Root
+import qs.Modules.Common as Common
+import qs as Root
 
 // Need wrapper item since we want to anchor the ColumnLayout to the top of the SwipeView area but 
 // it doesn't like anchors being set on root item in a SwipeView

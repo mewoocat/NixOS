@@ -3,7 +3,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../../../" as Root
+import qs as Root
+import qs.Services as Services
 import "../Components"
 
 PageBase {
@@ -19,35 +20,60 @@ PageBase {
             OptionSection {
                 name: "Workspaces"
                 options: [
-                    ComboOption {
+                    Option {
                         title: "Workspace"
                         subtitle: "The workspace to modify"
-                        options: [
-                            "Workspace 1",
-                            "Workspace 2",
-                            "Workspace 3"
-                        ]
-                    },
-                    TextOption {
-                        title: "Name"
-                        // no work/
-                        /*
-                        Component.onCompleted: {
-                            content.onAccepted = () => {
-                                console.log("accepted")
-                                Root.State.config.workspaces.list[0].name = text
+                        // TODO: Use this https://doc.qt.io/qt-6/qml-qtquick-controls-combobox.html#model-prop
+                        content: ComboBox {
+                            textRole: "wsId" // The property name on each of the model items to show as the text
+                            model: {
+                                const wsConfig = Root.State.config.workspaces.wsMap
+                                // Convert the obj map of workspace config objs to array
+                                let workspaces = []
+                                for (let id = 1; id <= 10; id++) {
+                                    const wsId = `ws${id}`
+                                    console.log(`option: ${wsConfig[wsId]}`)
+                                    workspaces.push(wsConfig[`ws${id}`])
+                                }
+                                return workspaces //.map(ws => ws.wsId)
+                            }
+                            onActivated: (index) => {
+                                console.log(`activated combobox for index ${index}`)
+                                Services.Hyprland.selectedWorkspaceId = index + 1
+                                console.log(`selected workspace: ${Services.Hyprland.selectedWorkspace.wsId}`)
                             }
                         }
-                        */
                     },
-                    ComboOption {
+                    Option {
+                        title: "Name"
+                        subtitle: "The name to assign to this workspace"
+                        content: TextField {
+                            onAccepted: {
+                                Services.Hyprland.setWsName(text)
+                                Services.Hyprland.applyWsConf()
+                            }
+                        }
+                    },
+                    Option {
                         title: "Monitor"
                         subtitle: "The monitor to assign this workspace to"
-                        options: [
-                            "Monitor 1",
-                            "Monitor 2",
-                            "Monitor 3"
-                        ]
+                        content: ComboBox {
+                            model: [
+                                "Monitor 1",
+                                "Monitor 2",
+                                "Monitor 3"
+                            ]
+                        }
+                    },
+                    Option {
+                        title: "Rounding"
+                        content: Switch {
+                            onClicked: {
+                                Services.Hyprland.selectedWorkspace.rounding = checked
+                                console.log(`rounding: ${Services.Hyprland.selectedWorkspace.rounding}`)
+                                Services.Hyprland.applyWsConf()
+                            }
+                        }
                     },
                     SpinOption {
                         title: "Outer gaps"

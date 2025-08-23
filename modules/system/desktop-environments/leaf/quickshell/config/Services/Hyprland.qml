@@ -4,17 +4,19 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
-import "../" as Root
+import qs as Root
 
 Singleton {
     id: root
+
+    property int numWorkspaces: 10
 
     // This no work
     //property ObjectModel<HyprlandMonitor> monitors: Hyprland.monitors
     property list<HyprlandMonitor> monitorsObjs: Hyprland.monitors.values
 
     function enable(){
-        console.log("Enabling Hyprland Service")
+        //console.log("Enabling Hyprland Service")
     }
     Component.onCompleted: {
         //console.log(monitorsObjs)
@@ -69,6 +71,7 @@ Singleton {
     Connections {
         target: Hyprland
         function onRawEvent(event) {
+            // TODO: Optimize pls
             Hyprland.refreshWorkspaces()
             Hyprland.refreshMonitors()
             Hyprland.refreshToplevels() // Clients
@@ -80,6 +83,16 @@ Singleton {
             if (event.name === "workspace") {
                 activeWsId = event.data
             } 
+
+            switch(event.name) {
+                // If monitor add/remove event occured
+                case "monitoradded":
+                case "monitoraddedv2":
+                case "monitorremoved":
+                case "monitorremovedv2":
+                    // Need to move workspaces to their assigned monitors given the new monitor configuration
+
+            }
         }
     }
 
@@ -163,14 +176,10 @@ Singleton {
     //////////////////////////////////////////////////////////////// 
     
     property var selectedWorkspaceId: 1 // Id of selected workspace for configuring
+    // Currently selected workspace for configuration
     property Workspace selectedWorkspace: Root.State.config.workspaces.wsMap[`ws${selectedWorkspaceId}`]
-
-    function setWsName(text): void {
-        selectedWorkspace.name = text
-    }
     
     // Inline component for a json workspace
-    // HOWEVER, this type should be identical to the "var" json for each workspace
     component Workspace: JsonObject {
         required property int wsId
         property bool isDefault: false
@@ -190,27 +199,84 @@ Singleton {
         }
     }
 
-    // Returns a Hyprland workspace config string
+    function setWsName(text): void {
+        const wsMap = Root.State.config.workspaces.wsMap
+        root.selectedWorkspace.name = text
+    }
+
+    // Returns a Hyprland workspace config string for the current configuration  
     function generateHyprlandWsConf(): string {
         const wsMap = Root.State.config.workspaces.wsMap
         let conf = ''
-        for (let id = 1; id <= 10; id++) {
+        for (let id = 1; id <= numWorkspaces; id++) {
             const idStr = "ws" + id
             const ws = wsMap[idStr]
-            //workspace = 10, monitor:eDP-1
+            // TODO: defaultName no work
             conf += `workspace = ${ws.wsId}, name:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${ws.gapsin}, gapsout:${ws.gapsout}\n`
         }
         console.log(conf)
         return conf
     }
 
-    // Apply the config specified in the workspace settings gui
+    // Returns a Json object which maps each currently connected monitor to an array of workspace IDs that are associated with it
+    function generateMonitorToWsJson(): var {
+        const wsMap = Root.State.config.workspaces.wsMap
+        let json = {}
+        for (let id = 1; id <= numWorkspaces; id++) {
+            const idStr = "ws" + id
+            const ws = wsMap[idStr]
+            // Add the monitor for this ws as a key to the json if it's not already added
+            if (!json.hasOwnProperty(ws.monitor)) {
+                json[ws.monitor] = []
+            }
+            json[ws.monitor].push(ws.wsId)
+        }
+        return json
+    }
+
+    function saveWsConf() {
+
+    }
+
+    // Loads a workspace configuration
+    // If a preset exists it will use that, otherwise it will use the default
+    function loadWsConfig() {
+        console.log(`setting workspace config`)
+        const currentMonitorConfigId = Monitors.generateId()
+        const wsConfig = Root.State.config.workspaces.wsConfMap[currentMonitorConfigId]
+        if (wsConfig !== null && wsConfig != undefined) {
+            for (const monitor in wsConfig) {
+                for (const wsId in wsConfig[monitor]) {
+                    Hyprland.dispatch(`moveworkspacetomonitor ${wsId} ${monitor}`)
+                }
+            }
+        }
+        else {
+            console.log(`Workspace config for monitor config ${currentMonitorConfigId} was not found, using default`)
+            // TODO: Setup default
+        }
+    }
+
+    // Create and load the config specified in the workspace settings gui
     function applyWsConf() {
+        // Generate and write out the hyprland workspace conf
         const conf = generateHyprlandWsConf()
         // Write the new workspace configuration to the hyprland workspaces conf
         wsConfFile.setText(`# This file is autogenerated\n` + conf)
+
+        // Write the current workspace to monitor mapping to the config
+        const currentMonitorConfigId = Monitors.generateId()
+        const monitorToWsMap = generateMonitorToWsJson()
+        Root.State.config.workspaces.wsConfigMap[currentMonitorConfigId] = monitorToWsMap
+        Root.State.configFileView.writeAdapter() // Need to manually write adapter since sub properties on inline json are not tracked
+
+        console.log(`monitors id: ${currentMonitorConfigId}`)
+        console.log(`monitorToWsMap: ${JSON.stringify(monitorToWsMap)}`)
+
+        // Then load the new config
+        loadWsConfig()
+
         // Need to refresh the workspaces in order for the qs hyprland service to update the ws obj's
-        // with any modifications made by changes to the conf file
         Hyprland.refreshWorkspaces()
     }
 

@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import "../../Services" as Services
+import qs.Services as Services
 
 MouseArea {
     id: root

@@ -1,9 +1,7 @@
 import Quickshell
-import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import '../../' as Root
 
 Rectangle {
     id: root
@@ -50,9 +48,6 @@ Rectangle {
                 id: column
                 implicitWidth: parent.width - 16
                 children: [ root.content ]
-                Component.onCompleted: {
-                    console.log(`column height: ${column.height}`)
-                }
             }    
         }
         /*

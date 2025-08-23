@@ -6,11 +6,10 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.UPower
 import Quickshell.Services.Pipewire
-import "../"
-import "../../../" as Root
-import "../../../Services" as Services
-import "../../../Modules" as Modules
-import "../../../Modules/Common" as Common
+import qs as Root
+import qs.Services as Services
+import qs.Modules as Modules
+import qs.Modules.Common as Common
 
 Common.PanelGrid {
     columns: 4
@@ -97,7 +96,7 @@ Common.PanelGrid {
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
-            source: `file://${Quickshell.configDir}/Icons/nightlight-symbolic.svg` // For some reason configDir exists but shellRoot doesn't
+            source: `file://${Quickshell.shellDir}/Icons/nightlight-symbolic.svg` // For some reason configDir exists but shellRoot doesn't
 
             // Recolor
             layer.enabled: true

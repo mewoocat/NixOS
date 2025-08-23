@@ -6,8 +6,7 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../../../Modules/Common" as Common
-import "../../../" as Root
+import qs.Modules.Common as Common
 
 // The animation jitters here, easy to see on linear easing. UPDATE: jittering fixed.  It was
 // due to nesting the animated rectangle within another rectangle which wasn't animated.

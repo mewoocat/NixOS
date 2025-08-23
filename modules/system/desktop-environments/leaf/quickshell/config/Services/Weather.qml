@@ -2,7 +2,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import "../" as Root
+import qs as Root
 
 Singleton {
     id: root
@@ -25,7 +25,7 @@ Singleton {
     }
 
     function enable(){
-        console.log("Enabling Weather service")
+        //console.log("Enabling Weather service")
     }
 
     Process {

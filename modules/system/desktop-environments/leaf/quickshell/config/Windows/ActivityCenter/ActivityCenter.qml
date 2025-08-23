@@ -1,11 +1,10 @@
 
 import QtQuick
 import Quickshell
-import "../../" as Root
-import "../../Services" as Services
-import "../../Modules" as Modules
-import "../../Modules/Tetris" as Tetris
-import "../../Modules/Common" as Common
+import qs as Root
+import qs.Modules as Modules
+import qs.Modules.Tetris as Tetris
+import qs.Modules.Common as Common
 
 Common.PanelWindow {
     toggleWindow: () => {

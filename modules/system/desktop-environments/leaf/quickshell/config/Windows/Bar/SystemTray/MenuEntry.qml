@@ -1,12 +1,11 @@
 pragma ComponentBehavior: Bound
 
-import "../../../Modules/Common" as Common
-import "../../../" as Root
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import qs as Root
 
 // An item in a SystemTray popup menu
 MouseArea {

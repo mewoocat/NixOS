@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import QtQuick.Controls
 import Quickshell.Widgets
-import "../../../" as Root
+import qs as Root
 
 Rectangle {
     id: root

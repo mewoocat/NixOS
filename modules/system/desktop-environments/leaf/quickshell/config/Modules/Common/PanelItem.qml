@@ -4,7 +4,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
-import '../../' as Root
+import qs as Root
 
 // Designed to be used as a child of the PanelGrid type
 MouseArea {

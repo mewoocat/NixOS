@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import '../../../Modules/Common/' as Common
+import qs.Modules.Common as Common
 
 
 Common.PopupWindow {
@@ -10,7 +10,7 @@ Common.PopupWindow {
     required property Item parentButton // The button that this popup will be relative to
     required property var menu // The menu object that describes the content
     property bool isNested: false
-    Component.onCompleted: console.log(`isNested: ${isNested}`)
+    //Component.onCompleted: console.log(`isNested: ${isNested}`)
 
     anchor {
         // Only window or item should be set at a time, otherwise a crash can occur

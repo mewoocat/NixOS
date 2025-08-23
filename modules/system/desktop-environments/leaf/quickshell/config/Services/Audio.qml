@@ -2,7 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Services.Pipewire
-import "../" as Root
+import qs as Root
 
 Singleton {
     // Binding a Pipewire object makes all of its properties available
@@ -21,7 +21,7 @@ Singleton {
     //////////////////////////////////////////////////////////////// 
     
     function enable() {
-        console.log("Enabling sound service")
+        //console.log("Enabling sound service")
     }
     function getIcon(node: PwNode): string {
         if (node === null) {

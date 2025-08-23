@@ -4,8 +4,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Services.Notifications as QsNotifications
-import "../Services" as Services
-import "../Modules" as Modules
+import qs.Services as Services
+import qs.Modules as Modules
 import "./Common" as Common
 
 // A widget to list all tracked notifications

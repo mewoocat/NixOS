@@ -1,8 +1,6 @@
 import QtQuick
 import Quickshell.Services.Pipewire
-import "../../" as Root
-import "../../Services" as Services
-import "../../Modules/Common" as Common
+import qs.Services as Services
 
 BarButton {
     iconName: Services.Audio.getIcon(Pipewire.defaultAudioSink)

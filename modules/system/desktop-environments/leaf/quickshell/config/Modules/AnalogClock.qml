@@ -1,6 +1,6 @@
 import Quickshell
 import QtQuick
-import "../Services/" as Services
+import qs.Services as Services
 
 Item {
     id: root

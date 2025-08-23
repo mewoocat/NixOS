@@ -3,10 +3,8 @@ import Quickshell.Widgets
 import Quickshell.Services.Notifications as QsNotifications
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Effects
 import QtQuick.Layouts
-import "../Services" as Services
-import "../Modules/Common" as Common
+import qs.Modules.Common as Common
 
 // Visual element to represent a single notification
 MouseArea {

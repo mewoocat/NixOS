@@ -4,8 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Pipewire
-import "../../" as Root
-import "../Services" as Services
+import qs.Services as Services
 
 Rectangle {
     //Layout.fillWidth: true

@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import '../' as Root
+import qs as Root
 
 Singleton {
     id: root

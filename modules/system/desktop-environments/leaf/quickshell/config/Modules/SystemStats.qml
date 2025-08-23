@@ -3,8 +3,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "root:/Services" as Services
-import "root:/Modules/Common" as Common
+import qs.Services as Services
+import qs.Modules.Common as Common
 
 ColumnLayout {
     anchors.margins: 8

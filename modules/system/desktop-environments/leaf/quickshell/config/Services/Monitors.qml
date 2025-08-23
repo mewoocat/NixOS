@@ -3,8 +3,8 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import "../" as Root
-import "../Services" as Services
+import qs as Root
+import qs.Services as Services
 
 import Quickshell.Hyprland
 
@@ -110,7 +110,7 @@ Singleton {
     }
 
     function enable(){
-        console.log('Enabling Monitor service')
+        //console.log('Enabling Monitor service')
     }
 
     // Workaround
@@ -118,7 +118,10 @@ Singleton {
         id: waitToLoadConfig
         interval: 400
         running: false
-        onTriggered: loadConfig()
+        onTriggered: {
+            loadConfig() // Load monitor config
+            Services.Hyprland.loadWsConfig() // Load workspace config
+        }
     }
 
     Connections {
@@ -126,6 +129,7 @@ Singleton {
         function onRawEvent(event) {
             //console.log(`hyprland event: ${event.name}`)
 
+            // TODO: optimize by combining with the other hyprland connection in Hyprland.qml
             //Hyprland.refreshMonitors()
             switch (event.name) {
                 case "monitoradded":

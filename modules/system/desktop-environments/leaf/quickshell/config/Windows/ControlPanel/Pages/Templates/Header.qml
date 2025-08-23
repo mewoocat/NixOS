@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import '../../../../Modules/Common/' as Common
-import '../../../../' as Root
+import qs.Modules.Common as Common
+import qs as Root
 
 // Header
 RowLayout {

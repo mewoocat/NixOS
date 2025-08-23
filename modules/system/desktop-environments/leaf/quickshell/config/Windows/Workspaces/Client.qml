@@ -4,8 +4,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
-import "../../" as Root
-import "../../Services" as Services
+import qs as Root
 
 
 MouseArea {

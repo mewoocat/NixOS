@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 
-import '../../Services/' as Services
+import qs.Services as Services
 
 PanelWindow {
     width: 200

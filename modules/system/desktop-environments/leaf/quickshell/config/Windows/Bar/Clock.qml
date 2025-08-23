@@ -1,6 +1,6 @@
 import QtQuick
-import "../../" as Root
-import "../../Services/" as Services
+import qs as Root
+import qs.Services as Services
 
 BarButton {
     leftClick: () => Root.State.activityCenter.toggleWindow()

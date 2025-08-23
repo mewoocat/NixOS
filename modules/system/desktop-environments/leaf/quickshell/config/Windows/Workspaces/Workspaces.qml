@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import "../../" as Root
-import "../../Modules/Common" as Common
+import qs as Root
+import qs.Modules.Common as Common
 
 Common.PanelWindow {
     toggleWindow: () => {

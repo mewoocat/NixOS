@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Widgets
-import QtQuick
 
 IconImage {
     implicitSize: 64

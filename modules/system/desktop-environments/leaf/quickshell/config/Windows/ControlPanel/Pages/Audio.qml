@@ -2,13 +2,10 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Services.Pipewire
-import "../../../" as Root
-import "../../../Services" as Services
-import "../../../Modules" as Modules
-import "../../../Modules/Common" as Common
-import "./Templates"
+import qs.Services as Services
+import qs.Modules as Modules
+import qs.Modules.Common as Common
 
 PageBase {
     pageName: "Audio" 
@@ -25,7 +22,6 @@ PageBase {
             implicitWidth: parent.width
             node: Pipewire.defaultAudioSink
         }
-
 
         // Output device selector
         ComboBox {
@@ -65,10 +61,7 @@ PageBase {
                 // i.e. Each program, etc.
                 // A link is a connection between two nodes
                 model: Services.Audio.defaultOutputLinkTracker.linkGroups
-                Component.onCompleted: console.error(`link list: ${defaultOutputLinkTracker.list}`)
-
-                // MixerItem
-                Modules.MixerItem {}
+                delegate: Modules.MixerItem {}
             } 
         }
         
@@ -80,7 +73,7 @@ PageBase {
             Layout.fillHeight: true
             Text {
                 anchors.centerIn: parent
-                color: palette.text
+                color: palette.placeholderText
                 text: "Nothing to mix :/"
             }
         }

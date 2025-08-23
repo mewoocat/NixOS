@@ -2,8 +2,8 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 
-import "../../" as Root
-import "../../Services" as Services
+import qs as Root
+import qs.Services as Services
 
 // TODO: I think that the required keyword doesn't trigger an error on missing 
 // prop with the PanelWindow type (need to test)

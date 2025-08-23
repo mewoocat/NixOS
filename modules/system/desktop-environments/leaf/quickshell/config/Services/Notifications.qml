@@ -23,7 +23,7 @@ Singleton {
     }
 
     function enable() {
-        console.log("enabling notifications")
+        //console.log("enabling notifications")
     }
 
     // Inline component

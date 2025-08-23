@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import "../" as Root
-import "../Modules/Common" as Common
+import qs as Root
+import qs.Modules.Common as Common
 
 ColumnLayout {
     anchors.centerIn: parent

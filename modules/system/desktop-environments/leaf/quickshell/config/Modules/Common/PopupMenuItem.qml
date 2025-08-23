@@ -2,7 +2,7 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import "../../" as Root
+import qs as Root
 
 // For generic popup menus
 WrapperMouseArea { 
