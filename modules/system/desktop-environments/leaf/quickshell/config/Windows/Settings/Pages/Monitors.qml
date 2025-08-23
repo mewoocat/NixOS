@@ -16,6 +16,12 @@ PageBase {
     pageName: "Display"
     property int maxWidth: 700
     property int minWidth: 400
+    property var selectedMonitor: Services.Monitors.selectedMonitor // can be undefined
+    property int monitorAreaWidth: 10000
+    property int monitorAreaHeight: 10000
+    property int monitorAreaOriginX: 0 //monitorAreaWidth / 2
+    property int monitorAreaOriginY: 0 //monitorAreaHeight / 2
+    property real areaScale: 0.1
     content: ColumnLayout {
         anchors.left: parent.left
         anchors.right: parent.right
@@ -46,28 +52,29 @@ PageBase {
                 required property HyprlandMonitor monitor
 
                 // Modifiable monitor properties
-                property int actualX: x - area.offsetX
-                property int actualY: y - area.offsetY
+                property int actualX: x - root.monitorAreaOriginX
+                property int actualY: y - root.monitorAreaOriginY
                 property real actualScale: monitor.scale
 
                 // Set monitor element placement given the offset
-                x: monitor.x + area.offsetX
-                y: monitor.y + area.offsetY
+                x: monitor.x + root.monitorAreaOriginX
+                y: monitor.y + root.monitorAreaOriginY
 
                 // Adjust size to match scale (required by hyprland)
-                width: 100 //monitor.width / monitor.scale
-                height: 100 //monitor.height / monitor.scale
+                implicitWidth: monitor.width
+                implicitHeight: monitor.height
 
                 // Dragging
                 drag.target: mouseArea
                 // restrict drag region to area
                 drag.minimumX: 0
-                drag.maximumX: area.width - width
+                drag.maximumX: root.monitorAreaWidth - width
                 drag.minimumY: 0
-                drag.maximumY: area.height - height
+                drag.maximumY: root.monitorAreaHeight - height
 
                 onPressed: () => {
-                    selectedMonitorId = monitor.id
+                    Services.Monitors.selectedMonitorId = monitor.id
+                    console.log(`actualX: `)
                 }
 
                 Rectangle {
@@ -83,18 +90,31 @@ PageBase {
             }
 
             // Monitor configuring area
-            Rectangle {
+            Flickable {
                 id: area
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
                 implicitHeight: 400
+                clip: true
+
+                // These need to be set seemingly
+                contentWidth: areaBackground.width * root.areaScale
+                contentHeight: areaBackground.height * root.areaScale
+                //contentX: 0
+                //contentY: 0
+
+                // No clue how these actually get set on the flickable, i just guessed
+                ScrollBar.vertical: ScrollBar {}
+                ScrollBar.horizontal: ScrollBar {}
 
             Rectangle {
+                id: areaBackground
                 // Set to large enough size to accommodate the native size of multiple monitors
-                property int areaSize: parent.width * visualBox.scaleFactor
-                implicitWidth: areaSize 
-                implicitHeight: parent.height * visualBox.scaleFactor
+                //property int areaSize: 10000 //parent.width * visualBox.scaleFactor
+                color: "orange"
+                implicitWidth: root.monitorAreaWidth //* root.areaScale
+                implicitHeight: root.monitorAreaHeight //* root.areaScale //parent.height * visualBox.scaleFactor
 
                 // Scale down the size to actually be usable
                 // Note that using the scale element via the transform prop appears properly scale
@@ -102,13 +122,12 @@ PageBase {
                 // Using the scale property seems to transform the position of the scaled element 
                 // when the scale is applied.
                 transform: Scale {
-                    xScale: 1 / visualBox.scaleFactor
-                    yScale: 1 / visualBox.scaleFactor
+                    xScale: root.areaScale
+                    yScale: root.areaScale
                 }
 
-                property int offsetX: areaSize / 2 
-                property int offsetY: areaSize * 0.5 / 2 
-                color: "orange"
+                //property int offsetX: areaSize / 2 
+                //property int offsetY: areaSize * 0.5 / 2 
 
                 Repeater {
                     model: Hyprland.monitors
@@ -127,6 +146,13 @@ PageBase {
                 }
             }
             }
+            Button {
+                text: "resize"
+                onClicked: {
+                    console.log(`click`)
+                    area.resizeContent(4000, 4000, Qt.point(0,0))
+                }
+            }
 
             // Monitor settings
             Rectangle {     
@@ -141,18 +167,16 @@ PageBase {
                     ColumnLayout {
                         id: box
                         Layout.fillWidth: true
-                        // can be undefined
-                        property var selectedMonitor: Services.Monitors.visualMonitors[selectedMonitorId]
 
                         //name
                         Text {
-                            text: `Name: ${box.selectedMonitor !== undefined ? box.selectedMonitor.monitor.name : "?"}`
+                            text: `Name: ${root.selectedMonitor !== undefined ? root.selectedMonitor.monitor.name : "?"}`
                             color: palette.text
                         }
 
                         // resolution
                         Text {
-                            text: `Resolution: ${box.selectedMonitor !== undefined ? `${box.selectedMonitor.monitor.width}x${box.selectedMonitor.monitor.height}` : "?"}`
+                            text: `Resolution: ${root.selectedMonitor !== undefined ? `${root.selectedMonitor.monitor.width}x${root.selectedMonitor.monitor.height}` : "?"}`
                             color: palette.text
                         }
                         // x position
@@ -162,11 +186,11 @@ PageBase {
                                 color: palette.text
                             }
                             SpinBox {
-                                value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualX : 0
+                                value: root.selectedMonitor !== undefined ? root.selectedMonitor.actualX : 0
                                 from: -10000
                                 to: 10000
                                 onValueModified: () => {
-                                    box.selectedMonitor.x = value + area.offset
+                                    root.selectedMonitor.x = value + area.offset
                                 }
                             }
                         }
@@ -177,11 +201,11 @@ PageBase {
                                 color: palette.text
                             }
                             SpinBox {
-                                value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualY : 0
+                                value: root.selectedMonitor !== undefined ? root.selectedMonitor.actualY : 0
                                 from: -10000
                                 to: 10000
                                 onValueModified: () => {
-                                    box.selectedMonitor.y = value + area.offset
+                                    root.selectedMonitor.y = value + area.offset
                                     console.log(`value: ${value}`)
                                 }
                             }
@@ -193,13 +217,13 @@ PageBase {
                                 color: palette.text
                             }
                             SpinBox {
-                                value: box.selectedMonitor !== undefined ? box.selectedMonitor.actualScale : 1
+                                value: root.selectedMonitor !== undefined ? root.selectedMonitor.actualScale : 1
                                 from: 1
                                 to: 5 
                                 stepSize: 1
                                 onValueModified: () => {
                                     console.log(`scale changed`)
-                                    box.selectedMonitor.actualScale = value
+                                    root.selectedMonitor.actualScale = value
                                 }
                             }
                         }

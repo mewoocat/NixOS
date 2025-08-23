@@ -52,7 +52,14 @@ Singleton {
     */
 
     property list<var> visualMonitors: [] // Holds a list to each visual monitor element
-    property list<HyprlandMonitor> monitors: Hyprland.monitors.values
+    property list<HyprlandMonitor> monitors: Hyprland.monitors.values.sort((monA, monB) => monA.id - monB.id) // Sort the monitor object by id in ascending order
+    property int selectedMonitorId: 0 
+    property var selectedMonitor: visualMonitors[selectedMonitorId]
+
+    onSelectedMonitorIdChanged: {
+        console.log(`refreshing hyprland monitors`)
+        Hyprland.refreshMonitors()
+    }
  
     // Generate a unique idententifier for the current monitor configuration
     function generateId(): string {

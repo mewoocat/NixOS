@@ -26,7 +26,6 @@ FloatingWindow {
         root.visible = false
     }
     
-    property var selectedMonitorId: 0 
     property SwipeView settingsView: null
 
     Rectangle {

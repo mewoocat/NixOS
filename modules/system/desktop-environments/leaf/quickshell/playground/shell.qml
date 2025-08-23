@@ -30,5 +30,25 @@ ShellRoot {
                 }
             }
         }
+        Rectangle {
+            color: "blue"
+            width: 100; height: 100
+
+            Rectangle {
+                color: "green"
+                width: 25; height: 25
+            }
+
+            Rectangle {
+                color: "red"
+                x: 25; y: 25; width: 50; height: 50
+                scale: 1.4
+                transformOrigin: Item.TopLeft
+                Rectangle {
+                    color: "green"
+                    width: 25; height: 25
+                }
+            }
+        }
     }
 }
