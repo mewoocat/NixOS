@@ -74,16 +74,13 @@ PageBase {
                 drag.minimumY: 0
                 drag.maximumY: root.monitorAreaHeight - height
 
-                onPressed: () => {
-                    Services.Monitors.selectedMonitorId = monitor.id
-                    console.log(`actualX: `)
-                }
+                onPressed: () => Services.Monitors.selectedMonitorId = monitor.id
 
                 Rectangle {
                     anchors.fill: parent
                     color: palette.accent
                     Text { 
-                        scale: visualBox.scaleFactor // Scale the text back up to be readable
+                        scale: 1 / root.areaScale // Scale the text back up to be readable
                         anchors.centerIn: parent
                         text: monitor.name
                         color: palette.dark
@@ -149,12 +146,14 @@ PageBase {
                 }
             }
             }
-            Button {
-                text: "resize"
-                onClicked: {
-                    console.log(`click`)
-                    area.resizeContent(4000, 4000, Qt.point(0,0))
+            SpinBox {
+                onValueChanged: () => {
+                    root.areaScale = (value / 100) * (area.width / root.monitorAreaWidth)
+                    console.log(`zoom: ${root.areaScale}`)
                 }
+                from: 1
+                value: 100
+                to: 400
             }
 
             // Monitor settings
