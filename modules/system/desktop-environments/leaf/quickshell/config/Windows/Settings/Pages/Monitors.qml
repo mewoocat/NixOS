@@ -60,9 +60,11 @@ PageBase {
                 x: monitor.x + root.monitorAreaOriginX
                 y: monitor.y + root.monitorAreaOriginY
 
-                // Adjust size to match scale (required by hyprland)
-                implicitWidth: monitor.width
-                implicitHeight: monitor.height
+                // Adjust size to match scale (hyprland sees scaled monitors as their scaled size)
+                // Note: the areaScale is not applied to this element since it's a child of the areaBackground
+                // which is scaled, the scaling propagates.
+                implicitWidth: monitor.width * actualScale
+                implicitHeight: monitor.height * actualScale
 
                 // Dragging
                 drag.target: mouseArea
@@ -98,11 +100,12 @@ PageBase {
                 implicitHeight: 400
                 clip: true
 
-                // These need to be set seemingly
+                // Set the flickable area to the size of the scaled background area
+                // Note: the areaBackground size does not have it's scale applied to it.  For example,
+                // if the implicitWidth of the areaBackground is 10,000, then the width of it will still
+                // be 10,000 after the scale is applied
                 contentWidth: areaBackground.width * root.areaScale
                 contentHeight: areaBackground.height * root.areaScale
-                //contentX: 0
-                //contentY: 0
 
                 // No clue how these actually get set on the flickable, i just guessed
                 ScrollBar.vertical: ScrollBar {}
