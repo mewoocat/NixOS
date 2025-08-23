@@ -3,6 +3,7 @@ import Quickshell.Services.UPower
 import "../../Modules/Common" as Common
 
 BarButton {
+    visible: UPower.displayDevice.type !== UPowerDeviceType.Unknown
     action: () => {}
     //isClickable: false
     iconName: UPower.displayDevice.iconName
