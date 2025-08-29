@@ -55,6 +55,7 @@ Singleton {
     property list<HyprlandMonitor> monitors: [... Hyprland.monitors.values].sort((monA, monB) => monA.id - monB.id) // Sort the monitor object by id in ascending order
     property int selectedMonitorId: 0 
     property var selectedMonitor: visualMonitors[selectedMonitorId]
+    property string currentMonitorConfigId: generatingId()
 
     onSelectedMonitorIdChanged: {
         console.log(`refreshing hyprland monitors`)
@@ -63,13 +64,15 @@ Singleton {
  
     // Generate a unique idententifier for the current monitor configuration
     function generateId(): string {
+        console.log(`generating monitor config id`)
         let id = ""
         //Hyprland.refreshMonitors() // TODO: verify if needed
         for (let m of monitors) {
             const mObj = m.lastIpcObject // TODO: Is an empty object when method is ran right after monitor event occured
             //console.log(`${m.name}: generatingId for: ${JSON.stringify(mObj)}`)
-            if (mObj === undefined) {
-                console.error("Error: lastIpcObject undefined for {}")
+            //console.log(`lastIpcObject for ${m.name} = ${JSON.stringify(mObj)}`)
+            if (JSON.stringify(mObj) === "{}") {
+                console.error(`Error: lastIpcObject empty for ${m.name}`)
                 return "???"
             }
             id = id + `${mObj.name}&${mObj.make}&${mObj.model}&${mObj.serial}-`
@@ -88,7 +91,7 @@ Singleton {
     }
     // Loads any saved config for the current monitors and ports
     function loadConfig(): void { 
-        const id = generateId()
+        const id = currentMonitorConfigId
         //console.log(`loading config for id: ${id}`)
         let conf = ""
         // If a saved config exists
@@ -106,7 +109,7 @@ Singleton {
     // Apply the config specified in the monitor settings gui
     function applyConf() {
         const conf = generateHyprlandConf()
-        const id = generateId()
+        const id = currentMonitorConfigId
         console.log(`applying config for id: ${id}, with conf: ${conf}`)
         console.log(`qml: ${JSON.stringify(monitorMapFile.adapter)}`)
         monitorMapFile.adapter.configs[id] = conf
@@ -127,6 +130,8 @@ Singleton {
         interval: 400
         running: false
         onTriggered: {
+            console.log(`loading monitor and workspace config after ${interval} ms`)
+            currentMonitorConfigId = generateId() // Regenerate id since monitor config changed
             loadConfig() // Load monitor config
             Services.Hyprland.loadWsConfig() // Load workspace config
         }

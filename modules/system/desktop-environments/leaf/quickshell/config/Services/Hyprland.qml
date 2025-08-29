@@ -193,7 +193,7 @@ Singleton {
     */
     //property string currentMonitorConfigId: Monitors.generateId()
     property var currentMonitorToWSMap: {
-        const currentMonitorConfigId = Monitors.generateId()
+        const currentMonitorConfigId = Monitors.currentMonitorConfigId
         const monitorToWSMap = Root.State.config.workspaces.monitorToWSMap
         const configExists = monitorToWSMap.hasOwnProperty(currentMonitorConfigId)
         if (!configExists) {
@@ -295,20 +295,22 @@ Singleton {
     // If a preset exists it will use that, otherwise it will use the default
     function loadWsConfig() {
         console.log(`setting workspace config`)
-        const currentMonitorConfigId = Monitors.generateId()
+        const currentMonitorConfigId = Monitors.currentMonitorConfigId
         const wsConfMap = Root.State.config.workspaces.monitorToWSMap
         const configExists = wsConfMap.hasOwnProperty(currentMonitorConfigId)
         if (configExists) {
             const wsConfig = wsConfMap[currentMonitorConfigId]
-            for (const monitor in wsConfig) {
-                for (const wsId in wsConfig[monitor]) {
+            console.log(`Using monitor to workspace config: ${JSON.stringify(wsConfig)}`)
+            for (let monitor in wsConfig) {
+                console.log(`workspaes for monitor ${monitor} = ${wsConfig[monitor]}`)
+                for (let wsId of wsConfig[monitor]) {
                     console.log(`moving ws ${wsId} to ${monitor}`)
                     Hyprland.dispatch(`moveworkspacetomonitor ${wsId} ${monitor}`)
                 }
             }
         }
         else {
-            console.log(`Workspace config for monitor config ${currentMonitorConfigId} was not found, using default`)
+            console.Warning(`Workspace config for monitor config ${currentMonitorConfigId} was not found, using default`)
             // TODO: Setup default
         }
     }
