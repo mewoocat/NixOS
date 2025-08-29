@@ -52,7 +52,7 @@ Singleton {
     */
 
     property list<var> visualMonitors: [] // Holds a list to each visual monitor element
-    property list<HyprlandMonitor> monitors: Hyprland.monitors.values.sort((monA, monB) => monA.id - monB.id) // Sort the monitor object by id in ascending order
+    property list<HyprlandMonitor> monitors: [... Hyprland.monitors.values].sort((monA, monB) => monA.id - monB.id) // Sort the monitor object by id in ascending order
     property int selectedMonitorId: 0 
     property var selectedMonitor: visualMonitors[selectedMonitorId]
 
@@ -64,16 +64,17 @@ Singleton {
     // Generate a unique idententifier for the current monitor configuration
     function generateId(): string {
         let id = ""
-        Hyprland.refreshMonitors()
+        //Hyprland.refreshMonitors() // TODO: verify if needed
         for (let m of monitors) {
             const mObj = m.lastIpcObject // TODO: Is an empty object when method is ran right after monitor event occured
-            console.log(`${m.name}: generatingId for: ${JSON.stringify(mObj)}`)
+            //console.log(`${m.name}: generatingId for: ${JSON.stringify(mObj)}`)
             if (mObj === undefined) {
                 console.error("Error: lastIpcObject undefined for {}")
                 return "???"
             }
             id = id + `${mObj.name}&${mObj.make}&${mObj.model}&${mObj.serial}-`
         }
+        console.log(`generated monitor config id: ${id}`)
         return id
     }
     // Returns a Hyprland monitor config string
@@ -155,7 +156,7 @@ Singleton {
                     waitToLoadConfig.running = true
 
                 case "openwindow":
-                    generateId()
+                    //generateId()
                 default:
                     //console.log("some other event")
 

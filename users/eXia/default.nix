@@ -57,7 +57,6 @@
       stress 
       s-tui
       gcc14
-      zellij
       dconf-editor
       eza # ls replacement
       openssl
