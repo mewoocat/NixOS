@@ -52,10 +52,11 @@ Singleton {
     */
 
     property list<var> visualMonitors: [] // Holds a list to each visual monitor element
-    property list<HyprlandMonitor> monitors: [... Hyprland.monitors.values].sort((monA, monB) => monA.id - monB.id) // Sort the monitor object by id in ascending order
+    // Sort the monitors by id in ascending order
+    property list<HyprlandMonitor> monitors: [... Hyprland.monitors.values].sort((monA, monB) => monA.id - monB.id)
     property int selectedMonitorId: 0 
     property var selectedMonitor: visualMonitors[selectedMonitorId]
-    property string currentMonitorConfigId: generatingId()
+    property string currentMonitorConfigId: generateId()
 
     onSelectedMonitorIdChanged: {
         console.log(`refreshing hyprland monitors`)
@@ -64,7 +65,6 @@ Singleton {
  
     // Generate a unique idententifier for the current monitor configuration
     function generateId(): string {
-        console.log(`generating monitor config id`)
         let id = ""
         //Hyprland.refreshMonitors() // TODO: verify if needed
         for (let m of monitors) {
@@ -133,7 +133,7 @@ Singleton {
             console.log(`loading monitor and workspace config after ${interval} ms`)
             currentMonitorConfigId = generateId() // Regenerate id since monitor config changed
             loadConfig() // Load monitor config
-            Services.Hyprland.loadWsConfig() // Load workspace config
+            Services.Hyprland.loadMonitorToWSConfig() // Load workspace config
         }
     }
 

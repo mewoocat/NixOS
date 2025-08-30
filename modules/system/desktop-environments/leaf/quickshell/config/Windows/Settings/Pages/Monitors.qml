@@ -250,7 +250,6 @@ PageBase {
                 SwitchOption {},
                 ComboOption {},
                 SliderOption {},
-                SpinOption {},
                 TextOption {}
             ]
         }

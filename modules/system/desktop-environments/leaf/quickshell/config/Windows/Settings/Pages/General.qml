@@ -51,6 +51,7 @@ PageBase {
                             onAccepted: {
                                 Services.Hyprland.setWsName(text)
                                 Services.Hyprland.applyWsConf()
+                                console.log(`currentMonitorToWSMap: ${JSON.stringify(Services.Hyprland.currentMonitorToWSMap)}`)
                             }
                         }
                     },
@@ -58,11 +59,15 @@ PageBase {
                         title: "Monitor"
                         subtitle: "The monitor to assign this workspace to"
                         content: ComboBox {
-                            model: [
-                                "Monitor 1",
-                                "Monitor 2",
-                                "Monitor 3"
-                            ]
+                            textRole: "name"
+                            valueRole: "name"
+                            model: Services.Monitors.monitors // Sorted by id
+                            currentIndex: 0 // Index here maps directly to each monitor by id above
+                            onActivated: (index) => {
+                                const monitorName = Services.Monitors.monitors[index].name
+                                Services.Hyprland.assignSelectedWorkspaceToMonitor(monitorName)
+                                Services.Hyprland.applyWsConf()
+                            }
                         }
                     },
                     Option {
@@ -75,11 +80,13 @@ PageBase {
                             }
                         }
                     },
-                    SpinOption {
+                    Option {
                         title: "Outer gaps"
+                        content: SpinBox {}
                     },
-                    SpinOption {
+                    Option {
                         title: "Inner gaps"
+                        content: SpinBox {}
                     }
                 ]
             }
@@ -90,8 +97,11 @@ PageBase {
                     SwitchOption {
                         title: "what"
                     },
+                    Option {
+                        title: "Inner gaps"
+                        content: SpinBox {}
+                    },
                     SliderOption {},
-                    SpinOption {},
                     SwitchOption {}
                 ]
             }

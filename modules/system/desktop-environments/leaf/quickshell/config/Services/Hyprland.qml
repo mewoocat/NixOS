@@ -178,25 +178,12 @@ Singleton {
     property var selectedWorkspaceId: 1 // Id of selected workspace for configuring
     // Currently selected workspace for configuration
     property Workspace selectedWorkspace: Root.State.config.workspaces.wsMap[`ws${selectedWorkspaceId}`]
-
-    // idea
-    /*
-    property var wsToMonitorMap: ({}) // Holds the current monitor assigned to each workspace
-    Component.onCompleted: () => {
-        const id = Monitors.generateId()
-        var preset = Root.State.config.workspaces.wsConfMap[id]
-        if (!preset) {
-            preset = autoGeneratePreset()
-        }
-        wsToMonitorMap = preset
-    }
-    */
-    //property string currentMonitorConfigId: Monitors.generateId()
     property var currentMonitorToWSMap: {
         const currentMonitorConfigId = Monitors.currentMonitorConfigId
         const monitorToWSMap = Root.State.config.workspaces.monitorToWSMap
         const configExists = monitorToWSMap.hasOwnProperty(currentMonitorConfigId)
         if (!configExists) {
+            console.warn(`Workspace config for monitor config ${currentMonitorConfigId} was not found, auto generating default`)
             const defaultMap = generateDefaultMonitorToWSMap()
             monitorToWSMap[currentMonitorConfigId] = defaultMap
             Root.State.configFileView.writeAdapter()
@@ -204,9 +191,64 @@ Singleton {
         const current = monitorToWSMap[currentMonitorConfigId]
         return current
     }
+    /*
+    property list<string> currentMonitors: {
+        let monitors = []
+        for (let monitor in currentMonitorToWSMap) {
+            monitors.push(monitor)
+        }
+        return monitors
+    }
+    */
+
+    // Takes in a string for the monitor name
+    function assignSelectedWorkspaceToMonitor(monitorName): void {
+        console.log(`Assigning ${selectedWorkspaceId} to ${monitorName}`)
+        // Find and remove the current workspace from the monitor it's assigned to
+        for (let monitor in currentMonitorToWSMap) {
+            if (currentMonitorToWSMap[monitor].includes(selectedWorkspaceId)) {
+                console.log(`${selectedWorkspaceId} is in ${monitor}`)
+                const indexOfWorkspaceToRemove = currentMonitorToWSMap[monitor].indexOf(selectedWorkspaceId)
+                console.log(`index is ${indexOfWorkspaceToRemove}`)
+                console.log(`current monitor assignments ${currentMonitorToWSMap[monitor]}`)
+                currentMonitorToWSMap[monitor].splice(indexOfWorkspaceToRemove, 1)
+                console.log(`new monitor assignments ${currentMonitorToWSMap[monitor]}`)
+                break
+            }
+        }
+        
+        // Assign the current workspace to the new monitor
+        currentMonitorToWSMap[monitorName]
+            .push(selectedWorkspaceId)
+            //.sort((a, b) => a - b) // Sort ascending
+    }
+
+    function getMonitorFromName(monitorName): HyprlandMonitor {
+        for (monitor in Monitors.monitors) {
+            if (monitor.name = "monitorName") {
+                return monitor
+            }
+        }
+        console.error(`No monitor was found with the name ${monitorName}`)
+        return null
+    }
+
+    // Takes in an id string for a workspace
+    // Returns the monitor name string
+    function getMonitorForWorkspace(wsId): string {
+        for (let monitor in currentMonitorToWSMap) {
+            const assignedWorkspaces = currentMonitorToWSMap[monitor]
+            if (assignedWorkspaces.includes(wsId)) {
+                return monitor
+            }
+        }
+        return "ERROR: workspace is not assigned a monitor :("
+    }
 
     // Returns a Json object which creates a default map of each currently connected monitor
     // to an array of workspace IDs that are associated with it.
+    // Works by assigning the same number of workspaces to each monitor and then any
+    // leftovers to the first monitor
     function generateDefaultMonitorToWSMap(): var {
         let json = {}
         const monitors = Monitors.monitors
@@ -219,7 +261,7 @@ Singleton {
             json[monitor.name] = []
             // Add any leftover workspaces to the first monitor
             const numWSToAddToMonitor = monitor.id === 0 ? workspacesPerMonitor + leftoverWorkspaces : workspacesPerMonitor
-            for (let i=0; i < workspacesPerMonitor; i++) {
+            for (let i=0; i < numWSToAddToMonitor; i++) {
                 json[monitor.name].push(wsId)
                 wsId++
             }
@@ -291,27 +333,16 @@ Singleton {
 
     }
 
-    // Loads a workspace configuration
+    // Loads the current monitor to workspace configuration
     // If a preset exists it will use that, otherwise it will use the default
-    function loadWsConfig() {
-        console.log(`setting workspace config`)
-        const currentMonitorConfigId = Monitors.currentMonitorConfigId
-        const wsConfMap = Root.State.config.workspaces.monitorToWSMap
-        const configExists = wsConfMap.hasOwnProperty(currentMonitorConfigId)
-        if (configExists) {
-            const wsConfig = wsConfMap[currentMonitorConfigId]
-            console.log(`Using monitor to workspace config: ${JSON.stringify(wsConfig)}`)
-            for (let monitor in wsConfig) {
-                console.log(`workspaes for monitor ${monitor} = ${wsConfig[monitor]}`)
-                for (let wsId of wsConfig[monitor]) {
-                    console.log(`moving ws ${wsId} to ${monitor}`)
-                    Hyprland.dispatch(`moveworkspacetomonitor ${wsId} ${monitor}`)
-                }
+    function loadMonitorToWSConfig() {
+        console.log(`loading monitor to workspace config`)
+        for (let monitor in currentMonitorToWSMap) {
+            console.log(`workspaes for monitor ${monitor} = ${currentMonitorToWSMap[monitor]}`)
+            for (let wsId of currentMonitorToWSMap[monitor]) {
+                console.log(`moving ws ${wsId} to ${monitor}`)
+                Hyprland.dispatch(`moveworkspacetomonitor ${wsId} ${monitor}`)
             }
-        }
-        else {
-            console.Warning(`Workspace config for monitor config ${currentMonitorConfigId} was not found, using default`)
-            // TODO: Setup default
         }
     }
 
@@ -329,11 +360,11 @@ Singleton {
 
         Root.State.configFileView.writeAdapter() // Need to manually write adapter since sub properties on inline json are not tracked
 
-        console.log(`monitors id: ${currentMonitorConfigId}`)
-        console.log(`monitorToWsMap: ${JSON.stringify(monitorToWsMap)}`)
+        console.log(`monitors id: ${Monitors.currentMonitorConfigId}`)
+        //console.log(`monitorToWsMap: ${JSON.stringify(monitorToWsMap)}`)
 
-        // Then load the new config
-        loadWsConfig()
+        // Load monitor to workspace config (in case any workspace -> monitor assignment has changed)
+        loadMonitorToWSConfig()
 
         // Need to refresh the workspaces in order for the qs hyprland service to update the ws obj's
         Hyprland.refreshWorkspaces()
