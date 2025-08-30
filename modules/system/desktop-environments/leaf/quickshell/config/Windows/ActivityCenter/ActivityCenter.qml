@@ -105,6 +105,12 @@ Common.PanelWindow {
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Common.PanelItem {
+            isClickable: false
+            rows: 2
+            columns: 5
+            content: Modules.MusicPlayer {}
+        }
     }
 }
 
