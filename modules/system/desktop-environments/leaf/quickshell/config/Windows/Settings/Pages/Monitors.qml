@@ -247,10 +247,10 @@ PageBase {
         OptionSection {
             name: "General"
             options: [
-                SwitchOption {},
-                ComboOption {},
-                SliderOption {},
-                TextOption {}
+                Option {
+                    title: "test option"
+                    content: Switch {}
+                }
             ]
         }
     }

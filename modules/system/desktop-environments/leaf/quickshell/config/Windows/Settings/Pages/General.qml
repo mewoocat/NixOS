@@ -94,15 +94,20 @@ PageBase {
             OptionSection {
                 name: "Other"
                 options: [
-                    SwitchOption {
+                    Option {
                         title: "what"
+                        content: Switch {
+
+                        }
                     },
                     Option {
-                        title: "Inner gaps"
+                        title: "test spin box"
                         content: SpinBox {}
                     },
-                    SliderOption {},
-                    SwitchOption {}
+                    Option {
+                        title: "test slider"
+                        content: Slider {}
+                    }
                 ]
             }
         }

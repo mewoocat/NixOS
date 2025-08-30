@@ -191,15 +191,6 @@ Singleton {
         const current = monitorToWSMap[currentMonitorConfigId]
         return current
     }
-    /*
-    property list<string> currentMonitors: {
-        let monitors = []
-        for (let monitor in currentMonitorToWSMap) {
-            monitors.push(monitor)
-        }
-        return monitors
-    }
-    */
 
     // Takes in a string for the monitor name
     function assignSelectedWorkspaceToMonitor(monitorName): void {
@@ -327,10 +318,6 @@ Singleton {
             json[ws.monitor].push(ws.wsId)
         }
         return json
-    }
-
-    function saveWsConf() {
-
     }
 
     // Loads the current monitor to workspace configuration
