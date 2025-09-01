@@ -108,7 +108,7 @@ Common.PanelWindow {
         Common.PanelItem {
             isClickable: false
             rows: 2
-            columns: 5
+            columns: 6
             content: Modules.MusicPlayer {}
         }
     }
