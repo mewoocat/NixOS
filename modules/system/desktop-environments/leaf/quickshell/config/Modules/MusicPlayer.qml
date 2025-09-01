@@ -3,59 +3,136 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Services.Mpris
 import qs.Modules.Common as Common
 
-RowLayout {
+GridLayout {
     id: root
     anchors.fill: parent
-    property int margins: 16
+    rows: 4
+    columns: 4
+    rowSpacing: 0
+    columnSpacing: 0
+    //uniformCellWidths: true
+    //uniformCellHeights: true
 
+    property int margins: 16
+    property MprisPlayer currentPlayer: Mpris.players.values[0]
+
+    /*
     IconImage {
         id: image
-        Layout.margins: root.margins
-        implicitSize: parent.height - root.margins * 2
+        implicitSize: parent.height// - root.margins * 2
+        //Layout.margins: root.margins
         source: "file:/home/eXia/Nextcloud/PicturesAndVideos/cat.jpg"
+        Layout.columnSpan: 1
+        Layout.rowSpan: 4
     }
-
-    // For some reason the ColumnLayout layout won't fully fill width but the rectangle does
+    */
     Rectangle {
-        id: box
-        color: "transparent"
+        color: "#99ff0000"
+        Layout.row: 0
+        Layout.rowSpan: 4
+        Layout.column: 0
+        Layout.columnSpan: 1
         Layout.fillHeight: true
-        Layout.fillWidth: true
-
-        Layout.topMargin: root.margins
-        Layout.bottomMargin: root.margins
-        Layout.rightMargin: root.margins
-
-        ColumnLayout {
-            //Layout.fillWidth: true
-            Text {
-                text: "title"
-            }
-
-            Text {
-                text: "artist"
-                font.pointSize: 8
-            }
-
-            ProgressBar {
-                value: 0.4
-                implicitWidth: box.width
-            }
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                Common.NormalButton {
-                    iconName: "player_rew"
-                }
-                Common.NormalButton {
-                    iconName: "player_play"
-                }
-                Common.NormalButton {
-                    iconName: "player_fwd"
-                }
-            }
+        implicitWidth: height
+        Text {
+            text: `${parent.width} x ${parent.height}`
         }
     }
+
+    Text {
+        elide: Text.ElideRight // Truncate with ... on the right
+        text: "title"//root.currentPlayer.trackTitle
+        color: palette.text
+        Layout.rowSpan: 1
+        Layout.row: 0
+        Layout.column: 1
+    }
+
+    Text {
+        text: "artist " + root.currentPlayer.trackArtist
+        color: palette.text
+        font.pointSize: 8
+        Layout.columnSpan: 1
+        Layout.rowSpan: 1
+        Layout.row: 1
+        Layout.column: 1
+    }
+
+    ComboBox {
+        textRole: "identity"
+        model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
+        displayText: "♫"
+        implicitWidth: 54
+        Layout.columnSpan: 1
+        Layout.rowSpan: 1
+        Layout.row: 0
+        Layout.column: 3
+
+        //background: Rectangle {
+        //    implicitWidth: 40
+        //    implicitHeight: 40
+        //    radius: 16
+        //    color: "black"
+        //}
+        //contentItem: Rectangle {
+        //    width: 20
+        //    implicitHeight: 20
+        //    color: "green" 
+        //}
+        Component.onCompleted: {
+            popup.width = 160
+            console.log(`contentItem: ${contentItem.width}`)
+            console.log(`background: ${background.width}`)
+        }
+        onActivated: (index) => {
+            root.currentPlayer = Mpris.players.values[index] 
+        }
+    }
+
+    ProgressBar {
+        value: 0.4
+        Layout.fillWidth: true
+        Layout.row: 2
+        Layout.columnSpan: 3
+        Layout.column: 1
+        //Layout.alignment: Qt.AlignBottom
+    }
+
+
+    Rectangle {
+        color: "blue"
+        implicitHeight: 10
+        implicitWidth: 50
+        Layout.row: 3
+        Layout.column: 1
+    }
+    Rectangle {
+        color: "blue"
+        implicitHeight: 10
+        implicitWidth: 50
+        Layout.row: 3
+        Layout.column: 3
+    }
+
+    /*
+    Common.NormalButton {
+        Layout.row: 3
+        Layout.column: 1
+        iconName: "player_rew"
+    }
+    Common.NormalButton {
+        Layout.row: 3
+        Layout.column: 2
+        iconName: "player_play"
+    }
+    Common.NormalButton {
+        Layout.row: 3
+        Layout.column: 3
+        iconName: "player_fwd"
+    }
+    */
+
 }
