@@ -13,8 +13,40 @@ GridLayout {
     columns: 4
     rowSpacing: 0
     columnSpacing: 0
+    property int maxTextWidth: 200
 
-    property int currentPlayerIndex: {
+    property int currentPlayerIndex: 0
+    property MprisPlayer currentPlayer: Mpris.players.values[currentPlayerIndex] // Can be null if no players exist
+
+    Connections {
+        target: Mpris.players
+        // Player added
+        function onObjectInsertedPre(object, index) {
+            console.log(`player added||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||`)
+            // set this player as the active
+            root.currentPlayerIndex = index
+        }
+        // Player removed
+        function onObjectRemovedPre(object, index) {
+            console.log(`player removed||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||`)
+            // find and set another active player (if one exists)
+            // otherwise set the first player or null if none exist
+            root.currentPlayerIndex = root.findPlayingPlayer()
+        }
+    }
+
+    /*
+    Component.onCompleted: () => {
+        // If there are players
+        if (Mpris.players.values.length > 0) {
+            const index = findPlayingPlayer()
+            currentPlayer = players.list[index]
+        }
+    }
+    */
+
+    function findPlayingPlayer()
+    {
         // Find first playing player
         let index = Mpris.players.values.findIndex(player => player.isPlaying)
         // If no player is playing select the first player
@@ -23,14 +55,6 @@ GridLayout {
         }
         return index
     }
-    property MprisPlayer currentPlayer: {
-        // If there are no players
-        if (Mpris.players.values.length < 1) {
-            return null
-        }
-        return Mpris.players.values[currentPlayerIndex]
-    }
-    property int maxTextWidth: 200
 
     IconImage {
         id: image
@@ -105,7 +129,7 @@ GridLayout {
             }
 
             value: {
-                if (!root.currentPlayer.lengthSupported || root.currentPlayerIndex.positionSupported) {
+                if (!root.currentPlayer.lengthSupported || root.currentPlayer.positionSupported) {
                     return 0
                 }
                 const normalizedPosition = root.currentPlayer.position / root.currentPlayer.length

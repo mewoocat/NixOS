@@ -24,7 +24,7 @@ FloatingWindow {
                 Layout.rowSpan: 4
                 Layout.columnSpan: 1
                 Layout.column: 0
-                Layout.alignment: Qt.AlignRight
+                //Layout.alignment: Qt.AlignRight
                 color: 'red'
             }
             /*
@@ -56,6 +56,7 @@ FloatingWindow {
                 color: 'orange'
             }
             */
+            /*
             Rectangle {
                 //Layout.horizontalStretchFactor: 1
                 Layout.fillWidth: true
@@ -66,6 +67,7 @@ FloatingWindow {
                 Layout.columnSpan: 3
                 color: 'blue'
             }
+            */
             Rectangle {
                 //Layout.fillWidth: true
                 //Layout.horizontalStretchFactor: 1
