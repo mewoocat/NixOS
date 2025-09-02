@@ -129,7 +129,7 @@ GridLayout {
             }
 
             value: {
-                if (!root.currentPlayer.lengthSupported || root.currentPlayer.positionSupported) {
+                if (!root.currentPlayer.lengthSupported || !root.currentPlayer.positionSupported) {
                     return 0
                 }
                 const normalizedPosition = root.currentPlayer.position / root.currentPlayer.length
