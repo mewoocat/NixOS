@@ -15,8 +15,14 @@ GridLayout {
     columnSpacing: 0
     property int maxTextWidth: 200
 
-    property int currentPlayerIndex: 0
-    property MprisPlayer currentPlayer: Mpris.players.values[currentPlayerIndex] // Can be null if no players exist
+    property int currentPlayerIndex: -1
+    // Can be null if no players exist
+    property MprisPlayer currentPlayer: {
+        if (currentPlayerIndex === -1) {
+            return null
+        }
+        return Mpris.players.values[currentPlayerIndex]
+    }
 
     Connections {
         target: Mpris.players
@@ -47,6 +53,10 @@ GridLayout {
 
     function findPlayingPlayer()
     {
+        // If there are no players
+        if (Mpris.players.list.length < 1) {
+            return -1
+        }
         // Find first playing player
         let index = Mpris.players.values.findIndex(player => player.isPlaying)
         // If no player is playing select the first player
@@ -59,7 +69,12 @@ GridLayout {
     IconImage {
         id: image
         implicitSize: parent.height
-        source: root.currentPlayer !== null || root.currentPlayer.trackArtUrl !== "" ? root.currentPlayer.trackArtUrl : "file:/home/eXia/Nextcloud/PicturesAndVideos/cat.jpg"
+        source: {
+            if (root.currentPlayer === null || root.currentPlayer.trackArtUrl === "") {
+                return Quickshell.iconPath("emblem-music-symbolic")
+            }
+            return root.currentPlayer.trackArtUrl
+        }
         Layout.columnSpan: 1
         Layout.rowSpan: 4
     }
@@ -76,12 +91,18 @@ GridLayout {
             id: title
             elide: Text.ElideRight // Truncate with ... on the right
             Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
-            text: root.currentPlayer.trackTitle
+            text: {
+                if (root.currentPlayer === null) { return "" }
+                return root.currentPlayer.trackTitle || "Unknown Title"
+            }
             color: palette.text
         }
         Text {
             id: artist
-            text: root.currentPlayer.trackArtist
+            text: {
+                if (root.currentPlayer === null) { return "" }
+                return root.currentPlayer.trackArtist || "Unknown Artist"
+            }
             elide: Text.ElideRight // Truncate with ... on the right
             Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
             color: palette.text
@@ -90,6 +111,7 @@ GridLayout {
     }
 
     ComboBox {
+        enabled: root.currentPlayer !== null
         textRole: "identity"
         model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
         displayText: "♫"
@@ -114,6 +136,7 @@ GridLayout {
 
         ProgressBar {
             id: progress
+            enabled: root.currentPlayer !== null
             anchors.left: parent.left
             anchors.right: parent.right
 
@@ -123,17 +146,15 @@ GridLayout {
             // Also see: https://quickshell.org/docs/v0.2.0/types/Quickshell.Services.Mpris/MprisPlayer/#position
             FrameAnimation {
               // Only emit the signal when the position is actually changing
-              running: root.currentPlayer.playbackState == MprisPlaybackState.Playing
+              running: root.currentPlayer !== null && root.currentPlayer.playbackState == MprisPlaybackState.Playing
               // Emit the positionChanged signal every frame.
               onTriggered: root.currentPlayer.positionChanged()
             }
 
             value: {
-                if (!root.currentPlayer.lengthSupported || !root.currentPlayer.positionSupported) {
-                    return 0
-                }
+                if (root.currentPlayer === null || !root.currentPlayer.lengthSupported || !root.currentPlayer.positionSupported) { return 0 }
                 const normalizedPosition = root.currentPlayer.position / root.currentPlayer.length
-                console.log(`pos: ${normalizedPosition}`)
+                //console.log(`pos: ${normalizedPosition}`)
                 return normalizedPosition
             }
         }
@@ -145,7 +166,10 @@ GridLayout {
             color: palette.text
             font.pointSize: 8
             leftPadding: 8
-            text: Math.ceil(root.currentPlayer.position)
+            text: {
+                if (root.currentPlayer === null) { return 0 }
+                return Math.ceil(root.currentPlayer.position)
+            }
         }
 
         Text {
@@ -155,7 +179,10 @@ GridLayout {
             color: palette.text
             font.pointSize: 8
             rightPadding: 8
-            text: Math.ceil(root.currentPlayer.length)
+            text: {
+                if (root.currentPlayer === null) { return 0 }
+                Math.ceil(root.currentPlayer.length)
+            }
         }
     }
 
@@ -167,11 +194,15 @@ GridLayout {
         Layout.alignment: Qt.AlignCenter
         Common.NormalButton {
             iconName: "player_rew"
-            leftClick: () => root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
+            leftClick: () => {
+                if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
+            }
         }
         Common.NormalButton {
-            iconName: root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
+            iconName: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
             leftClick: () => {
+                if (root.currentPlayer === null) { console.warn(`No current player`); return }
                 if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
                     console.warn(`Current player can't play/pause`)
                     return
@@ -181,7 +212,11 @@ GridLayout {
         }
         Common.NormalButton {
             iconName: "player_fwd"
-            leftClick: () => root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
+            leftClick: () => 
+            {
+                if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
+            }
         }
     }
 
