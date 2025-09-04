@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import qs.Modules.Common as Common
+import qs as Root
 
 GridLayout {
     id: root
@@ -66,17 +67,26 @@ GridLayout {
         return index
     }
 
-    IconImage {
-        id: image
-        implicitSize: parent.height
-        source: {
-            if (root.currentPlayer === null || root.currentPlayer.trackArtUrl === "") {
-                return Quickshell.iconPath("emblem-music-symbolic")
-            }
-            return root.currentPlayer.trackArtUrl
-        }
+    WrapperItem {
         Layout.columnSpan: 1
         Layout.rowSpan: 4
+        margin: 8
+
+        // To Round the corners of the image
+        ClippingRectangle {
+            radius: Root.State.rounding
+            color: palette.window
+            implicitHeight: root.height - (parent.margin * 2)
+            implicitWidth: implicitHeight
+
+            IconImage {
+                id: image
+                anchors.centerIn: parent
+                implicitSize: artExists ? parent.height : parent.height - 24
+                property bool artExists: root.currentPlayer !== null && root.currentPlayer.trackArtUrl !== ""
+                source: artExists ? root.currentPlayer.trackArtUrl : Quickshell.iconPath("emblem-music-symbolic")
+            }
+        }
     }
 
     ColumnLayout {
@@ -134,54 +144,69 @@ GridLayout {
         Layout.row: 1
         Layout.column: 1
 
-        ProgressBar {
-            id: progress
+        Slider {
+            id: slider
             enabled: root.currentPlayer !== null
+            //live: false
             anchors.left: parent.left
             anchors.right: parent.right
+            property real futureValue: 0
 
             // The position changed signal handler on the player isn't auto triggered due to performance reasons
-            // This FrameAnimation element will signal that the position has changed whenever the player is playing 
-            // at every frame interval
+            // This FrameAnimation element will signal that the position has changed given the condition at every frame interval
             // Also see: https://quickshell.org/docs/v0.2.0/types/Quickshell.Services.Mpris/MprisPlayer/#position
             FrameAnimation {
               // Only emit the signal when the position is actually changing
-              running: root.currentPlayer !== null && root.currentPlayer.playbackState == MprisPlaybackState.Playing
+              running: root.currentPlayer !== null && root.currentPlayer.playbackState == MprisPlaybackState.Playing && !slider.pressed
               // Emit the positionChanged signal every frame.
               onTriggered: root.currentPlayer.positionChanged()
             }
-
             value: {
                 if (root.currentPlayer === null || !root.currentPlayer.lengthSupported || !root.currentPlayer.positionSupported) { return 0 }
                 const normalizedPosition = root.currentPlayer.position / root.currentPlayer.length
                 //console.log(`pos: ${normalizedPosition}`)
                 return normalizedPosition
             }
+            onMoved: () => {
+                console.log(`value: ${value}`)
+                if (root.currentPlayer === null || !root.currentPlayer.positionSupported || !root.currentPlayer.canSeek) { 
+                    return
+                }
+                futureValue = value
+            }
+            onPressedChanged: {
+                // If a release occured
+                if (!pressed) {
+                    root.currentPlayer.position = futureValue * root.currentPlayer.length
+                }
+            }
         }
 
+        // Time passed
         Text {
-            anchors.left: progress.left
-            anchors.top: progress.bottom
-            id: timeRemaining
+            id: passedTime
+            anchors.left: slider.left
+            anchors.top: slider.bottom
             color: palette.text
             font.pointSize: 8
             leftPadding: 8
             text: {
                 if (root.currentPlayer === null) { return 0 }
-                return Math.ceil(root.currentPlayer.position)
+                return Common.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
             }
         }
 
+        // Total time
         Text {
-            anchors.right: progress.right
-            anchors.top: progress.bottom
             id: totalTime
+            anchors.right: slider.right
+            anchors.top: slider.bottom
             color: palette.text
             font.pointSize: 8
             rightPadding: 8
             text: {
                 if (root.currentPlayer === null) { return 0 }
-                Math.ceil(root.currentPlayer.length)
+                return Common.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
             }
         }
     }
