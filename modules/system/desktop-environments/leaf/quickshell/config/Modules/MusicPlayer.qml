@@ -54,12 +54,14 @@ GridLayout {
 
     function findPlayingPlayer()
     {
+        // Sometimes there may be null players, need to filter them out
+        const players = Mpris.players.values.filter(player => player !== null)
         // If there are no players
-        if (Mpris.players.list.length < 1) {
+        if (players < 1) {
             return -1
         }
         // Find first playing player
-        let index = Mpris.players.values.findIndex(player => player.isPlaying)
+        let index = players.findIndex(player => player.isPlaying)
         // If no player is playing select the first player
         if (index === -1) {
             index = 0
