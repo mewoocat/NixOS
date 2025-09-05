@@ -121,9 +121,9 @@ Singleton {
         grab.active = false
         // If a window is already grabbed, push it to the stack before overwriting it
         if (root.activeGrabWindow !== null) { 
-            console.log(`activeGrabWindow was not null and is ${root.activeGrabWindow}`)
+            //console.log(`activeGrabWindow was not null and is ${root.activeGrabWindow}`)
             root.focusGrabStack.push(root.activeGrabWindow)
-            console.log(`focus grab stack ${root.focusGrabStack}`)
+            //console.log(`focus grab stack ${root.focusGrabStack}`)
         }
         root.activeGrabWindow = window
         root.ignoredGrabWindows = [window]
@@ -137,7 +137,7 @@ Singleton {
         interval: 100
         repeat: false
         onTriggered: {
-            console.log('grab active for ' + root.activeGrabWindow)
+            //console.log('grab active for ' + root.activeGrabWindow)
             //grab.active = root.activeGrabWindow.visible
             grab.active = true
         }
@@ -147,19 +147,19 @@ Singleton {
     HyprlandFocusGrab {
         id: grab
         active: false
-        onActiveChanged: console.log(`grab.active = ${active}`)
+        //onActiveChanged: console.log(`grab.active = ${active}`)
         windows: root.ignoredGrabWindows
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            console.log(`clearing grab for ${root.activeGrabWindow}`)
+            //console.log(`clearing grab for ${root.activeGrabWindow}`)
             root.activeGrabWindow.closeWindow() // Assumes this method exists
             grab.active = false
 
             // Revert to the previous grab context
             if (root.focusGrabStack.length > 0) {
-                console.log(`focus grab stack ${root.focusGrabStack}`)
+                //console.log(`focus grab stack ${root.focusGrabStack}`)
                 const previousGrabWindow = root.focusGrabStack.pop()
-                console.log(`reverting focus grab to ${previousGrabWindow}`)
+                //console.log(`reverting focus grab to ${previousGrabWindow}`)
                 root.activeGrabWindow = previousGrabWindow
                 root.ignoredGrabWindows = [previousGrabWindow]
                 delay.start()
@@ -194,16 +194,16 @@ Singleton {
 
     // Takes in a string for the monitor name
     function assignSelectedWorkspaceToMonitor(monitorName): void {
-        console.log(`Assigning ${selectedWorkspaceId} to ${monitorName}`)
+        //console.log(`Assigning ${selectedWorkspaceId} to ${monitorName}`)
         // Find and remove the current workspace from the monitor it's assigned to
         for (let monitor in currentMonitorToWSMap) {
             if (currentMonitorToWSMap[monitor].includes(selectedWorkspaceId)) {
-                console.log(`${selectedWorkspaceId} is in ${monitor}`)
+                //console.log(`${selectedWorkspaceId} is in ${monitor}`)
                 const indexOfWorkspaceToRemove = currentMonitorToWSMap[monitor].indexOf(selectedWorkspaceId)
-                console.log(`index is ${indexOfWorkspaceToRemove}`)
-                console.log(`current monitor assignments ${currentMonitorToWSMap[monitor]}`)
+                //console.log(`index is ${indexOfWorkspaceToRemove}`)
+                //console.log(`current monitor assignments ${currentMonitorToWSMap[monitor]}`)
                 currentMonitorToWSMap[monitor].splice(indexOfWorkspaceToRemove, 1)
-                console.log(`new monitor assignments ${currentMonitorToWSMap[monitor]}`)
+                //console.log(`new monitor assignments ${currentMonitorToWSMap[monitor]}`)
                 break
             }
         }
@@ -243,8 +243,8 @@ Singleton {
     function generateDefaultMonitorToWSMap(): var {
         let json = {}
         const monitors = Monitors.monitors
-        console.log(monitors)
-        console.log(Hyprland.monitors.values)
+        //console.log(monitors)
+        //console.log(Hyprland.monitors.values)
         let wsId = 1
         const workspacesPerMonitor = Math.floor(numWorkspaces / monitors.length)
         const leftoverWorkspaces = numWorkspaces % monitors.length
@@ -257,7 +257,7 @@ Singleton {
                 wsId++
             }
         })
-        console.log(`default monitor to workspace map: ${JSON.stringify(json)}`)
+        //console.log(`default monitor to workspace map: ${JSON.stringify(json)}`)
         return json
     }
 
@@ -300,7 +300,7 @@ Singleton {
             // TODO: defaultName no work
             conf += `workspace = ${ws.wsId}, name:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${ws.gapsin}, gapsout:${ws.gapsout}\n`
         }
-        console.log(conf)
+        //console.log(conf)
         return conf
     }
 
@@ -323,11 +323,11 @@ Singleton {
     // Loads the current monitor to workspace configuration
     // If a preset exists it will use that, otherwise it will use the default
     function loadMonitorToWSConfig() {
-        console.log(`loading monitor to workspace config`)
+        //console.log(`loading monitor to workspace config`)
         for (let monitor in currentMonitorToWSMap) {
-            console.log(`workspaes for monitor ${monitor} = ${currentMonitorToWSMap[monitor]}`)
+            //console.log(`workspaes for monitor ${monitor} = ${currentMonitorToWSMap[monitor]}`)
             for (let wsId of currentMonitorToWSMap[monitor]) {
-                console.log(`moving ws ${wsId} to ${monitor}`)
+                //console.log(`moving ws ${wsId} to ${monitor}`)
                 Hyprland.dispatch(`moveworkspacetomonitor ${wsId} ${monitor}`)
             }
         }
@@ -335,7 +335,7 @@ Singleton {
 
     // Create and load the config specified in the workspace settings gui
     function applyWsConf() {
-        console.log(`applying ws config`)
+        //console.log(`applying ws config`)
         // Generate the hyprland workspace conf
         const conf = generateHyprlandWsConf()
         // Write the new workspace configuration to the hyprland workspaces conf
@@ -347,7 +347,7 @@ Singleton {
 
         Root.State.configFileView.writeAdapter() // Need to manually write adapter since sub properties on inline json are not tracked
 
-        console.log(`monitors id: ${Monitors.currentMonitorConfigId}`)
+        //console.log(`monitors id: ${Monitors.currentMonitorConfigId}`)
         //console.log(`monitorToWsMap: ${JSON.stringify(monitorToWsMap)}`)
 
         // Load monitor to workspace config (in case any workspace -> monitor assignment has changed)
