@@ -16,7 +16,7 @@ GridLayout {
     columnSpacing: 0
     property int maxTextWidth: 200
 
-    property int currentPlayerIndex: -1
+    property int currentPlayerIndex: findPlayingPlayer()
     // Can be null if no players exist
     property MprisPlayer currentPlayer: {
         if (currentPlayerIndex === -1) {
@@ -28,36 +28,26 @@ GridLayout {
     Connections {
         target: Mpris.players
         // Player added
-        function onObjectInsertedPre(object, index) {
-            console.log(`player added||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||`)
+        function onObjectInsertedPost(object, index) {
+            console.log(`player added`)
             // set this player as the active
             root.currentPlayerIndex = index
         }
         // Player removed
         function onObjectRemovedPre(object, index) {
-            console.log(`player removed||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||`)
+            console.log(`player removed`)
             // find and set another active player (if one exists)
             // otherwise set the first player or null if none exist
             root.currentPlayerIndex = root.findPlayingPlayer()
         }
     }
 
-    /*
-    Component.onCompleted: () => {
-        // If there are players
-        if (Mpris.players.values.length > 0) {
-            const index = findPlayingPlayer()
-            currentPlayer = players.list[index]
-        }
-    }
-    */
-
     function findPlayingPlayer()
     {
         // Sometimes there may be null players, need to filter them out
         const players = Mpris.players.values.filter(player => player !== null)
         // If there are no players
-        if (players < 1) {
+        if (players.length < 1) {
             return -1
         }
         // Find first playing player
@@ -229,7 +219,7 @@ GridLayout {
         Common.NormalButton {
             iconName: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
             leftClick: () => {
-                if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
                 if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
                     console.warn(`Current player can't play/pause`)
                     return

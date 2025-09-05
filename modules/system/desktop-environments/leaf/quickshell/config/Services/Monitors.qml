@@ -21,36 +21,6 @@ Singleton {
         property int id
     }
 
-    /*
-    property string currentId: {
-        let id = ""
-        for (let m of root.monitors) {
-            const mObj = m.lastIpcObject
-            //console.log(`ipc obj: ${JSON.stringify(mObj)}`)
-            if (mObj === ({})) {
-                console.error(`Error: lastIpcObject empty for ${m.name}`)
-                return "???"
-            }
-            id = id + `${mObj.name}&${mObj.make}&${mObj.model}&${mObj.serial}-`
-        }
-        console.log("Current id updated: " + id)
-        return id
-    }
-    */
-
-    // Array of `hyprctl monitors -j` objects
-    // Useful if properties of the HyprlandMonitor.lastIpcObject are needed
-    /*
-    property var monitorObjs: Hyprland.monitors.values.map(monitor => {
-        Hyprland.refreshMonitors() // Is this not updating the prop before we access it?
-        //console.log('property set')
-        if (monitor.lastIpcObject === undefined) {
-            return null
-        }
-        return monitor.lastIpcObject
-    })
-    */
-
     property list<var> visualMonitors: [] // Holds a list to each visual monitor element
     // Sort the monitors by id in ascending order
     property list<HyprlandMonitor> monitors: [... Hyprland.monitors.values].sort((monA, monB) => monA.id - monB.id)
@@ -59,7 +29,7 @@ Singleton {
     property string currentMonitorConfigId: generateId()
 
     onSelectedMonitorIdChanged: {
-        console.log(`refreshing hyprland monitors`)
+        //console.log(`refreshing hyprland monitors`)
         Hyprland.refreshMonitors()
     }
  
@@ -77,7 +47,7 @@ Singleton {
             }
             id = id + `${mObj.name}&${mObj.make}&${mObj.model}&${mObj.serial}-`
         }
-        console.log(`generated monitor config id: ${id}`)
+        //console.log(`generated monitor config id: ${id}`)
         return id
     }
     // Returns a Hyprland monitor config string
@@ -99,7 +69,7 @@ Singleton {
             conf = monitorMapFile.adapter.configs[id]
         }
         else {
-            console.log("No saved monitor config found")
+            //console.log("No saved monitor config found")
             conf = "#No saved config found"
         }
         // Set monitor config
@@ -110,10 +80,10 @@ Singleton {
     function applyConf() {
         const conf = generateHyprlandConf()
         const id = currentMonitorConfigId
-        console.log(`applying config for id: ${id}, with conf: ${conf}`)
-        console.log(`qml: ${JSON.stringify(monitorMapFile.adapter)}`)
+        //console.log(`applying config for id: ${id}, with conf: ${conf}`)
+        //console.log(`qml: ${JSON.stringify(monitorMapFile.adapter)}`)
         monitorMapFile.adapter.configs[id] = conf
-        console.log(`qml: ${JSON.stringify(monitorMapFile.adapter)}`)
+        //console.log(`qml: ${JSON.stringify(monitorMapFile.adapter)}`)
         // Write the changes to the file (needed since these properties on the js obj are not tracked)
         monitorMapFile.writeAdapter() // Causes crash randomly
         // Write the new monitor configuration to the hyprland monitor conf
@@ -130,7 +100,7 @@ Singleton {
         interval: 400
         running: false
         onTriggered: {
-            console.log(`loading monitor and workspace config after ${interval} ms`)
+            //console.log(`loading monitor and workspace config after ${interval} ms`)
             currentMonitorConfigId = generateId() // Regenerate id since monitor config changed
             loadConfig() // Load monitor config
             Services.Hyprland.loadMonitorToWSConfig() // Load workspace config
@@ -150,7 +120,7 @@ Singleton {
                 case "monitorremoved":
                 case "monitorremovedv2":
                     //console.log("monitor event occured")
-                    console.log(event.data)
+                    //console.log(event.data)
                     Hyprland.refreshMonitors()
                     Hyprland.onMonitorsChanged = () => {
                         //console.log(`onMonitorsChanged`)

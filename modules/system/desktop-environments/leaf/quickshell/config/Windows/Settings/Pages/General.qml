@@ -32,15 +32,12 @@ PageBase {
                                 let workspaces = []
                                 for (let id = 1; id <= 10; id++) {
                                     const wsId = `ws${id}`
-                                    console.log(`option: ${wsConfig[wsId]}`)
                                     workspaces.push(wsConfig[`ws${id}`])
                                 }
                                 return workspaces //.map(ws => ws.wsId)
                             }
                             onActivated: (index) => {
-                                console.log(`activated combobox for index ${index}`)
                                 Services.Hyprland.selectedWorkspaceId = index + 1
-                                console.log(`selected workspace: ${Services.Hyprland.selectedWorkspace.wsId}`)
                             }
                         }
                     },
