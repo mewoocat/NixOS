@@ -16,7 +16,7 @@ GridLayout {
     columnSpacing: 0
     property int maxTextWidth: 200
 
-    property int currentPlayerIndex: -1
+    property int currentPlayerIndex: findPlayingPlayer()
     // Can be null if no players exist
     property MprisPlayer currentPlayer: {
         if (currentPlayerIndex === -1) {
@@ -229,7 +229,7 @@ GridLayout {
         Common.NormalButton {
             iconName: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
             leftClick: () => {
-                if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
                 if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
                     console.warn(`Current player can't play/pause`)
                     return
