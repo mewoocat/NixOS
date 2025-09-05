@@ -76,7 +76,7 @@ GridLayout {
 
         // To Round the corners of the image
         ClippingRectangle {
-            radius: Root.State.rounding
+            radius: Root.State.rounding - parent.margin
             color: palette.window
             implicitHeight: root.height - (parent.margin * 2)
             implicitWidth: implicitHeight
