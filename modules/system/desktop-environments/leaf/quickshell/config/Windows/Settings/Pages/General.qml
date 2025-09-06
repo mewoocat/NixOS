@@ -45,6 +45,11 @@ PageBase {
                         title: "Name"
                         subtitle: "The name to assign to this workspace"
                         content: TextField {
+                            background: Rectangle {
+                                radius: 8
+                                color: palette.alternateBase
+                            }
+                            text: Services.Hyprland.selectedWorkspace.name
                             onAccepted: {
                                 Services.Hyprland.setWsName(text)
                                 Services.Hyprland.applyWsConf()
@@ -69,6 +74,7 @@ PageBase {
                     },
                     Option {
                         title: "Rounding"
+                        subtitle: "Whether to round the corners of this workspace"
                         content: Switch {
                             checked: Services.Hyprland.selectedWorkspace.useGlobalConfig ? Root.State.config.appearance.rounding > 0 : Services.Hyprland.selectedWorkspace.rounding
                             onClicked: {
@@ -80,6 +86,7 @@ PageBase {
                     },
                     Option {
                         title: "Outer gaps"
+                        subtitle: "Spacing between outside of windows and monitor edge"
                         content: SpinBox {
                             from: 0
                             value: Services.Hyprland.selectedWsGapsOut
@@ -92,6 +99,7 @@ PageBase {
                     },
                     Option {
                         title: "Inner gaps"
+                        subtitle: "spacing between windows"
                         content: SpinBox {
                             from: 0
                             value: Services.Hyprland.selectedWsGapsIn
@@ -101,38 +109,35 @@ PageBase {
                             }
                             to: 100
                         }
-                    },
+                    }
+                ]
+            }
+
+            OptionSection {
+                name: "Mouse"
+                options: [
                     Option {
-                        title: "Test"
-                        subtitle: "..."
-                        content: TextField {
-                            onAccepted: {
-                                //Root.State.config.something = text
-                                Root.State.config.workspaces.wsMap['ws1'].rounding = false
-                                Root.State.config.something = "new data"
-                                Root.State.configFileView.writeAdapter()
-                            }
+                        title: "Sensitivity"
+                        content: Slider {
+
                         }
                     }
                 ]
             }
 
             OptionSection {
-                name: "Other"
+                name: "Fonts"
                 options: [
                     Option {
-                        title: "what"
-                        content: Switch {
+                        title: "System Font"
+                        content: ComboBox {
 
                         }
                     },
                     Option {
-                        title: "test spin box"
+                        title: "Font Size"
+                        subtitle: "System font size"
                         content: SpinBox {}
-                    },
-                    Option {
-                        title: "test slider"
-                        content: Slider {}
                     }
                 ]
             }

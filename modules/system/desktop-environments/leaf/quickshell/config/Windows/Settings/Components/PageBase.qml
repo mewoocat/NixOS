@@ -11,7 +11,8 @@ Rectangle {
     id: root
     required property string pageName
     required property Item content
-    color: "#0000ff00"
+    color: "#00000000"
+    //color: "#0000ff00"
 
     // Header
     Rectangle {
@@ -64,7 +65,8 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 implicitHeight: childrenRect.height
-                color: "lightgreen"
+                //color: "lightgreen"
+                color: palette.window
                 children: [ root.content ]
             }
         ]

@@ -297,6 +297,7 @@ Singleton {
     function setWsName(text): void {
         const wsMap = Root.State.config.workspaces.wsMap
         root.selectedWorkspace.name = text
+
     }
 
     // Returns a Hyprland workspace config string for the current configuration  
@@ -309,8 +310,8 @@ Singleton {
             const gapsIn = ws.gapsIn === -1 ? Root.State.config.appearance.gapsIn : ws.gapsIn
             const gapsOut = ws.gapsOut === -1 ? Root.State.config.appearance.gapsOut : ws.gapsOut
             console.log(`gapsIn: ${gapsIn} | gapsOut: ${gapsOut}`)
-            // TODO: defaultName no work
-            conf += `workspace = ${ws.wsId}, name:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
+            // TODO: name and defaultName no work
+            conf += `workspace = ${ws.wsId}, defaultName:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
         }
         //console.log(conf)
         return conf
@@ -357,7 +358,6 @@ Singleton {
         //const monitorToWsMap = generateMonitorToWsJson()
         //Root.State.config.workspaces.monitorToWSMap[currentMonitorConfigId] = monitorToWsMap
 
-        console.log(JSON.stringify(Root.State.config.workspaces.wsMap[`ws4`]))
         Root.State.configFileView.writeAdapter() // Need to manually write adapter since sub properties on inline json are not tracked
 
         //console.log(`monitors id: ${Monitors.currentMonitorConfigId}`)

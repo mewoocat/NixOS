@@ -28,6 +28,8 @@ Common.PanelWindow {
             // Assuming a max of 10 workspaces
             rows: 3
             columns: 4
+            rowSpacing: 32
+            columnSpacing: 32
             Repeater {
                 model: 10
                 Workspace {

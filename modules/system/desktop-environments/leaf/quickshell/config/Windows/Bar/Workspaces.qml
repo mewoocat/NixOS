@@ -1,6 +1,9 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
+import Quickshell.Widgets
 import qs as Root
 import qs.Services as Services
 
@@ -15,6 +18,7 @@ RowLayout {
             required property var modelData
             property int wsID: modelData + 1
             property var wsObj: Services.Hyprland.workspaceMap[wsID] 
+            property string wsName: Root.State.config.workspaces.wsMap[`ws${mouseArea.wsID}`].name
             // Either active, inactive, or empty
             property string wsState: {
                 //const wsObj = Services.Hyprland.workspaceMap[wsID] 
@@ -28,6 +32,9 @@ RowLayout {
             }
             property int wsWidth: {
                 if (wsState === "active") {
+                    if (displayName.implicitWidth > 36 ) {
+                        return displayName.implicitWidth
+                    }
                     return 36
                 }
                 return 18
@@ -70,21 +77,28 @@ RowLayout {
                     PropertyAnimation {duration: 10}
                 }
                 color: {
-                    mouseArea.containsMouse || Services.Hyprland.activeWsId === wsID ? palette.accent : mouseArea.wsState === "empty" ? palette.base :palette.link
+                    mouseArea.containsMouse || Services.Hyprland.activeWsId === mouseArea.wsID ? palette.accent : mouseArea.wsState === "empty" ? palette.base : palette.link
                 }
-                Text {
+                WrapperItem {
+                    id: displayName
                     anchors.centerIn: parent
-                    text: {
-                        //console.log("text: " + JSON.stringify(mouseArea.wsObj.name))
-                        if (mouseArea.wsState === "empty") {
-                            return ""
+                    leftMargin: 8
+                    rightMargin: 8
+                    Text {
+                        text: {
+                            //console.log("text: " + JSON.stringify(mouseArea.wsObj.name))
+                            if (mouseArea.wsState === "empty") {
+                                return ""
+                            }
+                            if (mouseArea.wsState === "inactive" || mouseArea.wsName === "") {
+                                return mouseArea.wsID    
+                            }
+                            // Setting name: and defaultName: for a workspace doesn't change this name prop
+                            //return mouseArea.wsObj.name
+                            return Root.State.config.workspaces.wsMap[`ws${mouseArea.wsID}`].name
                         }
-                        if (mouseArea.wsState === "inactive") {
-                            return mouseArea.wsID    
-                        }
-                        return mouseArea.wsObj.name
+                        font.pointSize: 8
                     }
-                    font.pointSize: 8
                 }
             }
         }

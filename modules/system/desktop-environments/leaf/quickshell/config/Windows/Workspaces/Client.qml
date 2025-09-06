@@ -28,15 +28,16 @@ MouseArea {
     }
     ScreencopyView {
         anchors.fill: parent
-        //live: true // TODO: need to investigate performance impact
+        live: true // TODO: need to investigate performance impact
         captureSource: window.toplevel.wayland
     }
     // Boarder highlight
     Rectangle {
         property int borderSize: 4
         x: -borderSize / 2; y: -borderSize / 2
-        implicitWidth: window.width + borderSize
-        implicitHeight: window.height + borderSize
+        //implicitWidth: window.width + borderSize
+        //implicitHeight: window.height + borderSize
+        anchors.fill: parent
         border.width: borderSize
         border.color: window.containsMouse ? palette.highlight : palette.window
         color: "transparent"
