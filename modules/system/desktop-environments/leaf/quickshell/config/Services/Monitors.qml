@@ -164,7 +164,7 @@ Singleton {
 
         // If the adapter's contents change, update the file
         onAdapterUpdated: {
-            //console.log(`adapter updated`)
+            console.log(`monitor json adapter updated`)
             writeAdapter()
         }
 

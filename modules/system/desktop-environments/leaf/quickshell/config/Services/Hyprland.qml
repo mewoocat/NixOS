@@ -178,6 +178,9 @@ Singleton {
     property var selectedWorkspaceId: 1 // Id of selected workspace for configuring
     // Currently selected workspace for configuration
     property Workspace selectedWorkspace: Root.State.config.workspaces.wsMap[`ws${selectedWorkspaceId}`]
+    property int selectedWsGapsOut: selectedWorkspace.gapsOut === -1 ? Root.State.config.appearance.gapsOut : selectedWorkspace.gapsOut
+    property int selectedWsGapsIn: selectedWorkspace.gapsIn === -1 ? Root.State.config.appearance.gapsIn : selectedWorkspace.gapsIn
+
     property var currentMonitorToWSMap: {
         const currentMonitorConfigId = Monitors.currentMonitorConfigId
         const monitorToWSMap = Root.State.config.workspaces.monitorToWSMap
@@ -186,7 +189,7 @@ Singleton {
             console.warn(`Workspace config for monitor config ${currentMonitorConfigId} was not found, auto generating default`)
             const defaultMap = generateDefaultMonitorToWSMap()
             monitorToWSMap[currentMonitorConfigId] = defaultMap
-            Root.State.configFileView.writeAdapter()
+            //Root.State.configFileView.writeAdapter() // TODO: This is causing the issue where json file gets overited with default values on qs restart
         }
         const current = monitorToWSMap[currentMonitorConfigId]
         return current
@@ -267,12 +270,15 @@ Singleton {
     
     // Inline component for a json workspace
     component Workspace: JsonObject {
+        // Meta data
+        property bool useGlobalConfig: true
+
         required property int wsId
         property bool isDefault: false
         property string name: ""
         //property string monitor: ""
-        property int gapsin: 8
-        property int gapsout: 16
+        property int gapsIn: -1 // -1 means use global
+        property int gapsOut: -1 // -1 means use global
         property bool rounding: true
     }
 
@@ -297,8 +303,11 @@ Singleton {
         for (let id = 1; id <= numWorkspaces; id++) {
             const idStr = "ws" + id
             const ws = wsMap[idStr]
+            const gapsIn = ws.gapsIn === -1 ? Root.State.config.appearance.gapsIn : ws.gapsIn
+            const gapsOut = ws.gapsOut === -1 ? Root.State.config.appearance.gapsOut : ws.gapsOut
+            console.log(`gapsIn: ${gapsIn} | gapsOut: ${gapsOut}`)
             // TODO: defaultName no work
-            conf += `workspace = ${ws.wsId}, name:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${ws.gapsin}, gapsout:${ws.gapsout}\n`
+            conf += `workspace = ${ws.wsId}, name:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
         }
         //console.log(conf)
         return conf
@@ -345,6 +354,7 @@ Singleton {
         //const monitorToWsMap = generateMonitorToWsJson()
         //Root.State.config.workspaces.monitorToWSMap[currentMonitorConfigId] = monitorToWsMap
 
+        console.log(JSON.stringify(Root.State.config.workspaces.wsMap[`ws4`]))
         Root.State.configFileView.writeAdapter() // Need to manually write adapter since sub properties on inline json are not tracked
 
         //console.log(`monitors id: ${Monitors.currentMonitorConfigId}`)

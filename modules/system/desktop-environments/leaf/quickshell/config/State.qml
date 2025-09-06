@@ -13,7 +13,7 @@ Singleton {
     property string leafPath: "/home/eXia/.config/leaf-de/"
     property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
     property var configFileView: configFile
-    property var config: configFile.adapter
+    property JsonAdapter config: configFile.adapter
 
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
@@ -42,6 +42,8 @@ Singleton {
     property int mediumSpace: 8
     property int largeSpace: 8
 
+    // There's definitely something fishy going on here
+    // Might be due to using multiple json adapter instances
     FileView {
         id: configFile
         path: root.settingsJsonPath
@@ -57,6 +59,7 @@ Singleton {
         // If the adapter's contents change, update the file
         onAdapterUpdated: {
             console.log(`Writing to ${path}`)
+            console.log(`something state: ${adapter.something}`)
             writeAdapter()
         }
 
@@ -64,19 +67,28 @@ Singleton {
             console.log(`File load failed with ${err}`)
         }
         onLoaded: {
-            //console.log(`Load ok, text = ${configFile.text()}`) 
+            console.log(`Config file load ok`) 
+            //console.log(`text = ${configFile.text()}`) 
         }
 
         // Adapter between qml object and json
         // Values set here are the defaults
         adapter: JsonAdapter {
+            property string something: "THIS IS DEFAULT"
+            property list<string> pinnedApps: []
+            property string pfpImage: ""
+
             property JsonObject location: JsonObject {
                 property real latitude: 0
                 property real longitude: 0
             } 
-            property string funImage: ""
-            property list<string> pinnedApps: []
-            property string pfpImage: ""
+
+            property JsonObject appearance: JsonObject {
+                property int rounding: 8
+                property int gapsIn: 16
+                property int gapsOut: 32
+                property bool blur: false
+            }
 
             // TODO: migrate config file to this
             //property string monitorMap: "{}" // Stores json of monitor configuration map

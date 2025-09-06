@@ -70,6 +70,7 @@ PageBase {
                     Option {
                         title: "Rounding"
                         content: Switch {
+                            checked: Services.Hyprland.selectedWorkspace.useGlobalConfig ? Root.State.config.appearance.rounding > 0 : Services.Hyprland.selectedWorkspace.rounding
                             onClicked: {
                                 Services.Hyprland.selectedWorkspace.rounding = checked
                                 console.log(`rounding: ${Services.Hyprland.selectedWorkspace.rounding}`)
@@ -79,11 +80,39 @@ PageBase {
                     },
                     Option {
                         title: "Outer gaps"
-                        content: SpinBox {}
+                        content: SpinBox {
+                            from: 0
+                            value: Services.Hyprland.selectedWsGapsOut
+                            onValueModified: {
+                                Services.Hyprland.selectedWorkspace.gapsOut = value
+                                Services.Hyprland.applyWsConf()
+                            }
+                            to: 100
+                        }
                     },
                     Option {
                         title: "Inner gaps"
-                        content: SpinBox {}
+                        content: SpinBox {
+                            from: 0
+                            value: Services.Hyprland.selectedWsGapsIn
+                            onValueModified: {
+                                Services.Hyprland.selectedWorkspace.gapsIn = value
+                                Services.Hyprland.applyWsConf()
+                            }
+                            to: 100
+                        }
+                    },
+                    Option {
+                        title: "Test"
+                        subtitle: "..."
+                        content: TextField {
+                            onAccepted: {
+                                //Root.State.config.something = text
+                                Root.State.config.workspaces.wsMap['ws1'].rounding = false
+                                Root.State.config.something = "new data"
+                                Root.State.configFileView.writeAdapter()
+                            }
+                        }
                     }
                 ]
             }
