@@ -189,7 +189,10 @@ Singleton {
             console.warn(`Workspace config for monitor config ${currentMonitorConfigId} was not found, auto generating default`)
             const defaultMap = generateDefaultMonitorToWSMap()
             monitorToWSMap[currentMonitorConfigId] = defaultMap
-            //Root.State.configFileView.writeAdapter() // TODO: This is causing the issue where json file gets overited with default values on qs restart
+            // TODO: This is causing the issue where json file gets overited with default values on qs restart
+            // Maybe because its being called at startup
+            // Honestly I don't think we even need to write it to the adapter
+            //Root.State.configFileView.writeAdapter() 
         }
         const current = monitorToWSMap[currentMonitorConfigId]
         return current
