@@ -14,9 +14,11 @@ Rectangle {
     implicitWidth: workspace.width
     color: "transparent"
     required property int wsId
+    required property int widgetWidth
     // Should be of type HyprlandWorkspace or undefined
     property var wsObj: Services.Hyprland.workspaceMap[wsId]
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
+    property string wsName: Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
 
     // Workspace number indicator
     Rectangle {
@@ -31,8 +33,8 @@ Rectangle {
             anchors.centerIn: parent
             leftPadding: 8
             rightPadding: 8
-            text: root.wsId + " " + Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
-            font.pointSize: 10
+            text: root.wsName === "" ? root.wsId : root.wsId + " | " + root.wsName
+            font.pointSize: 8
             color: root.isWsActive ? palette.highlightedText : palette.text
         }
     }
@@ -45,7 +47,7 @@ Rectangle {
 
         // The fixed width of each workspace width
         // The height is calculated using the width and aspect ratio
-        property int widgetWidth: 300
+        property int widgetWidth: root.widgetWidth
         property real aspectRatio: {
             if (wsObj === undefined || wsObj.monitor === null) {
                 return 0.5

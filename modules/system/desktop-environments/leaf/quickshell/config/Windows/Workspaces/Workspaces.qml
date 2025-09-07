@@ -1,9 +1,12 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import qs as Root
 import qs.Modules.Common as Common
 
-Common.PanelWindow {
+Common.FullscreenWindow {
+    id: root
     toggleWindow: () => {
         Root.State.workspacesVisibility = !Root.State.workspacesVisibility
     } 
@@ -12,19 +15,17 @@ Common.PanelWindow {
     } 
     name: "workspaces"
     visible: Root.State.workspacesVisibility
-    anchors {}
     implicitWidth: content.width
     implicitHeight: content.height
-    content: Rectangle {
+    content: MouseArea {
         id: padding
-        property int margins: 10
-        color: "transparent"
-        implicitWidth: grid.width + padding.margins * 2
-        implicitHeight: grid.height + padding.margins * 2
+        anchors.fill: parent
+        onClicked: () => root.closeWindow()
+        enabled: true
+        hoverEnabled: true
         GridLayout {
+            anchors.centerIn: parent
             id: grid
-            x: padding.margins
-            y: padding.margins
             // Assuming a max of 10 workspaces
             rows: 3
             columns: 4
@@ -35,11 +36,7 @@ Common.PanelWindow {
                 Workspace {
                     required property int modelData
                     wsId: modelData + 1
-                    //monitor: 
-                    Component.onCompleted: {
-                        //console.log(`modelData: ${modelData}`)
-                        //console.log(`workspace map for ${Services.Hyprland.workspaceMap[modelData]}`)
-                    }
+                    widgetWidth: root.width / (grid.columns + 1)
                 }
             }
         }
