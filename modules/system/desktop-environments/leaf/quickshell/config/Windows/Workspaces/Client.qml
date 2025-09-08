@@ -26,7 +26,10 @@ MouseArea {
         Hyprland.dispatch(`focuswindow address:${clientObj.address}`) 
         Root.State.workspaces.closeWindow()
     }
+    drag.target: window
+    Drag.onDragStarted: console.log(`what`)
     ScreencopyView {
+        z: parent.drag.active ? 99999 : 0
         anchors.fill: parent
         live: true // TODO: need to investigate performance impact
         captureSource: window.toplevel.wayland
