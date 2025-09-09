@@ -100,7 +100,7 @@ Rectangle {
                 Repeater {
                     //model: Services.Hyprland.clientMap[root.wsId]
                     model: Hyprland.toplevels.values.filter(toplevel => {
-                        toplevel.workspace !== null && // workspace can be null
+                        return toplevel.workspace !== null && // workspace can be null
                         toplevel.monitor !== null && // monitor can be null
                         toplevel.workspace.id === root.wsId
                     })
