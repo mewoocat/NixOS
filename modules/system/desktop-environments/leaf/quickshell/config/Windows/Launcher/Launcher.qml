@@ -259,7 +259,7 @@ Common.PanelWindow {
                     delegate: MouseArea {
                         id: mouseArea
                         required property DesktopEntry modelData
-                        height: 48
+                        height: 52
                         width: listView.width
                         hoverEnabled: true
                         onClicked: launchApp(modelData)
@@ -282,13 +282,39 @@ Common.PanelWindow {
                                     source: Quickshell.iconPath(mouseArea.modelData.icon)
                                     //Component.onCompleted: () => console.log(mouseArea.modelData.icon)
                                 }
-                                Text{
-                                    Layout.fillWidth: true
-                                    leftPadding: 8
-                                    rightPadding: 8
-                                    elide: Text.ElideRight // Truncate with ... on the right
-                                    text: mouseArea.modelData.name
-                                    color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+                                ColumnLayout {
+                                    spacing: 0
+                                    Text{
+                                        Layout.fillWidth: true
+                                        leftPadding: 8
+                                        rightPadding: 8
+                                        elide: Text.ElideRight // Truncate with ... on the right
+                                        text: mouseArea.modelData.name
+                                        color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+                                    }
+                                    Text{
+                                        Layout.fillWidth: true
+                                        leftPadding: 8
+                                        rightPadding: 8
+                                        elide: Text.ElideRight // Truncate with ... on the right
+                                        text: {
+                                            let description = ""
+                                            if (mouseArea.modelData.genericName !== "" && mouseArea.modelData.comment !== "") {
+                                                return mouseArea.modelData.genericName + " | " + mouseArea.modelData.comment
+                                            }
+                                            else if (mouseArea.modelData.genericName !== "") {
+                                                return mouseArea.modelData.genericName
+                                            }
+                                            else if (mouseArea.modelData.comment !== "") {
+                                                return mouseArea.modelData.comment
+                                            }
+                                            else {
+                                                return "No description"
+                                            }
+                                        }
+                                        color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.placeholderText
+                                        font.pointSize: 8
+                                    }
                                 }
                             }
                         }

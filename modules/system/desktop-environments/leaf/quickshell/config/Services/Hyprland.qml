@@ -80,8 +80,9 @@ Singleton {
             clientProc.running = true
             
             //console.log(event.name + " | " + event.data) 
-            if (event.name === "workspace") {
-                activeWsId = event.data
+            if (event.name === "workspacev2") {
+                //console.log(`event = ${JSON.stringify(event)}`)
+                activeWsId = event.data.split(',')[0]
             } 
 
             switch(event.name) {

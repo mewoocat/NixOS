@@ -26,10 +26,16 @@ MouseArea {
         Hyprland.dispatch(`focuswindow address:${clientObj.address}`) 
         Root.State.workspaces.closeWindow()
     }
+    onReleased: () => {
+        Drag.drop()
+    }
     drag.target: window
-    Drag.onDragStarted: console.log(`what`)
+    Drag.active: drag.active
+    // Moves the client to the top compared to it's sibling clients
+    drag.onActiveChanged: () => drag.active ? window.z = 1 : window.z = 0
+    //Drag.hotSpot: Qt.Point(width / 2, height / 2) // Not sure how this works
+
     ScreencopyView {
-        z: parent.drag.active ? 99999 : 0
         anchors.fill: parent
         live: true // TODO: need to investigate performance impact
         captureSource: window.toplevel.wayland

@@ -19,6 +19,7 @@ Rectangle {
     property var wsObj: Services.Hyprland.workspaceMap[wsId]
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
     property string wsName: Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
+    //z: wsId === 1 ? 1 : 0
 
     // Workspace number indicator
     Rectangle {
@@ -98,22 +99,38 @@ Rectangle {
                 active: root.wsObj !== undefined
                 Repeater {
                     //model: Services.Hyprland.clientMap[root.wsId]
-                    model: Hyprland.toplevels.values.filter(toplevel => toplevel.workspace.id === root.wsId)
+                    model: Hyprland.toplevels.values.filter(toplevel => {
+                        toplevel.workspace !== null && // workspace can be null
+                        toplevel.monitor !== null && // monitor can be null
+                        toplevel.workspace.id === root.wsId
+                    })
                     // Each window in the workspace
                     Client {
-                        required property var modelData
+                        required property HyprlandToplevel modelData
                         toplevel: modelData
                         clientObj: modelData.lastIpcObject
                         widgetScale: workspace.widgetScale
                         monitorScale: root.wsObj.monitor.scale
                         monitorX: root.wsObj.monitor.x
                         monitorY: root.wsObj.monitor.y
-                        Component.onCompleted: {
-                            //console.log(`widget scale: ${widgetScale}`)
-                        }
+                        // Moves the workspace to the top when one of its clients is being dragged
+                        drag.onActiveChanged: () => drag.active ? root.z = 1 : root.z = 0
                     }
                 }
             }
+        }
+    }
+
+    // Accepts client drops
+    DropArea {
+        anchors.fill: parent
+        //onContainsDragChanged: console.log(`contains drag = ${containsDrag}`)
+        onEntered: console.log(`entered`)
+        onDropped: (drop) => {
+            // Apparently you need to cast the source type before you can use it 
+            const clientPid = (drag.source as MouseArea).clientObj.pid
+            console.log(`dropped ${(drag.source as MouseArea).clientObj.Pid}`)
+            Hyprland.dispatch(`movetoworkspacesilent ${root.wsId}, pid:${clientPid}`)
         }
     }
 }
