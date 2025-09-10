@@ -65,7 +65,7 @@ PanelWindow {
             id: box
             anchors.fill: parent
             color: palette.window
-            Component.onCompleted: color.a = 0.01
+            Component.onCompleted: color.a = 0.8
             radius: 0
             children: [
                 window.content

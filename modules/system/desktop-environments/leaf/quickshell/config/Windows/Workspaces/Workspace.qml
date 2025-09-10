@@ -8,18 +8,16 @@ import Quickshell.Hyprland
 import qs.Services as Services
 import qs as Root
 
-Rectangle {
+Item {
     id: root
     implicitHeight: indicator.height + workspace.height
     implicitWidth: workspace.width
-    color: "transparent"
     required property int wsId
     required property int widgetWidth
     // Should be of type HyprlandWorkspace or undefined
-    property var wsObj: Services.Hyprland.workspaceMap[wsId]
+    property var wsObj: Services.Hyprland.workspaceMap[wsId] ?? null
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
     property string wsName: Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
-    //z: wsId === 1 ? 1 : 0
 
     // Workspace number indicator
     Rectangle {
@@ -50,7 +48,7 @@ Rectangle {
         // The height is calculated using the width and aspect ratio
         property int widgetWidth: root.widgetWidth
         property real aspectRatio: {
-            if (wsObj === undefined || wsObj.monitor === null) {
+            if (!wsObj || wsObj.monitor === null) {
                 return 0.5
             }
             return wsObj.monitor.height / wsObj.monitor.width
@@ -96,8 +94,8 @@ Rectangle {
             Loader {
                 anchors.fill: parent
                 // Only try to render clients if the workspace exists
-                active: root.wsObj !== undefined
-                Repeater {
+                active: root.wsObj !== null
+                property Component clients: Repeater {
                     //model: Services.Hyprland.clientMap[root.wsId]
                     model: Hyprland.toplevels.values.filter(toplevel => {
                         return toplevel.workspace !== null && // workspace can be null
@@ -117,6 +115,7 @@ Rectangle {
                         drag.onActiveChanged: () => drag.active ? root.z = 1 : root.z = 0
                     }
                 }
+                sourceComponent: clients
             }
         }
     }

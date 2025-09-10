@@ -10,21 +10,9 @@ Singleton {
     id: root
 
     property int numWorkspaces: 10
-
-    // This no work
-    //property ObjectModel<HyprlandMonitor> monitors: Hyprland.monitors
-    property list<HyprlandMonitor> monitorsObjs: Hyprland.monitors.values
-
-    function enable(){
-        //console.log("Enabling Hyprland Service")
-    }
-    Component.onCompleted: {
-        //console.log(monitorsObjs)
-    }
     property int activeWsId: {
-        // Can be null, default to 0
         if (Hyprland.focusedMonitor === null) {
-            return 0
+            return 1
         }
         return Hyprland.focusedMonitor.activeWorkspace.id
     }
@@ -32,40 +20,9 @@ Singleton {
         let map = {}
         Hyprland.workspaces.values.forEach(w => {
             map[w.id] = w
-            //console.log("ws: " + map[w.id])
+            //console.log(`ws ${w.id}: ` + map[w.id])
         })
         return map
-    }
-
-    // Map of workspace id's to array of client objects
-    property var clientMap: {
-        return {}
-    }
-    // TODO: Rewrite using a socket
-    Process {
-        id: clientProc
-        command: ["sh", "-c", "hyprctl clients -j | jq -c"]
-        running: true
-        stdout: SplitParser {
-            //splitMarker: "\n"
-            onRead: data => {
-                //console.log("data: " + data)
-                const jsonData = JSON.parse(data)
-                //console.log("jsonData: " + JSON.stringify(jsonData))
-                let map = {}
-                for (const client of jsonData) {
-                    const id = client.workspace.id
-                    if (map[id] === undefined) {
-                        map[id] = []
-                    }
-                    //console.log("thing: " + client.workspace.id)
-                    // Append the client into array by creating a new array of the existing items and the new client
-                    map[id] = [...map[id], client]
-                }
-                root.clientMap = map
-                //console.log("map " + JSON.stringify(clientMap[1], null, 5))
-            }
-        }
     }
 
     Connections {
@@ -74,10 +31,7 @@ Singleton {
             // TODO: Optimize pls
             Hyprland.refreshWorkspaces()
             Hyprland.refreshMonitors()
-            Hyprland.refreshToplevels() // Clients
-
-            // TODO: optimize when this is ran
-            clientProc.running = true
+            //Hyprland.refreshToplevels() // Clients // CAUSES CRASH IF SPAMMED
             
             //console.log(event.name + " | " + event.data) 
             if (event.name === "workspacev2") {
@@ -96,7 +50,6 @@ Singleton {
             }
         }
     }
-
 
 
     //////////////////////////////////////////////////////////////// 
@@ -188,12 +141,7 @@ Singleton {
         const configExists = monitorToWSMap.hasOwnProperty(currentMonitorConfigId)
         if (!configExists) {
             console.warn(`Workspace config for monitor config ${currentMonitorConfigId} was not found, auto generating default`)
-            const defaultMap = generateDefaultMonitorToWSMap()
-            monitorToWSMap[currentMonitorConfigId] = defaultMap
-            // TODO: This is causing the issue where json file gets overited with default values on qs restart
-            // Maybe because its being called at startup
-            // Honestly I don't think we even need to write it to the adapter
-            //Root.State.configFileView.writeAdapter() 
+            monitorToWSMap[currentMonitorConfigId] = generateDefaultMonitorToWSMap()
         }
         const current = monitorToWSMap[currentMonitorConfigId]
         return current

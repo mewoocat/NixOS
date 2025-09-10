@@ -35,7 +35,7 @@ Common.FullscreenWindow {
                 model: 10
                 Workspace {
                     required property int modelData
-                    wsId: modelData + 1
+                    wsId: modelData + 1 // Hyprland workspaces are 1 indexed
                     widgetWidth: root.width / (grid.columns + 1)
                 }
             }
