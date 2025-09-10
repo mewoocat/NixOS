@@ -259,8 +259,9 @@ Singleton {
             const gapsIn = ws.gapsIn === -1 ? Root.State.config.appearance.gapsIn : ws.gapsIn
             const gapsOut = ws.gapsOut === -1 ? Root.State.config.appearance.gapsOut : ws.gapsOut
             console.log(`gapsIn: ${gapsIn} | gapsOut: ${gapsOut}`)
-            // TODO: name and defaultName no work
-            conf += `workspace = ${ws.wsId}, defaultName:${ws.name}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
+            // WARNING: Setting name and defaultName no work
+            // Attempting to set them causes weird hyprland workspace behavior
+            conf += `workspace = ${ws.wsId}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
         }
         //console.log(conf)
         return conf

@@ -15,9 +15,9 @@ RowLayout {
     property int largeSize: 36
     spacing: 0
 
-    component WsIndicator: WrapperMouseArea {
+    component WsIndicator: MouseArea {
         id: wsIndicator
-        required property var wsId
+        required property int wsId
         property HyprlandWorkspace wsObj: Hyprland.workspaces.values.find(ws => ws.id === wsId) ?? null
         property string wsName: Root.State.config.workspaces.wsMap[`ws${wsId}`].name
         // Either focused, active, inactive, or empty
@@ -37,19 +37,20 @@ RowLayout {
             if (wsObj.toplevels.values.length < 1) {
                 return "empty"
             }
-            console.error(`SOMETHING REALLY FUCKING BAD HAPPENED`)
+            console.error(`something bad happened`)
         }
 
-        leftMargin: 4
-        rightMargin: 4
+        implicitWidth: dot.width + 8 // padding
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         onClicked: (event) => {
             switch(event.button) {
                 case Qt.LeftButton:
-                    Hyprland.dispatch(`workspace ${wsID}`) 
+                    //Hyprland.dispatch(`workspace ${wsID}`) 
+                    console.log(`wsobj = ${wsIndicator.wsObj}`)
                     break
                 case Qt.RightButton:
+                    Hyprland.RefreshWorkspaces()
                     Root.State.workspaces.toggleWindow()
                     break
                 default:
@@ -57,7 +58,10 @@ RowLayout {
             }
         }
         Rectangle {
+            id: dot
             anchors.centerIn: parent
+            anchors.leftMargin: 4
+            anchors.rightMargin: 4
             radius: 24
             color: {
                 if (wsIndicator.containsMouse) return palette.accent
@@ -103,13 +107,17 @@ RowLayout {
                 rightMargin: 8
                 Text {
                     text: {
-                        if (wsIndicator.wsState === "focused") {
-                            return wsIndicator.wsName
+                        switch(wsIndicator.wsState) {
+                            case "focused":
+                            case "active":
+                                return wsIndicator.wsName !== "" ? wsIndicator.wsName : wsIndicator.wsId
+                            case "inactive":
+                                return wsIndicator.wsId
+                            case "empty":
+                                return ""
+                            default:
+                                console.error("Invalid wsState")
                         }
-                        if (wsIndicator.wsState === "inactive" || wsIndicator.wsName === "") {
-                            return wsIndicator.wsId
-                        }
-                        return ""
                     }
                     font.pointSize: 8
                 }
@@ -120,6 +128,7 @@ RowLayout {
     Repeater {
         model: root.numWorkspaces
         WsIndicator {
+            required property int modelData
             wsId: modelData + 1
             Layout.fillHeight: true
         }
