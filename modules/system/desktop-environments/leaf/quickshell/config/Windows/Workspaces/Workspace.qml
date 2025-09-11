@@ -8,8 +8,9 @@ import Quickshell.Hyprland
 import qs.Services as Services
 import qs as Root
 
-Item {
+ColumnLayout {
     id: root
+    //color: "transparent"
     implicitHeight: indicator.height + workspace.height
     implicitWidth: workspace.width
     required property int wsId
@@ -20,18 +21,20 @@ Item {
     property string wsName: Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
 
     // Workspace number indicator
-    Rectangle {
+    WrapperRectangle {
         id: indicator
         radius: 16
         color: isWsActive ? palette.accent : "transparent"
-        implicitWidth: displayText.width
-        implicitHeight: 18
+        //implicitWidth: displayText.width
+        //implicitHeight: 18
 
         Text {
             id: displayText
             anchors.centerIn: parent
             leftPadding: 8
             rightPadding: 8
+            topPadding: 3
+            bottomPadding: 3
             text: root.wsName === "" ? root.wsId : root.wsId + " | " + root.wsName
             font.pointSize: 8
             color: root.isWsActive ? palette.highlightedText : palette.text
@@ -40,21 +43,33 @@ Item {
 
     MouseArea {
         id: workspace
-        anchors.topMargin: 8
-        anchors.top: indicator.bottom
-        anchors.left: indicator.left
+        //anchors.top: indicator.bottom
+        //anchors.left: indicator.left
 
         // The fixed width of each workspace width
         // The height is calculated using the width and aspect ratio
         property int widgetWidth: root.widgetWidth
         property real aspectRatio: {
+            // This should only occur on initial startup, might be worth using a loader instead
             if (!wsObj || wsObj.monitor === null) {
                 return 0.5
             }
+            /*
+            // If the workspace or monitor isn't available, use the assigned monitor from config
+            if (!wsObj || wsObj.monitor === null) {
+                const monitorName = Services.Hyprland.getMonitorForWorkspace(root.wsId)
+                const monitor = Services.Hyprland.getMonitorFromName(monitorName)
+                if (!monitor) {
+                    return 0.5 // Fallback
+                }
+                return monitor.height / monitor.width
+            }
+            */
             return wsObj.monitor.height / wsObj.monitor.width
         }
         // Scale of virtual size to actual size
         property real widgetScale: {
+            // This should only occur on initial startup, might be worth using a loader instead
             if (!wsObj || wsObj.monitor === null) {
                 return 1
             }
@@ -88,7 +103,8 @@ Item {
             implicitWidth: root.wsObj ? parent.width : 64
             implicitHeight: root.wsObj ? parent.height : 64
             radius: 8
-            color: !root.wsObj && workspace.containsMouse ? palette.highlight : palette.alternateBase
+            //color: !root.wsObj && workspace.containsMouse ? palette.highlight : palette.alternateBase
+            color: "green"
 
             Loader {
                 anchors.fill: parent
@@ -117,25 +133,29 @@ Item {
                 sourceComponent: clients
             }
         }
-    }
 
-    // Accepts client drops
-    DropArea {
-        anchors.fill: parent
-        //onContainsDragChanged: console.log(`contains drag = ${containsDrag}`)
-        onEntered: console.log(`entered`)
-        onDropped: (drop) => {
-            // Apparently you need to cast the source type before you can use it 
-            const clientPid = (drag.source as MouseArea).clientObj.pid
-            console.log(`dropped ${(drag.source as MouseArea).clientObj.Pid}`)
-            Hyprland.dispatch(`movetoworkspacesilent ${root.wsId}, pid:${clientPid}`)
-            Hyprland.refreshToplevels() // Need to refresh to rerender changes to clients
-        }
-
-        // Object being dragged over indicator
-        Rectangle {
+        // Accepts client drops
+        DropArea {
+            id: dropArea
             anchors.fill: parent
-            color: parent.containsDrag ? palette.base : "transparent"
+            //onContainsDragChanged: console.log(`contains drag = ${containsDrag}`)
+            property alias wsId: root.wsId
+            keys: [ "workspace-client" ] // Drag source must have this key or it's ignored
+            onEntered: console.log(`entered`)
+            onDropped: (drop) => {
+                // Apparently you need to cast the source type before you can use it 
+                const clientObj = (drag.source as MouseArea).clientObj
+                console.log(`dropped client with pid ${clientObj.pid} from ws ${clientObj.workspace.id}`)
+                Hyprland.dispatch(`movetoworkspacesilent ${root.wsId}, pid:${clientObj.pid}`)
+                Hyprland.refreshToplevels() // Need to refresh to rerender changes to clients
+            }
+
+            // Object being dragged over indicator
+            Rectangle {
+                anchors.fill: parent
+                radius: 8
+                color: parent.containsDrag ? "#33000000" : "#33ff0000"
+            }
         }
     }
 }

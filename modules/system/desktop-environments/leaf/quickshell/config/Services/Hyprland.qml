@@ -170,8 +170,8 @@ Singleton {
     }
 
     function getMonitorFromName(monitorName): HyprlandMonitor {
-        for (monitor in Monitors.monitors) {
-            if (monitor.name = "monitorName") {
+        for (let monitor of Hyprland.monitors.values) {
+            if (monitor.name === monitorName) {
                 return monitor
             }
         }
@@ -256,12 +256,13 @@ Singleton {
         for (let id = 1; id <= numWorkspaces; id++) {
             const idStr = "ws" + id
             const ws = wsMap[idStr]
+            const monitorName = getMonitorForWorkspace(ws.wsId)
             const gapsIn = ws.gapsIn === -1 ? Root.State.config.appearance.gapsIn : ws.gapsIn
             const gapsOut = ws.gapsOut === -1 ? Root.State.config.appearance.gapsOut : ws.gapsOut
             console.log(`gapsIn: ${gapsIn} | gapsOut: ${gapsOut}`)
-            // WARNING: Setting name and defaultName no work
-            // Attempting to set them causes weird hyprland workspace behavior
-            conf += `workspace = ${ws.wsId}, monitor:${ws.monitor}, default:${ws.isDefault}, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
+            // WARNING: Setting name and defaultName cause weird hyprland workspace behavior if empty
+            // The persistent rule is needed to know workspace properties when it's not active (i.e. rendering the size of an empty workspace in the overview)
+            conf += `workspace = ${ws.wsId}, monitor:${monitorName}, default:${ws.isDefault}, persistent:true, rounding:${ws.rounding}, gapsin:${gapsIn}, gapsout:${gapsOut}\n`
         }
         //console.log(conf)
         return conf

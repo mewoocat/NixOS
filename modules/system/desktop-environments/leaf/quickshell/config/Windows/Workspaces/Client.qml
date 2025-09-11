@@ -29,15 +29,15 @@ MouseArea {
     property int initialX: 0
     property int initialY: 0
     onPressed: () => {
+        // Store original position
         initialX = drag.target.x
         initialY = drag.target.y
     }
     onReleased: () => {
-        if (Drag.target === null) {
+        if (Drag.target === null || Drag.target.wsId === toplevel.workspace.id) {
             console.log(`canceled drag`)
-            // Not working
-            //Hyprland.refreshToplevels() // Refresh the state to undo the movement of the client
             Drag.cancel()
+            // Reset to the original position
             drag.target.x = initialX
             drag.target.y = initialY
             return
@@ -47,14 +47,10 @@ MouseArea {
     }
     drag.target: window
     Drag.active: drag.active
+    Drag.keys: [ "workspace-client" ]
     // Moves the client to the top compared to it's sibling clients
     drag.onActiveChanged: () => drag.active ? window.z = 1 : window.z = 0
     //Drag.hotSpot: Qt.Point(100, 100) // Not sure how this works
-    /* no work
-    Drag.onDragFinished: (dropAction) => {
-        console.log(`drop finished with ${dropAction}`)
-    }
-    */
 
     ScreencopyView {
         anchors.fill: parent
@@ -62,7 +58,8 @@ MouseArea {
         captureSource: window.toplevel.wayland
     }
 
-    // Boarder highlight
+    // Border highlight
+    //
     Rectangle {
         property int borderSize: 2
         x: -borderSize / 2; y: -borderSize / 2
