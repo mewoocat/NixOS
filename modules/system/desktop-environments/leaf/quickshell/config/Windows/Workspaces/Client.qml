@@ -26,31 +26,53 @@ MouseArea {
         Hyprland.dispatch(`focuswindow address:${clientObj.address}`) 
         Root.State.workspaces.closeWindow()
     }
+    property int initialX: 0
+    property int initialY: 0
+    onPressed: () => {
+        initialX = drag.target.x
+        initialY = drag.target.y
+    }
     onReleased: () => {
+        if (Drag.target === null) {
+            console.log(`canceled drag`)
+            // Not working
+            //Hyprland.refreshToplevels() // Refresh the state to undo the movement of the client
+            Drag.cancel()
+            drag.target.x = initialX
+            drag.target.y = initialY
+            return
+        }
+        console.log(`submitted drag`)
         Drag.drop()
     }
     drag.target: window
     Drag.active: drag.active
     // Moves the client to the top compared to it's sibling clients
     drag.onActiveChanged: () => drag.active ? window.z = 1 : window.z = 0
-    //Drag.hotSpot: Qt.Point(width / 2, height / 2) // Not sure how this works
+    //Drag.hotSpot: Qt.Point(100, 100) // Not sure how this works
+    /* no work
+    Drag.onDragFinished: (dropAction) => {
+        console.log(`drop finished with ${dropAction}`)
+    }
+    */
 
     ScreencopyView {
         anchors.fill: parent
         live: true // TODO: need to investigate performance impact
         captureSource: window.toplevel.wayland
     }
+
     // Boarder highlight
     Rectangle {
-        property int borderSize: 4
+        property int borderSize: 2
         x: -borderSize / 2; y: -borderSize / 2
         //implicitWidth: window.width + borderSize
         //implicitHeight: window.height + borderSize
         anchors.fill: parent
         border.width: borderSize
-        border.color: window.containsMouse ? palette.highlight : palette.window
+        border.color: window.containsMouse ? palette.accent : "transparent"
         color: "transparent"
-        radius: 4
+        //radius: 4
     }
 
     /*

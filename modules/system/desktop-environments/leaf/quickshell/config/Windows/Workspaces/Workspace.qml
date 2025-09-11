@@ -85,11 +85,10 @@ Item {
             id: box
             anchors.centerIn: parent
             // If the workspace doesn't exist, set a fixed smaller size
-            implicitWidth: root.wsObj !== undefined ? parent.width : 64
-            implicitHeight: root.wsObj !== undefined ? parent.height : 64
-            radius: root.wsObj === undefined ? 16 : 8
-            color: root.wsObj === undefined && workspace.containsMouse ? palette.highlight : palette.alternateBase
-            //color: "transparent"
+            implicitWidth: root.wsObj ? parent.width : 64
+            implicitHeight: root.wsObj ? parent.height : 64
+            radius: 8
+            color: !root.wsObj && workspace.containsMouse ? palette.highlight : palette.alternateBase
 
             Loader {
                 anchors.fill: parent
@@ -130,6 +129,13 @@ Item {
             const clientPid = (drag.source as MouseArea).clientObj.pid
             console.log(`dropped ${(drag.source as MouseArea).clientObj.Pid}`)
             Hyprland.dispatch(`movetoworkspacesilent ${root.wsId}, pid:${clientPid}`)
+            Hyprland.refreshToplevels() // Need to refresh to rerender changes to clients
+        }
+
+        // Object being dragged over indicator
+        Rectangle {
+            anchors.fill: parent
+            color: parent.containsDrag ? palette.base : "transparent"
         }
     }
 }

@@ -10,9 +10,10 @@ import qs.Services as Services
 RowLayout {
     id: root
     property int numWorkspaces: 10
-    property int smallSize: 8
+    property int smallSize: 10
     property int mediumSize: 18
     property int largeSize: 36
+    property int padding: 4
     spacing: 0
 
     component WsIndicator: MouseArea {
@@ -40,17 +41,31 @@ RowLayout {
             console.error(`something bad happened`)
         }
 
-        implicitWidth: dot.width + 8 // padding
+        implicitWidth: {
+            let width = 0
+            switch(wsIndicator.wsState) {
+                case "focused":
+                    if (displayName.implicitWidth > root.largeSize ) {
+                        width = displayName.implicitWidth; break
+                    }
+                    width = root.largeSize; break
+                case "active":
+                case "inactive":
+                case "empty":
+                    width = root.mediumSize; break
+                default:
+                    console.error("Invalid wsState")
+            }
+            return width + root.padding
+        }
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         onClicked: (event) => {
             switch(event.button) {
                 case Qt.LeftButton:
-                    //Hyprland.dispatch(`workspace ${wsID}`) 
-                    console.log(`wsobj = ${wsIndicator.wsObj}`)
+                    Hyprland.dispatch(`workspace ${wsId}`)
                     break
                 case Qt.RightButton:
-                    Hyprland.RefreshWorkspaces()
                     Root.State.workspaces.toggleWindow()
                     break
                 default:
