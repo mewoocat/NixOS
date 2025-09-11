@@ -24,19 +24,19 @@ Common.FullscreenWindow {
         enabled: true
         hoverEnabled: true
         GridLayout {
-            anchors.centerIn: parent
             id: grid
+            anchors.centerIn: parent
             // Assuming a max of 10 workspaces
             rows: 3
             columns: 4
-            rowSpacing: 32
-            columnSpacing: 32
+            rowSpacing: 24
+            columnSpacing: 24
             Repeater {
                 model: 10
                 Workspace {
                     required property int modelData
                     wsId: modelData + 1 // Hyprland workspaces are 1 indexed
-                    widgetWidth: root.width / (grid.columns + 1)
+                    widgetWidth: root.width / (grid.columns + 0.5) 
                 }
             }
         }

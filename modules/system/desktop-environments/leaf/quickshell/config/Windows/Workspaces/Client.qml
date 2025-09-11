@@ -50,7 +50,7 @@ MouseArea {
     Drag.keys: [ "workspace-client" ]
     // Moves the client to the top compared to it's sibling clients
     drag.onActiveChanged: () => drag.active ? window.z = 1 : window.z = 0
-    //Drag.hotSpot: Qt.Point(100, 100) // Not sure how this works
+    Drag.hotSpot: Qt.point(width/2, height/2)
 
     ScreencopyView {
         anchors.fill: parent
