@@ -43,6 +43,7 @@ Common.PanelWindow {
         Pages.Main {} 
         Pages.Audio {}
         Pages.Network {}
+        Pages.Bluetooth {}
 
         //PageIndicator {
         //    id: pageIndicator
