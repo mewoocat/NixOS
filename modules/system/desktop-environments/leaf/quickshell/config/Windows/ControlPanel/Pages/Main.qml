@@ -51,6 +51,7 @@ Common.PanelGrid {
                     hoverEnabled: true
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    onClicked: normalAction()
                     WrapperRectangle {
                         //anchors.verticalCenter: parent.verticalCenter // Doesn't seem to do anything lol
                         //anchors.left: parent.left
@@ -84,6 +85,10 @@ Common.PanelGrid {
                 title: "Bluetooth"
                 subtext: "my-device"
                 iconName: "network-bluetooth"
+                normalAction: () => {
+                    console.log("clicked")
+                    Root.State.controlPanelPage = 3
+                }
             }
         }
     }
@@ -248,11 +253,4 @@ Common.PanelGrid {
         }
         }
     }
-
-    /*
-    PanelItem { iconName: "ymuse-home-symbolic"}
-    PanelItem { iconName: "ymuse-home-symbolic"}
-    PanelItem { iconName: "ymuse-home-symbolic"}
-    PanelItem { iconName: "ymuse-home-symbolic"}
-    */
 }
