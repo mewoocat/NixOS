@@ -44,6 +44,7 @@ Common.PanelWindow {
         Pages.Audio {}
         Pages.Network {}
         Pages.Bluetooth {}
+        Pages.BluetoothNew {}
 
         //PageIndicator {
         //    id: pageIndicator
