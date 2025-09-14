@@ -25,17 +25,21 @@ PageBase {
         Common.ListViewScrollable {
             Layout.fillWidth: true; Layout.fillHeight: true
             model: Bluetooth.devices
-            delegate: Rectangle {
+            delegate: Common.ScrollableItem {
+                id: device
                 required property var modelData
-                implicitWidth: 120
-                implicitHeight: 100
-
-                color: "red"
-                Text {
-                    Layout.alignment: Qt.AlignLeft
-                    leftPadding: 4
-                    color: palette.text
-                    text: modelData.name
+                content: RowLayout {
+                    implicitHeight: 32
+                    Text {
+                        Layout.alignment: Qt.AlignLeft
+                        leftPadding: 4
+                        color: palette.text
+                        text: device.modelData.name
+                    }
+                    Common.NormalButton {
+                        Layout.alignment: Qt.AlignRight
+                        iconName: "settings"
+                    }
                 }
             }
         }
