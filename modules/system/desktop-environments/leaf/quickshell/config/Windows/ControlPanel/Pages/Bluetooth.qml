@@ -22,7 +22,7 @@ PageBase {
         Switch {
 
         }
-        Common.ListViewScrollable {
+        Common.Scrollable {
             padding: 4
             Layout.fillWidth: true; Layout.fillHeight: true
             model: Bluetooth.devices

@@ -23,14 +23,14 @@ Common.PanelWindow {
         Root.State.launcherVisibility = false
         searchText = "" 
         textField.text = ""
-        listView.currentIndex = 0
+        scrollable.listViewRef.currentIndex = 0
     }
 
     toggleWindow: () => {
         Root.State.launcherVisibility = !Root.State.launcherVisibility
         searchText = "" 
         textField.text = ""
-        listView.currentIndex = 0
+        scrollable.listViewRef.currentIndex = 0
     }
 
 
@@ -182,35 +182,23 @@ Common.PanelWindow {
                         }
                         onTextChanged: () => {
                             launcher.searchText = text
-                            listView.listViewRef.currentIndex = 0
+                            scrollable.listViewRef.currentIndex = 0
                         }
                         Keys.onUpPressed: {
-                            listView.listViewRef.decrementCurrentIndex()
+                            scrollable.listViewRef.decrementCurrentIndex()
                         }
                         Keys.onDownPressed: {
-                            listView.listViewRef.incrementCurrentIndex()
+                            scrollable.listViewRef.incrementCurrentIndex()
                         }
-                        Keys.onReturnPressed: launchApp(listView.listViewRef.currentItem.modelData)
+                        Keys.onReturnPressed: launchApp(scrollable.listViewRef.currentItem.modelData)
                     }
                 }
 
                 // Application list
-                Rectangle {
-                    id: listBox
+                Common.Scrollable {
+                    id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    color: "transparent"
-
-                Common.ListViewScrollable {
-                    //anchors.fill: parent
-                    implicitWidth: parent.width
-                    implicitHeight: parent.height
-                    clip: true // Ensure that scrolled items don't go outside the widget
-                    //highlightMoveDuration: 0
-                    //cacheBuffer: 0
-                    //maximumFlickVelocity: 1000 // Increases bound overshoot?
-                    id: listView
-                    //keyNavigationEnabled: true
                     model: ScriptModel {
                         values: DesktopEntries.applications.values
                             // Filter by search text
@@ -245,18 +233,11 @@ Common.PanelWindow {
                             //.filter(app => true)
                     }
 
-                    /*
-                    // Add a scroll bar to the list
-                    // idk where this ScrollBar.vertical property is defined
-                    ScrollBar.vertical: ScrollBar {
-                        id: scrollBar
-                        parent: listView.parent
-                        anchors.left: listView.right
-                        anchors.top: listView.top
-                        anchors.bottom: listView.bottom
+                    delegate: LauncherItem {
+                        launcher: launcher
                     }
-                    */
 
+                    /*
                     delegate: MouseArea {
                         id: mouseArea
                         required property DesktopEntry modelData
@@ -314,7 +295,7 @@ Common.PanelWindow {
                             }
                         }
                     }
-                }
+                    */
                 }
             }
         }

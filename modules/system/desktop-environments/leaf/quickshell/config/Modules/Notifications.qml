@@ -24,7 +24,7 @@ ColumnLayout {
         implicitHeight: 1
         opacity: 0.2
     }
-    Common.ListViewScrollable {
+    Common.Scrollable {
         Layout.fillHeight: true
         Layout.fillWidth: true
         visible: Services.Notifications.notifications.length > 0

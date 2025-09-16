@@ -3,68 +3,81 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
+// Size of root element must be set when consumed
 Rectangle {
     id: root
-    required property Item content
-    color: "#77000000"
+    required property var model // The model that has the data to render for each item
+    required property Component delegate // The type to render each item with, must have a var modelData property
+    property int padding: 16
+    property int animationSpeed: 100
+    property Item listViewRef: listView
+    color: "transparent" //"#770000ff"
     radius: 8
+    clip: true
 
+    // Rendered floating as to not affect placement of list items.
+    // So the width of the scroll bar must be less than the spacing between the edge of
+    // the ListView and parent
     ScrollBar {
         id: scrollBar
-        parent: root
-        anchors.left: scrollView.right
-        //anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        policy: ScrollBar.AlwaysOn // Doesn't work?
+        implicitWidth: 4
+        //implicitHeight: parent.height - 40
+        //x: parent.width - width - (listView.anchors.margins / 2)
+        anchors {
+            right: parent.right
+            top: parent.top
+            bottom: parent.bottom
+            margins: (root.padding - width) / 2
+        }
     }
 
-    // Content
-    ScrollView {
-        /*
-        anchors.leftMargin: 16
-        anchors.topMargin: 16
-        anchors.bottomMargin: 16
-        */
-        //anchors.margins: 16
+    // List
+    ListView {
+        id: listView
 
-        implicitWidth: parent.width //- scrollBar.width
-        id: scrollView
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-
-        //ScrollBar.vertical: scrollBar
-
-        // Idk why this works
-        contentChildren: Rectangle {
-            color: "transparent"
-            //color: "#2200ff00"
-            implicitWidth: scrollView.width - scrollBar.width
-            implicitHeight: column.height + 16
-
-            ColumnLayout {
-                anchors.centerIn: parent
-                id: column
-                implicitWidth: parent.width - 16
-                children: [ root.content ]
-            }    
+        anchors {
+            margins: root.padding
+            fill: parent
         }
-        /*
-        contentChildren: [ 
-            WrapperRectangle {
-                color: "blue"
-                children: [ root.content ]
-            }
-        ]
-        */
-        /*
-        contentChildren: Rectangle {
-            implicitHeight: childrenRect.height
-            implicitWidth: scrollView.width - scrollBar.width
-            color: "transparent"
 
-            children: [ root.content ]
+        ScrollBar.vertical: scrollBar
+        snapMode: ListView.SnapToItem
+        //keyNavigationEnabled: true // Enabled by default
+        highlightMoveDuration: 0 // Instantly snaps to item
+        clip: true // Ensure that scrolled items don't go outside the widget
+
+        model: root.model
+        delegate: root.delegate
+
+        // Animations 
+        // TODO: They work but need to set them up to look nice :)
+        /*
+        add: Transition {
+            NumberAnimation {
+                properties: "y"
+                from: -100
+                duration: root.animationSpeed
+            }
+        }
+        addDisplaced: Transition {
+            NumberAnimation {
+                properties: "y"
+                duration: root.animationSpeed
+            }
+        }
+        remove: Transition {
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "x"
+                    to: -8
+                    duration: 100
+                }
+                NumberAnimation {
+                    properties: "y"
+                    to: -100
+                    duration: root.animationSpeed
+                }
+            }
         }
         */
     }

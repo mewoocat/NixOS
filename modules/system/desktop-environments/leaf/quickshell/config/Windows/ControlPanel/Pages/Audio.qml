@@ -51,7 +51,7 @@ PageBase {
         SectionBase { name: "Mixer"}
 
         
-        Common.ListViewScrollable {
+        Common.Scrollable {
             // If some apps are outputting to the default output
             visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
             Layout.fillHeight: true
