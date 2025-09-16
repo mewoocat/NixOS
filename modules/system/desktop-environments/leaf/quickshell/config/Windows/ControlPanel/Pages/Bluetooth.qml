@@ -9,7 +9,7 @@ import qs.Modules.Common as Common
 
 PageBase {
     id: page
-    pageName: "Bluetooth"
+    pageName: "Bluetooth New"
     content: ColumnLayout {
         anchors.fill: parent
         Button {
@@ -22,39 +22,24 @@ PageBase {
         Switch {
 
         }
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            color: palette.base
-            radius: 8
-
-            ListView {
-                anchors.fill: parent
-                model: Bluetooth.devices
-                delegate: MouseArea {
-                    id: device
-                    required property BluetoothDevice modelData
-                    enabled: true; hoverEnabled: true
-                    implicitWidth: parent.width
-                    implicitHeight: 48
-
-                    Rectangle {
-                        anchors.fill: parent
-                        color: device.containsMouse ? palette.highlight : "transparent"
-                        radius: 16
-                        RowLayout {
-                            anchors.fill: parent
-                            Text {
-                                Layout.alignment: Qt.AlignLeft
-                                leftPadding: 4
-                                color: palette.text
-                                text: device.modelData.name
-                            }
-                            Common.NormalButton {
-                                Layout.alignment: Qt.AlignRight
-                                iconName: "settings"
-                            }
-                        }
+        Common.ListViewScrollable {
+            padding: 4
+            Layout.fillWidth: true; Layout.fillHeight: true
+            model: Bluetooth.devices
+            delegate: Common.ScrollableItem {
+                id: device
+                required property var modelData
+                content: RowLayout {
+                    implicitHeight: 32
+                    Text {
+                        Layout.alignment: Qt.AlignLeft
+                        leftPadding: 4
+                        color: palette.text
+                        text: device.modelData.name
+                    }
+                    Common.NormalButton {
+                        Layout.alignment: Qt.AlignRight
+                        iconName: "settings"
                     }
                 }
             }

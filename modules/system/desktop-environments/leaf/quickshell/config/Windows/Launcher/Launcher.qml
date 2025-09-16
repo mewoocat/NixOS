@@ -182,15 +182,15 @@ Common.PanelWindow {
                         }
                         onTextChanged: () => {
                             launcher.searchText = text
-                            listView.currentIndex = 0
+                            listView.listViewRef.currentIndex = 0
                         }
                         Keys.onUpPressed: {
-                            listView.decrementCurrentIndex()
+                            listView.listViewRef.decrementCurrentIndex()
                         }
                         Keys.onDownPressed: {
-                            listView.incrementCurrentIndex()
+                            listView.listViewRef.incrementCurrentIndex()
                         }
-                        Keys.onReturnPressed: launchApp(listView.currentItem.modelData)
+                        Keys.onReturnPressed: launchApp(listView.listViewRef.currentItem.modelData)
                     }
                 }
 
@@ -201,16 +201,16 @@ Common.PanelWindow {
                     Layout.fillHeight: true
                     color: "transparent"
 
-                ListView {
+                Common.ListViewScrollable {
                     //anchors.fill: parent
-                    implicitWidth: parent.width - scrollBar.width
+                    implicitWidth: parent.width
                     implicitHeight: parent.height
-                    highlightMoveDuration: 0
                     clip: true // Ensure that scrolled items don't go outside the widget
+                    //highlightMoveDuration: 0
                     //cacheBuffer: 0
-                    maximumFlickVelocity: 1000 // Increases bound overshoot?
+                    //maximumFlickVelocity: 1000 // Increases bound overshoot?
                     id: listView
-                    keyNavigationEnabled: true
+                    //keyNavigationEnabled: true
                     model: ScriptModel {
                         values: DesktopEntries.applications.values
                             // Filter by search text
@@ -245,7 +245,7 @@ Common.PanelWindow {
                             //.filter(app => true)
                     }
 
-                    snapMode: ListView.SnapToItem
+                    /*
                     // Add a scroll bar to the list
                     // idk where this ScrollBar.vertical property is defined
                     ScrollBar.vertical: ScrollBar {
@@ -255,22 +255,17 @@ Common.PanelWindow {
                         anchors.top: listView.top
                         anchors.bottom: listView.bottom
                     }
+                    */
 
                     delegate: MouseArea {
                         id: mouseArea
                         required property DesktopEntry modelData
                         height: 52
-                        width: listView.width
+                        width: parent.width
                         hoverEnabled: true
-                        onClicked: launchApp(modelData)
+                        onClicked: launcher.launchApp(modelData)
                         Rectangle {
                             anchors.fill: parent
-                            anchors {
-                                leftMargin: 16
-                                rightMargin: 16
-                                topMargin: 4
-                                bottomMargin: 4
-                            }
                             color: mouseArea.containsMouse || mouseArea.focus ? palette.accent : "transparent"
                             radius: 10
                             RowLayout {

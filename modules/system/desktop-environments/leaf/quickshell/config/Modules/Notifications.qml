@@ -24,37 +24,16 @@ ColumnLayout {
         implicitHeight: 1
         opacity: 0.2
     }
-    // Old ListView impl
-    /*
-    ListView {
-        visible: Services.Notifications.notifications.length > 0
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        model: Services.Notifications.notificationModel
-        flickDeceleration: 0.00001
-        maximumFlickVelocity: 10000
-        clip: true // Ensure that scrolled items don't go outside the widget
-        keyNavigationEnabled: true
-        ScrollBar.vertical: ScrollBar { }
-        delegate: Modules.Notification {
-            Layout.fillWidth: true
-            required property var modelData
-            notification: modelData
-        }
-    }
-    */
-    Common.Scrollable {
+    Common.ListViewScrollable {
         Layout.fillHeight: true
         Layout.fillWidth: true
         visible: Services.Notifications.notifications.length > 0
         color: "transparent"
-        content: Repeater {
-            model: Services.Notifications.notificationModel
-            Modules.Notification {
-                Layout.fillWidth: true
-                required property var modelData
-                notification: modelData
-            }
+        model: Services.Notifications.notificationModel
+        delegate: Modules.Notification {
+            required property var modelData
+            //Layout.fillWidth: true
+            notification: modelData
         }
     }
 

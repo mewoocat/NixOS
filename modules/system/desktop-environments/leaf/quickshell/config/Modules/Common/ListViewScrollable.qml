@@ -6,9 +6,12 @@ import QtQuick.Controls
 // Size of root element must be set when consumed
 Rectangle {
     id: root
-    required property ObjectModel model // The model that has the data to render for each item
+    required property var model // The model that has the data to render for each item
     required property Component delegate // The type to render each item with, must have a var modelData property
-    color: "#770000ff"
+    property int padding: 16
+    property int animationSpeed: 100
+    property Item listViewRef: listView
+    color: "transparent" //"#770000ff"
     radius: 8
     clip: true
 
@@ -24,7 +27,7 @@ Rectangle {
             right: parent.right
             top: parent.top
             bottom: parent.bottom
-            margins: 6
+            margins: (root.padding - width) / 2
         }
     }
 
@@ -33,13 +36,48 @@ Rectangle {
         id: listView
 
         anchors {
-            margins: 16
+            margins: root.padding
             fill: parent
         }
 
         ScrollBar.vertical: scrollBar
+        snapMode: ListView.SnapToItem
+        keyNavigationEnabled: true
+        //highlightMoveDuration: 0
 
         model: root.model
         delegate: root.delegate
+
+        // Animations 
+        // TODO: They work but need to set them up to look nice :)
+        /*
+        add: Transition {
+            NumberAnimation {
+                properties: "y"
+                from: -100
+                duration: root.animationSpeed
+            }
+        }
+        addDisplaced: Transition {
+            NumberAnimation {
+                properties: "y"
+                duration: root.animationSpeed
+            }
+        }
+        remove: Transition {
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "x"
+                    to: -8
+                    duration: 100
+                }
+                NumberAnimation {
+                    properties: "y"
+                    to: -100
+                    duration: root.animationSpeed
+                }
+            }
+        }
+        */
     }
 }

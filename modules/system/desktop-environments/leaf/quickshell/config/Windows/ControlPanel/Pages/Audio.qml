@@ -50,19 +50,20 @@ PageBase {
 
         SectionBase { name: "Mixer"}
 
-        Common.Scrollable {
+        
+        Common.ListViewScrollable {
             // If some apps are outputting to the default output
             visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
             Layout.fillHeight: true
             Layout.fillWidth: true
+            color: palette.base
 
-            content: Repeater {
-                // For each source outputting to the default output
-                // i.e. Each program, etc.
-                // A link is a connection between two nodes
-                model: Services.Audio.defaultOutputLinkTracker.linkGroups
-                delegate: Modules.MixerItem {}
-            } 
+            // For each source outputting to the default output
+            // i.e. Each program, etc.
+            // A link is a connection between two nodes
+            model: Services.Audio.defaultOutputLinkTracker.linkGroups
+            delegate: Modules.MixerItem {}
+
         }
         
         // No mixer items placeholder
