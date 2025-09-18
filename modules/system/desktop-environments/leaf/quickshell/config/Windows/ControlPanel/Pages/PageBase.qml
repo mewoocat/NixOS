@@ -1,5 +1,6 @@
 
 import Quickshell
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -12,6 +13,7 @@ Item {
     id: root
     required property string pageName
     required property Item content
+    property Item headerContent: Item {}
 
     ColumnLayout {
         anchors.margins: 16
@@ -29,9 +31,17 @@ Item {
                 leftClick: () => Root.State.controlPanelPage = 0
             } 
 
+            // Extra optional content
+            WrapperRectangle {
+                Layout.fillWidth: true
+                children: [
+                    root.headerContent
+                ]
+            }
+
             // Name
             Text {
-                Layout.fillWidth: true
+                //Layout.fillWidth: true
                 horizontalAlignment: Text.AlignRight
                 color: palette.text
                 font.bold: true
