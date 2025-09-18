@@ -25,13 +25,12 @@ PageBase {
             }
         }
         */
-        ScrollView {
+        Common.ScrollView {
+            padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
-            ScrollBar.vertical: null
+            //ScrollBar.vertical: null
 
-            Component.onCompleted: console.log(`scrollview width: ${width}`)
             ColumnLayout {
-                Component.onCompleted: console.log(`column width: ${width}`)
                 id: col
                 anchors.left: parent.left
                 anchors.right: parent.right

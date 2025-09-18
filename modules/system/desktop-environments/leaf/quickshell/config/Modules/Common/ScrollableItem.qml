@@ -5,10 +5,7 @@ WrapperMouseArea {
     id: root
     required property Item content
     margin: 4
-    implicitWidth: {
-        console.log(`scrollableItem parent width: ${parent.width}`)
-        return parent.width
-    }
+    implicitWidth: parent.width
     hoverEnabled: true
     
     Rectangle {
