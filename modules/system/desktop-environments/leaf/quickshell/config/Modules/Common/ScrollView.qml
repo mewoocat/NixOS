@@ -5,7 +5,7 @@ import Quickshell
 // Size of root element must be set when consumed
 Rectangle {
     id: root
-    default property list<Item> content
+    required property Item content
     property int padding: 16
     color: "#770000ff"
     radius: 8
@@ -16,16 +16,23 @@ Rectangle {
     // the ListView and parent
     ScrollBar {
         id: scrollBar
-        implicitWidth: 4
+        implicitWidth: 10
         anchors {
             right: parent.right
             top: parent.top
             bottom: parent.bottom
-            margins: (root.padding - width) / 2
+            margins: 20 //(root.padding - width) / 2
         }
+        /*
+        background: Rectangle {
+            color: "red"
+            implicitHeight: 100
+            implicitWidth: 4
+        }
+        */
     }
 
-    ScrollView {
+    Flickable {
         id: scrollView
 
         anchors {
@@ -33,9 +40,26 @@ Rectangle {
             fill: parent
         }
 
-        ScrollBar.vertical: scrollBar
+        //ScrollBar.vertical: scrollBar
+        //ScrollBar.horizontal: null
+        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.horizontal: ScrollBar {}
+        contentWidth: 400//root.content.width
+        contentHeight: 1000//root.content.height
+        Component.onCompleted: {
+            console.log(`content: ${root.content}`)
+            console.log(`${contentWidth} x ${contentHeight}`)
+        }
 
-        contentData: root.content
-
+        /*
+        children: [ root.content ]
+        */
+        children: [
+            Rectangle {
+                color: "green"
+                implicitWidth: 400
+                implicitHeight: 1000
+            }
+        ]
     }
 }

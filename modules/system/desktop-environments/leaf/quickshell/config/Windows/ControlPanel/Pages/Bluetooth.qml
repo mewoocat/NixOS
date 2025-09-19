@@ -16,32 +16,53 @@ PageBase {
     }
     content: ColumnLayout {
         anchors.fill: parent
-        /*
         Button {
             onClicked: {
+                /*
                 console.log("bt devices " + Bluetooth.devices.values)
                 console.log("bt adapters " + Bluetooth.adapters.values)
                 console.log("bt state " + Bluetooth.defaultAdapter.state.toString())
+                */
+               Bluetooth.defaultAdapter.discovering = true
             }
         }
-        */
         Common.ScrollView {
             padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
             //ScrollBar.vertical: null
+        
+            content: Rectangle {
+                color: "green"
+                implicitWidth: 400
+                implicitHeight: 1000
+            }
 
-            ColumnLayout {
+            /*
+            content: ColumnLayout {
                 id: col
                 anchors.left: parent.left
                 anchors.right: parent.right
-                spacing: 0
+                implicitHeight: 1000
+                spacing: 5
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    color: "blue"
+                    height: 200
+                }
+                Rectangle {
+                    Layout.fillWidth: true
+                    color: "red"
+                    height: 200
+                }
                 Item {
                     Layout.fillWidth: true
                     implicitHeight: section.height
                     Text {
                         id: section
+                        padding: 8
                         color: palette.text
-                        text: "Devices"
+                        text: "My Devices"
                     }
                 }
                 // Horizontal line
@@ -53,7 +74,9 @@ PageBase {
                 }
                 Repeater {
                     Component.onCompleted: console.log(`repeater width: ${width}`)
-                    model: Bluetooth.devices
+                    model: ScriptModel {
+                        values: Bluetooth.devices.values.filter(device => device.paired)
+                    }
                     delegate: Common.ScrollableItem {
                         id: device
                         required property var modelData
@@ -86,7 +109,7 @@ PageBase {
                     implicitHeight: 20
                     Text {
                         color: palette.text
-                        text: "Devices"
+                        text: "Nearby Devices"
                     }
                 }
                 // Horizontal line
@@ -97,7 +120,9 @@ PageBase {
                     opacity: 0.2
                 }
                 Repeater {
-                    model: Bluetooth.devices
+                    model: ScriptModel {
+                        values: Bluetooth.devices.values.filter(device => !device.paired)
+                    }
                     delegate: Common.ScrollableItem {
                         id: device
                         required property var modelData
@@ -125,6 +150,7 @@ PageBase {
                     }
                 }
             }
+            */
         }
         /*
         Common.Scrollable {
