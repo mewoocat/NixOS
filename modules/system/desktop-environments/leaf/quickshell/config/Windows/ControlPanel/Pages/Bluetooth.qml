@@ -14,6 +14,31 @@ PageBase {
     headerContent: Switch {
 
     }
+    component BTDevice: Common.ScrollableItem {
+        id: device
+        required property var modelData
+        content: RowLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            implicitWidth: 60
+            implicitHeight: 24
+            IconImage {
+                Layout.leftMargin: 8
+                implicitSize: 18
+                source: Quickshell.iconPath(modelData.icon)
+            }
+            Text {
+                Layout.fillWidth: true
+                color: palette.text
+                elide: Text.ElideRight
+                text: device.modelData.name
+            }
+            Common.NormalButton {
+                Layout.alignment: Qt.AlignRight
+                iconName: "settings"
+            }
+        }
+    }
     content: ColumnLayout {
         anchors.fill: parent
         Button {
@@ -26,41 +51,15 @@ PageBase {
                Bluetooth.defaultAdapter.discovering = true
             }
         }
-        Common.ScrollView {
-            id: scrollView
-            padding: 0
+        Common.VScrollable {
+            id: scrollable
+            padding: 8
             Layout.fillWidth: true; Layout.fillHeight: true
-            //ScrollBar.vertical: null
         
             content: ColumnLayout {
                 id: col
-                //anchors.left: parent.left
-                //anchors.right: parent.right
-                implicitWidth: scrollView.width
-                //implicitWidth: 200
                 spacing: 5
 
-                Component.onCompleted: {
-                    console.log(`col parent: ${col.parent}`)
-                    console.log(`col: ${width} x ${height}`)
-                }
-                Button {
-                    text: "debug"
-                    onClicked: console.log(`col: ${col.width} x ${col.height}`)
-                }
-
-                /*
-                Rectangle {
-                    Layout.fillWidth: true
-                    color: "blue"
-                    height: 200
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    color: "red"
-                    height: 200
-                }
-                */
                 Item {
                     Layout.fillWidth: true
                     implicitHeight: section.height
@@ -158,36 +157,5 @@ PageBase {
                 }
             }
         }
-        /*
-        Common.Scrollable {
-            padding: 4
-            Layout.fillWidth: true; Layout.fillHeight: true
-            model: Bluetooth.devices
-            delegate: Common.ScrollableItem {
-                id: device
-                required property var modelData
-                content: RowLayout {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    implicitHeight: 24
-                    IconImage {
-                        Layout.leftMargin: 8
-                        implicitSize: 18
-                        source: Quickshell.iconPath(modelData.icon)
-                    }
-                    Text {
-                        Layout.fillWidth: true
-                        color: palette.text
-                        elide: Text.ElideRight
-                        text: device.modelData.name
-                    }
-                    Common.NormalButton {
-                        Layout.alignment: Qt.AlignRight
-                        iconName: "settings"
-                    }
-                }
-            }
-        }
-        */
     }
 }
