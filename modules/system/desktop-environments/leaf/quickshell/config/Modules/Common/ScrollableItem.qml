@@ -4,7 +4,8 @@ import Quickshell.Widgets
 WrapperMouseArea {
     id: root
     required property Item content
-    margin: 4
+    rightMargin: 8 // Try to have this match the scrollbar width
+    leftMargin: 8
     implicitWidth: parent.width
     hoverEnabled: true
     

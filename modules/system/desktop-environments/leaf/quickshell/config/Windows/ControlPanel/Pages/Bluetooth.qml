@@ -53,7 +53,7 @@ PageBase {
         }
         Common.VScrollable {
             id: scrollable
-            padding: 8
+            padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
         
             content: ColumnLayout {
@@ -74,6 +74,7 @@ PageBase {
                 Rectangle {
                     color: palette.text
                     Layout.fillWidth: true
+                    Layout.rightMargin: 20
                     implicitHeight: 1
                     opacity: 0.2
                 }

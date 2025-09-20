@@ -3,16 +3,19 @@ import QtQuick.Controls
 import Quickshell
 
 // Size of root element must be set when consumed
-Rectangle {
+Control {
     id: root
     required property Item content
     // need to set the content's parent to the flickable 
     // ... might be a bug why it doesn't happen automatically if setting it in the children
     onContentChanged: content.parent = flickable.contentItem
-    property int padding: 16
-    color: "#770000ff"
-    radius: 8
+    background: Rectangle {
+        anchors.fill: parent
+        color: "#770000ff"
+        radius: 8
+    }
     clip: true
+    onHoveredChanged: scrollBar.visible = hovered
 
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
@@ -24,7 +27,7 @@ Rectangle {
             right: parent.right
             top: parent.top
             bottom: parent.bottom
-            margins: (root.padding - width) / 2
+            //margins: (root.padding - width) / 2
         }
     }
 
