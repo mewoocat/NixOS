@@ -27,24 +27,29 @@ PageBase {
             }
         }
         Common.ScrollView {
+            id: scrollView
             padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
             //ScrollBar.vertical: null
         
-            content: Rectangle {
-                color: "green"
-                implicitWidth: 400
-                implicitHeight: 1000
-            }
-
-            /*
             content: ColumnLayout {
                 id: col
-                anchors.left: parent.left
-                anchors.right: parent.right
-                implicitHeight: 1000
+                //anchors.left: parent.left
+                //anchors.right: parent.right
+                implicitWidth: scrollView.width
+                //implicitWidth: 200
                 spacing: 5
 
+                Component.onCompleted: {
+                    console.log(`col parent: ${col.parent}`)
+                    console.log(`col: ${width} x ${height}`)
+                }
+                Button {
+                    text: "debug"
+                    onClicked: console.log(`col: ${col.width} x ${col.height}`)
+                }
+
+                /*
                 Rectangle {
                     Layout.fillWidth: true
                     color: "blue"
@@ -55,6 +60,7 @@ PageBase {
                     color: "red"
                     height: 200
                 }
+                */
                 Item {
                     Layout.fillWidth: true
                     implicitHeight: section.height
@@ -84,6 +90,7 @@ PageBase {
                         content: RowLayout {
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            implicitWidth: 60
                             implicitHeight: 24
                             IconImage {
                                 Layout.leftMargin: 8
@@ -150,7 +157,6 @@ PageBase {
                     }
                 }
             }
-            */
         }
         /*
         Common.Scrollable {

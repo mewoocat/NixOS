@@ -6,6 +6,7 @@ import Quickshell
 Rectangle {
     id: root
     required property Item content
+    onContentChanged: content.parent = scrollView.contentItem
     property int padding: 16
     color: "#770000ff"
     radius: 8
@@ -44,16 +45,16 @@ Rectangle {
         //ScrollBar.horizontal: null
         ScrollBar.vertical: ScrollBar {}
         ScrollBar.horizontal: ScrollBar {}
-        contentWidth: 400//root.content.width
-        contentHeight: 1000//root.content.height
+        contentWidth: root.content.width
+        contentHeight: root.content.height
         Component.onCompleted: {
             console.log(`content: ${root.content}`)
             console.log(`${contentWidth} x ${contentHeight}`)
         }
 
+
         /*
         children: [ root.content ]
-        */
         children: [
             Rectangle {
                 color: "green"
@@ -61,5 +62,6 @@ Rectangle {
                 implicitHeight: 1000
             }
         ]
+        */
     }
 }

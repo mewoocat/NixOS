@@ -19,9 +19,33 @@ FloatingWindow {
             }
         ]
     }
+
+    /*
+    component FlickableWrapper: Flickable {
+      required property Item content
+      x: 350
+      implicitWidth: 300
+      implicitHeight: 300
+      contentWidth: 600
+      contentHeight: 600
+      ScrollBar.vertical: ScrollBar {}
+      ScrollBar.horizontal: ScrollBar {}
+
+      onContentChanged: content.parent = contentItem
+    }
+
+    FlickableWrapper {
+      content: Rectangle {
+        color: "red"
+        implicitWidth: 300
+        implicitHeight: 300
+      }
+    }
+    */
     
     component FlickableWrapper: Flickable {
         required property Item content
+        onContentChanged: content.parent = contentItem
         x: 350
         implicitWidth: 300
         implicitHeight: 300
@@ -29,9 +53,11 @@ FloatingWindow {
         contentHeight: 600
         ScrollBar.vertical: ScrollBar {}
         ScrollBar.horizontal: ScrollBar {}
+        /*
         children: [
             content
         ]
+        */
     }
 
     FlickableWrapper {
