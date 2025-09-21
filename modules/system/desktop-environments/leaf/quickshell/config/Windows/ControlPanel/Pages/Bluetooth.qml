@@ -71,11 +71,9 @@ PageBase {
                 id: col
                 spacing: 0
 
-                Item {
+                WrapperItem {
                     Layout.fillWidth: true
-                    implicitHeight: section.height
                     Text {
-                        id: section
                         padding: 8
                         color: palette.text
                         text: "My Devices"
@@ -92,10 +90,10 @@ PageBase {
 
                 RowLayout {
 
-                    Item {
+                    WrapperItem {
                         Layout.fillWidth: true
-                        implicitHeight: 20
                         Text {
+                            padding: 8
                             color: palette.text
                             text: "Nearby Devices"
                         }
@@ -129,7 +127,6 @@ PageBase {
                         font.pointSize: 10
                     }
                 }
-                Item {implicitHeight: 128; Layout.fillWidth: true}
             }
         }
     }
