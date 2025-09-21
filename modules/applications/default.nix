@@ -6,6 +6,6 @@
 
   imports = [
     #./moonlight.nix
-    ./thunar.nix
+    #./thunar.nix
   ];
 }

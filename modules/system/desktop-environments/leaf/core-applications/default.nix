@@ -14,9 +14,8 @@
       eog
       gthumb
       gnome-text-editor
-      nemo-with-extensions
+      #nemo-with-extensions
 
-      # idk how these two differ
       kdePackages.dolphin
       kdePackages.qtsvg # Needed for icons to work in dolphin
 

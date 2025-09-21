@@ -27,22 +27,22 @@ Item {
             Common.NormalButton {
                 defaultInternalMargin: 2
                 buttonHeight: 32
-                text: "Back"
+                iconName: "back"
                 leftClick: () => Root.State.controlPanelPage = 0
             } 
 
+            // Spacer
+            Item { Layout.fillWidth: true }
+
             // Extra optional content
-            WrapperRectangle {
-                Layout.fillWidth: true
-                children: [
-                    root.headerContent
-                ]
+            WrapperItem {
+                children: [root.headerContent]
             }
 
             // Name
             Text {
                 //Layout.fillWidth: true
-                horizontalAlignment: Text.AlignRight
+                //horizontalAlignment: Text.AlignRight
                 color: palette.text
                 font.bold: true
                 text: root.pageName

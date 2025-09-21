@@ -11,27 +11,48 @@ import qs.Modules.Common as Common
 PageBase {
     id: page
     pageName: "Bluetooth"
-    headerContent: Switch {
-
+    headerContent: RowLayout {
+        IconImage {
+            Layout.leftMargin: 8
+            implicitSize: 18
+            source: Quickshell.iconPath("bluetooth")
+        }
+        Switch {
+        }
     }
+    
     component BTDevice: Common.ScrollableItem {
         id: device
         required property var modelData
+        onClicked: () => modelData.connect()
         content: RowLayout {
             anchors.left: parent.left
             anchors.right: parent.right
             implicitWidth: 60
             implicitHeight: 24
+            spacing: 8
             IconImage {
                 Layout.leftMargin: 8
                 implicitSize: 18
-                source: Quickshell.iconPath(modelData.icon)
+                source: Quickshell.iconPath(device.modelData.icon, "bluetooth") // fallbacks to "bluetooth"
             }
-            Text {
-                Layout.fillWidth: true
-                color: palette.text
-                elide: Text.ElideRight
-                text: device.modelData.name
+            ColumnLayout {
+                spacing: 0
+                Text {
+                    id: name
+                    Layout.fillWidth: true
+                    color: palette.text
+                    elide: Text.ElideRight
+                    text: device.modelData.name
+                }
+                Text {
+                    id: status
+                    Layout.fillWidth: true
+                    color: palette.placeholderText
+                    elide: Text.ElideRight
+                    font.pointSize: 8
+                    text: device.modelData.paired ? BluetoothDeviceState.toString(device.modelData.state) : "Not paired"
+                }
             }
             Common.NormalButton {
                 Layout.alignment: Qt.AlignRight
@@ -41,16 +62,6 @@ PageBase {
     }
     content: ColumnLayout {
         anchors.fill: parent
-        Button {
-            onClicked: {
-                /*
-                console.log("bt devices " + Bluetooth.devices.values)
-                console.log("bt adapters " + Bluetooth.adapters.values)
-                console.log("bt state " + Bluetooth.defaultAdapter.state.toString())
-                */
-               Bluetooth.defaultAdapter.discovering = true
-            }
-        }
         Common.VScrollable {
             id: scrollable
             padding: 0
@@ -58,7 +69,7 @@ PageBase {
         
             content: ColumnLayout {
                 id: col
-                spacing: 5
+                spacing: 0
 
                 Item {
                     Layout.fillWidth: true
@@ -83,42 +94,30 @@ PageBase {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => device.paired)
                     }
-                    delegate: Common.ScrollableItem {
-                        id: device
-                        required property var modelData
-                        //implicitWidth: parent.width
-                        content: RowLayout {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            implicitWidth: 60
-                            implicitHeight: 24
-                            IconImage {
-                                Layout.leftMargin: 8
-                                implicitSize: 18
-                                source: Quickshell.iconPath(modelData.icon)
-                            }
-                            Text {
-                                Layout.fillWidth: true
-                                color: palette.text
-                                elide: Text.ElideRight
-                                text: device.modelData.name
-                            }
-                            Common.NormalButton {
-                                Layout.alignment: Qt.AlignRight
-                                iconName: "settings"
-                            }
+                    delegate: BTDevice {}
+                }
+
+                RowLayout {
+
+                    Item {
+                        Layout.fillWidth: true
+                        implicitHeight: 20
+                        Text {
+                            color: palette.text
+                            text: "Nearby Devices"
+                        }
+                    }
+                    Button {
+                        Layout.rightMargin: 8 // TODO: find a better solution
+                        id: refreshButton
+                        icon.name: "view-refresh-symbolic" 
+                        onClicked: {
+                           console.log(`scannings for bt devices`)
+                           Bluetooth.defaultAdapter.discovering = true
                         }
                     }
                 }
 
-                Item {
-                    Layout.fillWidth: true
-                    implicitHeight: 20
-                    Text {
-                        color: palette.text
-                        text: "Nearby Devices"
-                    }
-                }
                 // Horizontal line
                 Rectangle {
                     color: palette.text
@@ -130,30 +129,17 @@ PageBase {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => !device.paired)
                     }
-                    delegate: Common.ScrollableItem {
-                        id: device
-                        required property var modelData
-                        //implicitWidth: col.width
-                        content: RowLayout {
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            implicitHeight: 24
-                            IconImage {
-                                Layout.leftMargin: 8
-                                implicitSize: 18
-                                source: Quickshell.iconPath(modelData.icon)
-                            }
-                            Text {
-                                Layout.fillWidth: true
-                                color: palette.text
-                                elide: Text.ElideRight
-                                text: device.modelData.name
-                            }
-                            Common.NormalButton {
-                                Layout.alignment: Qt.AlignRight
-                                iconName: "settings"
-                            }
-                        }
+                    delegate: BTDevice {}
+                }
+                Item {
+                    visible: !Bluetooth.devices.values.some(device => !device.paired)
+                    Layout.fillWidth: true
+                    implicitHeight: 64
+                    Text {
+                        anchors.centerIn: parent
+                        color: palette.placeholderText
+                        text: "Refresh to scan for new devices"
+                        font.pointSize: 10
                     }
                 }
             }
