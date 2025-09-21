@@ -12,12 +12,12 @@ PageBase {
     id: page
     pageName: "Bluetooth"
     headerContent: RowLayout {
+        Switch {
+
+        }
         IconImage {
-            Layout.leftMargin: 8
             implicitSize: 18
             source: Quickshell.iconPath("bluetooth")
-        }
-        Switch {
         }
     }
     
@@ -81,14 +81,7 @@ PageBase {
                         text: "My Devices"
                     }
                 }
-                // Horizontal line
-                Rectangle {
-                    color: palette.text
-                    Layout.fillWidth: true
-                    Layout.rightMargin: 20
-                    implicitHeight: 1
-                    opacity: 0.2
-                }
+                Common.HorizontalLine { Layout.rightMargin: 20 }
                 Repeater {
                     Component.onCompleted: console.log(`repeater width: ${width}`)
                     model: ScriptModel {
@@ -117,14 +110,7 @@ PageBase {
                         }
                     }
                 }
-
-                // Horizontal line
-                Rectangle {
-                    color: palette.text
-                    Layout.fillWidth: true
-                    implicitHeight: 1
-                    opacity: 0.2
-                }
+                Common.HorizontalLine { Layout.rightMargin: 20 }
                 Repeater {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => !device.paired)
@@ -132,6 +118,7 @@ PageBase {
                     delegate: BTDevice {}
                 }
                 Item {
+                    id: nearbyFallback
                     visible: !Bluetooth.devices.values.some(device => !device.paired)
                     Layout.fillWidth: true
                     implicitHeight: 64
@@ -142,6 +129,7 @@ PageBase {
                         font.pointSize: 10
                     }
                 }
+                Item {implicitHeight: 128; Layout.fillWidth: true}
             }
         }
     }

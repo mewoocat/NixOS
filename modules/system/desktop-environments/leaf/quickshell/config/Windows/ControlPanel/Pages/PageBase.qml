@@ -16,8 +16,8 @@ Item {
     property Item headerContent: Item {}
 
     ColumnLayout {
-        anchors.margins: 16
         id: header
+        anchors.margins: 16
         anchors.fill: parent
         spacing: 12
 
@@ -35,32 +35,21 @@ Item {
             Item { Layout.fillWidth: true }
 
             // Extra optional content
-            WrapperItem {
-                children: [root.headerContent]
-            }
+            WrapperItem { children: [root.headerContent] }
 
             // Name
             Text {
-                //Layout.fillWidth: true
-                //horizontalAlignment: Text.AlignRight
                 color: palette.text
-                font.bold: true
                 text: root.pageName
             }
         }
 
-        Rectangle {
-            Layout.fillWidth: true
-            radius: 20
-            implicitHeight: 1
-            color: "#777777"
-        }
+        Common.HorizontalLine {}
 
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             children: [ root.content ]
-            //color: "#2200ff00"
             color: "transparent"
         }
     }
