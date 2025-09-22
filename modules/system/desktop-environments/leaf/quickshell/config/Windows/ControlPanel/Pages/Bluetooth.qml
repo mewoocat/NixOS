@@ -24,16 +24,13 @@ PageBase {
     component BTDevice: Common.ScrollableItem {
         id: device
         required property var modelData
-        onClicked: () => modelData.connect()
+        //onClicked: () => modelData.connect()
         content: RowLayout {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            implicitWidth: 60
-            implicitHeight: 24
+            implicitWidth: 200
             spacing: 8
             IconImage {
                 Layout.leftMargin: 8
-                implicitSize: 18
+                implicitSize: 24
                 source: Quickshell.iconPath(device.modelData.icon, "bluetooth") // fallbacks to "bluetooth"
             }
             ColumnLayout {
@@ -59,6 +56,16 @@ PageBase {
                 iconName: "settings"
             }
         }
+        subContent: ColumnLayout {
+            Text {
+                color: palette.text
+                text: device.modelData.address
+            }
+            Text {
+                color: palette.text
+                text: device.modelData.deviceName
+            }
+        }
     }
     content: ColumnLayout {
         anchors.fill: parent
@@ -69,7 +76,7 @@ PageBase {
         
             content: ColumnLayout {
                 id: col
-                spacing: 0
+                spacing: 4
 
                 WrapperItem {
                     Layout.fillWidth: true
