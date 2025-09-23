@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound // allows for referencing of siblings
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -23,13 +24,20 @@ PageBase {
     
     component BTDevice: Common.ScrollableItem {
         id: device
-        required property var modelData
-        //onClicked: () => modelData.connect()
+        required property BluetoothDevice modelData
+        onClicked: {
+            if (device.expanded) {
+                return device.toggleExpand()
+            }
+            if (modelData.paired) {
+                return modelData.connected ? modelData.disconnect() : modelData.connect()
+            }
+            return modelData.pair()
+        }
         content: RowLayout {
-            implicitWidth: 200
             spacing: 8
             IconImage {
-                Layout.leftMargin: 8
+                Layout.leftMargin: 4
                 implicitSize: 24
                 source: Quickshell.iconPath(device.modelData.icon, "bluetooth") // fallbacks to "bluetooth"
             }
@@ -42,33 +50,79 @@ PageBase {
                     elide: Text.ElideRight
                     text: device.modelData.name
                 }
-                Text {
-                    id: status
-                    Layout.fillWidth: true
-                    color: palette.placeholderText
-                    elide: Text.ElideRight
-                    font.pointSize: 8
-                    text: device.modelData.paired ? BluetoothDeviceState.toString(device.modelData.state) : "Not paired"
+                RowLayout {
+                    Text {
+                        id: status
+                        color: palette.placeholderText
+                        elide: Text.ElideRight
+                        font.pointSize: 8
+                        text: device.modelData.paired ? BluetoothDeviceState.toString(device.modelData.state) : "Not paired"
+                    }
+                    RowLayout {
+                        spacing: 0
+                        visible: device.modelData.batteryAvailable
+                        IconImage {
+                            implicitSize: 12
+                            source: Quickshell.iconPath("battery-100-symbolic")
+                        }
+                        Text {
+                            id: battery
+                            Layout.fillWidth: true
+                            color: palette.placeholderText
+                            elide: Text.ElideRight
+                            font.pointSize: 8
+                            text: device.modelData.batteryAvailable ? (device.modelData.battery * 100) + ' %' : "n/a"
+                        }
+                    }
                 }
             }
             Common.NormalButton {
                 Layout.alignment: Qt.AlignRight
-                iconName: "settings"
+                iconName: "view-more"
+                leftClick: device.toggleExpand
             }
         }
         subContent: ColumnLayout {
-            Text {
-                color: palette.text
-                text: device.modelData.address
+            width: 100
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                Common.NormalButton {
+                    visible: device.modelData.paired
+                    text: device.modelData.connected ? "disconnect" : "connect"
+                    leftClick: device.modelData.connected ? device.modelData.disconnect : device.modelData.connect
+                }
+                Common.NormalButton {
+                    text: device.modelData.paired ? "forget" : "pair"
+                    leftClick: device.modelData.paired ? device.modelData.forget : device.modelData.pair
+                }
             }
             Text {
+                Layout.fillWidth: true
                 color: palette.text
-                text: device.modelData.deviceName
+                font.pointSize: 10
+                wrapMode: Text.Wrap
+                text: "name: " + device.modelData.deviceName
+            }
+            Text {
+                Layout.fillWidth: true
+                color: palette.text
+                font.pointSize: 10
+                wrapMode: Text.Wrap
+                text: "address: " + device.modelData.address
+            }
+            Text {
+                Layout.fillWidth: true
+                color: palette.text
+                font.pointSize: 10
+                wrapMode: Text.Wrap
+                text: "battery info available: " + device.modelData.batteryAvailable
             }
         }
     }
+
     content: ColumnLayout {
         anchors.fill: parent
+
         Common.VScrollable {
             id: scrollable
             padding: 0
@@ -92,7 +146,9 @@ PageBase {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => device.paired)
                     }
-                    delegate: BTDevice {}
+                    delegate: BTDevice {
+                        parentScrollable: scrollable
+                    }
                 }
 
                 RowLayout {
@@ -120,7 +176,9 @@ PageBase {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => !device.paired)
                     }
-                    delegate: BTDevice {}
+                    delegate: BTDevice {
+                        parentScrollable: scrollable
+                    }
                 }
                 Item {
                     id: nearbyFallback

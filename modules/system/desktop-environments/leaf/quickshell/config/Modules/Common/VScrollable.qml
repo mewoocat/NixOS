@@ -6,12 +6,13 @@ import Quickshell
 Control {
     id: root
     required property Item content
+    property Item expandedItem: null
     // need to set the content's parent to the flickable 
     // ... might be a bug why it doesn't happen automatically if setting it in the children
     onContentChanged: content.parent = flickable.contentItem
     background: Rectangle {
         anchors.fill: parent
-        color: "#770000ff"
+        color: "#77000000"
         radius: 8
     }
     clip: true
