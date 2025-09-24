@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
 
-WrapperMouseArea {
+MouseArea {
     id: root
     required property Item parentScrollable
     required property Item content
@@ -15,9 +15,10 @@ WrapperMouseArea {
         sourceComponent: root.subContent
     }
 
-    rightMargin: 8 // Try to have this match the scrollbar width
-    leftMargin: 8
+    //rightMargin: 8 // Try to have this match the scrollbar width
+    //leftMargin: 8
     implicitWidth: parent.width
+    implicitHeight: background.height
     hoverEnabled: true
 
     function toggleExpand(): void {
