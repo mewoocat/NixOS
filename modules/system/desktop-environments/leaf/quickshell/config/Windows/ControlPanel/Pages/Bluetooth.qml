@@ -130,7 +130,7 @@ PageBase {
         
             content: ColumnLayout {
                 id: col
-                spacing: 4
+                spacing: 0
 
                 WrapperItem {
                     Layout.fillWidth: true
