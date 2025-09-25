@@ -180,7 +180,37 @@ Common.PanelGrid {
         isClickable: false
         rows: 2
         columns: 2
-        content: ColumnLayout {
+        content: RowLayout {
+            anchors.fill: parent
+
+            Slider {
+                orientation: Qt.Vertical
+                from: 0
+                to: 2
+                stepSize: 1
+                //snapMode: Slider.SnapAlways
+            }
+            ColumnLayout {
+                spacing: 0
+                Common.NormalButton {
+                    text: "Performance"
+                    fontSize: 10
+                    buttonHeight: 32
+                }
+                Common.NormalButton {
+                    text: "Balanced"
+                    fontSize: 10
+                    buttonHeight: 32
+                }
+                Common.NormalButton {
+                    text: "Low Power"
+                    fontSize: 10
+                    buttonHeight: 32
+                }
+            }
+
+            //BusyIndicator {}
+            //Dial {}
             /*
             Text {
                 color: palette.text
@@ -188,9 +218,6 @@ Common.PanelGrid {
                 text: {
                     return "profile: " + PowerProfile.toString(PowerProfiles.profile)
                 }
-            }
-            ComboBox {
-                model: ["First", "Second", "Third"]
             }
             */
         }
@@ -219,8 +246,7 @@ Common.PanelGrid {
                 }
                 Slider {
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    stepSize: 0.01
+                    //stepSize: 0.01
                     from: 0
                     value: Services.Audio.getVolume(Pipewire.defaultAudioSink)
                     onValueChanged: Pipewire.defaultAudioSink.audio.volume = value
@@ -240,10 +266,9 @@ Common.PanelGrid {
                 }
                 Slider {
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
                     from: 0.01
                     value: Services.Brightness.value
-                    stepSize: 0.01
+                    //stepSize: 0.01
                     onValueChanged: {
                         Services.Brightness.value = value
                     }

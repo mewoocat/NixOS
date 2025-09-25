@@ -20,6 +20,7 @@ MouseArea {
     property string iconName: ""
     property string iconSource: "" // Source url of an icon to use
     property string text: ""
+    property int fontSize: 12
     property bool recolorIcon: false
 
     // Size and Margins
@@ -99,7 +100,7 @@ MouseArea {
                 Layout.leftMargin: root.iconName === "" ? 8 : 0
                 Layout.rightMargin: 8
                 text: root.text
-                font.pointSize: 12
+                font.pointSize: root.fontSize
                 //color: root.containsMouse ? palette.highlightedText : palette.text
                 color: palette.text
             }
