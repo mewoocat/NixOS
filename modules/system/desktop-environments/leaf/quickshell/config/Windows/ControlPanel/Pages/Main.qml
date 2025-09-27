@@ -181,7 +181,8 @@ Common.PanelGrid {
         rows: 2
         columns: 2
         content: RowLayout {
-            anchors.fill: parent
+            anchors.centerIn: parent
+            spacing: 0
 
             Slider {
                 orientation: Qt.Vertical
@@ -193,7 +194,7 @@ Common.PanelGrid {
             ColumnLayout {
                 spacing: 0
                 Common.NormalButton {
-                    text: "Performance"
+                    text: "Perform"
                     fontSize: 10
                     buttonHeight: 32
                 }

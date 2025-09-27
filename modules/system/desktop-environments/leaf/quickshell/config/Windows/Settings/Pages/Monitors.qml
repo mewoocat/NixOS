@@ -218,14 +218,12 @@ PageBase {
                                 text: `Scale: `
                                 color: palette.text
                             }
-                            SpinBox {
-                                value: root.selectedMonitor !== undefined ? root.selectedMonitor.actualScale : 1
-                                from: 1
-                                to: 5 
-                                stepSize: 1
-                                onValueModified: () => {
+                            TextField {
+                                text: root.selectedMonitor.actualScale ?? 1
+                                validator: DoubleValidator {bottom: 0.5; top: 4;}
+                                onAccepted: () => {
                                     console.log(`scale changed`)
-                                    root.selectedMonitor.actualScale = value
+                                    root.selectedMonitor.actualScale = text
                                 }
                             }
                         }
