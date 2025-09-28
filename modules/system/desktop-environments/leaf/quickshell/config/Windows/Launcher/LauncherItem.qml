@@ -14,7 +14,7 @@ Common.ScrollableItem {
     required property DesktopEntry modelData
     property alias app: mouseArea.modelData
     property var launcher: null
-    bgColorHighlight: palette.accent
+    bgColorHighlight: palette.alternateBase
     contentMargin: 4
     onClicked: launcher.launchApp(app)
     content: RowLayout {
@@ -65,8 +65,14 @@ Common.ScrollableItem {
             leftClick: mouseArea.toggleExpand
         }
     }
-    subContent: Text {
-        color: "red"
-        text: "test test test"
+    subContent: ColumnLayout {
+        Repeater {
+            model: mouseArea.app.actions
+            delegate: Common.NormalButton {
+                required property DesktopAction modelData
+                text: modelData.name
+                leftClick: modelData.execute
+            }
+        }
     }
 }

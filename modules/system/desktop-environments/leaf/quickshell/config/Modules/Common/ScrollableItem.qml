@@ -17,12 +17,7 @@ WrapperMouseArea {
         active: false
         sourceComponent: root.subContent
     }
-    /*
-    rightMargin: 8 // Try to have this match the scrollbar width
-    leftMargin: 8
-    topMargin: 4
-    bottomMargin: 4
-    */
+    bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
     implicitWidth: parent.width
     hoverEnabled: true
 
