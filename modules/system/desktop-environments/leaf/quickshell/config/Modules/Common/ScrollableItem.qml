@@ -6,18 +6,23 @@ WrapperMouseArea {
     id: root
     required property Item parentScrollable
     required property Item content
+    property var bgColorHighlight: palette.alternateBase
+    property var bgColor: "transparent"
     property Component subContent: null
     property bool expanded: false
     property bool showBackground: false
+    property int contentMargin: 0
     property Item subContentLoader: Loader {
         visible: active // To unreserve space when the component isn't loaded
         active: false
         sourceComponent: root.subContent
     }
+    /*
     rightMargin: 8 // Try to have this match the scrollbar width
     leftMargin: 8
     topMargin: 4
     bottomMargin: 4
+    */
     implicitWidth: parent.width
     hoverEnabled: true
 
@@ -101,7 +106,7 @@ WrapperMouseArea {
     Rectangle {
         id: background
         clip: true
-        color: root.containsMouse || root.showBackground ? palette.alternateBase : "transparent"
+        color: root.containsMouse || root.showBackground || root.focus ? root.bgColorHighlight : root.bgColor
         radius: 8
         implicitWidth: parent.width
         implicitHeight: root.content.height
@@ -111,6 +116,7 @@ WrapperMouseArea {
             anchors.left: parent.left
             anchors.right: parent.right
             color: "transparent"
+            margin: root.contentMargin
             children: [ 
                 root.content,
             ]
@@ -121,7 +127,7 @@ WrapperMouseArea {
             anchors.left: parent.left
             anchors.right: parent.right
             color: "transparent"
-            margin: 8
+            margin: root.contentMargin
             children: [ 
                 root.subContentLoader
             ]

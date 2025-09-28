@@ -16,21 +16,32 @@ Common.PanelWindow {
     //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
     name: "launcher"
-    // Stores the current search
-    property string searchText: ""
+    property string searchText: "" // Stores the current search
+    visible: Root.State.launcherVisibility
+    anchors {
+        top: true
+        left: true
+    }
+    margins {
+        left: 16
+        top: 16
+    }
+    focusable: true // Enable keyboard focus
+    implicitWidth: 420
+    implicitHeight: 720
     
     closeWindow: () => {
         Root.State.launcherVisibility = false
         searchText = "" 
         textField.text = ""
-        scrollable.listViewRef.currentIndex = 0
+        listView.currentIndex = 0
     }
 
     toggleWindow: () => {
         Root.State.launcherVisibility = !Root.State.launcherVisibility
         searchText = "" 
         textField.text = ""
-        scrollable.listViewRef.currentIndex = 0
+        listView.currentIndex = 0
     }
 
 
@@ -41,18 +52,6 @@ Common.PanelWindow {
         launcher.closeWindow() // Needs to be after the execute since this will reset the current index?
     }
 
-    visible: Root.State.launcherVisibility
-    anchors {
-        top: true
-        left: true
-    }
-    focusable: true // Enable keyboard focus
-    implicitWidth: 400
-    implicitHeight: 600
-    margins {
-        left: 16
-        top: 16
-    }
     content: Item {
         anchors.fill: parent
         RowLayout {
@@ -65,7 +64,6 @@ Common.PanelWindow {
                 Layout.fillHeight: true
                 spacing: 0
 
-                //Rectangle {implicitWidth: 32;Layout.fillHeight: true;color: "red"}
                 // Top
                 // Pinned apps
                 ColumnLayout { 
@@ -79,7 +77,6 @@ Common.PanelWindow {
                             required property string modelData
                             property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
                             property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
-                            //Component.onCompleted: console.log(`comp app id: ${appId}`)
                             imgPath: Quickshell.iconPath(desktopEntry.icon)
                             action: desktopEntry.execute
                         }
@@ -182,120 +179,64 @@ Common.PanelWindow {
                         }
                         onTextChanged: () => {
                             launcher.searchText = text
-                            scrollable.listViewRef.currentIndex = 0
+                            listView.currentIndex = 0
                         }
                         Keys.onUpPressed: {
-                            scrollable.listViewRef.decrementCurrentIndex()
+                            listView.decrementCurrentIndex()
                         }
                         Keys.onDownPressed: {
-                            scrollable.listViewRef.incrementCurrentIndex()
+                            listView.incrementCurrentIndex()
                         }
-                        Keys.onReturnPressed: launchApp(scrollable.listViewRef.currentItem.modelData)
+                        Keys.onReturnPressed: launchApp(listView.currentItem.modelData)
                     }
                 }
 
                 // Application list
-                Common.Scrollable {
+                Common.VScrollable {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    model: ScriptModel {
-                        values: DesktopEntries.applications.values
-                            // Filter by search text
-                            .filter(app => {
-                                const formattedSearchText = searchText.toLowerCase()
-                                if (app.name.toLowerCase().includes(formattedSearchText)) {
-                                    return true
-                                }
-                                if (app.genericName.toLowerCase().includes(formattedSearchText)) {
-                                    return true
-                                }
-                                app.categories.forEach(category => {
-                                    if (category.toLowerCase().includes(formattedSearchText)) {
+                    content: ListView {
+                        id: listView
+                        implicitHeight: contentHeight
+                        model: ScriptModel {
+                            values: DesktopEntries.applications.values
+                                // Filter by search text
+                                .filter(app => {
+                                    const formattedSearchText = searchText.toLowerCase()
+                                    if (app.name.toLowerCase().includes(formattedSearchText)) {
                                         return true
                                     }
-                                })
-                                return false
-                            })
-                            // Sort by most frequently launched
-                            .sort((appA, appB) => {
-                                const appFreqMap = Services.Applications.appFreqMap 
-                                const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
-                                const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
-                                if (appAFreq > appBFreq) {
-                                    return -1
-                                }
-                                if (appAFreq < appBFreq) {
-                                    return 1
-                                }
-                                return 0 // They are equal
-                            })
-                            //.filter(app => true)
-                    }
-
-                    delegate: LauncherItem {
-                        launcher: launcher
-                    }
-
-                    /*
-                    delegate: MouseArea {
-                        id: mouseArea
-                        required property DesktopEntry modelData
-                        height: 52
-                        width: parent.width
-                        hoverEnabled: true
-                        onClicked: launcher.launchApp(modelData)
-                        Rectangle {
-                            anchors.fill: parent
-                            color: mouseArea.containsMouse || mouseArea.focus ? palette.accent : "transparent"
-                            radius: 10
-                            RowLayout {
-                                anchors.fill: parent
-                                IconImage {
-                                    Layout.leftMargin: 4
-                                    id: icon
-                                    implicitSize: 32
-                                    source: Quickshell.iconPath(mouseArea.modelData.icon)
-                                    //Component.onCompleted: () => console.log(mouseArea.modelData.icon)
-                                }
-                                ColumnLayout {
-                                    spacing: 0
-                                    Text{
-                                        Layout.fillWidth: true
-                                        leftPadding: 8
-                                        rightPadding: 8
-                                        elide: Text.ElideRight // Truncate with ... on the right
-                                        text: mouseArea.modelData.name
-                                        color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+                                    if (app.genericName.toLowerCase().includes(formattedSearchText)) {
+                                        return true
                                     }
-                                    Text{
-                                        Layout.fillWidth: true
-                                        leftPadding: 8
-                                        rightPadding: 8
-                                        elide: Text.ElideRight // Truncate with ... on the right
-                                        text: {
-                                            let description = ""
-                                            if (mouseArea.modelData.genericName !== "" && mouseArea.modelData.comment !== "") {
-                                                return mouseArea.modelData.genericName + " | " + mouseArea.modelData.comment
-                                            }
-                                            else if (mouseArea.modelData.genericName !== "") {
-                                                return mouseArea.modelData.genericName
-                                            }
-                                            else if (mouseArea.modelData.comment !== "") {
-                                                return mouseArea.modelData.comment
-                                            }
-                                            else {
-                                                return "No description"
-                                            }
+                                    app.categories.forEach(category => {
+                                        if (category.toLowerCase().includes(formattedSearchText)) {
+                                            return true
                                         }
-                                        color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.placeholderText
-                                        font.pointSize: 8
+                                    })
+                                    return false
+                                })
+                                // Sort by most frequently launched
+                                .sort((appA, appB) => {
+                                    const appFreqMap = Services.Applications.appFreqMap 
+                                    const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
+                                    const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
+                                    if (appAFreq > appBFreq) {
+                                        return -1
                                     }
-                                }
-                            }
+                                    if (appAFreq < appBFreq) {
+                                        return 1
+                                    }
+                                    return 0 // They are equal
+                                })
+                                //.filter(app => true)
+                        }
+                        delegate: LauncherItem {
+                            launcher: launcher
+                            parentScrollable: scrollable
                         }
                     }
-                    */
                 }
             }
         }

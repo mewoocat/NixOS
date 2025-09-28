@@ -15,6 +15,7 @@ Control {
         color: "#77000000"
         radius: 8
     }
+    padding: 12
     clip: true
     onHoveredChanged: scrollBar.visible = hovered
 

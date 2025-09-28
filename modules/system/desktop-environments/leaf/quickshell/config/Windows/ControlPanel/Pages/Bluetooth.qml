@@ -14,11 +14,12 @@ PageBase {
     pageName: "Bluetooth"
     headerContent: RowLayout {
         Switch {
-
+            checked: Bluetooth.defaultAdapter.enabled
+            onClicked: Bluetooth.defaultAdapter.enabled = checked
         }
         IconImage {
             implicitSize: 18
-            source: Quickshell.iconPath("bluetooth")
+            source: Quickshell.iconPath(Bluetooth.defaultAdapter.enabled ? "bluetooth-active" : "bluetooth-disabled")
         }
     }
     
@@ -83,7 +84,6 @@ PageBase {
             }
         }
         subContent: ColumnLayout {
-            width: 100
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 Common.NormalButton {
@@ -127,7 +127,7 @@ PageBase {
             id: scrollable
             padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
-        
+
             content: ColumnLayout {
                 id: col
                 spacing: 0
@@ -142,7 +142,6 @@ PageBase {
                 }
                 Common.HorizontalLine { Layout.rightMargin: 20 }
                 Repeater {
-                    Component.onCompleted: console.log(`repeater width: ${width}`)
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => device.paired)
                     }

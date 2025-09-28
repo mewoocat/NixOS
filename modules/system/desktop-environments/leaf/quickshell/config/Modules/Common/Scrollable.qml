@@ -21,13 +21,10 @@ Rectangle {
     ScrollBar {
         id: scrollBar
         implicitWidth: 4
-        //implicitHeight: parent.height - 40
-        //x: parent.width - width - (listView.anchors.margins / 2)
         anchors {
             right: parent.right
             top: parent.top
             bottom: parent.bottom
-            margins: (root.padding - width) / 2
         }
     }
 
