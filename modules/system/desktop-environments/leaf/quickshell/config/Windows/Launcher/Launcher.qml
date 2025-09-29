@@ -197,10 +197,8 @@ Common.PanelWindow {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     content: ListView {
+                        //implicitHeight: contentHeight // This causes the slowdown, ig since it will render every item
                         id: listView
-                        interactive: false // Disable flicking input, since parent scrollable handles this
-                        implicitHeight: contentHeight
-                        spacing: 0
                         model: ScriptModel {
                             values: DesktopEntries.applications.values
                                 // Filter by search text
