@@ -234,6 +234,7 @@ Common.PanelWindow {
                                 })
                                 //.filter(app => true)
                         }
+
                         delegate: LauncherItem {
                             launcher: launcher
                             parentScrollable: scrollable

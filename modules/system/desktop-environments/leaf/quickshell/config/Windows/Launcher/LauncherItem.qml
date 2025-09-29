@@ -14,16 +14,17 @@ Common.ScrollableItem {
     required property DesktopEntry modelData
     property alias app: mouseArea.modelData
     property var launcher: null
-    bgColorHighlight: palette.alternateBase
+    bgColorHighlight: palette.accent
     contentMargin: 4
     onClicked: launcher.launchApp(app)
     content: RowLayout {
         anchors.fill: parent
+        // Warning: this icon lookup is expensive on the startup time
         IconImage {
             Layout.leftMargin: 4
             id: icon
             implicitSize: 32
-            source: Quickshell.iconPath(mouseArea.app.icon)
+            source: Quickshell.iconPath(mouseArea.app.icon, "dialog-question")
         }
         ColumnLayout {
             spacing: 0
