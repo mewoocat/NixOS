@@ -123,7 +123,7 @@ PageBase {
     content: ColumnLayout {
         anchors.fill: parent
 
-        Common.VScrollable {
+        Common.FlickScrollable {
             id: scrollable
             padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true

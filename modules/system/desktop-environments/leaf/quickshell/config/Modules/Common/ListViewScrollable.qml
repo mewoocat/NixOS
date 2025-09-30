@@ -10,7 +10,7 @@ Rectangle {
     required property Component delegate // The type to render each item with, must have a var modelData property
     property int padding: 16
     property int animationSpeed: 100
-    property Item listViewRef: listView
+    property ListView listViewRef: listView
     color: "transparent" //"#770000ff"
     radius: 8
     clip: true

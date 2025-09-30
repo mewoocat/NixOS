@@ -34,14 +34,14 @@ Common.PanelWindow {
         Root.State.launcherVisibility = false
         searchText = "" 
         textField.text = ""
-        listView.currentIndex = 0
+        scrollable.listViewRef.currentIndex = 0
     }
 
     toggleWindow: () => {
         Root.State.launcherVisibility = !Root.State.launcherVisibility
         searchText = "" 
         textField.text = ""
-        listView.currentIndex = 0
+        scrollable.listViewRef.currentIndex = 0
     }
 
 
@@ -179,64 +179,60 @@ Common.PanelWindow {
                         }
                         onTextChanged: () => {
                             launcher.searchText = text
-                            listView.currentIndex = 0
+                            scrollable.listViewRef.currentIndex = 0
                         }
                         Keys.onUpPressed: {
-                            listView.decrementCurrentIndex()
+                            scrollable.listViewRef.decrementCurrentIndex()
                         }
                         Keys.onDownPressed: {
-                            listView.incrementCurrentIndex()
+                            scrollable.listViewRef.incrementCurrentIndex()
                         }
-                        Keys.onReturnPressed: launchApp(listView.currentItem.modelData)
+                        Keys.onReturnPressed: launchApp(scrollable.listViewRef.currentItem.modelData)
                     }
                 }
 
                 // Application list
-                Common.VScrollable {
+                Common.ListViewScrollable {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    content: ListView {
-                        //implicitHeight: contentHeight // This causes the slowdown, ig since it will render every item
-                        id: listView
-                        model: ScriptModel {
-                            values: DesktopEntries.applications.values
-                                // Filter by search text
-                                .filter(app => {
-                                    const formattedSearchText = searchText.toLowerCase()
-                                    if (app.name.toLowerCase().includes(formattedSearchText)) {
+                    model: ScriptModel {
+                        values: DesktopEntries.applications.values
+                            // Filter by search text
+                            .filter(app => {
+                                const formattedSearchText = searchText.toLowerCase()
+                                if (app.name.toLowerCase().includes(formattedSearchText)) {
+                                    return true
+                                }
+                                if (app.genericName.toLowerCase().includes(formattedSearchText)) {
+                                    return true
+                                }
+                                app.categories.forEach(category => {
+                                    if (category.toLowerCase().includes(formattedSearchText)) {
                                         return true
                                     }
-                                    if (app.genericName.toLowerCase().includes(formattedSearchText)) {
-                                        return true
-                                    }
-                                    app.categories.forEach(category => {
-                                        if (category.toLowerCase().includes(formattedSearchText)) {
-                                            return true
-                                        }
-                                    })
-                                    return false
                                 })
-                                // Sort by most frequently launched
-                                .sort((appA, appB) => {
-                                    const appFreqMap = Services.Applications.appFreqMap 
-                                    const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
-                                    const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
-                                    if (appAFreq > appBFreq) {
-                                        return -1
-                                    }
-                                    if (appAFreq < appBFreq) {
-                                        return 1
-                                    }
-                                    return 0 // They are equal
-                                })
-                                //.filter(app => true)
-                        }
+                                return false
+                            })
+                            // Sort by most frequently launched
+                            .sort((appA, appB) => {
+                                const appFreqMap = Services.Applications.appFreqMap 
+                                const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
+                                const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
+                                if (appAFreq > appBFreq) {
+                                    return -1
+                                }
+                                if (appAFreq < appBFreq) {
+                                    return 1
+                                }
+                                return 0 // They are equal
+                            })
+                            //.filter(app => true)
+                    }
 
-                        delegate: LauncherItem {
-                            launcher: launcher
-                            parentScrollable: scrollable
-                        }
+                    delegate: LauncherItem {
+                        launcher: launcher
+                        parentScrollable: scrollable
                     }
                 }
             }
