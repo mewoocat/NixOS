@@ -28,7 +28,7 @@ Common.PanelWindow {
     }
     focusable: true // Enable keyboard focus
     implicitWidth: 420
-    implicitHeight: 720
+    implicitHeight: 640
     
     closeWindow: () => {
         Root.State.launcherVisibility = false
@@ -44,7 +44,6 @@ Common.PanelWindow {
         scrollable.listViewRef.currentIndex = 0
     }
 
-
     function launchApp(app: DesktopEntry) {
         console.log(`Launching app: ${app.id}`)
         Services.Applications.incrementFreq(app.id) // Update it's frequency
@@ -52,188 +51,129 @@ Common.PanelWindow {
         launcher.closeWindow() // Needs to be after the execute since this will reset the current index?
     }
 
-    content: Item {
+    content: RowLayout {
+        spacing: 0
         anchors.fill: parent
-        RowLayout {
+
+        // Left side panel
+        ColumnLayout {
+            Layout.margins: 4
+            Layout.fillHeight: true
             spacing: 0
-            anchors.fill: parent
 
-            // Left side panel
-            ColumnLayout {
-                Layout.margins: 4
-                Layout.fillHeight: true
+            // Top
+            // Pinned apps
+            ColumnLayout { 
                 spacing: 0
-
-                // Top
-                // Pinned apps
-                ColumnLayout { 
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                    Layout.fillHeight: true
-                    Repeater {
-                        model: Root.State.config.pinnedApps
-                        delegate: SidePanelItem {
-                            id: item
-                            required property string modelData
-                            property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
-                            property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
-                            imgPath: Quickshell.iconPath(desktopEntry.icon)
-                            action: desktopEntry.execute
-                        }
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                Layout.fillHeight: true
+                Repeater {
+                    model: Root.State.config.pinnedApps
+                    delegate: SidePanelItem {
+                        id: item
+                        required property string modelData
+                        property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
+                        property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
+                        imgPath: Quickshell.iconPath(desktopEntry.icon)
+                        action: desktopEntry.execute
                     }
                 }
-                Item {Layout.fillHeight: true;} // Idk why, but needed to push the siblings to the top and bottom
-                // Bottom
-                ColumnLayout {
-                    spacing: 0
-                    Layout.fillHeight: true
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                    
+            }
+            Item {Layout.fillHeight: true;} // Push the siblings to the top and bottom
 
-                    // Power options popup menu
-                    // TODO: refractor this into it's own file
-                    SidePanelItem {
-                        id: power
-                        imgPath: Quickshell.iconPath('system-shutdown-symbolic')
-                        imgSize: 22
-                        action: () => {
-                            console.log("click")
-                            powerPopup.visible = true
-                        }
-                        Common.PopupWindow {
-                            id: powerPopup
-
-                            anchor {
-                                // Only window or item should be set at a time, otherwise a crash can occur
-                                //window: launcher
-                                item: power
-                                edges: Edges.Bottom | Edges.Right
-                                gravity: Edges.Top | Edges.Right
-                            }
-
-                            content: ColumnLayout {
-                                Common.PopupMenuItem { text: "Shutdown"; action: () => Services.Power.shutdown(); iconName: "system-shutdown-symbolic"}
-                                Common.PopupMenuItem { text: "Hibernate"; action: () => Services.Power.hibernate(); iconName: "system-shutdown-symbolic"}
-                                Common.PopupMenuItem { text: "Restart"; action: () => Services.Power.restart(); iconName: "system-restart-symbolic"}
-                                Common.PopupMenuItem { text: "Sleep"; action: () => Services.Power.sleep(); iconName: "system-suspend-symbolic"}
-                            }
-                        }
-
+            // Bottom
+            ColumnLayout {
+                spacing: 0
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
+                
+                PowerButton {}
+                SettingsButton {}
+                ProfilePictureItem {
+                    id: user
+                    onClicked: () => {
+                        console.log("click")
+                        userPopup.visible = true
                     }
-                    SidePanelItem {
-                        onClicked: {
-                            Root.State.settings.openWindow()
-                            launcher.closeWindow()
-                        }
-                        imgPath: Quickshell.iconPath('application-menu-symbolic')
-                        imgSize: 24
-                    }
-                    ProfilePictureItem {
-                        id: user
-                        onClicked: () => {
-                            console.log("click")
-                            userPopup.visible = true
-                        }
-                        Common.PopupWindow {
-                            id: userPopup
+                    Common.PopupWindow {
+                        id: userPopup
 
-                            anchor {
-                                //window: launcher
-                                item: user
-                                edges: Edges.Bottom | Edges.Right
-                                gravity: Edges.Top | Edges.Right
-                            }
+                        anchor {
+                            //window: launcher
+                            item: user
+                            edges: Edges.Bottom | Edges.Right
+                            gravity: Edges.Top | Edges.Right
+                        }
 
-                            content: ColumnLayout {
-                                Text { color: palette.text; text: Services.User.username }
-                                Common.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
-                                Common.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
-                            }
+                        content: ColumnLayout {
+                            Text { color: palette.text; text: Services.User.username }
+                            Common.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
+                            Common.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
                         }
                     }
                 }
             }
+        }
 
-            // Search and app list
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+        // Search and app list
+        ColumnLayout {
+            spacing: 0
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-                // Search field
-                Rectangle {
-                    color: "transparent"
-                    implicitHeight: 48
+            // Search field
+                TextField {
+                    id: textField
+                    implicitHeight: 32
+                    Layout.margins: 8
                     Layout.fillWidth: true
-                    //Layout.fillHeight: true
-                    TextField {
-                        id: textField
-                        focus: true // Make this have focus by default
-                        placeholderText: "Search..."
-                        anchors.margins: 8
-                        anchors.fill: parent
-                        leftPadding: 12
-                        rightPadding: 12
-                        background: Rectangle {
-                            color: palette.active.base
-                            radius: 16
-                        }
-                        onTextChanged: () => {
-                            launcher.searchText = text
-                            scrollable.listViewRef.currentIndex = 0
-                        }
-                        Keys.onUpPressed: {
-                            scrollable.listViewRef.decrementCurrentIndex()
-                        }
-                        Keys.onDownPressed: {
-                            scrollable.listViewRef.incrementCurrentIndex()
-                        }
-                        Keys.onReturnPressed: launchApp(scrollable.listViewRef.currentItem.modelData)
+                    leftPadding: 12; rightPadding: 12
+                    focus: true // Make this have focus by default
+                    placeholderText: "Search..."
+                    background: Rectangle {
+                        color: palette.active.base
+                        radius: 16
                     }
+                    onTextChanged: () => {
+                        launcher.searchText = text
+                        scrollable.listViewRef.currentIndex = 0
+                    }
+                    Keys.onUpPressed: scrollable.listViewRef.decrementCurrentIndex()
+                    Keys.onDownPressed: scrollable.listViewRef.incrementCurrentIndex()
+                    Keys.onReturnPressed: launchApp(scrollable.listViewRef.currentItem.modelData)
                 }
 
-                // Application list
-                Common.ListViewScrollable {
-                    id: scrollable
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    model: ScriptModel {
-                        values: DesktopEntries.applications.values
-                            // Filter by search text
-                            .filter(app => {
-                                const formattedSearchText = searchText.toLowerCase()
-                                if (app.name.toLowerCase().includes(formattedSearchText)) {
-                                    return true
-                                }
-                                if (app.genericName.toLowerCase().includes(formattedSearchText)) {
-                                    return true
-                                }
-                                app.categories.forEach(category => {
-                                    if (category.toLowerCase().includes(formattedSearchText)) {
-                                        return true
-                                    }
-                                })
-                                return false
+            // Application list
+            Common.ListViewScrollable {
+                id: scrollable
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: ScriptModel {
+                    values: DesktopEntries.applications.values
+                        // Filter by search text
+                        .filter(app => {
+                            const formattedSearchText = searchText.toLowerCase()
+                            if (app.name.toLowerCase().includes(formattedSearchText)) return true
+                            if (app.genericName.toLowerCase().includes(formattedSearchText)) return true
+                            app.categories.forEach(category => {
+                                if (category.toLowerCase().includes(formattedSearchText)) return true
                             })
-                            // Sort by most frequently launched
-                            .sort((appA, appB) => {
-                                const appFreqMap = Services.Applications.appFreqMap 
-                                const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
-                                const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
-                                if (appAFreq > appBFreq) {
-                                    return -1
-                                }
-                                if (appAFreq < appBFreq) {
-                                    return 1
-                                }
-                                return 0 // They are equal
-                            })
-                            //.filter(app => true)
-                    }
+                            return false // App should be filtered out
+                        })
+                        // Sort by most frequently launched
+                        .sort((appA, appB) => {
+                            const appFreqMap = Services.Applications.appFreqMap 
+                            const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
+                            const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
+                            if (appAFreq > appBFreq) return -1
+                            if (appAFreq < appBFreq) return 1
+                            return 0 // They are equal
+                        })
+                }
 
-                    delegate: LauncherItem {
-                        launcher: launcher
-                        parentScrollable: scrollable
-                    }
+                delegate: LauncherItem {
+                    launcher: launcher
+                    parentScrollable: scrollable
                 }
             }
         }

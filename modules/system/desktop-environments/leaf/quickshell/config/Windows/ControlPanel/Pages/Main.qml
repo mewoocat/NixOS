@@ -79,16 +79,14 @@ Common.PanelGrid {
                 title: "Wifi"
                 subtext: "my-ssid"
                 iconName: "network-wireless-symbolic"
+                normalAction: () => Root.State.controlPanelPage = 2
             }
             // Bluetooth
             RowItem {
                 title: "Bluetooth"
                 subtext: "my-device"
                 iconName: "network-bluetooth"
-                normalAction: () => {
-                    console.log("clicked")
-                    Root.State.controlPanelPage = 3
-                }
+                normalAction: () => Root.State.controlPanelPage = 3
             }
         }
     }
@@ -261,7 +259,7 @@ Common.PanelGrid {
                     text: Math.ceil(Services.Brightness.value * 100) + '%'
                     leftClick: () => {
                         console.log("clicked")
-                        Root.State.controlPanelPage = 1
+                        Root.State.controlPanelPage = 4
                     }
                     Layout.minimumWidth: 86
                 }

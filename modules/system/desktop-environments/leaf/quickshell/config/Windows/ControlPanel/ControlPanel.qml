@@ -20,6 +20,7 @@ Common.PanelWindow {
     } 
     closeWindow: () => {
         Root.State.controlPanelVisibility = false
+        Root.State.controlPanelPage = 0
     } 
     anchors {
         top: true
@@ -40,10 +41,11 @@ Common.PanelWindow {
         implicitHeight: itemAt(0).implicitHeight
 
         // Multiple items here seems to make the width of the swipeview expand when accessed?
-        Pages.Main {} 
-        Pages.Audio {}
-        Pages.Network {}
-        Pages.Bluetooth {}
+        Pages.Main {}  // 0
+        Pages.Audio {} // 1
+        Pages.Network {} // 2
+        Pages.Bluetooth {} // 3
+        Pages.Display {} // 4
 
         //PageIndicator {
         //    id: pageIndicator

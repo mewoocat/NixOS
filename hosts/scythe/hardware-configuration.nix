@@ -23,6 +23,8 @@
     "intel_idle.max_cstate=1"
   ];
 
+  systemd.tpm2.enable = false; # Having this enabled on this host causes a 1.5 min wait at boot
+
   # Disable device
   # idVendor and idProduct can be found by `cat /proc/bus/input/devices`
   # Disable touchscreen
