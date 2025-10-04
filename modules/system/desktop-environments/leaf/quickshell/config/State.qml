@@ -12,7 +12,7 @@ Singleton {
 
     property string leafPath: "/home/eXia/.config/leaf-de/"
     property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
-    property var configFileView: configFile
+    property FileView configFileView: configFile
     property JsonAdapter config: configFile.adapter
 
     property bool launcherVisibility: false
@@ -77,7 +77,9 @@ Singleton {
         // Values set here are the defaults
         adapter: JsonAdapter {
             property string something: "THIS IS DEFAULT"
-            property list<string> pinnedApps: []
+            property list<string> someStupidPropertyThatsNeededToMakeTheNextPropertyAfterItwork: []
+            property list<string> pinnedApps: ["test", "test"]
+            onPinnedAppsChanged: console.log(`pinnedApps now is: ${pinnedApps}`)
             property string pfpImage: ""
 
             property JsonObject location: JsonObject {

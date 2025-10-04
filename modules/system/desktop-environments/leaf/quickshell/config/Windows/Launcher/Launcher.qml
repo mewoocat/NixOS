@@ -60,23 +60,40 @@ Common.PanelWindow {
             Layout.margins: 4
             Layout.fillHeight: true
             spacing: 0
+            Rectangle {
+                implicitWidth: 20
+                implicitHeight: 40
+            }
 
             // Top
             // Pinned apps
             ColumnLayout { 
                 spacing: 0
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                Layout.fillHeight: true
+                //Layout.fillHeight: true
                 Repeater {
                     model: Root.State.config.pinnedApps
+                    delegate: Rectangle {
+                        id: pinnedApp
+                        required property string modelData
+                        implicitWidth: 20
+                        implicitHeight: 20
+                        color: "red"
+                        Text {
+                            text: modelData
+                        }
+                    }
+                    /*
                     delegate: SidePanelItem {
                         id: item
                         required property string modelData
                         property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
                         property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
-                        imgPath: Quickshell.iconPath(desktopEntry.icon)
+                        imgName: desktopEntry.icon
                         action: desktopEntry.execute
+                        Component.onCompleted: console.log(`pinned app: ${modelData}; pinned desktopEntry: ${desktopEntry.icon}`)
                     }
+                    */
                 }
             }
             Item {Layout.fillHeight: true;} // Push the siblings to the top and bottom

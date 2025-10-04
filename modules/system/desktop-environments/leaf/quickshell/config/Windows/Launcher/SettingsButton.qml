@@ -6,6 +6,6 @@ SidePanelItem {
         Root.State.settings.openWindow()
         Root.State.launcher.closeWindow()
     }
-    imgPath: Quickshell.iconPath('application-menu-symbolic')
+    imgName: 'application-menu-symbolic'
     imgSize: 24
 }

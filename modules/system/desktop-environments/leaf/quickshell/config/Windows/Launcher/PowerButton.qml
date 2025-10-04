@@ -14,7 +14,7 @@ import qs.Modules.Common as Common
 // TODO: refractor this into it's own file
 SidePanelItem {
     id: power
-    imgPath: Quickshell.iconPath('system-shutdown-symbolic')
+    imgName: 'system-shutdown-symbolic'
     imgSize: 22
     action: () => {
         console.log("click")

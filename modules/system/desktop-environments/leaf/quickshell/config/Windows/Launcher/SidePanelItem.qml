@@ -5,7 +5,7 @@ import Quickshell.Widgets
 
 WrapperMouseArea {
     id: root
-    required property string imgPath
+    required property string imgName
     required property var action
     property int imgSize: 32
 
@@ -24,8 +24,7 @@ WrapperMouseArea {
             IconImage {
                 implicitSize: root.imgSize
                 anchors.centerIn: parent
-                //source: Quickshell.iconPath('systemsettings')
-                source: root.imgPath
+                source: Quickshell.iconPath(root.imgName)
             }
         }
     }
