@@ -1,11 +1,10 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }: let
-  lockScreen = pkgs.writeShellApplication {
+  ags-lockscreen = pkgs.writeShellApplication {
     name = "ags-lock";
     runtimeInputs = with pkgs; [  
       # Need ags 
@@ -26,6 +25,16 @@
       #fi
     '';
   };
+
+  qs-lockscreen = pkgs.writeShellApplication {
+    name = "qs-lock";
+    runtimeInputs = [   
+      inputs.quickshell.packages.${pkgs.system}.default
+    ];
+    text = '' 
+      quickshell ipc call control lockScreen
+    '';
+  };
 in{
 
   systemd.services = {
@@ -43,7 +52,8 @@ in{
   };
 
   users.users.${config.username}.packages = [
-    lockScreen
+    ags-lockscreen
+    qs-lockscreen
   ];
 
   systemd.user.services.hypridle = {
@@ -67,12 +77,14 @@ in{
     };
     # Reload the service if any of these change
     reloadTriggers = [
-      lockScreen
+      #ags-lockscreen
+      qs-lockscreen
     ];
 
     # Add programs to the service's PATH env variable
     path = [
-      lockScreen # For the ags-lock command
+      #ags-lockscreen # For the ags-lock command
+      qs-lockscreen
     ];
 
     # This will ExecStart this script which has access to the paths provided

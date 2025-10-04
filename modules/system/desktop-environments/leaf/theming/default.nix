@@ -68,6 +68,14 @@ in {
     shades-of-gray-theme
     nwg-look
 
+    papirus-icon-theme
+    fluent-icon-theme
+    whitesur-icon-theme
+    numix-icon-theme-circle
+    colloid-icon-theme
+    beauty-line-icon-theme
+    arc-icon-theme
+
     #inputs.adw-gtk3-leaf.packages.${system}.default
 
     wallust

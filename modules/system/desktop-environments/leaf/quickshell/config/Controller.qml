@@ -23,5 +23,10 @@ Singleton {
         function toggleWorkspaces() {
             State.workspaces.toggleWindow()
         }
+        function lockScreen() { 
+            console.log(`locked pre = ${State.screenLocked}`)
+            State.screenLocked = true 
+            console.log(`locked post = ${State.screenLocked}`)
+        }
     }
 }

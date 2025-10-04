@@ -28,6 +28,8 @@ Singleton {
     property var workspaces: null
     property var settings: null
 
+    property bool screenLocked: false
+
     //property list<QtObject> focusGrabIgnore: []
     property var panelGrab: null // The grab object for the active panel (old)
     property var popupGrab: null // The grab object for the active popup (old)
