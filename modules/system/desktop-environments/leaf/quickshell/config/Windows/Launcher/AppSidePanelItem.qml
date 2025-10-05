@@ -7,10 +7,13 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.Services as Services
+import qs.Modules.Common as Common
 
 SidePanelItem {
     id: item
     required property string modelData
+    required property Item toplevel
+    property Item initialParent: null
     property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
     property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
     imgName: desktopEntry.icon
@@ -40,7 +43,17 @@ SidePanelItem {
     drag.target: item
     Drag.active: drag.active
     Drag.keys: [ "pinned-app" ]
-    // Moves the client to the top compared to it's sibling clients
-    drag.onActiveChanged: () => drag.active ? item.z = 1 : item.z = 0
+    // Moves item above all other items within `toplevel`
+    drag.onActiveChanged: () => {
+        if (drag.active) {
+            item.z = 1
+            item.initialParent = item.parent
+            item.parent = item.toplevel
+        } 
+        else {
+            item.z = 0
+            item.parent = item.initialParent
+        }
+    }
     Drag.hotSpot: Qt.point(width/2, height/2)
 }
