@@ -45,7 +45,7 @@
     #hostName = "localhost";
     hostName = "${builtins.readFile (inputs.secrets + "/plaintext/nextcloud-domain.txt")}";
     database.createLocally = true; # Need to create mysql db if not manually creating it
-    package = pkgs.nextcloud30;
+    package = pkgs.nextcloud31;
     https = true;
     maxUploadSize = "1G";
     home = "/var/lib/nextcloud"; # Storage path of nextcloud.

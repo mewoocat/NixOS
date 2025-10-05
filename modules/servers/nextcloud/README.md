@@ -95,6 +95,13 @@ Turn maintenance mode off
 nextcloud-occ maintenance:mode --off
 ```
 
+## Updating
+**I'm not actually sure if maintenance mode should be set**
+- Put server into maintenance mode
+- Modify desired version within flake
+- Rebuild server
+- Un-set maintenance mode
+
 # Developing
 ## Local Development
 - Add the ip address of the server to `services.nextcloud.settings.trusted_domains`.

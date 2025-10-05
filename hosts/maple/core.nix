@@ -73,6 +73,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBO24z1xI9hHgqMr7pHYxj9vQCjkIqnFrRvK6lcOu9h+"
     ];
     packages = with pkgs; [
+      microfetch
     ];
   };
 
