@@ -66,6 +66,7 @@ Common.PanelWindow {
 
                 // Top
                 // Pinned apps
+                /*
                 ColumnLayout { 
                     spacing: 0
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
@@ -77,6 +78,48 @@ Common.PanelWindow {
                         }
                     }
                 }
+                */
+                Common.PanelGrid {
+                    id: pinnedAppGrid
+                    implicitWidth: parent.width
+                    implicitHeight: parent.height
+                    unitSize: 64
+                    rows: 5
+                    columns: 1
+                    Repeater {
+                        // Converts the pinned apps from a map to array
+                        property var pinnedAppArray: {
+                            let array = []
+                            const appMap = Root.State.config.pinnedApps
+                            for (let i = 0; i < 5; i++) {
+                                const app = appMap[i]
+                                console.log(`app: ${app}`)
+                                array.push(app)
+                            }
+                            return array
+                        }
+                        model: pinnedAppArray
+                        // TODO: should make the app side panel item a sub class of PanelItem and delgate drag handling to the PanelItem type
+                        delegate: Common.PanelItem {
+                            required property string modelData
+                            id: appItem
+                            isClickable: false; 
+                            rows: 1
+                            columns: 1
+                            content: Loader {
+                                property Component placeholder: PanelItemPlaceholder {}
+                                property Component app: BoundComponent {
+                                    sourceComponent: AppSidePanelItem {}
+                                    property Item toplevel: mainItem
+                                    property string appId: appItem.modelData
+                                }
+                                sourceComponent: modelData ? app : placeholder
+                            }
+                        }
+                    }
+                }
+
+
                 Item { Layout.fillHeight: true; } // Push the siblings to the top and bottom
 
                 // Bottom

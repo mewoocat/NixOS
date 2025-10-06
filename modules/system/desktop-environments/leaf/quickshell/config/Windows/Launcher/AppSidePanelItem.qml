@@ -11,14 +11,14 @@ import qs.Modules.Common as Common
 
 SidePanelItem {
     id: item
-    required property string modelData
+    required property string appId
+    //property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
     required property Item toplevel
     property Item initialParent: null
-    property alias appId: item.modelData // Aliasing a sibling property requires accessing via an id?
     property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
     imgName: desktopEntry.icon
     action: desktopEntry.execute
-    Component.onCompleted: console.log(`pinned app: ${modelData}; pinned desktopEntry: ${desktopEntry.icon}`)
+    Component.onCompleted: console.log(`pinned app: ${appId}; pinned desktopEntry: ${desktopEntry.icon}`)
     
     // Drag and drop setup
     property int initialX: 0

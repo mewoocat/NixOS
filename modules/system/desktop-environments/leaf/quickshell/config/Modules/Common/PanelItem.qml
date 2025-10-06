@@ -22,7 +22,7 @@ MouseArea {
     //Layout.fillHeight: true
     Layout.columnSpan: columns
     Layout.rowSpan: rows
-    Layout.alignment: Qt.AlignLeft | Qt. AlignTop
+    //Layout.alignment: Qt.AlignLeft | Qt. AlignTop
 
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
