@@ -6,9 +6,29 @@ FloatingWindow {
     id: root
     color: "grey"
 
+    // Determines whether two rectangles overlap given both of their top left most and bottom 
+    // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
+    // point of B is less than the bottom right point of B and the bottom right point of B is 
+    // greater than the top level point of A.
+    function doItemsOverlap(A1, A2, B1, B2): bool {
+        console.log("[CHECKING] for overlap")
+        if (
+            A1.x < B2.x &&
+            A1.y < B2.y && 
+            A2.x > B1.x &&
+            A2.y > B1.y
+        ) {
+            console.log("overlap detected")
+            return true
+        }
+        return false
+    }
+
     component GridItem: MouseArea {
         id: gridItem
         required property var grid // the grid parent
+        property int initialX: 0
+        property int initialY: 0
         property int targetRow: {
             let proposedRow = Math.round(y / grid.unitSize)
             let validRow = proposedRow >= grid.numRows ? grid.numRows - 1 : proposedRow
@@ -24,10 +44,44 @@ FloatingWindow {
         drag.onActiveChanged: () => drag.active ? gridItem.z = 1 : gridItem.z = 0
         onPressed: {
             grid.selectedItem = gridItem
+            // Store original position
+            initialX = gridItem.x
+            initialY = gridItem.y
         }
         onReleased: {
-            x = targetColumn * grid.unitSize
-            y = targetRow * grid.unitSize
+            let isValid = true
+            console.log(`FOR ${gridItem}`)
+            grid.children.every(item => {
+                console.log(`item: ${item}`)
+                let topLeftA = `${item.x},${item.y}`
+                let bottomRightA = `${item.x + item. width},${item.y + item.height}`
+                let topLeftB = `${grid.selectedItem.x},${grid.selectedItem.y}`
+                let bottomRightB = `${grid.selectedItem.x + grid.selectedItem.width},${grid.selectedItem.y + grid.selectedItem.height}`
+                console.log("topleftA " +topLeftA)
+                console.log("bottomRIghtA " + bottomRightA)
+                console.log("topLeftB " + topLeftB)
+                console.log("bottomRightB" + bottomRightB)
+                if (
+                    root.doItemsOverlap(
+                        item.mapToItem(grid, topLeftA), 
+                        item.mapToItem(grid, bottomRightA),
+                        grid.selectedItem.mapToItem(grid, topLeftB),
+                        grid.selectedItem(grid, bottomRightB)
+                    )
+                ) {
+                    isValid = false
+                    return false
+                }
+                return true
+            })
+            if (isValid) {
+                x = targetColumn * grid.unitSize
+                y = targetRow * grid.unitSize
+            }
+            else {
+                x = initialX
+                y = initialY
+            }
             grid.selectedItem = null
         }
 
