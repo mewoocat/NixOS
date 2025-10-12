@@ -61,13 +61,14 @@ FloatingWindow {
                     let topLeftA = Qt.point(item.x, item.y)
                     let bottomRightA = Qt.point(item.x + item.width, item.y + item.height)
                     let topLeftB = Qt.point(targetColumn * grid.unitSize, targetRow * grid.unitSize)
-                    let bottomRightB = Qt.point(topLeftB.x + gridItem.width, topLeftA.y + gridItem.height)
+                    let bottomRightB = Qt.point(topLeftB.x + width, topLeftB.y + height)
 
                     console.log("topleftA " +topLeftA)
                     console.log("bottomRIghtA " + bottomRightA)
                     console.log("topLeftB " + topLeftB)
                     console.log("bottomRightB" + bottomRightB)
 
+                    /*
                     topLeftA = item.mapToItem(grid, topLeftA), 
                     bottomRightA = item.mapToItem(grid, bottomRightA),
                     topLeftB = item.mapToItem(grid, topLeftB),
@@ -77,6 +78,7 @@ FloatingWindow {
                     console.log("bottomRIghtA " + bottomRightA)
                     console.log("topLeftB " + topLeftB)
                     console.log("bottomRightB" + bottomRightB)
+                    */
                     console.log(`is griditem and not self`)
                     if (root.doItemsOverlap(topLeftA, bottomRightA, topLeftB, bottomRightB)) {
                         isValid = false
