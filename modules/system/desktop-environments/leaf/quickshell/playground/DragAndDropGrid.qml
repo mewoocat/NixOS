@@ -52,25 +52,36 @@ FloatingWindow {
             let isValid = true
             console.log(`FOR ${gridItem}`)
             grid.children.every(item => {
-                console.log(`item: ${item}`)
-                let topLeftA = `${item.x},${item.y}`
-                let bottomRightA = `${item.x + item. width},${item.y + item.height}`
-                let topLeftB = `${grid.selectedItem.x},${grid.selectedItem.y}`
-                let bottomRightB = `${grid.selectedItem.x + grid.selectedItem.width},${grid.selectedItem.y + grid.selectedItem.height}`
-                console.log("topleftA " +topLeftA)
-                console.log("bottomRIghtA " + bottomRightA)
-                console.log("topLeftB " + topLeftB)
-                console.log("bottomRightB" + bottomRightB)
-                if (
-                    root.doItemsOverlap(
-                        item.mapToItem(grid, topLeftA), 
-                        item.mapToItem(grid, bottomRightA),
-                        grid.selectedItem.mapToItem(grid, topLeftB),
-                        grid.selectedItem(grid, bottomRightB)
-                    )
-                ) {
-                    isValid = false
-                    return false
+                if (item instanceof GridItem && item != gridItem) {
+                    console.log(`item: ${item}`)
+                    console.log(`item size: ${item.width}x${item.height}`)
+                    console.log(`selected targets: ${targetRow} x ${targetColumn}`)
+                    console.log(`selcted size: ${width}x${height}`)
+
+                    let topLeftA = Qt.point(item.x, item.y)
+                    let bottomRightA = Qt.point(item.x + item.width, item.y + item.height)
+                    let topLeftB = Qt.point(targetColumn * grid.unitSize, targetRow * grid.unitSize)
+                    let bottomRightB = Qt.point(topLeftB.x + gridItem.width, topLeftA.y + gridItem.height)
+
+                    console.log("topleftA " +topLeftA)
+                    console.log("bottomRIghtA " + bottomRightA)
+                    console.log("topLeftB " + topLeftB)
+                    console.log("bottomRightB" + bottomRightB)
+
+                    topLeftA = item.mapToItem(grid, topLeftA), 
+                    bottomRightA = item.mapToItem(grid, bottomRightA),
+                    topLeftB = item.mapToItem(grid, topLeftB),
+                    bottomRightB = item.mapToItem(grid, bottomRightB),
+
+                    console.log("topleftA " +topLeftA)
+                    console.log("bottomRIghtA " + bottomRightA)
+                    console.log("topLeftB " + topLeftB)
+                    console.log("bottomRightB" + bottomRightB)
+                    console.log(`is griditem and not self`)
+                    if (root.doItemsOverlap(topLeftA, bottomRightA, topLeftB, bottomRightB)) {
+                        isValid = false
+                        return false
+                    }
                 }
                 return true
             })
