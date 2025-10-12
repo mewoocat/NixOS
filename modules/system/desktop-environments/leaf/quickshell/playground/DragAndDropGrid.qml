@@ -9,30 +9,54 @@ FloatingWindow {
     component GridItem: MouseArea {
         id: gridItem
         required property var grid // the grid parent
+        property int targetRow: {
+            let proposedRow = Math.round(y / grid.unitSize)
+            let validRow = proposedRow >= grid.numRows ? grid.numRows - 1 : proposedRow
+            return validRow
+        }
+        property int targetColumn: {
+            let proposedCol = Math.round(x / grid.unitSize)
+            let validCol = proposedCol >= grid.numColumns ? grid.numColumns - 1 : proposedCol
+            return validCol
+        }
         drag.target: gridItem
+        // Moves the client to the top compared to it's sibling clients
+        drag.onActiveChanged: () => drag.active ? gridItem.z = 1 : gridItem.z = 0
+        onPressed: {
+            grid.selectedItem = gridItem
+        }
         onReleased: {
-            let newCol = Math.round(x / grid.unitSize)
-            let newRow = Math.round(y / grid.unitSize)
-            x = newCol * grid.unitSize
-            y = newRow * grid.unitSize
+            x = targetColumn * grid.unitSize
+            y = targetRow * grid.unitSize
+            grid.selectedItem = null
         }
 
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: 4
-            color: "red"
-        }
     }
 
     component GridArea: Rectangle {
         id: grid
         required property list<var> items
         property int unitSize: 64
-        property int numRows: 6
+        property int numRows: 4
         property int numColumns: 8
+        property GridItem selectedItem: null
         color: "black"
-        implicitWidth: unitSize * numColumns
-        implicitHeight: unitSize * numRows
+        width: unitSize * numColumns
+        height: unitSize * numRows
+
+        Item {
+            id: targetGhost
+            x: selectedItem?.targetColumn * grid.unitSize
+            y: selectedItem?.targetRow * grid.unitSize
+            visible: grid.selectedItem != null
+            width: selectedItem?.width
+            height: selectedItem?.height
+            Rectangle {
+                color: "white"
+                anchors.fill: parent
+                anchors.margins: 8
+            }
+        }
 
         Repeater {
             model: root.gridItems
@@ -43,6 +67,12 @@ FloatingWindow {
                 y: modelData.row * grid.unitSize
                 width: modelData.w * grid.unitSize
                 height: modelData.h * grid.unitSize
+
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.margins: 4
+                    color: "red"
+                }
             }
         }
     }
