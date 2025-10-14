@@ -31,13 +31,15 @@ FloatingWindow {
         property int initialY: 0
         property int targetRow: {
             let proposedRow = Math.round(y / grid.unitSize)
-            let validRow = proposedRow >= grid.numRows ? grid.numRows - 1 : proposedRow
-            return validRow
+            if (proposedRow > grid.numRows - 1) { return grid.numRows - 1 }
+            if (proposedRow < 0) { return 0 }
+            return proposedRow
         }
         property int targetColumn: {
             let proposedCol = Math.round(x / grid.unitSize)
-            let validCol = proposedCol >= grid.numColumns ? grid.numColumns - 1 : proposedCol
-            return validCol
+            if (proposedCol > grid.numColumns - 1) { return grid.numColumns - 1 }
+            if (proposedCol < 0) { return 0 }
+            return proposedCol
         }
         drag.target: gridItem
         // Moves the client to the top compared to it's sibling clients
@@ -50,35 +52,13 @@ FloatingWindow {
         }
         onReleased: {
             let isValid = true
-            console.log(`FOR ${gridItem}`)
+            /*
             grid.children.every(item => {
                 if (item instanceof GridItem && item != gridItem) {
-                    console.log(`item: ${item}`)
-                    console.log(`item size: ${item.width}x${item.height}`)
-                    console.log(`selected targets: ${targetRow} x ${targetColumn}`)
-                    console.log(`selcted size: ${width}x${height}`)
-
                     let topLeftA = Qt.point(item.x, item.y)
                     let bottomRightA = Qt.point(item.x + item.width, item.y + item.height)
                     let topLeftB = Qt.point(targetColumn * grid.unitSize, targetRow * grid.unitSize)
                     let bottomRightB = Qt.point(topLeftB.x + width, topLeftB.y + height)
-
-                    console.log("topleftA " +topLeftA)
-                    console.log("bottomRIghtA " + bottomRightA)
-                    console.log("topLeftB " + topLeftB)
-                    console.log("bottomRightB" + bottomRightB)
-
-                    /*
-                    topLeftA = item.mapToItem(grid, topLeftA), 
-                    bottomRightA = item.mapToItem(grid, bottomRightA),
-                    topLeftB = item.mapToItem(grid, topLeftB),
-                    bottomRightB = item.mapToItem(grid, bottomRightB),
-
-                    console.log("topleftA " +topLeftA)
-                    console.log("bottomRIghtA " + bottomRightA)
-                    console.log("topLeftB " + topLeftB)
-                    console.log("bottomRightB" + bottomRightB)
-                    */
                     console.log(`is griditem and not self`)
                     if (root.doItemsOverlap(topLeftA, bottomRightA, topLeftB, bottomRightB)) {
                         isValid = false
@@ -86,6 +66,15 @@ FloatingWindow {
                     }
                 }
                 return true
+            })
+            */
+            console.log(Math.random())
+            grid.items.every(i => {
+                console.log(`i: ${JSON.stringify(i)}`)
+                if (i.row == targetRow && i.col == targetColumn) {
+                    isValid = false
+                    return false
+                }
             })
             if (isValid) {
                 x = targetColumn * grid.unitSize
@@ -126,7 +115,7 @@ FloatingWindow {
         }
 
         Repeater {
-            model: root.gridItems
+            model: grid.items
             delegate: GridItem {
                 required property var modelData
                 grid: parent
@@ -144,20 +133,23 @@ FloatingWindow {
         }
     }
 
-    property list<var> gridItems: [
-        {
-            row: 0,
-            col: 0,
-            w: 1,
-            h: 1
-        },
-        {
-            row: 2,
-            col: 3,
-            w: 2,
-            h: 1
-        }
-    ]
 
-    GridArea {}
+    GridArea {
+        items: [
+            {
+                row: 0,
+                col: 0,
+                w: 1,
+                h: 1
+            },
+            {
+                row: 2,
+                col: 3,
+                w: 2,
+                h: 1
+            }
+        ]
+        x: 200
+        y: 200
+    }
 }
