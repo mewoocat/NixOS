@@ -5,7 +5,7 @@
 }: {
 
   imports = [
-    #./moonlight.nix
+    ./moonlight.nix
     #./thunar.nix
   ];
 }

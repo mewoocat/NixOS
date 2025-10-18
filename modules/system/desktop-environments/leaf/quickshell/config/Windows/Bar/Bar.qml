@@ -24,7 +24,7 @@ Scope {
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
-                focusable: true
+                //focusable: true
                 //WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 Component.onCompleted: {
                     Root.State.bar = bar

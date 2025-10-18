@@ -79,7 +79,7 @@ Common.PanelWindow {
                     }
                 }
                 */
-                Common.PanelGrid {
+                Common.PanelGridDragable {
                     id: pinnedAppGrid
                     implicitWidth: parent.width
                     implicitHeight: parent.height
@@ -88,6 +88,7 @@ Common.PanelWindow {
                     columns: 1
                     Repeater {
                         // Converts the pinned apps from a map to array
+                        /*
                         property var pinnedAppArray: {
                             let array = []
                             const appMap = Root.State.config.pinnedApps
@@ -96,11 +97,13 @@ Common.PanelWindow {
                                 console.log(`app: ${app}`)
                                 array.push(app)
                             }
+                            console.log(`poop: ${array}`)
                             return array
                         }
-                        model: pinnedAppArray
+                        */
+                        model: ["foot", "vesktop", "vesktop", "foot", "foot"]
                         // TODO: should make the app side panel item a sub class of PanelItem and delgate drag handling to the PanelItem type
-                        delegate: Common.PanelItem {
+                        delegate: Common.PanelItemDragable {
                             required property string modelData
                             id: appItem
                             isClickable: false; 
