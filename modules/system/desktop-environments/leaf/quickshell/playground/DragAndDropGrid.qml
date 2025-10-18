@@ -1,5 +1,6 @@
 
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 
 FloatingWindow {
@@ -26,7 +27,8 @@ FloatingWindow {
 
     component GridItem: MouseArea {
         id: gridItem
-        required property var grid // the grid parent
+        required property GridArea parentGrid // the grid parent
+        required property string widgetId // the config object
         property int initialX: 0
         property int initialY: 0
         property int targetRow: {
@@ -52,23 +54,6 @@ FloatingWindow {
         }
         onReleased: {
             let isValid = true
-            /*
-            grid.children.every(item => {
-                if (item instanceof GridItem && item != gridItem) {
-                    let topLeftA = Qt.point(item.x, item.y)
-                    let bottomRightA = Qt.point(item.x + item.width, item.y + item.height)
-                    let topLeftB = Qt.point(targetColumn * grid.unitSize, targetRow * grid.unitSize)
-                    let bottomRightB = Qt.point(topLeftB.x + width, topLeftB.y + height)
-                    console.log(`is griditem and not self`)
-                    if (root.doItemsOverlap(topLeftA, bottomRightA, topLeftB, bottomRightB)) {
-                        isValid = false
-                        return false
-                    }
-                }
-                return true
-            })
-            */
-            console.log(Math.random())
             grid.items.every(i => {
                 console.log(`i: ${JSON.stringify(i)}`)
                 if (i.row == targetRow && i.col == targetColumn) {
@@ -84,9 +69,10 @@ FloatingWindow {
                 x = initialX
                 y = initialY
             }
+            let widgetDef = grid.items.find(i => i === widgetId)
+            console.log(`found: ${widgetDef}`)
             grid.selectedItem = null
         }
-
     }
 
     component GridArea: Rectangle {
@@ -118,11 +104,13 @@ FloatingWindow {
             model: grid.items
             delegate: GridItem {
                 required property var modelData
-                grid: parent
+                parentGrid: grid
+                widgetId: modelData.id
                 x: modelData.col * grid.unitSize
                 y: modelData.row * grid.unitSize
                 width: modelData.w * grid.unitSize
                 height: modelData.h * grid.unitSize
+                component.onCompleted: console.log(`id: ${modelData.id}`)
 
                 Rectangle {
                     anchors.fill: parent
@@ -134,22 +122,17 @@ FloatingWindow {
     }
 
 
+    Button {
+        text: "add"
+        onClicked: area.items.push({
+            id: Math.random().toString().substr(2),
+            row: 0, col: 0, w: 1, h: 1
+        })
+    }
     GridArea {
-        items: [
-            {
-                row: 0,
-                col: 0,
-                w: 1,
-                h: 1
-            },
-            {
-                row: 2,
-                col: 3,
-                w: 2,
-                h: 1
-            }
-        ]
-        x: 200
-        y: 200
+        id: area
+        items: []
+        x: 40
+        y: 40
     }
 }
