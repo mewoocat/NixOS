@@ -83,7 +83,13 @@ FloatingWindow {
             if (isValid) {
                 x = targetColumn * parentGrid.unitSize
                 y = targetRow * parentGrid.unitSize
-                positionUpdated(widgetId, targetRow, targetColumn)
+
+                //positionUpdated(widgetId, targetRow, targetColumn)
+
+                let widgetDef = parentGrid.model.find(i => i.id === widgetId)
+                widgetDef.row = targetRow
+                widgetDef.col = targetColumn
+                parentGrid.modelUpdated(parentGrid.model)
             }
             else {
                 x = initialX
@@ -122,31 +128,40 @@ FloatingWindow {
         Repeater {
             model: grid.model
             delegate: GridItem {
+                id: gridItem
                 required property var modelData
                 gridItemDef: modelData
                 parentGrid: grid
-                onPositionUpdated: (id, row, column) => {
-                    console.log(`${id} - ${row} - ${column}`)
-                    let widgetDef = grid.model.find(i => i.id === widgetId)
-                    widgetDef.row = row
-                    widgetDef.col = column
-                    grid.modelUpdated(grid.model)
-                }
-                Rectangle {
-                    anchors.fill: parent
-                    anchors.margins: 4
-                    color: "red"
-                }
-                /*
                 Loader {
+                    anchors.fill: parent
                     property Component item1: Rectangle {
                         anchors.fill: parent
                         anchors.margins: 4
                         color: "red"
                     }
-                    sourceComponent: item1
+                    property Component item2: Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 4
+                        color: "blue"
+                    }
+                    property Component item3: Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 4
+                        color: "green"
+                    }
+                    sourceComponent: {
+                        switch(gridItem.modelData.widgetId) {
+                            case "item1":
+                                return item1
+                            case "item2":
+                                return item2
+                            case "item3":
+                                return item3
+                            default:
+                                return null
+                        }
+                    }
                 }
-                */
             }
         }
     }
@@ -157,13 +172,23 @@ FloatingWindow {
             text: "add"
             onClicked: root.widgets.push({
                 id: Math.random().toString().substr(2),
+                widgetId: "item1",
                 row: 0, col: 0, w: 1, h: 1
+            })
+        }
+        Button {
+            text: "add long"
+            onClicked: root.widgets.push({
+                id: Math.random().toString().substr(2),
+                widgetId: "item2",
+                row: 0, col: 0, w: 2, h: 1
             })
         }
         Button {
             text: "add big"
             onClicked: root.widgets.push({
                 id: Math.random().toString().substr(2),
+                widgetId: "item3",
                 row: 0, col: 0, w: 2, h: 2
             })
         }
