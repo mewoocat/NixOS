@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Controls
@@ -30,10 +31,13 @@ FloatingWindow {
 
     component GridItem: MouseArea {
         id: gridItem
+        signal positionUpdated(id: string, row: int, column: int)
         required property GridArea parentGrid // the grid parent
-        required property string widgetId // the config object
-        required property int cellColumnSpan
-        required property int cellRowSpan
+        required property var gridItemDef // persisted JSON representing the item props
+
+        property string widgetId: gridItemDef.id
+        property int cellColumnSpan: gridItemDef.w
+        property int cellRowSpan: gridItemDef.h
         property int initialX: 0
         property int initialY: 0
         property int targetRow: {
@@ -48,6 +52,13 @@ FloatingWindow {
             if (proposedCol < 0) { return 0 }
             return proposedCol
         }
+
+        // Position & Size
+        x: gridItemDef.col * parentGrid.unitSize
+        y: gridItemDef.row * parentGrid.unitSize
+        width: gridItemDef.w * parentGrid.unitSize
+        height: gridItemDef.h * parentGrid.unitSize
+
         drag.target: gridItem
         // Moves the client to the top compared to it's sibling clients
         drag.onActiveChanged: () => drag.active ? gridItem.z = 1 : gridItem.z = 0
@@ -60,46 +71,32 @@ FloatingWindow {
         onReleased: {
             let isValid = true
             console.log(`parentGrid.items: ${JSON.stringify(parentGrid.items)}`)
-            isValid = parentGrid.items.every(i => {
+            isValid = parentGrid.model.every(i => {
                 // Don't set invalid if widget overlaps with self
                 if (i.id == widgetId) { return true }
                 return !doItemsOverlap(
                     Qt.point(targetColumn, targetRow), Qt.point(targetColumn + cellColumnSpan, targetRow + cellRowSpan),
                     Qt.point(i.col, i.row), Qt.point(i.col + i.w, i.row + i.h)
                 )
-                /*
-                console.log(`i: ${JSON.stringify(i,null,4)}`)
-                console.log(`targetRow: ${targetRow}`)
-                console.log(`targetColumn: ${targetColumn}`)
-                const rowBlocked = targetRow >= i.row && targetRow < i.row + i.h
-                const columnBlocked = targetColumn >= i.col && targetColumn < i.col + i.w
-                console.log(rowBlocked)
-                console.log(columnBlocked)
-                return !rowBlocked || !columnBlocked
-                */
             })
             console.log(`isValid: ${isValid}`)
             if (isValid) {
                 x = targetColumn * parentGrid.unitSize
                 y = targetRow * parentGrid.unitSize
+                positionUpdated(widgetId, targetRow, targetColumn)
             }
             else {
                 x = initialX
                 y = initialY
             }
-            console.log("widgets-pre: " + JSON.stringify(parentGrid.items))
-            let widgetDef = parentGrid.items.find(i => i.id === widgetId)
-            //console.log(`found: ${widgetDef}`)
-            widgetDef.row = targetRow
-            widgetDef.col = targetColumn
-            console.log("widgets-post: " + JSON.stringify(parentGrid.items))
             parentGrid.selectedItem = null
         }
     }
 
     component GridArea: Rectangle {
         id: grid
-        required property list<var> items
+        signal modelUpdated(model: list<var>)
+        required property list<var> model
         property int unitSize: 64
         property int numRows: 4
         property int numColumns: 8
@@ -123,24 +120,33 @@ FloatingWindow {
         }
 
         Repeater {
-            model: grid.items
+            model: grid.model
             delegate: GridItem {
                 required property var modelData
+                gridItemDef: modelData
                 parentGrid: grid
-                widgetId: modelData.id
-                cellColumnSpan: modelData.w
-                cellRowSpan: modelData.h
-                x: modelData.col * grid.unitSize
-                y: modelData.row * grid.unitSize
-                width: modelData.w * grid.unitSize
-                height: modelData.h * grid.unitSize
-                Component.onCompleted: console.log(`id: ${modelData.id}`)
-
+                onPositionUpdated: (id, row, column) => {
+                    console.log(`${id} - ${row} - ${column}`)
+                    let widgetDef = grid.model.find(i => i.id === widgetId)
+                    widgetDef.row = row
+                    widgetDef.col = column
+                    grid.modelUpdated(grid.model)
+                }
                 Rectangle {
                     anchors.fill: parent
                     anchors.margins: 4
                     color: "red"
                 }
+                /*
+                Loader {
+                    property Component item1: Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 4
+                        color: "red"
+                    }
+                    sourceComponent: item1
+                }
+                */
             }
         }
     }
@@ -169,8 +175,11 @@ FloatingWindow {
 
     GridArea {
         id: area
-        items: root.widgets
         x: 40
         y: 40
+
+        model: root.widgets
+        // Hanlder for updating source model
+        onModelUpdated: (model) => root.widgets = model
     }
 }
