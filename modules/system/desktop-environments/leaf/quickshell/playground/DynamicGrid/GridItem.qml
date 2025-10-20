@@ -44,33 +44,6 @@ MouseArea {
     }
     onReleased: {
         positionUpdateRequested(gridItem)
-
-        /*
-        let isValid = true
-        isValid = parentGrid.model.every(i => {
-            // Don't set invalid if widget overlaps with self
-            if (i.id == widgetId) { return true }
-            return !doItemsOverlap(
-                Qt.point(targetColumn, targetRow), Qt.point(targetColumn + cellColumnSpan, targetRow + cellRowSpan),
-                Qt.point(i.col, i.row), Qt.point(i.col + i.w, i.row + i.h)
-            )
-        })
-        console.log(`isValid: ${isValid}`)
-        if (isValid) {
-            x = targetColumn * parentGrid.unitSize
-            y = targetRow * parentGrid.unitSize
-
-            let widgetDef = parentGrid.model.find(i => i.id === widgetId)
-            widgetDef.row = targetRow
-            widgetDef.col = targetColumn
-            parentGrid.modelUpdated(parentGrid.model)
-        }
-        else {
-            x = initialX
-            y = initialY
-        }
-        parentGrid.selectedItem = null
-        */
     }
 
     Rectangle {

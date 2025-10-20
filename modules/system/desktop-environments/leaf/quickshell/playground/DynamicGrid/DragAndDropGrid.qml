@@ -11,73 +11,18 @@ FloatingWindow {
 
     property list<var> widgets: []
     
-    /*
-    component Item2: GridItem {
-        widgetId: "item2"
-        cellRowSpan: 1
-        cellColumnSpan: 2
-
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: 4
-            color: "blue"
-        }
-    }
-    component Item3: GridItem {
-        widgetId: "item3"
-        cellRowSpan: 2
-        cellColumnSpan: 2
-
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: 4
-            color: "green"
-        }
-    }
-    */
-
-    // Determines whether two rectangles overlap given both of their top left most and bottom 
-    // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
-    // point of B is less than the bottom right point of B and the bottom right point of B is 
-    // greater than the top level point of A.
-    function doItemsOverlap(A1, A2, B1, B2): bool {
-        console.log("[CHECKING] for overlap")
-        if (
-            A1.x < B2.x &&
-            A1.y < B2.y && 
-            A2.x > B1.x &&
-            A2.y > B1.y
-        ) {
-            console.log("overlap detected")
-            return true
-        }
-        return false
-    }
-
     RowLayout {
         Button {
             text: "add"
-            onClicked: root.widgets.push({
-                id: Math.random().toString().substr(2),
-                widgetId: "item1",
-                row: 0, col: 0, w: 1, h: 1
-            })
+            onClicked: area.addWidget("item1")
         }
         Button {
             text: "add long"
-            onClicked: root.widgets.push({
-                id: Math.random().toString().substr(2),
-                widgetId: "item2",
-                row: 0, col: 0, w: 2, h: 1
-            })
+            onClicked: area.addWidget("item2")
         }
         Button {
             text: "add big"
-            onClicked: root.widgets.push({
-                id: Math.random().toString().substr(2),
-                widgetId: "item3",
-                row: 0, col: 0, w: 2, h: 2
-            })
+            onClicked: area.addWidget("item3")
         }
         Button {
             text: "root.widgets"
@@ -103,6 +48,12 @@ FloatingWindow {
                 cellRowSpan: 1
                 cellColumnSpan: 2
                 content: Item2 {}
+            },
+            WidgetDef {
+                widgetId: "item3"
+                cellRowSpan: 2
+                cellColumnSpan: 2
+                content: Item3 {}
             }
         ]
         // Hanlder for updating source model
