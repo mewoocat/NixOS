@@ -85,6 +85,7 @@ in{
     path = [
       #ags-lockscreen # For the ags-lock command
       qs-lockscreen
+      config.programs.hyprland.package # For hyprctl
     ];
 
     # This will ExecStart this script which has access to the paths provided
