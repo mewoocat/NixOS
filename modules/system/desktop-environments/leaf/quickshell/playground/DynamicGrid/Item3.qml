@@ -7,7 +7,7 @@ import Quickshell
 
 PanelItem {
     widgetId: "item2"
-    cellRowSpan: 1
+    cellRowSpan: 2
     cellColumnSpan: 2
     Rectangle {
         anchors.fill: parent

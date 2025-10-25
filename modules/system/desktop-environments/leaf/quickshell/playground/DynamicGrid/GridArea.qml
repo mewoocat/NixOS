@@ -16,16 +16,18 @@ Rectangle {
     property int numColumns: 8
     property GridItem selectedItem: null
     property int selectedTargetRow: {
-        if (!selectedItem) { return 0 }
+        if (!selectedItem) { return -1 }
         let proposedRow = Math.round(selectedItem.y / unitSize)
-        if (proposedRow > numRows - 1) { return numRows - 1 }
+        let maxAllowedRow = numRows - selectedItem.cellRowSpan 
+        if (proposedRow > maxAllowedRow) { return maxAllowedRow }
         if (proposedRow < 0) { return 0 }
         return proposedRow
     }
     property int selectedTargetColumn: {
-        if (!selectedItem) { return 0 }
+        if (!selectedItem) { return -1 }
         let proposedCol = Math.round(selectedItem.x / unitSize)
-        if (proposedCol > numColumns - 1) { return numColumns - 1 }
+        let maxAllowedCol = numColumns - selectedItem.cellColumnSpan
+        if (proposedCol > maxAllowedCol) { return maxAllowedCol }
         if (proposedCol < 0) { return 0 }
         return proposedCol
     }
