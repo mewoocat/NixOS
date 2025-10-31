@@ -14,6 +14,7 @@ MouseArea {
     //required property var gridItemDef // persisted JSON representing the item props
 
     required property string widgetId
+    required property string uid
     required property int cellRowSpan
     required property int cellColumnSpan
 

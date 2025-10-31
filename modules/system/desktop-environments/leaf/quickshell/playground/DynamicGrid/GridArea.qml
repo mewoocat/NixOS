@@ -54,19 +54,43 @@ Rectangle {
         return null
     }
 
+    // Checks if the def is moved to (x,y) if that position is valide
+    function isPositionValid(def, x: int, y: int): bool { 
+        // Ensure this new position won't cause the item to overlap with any other items
+        let isValid = grid.model.every(existingDef => !doItemsOverlap(
+            Qt.point(x, y),
+            Qt.point(x + def.w, y + def.h),
+            Qt.point(existingDef.col, existingDef.row),
+            Qt.point(existingDef.col + existingDef.w, existingDef.row + existingDef.h)
+        ))
+        return isValid
+    }
+
+    function updatePosition(defId, col: int, row: int) {
+        // get the definition for currently moved item and update it
+        const widgetdef = grid.model.find(def => {
+            def.id === defId
+        })
+        widgetdef.row = row
+        widgetdef.col = col
+        
+        // Trigger updated signal
+        grid.modelUpdated(grid.model)
+    }
+
     // Determines whether two rectangles overlap given both of their top left most and bottom 
     // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
     // point of B is less than the bottom right point of B and the bottom right point of B is 
     // greater than the top level point of A.
     function doItemsOverlap(A1, A2, B1, B2): bool {
-        console.log("[CHECKING] for overlap")
+        //console.log("[CHECKING] for overlap")
         if (
             A1.x < B2.x &&
             A1.y < B2.y && 
             A2.x > B1.x &&
             A2.y > B1.y
         ) {
-            console.log("overlap detected")
+            //console.log("overlap detected")
             return true
         }
         return false
@@ -106,6 +130,7 @@ Rectangle {
     }
 
     Repeater {
+        id: repeater
         model: grid.model
         delegate: GridItem {
             id: gridItem
@@ -115,39 +140,24 @@ Rectangle {
             column: modelData.col
             cellRowSpan: modelData.h
             cellColumnSpan: modelData.w
+            widgetId: modelData.widgetId
+            uid: modelData.id
             onItemSelected: (item) => grid.selectedItem = item
-
             onPositionUpdateRequested: (item) => {
-                console.log(`selectedRow: ${grid.selectedTargetRow}`)
-                console.log(`selectedCol: ${grid.selectedTargetColumn}`)
-
-                /*
-                const noOverlap = grid.model.every(i => {
-                    // Don't set invalid if widget overlaps with self
-                    if (i.id === modelData.id) { return true }
-                    return !doItemsOverlap(
-                        Qt.point(selectedTargetColumn, selectedTargetRow),
-                        Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
-                        Qt.point(i.col, i.row),
-                        Qt.point(i.col + i.w, i.row + i.h)
-                    )
-                })
-                */
-
-                const intersectingItems = grid.model.filter(i => {
-                    // Don't set invalid if widget overlaps with self
-                    if (i.id === modelData.id) { return false }
+                const intersectingDefs = grid.model.filter(d => {
+                    // Don't count if widget overlaps with self
+                    if (d.id === modelData.id) { return false }
                     return doItemsOverlap(
                         Qt.point(selectedTargetColumn, selectedTargetRow),
                         Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
-                        Qt.point(i.col, i.row),
-                        Qt.point(i.col + i.w, i.row + i.h)
+                        Qt.point(d.col, d.row),
+                        Qt.point(d.col + d.w, d.row + d.h)
                     )
                 })
 
-                console.log(JSON.stringify(intersectingItems, null, 4))
+                console.log(JSON.stringify(intersectingDefs, null, 4))
 
-                const noOverlap = intersectingItems.length == 0
+                const noOverlap = intersectingDefs.length == 0
 
                 // If no overlap then no rearrangement needs to occur
                 if (noOverlap) {
@@ -155,10 +165,12 @@ Rectangle {
                     x = grid.selectedTargetColumn * grid.unitSize
                     y = grid.selectedTargetRow * grid.unitSize
 
-                    // Get the definition for currently moved item and update it
-                    const widgetDef = grid.model.find(i => i.id === modelData.id)
-                    widgetDef.row = grid.selectedTargetRow
-                    widgetDef.col = grid.selectedTargetColumn
+                    // get the definition for currently moved item and update it
+                    const widgetdef = grid.model.find(def => {
+                        def.id === griditem.modeldata.id
+                    })
+                    widgetdef.row = grid.selectedtargetrow
+                    widgetdef.col = grid.selectedtargetcolumn
                     
                     // Trigger updated signal
                     grid.modelUpdated(grid.model)
@@ -176,29 +188,45 @@ Rectangle {
                 console.log(`oldRow: ${oldRow} oldCol: ${oldCol}`)
                 console.log(`newRow: ${newRow} newCol: ${newCol}`)
 
-                intersectingItems.forEach(item => {
-                    const intersectingWidgetDef = grid.model.find(def => def.id === item.id)
-                    const intersectingWidgetItem = grid.children.find(childItem => childItem.id = item.id)
+                // Need to move all intersecting items out of the way
+                intersectingDefs.forEach(def => {
+                    console.log(`def: ${JSON.stringify(def, null, 4)}`)
+                    const intersectingItem = grid.children.find(i => i.uid === def.id)
+                    console.log(`intersectingDef: ${def}`)
+                    console.log(`intersectingItem: ${intersectingItem}`)
+
                     // Need to determine the direction to move the intersecting item
                     // find midpoint of moved item relative to grid
                     const movedMidpoint = {
-                        x: x / width,
-                        y: y / height
+                        x: (x + width) / 2,
+                        y: (y + height) / 2
                     }
-                    // find midpoint of intersecting item relative to grid
-                    // TODO: Double check the math
-                    const intersectingMidPoint = {
-                        x: intersectingWidgetItem.x + (intersectingWidgetItem.width / 2),
-                        y: intersectingWidgetItem.y + (intersectingWidgetItem.height / 2)
-                    }
-                    // find which side of the intersecting item the midpoint is closest to
-                    const xDirection = movedMidpoint.x < intersectingMidPoint.x ? 1 : -1
-                    const yDirection = movedMidpoint.y < intersectingMidPoint.y ? 1 : -1
+                    console.log(`movedMidpoint: ${JSON.stringify(movedMidpoint, null, 4)}`)
 
-                    /*
-                    intersectingWidgetDef.row += 0
-                    intersectingWidgetDef.col += 1
-                    */
+                    // find midpoint of intersecting item relative to grid
+                    const intersectingMidPoint = {
+                        x: (intersectingItem.x + intersectingItem.width) / 2,
+                        y: (intersectingItem.y + intersectingItem.height) / 2
+                    }
+                    console.log(`intersectingMidpoint: ${JSON.stringify(intersectingMidPoint, null, 4)}`)
+
+                    // find which side of the intersecting item the midpoint is closest to
+                    const xDirection = movedMidpoint.x < intersectingMidPoint.x ? -1 : 1
+                    const yDirection = movedMidpoint.y < intersectingMidPoint.y ? -1 : 1
+                    console.log(`xDir: ${xDirection} | yDir ${yDirection}`)
+
+                    // Search for an open position for this intersecting item in the x or y direction
+                    // Try xDirection
+                    if (isPositionValid(def, def.row + xDirection, def.col)) {
+                        console.log(`found position with x`)
+                        return 
+                    }
+                    // Try xDirection
+                    if (isPositionValid(def, def.row, def.col + yDirection)) {
+                        console.log(`found position with y`)
+                        return
+                    }
+
                 })
                 // Trigger updated signal
                 grid.modelUpdated(grid.model)
@@ -213,8 +241,8 @@ Rectangle {
                 x = initialX
                 y = initialY
                 grid.selectedItem = null
-
             }
+
             Loader {
                 id: loader
                 anchors.fill: parent
