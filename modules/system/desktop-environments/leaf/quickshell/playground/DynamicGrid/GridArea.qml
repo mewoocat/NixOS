@@ -57,7 +57,9 @@ Rectangle {
     // Checks if the def is moved to (x,y) if that position is valide
     function isPositionValid(def, x: int, y: int): bool { 
         // Ensure this new position won't cause the item to overlap with any other items
-        let isValid = grid.model.every(existingDef => !doItemsOverlap(
+        let isValid = grid.model
+            .filter(existingDef => existingDef.id !== def.id)
+            .every(existingDef => !doItemsOverlap(
             Qt.point(x, y),
             Qt.point(x + def.w, y + def.h),
             Qt.point(existingDef.col, existingDef.row),
@@ -220,11 +222,12 @@ Rectangle {
                     // find the distance diff (delta) between the x and y direction
                     const xDelta = Math.abs(movedMidpoint.x - intersectingMidPoint.x)
                     const yDelta = Math.abs(movedMidpoint.y - intersectingMidPoint.y)
+                    console.log(`xDelta: ${xDelta} | yDelta: ${yDelta}`)
 
                     // find which direction to atempt a move
                     // Search for an open position for this intersecting item in the x or y direction
                     if (xDelta > yDelta) {
-                        console.log(`attempting to move item in x direction`)
+                        console.log(`attempting to move item in x direction to ${def.col - xDirection}`)
                         // Try xDirection
                         if (isPositionValid(def, def.col - xDirection, def.row)) {
                             console.log(`found position in x direction, moving...`)
