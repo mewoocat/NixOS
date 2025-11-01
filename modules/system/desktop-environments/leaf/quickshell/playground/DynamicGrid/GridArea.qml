@@ -66,18 +66,6 @@ Rectangle {
         return isValid
     }
 
-    function updatePosition(defId, col: int, row: int) {
-        // get the definition for currently moved item and update it
-        const widgetdef = grid.model.find(def => {
-            def.id === defId
-        })
-        widgetdef.row = row
-        widgetdef.col = col
-        
-        // Trigger updated signal
-        grid.modelUpdated(grid.model)
-    }
-
     // Determines whether two rectangles overlap given both of their top left most and bottom 
     // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
     // point of B is less than the bottom right point of B and the bottom right point of B is 
@@ -94,6 +82,35 @@ Rectangle {
             return true
         }
         return false
+    }
+    function getWidgetDef(widgetId: string): var {
+        const widgetdef = grid.model.find(def => {
+            return def.id === widgetId
+        })
+        return widgetdef
+    }
+
+    function getWidgetItem(widgetId: string): Item {
+        const item = grid.children.find(i => i.uid === widgetId)
+        return item
+    }
+
+    function moveWidget(widgetId: string, xCell: int, yCell: int) {
+        const item = getWidgetItem(widgetId)
+        // get the definition for currently moved item and update it
+        const def = getWidgetDef(widgetId)
+        console.log(`widgetdef: ${JSON.stringify(def, null, 0)}`)
+
+        // Snap the item to the proposed position
+        item.x = xCell * grid.unitSize
+        item.y = yCell * grid.unitSize
+
+        // Update the widget def
+        def.row = yCell
+        def.col = xCell
+
+        // Trigger updated signal
+        grid.modelUpdated(grid.model)
     }
 
     function addWidget(widgetId: string) {
@@ -161,24 +178,7 @@ Rectangle {
 
                 // If no overlap then no rearrangement needs to occur
                 if (noOverlap) {
-                    // Snap the item to the proposed position
-                    x = grid.selectedTargetColumn * grid.unitSize
-                    y = grid.selectedTargetRow * grid.unitSize
-
-                    // get the definition for currently moved item and update it
-                    console.log(`model: ${JSON.stringify(grid.model, null, 4)}`)
-                    console.log(`looking for: ${gridItem.uid}`)
-                    const widgetdef = grid.model.find(def => {
-                        console.log(`checking ${JSON.stringify(def)}`)
-                        return def.id === gridItem.uid
-                    })
-                    console.log(`widgetdef: ${JSON.stringify(widgetdef, null, 0)}`)
-                    widgetdef.row = grid.selectedTargetRow
-                    widgetdef.col = grid.selectedTargetColumn
-                    
-                    // Trigger updated signal
-                    grid.modelUpdated(grid.model)
-
+                    moveWidget(item.uid, grid.selectedTargetColumn, grid.selectedTargetRow)
                     grid.selectedItem = null
                     return
                 }
@@ -195,9 +195,7 @@ Rectangle {
                 // Need to move all intersecting items out of the way
                 intersectingDefs.forEach(def => {
                     console.log(`def: ${JSON.stringify(def, null, 4)}`)
-                    const intersectingItem = grid.children.find(i => i.uid === def.id)
-                    console.log(`intersectingDef: ${def}`)
-                    console.log(`intersectingItem: ${intersectingItem}`)
+                    const intersectingItem = getWidgetItem(def.id)
 
                     // Need to determine the direction to move the intersecting item
                     // find midpoint of moved item relative to grid
@@ -214,25 +212,39 @@ Rectangle {
                     }
                     console.log(`intersectingMidpoint: ${JSON.stringify(intersectingMidPoint, null, 4)}`)
 
-                    // find which side of the intersecting item the midpoint is closest to
+                    // find which x and y side of the intersecting item the midpoint is closest to
                     const xDirection = movedMidpoint.x < intersectingMidPoint.x ? -1 : 1
                     const yDirection = movedMidpoint.y < intersectingMidPoint.y ? -1 : 1
                     console.log(`xDir: ${xDirection} | yDir ${yDirection}`)
 
-                    // Search for an open position for this intersecting item in the x or y direction
-                    // Try xDirection
-                    if (isPositionValid(def, def.col + yDirection, def.row)) {
-                        console.log(`found position with x`)
-                    }
-                    /*
-                    // Try yDirection
-                    if (isPositionValid(def, def.col, def.row + xDirection)) {
-                        console.log(`found position with y`)
-                        intersectingItem.x = (def.row + xDirection) * grid.unitSize
-                        return 
-                    }
-                    */
+                    // find the distance diff (delta) between the x and y direction
+                    const xDelta = Math.abs(movedMidpoint.x - intersectingMidPoint.x)
+                    const yDelta = Math.abs(movedMidpoint.y - intersectingMidPoint.y)
 
+                    // find which direction to atempt a move
+                    // Search for an open position for this intersecting item in the x or y direction
+                    if (xDelta > yDelta) {
+                        console.log(`attempting to move item in x direction`)
+                        // Try xDirection
+                        if (isPositionValid(def, def.col - xDirection, def.row)) {
+                            console.log(`found position in x direction, moving...`)
+                            moveWidget(def.id, def.col - xDirection, def.row)
+                        }
+                        else {
+                            console.log(`couldn't move in x position`)
+                        }
+                    }
+                    else {
+                        console.log(`attempting to move item in y direction`)
+                        // Try yDirection
+                        if (isPositionValid(def, def.col, def.row - yDirection)) {
+                            console.log(`found position in y direction, moving...`)
+                            moveWidget(def.id, def.col, def.row - yDirection)
+                        }
+                        else {
+                            console.log(`couldn't move in y position`)
+                        }
+                    }
                 })
                 // Trigger updated signal
                 grid.modelUpdated(grid.model)
