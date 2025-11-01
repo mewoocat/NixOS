@@ -166,11 +166,15 @@ Rectangle {
                     y = grid.selectedTargetRow * grid.unitSize
 
                     // get the definition for currently moved item and update it
+                    console.log(`model: ${JSON.stringify(grid.model, null, 4)}`)
+                    console.log(`looking for: ${gridItem.uid}`)
                     const widgetdef = grid.model.find(def => {
-                        def.id === griditem.modeldata.id
+                        console.log(`checking ${JSON.stringify(def)}`)
+                        return def.id === gridItem.uid
                     })
-                    widgetdef.row = grid.selectedtargetrow
-                    widgetdef.col = grid.selectedtargetcolumn
+                    console.log(`widgetdef: ${JSON.stringify(widgetdef, null, 0)}`)
+                    widgetdef.row = grid.selectedTargetRow
+                    widgetdef.col = grid.selectedTargetColumn
                     
                     // Trigger updated signal
                     grid.modelUpdated(grid.model)
@@ -217,15 +221,17 @@ Rectangle {
 
                     // Search for an open position for this intersecting item in the x or y direction
                     // Try xDirection
-                    if (isPositionValid(def, def.row + xDirection, def.col)) {
+                    if (isPositionValid(def, def.col + yDirection, def.row)) {
                         console.log(`found position with x`)
+                    }
+                    /*
+                    // Try yDirection
+                    if (isPositionValid(def, def.col, def.row + xDirection)) {
+                        console.log(`found position with y`)
+                        intersectingItem.x = (def.row + xDirection) * grid.unitSize
                         return 
                     }
-                    // Try xDirection
-                    if (isPositionValid(def, def.row, def.col + yDirection)) {
-                        console.log(`found position with y`)
-                        return
-                    }
+                    */
 
                 })
                 // Trigger updated signal
