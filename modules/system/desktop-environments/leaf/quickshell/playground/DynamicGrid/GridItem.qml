@@ -8,6 +8,7 @@ import Quickshell
 MouseArea {
     id: gridItem
     signal positionUpdateRequested(item: GridItem)
+    signal positionChanged(item: GridItem)
     signal itemSelected(item: GridItem)
     //signal modelUpdated(newModel: list<var>)
     //required property GridArea parentGrid // the grid parent
@@ -25,6 +26,9 @@ MouseArea {
 
     property int initialX: 0
     property int initialY: 0
+
+    onXChanged: positionChanged(gridItem)
+    onYChanged: positionChanged(gridItem)
 
     // Position & Size
     x: column * unitSize

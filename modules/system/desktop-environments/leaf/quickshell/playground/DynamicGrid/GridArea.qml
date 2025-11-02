@@ -162,6 +162,7 @@ Rectangle {
             widgetId: modelData.widgetId
             uid: modelData.id
             onItemSelected: (item) => grid.selectedItem = item
+            onPositionChanged: (item) => console.log(`item ${item.uid} position changed`)
             onPositionUpdateRequested: (item) => {
                 const intersectingDefs = grid.model.filter(d => {
                     // Don't count if widget overlaps with self
@@ -186,6 +187,8 @@ Rectangle {
                 }
 
                 // If rearrangement does need to occur 
+                let validMove = false
+
                 const oldRow = row
                 const oldCol = column
                 const newRow = grid.selectedTargetRow
@@ -202,15 +205,15 @@ Rectangle {
                     // Need to determine the direction to move the intersecting item
                     // find midpoint of moved item relative to grid
                     const movedMidpoint = {
-                        x: (x + width) / 2,
-                        y: (y + height) / 2
+                        x: (x + (x + width)) / 2,
+                        y: (y + (y + height)) / 2
                     }
                     console.log(`movedMidpoint: ${JSON.stringify(movedMidpoint, null, 4)}`)
 
                     // find midpoint of intersecting item relative to grid
                     const intersectingMidPoint = {
-                        x: (intersectingItem.x + intersectingItem.width) / 2,
-                        y: (intersectingItem.y + intersectingItem.height) / 2
+                        x: (intersectingItem.x + (intersectingItem.x + intersectingItem.width)) / 2,
+                        y: (intersectingItem.y + (intersectingItem.y + intersectingItem.height)) / 2
                     }
                     console.log(`intersectingMidpoint: ${JSON.stringify(intersectingMidPoint, null, 4)}`)
 
@@ -232,6 +235,7 @@ Rectangle {
                         if (isPositionValid(def, def.col - xDirection, def.row)) {
                             console.log(`found position in x direction, moving...`)
                             moveWidget(def.id, def.col - xDirection, def.row)
+                            validMove = true
                         }
                         else {
                             console.log(`couldn't move in x position`)
@@ -243,24 +247,26 @@ Rectangle {
                         if (isPositionValid(def, def.col, def.row - yDirection)) {
                             console.log(`found position in y direction, moving...`)
                             moveWidget(def.id, def.col, def.row - yDirection)
+                            validMove = true
                         }
                         else {
                             console.log(`couldn't move in y position`)
                         }
                     }
                 })
-                // Trigger updated signal
-                grid.modelUpdated(grid.model)
-
-                // Get the definition for currently moved item and update it
-                const widgetDef = grid.model.find(i => i.id === modelData.id)
-                widgetDef.row = grid.selectedTargetRow
-                widgetDef.col = grid.selectedTargetColumn
-                return
 
                 // Move failure
-                x = initialX
-                y = initialY
+                if (!validMove) {
+                    x = initialX
+                    y = initialY
+                }
+                else {
+                    // complete the move for the selected widget
+                    moveWidget(gridItem.uid, selectedTargetColumn, selectedTargetRow)
+                }
+
+                // Trigger updated signal
+                grid.modelUpdated(grid.model)
                 grid.selectedItem = null
             }
 
