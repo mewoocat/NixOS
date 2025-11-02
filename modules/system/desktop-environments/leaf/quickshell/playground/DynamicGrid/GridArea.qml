@@ -227,6 +227,21 @@ Rectangle {
                     const yDelta = Math.abs(movedMidpoint.y - intersectingMidPoint.y)
                     console.log(`xDelta: ${xDelta} | yDelta: ${yDelta}`)
 
+                    const directionalFind = (def, direction) => {
+                        let bust = false
+                        while (!bust) {
+                            // TODO
+                            switch(direction) {
+                                case "up": 
+                                case "down":
+                                case "left":
+                                case "right":
+                                default:
+                                    return false
+                            }
+                        }
+                    }
+
                     // find which direction to atempt a move
                     // Search for an open position for this intersecting item in the x or y direction
                     if (xDelta > yDelta) {
