@@ -115,6 +115,42 @@ Rectangle {
         grid.modelUpdated(grid.model)
     }
 
+    // WARNING: work in progess
+    function recursiveRearrange(moveeId: string, collideeId: string, movedDirection: var, model: var): bool {
+        const moveeDef = getWidgetDef(moveeId)
+        const collideeDef = getWidgetDef(collideeId)
+
+        // Move the collidee in the provided direction until it no longer collides
+        // with the movee or hits a grid boundary
+        let intersection = doItemsOverlap(
+            Qt.point(selectedTargetColumn, selectedTargetRow),
+            Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
+            Qt.point(d.col, d.row),
+            Qt.point(d.col + d.w, d.row + d.h))
+        let hitEdge = false
+        while (intersection && !hitEdge) {
+            moveWidget(col...)
+        }
+
+        // Find any widgets that intersect with the moved widget
+        const intersectingDefs = model.filter(d => {
+            // Don't count if widget overlaps with self
+            if (d.id === modelData.id) { return false }
+            return doItemsOverlap(
+                Qt.point(selectedTargetColumn, selectedTargetRow),
+                Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
+                Qt.point(d.col, d.row),
+                Qt.point(d.col + d.w, d.row + d.h)
+            )
+        })
+
+        intersectingDefs.forEach(def => {
+            
+            recursiveRearrange(def, model)
+        })
+
+    }
+
     function addWidget(widgetId: string) {
         console.log(`attempting to add: ${widgetId}`)
         const widgetDef = availableWidgets.find(def => def.widgetId === widgetId)
@@ -164,7 +200,9 @@ Rectangle {
             onItemSelected: (item) => grid.selectedItem = item
             onPositionChanged: (item) => console.log(`item ${item.uid} position changed`)
             onPositionUpdateRequested: (item) => {
-                const intersectingDefs = grid.model.filter(d => {
+                var modelClone = JSON.parse(JSON.stringify(grid.model))
+
+                const intersectingDefs = modelClone.filter(d => {
                     // Don't count if widget overlaps with self
                     if (d.id === modelData.id) { return false }
                     return doItemsOverlap(
@@ -174,7 +212,6 @@ Rectangle {
                         Qt.point(d.col + d.w, d.row + d.h)
                     )
                 })
-
                 console.log(JSON.stringify(intersectingDefs, null, 4))
 
                 const noOverlap = intersectingDefs.length == 0
@@ -188,14 +225,6 @@ Rectangle {
 
                 // If rearrangement does need to occur 
                 let validMove = false
-
-                const oldRow = row
-                const oldCol = column
-                const newRow = grid.selectedTargetRow
-                const newCol = grid.selectedTargetColumn
-
-                console.log(`oldRow: ${oldRow} oldCol: ${oldCol}`)
-                console.log(`newRow: ${newRow} newCol: ${newCol}`)
 
                 // Need to move all intersecting items out of the way
                 intersectingDefs.forEach(def => {
@@ -227,47 +256,18 @@ Rectangle {
                     const yDelta = Math.abs(movedMidpoint.y - intersectingMidPoint.y)
                     console.log(`xDelta: ${xDelta} | yDelta: ${yDelta}`)
 
-                    const directionalFind = (def, direction) => {
-                        let bust = false
-                        while (!bust) {
-                            // TODO
-                            switch(direction) {
-                                case "up": 
-                                case "down":
-                                case "left":
-                                case "right":
-                                default:
-                                    return false
-                            }
-                        }
-                    }
-
+                    let direction
                     // find which direction to atempt a move
                     // Search for an open position for this intersecting item in the x or y direction
                     if (xDelta > yDelta) {
-                        console.log(`attempting to move item in x direction to ${def.col - xDirection}`)
-                        // Try xDirection
-                        if (isPositionValid(def, def.col - xDirection, def.row)) {
-                            console.log(`found position in x direction, moving...`)
-                            moveWidget(def.id, def.col - xDirection, def.row)
-                            validMove = true
-                        }
-                        else {
-                            console.log(`couldn't move in x position`)
-                        }
+                        direction = {x: -xDirection, y: 0}
                     }
                     else {
-                        console.log(`attempting to move item in y direction`)
-                        // Try yDirection
-                        if (isPositionValid(def, def.col, def.row - yDirection)) {
-                            console.log(`found position in y direction, moving...`)
-                            moveWidget(def.id, def.col, def.row - yDirection)
-                            validMove = true
-                        }
-                        else {
-                            console.log(`couldn't move in y position`)
-                        }
+                        direction = {x: 0, y: -yDirection}
                     }
+                    console.log(`direction is ${direction}`)
+
+                    recursiveRearrange(def, direction, modelClone)
                 })
 
                 // Move failure
