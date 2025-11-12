@@ -54,18 +54,26 @@ Rectangle {
         return null
     }
 
-    // Checks if the def is moved to (x,y) if that position is valide
-    function isPositionValid(def, x: int, y: int): bool { 
+    function isPositionOverlapping(def: var, x: int, y: int): bool { 
         // Ensure this new position won't cause the item to overlap with any other items
-        let isValid = grid.model
-            .filter(existingDef => existingDef.id !== def.id)
+        let isIntersecting = grid.model
+            .filter(existingDef => existingDef.id !== def.id) // Don't check self
             .every(existingDef => !doItemsOverlap(
-            Qt.point(x, y),
-            Qt.point(x + def.w, y + def.h),
-            Qt.point(existingDef.col, existingDef.row),
-            Qt.point(existingDef.col + existingDef.w, existingDef.row + existingDef.h)
-        ))
-        return isValid
+                Qt.point(x, y),
+                Qt.point(x + def.w, y + def.h),
+                Qt.point(existingDef.col, existingDef.row),
+                Qt.point(existingDef.col + existingDef.w, existingDef.row + existingDef.h)
+            ))
+        return isIntersecting
+    }
+
+    function isPositionInBounds(def: var, x: int, y: int): bool {
+        let inBounds =
+            def.col >= 0 &&
+            def.col + def.w < grid.numColumns &&
+            def.row >= 0 &&
+            def.row + def.h < grid.numRows;
+        return inBounds
     }
 
     // Determines whether two rectangles overlap given both of their top left most and bottom 
@@ -120,16 +128,30 @@ Rectangle {
         const moveeDef = getWidgetDef(moveeId)
         const collideeDef = getWidgetDef(collideeId)
 
+        let proposedX = collideeDef.col + movedDirection.x
+        let proposedY = collideeDef.row + movedDirection.y
+
+        let intersection = true
         // Move the collidee in the provided direction until it no longer collides
         // with the movee or hits a grid boundary
-        let intersection = doItemsOverlap(
-            Qt.point(selectedTargetColumn, selectedTargetRow),
-            Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
-            Qt.point(d.col, d.row),
-            Qt.point(d.col + d.w, d.row + d.h))
-        let hitEdge = false
-        while (intersection && !hitEdge) {
-            moveWidget(col...)
+        while (intersection) {
+            intersection = doItemsOverlap(
+                Qt.point(moveeDef.col, moveeDef.row),
+                Qt.point(moveeDef.col + moveeDef.w, moveeDef.row + moveeDef.h),
+                Qt.point(collideeDef.col, collideeDef.row),
+                Qt.point(collideeDef.col + collideeDef.w, collideeDef.row + collideeDef.h)
+            )
+            if (!intersection) {
+                let inBounds = isPositionInBounds(collideeDef, proposedX, proposedY)
+                if (inBounds) {
+                    moveWidget(col...)
+                }
+            }
+            // Try another space over in the move direction
+            else {
+                proposedX += movedDirection.x
+                proposedY += movedDirection.y
+            }
         }
 
         // Find any widgets that intersect with the moved widget
@@ -144,8 +166,7 @@ Rectangle {
             )
         })
 
-        intersectingDefs.forEach(def => {
-            
+        intersectingDefs.forEach(def => {    
             recursiveRearrange(def, model)
         })
 
