@@ -17,6 +17,7 @@ inputs.nixpkgs-server.lib.nixosSystem {
     #../../users/eXia # need to add user without all the other junk
 
     # Services
+    ./wireguard-server.nix
     ../../modules/servers/nextcloud
     #../../modules/servers/ad-guard-home
     ../../modules/servers/owntracks
