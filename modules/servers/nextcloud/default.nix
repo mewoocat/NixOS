@@ -93,12 +93,18 @@
   services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {
     forceSSL = true;
     enableACME = true;
+    acmeRoot = null; # Disable the .well-known/acme-challenge/ endpoint since we're using DNS-01 Challenge instead of HTTP-01
   };
 
   security.acme = {
     acceptTerms = true;   
     certs = { 
-      ${config.services.nextcloud.hostName}.email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
+      ${config.services.nextcloud.hostName} = {
+        email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
+        domain = "*.example.com"; # TODO
+        #
+        
+      };
     }; 
   };
 
