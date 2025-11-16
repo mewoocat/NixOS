@@ -7,11 +7,9 @@
   imports = [
     ./razer.nix
   ];
-  services.udev.packages = [
-    pkgs.openrgb
-  ];
-  hardware.i2c.enable = true;
-  users.users.${config.username}.packages = with pkgs; [
-    openrgb-with-all-plugins
-  ];
+
+  services.hardware.openrgb = {
+    enable = true;
+    package = pkgs.openrgb-with-all-plugins;
+  };
 }
