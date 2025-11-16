@@ -22,7 +22,6 @@
 
   boot.kernelModules = [
     "kvm-amd"
-    "i2c-dev" # For openrgb
     "vhba" # Needed for cdemu-daemon to start
   ];
   boot.extraModulePackages = [];
@@ -38,6 +37,12 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/C142-122B";
     fsType = "vfat";
+  };
+
+  boot.supportedFilesystems = ["ntfs"];
+  fileSystems."/run/media/eXia/Storage" = {
+    device = "/dev/disk/by-uuid/6EEAC6BEEAC681B7";
+    fsType = "ntfs3";
   };
 
   swapDevices = [
