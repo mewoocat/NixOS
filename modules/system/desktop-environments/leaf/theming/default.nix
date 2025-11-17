@@ -44,8 +44,6 @@ in {
     platformTheme = "qt5ct";
     #platformTheme = "kde";
     #style = "kvantum";
-
-
   };
 
   # This can be used to dynamically set gtk options

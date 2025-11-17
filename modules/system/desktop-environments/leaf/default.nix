@@ -126,4 +126,17 @@ in{
     ddcutil
     ddcui
   ];
+
+
+
+  # GreetD
+  services.greetd = {
+    enable = false;
+    settings = {
+      default_session = {
+        command = "${pkgs.cage}/bin/cage -s -- leaf";
+        user = "eXia"; # Set user to auto login
+      };
+    };
+  };
 }
