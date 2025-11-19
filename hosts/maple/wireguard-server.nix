@@ -38,6 +38,15 @@
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
             */
+
+            # strawberry
+            {
+              publicKey = "NGxgL+ma7BuPWf7hMnPL6CIqBZ0dbbNRtPVlrhgXQ3M="; # Peer's public key
+              allowedIPs = [
+                "10.10.0.3/24" # The designated private ip for this peer in the tunnel
+              ];
+              endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
+            }
           ];
         };
       };

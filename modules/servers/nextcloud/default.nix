@@ -5,18 +5,22 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let 
+  rootDomain = builtins.readFile (inputs.secrets + "/plaintext/domain.txt"); 
+in {
   
   # Add Agenix secrets
   #age.secretsDir = "/tmp";
-  #age.secrets.nextcloud-domain.file = ../../../secrets/nextcloud-domain.age;
-  #age.secrets.nextcloud-admin-pass.file = ../../../secrets/nextcloud-admin-pass.age;
-  #age.secrets.nextcloud-domain.file = inputs.secrets + "/nextcloud-domain.age";
-  age.secrets.nextcloud-admin-pass = {
-    file = inputs.secrets + "/nextcloud-admin-pass.age";
-    # File need to be access by the nextcloud user
-    owner = "nextcloud";
-    group = "nextcloud";
+  age.secrets = {
+    nextcloud-admin-pass = {
+      file = inputs.secrets + "/nextcloud-admin-pass.age";
+      # File need to be access by the nextcloud user
+      owner = "nextcloud";
+      group = "nextcloud";
+    };
+    porkbun-api-key = {
+      file = inputs.secrets + "/porkbun-api-key.age";
+    };
   };
 
 
@@ -90,22 +94,35 @@
   };
 
   # TLS setup
-  services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {
-    forceSSL = true;
-    enableACME = true;
-    acmeRoot = null; # Disable the .well-known/acme-challenge/ endpoint since we're using DNS-01 Challenge instead of HTTP-01
-  };
-
+  # This configuration is designed for being hosted behind a vpn.  The nextcloud service will be
+  # accessible using a domain name which points to the private internal ip of the server within
+  # the vpn.  This means that http challenge (for proving to the CA e.g. letsencrypt) that the
+  # server controls the domain, is not possible due to the web server not being exposed directly
+  # the public internet.  Instead, DNS validation must be used instead, which is what is done here.
   security.acme = {
     acceptTerms = true;   
+    defaults = {
+      email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
+      # The the DNS provider for the domain
+      dnsProvider = "porkbun";
+      # Sets the needed secret env variables to authenticate api access to porkbun
+      # See: https://go-acme.github.io/lego/dns/porkbun/ details
+      environmentFile = config.age.secrets.porkbun-api-key.path;
+    };
+    # Generate root wildcard certificate (can be used for the root domain and any first level subdomains)
     certs = { 
-      ${config.services.nextcloud.hostName} = {
-        email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
-        domain = "*.example.com"; # TODO
-        #
-        
+      ${rootDomain} = {
+        # ACME servers will only hand out wildcard certs over DNS validation
+        domain = "*.${rootDomain}";
+        group = config.services.nginx.group;
       };
     }; 
+  };
+  services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {
+    forceSSL = true;
+    #enableACME = true; # Auto tries to generate cert?
+    useACMEHost = rootDomain; # Use wildcard certificate generated for the root domain
+    acmeRoot = null; # Disable the .well-known/acme-challenge/ endpoint since we're using DNS-01 Challenge instead of HTTP-01
   };
 
   # Nextcloud backup
