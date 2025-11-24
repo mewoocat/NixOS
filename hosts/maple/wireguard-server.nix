@@ -54,6 +54,15 @@
               ];
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
+
+            # marshmello
+            {
+              publicKey = "Afdhae3lrlCsOMmevu594p6MCRt9yreU3FlsRzk12Sw="; # Peer's public key
+              allowedIPs = [
+                "10.10.0.4/32" # The designated private ip for this peer in the tunnel
+              ];
+              endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
+            }
           ];
         };
       };
