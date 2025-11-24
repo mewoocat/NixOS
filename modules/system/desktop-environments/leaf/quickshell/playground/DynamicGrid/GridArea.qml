@@ -144,7 +144,7 @@ Rectangle {
             if (!intersection) {
                 let inBounds = isPositionInBounds(collideeDef, proposedX, proposedY)
                 if (inBounds) {
-                    moveWidget(col...)
+                    //moveWidget(col...)
                 }
             }
             // Try another space over in the move direction

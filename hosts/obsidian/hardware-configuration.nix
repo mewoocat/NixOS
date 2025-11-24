@@ -39,11 +39,14 @@
     fsType = "vfat";
   };
 
+  # I think this breaks shit
+  /*
   boot.supportedFilesystems = ["ntfs"];
   fileSystems."/run/media/eXia/Storage" = {
     device = "/dev/disk/by-uuid/6EEAC6BEEAC681B7";
     fsType = "ntfs3";
   };
+  */
 
   swapDevices = [
     {device = "/dev/disk/by-uuid/b6e54efd-7622-40cc-85f5-133f24e6d24c";}

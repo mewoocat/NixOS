@@ -34,18 +34,6 @@
               ];
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
-
-            # obsidian
-            /*
-            {
-              publicKey = ""; # Peer's public key
-              allowedIPs = [
-                "10.10.0.3/24" # The designated private ip for this peer in the tunnel
-              ];
-              endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
-            }
-            */
-
             # strawberry
             {
               publicKey = "NGxgL+ma7BuPWf7hMnPL6CIqBZ0dbbNRtPVlrhgXQ3M="; # Peer's public key
@@ -63,6 +51,15 @@
               ];
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
+            # obsidian
+            {
+              publicKey = "uA66jiRQqO+ypf3Z2UPM8oZw57nlrDc3lCfAEYQIV1g="; # Peer's public key
+              allowedIPs = [
+                "10.10.0.5/32" # The designated private ip for this peer in the tunnel
+              ];
+              endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
+            }
+
           ];
         };
       };
