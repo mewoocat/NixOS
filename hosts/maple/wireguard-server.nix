@@ -53,7 +53,7 @@
             }
             # obsidian
             {
-              publicKey = "uA66jiRQqO+ypf3Z2UPM8oZw57nlrDc3lCfAEYQIV1g="; # Peer's public key
+              publicKey = "oy+U9lTUFKrjdlRtOBrdJkmxbJYMh4sqVx+7DuqosiU="; # Peer's public key
               allowedIPs = [
                 "10.10.0.5/32" # The designated private ip for this peer in the tunnel
               ];
