@@ -125,26 +125,32 @@ Rectangle {
 
     // WARNING: work in progess
     function recursiveRearrange(moveeId: string, collideeId: string, movedDirection: var, model: var): bool {
+
         const moveeDef = getWidgetDef(moveeId)
         const collideeDef = getWidgetDef(collideeId)
+        console.log(`mveeId: ${moveeId}`)
+        console.log(`collideeId: ${collideeId}`)
 
         let proposedX = collideeDef.col + movedDirection.x
         let proposedY = collideeDef.row + movedDirection.y
 
-        let intersection = true
         // Move the collidee in the provided direction until it no longer collides
         // with the movee or hits a grid boundary
+        let intersection = true
         while (intersection) {
+            console.log(`intesection exists`)
             intersection = doItemsOverlap(
                 Qt.point(moveeDef.col, moveeDef.row),
                 Qt.point(moveeDef.col + moveeDef.w, moveeDef.row + moveeDef.h),
-                Qt.point(collideeDef.col, collideeDef.row),
+                Qt.point(proposedX, proposedY),
                 Qt.point(collideeDef.col + collideeDef.w, collideeDef.row + collideeDef.h)
             )
             if (!intersection) {
+                console.log(`no longer intesecting`)
                 let inBounds = isPositionInBounds(collideeDef, proposedX, proposedY)
                 if (inBounds) {
                     //moveWidget(col...)
+                    console.log('found position for collidee thats in bounds')
                 }
             }
             // Try another space over in the move direction
@@ -154,20 +160,21 @@ Rectangle {
             }
         }
 
-        // Find any widgets that intersect with the moved widget
+        // Find any widgets that intersect with the collidee after we moved it to 
+        // stop colliding with the original movee.
         const intersectingDefs = model.filter(d => {
             // Don't count if widget overlaps with self
-            if (d.id === modelData.id) { return false }
+            if (d.id === collideeId.id) { return false }
             return doItemsOverlap(
-                Qt.point(selectedTargetColumn, selectedTargetRow),
-                Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
+                Qt.point(collideeDef.col, collideeDef.row),
+                Qt.point(collideeDef.col + collideeDef.w, collideeDef.row + collideeDef.h),
                 Qt.point(d.col, d.row),
                 Qt.point(d.col + d.w, d.row + d.h)
             )
         })
 
         intersectingDefs.forEach(def => {    
-            recursiveRearrange(def, model)
+            recursiveRearrange(collideeId, def.id, movedDirection, model)
         })
 
     }
@@ -288,7 +295,7 @@ Rectangle {
                     }
                     console.log(`direction is ${direction}`)
 
-                    recursiveRearrange(def, direction, modelClone)
+                    recursiveRearrange(uid, def.id, direction, modelClone)
                 })
 
                 // Move failure
