@@ -17,6 +17,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../modules/hardware/razer.nix
     ../../modules/hardware/rgb.nix
     ../../modules/hardware/vial-keyboards.nix
+    ./displaylink.nix
 
     # Core system components
     ../../modules/system

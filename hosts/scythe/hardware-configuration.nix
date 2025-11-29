@@ -76,4 +76,5 @@
     analogioOffset = -100;
     uncoreOffset = -100;
   };
+  
 }
