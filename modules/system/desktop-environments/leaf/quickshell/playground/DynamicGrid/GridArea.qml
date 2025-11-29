@@ -12,8 +12,8 @@ Rectangle {
     required property list<WidgetDef> availableWidgets
 
     property int unitSize: 64
-    property int numRows: 4
-    property int numColumns: 8
+    property int numRows: 8
+    property int numColumns: 4
     property GridItem selectedItem: null
     property int selectedTargetRow: {
         if (!selectedItem) { return -1 }
@@ -35,6 +35,17 @@ Rectangle {
     height: unitSize * numRows
     color: "black"
 
+    function generateWidgetDef(widgetId: string, xPos: int, yPos: int, width: int, height: int): var {
+        return {
+            uid: Math.random().toString().substr(2), // Generate random string (probably unique)
+            widgetId: widgetId,
+            x: x, 
+            y: y,
+            w: width,
+            h: height
+        }
+    }
+
     function findSpot(def: WidgetDef): var {
         // Iterate over each possible spot
         for (let row = 0; row <= numRows - def.cellRowSpan; row++) {
@@ -54,6 +65,8 @@ Rectangle {
         return null
     }
 
+    // Checks if the widget overlaps with any other widgets
+    // Takes in a widget def, the proposed x and position, and the model
     function isPositionOverlapping(def: var, x: int, y: int): bool { 
         // Ensure this new position won't cause the item to overlap with any other items
         let isIntersecting = grid.model
@@ -67,6 +80,7 @@ Rectangle {
         return isIntersecting
     }
 
+    // Takes in a widget def and the proposed x and y position
     function isPositionInBounds(def: var, x: int, y: int): bool {
         let inBounds =
             def.col >= 0 &&
@@ -188,12 +202,14 @@ Rectangle {
         if (!pos) { console.error(`Could not add widget: ${widgetId}.  Position doesn't exist`); return }
 
         const jsonDef = {
-            id: Math.random().toString().substr(2),
+            uid: Math.random().toString().substr(2), // Generate random string (probably unique)
             widgetId: widgetId,
-            row: pos.y, col: pos.x,
+            x: pos.x, 
+            y: pos.y,
             w: widgetDef.cellColumnSpan,
             h: widgetDef.cellRowSpan
         }
+
         grid.model.push(jsonDef)
         grid.modelUpdated(grid.model)
     }

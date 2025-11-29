@@ -39,20 +39,20 @@ FloatingWindow {
         availableWidgets: [
             WidgetDef {
                 widgetId: "item1"
-                cellRowSpan: 1
-                cellColumnSpan: 1
+                xSpan: 1
+                ySpan: 1
                 content: Item1 {}
             },
             WidgetDef {
                 widgetId: "item2"
-                cellRowSpan: 1
-                cellColumnSpan: 2
+                xSpan: 2
+                ySpan: 1
                 content: Item2 {}
             },
             WidgetDef {
                 widgetId: "item3"
-                cellRowSpan: 2
-                cellColumnSpan: 2
+                xSpan: 2
+                ySpan: 2
                 content: Item3 {}
             }
         ]
