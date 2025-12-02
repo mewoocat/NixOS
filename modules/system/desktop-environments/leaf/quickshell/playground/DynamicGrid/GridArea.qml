@@ -9,53 +9,57 @@ Rectangle {
     id: grid
     signal modelUpdated(model: list<var>)
     required property list<var> model
+    //required property var instMap // Object which maps widget uid's to their instance data
     required property list<WidgetDef> availableWidgets
 
     property int unitSize: 64
     property int numRows: 8
     property int numColumns: 4
     property GridItem selectedItem: null
-    property int selectedTargetRow: {
+    readonly property int selectedXPos: {
         if (!selectedItem) { return -1 }
-        let proposedRow = Math.round(selectedItem.y / unitSize)
-        let maxAllowedRow = numRows - selectedItem.cellRowSpan 
-        if (proposedRow > maxAllowedRow) { return maxAllowedRow }
-        if (proposedRow < 0) { return 0 }
-        return proposedRow
+        let proposedXPos = Math.round(selectedItem.x / unitSize)
+        let maxAllowedXPos = numColumns - selectedItem.widgetInst.xSpan
+        if (proposedXPos > maxAllowedXPos) { return maxAllowedXPos }
+        if (proposedXPos < 0) { return 0 }
+        return proposedXPos
     }
-    property int selectedTargetColumn: {
+    readonly property int selectedYPos: {
         if (!selectedItem) { return -1 }
-        let proposedCol = Math.round(selectedItem.x / unitSize)
-        let maxAllowedCol = numColumns - selectedItem.cellColumnSpan
-        if (proposedCol > maxAllowedCol) { return maxAllowedCol }
-        if (proposedCol < 0) { return 0 }
-        return proposedCol
+        let proposedYPos = Math.round(selectedItem.y / unitSize)
+        let maxAllowedYPos = numColumns - selectedItem.cellColumnSpan
+        if (proposedYPos > maxAllowedYPos) { return maxAllowedYPos }
+        if (proposedYPos < 0) { return 0 }
+        return proposedYPos
     }
     width: unitSize * numColumns
     height: unitSize * numRows
     color: "black"
 
-    function generateWidgetDef(widgetId: string, xPos: int, yPos: int, width: int, height: int): var {
+    // Returns an object representing an instance of a widget
+    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int): var {
         return {
             uid: Math.random().toString().substr(2), // Generate random string (probably unique)
             widgetId: widgetId,
-            x: x, 
-            y: y,
-            w: width,
-            h: height
+            xPos: xPos,
+            yPos: yPos,
+            xSpan: xSpan,
+            ySpan: ySpan
         }
     }
 
+    // Returns the first valid spot of null if one doesn't exist for a given 
+    // widget def
     function findSpot(def: WidgetDef): var {
         // Iterate over each possible spot
-        for (let row = 0; row <= numRows - def.cellRowSpan; row++) {
-            for (let col = 0; col <= numColumns - def.cellColumnSpan; col++) {
-                // Check if can fit the widget
-                let isValid = grid.model.every(existingDef => !doItemsOverlap(
-                    Qt.point(col, row),
-                    Qt.point(col + def.cellColumnSpan, row + def.cellRowSpan),
-                    Qt.point(existingDef.col, existingDef.row),
-                    Qt.point(existingDef.col + existingDef.w, existingDef.row + existingDef.h)
+        for (let xPos = 0; xPos <= numColumns - def.xSpan; xPos++) {
+            for (let yPos = 0; yPos <= numRows - def.ySpan; yPos++) {
+                // Check a new defintion of a widget can fit with the existing instances
+                let isValid = grid.model.every(inst => !doItemsOverlap(
+                    Qt.point(xPos, yPos),
+                    Qt.point(xPos + def.xSpan, yPos + def.ySpan),
+                    Qt.point(inst.xPos, inst.yPos),
+                    Qt.point(inst.xPos + inst.xSpan, inst.yPos + inst.ySpan)
                 ))
                 if (isValid) {
                     return Qt.point(col, row)
@@ -65,28 +69,29 @@ Rectangle {
         return null
     }
 
-    // Checks if the widget overlaps with any other widgets
-    // Takes in a widget def, the proposed x and position, and the model
-    function isPositionOverlapping(def: var, x: int, y: int): bool { 
+    // Checks if the widget instance overlaps with any other widget instances.
+    // Takes in a widget instance, the proposed x/y position, and the model.
+    function isPositionOverlapping(inst: var, xPos: int, yPos: int, model: var): bool { 
         // Ensure this new position won't cause the item to overlap with any other items
-        let isIntersecting = grid.model
-            .filter(existingDef => existingDef.id !== def.id) // Don't check self
-            .every(existingDef => !doItemsOverlap(
-                Qt.point(x, y),
-                Qt.point(x + def.w, y + def.h),
-                Qt.point(existingDef.col, existingDef.row),
-                Qt.point(existingDef.col + existingDef.w, existingDef.row + existingDef.h)
+        const isIntersecting = model
+            .filter(existingInst => existingInst.uid !== inst.uid) // Don't check self
+            .every(existingInst => !doItemsOverlap(
+                Qt.point(xPos, yPos),
+                Qt.point(xPos + inst.xSpan, yPos + inst.ySpan),
+                Qt.point(existingInst.xPos, existingInst.yPos),
+                Qt.point(existingInst.xPos + existingInst.xSpan, existingInst.yPos + existingInst.ySpan)
             ))
         return isIntersecting
     }
 
-    // Takes in a widget def and the proposed x and y position
-    function isPositionInBounds(def: var, x: int, y: int): bool {
-        let inBounds =
-            def.col >= 0 &&
-            def.col + def.w < grid.numColumns &&
-            def.row >= 0 &&
-            def.row + def.h < grid.numRows;
+    // Checks if the position for the instance is within the bounds of the grid
+    // Takes in a widget instance and the proposed x and y position.
+    function isPositionInBounds(inst: var, x: int, y: int): bool {
+        const inBounds =
+            inst.xPos >= 0 &&
+            inst.xPos + inst.xSpan < grid.numColumns &&
+            inst.yPos >= 0 &&
+            inst.yPos + inst.yPos < grid.numRows;
         return inBounds
     }
 
@@ -107,34 +112,35 @@ Rectangle {
         }
         return false
     }
-    function getWidgetDef(widgetId: string): var {
+
+    // Given a widget instance uid and model, get the instance data
+    function getWidgetInst(uid: string): var {
         const widgetdef = grid.model.find(def => {
             return def.id === widgetId
         })
         return widgetdef
     }
 
-    function getWidgetItem(widgetId: string): Item {
-        const item = grid.children.find(i => i.uid === widgetId)
+    function getWidgetItem(uid: string): Item {
+        const item = grid.children.find(i => i.uid === uid)
         return item
     }
 
-    function moveWidget(widgetId: string, xCell: int, yCell: int) {
-        const item = getWidgetItem(widgetId)
-        // get the definition for currently moved item and update it
-        const def = getWidgetDef(widgetId)
-        console.log(`widgetdef: ${JSON.stringify(def, null, 0)}`)
+    //
+    function moveWidget(item: GridItem, xPos: int, yPos: int, model: var) {
+        inst = getWidgetInst(item.widgetInst.uid, model)
+        //const inst = item.widgetInst
 
         // Snap the item to the proposed position
-        item.x = xCell * grid.unitSize
-        item.y = yCell * grid.unitSize
+        item.x = xPos * grid.unitSize
+        item.y = yPos * grid.unitSize
 
-        // Update the widget def
-        def.row = yCell
-        def.col = xCell
+        // Update the widget instance in the model
+        inst.xPos = xPos
+        inst.yPos = yPos
 
         // Trigger updated signal
-        grid.modelUpdated(grid.model)
+        //grid.modelUpdated(grid.model)
     }
 
     // WARNING: work in progess
@@ -216,8 +222,8 @@ Rectangle {
 
     Item {
         id: targetGhost
-        x: grid.selectedTargetColumn * grid.unitSize
-        y: grid.selectedTargetRow * grid.unitSize
+        x: grid.selectedXPos * grid.unitSize
+        y: grid.selectedYPos * grid.unitSize
         visible: grid.selectedItem != null
         width: grid.selectedItem?.width
         height: grid.selectedItem?.height
@@ -235,25 +241,22 @@ Rectangle {
             id: gridItem
             required property var modelData
             unitSize: grid.unitSize
-            row: modelData.row
-            column: modelData.col
-            cellRowSpan: modelData.h
-            cellColumnSpan: modelData.w
-            widgetId: modelData.widgetId
-            uid: modelData.id
+            widgetInst: modelData
+
             onItemSelected: (item) => grid.selectedItem = item
             onPositionChanged: (item) => console.log(`item ${item.uid} position changed`)
             onPositionUpdateRequested: (item) => {
+                // Clone the model to attempt to place the item and perform any rearranging
                 var modelClone = JSON.parse(JSON.stringify(grid.model))
 
-                const intersectingDefs = modelClone.filter(d => {
+                const intersectingInsts = modelClone.filter(intersectingInst => {
                     // Don't count if widget overlaps with self
-                    if (d.id === modelData.id) { return false }
+                    if (intersectingInsts.uid === widgetInst.uid) { return false }
                     return doItemsOverlap(
-                        Qt.point(selectedTargetColumn, selectedTargetRow),
-                        Qt.point(selectedTargetColumn + cellColumnSpan, selectedTargetRow + cellRowSpan),
-                        Qt.point(d.col, d.row),
-                        Qt.point(d.col + d.w, d.row + d.h)
+                        Qt.point(selectedXPos, selectedYPos),
+                        Qt.point(selectedXPos + selectedItem.widgetInst.xSpan, selectedYPos + selectedItem.widgetInst.ySpan),
+                        Qt.point(intersectingInst.xPos, intersectingInst.yPos),
+                        Qt.point(intersectingInst.xPos + intersectingInst.xSpan, intersectingInst.yPos + intersectingInst.ySpan)
                     )
                 })
                 console.log(JSON.stringify(intersectingDefs, null, 4))
@@ -264,6 +267,7 @@ Rectangle {
                 if (noOverlap) {
                     moveWidget(item.uid, grid.selectedTargetColumn, grid.selectedTargetRow)
                     grid.selectedItem = null
+                    grid.modelUpdated(modelClone)
                     return
                 }
 
@@ -332,7 +336,7 @@ Rectangle {
             Loader {
                 id: loader
                 anchors.fill: parent
-                property Component widget: grid.availableWidgets.find(def => def.widgetId === gridItem.modelData.widgetId).content
+                property Component widget: grid.availableWidgets.find(def => def.widgetId === gridItem.widgetInst.widgetId).content
                 sourceComponent: widget
             }
         }

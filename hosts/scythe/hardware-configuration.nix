@@ -21,7 +21,15 @@
     #"quiet"
     "button.lid_init_state=open"
     "intel_idle.max_cstate=1"
+
+    #"pcie_port_pm=off" # Fix for unstable thunderbolt connection (no fix?)
+    "thunderbolt.d3cold=0" # Fix for unstable thunderbolt connection
+    "pcie_port_pm=off"
+    "pcie_aspm.policy=performance"
+
   ];
+
+  boot.kernelPackages = pkgs.linuxPackages_6_17;
 
   systemd.tpm2.enable = false; # Having this enabled on this host causes a 1.5 min wait at boot
 
