@@ -65,13 +65,8 @@ Singleton {
             writeAdapter()
         }
 
-        onLoadFailed: (err) => {
-            console.log(`File load failed with ${err}`)
-        }
-        onLoaded: {
-            console.log(`Config file load ok`) 
-            //console.log(`text = ${configFile.text()}`) 
-        }
+        onLoadFailed: (err) => console.log(`File load failed with ${err}`)
+        onLoaded: console.log(`Config file load ok`) 
 
         // Adapter between qml object and json
         // Values set here are the defaults
@@ -126,8 +121,7 @@ Singleton {
                 // `()` fixes undefined issue when modifying
                 property var monitorToWSMap: ({})
             }
-        }
- 
+        } 
     }
 
     /*

@@ -8,9 +8,7 @@ import Quickshell
 FloatingWindow {
     id: root
     color: "grey"
-
-    property list<var> widgets: []
-    
+ 
     RowLayout {
         Button {
             text: "add"
@@ -30,12 +28,18 @@ FloatingWindow {
         }
     }
 
+
+    // This represents the property which will be persisted
+    property var widgets: []
+
     GridArea {
         id: area
         x: 40
         y: 40
 
-        model: root.widgets
+        model: root.widgets // returns the values of the map as an array
+        onModelUpdated: (model) => root.widgets = model // Hanlder for updating source model
+
         availableWidgets: [
             WidgetDef {
                 widgetId: "item1"
@@ -56,7 +60,5 @@ FloatingWindow {
                 content: Item3 {}
             }
         ]
-        // Hanlder for updating source model
-        onModelUpdated: (model) => root.widgets = model
     }
 }

@@ -24,6 +24,7 @@
     extraGroups = ["wheel" "video"]; # Enable ‘sudo’ for the user.
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4NXTpvhSTTtinjDzyCuPQmcAzuMES/gMtLvLp93xMA"
     ];
     packages = with pkgs; [
       git

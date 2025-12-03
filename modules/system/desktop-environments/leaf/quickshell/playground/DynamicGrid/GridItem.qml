@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import Quickshell
 
 MouseArea {
-    id: gridItem
+    id: root
     signal positionUpdateRequested(item: GridItem)
     signal positionChanged(item: GridItem)
     signal itemSelected(item: GridItem)
@@ -27,8 +27,8 @@ MouseArea {
     property int initialX: 0
     property int initialY: 0
 
-    onXChanged: positionChanged(gridItem)
-    onYChanged: positionChanged(gridItem)
+    onXChanged: positionChanged(root)
+    onYChanged: positionChanged(root)
 
     // Position & Size
     x: xPos * unitSize
@@ -43,12 +43,12 @@ MouseArea {
     drag.onActiveChanged: () => drag.active ? gridItem.z = 1 : gridItem.z = 0
     onPressed: {
         // Store original position
-        initialX = gridItem.x
-        initialY = gridItem.y
-        itemSelected(gridItem) // emit signal
+        initialX = root.x
+        initialY = root.y
+        itemSelected(root) // emit signal
     }
     onReleased: {
-        positionUpdateRequested(gridItem)
+        positionUpdateRequested(root)
     }
 
     Rectangle {
