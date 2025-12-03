@@ -12,9 +12,33 @@ Rectangle {
     required property list<WidgetDef> availableWidgets
 
     property int unitSize: 64
-    property int numRows: 8
-    property int numColumns: 4
+    property int xSize: 8
+    property int ySize: 4
     property GridItem selectedItem: null
+    property var targetInst: {
+        if (!selectedItem) { return null }
+
+        let proposedXPos = Math.round(selectedItem.x / unitSize)
+        let maxXPos = xSize - selectedItem.xSpan
+        if (proposedXPos > maxXPos) { proposedXPos = maxXPos }
+        if (proposedXPos < 0) { proposedXPos = 0 }
+
+        let proposedYPos = Math.round(selectedItem.y / unitSize)
+        let maxYPos = ySize - selectedItem.ySpan
+        if (proposedYPos > maxYPos) { proposedYPos = maxYPos }
+        if (proposedYPos < 0) { proposedXPos = 0 }
+
+        selectedItemModified = // TODO
+
+        return generateWidgetInst(
+            selectedItem.widgetId<
+            proposedXPos,
+            proposedYPos,
+            selectedItem.xSpan,
+            selectedItem.ySpan
+        )
+    }
+
     property int selectedTargetRow: {
         if (!selectedItem) { return -1 }
         let proposedRow = Math.round(selectedItem.y / unitSize)
@@ -35,14 +59,14 @@ Rectangle {
     height: unitSize * numRows
     color: "black"
 
-    function generateWidgetDef(widgetId: string, xPos: int, yPos: int, width: int, height: int): var {
+    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int): var {
         return {
             uid: Math.random().toString().substr(2), // Generate random string (probably unique)
             widgetId: widgetId,
-            x: x, 
-            y: y,
-            w: width,
-            h: height
+            xPos: xPos, 
+            yPos: yPos,
+            xSpan: xSpan,
+            ySpan: ySpan
         }
     }
 
@@ -137,6 +161,10 @@ Rectangle {
         grid.modelUpdated(grid.model)
     }
 
+    function getIntersectingInsts(model: var, moves: var, movee: var) {
+
+    }
+
     // WARNING: work in progess
     function recursiveRearrange(moveeId: string, collideeId: string, movedDirection: var, model: var): bool {
 
@@ -194,23 +222,14 @@ Rectangle {
     }
 
     function addWidget(widgetId: string) {
-        console.log(`attempting to add: ${widgetId}`)
         const widgetDef = availableWidgets.find(def => def.widgetId === widgetId)
         if (!widgetDef) { console.error(`Could not add widget: ${widgetId}.  Could not find widget with the specified id`); return }
 
         const pos = findSpot(widgetDef)
         if (!pos) { console.error(`Could not add widget: ${widgetId}.  Position doesn't exist`); return }
 
-        const jsonDef = {
-            uid: Math.random().toString().substr(2), // Generate random string (probably unique)
-            widgetId: widgetId,
-            x: pos.x, 
-            y: pos.y,
-            w: widgetDef.cellColumnSpan,
-            h: widgetDef.cellRowSpan
-        }
-
-        grid.model.push(jsonDef)
+        const jsonInst = generateWidgetInst(widgetId, pos.x, pos.y, widgetDef.xSpan, widgetDef.xSpan)
+        grid.model.push(jsonInst)
         grid.modelUpdated(grid.model)
     }
 
@@ -235,18 +254,18 @@ Rectangle {
             id: gridItem
             required property var modelData
             unitSize: grid.unitSize
-            row: modelData.row
-            column: modelData.col
-            cellRowSpan: modelData.h
-            cellColumnSpan: modelData.w
             widgetId: modelData.widgetId
             uid: modelData.id
+            xPos: modelData.xPos
+            yPos: modelData.yPos
+            xSpan: modelData.xSpan
+            ySpan: modelData.ySpan
             onItemSelected: (item) => grid.selectedItem = item
             onPositionChanged: (item) => console.log(`item ${item.uid} position changed`)
             onPositionUpdateRequested: (item) => {
-                var modelClone = JSON.parse(JSON.stringify(grid.model))
+                const moves = []
 
-                const intersectingDefs = modelClone.filter(d => {
+                const intersectingInsts = modelClone.filter(d => {
                     // Don't count if widget overlaps with self
                     if (d.id === modelData.id) { return false }
                     return doItemsOverlap(
@@ -258,9 +277,8 @@ Rectangle {
                 })
                 console.log(JSON.stringify(intersectingDefs, null, 4))
 
-                const noOverlap = intersectingDefs.length == 0
-
                 // If no overlap then no rearrangement needs to occur
+                const noOverlap = intersectingDefs.length == 0
                 if (noOverlap) {
                     moveWidget(item.uid, grid.selectedTargetColumn, grid.selectedTargetRow)
                     grid.selectedItem = null
