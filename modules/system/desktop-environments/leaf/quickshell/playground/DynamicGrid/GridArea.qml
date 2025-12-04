@@ -7,9 +7,9 @@ import Quickshell
 
 Rectangle {
     id: grid
-    signal modelUpdated(model: list<var>)
+    signal modelUpdated(model: list<var>) // When a new model state has been confirmed
+    signal modelInvalid() // When the model needs to be reset
     required property list<var> model
-    //required property var instMap // Object which maps widget uid's to their instance data
     required property list<WidgetDef> availableWidgets
 
     property int unitSize: 64
@@ -29,35 +29,16 @@ Rectangle {
         if (proposedYPos > maxYPos) { proposedYPos = maxYPos }
         if (proposedYPos < 0) { proposedXPos = 0 }
 
-        selectedItemModified = // TODO
-
         return generateWidgetInst(
-            selectedItem.widgetId<
-            proposedXPos,
-            proposedYPos,
-            selectedItem.xSpan,
-            selectedItem.ySpan
+            selectedItem.widgetId,
+            proposedXPos, proposedYPos,
+            selectedItem.xSpan, selectedItem.ySpan
         )
     }
 
-    property int selectedTargetRow: {
-        if (!selectedItem) { return -1 }
-        let proposedXPos = Math.round(selectedItem.x / unitSize)
-        let maxAllowedXPos = numColumns - selectedItem.widgetInst.xSpan
-        if (proposedXPos > maxAllowedXPos) { return maxAllowedXPos }
-        if (proposedXPos < 0) { return 0 }
-        return proposedXPos
-    }
-    readonly property int selectedYPos: {
-        if (!selectedItem) { return -1 }
-        let proposedYPos = Math.round(selectedItem.y / unitSize)
-        let maxAllowedYPos = numColumns - selectedItem.cellColumnSpan
-        if (proposedYPos > maxAllowedYPos) { return maxAllowedYPos }
-        if (proposedYPos < 0) { return 0 }
-        return proposedYPos
-    }
-    width: unitSize * numColumns
-    height: unitSize * numRows
+    width: unitSize * xSize
+    height: unitSize * ySize
+
     color: "black"
 
     function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int): var {
@@ -71,8 +52,7 @@ Rectangle {
         }
     }
 
-    // Returns the first valid spot of null if one doesn't exist for a given 
-    // widget def
+    // Returns the first valid spot of null if one doesn't exist for a given widget def
     function findSpot(def: WidgetDef): var {
         // Iterate over each possible spot
         for (let xPos = 0; xPos <= numColumns - def.xSpan; xPos++) {
@@ -92,19 +72,25 @@ Rectangle {
         return null
     }
 
-    // Checks if the widget instance overlaps with any other widget instances.
-    // Takes in a widget instance, the proposed x/y position, and the model.
-    function isPositionOverlapping(inst: var, xPos: int, yPos: int, model: var): bool { 
+    // Checks if the widget instance overlaps with any other widget instances in the model.
+    // Takes in a widget instance and model to reference.
+    function isPositionOverlapping(inst: var, model: list<var>): bool { 
         // Ensure this new position won't cause the item to overlap with any other items
-        const isIntersecting = model
-            .filter(existingInst => existingInst.uid !== inst.uid) // Don't check self
-            .every(existingInst => !doItemsOverlap(
-                Qt.point(xPos, yPos),
-                Qt.point(xPos + inst.xSpan, yPos + inst.ySpan),
-                Qt.point(existingInst.xPos, existingInst.yPos),
-                Qt.point(existingInst.xPos + existingInst.xSpan, existingInst.yPos + existingInst.ySpan)
-            ))
-        return isIntersecting
+        const intersectingDefs = getIntersectingInsts(inst, model);
+        return intersectingDefs.length > 0
+    }
+
+    // Gets all the widget instances in a model that intersect with the provided instance
+    function getIntersectingInsts(inst: var, model: list<var>): list<var> {
+        return model
+            .filter(existingInst => {
+                if (existingInst.uid === inst.uid) { return false } // Don't count self
+                return doRectanglesOverlap( // Does existing inst overlap with provided inst
+                    Qt.point(inst.xPos, inst.yPos),
+                    Qt.point(inst.xPos + inst.xSpan, inst.yPos + inst.ySpan),
+                    Qt.point(existingInst.xPos, existingInst.yPos),
+                    Qt.point(existingInst.xPos + existingInst.xSpan, existingInst.yPos + existingInst.ySpan)
+            )})
     }
 
     // Checks if the position for the instance is within the bounds of the grid
@@ -122,7 +108,7 @@ Rectangle {
     // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
     // point of B is less than the bottom right point of B and the bottom right point of B is 
     // greater than the top level point of A.
-    function doItemsOverlap(A1, A2, B1, B2): bool {
+    function doRectanglesOverlap(A1, A2, B1, B2): bool {
         //console.log("[CHECKING] for overlap")
         if (
             A1.x < B2.x &&
@@ -164,10 +150,6 @@ Rectangle {
 
         // Trigger updated signal
         //grid.modelUpdated(grid.model)
-    }
-
-    function getIntersectingInsts(model: var, moves: var, movee: var) {
-
     }
 
     // WARNING: work in progess
