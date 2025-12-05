@@ -41,9 +41,9 @@ Rectangle {
 
     color: "black"
 
-    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int): var {
+    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int, uid: string = null): var {
         return {
-            uid: Math.random().toString().substr(2), // Generate random string (probably unique)
+            uid: uid ?? Math.random().toString().substr(2), // Generate random string if none provided (probably unique)
             widgetId: widgetId,
             xPos: xPos, 
             yPos: yPos,
@@ -122,6 +122,11 @@ Rectangle {
         return false
     }
 
+    // Given a GridItem, get the instance object
+    function GetInstForGridItem(item: GridItem): var {
+        return generateWidgetInst(item.widgetId, item.xPos, item.yPos, item.xSpan, item.ySpan, item.uid)
+    }
+
     // Given a widget instance uid and model, get the instance data
     function getWidgetInst(uid: string): var {
         const widgetdef = grid.model.find(def => {
@@ -153,30 +158,27 @@ Rectangle {
     }
 
     // WARNING: work in progess
-    function recursiveRearrange(moveeId: string, collideeId: string, movedDirection: var, model: var): bool {
+    // TODO: I think we need to go back to model and moves system or similar, otherwise how do we let the 
+    // original caller of this method know the final state of the grid, and can then construct the animations
+    function recursiveRearrange(moveeInst: var, collideeInst: var, movedDirection: var, model: var): bool {
+        const modelClone = JSON.parse(JSON.stringify(grid.model)) // Make a copy of the model to work off of
 
-        const moveeDef = getWidgetDef(moveeId)
-        const collideeDef = getWidgetDef(collideeId)
-        console.log(`mveeId: ${moveeId}`)
-        console.log(`collideeId: ${collideeId}`)
+        let proposedX = collideeInst.xPos + movedDirection.x
+        let proposedY = collideeInst.yPos + movedDirection.y
 
-        let proposedX = collideeDef.col + movedDirection.x
-        let proposedY = collideeDef.row + movedDirection.y
-
-        // Move the collidee in the provided direction until it no longer collides
-        // with the movee or hits a grid boundary
+        // Move the collidee in the provided direction until it no longer collides with the movee or hits a grid boundary
         let intersection = true
         while (intersection) {
             console.log(`intesection exists`)
-            intersection = doItemsOverlap(
-                Qt.point(moveeDef.col, moveeDef.row),
-                Qt.point(moveeDef.col + moveeDef.w, moveeDef.row + moveeDef.h),
+            intersection = doRectanglesOverlap(
+                Qt.point(moveeInst.xPos, moveeInst.yPos),
+                Qt.point(moveeInst.xPos + moveeInst.xSpan, moveeInst.yPos + moveeInst.ySpan),
                 Qt.point(proposedX, proposedY),
-                Qt.point(collideeDef.col + collideeDef.w, collideeDef.row + collideeDef.h)
+                Qt.point(collideeInst.xPos + collideeInst.xSpan, collideeInst.yPos + collideeInst.ySpan)
             )
             if (!intersection) {
                 console.log(`no longer intesecting`)
-                let inBounds = isPositionInBounds(collideeDef, proposedX, proposedY)
+                let inBounds = isPositionInBounds(collideeInst, proposedX, proposedY)
                 if (inBounds) {
                     //moveWidget(col...)
                     console.log('found position for collidee thats in bounds')
@@ -191,21 +193,12 @@ Rectangle {
 
         // Find any widgets that intersect with the collidee after we moved it to 
         // stop colliding with the original movee.
-        const intersectingDefs = model.filter(d => {
-            // Don't count if widget overlaps with self
-            if (d.id === collideeId.id) { return false }
-            return doItemsOverlap(
-                Qt.point(collideeDef.col, collideeDef.row),
-                Qt.point(collideeDef.col + collideeDef.w, collideeDef.row + collideeDef.h),
-                Qt.point(d.col, d.row),
-                Qt.point(d.col + d.w, d.row + d.h)
-            )
-        })
+        const intersectingDefs = getIntersectingInsts(collideeInst, model)
 
+        // Recursively call to rearrange
         intersectingDefs.forEach(def => {    
             recursiveRearrange(collideeId, def.id, movedDirection, model)
         })
-
     }
 
     function addWidget(widgetId: string) {
@@ -250,18 +243,7 @@ Rectangle {
             onItemSelected: (item) => grid.selectedItem = item
             onPositionChanged: (item) => console.log(`item ${item.uid} position changed`)
             onPositionUpdateRequested: (item) => {
-                const moves = []
-
-                const intersectingInsts = modelClone.filter(d => {
-                    // Don't count if widget overlaps with self
-                    if (intersectingInsts.uid === widgetInst.uid) { return false }
-                    return doItemsOverlap(
-                        Qt.point(selectedXPos, selectedYPos),
-                        Qt.point(selectedXPos + selectedItem.widgetInst.xSpan, selectedYPos + selectedItem.widgetInst.ySpan),
-                        Qt.point(intersectingInst.xPos, intersectingInst.yPos),
-                        Qt.point(intersectingInst.xPos + intersectingInst.xSpan, intersectingInst.yPos + intersectingInst.ySpan)
-                    )
-                })
+                const intersectingInsts = getIntersectingInsts(GetInstForGridItem(item), model)
                 console.log(JSON.stringify(intersectingDefs, null, 4))
 
                 // If no overlap then no rearrangement needs to occur
@@ -269,7 +251,7 @@ Rectangle {
                 if (noOverlap) {
                     moveWidget(item.uid, grid.selectedTargetColumn, grid.selectedTargetRow)
                     grid.selectedItem = null
-                    grid.modelUpdated(modelClone)
+                    grid.modelUpdated(model)
                     return
                 }
 
