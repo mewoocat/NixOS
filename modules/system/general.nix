@@ -36,9 +36,12 @@
   };
 
   nixpkgs = {
+    #inherit pkgs;
     config.allowUnfree = true;
+    # see?: https://discourse.nixos.org/t/permanently-enabling-unfree-packages-for-nix-profile-system-config-uses-flake/44394
     config.permittedInsecurePackages = [
       #"electron-25.9.0"
+      "electron-36.9.5"
     ];
   };
 

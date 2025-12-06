@@ -20,8 +20,8 @@
       kdePackages.qtsvg # Needed for icons to work in dolphin
 
       # Calendar
-      libsForQt5.merkuro
-      kdePackages.merkuro
+      #libsForQt5.merkuro
+      #kdePackages.merkuro
 
       kdePackages.partitionmanager
       kdePackages.kcalc

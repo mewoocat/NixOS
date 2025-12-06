@@ -69,7 +69,7 @@
       gimp
       blanket
       rhythmbox
-      bookworm
+      #bookworm # Borken
       spotifywm spotify-tray
       vial
       evince # Gnome PDF viewer
