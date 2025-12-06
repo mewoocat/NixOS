@@ -64,7 +64,17 @@ PageBase {
                             textRole: "name"
                             valueRole: "name"
                             model: Services.Monitors.monitors // Sorted by id
-                            currentIndex: 0 // Index here maps directly to each monitor by id above
+                            // ugh. this is really gross
+                            currentIndex: {
+                                const wsMap = Services.Hyprland.currentMonitorToWSMap
+                                for(let key in wsMap) {
+                                    if (wsMap[key].includes(Services.Hyprland.selectedWorkspaceId)) {
+                                        let monitorIndex = Services.Monitors.monitors.findIndex(m => m.name === key)
+                                        console.log("monitorIndex: " + monitorIndex)
+                                        return monitorIndex
+                                    }
+                                }
+                            }
                             onActivated: (index) => {
                                 const monitorName = Services.Monitors.monitors[index].name
                                 Services.Hyprland.assignSelectedWorkspaceToMonitor(monitorName)
