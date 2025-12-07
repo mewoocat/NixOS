@@ -8,7 +8,7 @@ import Quickshell
 Rectangle {
     id: grid
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
-    signal modelInvalid() // When the model needs to be reset
+    signal modelInvalid(model: list<var>) // When the model needs to be reset
     required property list<var> model
     required property list<WidgetDef> availableWidgets
 
@@ -32,7 +32,8 @@ Rectangle {
         return generateWidgetInst(
             selectedItem.widgetId,
             proposedXPos, proposedYPos,
-            selectedItem.xSpan, selectedItem.ySpan
+            selectedItem.xSpan, selectedItem.ySpan,
+            selectedItem.uid
         )
     }
 
@@ -41,9 +42,13 @@ Rectangle {
 
     color: "black"
 
-    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int, uid: string = null): var {
+    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int, uid = null): var {
+        if (!uid) {
+            console.log(`generateWidgetInst: uid was not provided ... generating one`)
+            uid = Math.random().toString().substr(2) // Generate random string if none provided (probably unique)
+        }
         return {
-            uid: uid ?? Math.random().toString().substr(2), // Generate random string if none provided (probably unique)
+            uid: uid,
             widgetId: widgetId,
             xPos: xPos, 
             yPos: yPos,
@@ -56,28 +61,24 @@ Rectangle {
         const widgetDef = availableWidgets.find(def => def.widgetId === widgetId)
         if (!widgetDef) { console.error(`Could not add widget: ${widgetId}.  Could not find widget with the specified id`); return }
 
-        const pos = findSpot(widgetDef)
-        if (!pos) { console.error(`Could not add widget: ${widgetId}.  Position doesn't exist`); return }
+        const inst = findSpot(widgetDef)
+        if (!inst) { console.error(`Could not add widget: ${widgetId}.  No valid spot exists`); return }
 
-        const jsonInst = generateWidgetInst(widgetId, pos.x, pos.y, widgetDef.xSpan, widgetDef.xSpan)
-        grid.model.push(jsonInst)
+        grid.model.push(inst)
         grid.modelUpdated(grid.model)
     }
 
-    // Returns the first valid spot of null if one doesn't exist for a given widget def
+    // Returns the first valid spot for a widget definition.
+    // Returns a new instance for it or null if no valid spot exists
     function findSpot(def: WidgetDef): var {
+        // Generate proposed instance for the provided definition
+        const proposedInst = generateWidgetInst(def.widgetId, 0, 0, def.xSpan, def.ySpan)
         // Iterate over each possible spot
-        for (let xPos = 0; xPos <= numColumns - def.xSpan; xPos++) {
-            for (let yPos = 0; yPos <= numRows - def.ySpan; yPos++) {
-                // Check a new defintion of a widget can fit with the existing instances
-                let isValid = grid.model.every(inst => !doItemsOverlap(
-                    Qt.point(xPos, yPos),
-                    Qt.point(xPos + def.xSpan, yPos + def.ySpan),
-                    Qt.point(inst.xPos, inst.yPos),
-                    Qt.point(inst.xPos + inst.xSpan, inst.yPos + inst.ySpan)
-                ))
-                if (isValid) {
-                    return Qt.point(col, row)
+        for (let xPos = 0; xPos <= xSize - def.xSpan; xPos++) {
+            for (let yPos = 0; yPos <= xSize - def.ySpan; yPos++) {
+                // If the proposed position is valid
+                if (!isPositionOverlapping(proposedInst)) {
+                    return proposedInst
                 }
             }
         }
@@ -134,17 +135,25 @@ Rectangle {
         return false
     }
 
+    // Returns the midpoint of the provided item relative to its parent
+    function getItemMidpoint(item: Item): var {
+        return {
+            x: (item.x + (item.x + item.width)) / 2,
+            y: (item.y + (item.y + item.height)) / 2
+        }
+    }
+
     // Given a GridItem, get the instance object
-    function GetInstForGridItem(item: GridItem): var {
+    function getInstForGridItem(item: GridItem): var {
         return generateWidgetInst(item.widgetId, item.xPos, item.yPos, item.xSpan, item.ySpan, item.uid)
     }
 
     // Given a widget instance uid, get the instance data
     function getWidgetInst(uid: string): var {
-        const widgetdef = grid.model.find(def => {
-            return def.id === widgetId
+        const widgetInst = grid.model.find(inst => {
+            return inst.uid === uid
         })
-        return widgetdef
+        return widgetInst
     }
 
     function getWidgetItem(uid: string): Item {
@@ -154,7 +163,7 @@ Rectangle {
 
     //
     function moveWidget(item: GridItem, xPos: int, yPos: int) {
-        inst = getWidgetInst(item.widgetInst.uid)
+        const inst = getWidgetInst(item.uid)
 
         // Snap the item to the proposed position
         item.x = xPos * grid.unitSize
@@ -168,9 +177,7 @@ Rectangle {
         //grid.modelUpdated(grid.model)
     }
 
-    // WARNING: work in progess
-    // TODO: I think we need to go back to model and moves system or similar, otherwise how do we let the 
-    // original caller of this method know the final state of the grid, and can then construct the animations
+    //
     function recursiveRearrange(moveeInst: var, collideeInst: var, movedDirection: var, movedInsts: var): bool {
 
         let proposedX = collideeInst.xPos + movedDirection.x
@@ -216,45 +223,33 @@ Rectangle {
     function attemptArrange(item: GridItem) {
         const movedInsts = [] // A stack representing all the moves made on the model
         
-        const itemInst = GetInstForGridItem(item)
+        const itemInst = getInstForGridItem(item)
         const intersectingInsts = getIntersectingInsts(itemInst)
-        console.log(JSON.stringify(intersectingDefs, null, 4))
+        console.log(JSON.stringify(intersectingInsts, null, 4))
 
         // If no overlap then no rearrangement needs to occur
-        const noOverlap = intersectingDefs.length == 0
+        const noOverlap = intersectingInsts.length == 0
         if (noOverlap) {
-            moveWidget(item.uid, grid.selectedTargetColumn, grid.selectedTargetRow)
+            moveWidget(item, targetInst.xPos, targetInst.yPos)
             grid.selectedItem = null
             grid.modelUpdated(grid.model)
             return
         }
 
-        // Create clone of this inst and apply the move to it.
-        // Then add this modified inst to move stack
-        const itemInstClone = JSON.parse(JSON.stringify(itemInst))
-        movedInsts.push(itemInst)
+        // Add the proposed move to the stack
+        movedInsts.push(targetInst)
 
-        // If rearrangement does need to occur 
-        let validMove = false
+        // Find midpoint of moved item relative to grid
+        const movedMidpoint = getItemMidpoint(item)
+        console.log(`movedMidpoint: ${JSON.stringify(movedMidpoint, null, 4)}`)
 
-        // Need to move all intersecting items out of the way
-        intersectingDefs.forEach(def => {
-            console.log(`def: ${JSON.stringify(def, null, 4)}`)
-            const intersectingItem = getWidgetItem(def.id)
-
-            // Need to determine the direction to move the intersecting item
-            // find midpoint of moved item relative to grid
-            const movedMidpoint = {
-                x: (x + (x + width)) / 2,
-                y: (y + (y + height)) / 2
-            }
-            console.log(`movedMidpoint: ${JSON.stringify(movedMidpoint, null, 4)}`)
+        // Need to move all intersecting widgets out of the way
+        intersectingInsts.forEach(intersectingInst => {
+            console.log(`intersecting inst: ${JSON.stringify(intersectingInst, null, 4)}`)
+            const intersectingItem = getWidgetItem(intersectingInst.uid)
 
             // find midpoint of intersecting item relative to grid
-            const intersectingMidPoint = {
-                x: (intersectingItem.x + (intersectingItem.x + intersectingItem.width)) / 2,
-                y: (intersectingItem.y + (intersectingItem.y + intersectingItem.height)) / 2
-            }
+            const intersectingMidPoint = getItemMidpoint(intersectingItem)
             console.log(`intersectingMidpoint: ${JSON.stringify(intersectingMidPoint, null, 4)}`)
 
             // find which x and y side of the intersecting item the midpoint is closest to
@@ -267,8 +262,8 @@ Rectangle {
             const yDelta = Math.abs(movedMidpoint.y - intersectingMidPoint.y)
             console.log(`xDelta: ${xDelta} | yDelta: ${yDelta}`)
 
+            // Determine direction to move the intersecting item
             let direction
-            // find which direction to atempt a move
             // Search for an open position for this intersecting item in the x or y direction
             if (xDelta > yDelta) {
                 direction = {x: -xDirection, y: 0}
@@ -278,10 +273,12 @@ Rectangle {
             }
             console.log(`direction is ${direction}`)
 
-            recursiveRearrange(uid, def.id, direction, movedInsts)
+            // Move the intersecting item till it no longer collides with the original moved item
+            recursiveRearrange(itemInst, intersectingInst, direction, movedInsts)
         })
 
         // Move failure
+        /*
         if (!validMove) {
             x = initialX
             y = initialY
@@ -290,6 +287,7 @@ Rectangle {
             // complete the move for the selected widget
             moveWidget(gridItem.uid, selectedTargetColumn, selectedTargetRow)
         }
+        */
 
         // Trigger updated signal
         grid.modelUpdated(grid.model)
@@ -298,8 +296,8 @@ Rectangle {
 
     Item {
         id: targetGhost
-        x: grid.selectedXPos * grid.unitSize
-        y: grid.selectedYPos * grid.unitSize
+        x: grid.targetInst == null ? 0 : grid.targetInst.xPos * grid.unitSize
+        y: grid.targetInst == null ? 0 : grid.targetInst.yPos * grid.unitSize
         visible: grid.selectedItem != null
         width: grid.selectedItem?.width
         height: grid.selectedItem?.height
@@ -316,21 +314,24 @@ Rectangle {
         delegate: GridItem {
             id: gridItem
             required property var modelData
-            unitSize: grid.unitSize
             widgetId: modelData.widgetId
-            uid: modelData.id
+            uid: {
+                console.log(`uid: ${modelData.uid}`)
+                return modelData.uid
+            }
             xPos: modelData.xPos
             yPos: modelData.yPos
             xSpan: modelData.xSpan
             ySpan: modelData.ySpan
+            unitSize: grid.unitSize
             onItemSelected: (item) => grid.selectedItem = item
-            onPositionChanged: (item) => console.log(`item ${item.uid} position changed`)
+            onWidgetPositionChanged: (item) => console.log(`item ${item} position changed`)
             onPositionUpdateRequested: (item) => attemptArrange(item)
 
             Loader {
                 id: loader
                 anchors.fill: parent
-                property Component widget: grid.availableWidgets.find(def => def.widgetId === gridItem.widgetInst.widgetId).content
+                property Component widget: grid.availableWidgets.find(def => def.widgetId === gridItem.widgetId).content
                 sourceComponent: widget
             }
         }

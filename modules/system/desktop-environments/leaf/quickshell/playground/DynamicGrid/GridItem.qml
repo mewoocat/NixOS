@@ -8,7 +8,7 @@ import Quickshell
 MouseArea {
     id: root
     signal positionUpdateRequested(item: GridItem)
-    signal positionChanged(item: GridItem)
+    signal widgetPositionChanged(item: GridItem)
     signal itemSelected(item: GridItem)
     //signal modelUpdated(newModel: list<var>)
     //required property GridArea parentGrid // the grid parent
@@ -27,14 +27,14 @@ MouseArea {
     property int initialX: 0
     property int initialY: 0
 
-    onXChanged: positionChanged(root)
-    onYChanged: positionChanged(root)
+    onXChanged: widgetPositionChanged(root)
+    onYChanged: widgetPositionChanged(root)
 
     // Position & Size
     x: xPos * unitSize
     y: yPos * unitSize
     // apparently need to use implicit sizes if this component is going to be used 
-    // in a BoundComponent.  Otherwise the size if forced to the BoundComponent's size
+    // in a BoundComponent.  Otherwise the size is forced to the BoundComponent's size
     implicitWidth: xSpan * unitSize
     implicitHeight: ySpan * unitSize
 

@@ -39,7 +39,7 @@ FloatingWindow {
 
         model: root.widgets // returns the values of the map as an array
         onModelUpdated: (model) => root.widgets = model // Handler for updating source model
-        onModelUpdated: (model) => model = root.widgets// Handler for reseting the model to the source's state
+        onModelInvalid: (model) => model = root.widgets// Handler for reseting the model to the source's state
 
         availableWidgets: [
             WidgetDef {
