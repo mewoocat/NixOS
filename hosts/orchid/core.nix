@@ -10,7 +10,7 @@
     settings = {    
       # Enable flakes (not needed?)
       #experimental-features = ["nix-command" "flakes"];
-      trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
+      #trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
     };
   };
 
