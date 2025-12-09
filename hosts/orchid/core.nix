@@ -1,9 +1,36 @@
 {
+  inputs,
   pkgs,
   ...
 }: {
 
   networking.hostName = "orchid";
+
+  nix = {
+    settings = {    
+      # Enable flakes (not needed?)
+      #experimental-features = ["nix-command" "flakes"];
+      trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
+    };
+  };
+
+  users.users.eXia = {
+    isNormalUser = true;  
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+    ];
+    hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
+    # Set ssh public keys
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC20jrdK1MUQ9OoV0/AhZSiWsYTx2lFI3j5V5Wb5zR5q"
+    ];
+    packages = with pkgs; [
+      microfetch
+      inputs.myNvimNvf.packages.x86_64-linux.default
+    ];
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
