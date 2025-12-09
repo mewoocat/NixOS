@@ -11,9 +11,7 @@ inputs.nixpkgs.lib.nixosSystem {
     # Hardware
     ./hardware-configuration.nix
     ../../modules/hardware/bluetooth.nix
-    #../../modules/hardware/drawing-tablet.nix
     ../../modules/hardware/ios.nix
-    ../../modules/hardware/razer.nix
     ../../modules/hardware/rgb.nix
     ../../modules/hardware/vial-keyboards.nix
     ../../modules/hardware/nvidia.nix
