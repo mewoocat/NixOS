@@ -27,7 +27,8 @@
     #dolphin # Needed for controllers to work? Doesn't seem fix the issue
   ];
 
-  users.users.${config.username}.packages = with pkgs; [ 
+  # TODO: ideally make this per user
+  environment.systemPackages = with pkgs; [ 
 
     # Utilities
     #gamescope
