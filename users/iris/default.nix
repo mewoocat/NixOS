@@ -11,15 +11,20 @@
     isNormalUser = true;
     extraGroups = ["wheel" "video" "networkmanager" "docker" "vboxusers" "cdrom"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
+      firefox
       vesktop
       microfetch
       prismlauncher
       spotify
       ungoogled-chromium
-      freerdp
-      #globalprotect-openconnect
+      freerdp xrdp
+      globalprotect-openconnect
     ];
   };
+  
+  nixpkgs.config.permittedInsecurePackages = [
+    "qtwebengine-5.15.19" # For globalprotect-openconnect
+  ];
 
   # Set your time zone.
   time.timeZone = "America/Chicago";

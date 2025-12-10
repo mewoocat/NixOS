@@ -14,6 +14,16 @@
     };
   };
 
+  services.openssh = {
+    enable = true;
+    allowSFTP = false; # Not using this
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "yes";
+      LogLevel = "VERBOSE";
+    };
+  };
+
   users.users.eXia = {
     isNormalUser = true;  
     extraGroups = [
