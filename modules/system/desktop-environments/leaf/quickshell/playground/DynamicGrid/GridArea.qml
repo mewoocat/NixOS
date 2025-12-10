@@ -13,8 +13,8 @@ Rectangle {
     required property list<WidgetDef> availableWidgets
 
     property int unitSize: 64
-    property int xSize: 8
-    property int ySize: 4
+    property int xSize: 4
+    property int ySize: 8
     property GridItem selectedItem: null
     property var targetInst: {
         if (!selectedItem) { return null }
@@ -74,9 +74,11 @@ Rectangle {
         // Generate proposed instance for the provided definition
         const proposedInst = generateWidgetInst(def.widgetId, 0, 0, def.xSpan, def.ySpan)
         // Iterate over each possible spot
-        for (let xPos = 0; xPos <= xSize - def.xSpan; xPos++) {
-            for (let yPos = 0; yPos <= xSize - def.ySpan; yPos++) {
-                // If the proposed position is valid
+        for (let yPos = 0; yPos <= ySize - def.ySpan; yPos++) {
+            for (let xPos = 0; xPos <= xSize - def.xSpan; xPos++) {
+                // Test if the proposed position is valid
+                proposedInst.xPos = xPos
+                proposedInst.yPos = yPos
                 if (!isPositionOverlapping(proposedInst)) {
                     return proposedInst
                 }
@@ -95,6 +97,7 @@ Rectangle {
 
     // Gets all the widget instances in the model that intersect with the provided instance
     function getIntersectingInsts(inst: var): list<var> {
+        console.log(`getIntersectingInsts | grid.model: ${JSON.stringify(grid.model, null, 4)}`)
         return grid.model
             .filter(existingInst => {
                 if (existingInst.uid === inst.uid) { return false } // Don't count self
@@ -223,9 +226,9 @@ Rectangle {
     function attemptArrange(item: GridItem) {
         const movedInsts = [] // A stack representing all the moves made on the model
         
-        const itemInst = getInstForGridItem(item)
-        const intersectingInsts = getIntersectingInsts(itemInst)
-        console.log(JSON.stringify(intersectingInsts, null, 4))
+        //const itemInst = getInstForGridItem(item)
+        const intersectingInsts = getIntersectingInsts(targetInst)
+        console.log("intersectingInsts: " + JSON.stringify(intersectingInsts, null, 4))
 
         // If no overlap then no rearrangement needs to occur
         const noOverlap = intersectingInsts.length == 0
@@ -271,10 +274,10 @@ Rectangle {
             else {
                 direction = {x: 0, y: -yDirection}
             }
-            console.log(`direction is ${direction}`)
+            console.log(`direction is ${direction.x}, ${direction.y}`)
 
             // Move the intersecting item till it no longer collides with the original moved item
-            recursiveRearrange(itemInst, intersectingInst, direction, movedInsts)
+            //recursiveRearrange(itemInst, intersectingInst, direction, movedInsts)
         })
 
         // Move failure
@@ -325,7 +328,7 @@ Rectangle {
             ySpan: modelData.ySpan
             unitSize: grid.unitSize
             onItemSelected: (item) => grid.selectedItem = item
-            onWidgetPositionChanged: (item) => console.log(`item ${item} position changed`)
+            //onWidgetPositionChanged: (item) => console.log(`item ${item} position changed`)
             onPositionUpdateRequested: (item) => attemptArrange(item)
 
             Loader {

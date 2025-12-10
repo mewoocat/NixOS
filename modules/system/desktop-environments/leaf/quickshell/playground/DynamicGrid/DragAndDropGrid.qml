@@ -9,7 +9,7 @@ FloatingWindow {
     id: root
     color: "grey"
  
-    RowLayout {
+    ColumnLayout {
         Button {
             text: "add"
             onClicked: area.addWidget("item1")
@@ -26,6 +26,10 @@ FloatingWindow {
             text: "root.widgets"
             onClicked: console.log(JSON.stringify(root.widgets,null,4))
         }
+        Button {
+            text: "clear"
+            onClicked: root.widgets = []
+        }
     }
 
 
@@ -34,8 +38,8 @@ FloatingWindow {
 
     GridArea {
         id: area
-        x: 40
-        y: 40
+        x: 4
+        y: 200
 
         model: root.widgets // returns the values of the map as an array
         onModelUpdated: (model) => root.widgets = model // Handler for updating source model
