@@ -114,9 +114,9 @@ Rectangle {
     function isPositionInBounds(inst: var, x: int, y: int): bool {
         const inBounds =
             inst.xPos >= 0 &&
-            inst.xPos + inst.xSpan < grid.numColumns &&
+            inst.xPos + inst.xSpan < grid.xSize &&
             inst.yPos >= 0 &&
-            inst.yPos + inst.yPos < grid.numRows;
+            inst.yPos + inst.yPos < grid.ySize;
         return inBounds
     }
 
@@ -188,27 +188,34 @@ Rectangle {
 
         // Move the collidee in the provided direction until it no longer collides with the movee or hits a grid boundary
         let intersection = true
+        console.log(`intesection exists`)
         while (intersection) {
-            console.log(`intesection exists`)
             intersection = doRectanglesOverlap(
                 Qt.point(moveeInst.xPos, moveeInst.yPos),
                 Qt.point(moveeInst.xPos + moveeInst.xSpan, moveeInst.yPos + moveeInst.ySpan),
                 Qt.point(proposedX, proposedY),
                 Qt.point(collideeInst.xPos + collideeInst.xSpan, collideeInst.yPos + collideeInst.ySpan)
             )
+            let inBounds = isPositionInBounds(collideeInst, proposedX, proposedY)
+            if (!inBounds) {
+                console.log(`reached out of bounds ... no possible position`)
+                return false; // Base condition
+            }
             if (!intersection) {
-                console.log(`no longer intesecting`)
-                let inBounds = isPositionInBounds(collideeInst, proposedX, proposedY)
-                if (inBounds) {
-                    //moveWidget(col...)
-                    console.log('found position for collidee thats in bounds')
-                }
+                console.log(`no longer intesecting ... found position for collidee thats in bounds`)
+
+                // NOTE: the collideeInst here is a ref to the actual inst in the model ... changing the x/y pos here 
+                // moves the item in the grid
+                collideeInst.xPos = proposedX;
+                collideeInst.yPos = proposedY;
+
+                movedInsts.push(collideeInst)
+                return true; // Base condition
             }
+
             // Try another space over in the move direction
-            else {
-                proposedX += movedDirection.x
-                proposedY += movedDirection.y
-            }
+            proposedX += movedDirection.x
+            proposedY += movedDirection.y
         }
 
         // Find any widgets that intersect with the collidee after we moved it to 
@@ -233,6 +240,7 @@ Rectangle {
         // If no overlap then no rearrangement needs to occur
         const noOverlap = intersectingInsts.length == 0
         if (noOverlap) {
+            console.log(`no overlap occured`)
             moveWidget(item, targetInst.xPos, targetInst.yPos)
             grid.selectedItem = null
             grid.modelUpdated(grid.model)
@@ -277,7 +285,7 @@ Rectangle {
             console.log(`direction is ${direction.x}, ${direction.y}`)
 
             // Move the intersecting item till it no longer collides with the original moved item
-            //recursiveRearrange(itemInst, intersectingInst, direction, movedInsts)
+            recursiveRearrange(targetInst, intersectingInst, direction, movedInsts)
         })
 
         // Move failure
