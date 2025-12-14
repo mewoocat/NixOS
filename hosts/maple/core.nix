@@ -11,6 +11,11 @@
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
 
+  # zfs
+  boot.supportedFilesystems = [ "zfs" ]; # also enabled boot.zfs
+  boot.zfs.forceImportRoot = false; # enabling this helps with compatibility but limits safeguards zfs uses
+  networking.hostId = "d01ce9f7"; # ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine
+
   boot.loader.grub = {
     enable = true;
     # no need to set devices, disko will add all devices that have a EF02 partition to the list already

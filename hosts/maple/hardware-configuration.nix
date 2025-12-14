@@ -13,6 +13,14 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # mount zfs filesystem
+  # TODO: make the owner "nextcloud" so that the service can r/w to it
+  fileSystems."/mnt/extra" = {
+    device = "zpool/extra";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

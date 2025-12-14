@@ -29,6 +29,8 @@
     packages = with pkgs; [
       git
       neovim
+      firefox
+      btop
     ];
   };
 
