@@ -124,6 +124,8 @@ journalctl -r -u phpfpm-nextcloud.service
 journalctl -t Nextcloud
 ```
 
+Or if file based logging is enabled, they are outputted to datadir/nextcloud.log and the webclient
+
 ## Checking for successful SSH logins
 
 ```sh

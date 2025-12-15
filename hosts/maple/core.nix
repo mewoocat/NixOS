@@ -38,7 +38,7 @@
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ 22 5201 ];
       allowedUDPPortRanges = [];
     };
   };
@@ -79,6 +79,7 @@
     ];
     packages = with pkgs; [
       microfetch
+      btop
     ];
   };
 
