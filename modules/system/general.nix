@@ -36,12 +36,14 @@
   };
 
   nixpkgs = {
-    #inherit pkgs;
     config.allowUnfree = true;
+    config.allowInsecure = true;
     # see?: https://discourse.nixos.org/t/permanently-enabling-unfree-packages-for-nix-profile-system-config-uses-flake/44394
+    # this no work?
     config.permittedInsecurePackages = [
       #"electron-25.9.0"
       "electron-36.9.5"
+      "qtwebengine-5.15.19" # idk what this is for
     ];
   };
 

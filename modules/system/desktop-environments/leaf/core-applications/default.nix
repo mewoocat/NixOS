@@ -27,6 +27,8 @@
       kdePackages.kcalc
 
       pcmanfm-qt 
+
+      mpv # For video playback
     ];
   };
 }
