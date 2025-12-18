@@ -26,7 +26,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # User
     ../../users/eXia
-    ../../users/iris
+    #../../users/iris
 
     # Other
     ../../modules/utilities
