@@ -30,6 +30,7 @@
       "vboxusers"
       "cdrom"
       "dialout" # Allows user to access serial devices, used for flashgbx
+      "wireshark"
     ];
     # Set ssh public keys
     openssh.authorizedKeys.keys = [
@@ -91,8 +92,18 @@
       onlyoffice-desktopeditors
       flashgbx
       qtcreator
+
+      # Network tools
+      wireshark
+      iw
+      tcpdump
+      aircrack-ng
+      linssid # For channel analysis
+      #iwconfig # Deprecated
     ];
   };
+
+  programs.wireshark.enable = true; # Add Wireshark to the global environment and create a ‘wireshark’ group
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
