@@ -21,6 +21,8 @@
       globalprotect-openconnect
     ];
   };
+
+  services.globalprotect.enable = true;
   
   # !! WARNING !! The nixpkgs.config option is of type attribute set which cannot merge lists
   # Therefore, only define the permittedInsecurePackages in one place (i.e. here)
