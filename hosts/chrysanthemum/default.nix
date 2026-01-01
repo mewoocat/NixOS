@@ -4,6 +4,9 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {inherit inputs;};
   # NixOS modules
   modules = [
+
+    inputs.Jovian-NixOS.nixosModules.default
+
     # Core system config
     ./core.nix
 

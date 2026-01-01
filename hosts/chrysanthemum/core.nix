@@ -13,6 +13,9 @@
     };
   };
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = true;
+
   # This is a BIOS host so we are using grub
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -55,6 +58,24 @@
       LogLevel = "VERBOSE";
     };
   };
+
+
+  # Enable SteamOS like experience
+  # This host doesn't support vulken (i5-2435M)
+  # gamescope fails to launch with "[gamescope] [Error] vulkan: physical device doesn't support VK_EXT_physical_device_drm"
+  # Also see https://github.com/Jovian-Experiments/Jovian-NixOS/issues/512
+  /*
+  jovian = {
+    steam = {
+      enable = true;
+      autoStart = true;
+      user = "eXia";
+      desktopSession = "plasma";
+    };
+    devices.steamdeck.enableVendorDrivers = false;
+    hardware.has.amd.gpu = false;
+  };
+  */
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

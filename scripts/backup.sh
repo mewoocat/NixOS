@@ -11,4 +11,4 @@ dest=$2
 
 # Designed for creating backups
 #--dry-run
-rsync --human-readable --hard-links --archive --info=progress2 --no-inc-recursive $src $dest
+rsync --human-readable --hard-links --archive --info=progress2 --no-inc-recursive --delete $src $dest
