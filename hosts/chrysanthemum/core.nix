@@ -48,6 +48,13 @@
     };
   };
 
+  programs.steam = {
+    enable = true;
+  };
+  # Required for steam to run?
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;

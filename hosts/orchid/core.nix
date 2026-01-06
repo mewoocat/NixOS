@@ -14,6 +14,8 @@
     };
   };
 
+  virtualisation.docker.enable = true;
+
   services.openssh = {
     enable = true;
     allowSFTP = false; # Not using this
@@ -30,6 +32,7 @@
       "wheel"
       "video"
       "networkmanager"
+      "docker"
     ];
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     # Set ssh public keys

@@ -28,6 +28,8 @@ inputs.nixpkgs.lib.nixosSystem {
     ../../users/eXia
     #../../users/iris
 
+    ../../modules/servers/home-assistant
+
     # Other
     ../../modules/utilities
     ../../modules/gaming/game.nix
