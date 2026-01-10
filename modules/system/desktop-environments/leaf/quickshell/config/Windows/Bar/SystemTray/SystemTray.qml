@@ -112,7 +112,7 @@ ClippingRectangle {
                 ListView {
                     id: trayItems
                     property int numItems: SystemTray.items.values.length
-                    property int maxNumItems: 4
+                    property int maxNumItems: 8
                     implicitHeight: root.height - root.externalMargin
                     //implicitWidth: 32 * 4 //TODO: get tray button width instead of hard coding it
                     implicitWidth: numItems < maxNumItems ? 32 * numItems : 32 * maxNumItems

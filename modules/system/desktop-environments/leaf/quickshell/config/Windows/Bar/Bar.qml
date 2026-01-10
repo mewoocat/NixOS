@@ -77,11 +77,13 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
+                        /*
                         Common.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                            defaultInternalMargin: 6
                         }
+                        */
                     }
                 }
             }

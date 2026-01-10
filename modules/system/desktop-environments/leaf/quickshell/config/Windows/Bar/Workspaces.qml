@@ -66,7 +66,7 @@ RowLayout {
                     Hyprland.dispatch(`workspace ${wsId}`)
                     break
                 case Qt.RightButton:
-                    Root.State.workspaces.toggleWindow()
+                    //Root.State.workspaces.toggleWindow()
                     break
                 default:
                     console.log("button problem")
