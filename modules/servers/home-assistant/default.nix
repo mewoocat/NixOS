@@ -29,15 +29,24 @@
     listeners = [
       {
         port = 1883; # Non TLS
-        address = "localhost";
-        acl = [ "pattern readwrite #"]; # Allow any user to read and write anything (I think)
+        address = "0.0.0.0"; # Accept connection from any address
+        #acl = [ "pattern readwrite #"]; # Allow any user to read and write anything (I think)
         omitPasswordAuth = true;
         settings.allow_anonymous = true;
+        users = {
+          "root" = {
+            acl = [
+              "readwrite #"
+            ];
+            password = "1234";
+          };
+        };
       }
     ];
   };
 
   networking.firewall.allowedTCPPorts = [ 
-    #1883 # MQTT
+    1883 # MQTT
+    8123 # Home Assistant web client
   ];
 }

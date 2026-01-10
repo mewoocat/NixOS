@@ -8,5 +8,6 @@
     #./virtualization.nix
     #./overclocking.nix
     ./vpn.nix
+    #./android.nix
   ];
 }
