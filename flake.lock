@@ -808,11 +808,11 @@
         "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1766243429,
-        "narHash": "sha256-kZ70Ar7RRxETq3WusnkgoewoVZk6qP8w/0u5ZebJ7ro=",
+        "lastModified": 1768184667,
+        "narHash": "sha256-C128zGuNWF1rVDEKGXSMnrZyuTJdQHfSAVC0YG7PRSE=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "d020dcebe266444c6d3afd8ce863565ba8632b08",
+        "rev": "04aadab852e6f52457a3f2231da7a7ecc59304bb",
         "type": "github"
       },
       "original": {

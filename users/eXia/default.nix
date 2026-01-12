@@ -75,7 +75,7 @@
       blanket
       rhythmbox
       #bookworm # Borken
-      spotifywm spotify-tray
+      #spotifywm spotify-tray
       vial
       evince # Gnome PDF viewer
       qdirstat
@@ -86,12 +86,13 @@
       newsflash
       obsidian
       vlc
-      #inputs.ghostty.packages."${pkgs.system}".default
       yubioath-flutter
       librewolf
       onlyoffice-desktopeditors
       flashgbx
       qtcreator
+
+      clementine # Music player
 
       # Network tools
       wireshark

@@ -69,14 +69,14 @@ Common.PanelWindow {
                     id: gridView
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    model: ["foot", "vesktop", "nautilus"]
-                    delegate: DropArea {
+
+                    component Tile: DropArea {
                         id: panel
                         required property string modelData
-                        implicitWidth: parent.width
-                        implicitHeight: parent.width
+                        required property int index
                         onEntered: (drag) => {
-                          console.log('drag ' + drag.source)
+                          //console.log('drag ' + drag.source.modelData + ' ' + (drag.source as Tile).index)
+                          delegateModel.items.move((drag.source as Tile).index, panel.index, 1) // TODO: this causes the launcher to not open
                         }
                         property var originalParent: "what"
                         DragHandler {
@@ -121,6 +121,18 @@ Common.PanelWindow {
                               text: panel.modelData
                             }
                         }
+                    }
+
+                    // Using a DelegateModel so that we can take advantage of the attached itemsIndex property and 
+                    // move() method on the items (DelegateModelGroup) property
+                    model: DelegateModel {
+                      id: delegateModel
+                      model: ["foot", "vesktop", "nautilus"]
+                      delegate: Tile {
+                        implicitWidth: gridView.width
+                        implicitHeight: gridView.width
+                        index: DelegateModel.itemsIndex // TODO: is this how to access an attached property?
+                      }
                     }
                 }
 

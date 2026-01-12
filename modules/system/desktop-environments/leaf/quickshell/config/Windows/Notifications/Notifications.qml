@@ -70,6 +70,7 @@ PanelWindow {
                 Layout.fillWidth: true
                 required property var modelData
                 notification: modelData
+                Component.onCompleted: console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
             }
         }
     }
