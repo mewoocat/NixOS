@@ -63,6 +63,66 @@ Common.PanelWindow {
                 Layout.margins: 4
                 Layout.fillHeight: true
                 spacing: 0
+                
+                // Pinned apps
+                GridView {
+                    id: gridView
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    model: ["foot", "vesktop", "nautilus"]
+                    delegate: DropArea {
+                        id: panel
+                        required property string modelData
+                        implicitWidth: parent.width
+                        implicitHeight: parent.width
+                        onEntered: (drag) => {
+                          console.log('drag ' + drag.source)
+                        }
+                        property var originalParent: "what"
+                        DragHandler {
+                          id: dragHandler
+                          target: panel
+                          // manually modifying the parent when dragged
+                          /*
+                          onActiveChanged: {
+                            if (active) {
+                              console.log(`active: ${panel.parent}`)
+                              console.log(`panel.x = ${panel.x}`) 
+                              originalParent = panel.parent
+                              console.log(`panel.x = ${panel.x}`) 
+                              panel.parent = gridView
+                            }
+                            else {
+                              console.log(`inactive: ${panel.parent}`)
+                              panel.parent = originalParent
+                            }
+                          }
+                          */
+                        }
+
+                        states: [
+                          State {
+                            when: dragHandler.active
+                            ParentChange { 
+                              target: panel
+                              parent: gridView
+                            }
+                          }
+                        ]
+
+                        // In order for this item to emit drag events, the active state of this attached
+                        // property needs to be bound to the drag handler.
+                        Drag.active: dragHandler
+                        Drag.source: panel
+                        //Drag.hotSpot: Qt.point(width/2, height/2)
+                        Rectangle {
+                            anchors.fill: parent 
+                            Text {
+                              text: panel.modelData
+                            }
+                        }
+                    }
+                }
 
                 // Top
                 // Pinned apps
@@ -79,6 +139,7 @@ Common.PanelWindow {
                     }
                 }
                 */
+                /*
                 Common.PanelGridDragable {
                     id: pinnedAppGrid
                     implicitWidth: parent.width
@@ -88,19 +149,17 @@ Common.PanelWindow {
                     columns: 1
                     Repeater {
                         // Converts the pinned apps from a map to array
-                        /*
-                        property var pinnedAppArray: {
-                            let array = []
-                            const appMap = Root.State.config.pinnedApps
-                            for (let i = 0; i < 5; i++) {
-                                const app = appMap[i]
-                                console.log(`app: ${app}`)
-                                array.push(app)
-                            }
-                            console.log(`poop: ${array}`)
-                            return array
-                        }
-                        */
+                        //property var pinnedAppArray: {
+                        //    let array = []
+                        //    const appMap = Root.State.config.pinnedApps
+                        //    for (let i = 0; i < 5; i++) {
+                        //        const app = appMap[i]
+                        //        console.log(`app: ${app}`)
+                        //        array.push(app)
+                        //    }
+                        //    console.log(`poop: ${array}`)
+                        //    return array
+                        //}
                         model: ["foot", "vesktop", "vesktop", "foot", "foot"]
                         // TODO: should make the app side panel item a sub class of PanelItem and delgate drag handling to the PanelItem type
                         delegate: Common.PanelItemDragable {
@@ -121,7 +180,7 @@ Common.PanelWindow {
                         }
                     }
                 }
-
+                */
 
                 Item { Layout.fillHeight: true; } // Push the siblings to the top and bottom
 

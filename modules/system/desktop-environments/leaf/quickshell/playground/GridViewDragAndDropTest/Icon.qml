@@ -11,10 +11,12 @@ Rectangle {
     property int visualIndex: 0
     width: 72
     height: 72
+    /*
     anchors {
         horizontalCenter: parent.horizontalCenter
         verticalCenter: parent.verticalCenter
     }
+    */
     radius: 3
 
     Text {
@@ -25,6 +27,7 @@ Rectangle {
 
     DragHandler {
         id: dragHandler
+        onActiveChanged: icon.parent = icon.dragParent
     }
 
     Drag.active: dragHandler.active
@@ -35,18 +38,13 @@ Rectangle {
     states: [
         State {
             when: dragHandler.active
+            /*
             ParentChange {
                 target: icon
                 parent: icon.dragParent
             }
+            */
 
-            AnchorChanges {
-                target: icon
-                anchors {
-                    horizontalCenter: undefined
-                    verticalCenter: undefined
-                }
-            }
         }
     ]
 }

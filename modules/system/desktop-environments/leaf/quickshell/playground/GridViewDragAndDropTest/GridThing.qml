@@ -60,7 +60,8 @@ GridView {
             height: 80
 
             onEntered: function(drag) {
-                visualModel.items.move((drag.source as Icon).visualIndex, icon.visualIndex)
+                console.log('drag')
+                //visualModel.items.move((drag.source as Icon).visualIndex, icon.visualIndex)
             }
 
             property int visualIndex: DelegateModel.itemsIndex
