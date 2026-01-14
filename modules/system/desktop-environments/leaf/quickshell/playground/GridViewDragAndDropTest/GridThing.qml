@@ -8,7 +8,7 @@ import QtQml.Models
 
 GridView {
     id: root
-    width: 320
+    width: 80
     height: 480
     cellWidth: 80
     cellHeight: 80
@@ -61,7 +61,7 @@ GridView {
 
             onEntered: function(drag) {
                 console.log('drag')
-                //visualModel.items.move((drag.source as Icon).visualIndex, icon.visualIndex)
+                visualModel.items.move((drag.source as Icon).visualIndex, icon.visualIndex)
             }
 
             property int visualIndex: DelegateModel.itemsIndex

@@ -64,6 +64,7 @@ Common.PanelWindow {
                 Layout.fillHeight: true
                 spacing: 0
                 
+                /*
                 // Pinned apps
                 GridView {
                     id: gridView
@@ -82,22 +83,6 @@ Common.PanelWindow {
                         DragHandler {
                           id: dragHandler
                           target: panel
-                          // manually modifying the parent when dragged
-                          /*
-                          onActiveChanged: {
-                            if (active) {
-                              console.log(`active: ${panel.parent}`)
-                              console.log(`panel.x = ${panel.x}`) 
-                              originalParent = panel.parent
-                              console.log(`panel.x = ${panel.x}`) 
-                              panel.parent = gridView
-                            }
-                            else {
-                              console.log(`inactive: ${panel.parent}`)
-                              panel.parent = originalParent
-                            }
-                          }
-                          */
                         }
 
                         states: [
@@ -135,6 +120,7 @@ Common.PanelWindow {
                       }
                     }
                 }
+                */
 
                 // Top
                 // Pinned apps

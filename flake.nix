@@ -14,7 +14,7 @@
     #adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
     agenix.url = "github:ryantm/agenix"; # For secret management
     disko.url = "github:nix-community/disko";
-    hjem.url = "github:feel-co/hjem"; 
+    hjem.url = "github:feel-co/hjem";
     hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.51.0&submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
     hyprland-plugins = {
