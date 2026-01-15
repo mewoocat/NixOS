@@ -12,7 +12,7 @@ FloatingWindow {
         model: [ "red", "green", "blue" ]
         delegate: appItem
         property Component appItem: Rectangle {
-            property var delegateData: null
+            required property var delegateData
             implicitWidth: 20
             implicitHeight: 20
             color: delegateData
