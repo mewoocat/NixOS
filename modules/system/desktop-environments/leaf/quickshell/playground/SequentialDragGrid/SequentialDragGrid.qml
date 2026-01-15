@@ -45,7 +45,7 @@ Item {
                     dragGrid: root
                     index: dropArea.index
                     delegate: root.delegate
-                    delegateData: dropArea.modelData
+                    modelData: dropArea.modelData
                 }
             }
         }

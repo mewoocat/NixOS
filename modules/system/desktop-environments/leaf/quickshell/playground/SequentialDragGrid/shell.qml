@@ -9,14 +9,17 @@ FloatingWindow {
     color: "grey"
 
     SequentialDragGrid {
-        model: [ "red", "green", "blue" ]
-        delegate: appItem
-        property Component appItem: Rectangle {
-            required property var delegateData
-            implicitWidth: 20
-            implicitHeight: 20
-            color: delegateData
-            Component.onCompleted: console.log(`modelData: ${delegateData}`)
+        DelegateModel {
+            id: delegateModel
+            model: [ "red", "green", "blue" ]
+            delegate: Rectangle {
+                required property var modelData
+                anchors.fill: parent
+                color: modelData
+                Component.onCompleted: console.log(`modelData: ${modelData}`)
+            }
         }
+        model: delegateModel.model
+        delegate: delegateModel.delegate
     }
 }

@@ -9,7 +9,8 @@ Rectangle {
     required property Item dragGrid // The ancestor grid
     required property Component delegate // The content to render
     required property int index // The current index of this tile within the grid
-    required property var delegateData
+
+    required property var modelData
 
     width: 48
     height: 48
@@ -48,11 +49,19 @@ Rectangle {
     Drag.hotSpot.x: 24
     Drag.hotSpot.y: 24
 
+    Item {
+        anchors.fill: parent
+        children: [
+            root.delegate.createObject(this, { modelData: Qt.binding(() => root.modelData) })
+        ]
+    }
+
     // Load the desired content
+    /*
     Loader {
         anchors.fill: parent
         sourceComponent: root.delegate
-        Component.onCompleted: console.log(`Loader | ${delegateData}`)
-        property alias delegateData: root.delegateData // Assumes that whatever component is passed in has a data property
+        //Component.onCompleted: console.log(`Loader | ${delegateData}`
     }
+    */
 }

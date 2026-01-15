@@ -68,13 +68,10 @@ Common.PanelWindow {
 
                 SeqDragGrid.SequentialDragGrid {
                     model: [ "red", "green", "blue" ]
-                    delegate: appItem
-                    property Component appItem: Rectangle {
-                        property var delegateData: null
-                        implicitWidth: 20
-                        implicitHeight: 20
-                        color: delegateData
-                        Component.onCompleted: console.log(`modelData: ${delegateData}`)
+                    delegate: Rectangle {
+                        required property var modelData
+                        anchors.fill: parent
+                        color: modelData
                     }
                 }
                 
