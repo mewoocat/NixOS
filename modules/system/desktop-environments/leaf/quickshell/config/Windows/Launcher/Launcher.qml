@@ -10,6 +10,7 @@ import Quickshell.Hyprland
 import qs as Root
 import qs.Services as Services
 import qs.Modules.Common as Common
+import qs.Modules.Common.SequentialDragGrid as SeqDragGrid
 
 Common.PanelWindow {
     // Doesn't seem to force focus
@@ -63,6 +64,19 @@ Common.PanelWindow {
                 Layout.margins: 4
                 Layout.fillHeight: true
                 spacing: 0
+
+
+                SeqDragGrid.SequentialDragGrid {
+                    model: [ "red", "green", "blue" ]
+                    delegate: appItem
+                    property Component appItem: Rectangle {
+                        property var delegateData: null
+                        implicitWidth: 20
+                        implicitHeight: 20
+                        color: delegateData
+                        Component.onCompleted: console.log(`modelData: ${delegateData}`)
+                    }
+                }
                 
                 /*
                 // Pinned apps

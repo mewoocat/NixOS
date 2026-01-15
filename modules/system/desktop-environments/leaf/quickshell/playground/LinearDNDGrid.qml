@@ -78,6 +78,8 @@ FloatingWindow {
         model: DelegateModel {
             id: delegateModel
             model: ScriptModel { values: ["blue", "red", "green", "blue", "blue", "blue", "blue", "red", "green", "pink"] }
+            // Note that the DropArea component can't be part of the actually dragged component, since moving the DropArea
+            // will cause the grid to no longer render a spot for it
             delegate: DropArea {
                 id: dropArea
                 required property string modelData
