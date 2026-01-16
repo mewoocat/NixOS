@@ -3,21 +3,16 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 
-Rectangle {
+Item {
     id: root 
 
     required property Item dragGrid // The ancestor grid
     required property Component delegate // The content to render
     required property int index // The current index of this tile within the grid
-
     required property var modelData
 
     width: 48
     height: 48
-    anchors {
-        horizontalCenter: parent.horizontalCenter
-        verticalCenter: parent.verticalCenter
-    }
     states: [
         // When dragging, parent the dragged item to the grid instead of it's DropArea
         State {
@@ -25,14 +20,6 @@ Rectangle {
             ParentChange { 
               target: root
               parent: root.dragGrid
-            }
-            // IDK if this is needed
-            AnchorChanges {
-                target: root
-                anchors {
-                    horizontalCenter: undefined
-                    verticalCenter: undefined
-                }
             }
         }
     ]
@@ -45,23 +32,15 @@ Rectangle {
     // property needs to be bound to the drag handler.
     Drag.active: dragHandler.active
     Drag.source: root
-    //Drag.hotSpot: Qt.point(width/2, height/2)
-    Drag.hotSpot.x: 24
-    Drag.hotSpot.y: 24
+    Drag.hotSpot: Qt.point(width/2, height/2)
 
     Item {
         anchors.fill: parent
         children: [
+            // Using Qt.binding() to bind the modelData property, otherwise this
+            // binding of the children will treat root.modelData as a dependecy of children
+            // And recreate the object everytime modelData changes
             root.delegate.createObject(this, { modelData: Qt.binding(() => root.modelData) })
         ]
     }
-
-    // Load the desired content
-    /*
-    Loader {
-        anchors.fill: parent
-        sourceComponent: root.delegate
-        //Component.onCompleted: console.log(`Loader | ${delegateData}`
-    }
-    */
 }

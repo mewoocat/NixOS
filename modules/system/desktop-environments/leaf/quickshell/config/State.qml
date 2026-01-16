@@ -73,7 +73,7 @@ Singleton {
         adapter: JsonAdapter {
             property string something: "THIS IS DEFAULT"
             property list<string> someStupidPropertyThatsNeededToMakeTheNextPropertyAfterItwork: []
-            property var pinnedApps: {} // A map of app index to app id
+            property list<string> pinnedApps: [ "foot", "vesktop", "obsidian" ]
             onPinnedAppsChanged: console.log(`pinnedApps now is: ${pinnedApps}`)
             property string pfpImage: ""
 

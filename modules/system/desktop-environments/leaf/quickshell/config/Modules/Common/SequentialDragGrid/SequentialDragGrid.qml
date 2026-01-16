@@ -5,13 +5,21 @@ import QtQuick
 
 Item {
     id: root
-    required property var model
+    required property var model // A list of IDs
     required property Component delegate
+
+    signal modelUpdated(model: var) // When the model has been modified
+
+    property int tileSize: 48
+
     GridView {
-        width: 48
-        height: 600
-        cellWidth: 48
-        cellHeight: 48
+        width: root.tileSize
+        height: 400
+        // These have a default of 100, so we need to set them
+        cellWidth: root.tileSize
+        cellHeight: root.tileSize
+
+        interactive: false // Disable scrolling by default
 
         displaced: Transition {
             NumberAnimation {
@@ -20,7 +28,6 @@ Item {
                 easing.type: Easing.InOutQuad
             }
         }
-
 
         // Using a DelegateModel so that we can take advantage of the attached itemsIndex property and 
         // move() method on the items (DelegateModelGroup) property
@@ -37,9 +44,23 @@ Item {
                 property int index: DelegateModel.itemsIndex
                 onEntered: (drag) => {
                     delegateModel.items.move((drag.source as SequentialDragTile).index, index, 1)
+
+                    console.log(`delegateModel.model.values: ${delegateModel.model.values}`)
+                    root.modelUpdated(delegateModel.model)
+
+                    // Swap the entrys in the model
+                    /*
+                    const draggedIndex = (drag.source as SequentialDragTile).index
+                    const replacedEntry = root.model[dropArea.index]
+                    root.model[dropArea.index] = root.model[draggedIndex]
+                    root.model[draggedIndex] = replacedEntry
+
+                    console.log(`Grid side model: ${root.model}`)
+                    root.modelUpdated(root.model)
+                    */
                 }
-                width: 56
-                height: 56
+                width: root.tileSize
+                height: root.tileSize
 
                 SequentialDragTile {
                     dragGrid: root
