@@ -11,7 +11,25 @@ WrapperMouseArea {
 
     enabled: true
     hoverEnabled: true
-    onClicked: action()
+
+    //propagateComposedEvents: true
+    //preventStealing: true
+    onClicked: (mouse) => {
+        console.log(`SidePanelItem clicked`)
+        action()
+        //mouse.accepted = false
+    }
+    /*
+    onReleased: (mouse) => {
+        console.log(`action`)
+        action()
+        //mouse.accepted = false
+    }
+    onPressAndHold: (mouse) => {
+        console.log(`press and hold`)
+        mouse.accepted = false
+    }
+    */
     margin: 4
     WrapperRectangle {
         margin: 4

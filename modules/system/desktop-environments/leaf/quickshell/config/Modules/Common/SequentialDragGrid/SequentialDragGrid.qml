@@ -41,12 +41,16 @@ Item {
             delegate: DropArea {
                 id: dropArea
                 required property var modelData
-                property int index: DelegateModel.itemsIndex
+                required property int index // special index role (like modelData)
+                property int visualIndex: DelegateModel.itemsIndex
                 onEntered: (drag) => {
-                    delegateModel.items.move((drag.source as SequentialDragTile).index, index, 1)
+                    console.log(`onEntered`)
+                    // Modify the visual model
+                    delegateModel.items.move((drag.source as SequentialDragTile).visualIndex, visualIndex, 1)
+                    console.log(`tile visual index: ${(drag.source as SequentialDragTile).visualIndex}`)
 
-                    console.log(`delegateModel.model.values: ${delegateModel.model.values}`)
-                    root.modelUpdated(delegateModel.model)
+                    //console.log(`delegateModel.model.values: ${delegateModel.model.values}`)
+                    //root.modelUpdated(delegateModel.model)
 
                     // Swap the entrys in the model
                     /*
@@ -59,12 +63,28 @@ Item {
                     root.modelUpdated(root.model)
                     */
                 }
+                onDropped: (drop) => {
+
+                    // Remove dragged item from model
+                    const draggedIndex = (drag.source as SequentialDragTile).index
+                    const removedValues = root.model.splice(draggedIndex, 1)
+                    const draggedValue = removedValues[0]
+
+                    console.log(`dragged index: ${draggedIndex}`)
+                    console.log(`drop index: ${dropArea.index}`)
+
+                    // Insert dragged item at new index in model
+                    root.model.splice(DropArea.index, 0, draggedValue)
+
+                    root.modelUpdated(root.model)
+                }
                 width: root.tileSize
                 height: root.tileSize
 
                 SequentialDragTile {
                     dragGrid: root
                     index: dropArea.index
+                    visualIndex: dropArea.visualIndex
                     delegate: root.delegate
                     modelData: dropArea.modelData
                 }

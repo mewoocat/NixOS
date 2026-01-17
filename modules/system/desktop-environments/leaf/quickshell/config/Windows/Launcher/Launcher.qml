@@ -69,8 +69,9 @@ Common.PanelWindow {
                 SeqDragGrid.SequentialDragGrid {
                     model: Root.State.config.pinnedApps
                     onModelUpdated: (newModel) => {
-                        console.log(`newModel: ${newModel.values}`)
-                        Root.State.config.pinnedApps = newModel.values
+                        console.log(`newModel: ${newModel}`)
+                        Root.State.config.pinnedApps = []
+                        Root.State.config.pinnedApps = newModel
                     }
                     delegate: SidePanelItem {
                         required property var modelData
@@ -79,6 +80,12 @@ Common.PanelWindow {
                         imgName: desktopEntry.icon ?? desktopEntry.id 
                         action: desktopEntry.execute
                     }
+                    /*
+                    delegate: Text {
+                       required property var modelData
+                       text: modelData
+                    }
+                    */
                 }
                 
                 Item { Layout.fillHeight: true; } // Push the siblings to the top and bottom
