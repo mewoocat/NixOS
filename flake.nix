@@ -4,14 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-server.url = "github:NixOS/nixpkgs/nixos-25.11";
-    #ags.url = "git+https://github.com/Aylur/ags?ref=refs/tags/v1.8.2";
     ags.url = "git+https://github.com/Aylur/ags?rev=60180a184cfb32b61a1d871c058b31a3b9b0743d"; # ags v1
     matugen.url = "github:InioX/matugen?ref=v2.2.0";
     nix-gaming.url = "github:fufexan/nix-gaming";
-    #myNvim.url = "github:mewoocat/nvim-nix"; # Deprecated
     myNvimNvf.url = "github:mewoocat/nvim-nvf";
     microfetch.url = "github:NotAShelf/microfetch";
-    #adw-gtk3-leaf.url = "github:mewoocat/adw-gtk3-leaf";
     agenix.url = "github:ryantm/agenix"; # For secret management
     disko.url = "github:nix-community/disko";
     hjem.url = "github:feel-co/hjem";
@@ -30,7 +27,8 @@
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
     quickshell = {
       #url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      #url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     Jovian-NixOS = {

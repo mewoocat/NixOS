@@ -65,12 +65,9 @@ Common.PanelWindow {
                 Layout.fillHeight: true
                 spacing: 0
 
-
                 SeqDragGrid.SequentialDragGrid {
                     model: Root.State.config.pinnedApps
                     onModelUpdated: (newModel) => {
-                        console.log(`newModel: ${newModel}`)
-                        Root.State.config.pinnedApps = []
                         Root.State.config.pinnedApps = newModel
                     }
                     delegate: SidePanelItem {
@@ -80,12 +77,6 @@ Common.PanelWindow {
                         imgName: desktopEntry.icon ?? desktopEntry.id 
                         action: desktopEntry.execute
                     }
-                    /*
-                    delegate: Text {
-                       required property var modelData
-                       text: modelData
-                    }
-                    */
                 }
                 
                 Item { Layout.fillHeight: true; } // Push the siblings to the top and bottom
@@ -98,29 +89,7 @@ Common.PanelWindow {
                     
                     PowerButton {}
                     SettingsButton {}
-                    ProfilePictureItem {
-                        id: user
-                        onClicked: () => {
-                            console.log("click")
-                            userPopup.visible = true
-                        }
-                        Common.PopupWindow {
-                            id: userPopup
-
-                            anchor {
-                                //window: launcher
-                                item: user
-                                edges: Edges.Bottom | Edges.Right
-                                gravity: Edges.Top | Edges.Right
-                            }
-
-                            content: ColumnLayout {
-                                Text { color: palette.text; text: Services.User.username }
-                                Common.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
-                                Common.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
-                            }
-                        }
-                    }
+                    ProfileButton {}
                 }
             }
 

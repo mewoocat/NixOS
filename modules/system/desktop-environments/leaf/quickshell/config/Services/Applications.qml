@@ -2,12 +2,14 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import qs as Root
 
 Singleton {
     id: root
     property string appOrderPath: "/home/eXia/.config/leaf-de/appOrder.json"
 
-    property var appFreqMap: appOrderFile.adapter.appFreqMap
+    //property var appFreqMap: appOrderFile.adapter.appFreqMap // busted?
+    property var appFreqMap: Root.State.config.appFreqMap
     
     // Used to make a client name more human readable
     // TODO: Refractor
@@ -23,10 +25,15 @@ Singleton {
     }
 
     function incrementFreq(appId): void {    
-        const currentFreq = root.appFreqMap[appId] || 0
+        console.debug(`incrementingFreq() call with ${appId}`)
+        const currentFreq = root.appFreqMap[appId] ?? 0
+        console.debug(`currentFreq: ${currentFreq}`)
         appFreqMap[appId] = currentFreq + 1
+        console.debug(`appFreqMap["${appId}"]: ${appFreqMap[appId]}`)
+        console.debug(JSON.stringify(appFreqMap, null,4 ))
         // Write the changes to the file (needed since these properties on the js obj are not tracked)
-        appOrderFile.writeAdapter() // Known bug which sometimes crashes, waiting for fix
+        //appOrderFile.writeAdapter() // Known bug which sometimes crashes, waiting for fix
+        Root.State.configFileView.writeAdapter()
     }
     
     function findDesktopEntryById(id: string): DesktopEntry {
@@ -54,8 +61,10 @@ Singleton {
             console.log(`File load failed with ${err}`)
         }
         onLoaded: {
-            //console.log(`Loaded ${root.appOrderPath} text = ${appOrderFile.text()}`) 
+            console.log(`Loaded ${root.appOrderPath}`) 
         }
+        onSaved: console.log(`Saved: ${root.appOrderPath}`)
+        //onSavedFailed: console.error(`Failed to save: ${root.appOrderPath}`)
 
         // Adapter between qml object and json
         // Values set here are the defaults

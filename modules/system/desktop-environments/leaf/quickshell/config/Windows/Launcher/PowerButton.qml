@@ -11,7 +11,6 @@ import qs.Services as Services
 import qs.Modules.Common as Common
 
 // Power options popup menu
-// TODO: refractor this into it's own file
 SidePanelItem {
     id: power
     imgName: 'system-shutdown-symbolic'

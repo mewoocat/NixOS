@@ -76,6 +76,7 @@ Singleton {
             property list<string> pinnedApps: [ "foot", "vesktop", "obsidian" ]
             onPinnedAppsChanged: console.log(`pinnedApps now is: ${pinnedApps}`)
             property string pfpImage: ""
+            property var appFreqMap: ({})
 
             property JsonObject location: JsonObject {
                 property real latitude: 0
