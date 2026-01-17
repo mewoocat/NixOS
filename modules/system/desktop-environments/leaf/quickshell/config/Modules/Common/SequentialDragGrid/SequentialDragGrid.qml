@@ -6,6 +6,7 @@ import QtQuick
 Item {
     id: root
     required property var model // A list of IDs
+    onModelChanged: console.log(`model changed to: ${model}`)
     required property Component delegate
 
     signal modelUpdated(model: var) // When the model has been modified
@@ -29,8 +30,8 @@ Item {
             }
         }
 
-        // Using a DelegateModel so that we can take advantage of the attached itemsIndex property and 
-        // move() method on the items (DelegateModelGroup) property
+        // Using a DelegateModel behaves a proxy visual model which can be manipulated without affected the source model
+        // Useful for manipulating the view using the move() method
         model: DelegateModel {
             id: delegateModel
             //model: ScriptModel { values: ["blue", "red", "green", "blue", "blue", "blue", "blue", "red", "green", "pink"] }
@@ -41,43 +42,33 @@ Item {
             delegate: DropArea {
                 id: dropArea
                 required property var modelData
-                required property int index // special index role (like modelData)
+                required property int index // special index role (like modelData), holds the index of the modelData for list based models
                 property int visualIndex: DelegateModel.itemsIndex
                 onEntered: (drag) => {
                     console.log(`onEntered`)
                     // Modify the visual model
                     delegateModel.items.move((drag.source as SequentialDragTile).visualIndex, visualIndex, 1)
                     console.log(`tile visual index: ${(drag.source as SequentialDragTile).visualIndex}`)
-
-                    //console.log(`delegateModel.model.values: ${delegateModel.model.values}`)
-                    //root.modelUpdated(delegateModel.model)
-
-                    // Swap the entrys in the model
-                    /*
-                    const draggedIndex = (drag.source as SequentialDragTile).index
-                    const replacedEntry = root.model[dropArea.index]
-                    root.model[dropArea.index] = root.model[draggedIndex]
-                    root.model[draggedIndex] = replacedEntry
-
-                    console.log(`Grid side model: ${root.model}`)
-                    root.modelUpdated(root.model)
-                    */
                 }
+                /*
                 onDropped: (drop) => {
+                    console.log(`onDropped`)
 
-                    // Remove dragged item from model
-                    const draggedIndex = (drag.source as SequentialDragTile).index
-                    const removedValues = root.model.splice(draggedIndex, 1)
+                    const originalIndex = dropArea.index // The original index of the item in the source model
+                    const newIndex = dropArea.visualIndex // The desired index indicated by the placement of this delegate in the visual model
+                    console.log(`originalIndex: ${originalIndex}`)
+                    console.log(`newIndex: ${newIndex}`)
+
+                    const removedValues = root.model.splice(originalIndex, 1) // Remove value at the original index
                     const draggedValue = removedValues[0]
 
-                    console.log(`dragged index: ${draggedIndex}`)
-                    console.log(`drop index: ${dropArea.index}`)
-
                     // Insert dragged item at new index in model
-                    root.model.splice(DropArea.index, 0, draggedValue)
+                    root.model.splice(newIndex, 0, draggedValue)
+                    console.log(`modified model ${root.model}`)
 
                     root.modelUpdated(root.model)
                 }
+                */
                 width: root.tileSize
                 height: root.tileSize
 
@@ -87,6 +78,25 @@ Item {
                     visualIndex: dropArea.visualIndex
                     delegate: root.delegate
                     modelData: dropArea.modelData
+
+                    onDropped: {
+
+                        console.log(`onDropped`)
+
+                        const originalIndex = dropArea.index // The original index of the item in the source model
+                        const newIndex = dropArea.visualIndex // The desired index indicated by the placement of this delegate in the visual model
+                        console.log(`originalIndex: ${originalIndex}`)
+                        console.log(`newIndex: ${newIndex}`)
+
+                        const removedValues = root.model.splice(originalIndex, 1) // Remove value at the original index
+                        const draggedValue = removedValues[0]
+
+                        // Insert dragged item at new index in model
+                        root.model.splice(newIndex, 0, draggedValue)
+                        console.log(`modified model ${root.model}`)
+
+                        root.modelUpdated(root.model)
+                    }
                 }
             }
         }

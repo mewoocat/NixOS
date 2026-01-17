@@ -12,6 +12,8 @@ Item {
     required property int visualIndex // The current index of this tile within the visual model
     required property var modelData
 
+    signal dropped()
+
     width: 48
     height: 48
     states: [
@@ -31,7 +33,7 @@ Item {
         // Need to explicitly invoke the drop method so a DropArea can read the drop
         onActiveChanged: {
             if (!active) {
-                target.Drag.drop()
+                root.dropped()
             }
         }
     }
