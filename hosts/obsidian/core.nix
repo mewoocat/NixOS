@@ -13,6 +13,9 @@
   networking.hostId = "a839e912"; # ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine
 
   virtualisation.docker.enable = true;
+
+  networking.firewall.allowedUDPPorts = [ 53 67 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 1883 6669 ];
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

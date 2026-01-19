@@ -9,7 +9,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   # Firewall
   networking.firewall = {
-    enable = true;
+    enable = false;
     # Open ports in the firewall.
     allowedTCPPorts = [ 22 ];
     allowedUDPPortRanges = [];
