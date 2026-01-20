@@ -64,6 +64,8 @@ Common.ScrollableItem {
             Layout.alignment: Qt.AlignRight
             iconName: "view-more"
             leftClick: mouseArea.toggleExpand
+            iconColor: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+            recolorIcon: true
         }
     }
     subContent: ColumnLayout {
@@ -73,6 +75,8 @@ Common.ScrollableItem {
                 required property DesktopAction modelData
                 text: modelData.name
                 leftClick: modelData.execute
+                textColor: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.placeholderText
+                recolorIcon: true
             }
         }
     }

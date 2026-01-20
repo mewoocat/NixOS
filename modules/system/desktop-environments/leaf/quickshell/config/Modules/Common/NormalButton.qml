@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
@@ -32,6 +33,13 @@ MouseArea {
     property int topInternalMargin: defaultInternalMargin
     property int bottomInternalMargin: defaultInternalMargin
     property int iconSize: implicitHeight / 2
+
+    // Style
+    property color textColor: palette.text
+    property color iconColor: palette.text
+    property color defaultBgColor: "transparent"
+    property color activeBgColor: palette.alternateBase
+
     implicitWidth: box.width + leftInternalMargin + rightInternalMargin
     implicitHeight: buttonHeight
 
@@ -62,7 +70,7 @@ MouseArea {
         implicitWidth: row.width
         implicitHeight: root.internalHeight
         radius: 24
-        color: root.containsMouse ? palette.highlight : "#00000000"
+        color: root.containsMouse ? root.activeBgColor : root.defaultBgColor
 
         RowLayout {
             id: row
@@ -79,11 +87,12 @@ MouseArea {
                 source: root.iconName == "" ? root.iconSource : Quickshell.iconPath(root.iconName)
 
                 // Icon recoloring
-                layer.enabled: false
-                //layer.enabled: root.recolorIcon
+                //layer.enabled: false
+                layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
-                    colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
+                    //colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
+                    colorizationColor: root.iconColor
                 }
 
                 // Animate changes to the rotation property
@@ -101,8 +110,7 @@ MouseArea {
                 Layout.rightMargin: 8
                 text: root.text
                 font.pointSize: root.fontSize
-                //color: root.containsMouse ? palette.highlightedText : palette.text
-                color: palette.text
+                color: root.textColor
             }
         }
    }
