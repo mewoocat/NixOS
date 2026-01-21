@@ -14,7 +14,7 @@ Common.ScrollableItem {
     required property DesktopEntry modelData
     property alias app: mouseArea.modelData
     property var launcher: null
-    bgColorHighlight: palette.accent
+    bgColorHighlight: palette.base
     contentMargin: 4
     onClicked: launcher.launchApp(app)
     content: RowLayout {
@@ -34,7 +34,8 @@ Common.ScrollableItem {
                 rightPadding: 8
                 elide: Text.ElideRight // Truncate with ... on the right
                 text: mouseArea.app.name
-                color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+                //color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+                color: palette.text
             }
             Text{
                 Layout.fillWidth: true
@@ -55,7 +56,8 @@ Common.ScrollableItem {
                         return "No description"
                     }
                 }
-                color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.placeholderText
+                //color: mouseArea.containsMouse || mouseArea.focus || mouseArea.expanded ? palette.highlightedText : palette.placeholderText
+                color: palette.text
                 font.pointSize: 8
             }
         }
@@ -79,7 +81,8 @@ Common.ScrollableItem {
                 required property DesktopAction modelData
                 text: modelData.name
                 leftClick: modelData.execute
-                textColor: mouseArea.interacted ? palette.highlightedText : palette.placeholderText
+                //textColor: mouseArea.interacted | mouseArea.expanded ? palette.highlightedText : palette.placeholderText
+                textColor: palette.text
                 recolorIcon: true
             }
         }
