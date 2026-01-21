@@ -17,6 +17,7 @@ WrapperMouseArea {
         active: false
         sourceComponent: root.subContent
     }
+    property bool interacted: root.containsMouse || root.focus // Indicates if active via mouse or focus
     bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
     implicitWidth: parent.width
     hoverEnabled: true

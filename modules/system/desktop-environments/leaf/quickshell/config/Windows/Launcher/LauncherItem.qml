@@ -42,7 +42,6 @@ Common.ScrollableItem {
                 rightPadding: 8
                 elide: Text.ElideRight // Truncate with ... on the right
                 text: {
-                    let description = ""
                     if (mouseArea.app.genericName !== "" && mouseArea.app.comment !== "") {
                         return mouseArea.app.genericName + " | " + mouseArea.app.comment
                     }
@@ -60,11 +59,16 @@ Common.ScrollableItem {
                 font.pointSize: 8
             }
         }
+        // Used to enforce the height of the show more button when it's invisible
+        Item { implicitHeight: showMoreBtn.buttonHeight }
         Common.NormalButton {
+            id: showMoreBtn
+            visible: mouseArea.interacted
             Layout.alignment: Qt.AlignRight
             iconName: "view-more"
             leftClick: mouseArea.toggleExpand
-            iconColor: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+            defaultIconColor: palette.highlightedText
+            activeIconColor: palette.text
             recolorIcon: true
         }
     }
@@ -75,7 +79,7 @@ Common.ScrollableItem {
                 required property DesktopAction modelData
                 text: modelData.name
                 leftClick: modelData.execute
-                textColor: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.placeholderText
+                textColor: mouseArea.interacted ? palette.highlightedText : palette.placeholderText
                 recolorIcon: true
             }
         }

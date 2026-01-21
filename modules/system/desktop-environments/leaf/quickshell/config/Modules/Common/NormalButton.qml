@@ -36,7 +36,8 @@ MouseArea {
 
     // Style
     property color textColor: palette.text
-    property color iconColor: palette.text
+    property color defaultIconColor: palette.text
+    property color activeIconColor: palette.text
     property color defaultBgColor: "transparent"
     property color activeBgColor: palette.alternateBase
 
@@ -92,7 +93,7 @@ MouseArea {
                 layer.effect: MultiEffect {
                     colorization: 1
                     //colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
-                    colorizationColor: root.iconColor
+                    colorizationColor: root.containsMouse ? root.activeIconColor : root.defaultIconColor
                 }
 
                 // Animate changes to the rotation property
