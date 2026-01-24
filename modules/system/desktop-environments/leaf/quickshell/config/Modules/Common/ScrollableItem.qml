@@ -4,7 +4,7 @@ import Quickshell.Widgets
 
 WrapperMouseArea {
     id: root
-    required property Item parentScrollable
+    required property var parentScrollable // can't be typed as ListViewScrollable or else cyclical dep error
     required property Item content
     property var bgColorHighlight: palette.alternateBase
     property var bgColor: "transparent"
@@ -19,12 +19,29 @@ WrapperMouseArea {
     }
     property bool interacted: root.containsMouse || root.focus // Indicates if active via mouse or focus
     bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
-    implicitWidth: parent.width
+    implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
 
+    //onParentChanged: console.log(`parent: ${root.parent}`)
+
+    /*
+    onExpandedChanged: {
+        if (expanded) {
+            if (parentScrollable.expandedItem != null) {
+                parentScrollable.expandedItem.expanded = false
+            }
+            parentScrollable.expandedItem = root
+        }
+        else {
+            parentScrollable.expandedItem = null
+        }
+    }
+    */
+
+    /*
     function toggleExpand(): void {
         // Toggle the expansion for this item
-        root.state = expanded ? "" : "expanded" // note that "" is the default state
+        //root.state = expanded ? "" : "expanded" // note that "" is the default state
         expanded = !expanded
 
         const prevExpandedItem = root.parentScrollable.expandedItem
@@ -36,11 +53,13 @@ WrapperMouseArea {
             root.parentScrollable.expandedItem = root
         }
     }
+    */
 
     // Probably simpler to do this with a "Behavior" on instead of using states and transitions 
     states: [
         State {
             name: "expanded"
+            when: root.expanded
             PropertyChanges {
                 target: root.subContentLoader
                 active: true

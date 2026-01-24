@@ -65,8 +65,9 @@ Singleton {
             writeAdapter()
         }
 
-        onLoadFailed: (err) => console.log(`File load failed with ${err}`)
+        onLoadFailed: (err) => console.error(`File load failed with ${err}`)
         onLoaded: console.log(`Config file load ok`) 
+        onSaveFailed: (err) => console.error(`File ${root.settingsJsonPath} save failed with ${err}`)
 
         // Adapter between qml object and json
         // Values set here are the defaults
