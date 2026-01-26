@@ -33,6 +33,7 @@ Singleton {
         console.debug(JSON.stringify(appFreqMap, null,4 ))
         // Write the changes to the file (needed since these properties on the js obj are not tracked)
         //appOrderFile.writeAdapter() // Known bug which sometimes crashes, waiting for fix
+        console.debug(`TRYING TO WRITE ADAPTER`)
         Root.State.configFileView.writeAdapter()
     }
     

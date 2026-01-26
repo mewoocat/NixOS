@@ -150,8 +150,22 @@ Common.PanelWindow {
                     }
 
                     delegate: LauncherItem {
+                        id: launcherItem
                         launcher: launcher
                         parentScrollable: scrollable
+
+                        // ToDo: Move this to either ScollableItem or ListViewScrollable
+                        onExpandedChanged: {
+                            if (expanded) {
+                                if (scrollable.expandedItem != null) {
+                                    scrollable.expandedItem.expanded = false
+                                }
+                                scrollable.expandedItem = launcherItem
+                            }
+                            else {
+                                scrollable.expandedItem = null
+                            }
+                        }
                     }
                 }
             }

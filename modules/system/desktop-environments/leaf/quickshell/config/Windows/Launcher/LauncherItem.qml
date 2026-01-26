@@ -65,10 +65,10 @@ Common.ScrollableItem {
         Item { implicitHeight: showMoreBtn.buttonHeight }
         Common.NormalButton {
             id: showMoreBtn
-            visible: mouseArea.interacted
+            visible: mouseArea.interacted && mouseArea.app.actions.length > 0
             Layout.alignment: Qt.AlignRight
             iconName: "view-more"
-            leftClick: mouseArea.toggleExpand
+            leftClick: () => mouseArea.expanded = !mouseArea.expanded
             defaultIconColor: palette.highlightedText
             activeIconColor: palette.text
             recolorIcon: true
