@@ -20,12 +20,19 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.kernelModules = [
     "kvm-amd"
     "vhba" # Needed for cdemu-daemon to start
   ];
   boot.extraModulePackages = [];
-  boot.kernelParams = ["quiet"];
+  boot.kernelParams = [
+    "quiet"
+    #"pcie_aspm.policy=performance" # Fix for RTL8822BE wifi card randomly disconnecting? ... No help :(
+    #"rtw88_pci.disable_aspm=y"
+    #"pcie_aspm=off" # Doesn't seem to help ... also not sure if it's being applied
+  ];
 
   networking.hostName = "obsidian"; # Define your hostname.
 

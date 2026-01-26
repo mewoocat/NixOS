@@ -1,3 +1,9 @@
+
+# Tools
+```
+nix shell nixpkgs#wireguard-tools
+```
+
 # Generating key pairs
 ```
 umask 077 # To make the files r/w only by root

@@ -51,6 +51,7 @@
               ];
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
+
             # obsidian
             {
               publicKey = "oy+U9lTUFKrjdlRtOBrdJkmxbJYMh4sqVx+7DuqosiU="; # Peer's public key
@@ -60,6 +61,14 @@
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
 
+            # slate
+            {
+              publicKey = "m7DjsJCdl8K6oGMFbJofRDLoYPNWeaYGitdiukzTNE0="; # Peer's public key
+              allowedIPs = [
+                "10.10.0.6/32" # The designated private ip for this peer in the tunnel
+              ];
+              endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
+            }
           ];
         };
       };
