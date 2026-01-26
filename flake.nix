@@ -35,6 +35,10 @@
       #url = "github:Jovian-Experiments/Jovian-NixOS";
       url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?rev=68a1bcc019378272e601558719f82005a80ddab0";
     };
+    qtengine = {
+      url = "github:kossLAN/qtengine";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the

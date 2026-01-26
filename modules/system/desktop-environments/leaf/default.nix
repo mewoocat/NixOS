@@ -17,13 +17,48 @@ in{
     ./theming
     ./dynamic
     ./quickshell
+    inputs.qtengine.nixosModules.default
   ];
+
+  programs.qtengine = {
+    enable = true;
+    config = {
+      theme = {
+        colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
+        iconTheme = "breeze-dark";
+        style = "breeze-dark";
+        font = {
+          family = "SpaceMono Nerd Font";
+          size = 11;
+          weight = -1;
+        };
+        fontFixed = {
+          family = "Cantarell";
+          size = 11;
+          weight = -1;
+        };
+      };
+      misc = {
+        menusHaveIcons = true;
+      };
+    };
+  };
 
   programs.light.enable = true;
   programs.dconf.enable = true; # Required for gtk?
   programs.kdeconnect.enable = true;
 
   environment = {
+    systemPackages = with pkgs; [
+
+      # theming
+      kdePackages.breeze
+      kdePackages.breeze.qt5 # For Qt5 support
+      kdePackages.breeze-icons
+
+      polkit_gnome # Not sure if this is needed since the service is defined below?
+      gnome-system-monitor
+    ];
     sessionVariables = {
     };
     variables = {
@@ -79,11 +114,6 @@ in{
     };
   };
   */
-
-  environment.systemPackages = with pkgs; [
-    polkit_gnome # Not sure if this is needed since the service is defined above?
-    gnome-system-monitor
-  ];
 
   users.users.${config.username}.packages = with pkgs; [
     gnome-bluetooth_1_0

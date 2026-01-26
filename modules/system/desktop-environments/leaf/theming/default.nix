@@ -41,9 +41,11 @@ in {
     #platformTheme = "gnome";
     #style = "adwaita-dark";
 
-    platformTheme = "qt5ct";
+    #platformTheme = "qt5ct";
     #platformTheme = "kde";
     #style = "kvantum";
+
+    #platformTheme = "qtengine";
   };
 
   # This can be used to dynamically set gtk options
@@ -79,8 +81,8 @@ in {
     wallust
     theme
     inputs.matugen.packages.x86_64-linux.default
-    libsForQt5.qt5ct
-    qt6Packages.qt6ct
+    #libsForQt5.qt5ct
+    #qt6Packages.qt6ct
     pywal
     swww
 

@@ -1197,6 +1197,26 @@
         "type": "github"
       }
     },
+    "qtengine": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769015610,
+        "narHash": "sha256-Uvrb9lpTW77sJvsgO7o2U/BmSAbD8IDdUr9bGmIKtt8=",
+        "owner": "kossLAN",
+        "repo": "qtengine",
+        "rev": "10d61da0369c123d8bde94ffc6b60441e5e7c2f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kossLAN",
+        "repo": "qtengine",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -1235,6 +1255,7 @@
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_14",
         "nixpkgs-server": "nixpkgs-server",
+        "qtengine": "qtengine",
         "quickshell": "quickshell",
         "secrets": "secrets"
       }
