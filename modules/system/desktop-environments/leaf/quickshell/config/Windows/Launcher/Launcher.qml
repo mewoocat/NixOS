@@ -149,6 +149,7 @@ Common.PanelWindow {
                             })
                     }
 
+                    /*
                     delegate: LauncherItem {
                         id: launcherItem
                         launcher: launcher
@@ -166,6 +167,29 @@ Common.PanelWindow {
                                 scrollable.expandedItem = null
                             }
                         }
+                    }
+                    */
+
+                    mainDelegate: Rectangle {
+                        required property var modelData
+                        color: "green"
+                        width: 24; height: 24
+                        Component.onCompleted: console.log(`green`)
+                    }
+
+                    subDelegate: Rectangle {
+                        required property var modelData
+                        color: "red"
+                        // These need to be implicit sizes if parent will be WrapperItem
+                        width: 60
+                        height: 60
+                        Component.onCompleted: console.log(`red`)
+                        Rectangle {
+                            width: 30
+                            height: 30
+                            color: "blue"
+                        }
+                        Text {text:"wha"}
                     }
                 }
             }

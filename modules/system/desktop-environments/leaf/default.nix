@@ -28,12 +28,12 @@ in{
         iconTheme = "breeze-dark";
         style = "breeze-dark";
         font = {
-          family = "SpaceMono Nerd Font";
+          family = "Rubik";
           size = 11;
           weight = -1;
         };
         fontFixed = {
-          family = "Cantarell";
+          family = "SpaceMono Nerd Font";
           size = 11;
           weight = -1;
         };
@@ -43,6 +43,16 @@ in{
       };
     };
   };
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.space-mono
+    rubik
+
+    # fonts
+    liberation_ttf
+    arkpandora_ttf
+    cantarell-fonts
+  ];
 
   programs.light.enable = true;
   programs.dconf.enable = true; # Required for gtk?
@@ -59,8 +69,7 @@ in{
       polkit_gnome # Not sure if this is needed since the service is defined below?
       gnome-system-monitor
     ];
-    sessionVariables = {
-    };
+    sessionVariables = {};
     variables = {
       NIXOS_OZONE_WL = "1";
       SDL_VIDEODRIVER = "wayland";
@@ -120,9 +129,6 @@ in{
     fastfetch
     xdg-utils # needed for discord/vesktop to open web links in default browser
     usbutils
-    liberation_ttf
-    arkpandora_ttf
-    cantarell-fonts
     coreutils
     acpi # Battery
     lm_sensors #

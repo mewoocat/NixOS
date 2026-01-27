@@ -1,5 +1,5 @@
 # Top most .editorconfg file in this project
-root = true
+root = false
 
 [*.qml]
 indent_size = 4

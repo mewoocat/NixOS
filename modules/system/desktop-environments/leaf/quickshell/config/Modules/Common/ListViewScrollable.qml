@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -9,12 +11,18 @@ Rectangle {
     id: root
     required property var model // The model that has the data to render for each item
     required property Component delegate // The type to render each item with, must have a var modelData property
-    property int padding: 16
-    property int animationSpeed: 100
     property ListView listViewRef: listView
 
     required property Component mainDelegate
     required property Component subDelegate
+
+    // style
+    property var bgColorHighlight: palette.alternateBase
+    property var bgColor: "transparent"
+    property int padding: 16
+    property int animationSpeed: 100
+    property int itemHeight: 48
+    property int contentMargin: 4
 
     property ScrollableItem prevExpandedItem: null // Holds ref to previously expanded item, for collapsing it when expanded item changed
     property ScrollableItem expandedItem: null // Holds a ref to the currently expanded item in this scrollable, or null if none are expanded
@@ -65,11 +73,7 @@ Rectangle {
 
         delegate: WrapperMouseArea {
             id: scrollableItem
-            //required property var parentScrollable // can't be typed as ListViewScrollable or else cyclical dep error
-            //required property Item content
-            //property var bgColorHighlight: palette.alternateBase
-            //property var bgColor: "transparent"
-            //property Component subContent: null
+            required property var modelData
             property bool expanded: false
             property bool showBackground: false
             property int contentMargin: 0
@@ -83,28 +87,27 @@ Rectangle {
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
             hoverEnabled: true
 
-            /*
             onExpandedChanged: {
                 if (expanded) {
-                    if (parentScrollable.expandedItem != null) {
-                        parentScrollable.expandedItem.expanded = false
+                    if (root.expandedItem != null) {
+                        root.expandedItem.expanded = false
                     }
-                    parentScrollable.expandedItem = root
+                    root.expandedItem = scrollableItem
                 }
                 else {
-                    parentScrollable.expandedItem = null
+                    root.expandedItem = null
                 }
             }
-            */
 
             // scrollable item content
             Rectangle {
                 id: background
                 clip: true
-                color: root.containsMouse || root.showBackground || root.focus ? root.bgColorHighlight : root.bgColor
+                //color: root.containsMouse || root.showBackground || root.focus ? root.bgColorHighlight : root.bgColor
+                color: "transparent"
                 radius: 8
                 implicitWidth: parent.width
-                implicitHeight: root.content.height
+                implicitHeight: root.itemHeight
                 // Main content
                 WrapperRectangle {
                     id: mainBox
@@ -113,21 +116,26 @@ Rectangle {
                     anchors.right: parent.right
                     color: "transparent"
                     margin: root.contentMargin
-                    Loader {
-                        sourceComponent: root.mainDelegate
+                    // Idk why setting the created object to this WrapperRectangle's child property doesn't work
+                    Item {
+                        children: [
+                            // Using Qt.binding() to bind the modelData property, otherwise this
+                            // binding of the children will treat root.modelData as a dependecy of children
+                            // And recreate the object everytime modelData changes
+                            root.mainDelegate.createObject(mainBox, { modelData: Qt.binding(() => scrollableItem.modelData) })
+                        ]
                     }
                 }
                 // Sub content
-                WrapperRectangle {
+                Rectangle {
                     id: subBox
                     anchors.top: mainBox.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
                     color: "transparent"
-                    margin: root.contentMargin
-                    Loader {
-                        sourceComponent: root.mainDelegate
-                    }
+                    //margin: root.contentMargin
+                    property Item subItem: (root.subDelegate.createObject(subBox, { modelData: Qt.binding(() => scrollableItem.modelData) }) as Item)
+                    children: [ subItem ]
                 }
 
                 /*
@@ -145,7 +153,7 @@ Rectangle {
             states: [
                 State {
                     name: "expanded"
-                    when: root.expanded
+                    when: scrollableItem.expanded
                     PropertyChanges {
                         target: root.subContentLoader
                         active: true
