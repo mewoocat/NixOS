@@ -6,7 +6,7 @@
 }: {
 
   # Android emulation
-  virtualisation.waydroid.enable = true;
+  #virtualisation.waydroid.enable = true;
 
   /* ZFS config
   boot.supportedFilesystems = [ "zfs" ]; # also enables boot.zfs

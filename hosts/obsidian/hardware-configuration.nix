@@ -10,6 +10,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  hostSystem = pkgs.stdenv.hostPlatform.system; # Custom option
+
   # Causes random xorg display manager to show on boot and login no worky
   #services.xserver.enable = true;
   #services.xserver.videoDrivers = ["amdgpu"];
@@ -20,7 +22,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelModules = [
     "kvm-amd"

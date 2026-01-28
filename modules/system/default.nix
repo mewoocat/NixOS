@@ -16,4 +16,10 @@
     ./git.nix
   ];
 
+  options = {
+    hostSystem = lib.mkOption {
+      type = lib.types.str;
+      default = pkgs.stdenv.hostSystem.system;
+    };
+  };
 }

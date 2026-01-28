@@ -43,7 +43,7 @@
     # Games
     xonotic
     #osu-lazer-bin # Low fps on openGL, crashes on vulken
-    inputs.nix-gaming.packages.${pkgs.system}.osu-lazer-bin # Works great on openGL :)
+    inputs.nix-gaming.packages.${config.hostSystem}.osu-lazer-bin # Works great on openGL :)
 
     # Minecraft
     (prismlauncher.override {
@@ -68,7 +68,7 @@
         winetricks
       ];
     })
-    #inputs.nix-gaming.packages.${pkgs.system}.viper
+    #inputs.nix-gaming.packages.${stdenv.hostPlatform.system}.viper
 
     /*
     (retroarch.override {

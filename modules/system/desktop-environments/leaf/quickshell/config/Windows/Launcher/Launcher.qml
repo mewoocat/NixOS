@@ -170,15 +170,19 @@ Common.PanelWindow {
                     }
                     */
 
+                    /*
                     mainDelegate: Rectangle {
                         required property var modelData
                         color: "green"
                         width: 24; height: 24
                         Component.onCompleted: console.log(`green`)
+                        Text { text: modelData.name }
                     }
+                    */
 
                     subDelegate: Rectangle {
                         required property var modelData
+                        visible: false
                         color: "red"
                         // These need to be implicit sizes if parent will be WrapperItem
                         width: 60
@@ -190,6 +194,70 @@ Common.PanelWindow {
                             color: "blue"
                         }
                         Text {text:"wha"}
+                    }
+
+
+                    mainDelegate: RowLayout {
+                        id: mainDelegate
+                        required property DesktopEntry modelData
+                        property alias app: mainDelegate.modelData
+
+                        Component.onCompleted: console.log(`main data: ${modelData}`)
+                        anchors.fill: parent
+                        // Warning: this icon lookup is expensive on the startup time
+                        IconImage {
+                            Layout.leftMargin: 4
+                            id: icon
+                            implicitSize: 32
+                            source: Quickshell.iconPath(mainDelegate.app.icon, "dialog-question")
+                        }
+                        ColumnLayout {
+                            spacing: 0
+                            Text{
+                                Layout.fillWidth: true
+                                leftPadding: 8
+                                rightPadding: 8
+                                elide: Text.ElideRight // Truncate with ... on the right
+                                text: mainDelegate.app.name
+                                //color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
+                                color: palette.text
+                            }
+                            Text{
+                                Layout.fillWidth: true
+                                leftPadding: 8
+                                rightPadding: 8
+                                elide: Text.ElideRight // Truncate with ... on the right
+                                text: {
+                                    if (mouseArea.app.genericName !== "" && mouseArea.app.comment !== "") {
+                                        return mouseArea.app.genericName + " | " + mouseArea.app.comment
+                                    }
+                                    else if (mouseArea.app.genericName !== "") {
+                                        return mouseArea.app.genericName
+                                    }
+                                    else if (mouseArea.app.comment !== "") {
+                                        return mouseArea.app.comment
+                                    }
+                                    else {
+                                        return "No description"
+                                    }
+                                }
+                                //color: mouseArea.containsMouse || mouseArea.focus || mouseArea.expanded ? palette.highlightedText : palette.placeholderText
+                                color: palette.text
+                                font.pointSize: 8
+                            }
+                        }
+                        // Used to enforce the height of the show more button when it's invisible
+                        Item { implicitHeight: showMoreBtn.buttonHeight }
+                        Common.NormalButton {
+                            id: showMoreBtn
+                            visible: mouseArea.interacted && mouseArea.app.actions.length > 0
+                            Layout.alignment: Qt.AlignRight
+                            iconName: "view-more"
+                            leftClick: () => mouseArea.expanded = !mouseArea.expanded
+                            defaultIconColor: palette.highlightedText
+                            activeIconColor: palette.text
+                            recolorIcon: true
+                        }
                     }
                 }
             }

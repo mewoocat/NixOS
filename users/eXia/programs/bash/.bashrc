@@ -22,7 +22,7 @@ PS1="\n${RESET}${YELLOW}\h${RED}@${YELLOW}\u${NORMAL} [\T] \W \`${SELECT}\` ${YE
 # Aliases
 ########################################################################################################
 alias vi='nvim'
-alias rebuild='nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)'
+alias rebuild='nixos-rebuild --sudo switch --flake ~/NixOS#$(hostname)'
 #alias ls='ls -altr --color=auto'
 alias ls='eza -al --icons=always'
 alias rm='rm -I'
