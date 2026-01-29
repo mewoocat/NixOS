@@ -2,7 +2,7 @@
 # Ryzen 5 + GTX 1080 / RX 470 Desktop
 {inputs}:
 inputs.nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
+  #system = "x86_64-linux"; Don't do this https://isabelroses.com/blog/im-not-mad-im-disappointed/
   specialArgs = {inherit inputs;};
   modules = [
     # Core host related configuration

@@ -1,9 +1,9 @@
 {inputs, ...}:
 # NixOS systems
 {
-  scythe = import ./scythe {inputs = inputs;};
-  obsidian = import ./obsidian {inputs = inputs;};
-  orchid = import ./orchid {inputs = inputs;};
-  maple = import ./maple {inputs = inputs;};
-  chrysanthemum = import ./chrysanthemum {inputs = inputs;};
+  scythe = import ./scythe { inherit inputs; };
+  obsidian = import ./obsidian { inherit inputs; };
+  orchid = import ./orchid { inherit inputs; };
+  maple = import ./maple { inherit inputs; };
+  chrysanthemum = import ./chrysanthemum { inherit inputs; };
 }

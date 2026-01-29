@@ -19,7 +19,7 @@
   options = {
     hostSystem = lib.mkOption {
       type = lib.types.str;
-      default = pkgs.stdenv.hostSystem.system;
+      default = pkgs.stdenv.hostPlatform.system;
     };
   };
 }

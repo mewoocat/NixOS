@@ -10,7 +10,7 @@
   # Fix mesa version mismatch
   # Override the mesa package in the hyprland input to use the mesa package from the nixpkgs input
   /*
-  hyprlandOverride = inputs.hyprland.packages.${pkgs.system}.hyprland.override {
+  hyprlandOverride = inputs.hyprland.packages.${config.hostSystem}.hyprland.override {
     mesa = pkgs.mesa;
   };
   */

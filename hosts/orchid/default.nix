@@ -2,7 +2,6 @@
 # Ryzen 5 1600 + GTX 1060 Desktop
 {inputs}:
 inputs.nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
     # Core host related configuration

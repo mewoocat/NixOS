@@ -6,7 +6,7 @@
   ...
 }: let
   types-path = "/share/com.github.Aylur.ags/types";
-  ags-package = inputs.ags.packages.${pkgs.system}.default.override {
+  ags-package = inputs.ags.packages.${config.hostSystem}.default.override {
     extraPackages = with pkgs;[
       #libdbusmenu-gtk3
       gtk-session-lock

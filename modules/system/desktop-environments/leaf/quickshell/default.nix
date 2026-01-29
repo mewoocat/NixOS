@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   inputs,
   ...
@@ -7,7 +8,7 @@
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
-    inputs.quickshell.packages.${pkgs.system}.default # Quickshell package
+    inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
     kdePackages.qtdeclarative # Add qml types in path for qmlls
     kdePackages.qt5compat # For Qt5Compat.GraphicalEffects
 

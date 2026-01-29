@@ -2,7 +2,6 @@
 # Nextcloud home server
 {inputs}:
 inputs.nixpkgs-server.lib.nixosSystem {
-  system = "x86_64-linux";
   specialArgs = {inherit inputs;};
   modules = [
     inputs.disko.nixosModules.disko

@@ -8,7 +8,7 @@
     name = "ags-lock";
     runtimeInputs = with pkgs; [  
       # Need ags 
-      (inputs.ags.packages.${pkgs.system}.default.override {
+      (inputs.ags.packages.${config.hostSystem}.default.override {
         extraPackages = with pkgs;[
           gtk-session-lock
         ];
@@ -29,7 +29,7 @@
   qs-lockscreen = pkgs.writeShellApplication {
     name = "qs-lock";
     runtimeInputs = [   
-      inputs.quickshell.packages.${pkgs.system}.default
+      inputs.quickshell.packages.${config.hostSystem}.default
     ];
     text = '' 
       quickshell ipc call control lockScreen
