@@ -118,7 +118,8 @@ Rectangle {
                     color: "transparent"
                     margin: root.contentMargin
                     // Idk why setting the created object to this WrapperRectangle's child property doesn't work
-                    Loader {
+                    /*
+                    Item {
                         children: [
                             // Using Qt.binding() to bind the modelData property, otherwise this
                             // binding of the children will treat root.modelData as a dependecy of children
@@ -128,6 +129,25 @@ Rectangle {
                                 scrollItem: Qt.binding(() => scrollItem) // Ref to the ancestor scrollItem for access from the delegate
                             })
                         ]
+                    }
+                    */
+                    Loader {
+                        id: loader
+                        sourceComponent: root.mainDelegate
+                        onLoaded: {
+                            binder.target = loader.item
+                            binder2.target = loader.item
+                        }
+                    }
+                    Binding {
+                        id: binder
+                        property: "modelData"
+                        value: scrollItem.modelData
+                    }
+                    Binding {
+                        id: binder2
+                        property: "scrollItem"
+                        value: scrollItem
                     }
                 }
                 // Sub content

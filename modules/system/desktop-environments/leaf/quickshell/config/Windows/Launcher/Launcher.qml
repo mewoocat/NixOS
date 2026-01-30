@@ -151,8 +151,8 @@ Common.PanelWindow {
 
                     mainDelegate: RowLayout {
                         id: mainDelegate
-                        required property DesktopEntry modelData
-                        required property var scrollItem
+                        property DesktopEntry modelData: null
+                        property var scrollItem: null
                         property alias app: mainDelegate.modelData
 
                         Component.onCompleted: console.log(`main data: ${modelData}`)
