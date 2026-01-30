@@ -9,23 +9,25 @@ import Quickshell.Widgets
 // Size of root element must be set when consumed
 Rectangle {
     id: root
-    required property var model // The model that has the data to render for each item
-    required property Component delegate // The type to render each item with, must have a var modelData property
-    property ListView listViewRef: listView
 
-    required property Component mainDelegate
-    required property Component subDelegate
+    required property var model // The model that has the data to render for each item
+    required property Component mainDelegate // The main content to show
+    required property Component subDelegate // The sub content to show when expanded
+
+    // Refs
+    property ListView listViewRef: listView
+    //// Could better type these if scrollItem was moved to it's own file ... might have issue with cyclic dependency though
+    property var prevExpandedItem: null // Holds ref to previously expanded item, for collapsing it when expanded item changed
+    property var expandedItem: null // Holds a ref to the currently expanded item in this scrollable, or null if none are expanded
 
     // style
-    property var bgColorHighlight: palette.alternateBase
-    property var bgColor: "transparent"
     property int padding: 16
     property int animationSpeed: 100
     property int itemHeight: 48
     property int contentMargin: 4
+    property color scrollItemBG: palette.alternateBase
+    property color scrollItemBGHighlight: palette.accent
 
-    property ScrollableItem prevExpandedItem: null // Holds ref to previously expanded item, for collapsing it when expanded item changed
-    property ScrollableItem expandedItem: null // Holds a ref to the currently expanded item in this scrollable, or null if none are expanded
     onExpandedItemChanged: {
         if (prevExpandedItem != null) {
             prevExpandedItem.expanded = false
@@ -72,7 +74,7 @@ Rectangle {
         model: root.model
 
         delegate: WrapperMouseArea {
-            id: scrollableItem
+            id: scrollItem
             required property var modelData
             property bool expanded: false
             property bool showBackground: false
@@ -82,7 +84,7 @@ Rectangle {
                 active: false
                 sourceComponent: root.subContent
             }
-            property bool interacted: root.containsMouse || root.focus // Indicates if active via mouse or focus
+            property bool interacted: scrollItem.containsMouse || scrollItem.focus // Indicates if active via mouse or focus
             bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
             hoverEnabled: true
@@ -92,7 +94,7 @@ Rectangle {
                     if (root.expandedItem != null) {
                         root.expandedItem.expanded = false
                     }
-                    root.expandedItem = scrollableItem
+                    root.expandedItem = scrollItem
                 }
                 else {
                     root.expandedItem = null
@@ -103,8 +105,7 @@ Rectangle {
             Rectangle {
                 id: background
                 clip: true
-                //color: root.containsMouse || root.showBackground || root.focus ? root.bgColorHighlight : root.bgColor
-                color: "transparent"
+                color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
                 radius: 8
                 implicitWidth: parent.width
                 implicitHeight: root.itemHeight
@@ -117,12 +118,15 @@ Rectangle {
                     color: "transparent"
                     margin: root.contentMargin
                     // Idk why setting the created object to this WrapperRectangle's child property doesn't work
-                    Item {
+                    Loader {
                         children: [
                             // Using Qt.binding() to bind the modelData property, otherwise this
                             // binding of the children will treat root.modelData as a dependecy of children
                             // And recreate the object everytime modelData changes
-                            root.mainDelegate.createObject(mainBox, { modelData: Qt.binding(() => scrollableItem.modelData) })
+                            root.mainDelegate.createObject(mainBox, { 
+                                modelData: Qt.binding(() => scrollItem.modelData),
+                                scrollItem: Qt.binding(() => scrollItem) // Ref to the ancestor scrollItem for access from the delegate
+                            })
                         ]
                     }
                 }
@@ -134,7 +138,10 @@ Rectangle {
                     anchors.right: parent.right
                     color: "transparent"
                     //margin: root.contentMargin
-                    property Item subItem: (root.subDelegate.createObject(subBox, { modelData: Qt.binding(() => scrollableItem.modelData) }) as Item)
+                    property Item subItem: (root.subDelegate.createObject(subBox, {
+                        modelData: Qt.binding(() => scrollItem.modelData),
+                        scrollItem: Qt.binding(() => scrollItem)
+                    }) as Item)
                     children: [ subItem ]
                 }
 
@@ -153,7 +160,7 @@ Rectangle {
             states: [
                 State {
                     name: "expanded"
-                    when: scrollableItem.expanded
+                    when: scrollItem.expanded
                     PropertyChanges {
                         target: root.subContentLoader
                         active: true

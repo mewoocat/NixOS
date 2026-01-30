@@ -49,7 +49,6 @@ PageBase {
         }
 
         SectionBase { name: "Mixer"}
-
         
         Common.ListViewScrollable {
             // If some apps are outputting to the default output
@@ -62,7 +61,7 @@ PageBase {
             // i.e. Each program, etc.
             // A link is a connection between two nodes
             model: Services.Audio.defaultOutputLinkTracker.linkGroups
-            delegate: Modules.MixerItem {}
+            mainDelegate: Modules.MixerItem {}
 
         }
         

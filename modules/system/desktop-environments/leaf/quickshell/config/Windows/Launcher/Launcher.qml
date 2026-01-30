@@ -149,57 +149,10 @@ Common.PanelWindow {
                             })
                     }
 
-                    /*
-                    delegate: LauncherItem {
-                        id: launcherItem
-                        launcher: launcher
-                        parentScrollable: scrollable
-
-                        // ToDo: Move this to either ScollableItem or ListViewScrollable
-                        onExpandedChanged: {
-                            if (expanded) {
-                                if (scrollable.expandedItem != null) {
-                                    scrollable.expandedItem.expanded = false
-                                }
-                                scrollable.expandedItem = launcherItem
-                            }
-                            else {
-                                scrollable.expandedItem = null
-                            }
-                        }
-                    }
-                    */
-
-                    /*
-                    mainDelegate: Rectangle {
-                        required property var modelData
-                        color: "green"
-                        width: 24; height: 24
-                        Component.onCompleted: console.log(`green`)
-                        Text { text: modelData.name }
-                    }
-                    */
-
-                    subDelegate: Rectangle {
-                        required property var modelData
-                        visible: false
-                        color: "red"
-                        // These need to be implicit sizes if parent will be WrapperItem
-                        width: 60
-                        height: 60
-                        Component.onCompleted: console.log(`red`)
-                        Rectangle {
-                            width: 30
-                            height: 30
-                            color: "blue"
-                        }
-                        Text {text:"wha"}
-                    }
-
-
                     mainDelegate: RowLayout {
                         id: mainDelegate
                         required property DesktopEntry modelData
+                        required property var scrollItem
                         property alias app: mainDelegate.modelData
 
                         Component.onCompleted: console.log(`main data: ${modelData}`)
@@ -250,7 +203,7 @@ Common.PanelWindow {
                         Item { implicitHeight: showMoreBtn.buttonHeight }
                         Common.NormalButton {
                             id: showMoreBtn
-                            visible: mouseArea.interacted && mouseArea.app.actions.length > 0
+                            visible: mainDelegate.scrollItem.interacted && mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
                             iconName: "view-more"
                             leftClick: () => mouseArea.expanded = !mouseArea.expanded
@@ -258,6 +211,22 @@ Common.PanelWindow {
                             activeIconColor: palette.text
                             recolorIcon: true
                         }
+                    }
+                    
+                    subDelegate: Rectangle {
+                        required property var modelData
+                        visible: false
+                        color: "red"
+                        // These need to be implicit sizes if parent will be WrapperItem
+                        width: 60
+                        height: 60
+                        Component.onCompleted: console.log(`red`)
+                        Rectangle {
+                            width: 30
+                            height: 30
+                            color: "blue"
+                        }
+                        Text {text:"wha"}
                     }
                 }
             }

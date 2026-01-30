@@ -30,7 +30,7 @@ ColumnLayout {
         visible: Services.Notifications.notifications.length > 0
         color: "transparent"
         model: Services.Notifications.notificationModel
-        delegate: Modules.Notification {
+        mainDelegate: Modules.Notification {
             required property var modelData
             //Layout.fillWidth: true
             notification: modelData
