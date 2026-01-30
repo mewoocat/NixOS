@@ -54,8 +54,8 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    inputs.agenix.packages."${system}".default # Agenix client
+  environment.systemPackages = [
+    inputs.agenix.packages."${config.hostSystem}".default # Agenix client
     inputs.myNvimNvf.packages.x86_64-linux.default # My nvim config
   ];
 
