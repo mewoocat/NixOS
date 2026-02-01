@@ -76,6 +76,7 @@ Rectangle {
         delegate: WrapperMouseArea {
             id: scrollItem
             required property var modelData
+
             property bool expanded: false
             property bool showBackground: false
             property int contentMargin: 0
@@ -134,18 +135,22 @@ Rectangle {
                     Loader {
                         id: loader
                         sourceComponent: root.mainDelegate
+                        /*
                         onLoaded: {
                             binder.target = loader.item
                             binder2.target = loader.item
                         }
+                        */
                     }
                     Binding {
                         id: binder
+                        target: loader.item
                         property: "modelData"
                         value: scrollItem.modelData
                     }
                     Binding {
                         id: binder2
+                        target: loader.item
                         property: "scrollItem"
                         value: scrollItem
                     }
@@ -160,7 +165,7 @@ Rectangle {
                     //margin: root.contentMargin
                     property Item subItem: (root.subDelegate.createObject(subBox, {
                         modelData: Qt.binding(() => scrollItem.modelData),
-                        scrollItem: Qt.binding(() => scrollItem)
+                        //scrollItem: Qt.binding(() => scrollItem)
                     }) as Item)
                     children: [ subItem ]
                 }

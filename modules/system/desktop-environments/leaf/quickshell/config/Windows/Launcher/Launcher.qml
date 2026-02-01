@@ -181,14 +181,14 @@ Common.PanelWindow {
                                 rightPadding: 8
                                 elide: Text.ElideRight // Truncate with ... on the right
                                 text: {
-                                    if (mouseArea.app.genericName !== "" && mouseArea.app.comment !== "") {
-                                        return mouseArea.app.genericName + " | " + mouseArea.app.comment
+                                    if (mainDelegate.app.genericName !== "" && mainDelegate.app.comment !== "") {
+                                        return mainDelegate.app.genericName + " | " + mainDelegate.app.comment
                                     }
-                                    else if (mouseArea.app.genericName !== "") {
-                                        return mouseArea.app.genericName
+                                    else if (mainDelegate.app.genericName !== "") {
+                                        return mainDelegate.app.genericName
                                     }
-                                    else if (mouseArea.app.comment !== "") {
-                                        return mouseArea.app.comment
+                                    else if (mainDelegate.app.comment !== "") {
+                                        return mainDelegate.app.comment
                                     }
                                     else {
                                         return "No description"
