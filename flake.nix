@@ -12,10 +12,10 @@
     agenix.url = "github:ryantm/agenix"; # For secret management
     disko.url = "github:nix-community/disko";
     hjem.url = "github:feel-co/hjem";
-    hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.51.0&submodules=1";
+    hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.53.0&submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
     hyprland-plugins = {
-      url = "git+https://github.com/hyprwm/hyprland-plugins?ref=refs/tags/v0.51.0";
+      url = "git+https://github.com/hyprwm/hyprland-plugins?ref=refs/tags/v0.53.0";
       inputs.hyprland.follows = "hyprland";
     };
     secrets = {
