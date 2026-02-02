@@ -29,7 +29,7 @@
 
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_17;
+  #boot.kernelPackages = pkgs.linuxPackages_6_17;
 
   systemd.tpm2.enable = false; # Having this enabled on this host causes a 1.5 min wait at boot
 

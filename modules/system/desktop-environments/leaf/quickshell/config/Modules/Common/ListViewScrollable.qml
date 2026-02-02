@@ -118,8 +118,8 @@ Rectangle {
                     anchors.right: parent.right
                     color: "transparent"
                     margin: root.contentMargin
-                    // Idk why setting the created object to this WrapperRectangle's child property doesn't work
                     /*
+                    // Idk why setting the created object to this WrapperRectangle's child property doesn't work
                     Item {
                         children: [
                             // Using Qt.binding() to bind the modelData property, otherwise this
@@ -132,15 +132,12 @@ Rectangle {
                         ]
                     }
                     */
+
+                    // Working implementation
+                    /*
                     Loader {
                         id: loader
                         sourceComponent: root.mainDelegate
-                        /*
-                        onLoaded: {
-                            binder.target = loader.item
-                            binder2.target = loader.item
-                        }
-                        */
                     }
                     Binding {
                         id: binder
@@ -153,6 +150,19 @@ Rectangle {
                         target: loader.item
                         property: "scrollItem"
                         value: scrollItem
+                    }
+                    */
+                    
+                    Loader {
+                        id: mainLoader
+                        active: true
+                        property Component boundComp: BoundComponent {
+                            id: boundComp
+                            sourceComponent: root.mainDelegate
+                            //property var modelData: scrollItem.modelData
+                            //property var scrollItem: scrollItem
+                        }
+                        sourceComponent: boundComp
                     }
                 }
                 // Sub content

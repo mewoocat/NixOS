@@ -22,8 +22,6 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-
   boot.kernelModules = [
     "kvm-amd"
     "vhba" # Needed for cdemu-daemon to start
