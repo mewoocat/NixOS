@@ -134,7 +134,6 @@ Rectangle {
                     */
 
                     // Working implementation
-                    /*
                     Loader {
                         id: loader
                         sourceComponent: root.mainDelegate
@@ -151,8 +150,15 @@ Rectangle {
                         property: "scrollItem"
                         value: scrollItem
                     }
-                    */
                     
+                    // WARNING: I don't think this will work given the structure of this file
+                    // Nesting a Component within a component (BoundComponent's sourceComponent inside of Loader's sourceComponent)
+                    // means that the nested component (root.mainDelegate)'s creation context is nested inside of another component.
+                    // This will throw a "Cannot instantiate bound component outside its creation context" warning since the creation
+                    // context of the root.mainDelegate component (it is a created component, don't get an instantiated Component confused
+                    // with an instantiated Item) is scoped to the BoundComponent Object.  But since the BoundComponent isn't apart of the 
+                    // scope where root.mainDelegate exists, it's not in the creation context and can't be instantiated. 
+                    /*
                     Loader {
                         id: mainLoader
                         active: true
@@ -164,6 +170,7 @@ Rectangle {
                         }
                         sourceComponent: boundComp
                     }
+                    */
                 }
                 // Sub content
                 Rectangle {
