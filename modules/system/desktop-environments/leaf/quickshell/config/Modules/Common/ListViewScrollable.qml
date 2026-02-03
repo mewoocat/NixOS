@@ -118,20 +118,6 @@ Rectangle {
                     anchors.right: parent.right
                     color: "transparent"
                     margin: root.contentMargin
-                    /*
-                    // Idk why setting the created object to this WrapperRectangle's child property doesn't work
-                    Item {
-                        children: [
-                            // Using Qt.binding() to bind the modelData property, otherwise this
-                            // binding of the children will treat root.modelData as a dependecy of children
-                            // And recreate the object everytime modelData changes
-                            root.mainDelegate.createObject(mainBox, { 
-                                modelData: Qt.binding(() => scrollItem.modelData),
-                                scrollItem: Qt.binding(() => scrollItem) // Ref to the ancestor scrollItem for access from the delegate
-                            })
-                        ]
-                    }
-                    */
 
                     // Working implementation
                     Loader {
@@ -150,7 +136,24 @@ Rectangle {
                         property: "scrollItem"
                         value: scrollItem
                     }
-                    
+
+                    // Idea 2
+                    /*
+                    // Idk why setting the created object to this WrapperRectangle's child property doesn't work
+                    Item {
+                        children: [
+                            // Using Qt.binding() to bind the modelData property, otherwise this
+                            // binding of the children will treat root.modelData as a dependecy of children
+                            // And recreate the object everytime modelData changes
+                            root.mainDelegate.createObject(mainBox, { 
+                                modelData: Qt.binding(() => scrollItem.modelData),
+                                scrollItem: Qt.binding(() => scrollItem) // Ref to the ancestor scrollItem for access from the delegate
+                            })
+                        ]
+                    }
+                    */
+
+                    // Idea 3
                     // WARNING: I don't think this will work given the structure of this file
                     // Nesting a Component within a component (BoundComponent's sourceComponent inside of Loader's sourceComponent)
                     // means that the nested component (root.mainDelegate)'s creation context is nested inside of another component.
@@ -179,12 +182,31 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     color: "transparent"
-                    //margin: root.contentMargin
+
+                    /*
                     property Item subItem: (root.subDelegate.createObject(subBox, {
                         modelData: Qt.binding(() => scrollItem.modelData),
                         //scrollItem: Qt.binding(() => scrollItem)
                     }) as Item)
                     children: [ subItem ]
+                    */
+
+                    Loader {
+                        id: subContentLoader
+                        sourceComponent: root.subDelegate
+                    }
+                    Binding {
+                        id: subModelDataBind
+                        target: subContentLoader.item
+                        property: "modelData"
+                        value: scrollItem.modelData
+                    }
+                    Binding {
+                        id: subScrollItemBind
+                        target: subContentLoader.item
+                        property: "scrollItem"
+                        value: scrollItem
+                    }
                 }
 
                 /*

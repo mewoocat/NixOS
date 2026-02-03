@@ -25,8 +25,8 @@ in{
     config = {
       theme = {
         colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
-        iconTheme = "breeze-dark";
-        style = "breeze-dark";
+        iconTheme = "kora";
+        style = "darkly";
         font = {
           family = "Rubik";
           size = 11;
@@ -65,9 +65,13 @@ in{
       kdePackages.breeze
       kdePackages.breeze.qt5 # For Qt5 support
       kdePackages.breeze-icons
+      kora-icon-theme
+      darkly
+      darkly-qt5 # For Qt5 support
 
       polkit_gnome # Not sure if this is needed since the service is defined below?
       gnome-system-monitor
+
     ];
     sessionVariables = {};
     variables = {
