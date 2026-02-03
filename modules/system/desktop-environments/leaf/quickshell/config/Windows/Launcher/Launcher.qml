@@ -151,8 +151,11 @@ Common.PanelWindow {
 
                     mainDelegate: RowLayout {
                         id: mainDelegate
+
+                        // Set by the ListViewScrollable
                         property DesktopEntry modelData: null
                         property var scrollItem: null
+
                         property alias app: mainDelegate.modelData
 
                         Component.onCompleted: console.log(`main data: ${modelData}`)
@@ -214,19 +217,19 @@ Common.PanelWindow {
                     }
                     
                     subDelegate: Rectangle {
-                        required property var modelData
+                        property var modelData
                         visible: false
                         color: "red"
                         // These need to be implicit sizes if parent will be WrapperItem
                         width: 60
                         height: 60
-                        Component.onCompleted: console.log(`red`)
+                        Component.onCompleted: console.log(`subDelegate modelData: ${modelData}`)
                         Rectangle {
                             width: 30
                             height: 30
                             color: "blue"
                         }
-                        Text {text:"wha"}
+                        Text {text: modelData}
                     }
                 }
             }

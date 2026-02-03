@@ -191,6 +191,7 @@ Rectangle {
                     children: [ subItem ]
                     */
 
+                    /*
                     Loader {
                         id: subContentLoader
                         sourceComponent: root.subDelegate
@@ -206,6 +207,16 @@ Rectangle {
                         target: subContentLoader.item
                         property: "scrollItem"
                         value: scrollItem
+                    }
+                    */
+
+                    // Possible idea:  Use a loader to create the delegate component with Component.createObject() and inject the required properties.
+                    // Then call destroy on the created component whenever the loader active property is set to false.  I think this will ensure
+                    // that the subDelegate is only loaded when the loader is active while still being able to inject the required properties.
+                    Loader {
+                        id: subDelegateLoader
+                        sourceComponent: root.subDelegate
+                        property var modelData: "hi"
                     }
                 }
 
