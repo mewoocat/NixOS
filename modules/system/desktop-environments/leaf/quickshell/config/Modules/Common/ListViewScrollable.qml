@@ -80,11 +80,13 @@ Rectangle {
             property bool expanded: false
             property bool showBackground: false
             property int contentMargin: 0
+            /*
             property Item subContentLoader: Loader {
                 visible: active // To unreserve space when the component isn't loaded
                 active: false
                 sourceComponent: root.subContent
             }
+            */
             property bool interacted: scrollItem.containsMouse || scrollItem.focus // Indicates if active via mouse or focus
             bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
@@ -109,7 +111,7 @@ Rectangle {
                 color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
                 radius: 8
                 implicitWidth: parent.width
-                implicitHeight: root.itemHeight
+                implicitHeight: root.itemHeight // !! implicitHeight is modified via a state change
                 // Main content
                 WrapperRectangle {
                     id: mainBox
@@ -181,15 +183,10 @@ Rectangle {
                     anchors.top: mainBox.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    color: "transparent"
+                    color: "purple"
 
-                    /*
-                    property Item subItem: (root.subDelegate.createObject(subBox, {
-                        modelData: Qt.binding(() => scrollItem.modelData),
-                        //scrollItem: Qt.binding(() => scrollItem)
-                    }) as Item)
-                    children: [ subItem ]
-                    */
+                    width: 40
+                    height: 40
 
                     /*
                     Loader {
@@ -215,8 +212,36 @@ Rectangle {
                     // that the subDelegate is only loaded when the loader is active while still being able to inject the required properties.
                     Loader {
                         id: subDelegateLoader
-                        sourceComponent: root.subDelegate
-                        property var modelData: "hi"
+
+                        //sourceComponent: root.subDelegate
+
+                        // Only initialize the delegate on startup if the loader is active
+                        Component.onCompleted: {
+                            if (active) {
+                                subContent.content = root.subDelegate.createObject(subContent, {
+                                    modelData: Qt.binding(() => scrollItem.modelData),
+                                    scrollItem: Qt.binding(() => scrollItem)
+                                })
+                                console.debug(subContent.content)
+                                console.debug(subContent.content.parent)
+                                console.debug(subContent.children)
+                            }
+                        }
+
+                        // If the loader becomes inactive and a created delegate exists, then destroy it.
+                        onActiveChanged: {
+                            if (!active && subContent.content != null) {
+                                subContent.destroy()
+                            }
+                        }
+                    }
+                    // Holds the loaded delegate
+                    Item {
+                        width: 40
+                        height: 40
+                        id: subContent
+                        property Item content: null
+                        children: [ content ]
                     }
                 }
 
@@ -237,13 +262,14 @@ Rectangle {
                     name: "expanded"
                     when: scrollItem.expanded
                     PropertyChanges {
-                        target: root.subContentLoader
-                        active: true
+                        subDelegateLoader {
+                            active: true
+                        }
                     }
                     PropertyChanges {
-                        target: background
-                        implicitHeight: mainBox.height + subBox.height
-
+                        background {
+                            implicitHeight: mainBox.height + subBox.height
+                        }
                     }
                 }
             ]
@@ -253,15 +279,17 @@ Rectangle {
                     from: ""; to: "expanded"
                     SequentialAnimation {
                         PropertyAction {
-                            target: root
+                            target: scrollItem
                             property: "showBackground"
                             value: true
                         }
+                        /*
                         PropertyAction {
-                            target: root.subContentLoader
+                            target: subDelegateLoader
                             property: "active"
                             value: true
                         }
+                        */
                         PropertyAnimation {
                             target: background
                             property: "implicitHeight"
@@ -280,13 +308,15 @@ Rectangle {
                             duration: 350
                             easing.type: Easing.InOutQuad
                         }
+                        /*
                         PropertyAction {
-                            target: root.subContentLoader
+                            target: subDelegateLoader
                             property: "active"
                             value: false
                         }
+                        */
                         PropertyAction {
-                            target: root
+                            target: scrollItem
                             property: "showBackground"
                             value: false
                         }

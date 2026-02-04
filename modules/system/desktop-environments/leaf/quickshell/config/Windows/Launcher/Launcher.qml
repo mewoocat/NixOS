@@ -209,7 +209,7 @@ Common.PanelWindow {
                             visible: mainDelegate.scrollItem.interacted && mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
                             iconName: "view-more"
-                            leftClick: () => mouseArea.expanded = !mouseArea.expanded
+                            leftClick: () => scrollItem.expanded = !scrollItem.expanded
                             defaultIconColor: palette.highlightedText
                             activeIconColor: palette.text
                             recolorIcon: true
@@ -217,19 +217,19 @@ Common.PanelWindow {
                     }
                     
                     subDelegate: Rectangle {
-                        property var modelData
-                        visible: false
+                        required property var modelData
+                        required property var scrollItem
                         color: "red"
                         // These need to be implicit sizes if parent will be WrapperItem
                         width: 60
                         height: 60
-                        Component.onCompleted: console.log(`subDelegate modelData: ${modelData}`)
+                        //Component.onCompleted: console.log(`subDelegate modelData: ${modelData}`)
                         Rectangle {
                             width: 30
                             height: 30
                             color: "blue"
                         }
-                        Text {text: modelData}
+                        Text {text: modelData.name}
                     }
                 }
             }
