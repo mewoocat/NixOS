@@ -25,7 +25,7 @@ Rectangle {
     property int animationSpeed: 100
     property int itemHeight: 48
     property int contentMargin: 4
-    property color scrollItemBG: palette.alternateBase
+    property color scrollItemBG: palette.base
     property color scrollItemBGHighlight: palette.accent
 
     onExpandedItemChanged: {
@@ -108,8 +108,8 @@ Rectangle {
             Rectangle {
                 id: background
                 clip: true
-                color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
-                radius: 8
+                //color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
+                color: "transparent"
                 implicitWidth: parent.width
                 implicitHeight: root.itemHeight // !! implicitHeight is modified via a state change
                 // Main content
@@ -118,7 +118,11 @@ Rectangle {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    color: "transparent"
+                    //color: "transparent"
+                    radius: 8
+                    bottomLeftRadius: scrollItem.expanded ? 0 : 8
+                    bottomRightRadius: scrollItem.expanded ? 0 : 8
+                    color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
                     margin: root.contentMargin
 
                     // Working implementation
@@ -183,10 +187,11 @@ Rectangle {
                     anchors.top: mainBox.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    color: "purple"
-
+                    color: root.scrollItemBG
                     width: 40
                     height: 40
+                    bottomLeftRadius: 8
+                    bottomRightRadius: 8
 
                     /*
                     Loader {

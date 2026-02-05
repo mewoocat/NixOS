@@ -149,6 +149,7 @@ Common.PanelWindow {
                             })
                     }
 
+                    // Main content
                     mainDelegate: RowLayout {
                         id: mainDelegate
 
@@ -158,7 +159,6 @@ Common.PanelWindow {
 
                         property alias app: mainDelegate.modelData
 
-                        Component.onCompleted: console.log(`main data: ${modelData}`)
                         anchors.fill: parent
                         // Warning: this icon lookup is expensive on the startup time
                         IconImage {
@@ -216,20 +216,25 @@ Common.PanelWindow {
                         }
                     }
                     
-                    subDelegate: Rectangle {
-                        required property var modelData
+                    // Expanded content
+                    subDelegate: ColumnLayout {
+                        id: subDelegate
+                        // These are injected by the ListViewScrollable
+                        required property DesktopEntry modelData
                         required property var scrollItem
-                        color: "red"
-                        // These need to be implicit sizes if parent will be WrapperItem
-                        width: 60
-                        height: 60
-                        //Component.onCompleted: console.log(`subDelegate modelData: ${modelData}`)
-                        Rectangle {
-                            width: 30
-                            height: 30
-                            color: "blue"
+                        Component.onCompleted: console.log(`sub del: ${modelData}`)
+
+                        Repeater {
+                            model: subDelegate.modelData.actions
+                            delegate: Common.NormalButton {
+                                required property DesktopAction modelData
+                                text: modelData.name
+                                leftClick: modelData.execute
+                                //textColor: mouseArea.interacted | mouseArea.expanded ? palette.highlightedText : palette.placeholderText
+                                textColor: palette.text
+                                recolorIcon: true
+                            }
                         }
-                        Text {text: modelData.name}
                     }
                 }
             }
