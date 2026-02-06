@@ -140,13 +140,11 @@ Common.PanelWindow {
                             })
                             // Sort by most frequently launched
                             .sort((appA, appB) => {
-                                /*
                                 const appFreqMap = Services.Applications.appFreqMap 
                                 const appAFreq = appFreqMap[appA.id] ? appFreqMap[appA.id] : 0
                                 const appBFreq = appFreqMap[appB.id] ? appFreqMap[appB.id] : 0
                                 if (appAFreq > appBFreq) return -1
                                 if (appAFreq < appBFreq) return 1
-                                */
                                 return 0 // They are equal
                             })
                     }

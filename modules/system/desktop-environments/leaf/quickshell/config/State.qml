@@ -48,7 +48,7 @@ Singleton {
     // Might be due to using multiple json adapter instances
     FileView {
         id: configFile
-        //path: root.settingsJsonPath
+        path: root.settingsJsonPath
 
         // Block all operations until the file is loaded
         // I think this would be useful for not starting the weather api call until the lat/lon are read in (untested)

@@ -7,8 +7,8 @@ import qs as Root
 Singleton {
     id: root
     property string appOrderPath: "/home/eXia/.config/leaf-de/appOrder.json"
-
-    //property var appFreqMap: appOrderFile.adapter.appFreqMap // busted?
+    
+    // Warning: Only use this for reading, not writing
     property var appFreqMap: Root.State.config.appFreqMap
     
     // Used to make a client name more human readable
@@ -40,13 +40,20 @@ Singleton {
     // occur.  And yes, I triple checked that the binding is by reference under normal
     // circumstances.  It just appears that at some point, the binding to the JS object on
     // the adapter becomes a copy or something.  But only if the file exists on disk.
+    //
+    // Additionally it seems that this issue doesn't occur if using a normal var/const which
+    // holds the native JS object in the adapter, only if a QML property is used to hold the 
+    // reference.
     function incrementFreq(appId): void {    
+        const appFreqMap = Root.State.config.appFreqMap
+
         console.debug(`incrementingFreq() call with ${appId}`)
-        const currentFreq = root.appFreqMap[appId] ?? 0
+        const currentFreq = appFreqMap[appId] ?? 0
         console.debug(`currentFreq: ${currentFreq}`)
         appFreqMap[appId] = currentFreq + 1
+        //Root.State.config.appFreqMap = appFreqMap // This is needed to modify the sub property on the actual adapter
         console.debug(`appFreqMap["${appId}"]: ${appFreqMap[appId]}`)
-        console.debug("local: " + JSON.stringify(root.appFreqMap, null,4 ))
+        console.debug("local: " + JSON.stringify(appFreqMap, null,4 ))
         console.debug("Root: " + JSON.stringify(Root.State.config.appFreqMap, null,4 ))
         // Write the changes to the file (needed since these properties on the js obj are not tracked)
         //appOrderFile.writeAdapter() // Known bug which sometimes crashes, waiting for fix
@@ -58,7 +65,7 @@ Singleton {
         //obj.value = "new value"
         //Root.State.config.aaa = obj
         
-        Root.State.config.aaa.value = "what"
+        //Root.State.config.aaa.value = "what"
 
         Root.State.configFileView.writeAdapter()
     }
