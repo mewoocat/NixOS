@@ -227,9 +227,9 @@ Rectangle {
                                     modelData: Qt.binding(() => scrollItem.modelData),
                                     scrollItem: Qt.binding(() => scrollItem)
                                 })
-                                console.debug(subContent.content)
-                                console.debug(subContent.content.parent)
-                                console.debug(subContent.children)
+                                //console.debug(subContent.content)
+                                //console.debug(subContent.content.parent)
+                                //console.debug(subContent.children)
                             }
                         }
 

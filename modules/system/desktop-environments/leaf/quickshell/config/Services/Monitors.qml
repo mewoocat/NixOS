@@ -155,9 +155,10 @@ Singleton {
         }
     }
 
+    /*
     FileView {
         id: monitorMapFile
-        path: Root.State.leafPath + "/hypr/monitorMap.json"
+        //path: Root.State.leafPath + "/hypr/monitorMap.json"
 
         // Block all operations until the file is loaded
         blockLoading: true
@@ -188,7 +189,9 @@ Singleton {
             property var configs: ({}) // map of id's to conf's
         } 
     }
+    */
 
+    /*
     FileView {
         id: monitorConfFile
         path: Root.State.leafPath + "/hypr/monitors.conf"
@@ -196,4 +199,5 @@ Singleton {
             //console.log(`File ${path} load ok, text = ${text()}`) 
         }
     }
+    */
 }

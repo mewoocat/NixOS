@@ -1,12 +1,15 @@
 
 import Quickshell
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Wayland
 import qs as Root
 import qs.Modules.Common as Common
 import qs.Windows.ControlPanel
 import "./SystemTray"
+
+import qs.Services as Services
 
 Scope {
     property string time;
@@ -52,6 +55,7 @@ Scope {
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
+                        Button {text: "inc"; onClicked: () => Services.Applications.incrementFreq("foot")}
                     }
                     // Center
                     RowLayout {

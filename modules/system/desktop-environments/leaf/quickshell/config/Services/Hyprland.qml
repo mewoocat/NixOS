@@ -235,13 +235,15 @@ Singleton {
     }
 
     // The workspaces.conf file
+    /*
     FileView {
         id: wsConfFile
-        path: Root.State.leafPath + "/hypr/workspaces.conf"
+        //path: Root.State.leafPath + "/hypr/workspaces.conf"
         onLoaded: {
             //console.log(`File ${path} load ok, text = ${text()}`) 
         }
     }
+    */
 
     function setWsName(text): void {
         const wsMap = Root.State.config.workspaces.wsMap

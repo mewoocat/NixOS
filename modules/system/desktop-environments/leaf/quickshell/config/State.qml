@@ -48,7 +48,7 @@ Singleton {
     // Might be due to using multiple json adapter instances
     FileView {
         id: configFile
-        path: root.settingsJsonPath
+        //path: root.settingsJsonPath
 
         // Block all operations until the file is loaded
         // I think this would be useful for not starting the weather api call until the lat/lon are read in (untested)
@@ -62,16 +62,20 @@ Singleton {
         onAdapterUpdated: {
             console.log(`Writing to ${path}`)
             console.log(`something state: ${adapter.something}`)
-            writeAdapter()
+            //writeAdapter()
         }
 
         onLoadFailed: (err) => console.error(`File load failed with ${err}`)
-        onLoaded: console.log(`Config file load ok`) 
+        onLoaded: console.log(`Config file load ok: ${path}`) 
         onSaveFailed: (err) => console.error(`File ${root.settingsJsonPath} save failed with ${err}`)
+        onSaved: console.log(`Saved config file: ${path}`)
 
         // Adapter between qml object and json
         // Values set here are the defaults
         adapter: JsonAdapter {
+            property var aaa: ({
+                value: "hi"
+            })
             property string something: "THIS IS DEFAULT"
             property list<string> someStupidPropertyThatsNeededToMakeTheNextPropertyAfterItwork: []
             property list<string> pinnedApps: [ "foot", "vesktop", "obsidian" ]
