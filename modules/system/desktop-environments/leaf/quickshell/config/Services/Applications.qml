@@ -29,7 +29,10 @@ Singleton {
     // object as one of the properties on the adapter, some strange behavior happens when the 
     // file exists on disk and is loaded in.  If you have a direct reference to the adapter
     // (not via a binding) then everything behaves normal if you modify an arbitrary sub property
-    // on the JS object.  However if you have a binding to the object on the adapter and then 
+    // on the JS object.  Meaning both the binding and the source JS object on the adapter both 
+    // have the modified sub property and calling writeAdapter() writes the change to the file.
+    //
+    // However if you have a binding to the object on the adapter and then 
     // modify an arbitrary sub property, it will modify the sub property if you reference
     // the adapter via the binding, but referencing the JS object directly from the adapter
     // shows the sub property as not updating.  This causes writeAdapter() to not write anything
