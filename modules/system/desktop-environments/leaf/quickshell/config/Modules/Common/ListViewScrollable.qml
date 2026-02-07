@@ -182,16 +182,16 @@ Rectangle {
                     */
                 }
                 // Sub content
-                Rectangle {
+                WrapperRectangle {
                     id: subBox
                     anchors.top: mainBox.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
                     color: root.scrollItemBG
-                    width: 40
-                    height: 40
                     bottomLeftRadius: 8
                     bottomRightRadius: 8
+
+                    //child: null // This gets set via the loader
 
                     /*
                     Loader {
@@ -223,7 +223,7 @@ Rectangle {
                         // Only initialize the delegate on startup if the loader is active
                         Component.onCompleted: {
                             if (active) {
-                                subContent.content = root.subDelegate.createObject(subContent, {
+                                subBox.child = root.subDelegate.createObject(subBox, {
                                     modelData: Qt.binding(() => scrollItem.modelData),
                                     scrollItem: Qt.binding(() => scrollItem)
                                 })
@@ -240,25 +240,7 @@ Rectangle {
                             }
                         }
                     }
-                    // Holds the loaded delegate
-                    Item {
-                        width: 40
-                        height: 40
-                        id: subContent
-                        property Item content: null
-                        children: [ content ]
-                    }
                 }
-
-                /*
-                onHeightChanged: console.log(`height: ${height}`)
-                Behavior on implicitHeight {
-                    PropertyAnimation { 
-                        duration: 500
-                        easing.type: Easing.InOutQuint
-                    }
-                }
-                */
             }
 
             // Probably simpler to do this with a "Behavior" on instead of using states and transitions 
@@ -273,7 +255,7 @@ Rectangle {
                     }
                     PropertyChanges {
                         background {
-                            implicitHeight: mainBox.height + subBox.height
+                            implicitHeight: root.itemHeight + subBox.height
                         }
                     }
                 }
