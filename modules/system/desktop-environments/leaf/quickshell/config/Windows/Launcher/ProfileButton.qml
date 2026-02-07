@@ -46,7 +46,7 @@ WrapperMouseArea {
     WrapperRectangle {
         margin: 4
         radius: 12
-        color: root.containsMouse ? palette.highlight : palette.base
+        color: root.containsMouse ? palette.highlight : "transparent"
         ClippingRectangle {
             radius: 20
             implicitWidth: 32

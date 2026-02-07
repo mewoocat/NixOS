@@ -126,6 +126,10 @@ Common.PanelWindow {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    onPrimaryClick: (modelData) => {
+                        console.log(modelData.name)
+                        launchApp(modelData)
+                    }
                     model: ScriptModel {
                         values: DesktopEntries.applications.values
                             // Filter by search text

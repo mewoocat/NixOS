@@ -10,9 +10,13 @@ import Quickshell.Widgets
 Rectangle {
     id: root
 
+    // Required properties
     required property var model // The model that has the data to render for each item
     required property Component mainDelegate // The main content to show
     required property Component subDelegate // The sub content to show when expanded
+
+    // Signals
+    signal primaryClick(modelData: var)
 
     // Refs
     property ListView listViewRef: listView
@@ -23,6 +27,7 @@ Rectangle {
     // style
     property int padding: 16
     property int animationSpeed: 100
+    property int expansionAnimationSpeed: 350
     property int itemHeight: 48
     property int contentMargin: 4
     property color scrollItemBG: palette.base
@@ -87,12 +92,15 @@ Rectangle {
                 sourceComponent: root.subContent
             }
             */
+
+            onClicked: root.primaryClick(modelData)
             property bool interacted: scrollItem.containsMouse || scrollItem.focus // Indicates if active via mouse or focus
             bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
             hoverEnabled: true
 
             onExpandedChanged: {
+                console.log(`expanded: ${expanded}`)
                 if (expanded) {
                     if (root.expandedItem != null) {
                         root.expandedItem.expanded = false
@@ -112,6 +120,7 @@ Rectangle {
                 color: "transparent"
                 implicitWidth: parent.width
                 implicitHeight: root.itemHeight // !! implicitHeight is modified via a state change
+                //onImplicitHeightChanged: console.log(`implicitHeight: ${implicitHeight}`)
                 // Main content
                 WrapperRectangle {
                     id: mainBox
@@ -120,8 +129,6 @@ Rectangle {
                     anchors.right: parent.right
                     //color: "transparent"
                     radius: 8
-                    bottomLeftRadius: scrollItem.expanded ? 0 : 8
-                    bottomRightRadius: scrollItem.expanded ? 0 : 8
                     color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
                     margin: root.contentMargin
 
@@ -190,53 +197,33 @@ Rectangle {
                     color: root.scrollItemBG
                     bottomLeftRadius: 8
                     bottomRightRadius: 8
-
                     //child: null // This gets set via the loader
 
-                    /*
-                    Loader {
-                        id: subContentLoader
-                        sourceComponent: root.subDelegate
-                    }
-                    Binding {
-                        id: subModelDataBind
-                        target: subContentLoader.item
-                        property: "modelData"
-                        value: scrollItem.modelData
-                    }
-                    Binding {
-                        id: subScrollItemBind
-                        target: subContentLoader.item
-                        property: "scrollItem"
-                        value: scrollItem
-                    }
-                    */
-
-                    // Possible idea:  Use a loader to create the delegate component with Component.createObject() and inject the required properties.
+                    // Use a loader to create the delegate component with Component.createObject() and inject the required properties.
                     // Then call destroy on the created component whenever the loader active property is set to false.  I think this will ensure
                     // that the subDelegate is only loaded when the loader is active while still being able to inject the required properties.
                     Loader {
                         id: subDelegateLoader
+                        active: false //scrollItem.expanded // false // Modified via state change
 
-                        //sourceComponent: root.subDelegate
+                        function createObject() {
+                            subBox.child = root.subDelegate.createObject(subBox, {
+                                modelData: Qt.binding(() => scrollItem.modelData), // Bind the model data
+                                scrollItem: Qt.binding(() => scrollItem) // Bind the scroll item itself
+                            })
+                        }
 
                         // Only initialize the delegate on startup if the loader is active
-                        Component.onCompleted: {
-                            if (active) {
-                                subBox.child = root.subDelegate.createObject(subBox, {
-                                    modelData: Qt.binding(() => scrollItem.modelData),
-                                    scrollItem: Qt.binding(() => scrollItem)
-                                })
-                                //console.debug(subContent.content)
-                                //console.debug(subContent.content.parent)
-                                //console.debug(subContent.children)
-                            }
-                        }
+                        Component.onCompleted: if (active) { createObject() }
 
                         // If the loader becomes inactive and a created delegate exists, then destroy it.
                         onActiveChanged: {
-                            if (!active && subContent.content != null) {
-                                subContent.destroy()
+                            console.log(`active changed to ${active}`)
+                            if (!active && subBox.child != null) {
+                                subBox.child.destroy()
+                            }
+                            else {
+                                createObject()
                             }
                         }
                     }
@@ -248,64 +235,66 @@ Rectangle {
                 State {
                     name: "expanded"
                     when: scrollItem.expanded
+                    // Define the properties changes that will occur in this state
                     PropertyChanges {
                         subDelegateLoader {
                             active: true
                         }
-                    }
-                    PropertyChanges {
+                        scrollItem {
+                            showBackground: true
+                        }
                         background {
                             implicitHeight: root.itemHeight + subBox.height
+                        }
+                        mainBox {
+                            bottomLeftRadius: 0
+                            bottomRightRadius: 0
                         }
                     }
                 }
             ]
             transitions: [
-                // Expanding
+                // Expanding & collapsing (due to reversible set to true)
                 Transition {
-                    from: ""; to: "expanded"
+                    to: "expanded"
+                    // Reverses the Transition when the conditions that triggered this transition are reversed
+                    reversible: true
+                    // Animate the properties changed via state, this allows us to choose when and how during the
+                    // state transition the properties are modified 
                     SequentialAnimation {
-                        PropertyAction {
-                            target: scrollItem
-                            property: "showBackground"
-                            value: true
+                        // So run these first in parallel
+                        ParallelAnimation {
+                            PropertyAction {
+                                target: scrollItem
+                                property: "showBackground"
+                                value: true
+                            }
+                            PropertyAction {
+                                target: subDelegateLoader
+                                property: "active"
+                                value: true
+                            }
                         }
-                        /*
-                        PropertyAction {
-                            target: subDelegateLoader
-                            property: "active"
-                            value: true
-                        }
-                        */
-                        PropertyAnimation {
-                            target: background
-                            property: "implicitHeight"
-                            duration: 350
-                            easing.type: Easing.InOutQuad
-                        }
-                    }
-                },
-                // Collapsing
-                Transition {
-                    from: "expanded"; to: ""
-                    SequentialAnimation {
-                        PropertyAnimation {
-                            target: background
-                            property: "implicitHeight"
-                            duration: 350
-                            easing.type: Easing.InOutQuad
-                        }
-                        /*
-                        PropertyAction {
-                            target: subDelegateLoader
-                            property: "active"
-                            value: false
-                        }
-                        */
-                        PropertyAction {
-                            target: scrollItem
-                            property: "showBackground"
-                            value: false
+                        // Then run these in parallel
+                        ParallelAnimation {
+                            PropertyAnimation {
+                                target: mainBox
+                                property: "bottomRightRadius"
+                                duration: expansionAnimationSpeed
+                                easing.type: Easing.InOutQuad
+                            }
+                            PropertyAnimation {
+                                target: mainBox
+                                property: "bottomLeftRadius"
+                                duration: expansionAnimationSpeed
+                                easing.type: Easing.InOutQuad
+                            }
+                            PropertyAnimation {
+                                target: background
+                                property: "implicitHeight"
+                                duration: expansionAnimationSpeed
+                                easing.type: Easing.InOutQuad
+                            }
                         }
                     }
                 }
