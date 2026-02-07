@@ -4,9 +4,10 @@ import QtQuick
 import QtQuick.Layouts
 import qs as Root
 
-// For generic popup menus
+// For use with a sub menu, like a linear list of clickable options
 WrapperMouseArea { 
     id: root
+    margin: 8
     required property string text
     required property var action
     property string iconName: ""
@@ -19,6 +20,7 @@ WrapperMouseArea {
 
     WrapperRectangle {
         margin: 4
+        id: background
         radius: Root.State.rounding
         color: root.containsMouse ? palette.highlight : "transparent"
         RowLayout {

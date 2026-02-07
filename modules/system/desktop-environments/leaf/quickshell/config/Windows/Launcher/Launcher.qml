@@ -126,10 +126,7 @@ Common.PanelWindow {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    onPrimaryClick: (modelData) => {
-                        console.log(modelData.name)
-                        launchApp(modelData)
-                    }
+                    onPrimaryClick: (modelData) => launchApp(modelData)
                     model: ScriptModel {
                         values: DesktopEntries.applications.values
                             // Filter by search text
@@ -201,7 +198,6 @@ Common.PanelWindow {
                                         return "No description"
                                     }
                                 }
-                                //color: mouseArea.containsMouse || mouseArea.focus || mouseArea.expanded ? palette.highlightedText : palette.placeholderText
                                 color: palette.text
                                 font.pointSize: 8
                             }
@@ -229,13 +225,12 @@ Common.PanelWindow {
 
                         Repeater {
                             model: subDelegate.modelData.actions
-                            delegate: Common.NormalButton {
+                            // Maybe should make this type more generic (since it works for a non popup menu scenario)
+                            delegate: Common.SubMenuItem {
                                 required property DesktopAction modelData
                                 text: modelData.name
-                                leftClick: modelData.execute
-                                //textColor: mouseArea.interacted | mouseArea.expanded ? palette.highlightedText : palette.placeholderText
-                                textColor: palette.text
-                                recolorIcon: true
+                                action: modelData.execute
+                                iconName: ""
                             }
                         }
                     }

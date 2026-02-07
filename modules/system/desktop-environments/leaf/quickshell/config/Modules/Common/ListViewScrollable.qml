@@ -43,6 +43,7 @@ Rectangle {
         if (!visible && expandedItem != null) {
             expandedItem.expanded = false
         }
+        listView.positionViewAtBeginning() // Reset the view to the top
     }
     color: "transparent" //"#770000ff"
     radius: 8
@@ -262,17 +263,15 @@ Rectangle {
                     // Animate the properties changed via state, this allows us to choose when and how during the
                     // state transition the properties are modified 
                     SequentialAnimation {
-                        // So run these first in parallel
+                        // So run these state changes first in parallel
                         ParallelAnimation {
                             PropertyAction {
                                 target: scrollItem
                                 property: "showBackground"
-                                value: true
                             }
                             PropertyAction {
                                 target: subDelegateLoader
                                 property: "active"
-                                value: true
                             }
                         }
                         // Then run these in parallel
