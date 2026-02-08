@@ -67,6 +67,7 @@ Singleton {
         //delay.start()
     }
     property QtObject activeGrabWindow: null
+    onActiveGrabWindowChanged: console.log(`activeGrabWindow: ${activeGrabWindow}`)
 
     // Focus grab stack
     property list<var> focusGrabStack: [] // Holds the previous grab window.  Used to reset the HyprlandFocusGrab
@@ -105,7 +106,7 @@ Singleton {
         windows: root.ignoredGrabWindows
         // Function to run when the Cleared signal is emitted
         onCleared: () => {
-            //console.log(`clearing grab for ${root.activeGrabWindow}`)
+            console.log(`clearing grab for ${root.activeGrabWindow}`)
             root.activeGrabWindow.closeWindow() // Assumes this method exists
             grab.active = false
 

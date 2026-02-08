@@ -5,7 +5,7 @@ import QtQuick
 
 Item {
     id: root
-    required property var model // A list of IDs
+    required property ScriptModel model // Some sort of model
     required property Component delegate
 
     signal modelUpdated(model: var) // When the model has been modified
@@ -35,7 +35,6 @@ Item {
         // Useful for manipulating the view using the move() method
         model: DelegateModel {
             id: delegateModel
-            //model: ScriptModel { values: ["blue", "red", "green", "blue", "blue", "blue", "blue", "red", "green", "pink"] }
             model: root.model
 
             // Note that the DropArea component can't be part of the actually dragged component, since moving the DropArea
@@ -89,11 +88,11 @@ Item {
                         console.log(`originalIndex: ${originalIndex}`)
                         console.log(`newIndex: ${newIndex}`)
 
-                        const removedValues = root.model.splice(originalIndex, 1) // Remove value at the original index
+                        const removedValues = root.model.values.splice(originalIndex, 1) // Remove value at the original index
                         const draggedValue = removedValues[0]
 
                         // Insert dragged item at new index in model
-                        root.model.splice(newIndex, 0, draggedValue)
+                        root.model.values.splice(newIndex, 0, draggedValue)
                         console.log(`modified model ${root.model}`)
 
                         root.modelUpdated(root.model)

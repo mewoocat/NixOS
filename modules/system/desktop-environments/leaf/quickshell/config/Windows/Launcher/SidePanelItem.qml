@@ -6,13 +6,24 @@ import Quickshell.Widgets
 WrapperMouseArea {
     id: root
     required property string imgName
-    required property var action
     property int imgSize: 32
+    signal leftClick()
+    signal rightClick()
 
     enabled: true
     hoverEnabled: true
 
-    onClicked: () => action()
+    acceptedButtons: Qt.LeftButton | Qt.RightButton
+    onClicked: (event) => {
+        switch(event.button) {
+            case Qt.LeftButton:
+                leftClick(); break
+            case Qt.RightButton:
+                rightClick(); break
+            default:
+                console.error("button problem")
+        }
+    }
     margin: 4
     WrapperRectangle {
         margin: 4

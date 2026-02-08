@@ -15,7 +15,7 @@ SidePanelItem {
     id: power
     imgName: 'system-shutdown-symbolic'
     imgSize: 22
-    action: () => {
+    onLeftClick: () => {
         console.log("click")
         powerPopup.visible = true
     }

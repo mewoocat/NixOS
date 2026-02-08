@@ -63,8 +63,7 @@ Singleton {
 
         // If the adapter's contents change, update the file
         onAdapterUpdated: {
-            console.log(`Writing to ${path}`)
-            console.log(`something state: ${adapter.something}`)
+            console.log(`Adapter updated for ${path}`)
             //writeAdapter() // Test this before re-enabling
         }
 

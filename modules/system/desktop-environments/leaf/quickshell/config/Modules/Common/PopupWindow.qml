@@ -23,8 +23,13 @@ PopupWindow {
     color: "transparent"
     //surfaceFormat.opaque: true
 
+    // IMPORTANT: Make sure to call this method before the PopupWindow is destoryed, or else a 
+    // crash may occur.
     function closeWindow() {
         console.log('popup close window')
+        // Pretty sure hiding this popup will trigger the HyplandFocusGrab cleared signal.
+        // Because it would be the only window in the HyprlandFocusGrab window list and 
+        // hiding all in the list fires the signal.
         root.visible = false
     }
 

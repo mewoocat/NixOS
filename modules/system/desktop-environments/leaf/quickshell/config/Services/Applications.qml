@@ -58,7 +58,6 @@ Singleton {
         // Write the changes to the file (needed since these properties on the js obj are not tracked)
         //appOrderFile.writeAdapter() // Known bug which sometimes crashes, waiting for fix
         console.debug(`TRYING TO WRITE ADAPTER`)
-        console.debug(`json adapter: ${Root.State.configFileView.writeAdapter()}`)
 
         // Works
         //let obj = Root.State.config.aaa

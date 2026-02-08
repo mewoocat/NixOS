@@ -68,27 +68,57 @@ Common.PanelWindow {
                 SeqDragGrid.SequentialDragGrid {
                     id: grid
                     Layout.fillHeight: true
-                    property list<string> pinnedApps: Root.State.config.pinnedApps
-                    onPinnedAppsChanged: console.debug(`Root: ${Root.State.config.pinnedApps}`)
+                    property var pinnedApps: Root.State.config.pinnedApps
                     model: ScriptModel {
                         values: {
+                            /*
                             if (grid.pinnedApps.length > 20) {
                                 grid.pinnedApps.length = 8
                                 console.warn(`pinned apps length greater than max, trimming ...`)
                             }
-                            return grid.pinnedApps
+                            */
+                            return Root.State.config.pinnedApps
                         }
                     }
                     onModelUpdated: (newModel) => {
-                        Root.State.config.pinnedApps = newModel
+                        Root.State.config.pinnedApps = newModel.values
                     }
                     delegate: SidePanelItem {
+                        id: appPanelItem
                         required property var modelData
                         property string appId: modelData
                         property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
                         imgName: if (!desktopEntry) { return '' } else { return desktopEntry.icon ?? desktopEntry.id }
-                        action: if (!desktopEntry) { return () => {} } else { return desktopEntry.execute }
-                        // TODO: Add left click menu
+
+                        onLeftClick: () => { if (!desktopEntry) { return () => {} } else { return desktopEntry.execute } }
+                        onRightClick: () => { 
+                            console.debug(`right click`)
+                            appPanelPopup.visible = true
+                        }
+
+                        Common.PopupWindow {
+                            id: appPanelPopup
+
+                            anchor {
+                                item: appPanelItem
+                                edges: Edges.Top | Edges.Right
+                                gravity: Edges.Bottom | Edges.Right
+                            }
+
+                            content: ColumnLayout {
+                                Text { color: palette.text; text: appPanelItem.desktopEntry.name }
+                                Common.PopupMenuItem { text: "Remove"; action: () => {
+                                    console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
+                                    // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
+                                    // TODO: Probably need to find a way to automatically do this
+                                    appPanelPopup.closeWindow()
+                                    Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appPanelItem.appId)
+                                }; iconName: "remove"}
+                                Common.PopupMenuItem { text: "Remove"; action: () => {
+                                    console.debug(`right click`)
+                                } }
+                            }
+                        }
                     }
                 }
                 
