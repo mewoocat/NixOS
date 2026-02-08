@@ -58,7 +58,7 @@ PanelWindow {
         Rectangle {
             id: box
             anchors.fill: parent
-            color: palette.window
+            color: "#77111111" //palette.window
             radius: Root.State.rounding
             children: [
                 window.content

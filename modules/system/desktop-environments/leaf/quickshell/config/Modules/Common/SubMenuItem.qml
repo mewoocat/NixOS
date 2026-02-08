@@ -7,7 +7,7 @@ import qs as Root
 // For use with a sub menu, like a linear list of clickable options
 WrapperMouseArea { 
     id: root
-    margin: 8
+    margin: 4
     required property string text
     required property var action
     property string iconName: ""

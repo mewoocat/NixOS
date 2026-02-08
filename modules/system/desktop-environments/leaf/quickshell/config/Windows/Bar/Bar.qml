@@ -40,7 +40,7 @@ Scope {
                     right: true
                 }
                 implicitHeight: 40 // Bar height
-                WlrLayershell.namespace: "bar" // Set layer name
+                WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
                     color: palette.window
                     anchors.fill: parent

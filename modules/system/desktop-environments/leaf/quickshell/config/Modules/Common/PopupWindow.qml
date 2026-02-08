@@ -10,6 +10,10 @@ import qs as Root
 // TODO: Fix issue with moving mouse too slow from button to popupwindow where the popup window 
 //       doesn't receive focus right away and thus gets hidden before it can be hovered
 // TODO: Add param to set the parent window so that if it has a focus grab we can deactive and active it as needed
+//
+// WARNING: If blur is disabled in hyprland but the layer still has it enabled for popups, then some square corners
+// will show up around these popup windows.  Also disabling the blur for the layer fixes this.  But disabling the 
+// popup blur globally won't apply to this layer.
 PopupWindow {
     id: root
 
@@ -17,6 +21,7 @@ PopupWindow {
     implicitWidth: popupArea.width
     implicitHeight: popupArea.height
     color: "transparent"
+    //surfaceFormat.opaque: true
 
     function closeWindow() {
         console.log('popup close window')

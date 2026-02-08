@@ -17,7 +17,6 @@ Common.PopupWindow {
         item: parentButton
         edges: Edges.Top | Edges.Left
         gravity: Edges.Bottom | Edges.Left
-        //margins.top: 32
         margins.left: -8
     }
 
