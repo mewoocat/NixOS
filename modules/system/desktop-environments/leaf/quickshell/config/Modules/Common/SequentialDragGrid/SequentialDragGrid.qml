@@ -6,7 +6,6 @@ import QtQuick
 Item {
     id: root
     required property var model // A list of IDs
-    onModelChanged: console.log(`model changed to: ${model}`)
     required property Component delegate
 
     signal modelUpdated(model: var) // When the model has been modified

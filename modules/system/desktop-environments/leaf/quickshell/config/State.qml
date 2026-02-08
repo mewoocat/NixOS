@@ -60,7 +60,6 @@ Singleton {
             console.debug(`file changed`)
             reload()
         }
-        onLoadedChanged: console.Debug(`loaded: ${loaded}`)
 
         // If the adapter's contents change, update the file
         onAdapterUpdated: {

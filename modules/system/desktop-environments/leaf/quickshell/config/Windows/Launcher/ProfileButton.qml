@@ -1,18 +1,9 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell
-import Quickshell.Wayland
-import Quickshell.Hyprland
-import qs.Services as Services
-import qs.Modules.Common as Common
-
-
-import QtQuick
-import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import qs.Services as Services
+import qs.Modules.Common as Common
 
 WrapperMouseArea {
     id: root

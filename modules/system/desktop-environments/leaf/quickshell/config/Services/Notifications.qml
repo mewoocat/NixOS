@@ -80,6 +80,8 @@ Singleton {
 
     // Listens for notifications
     QsNotifications.NotificationServer {
+        id: server
+
         actionIconsSupported: true
         actionsSupported: true
         bodyHyperlinksSupported: true
@@ -88,10 +90,6 @@ Singleton {
         bodySupported: true
         persistenceSupported: true
 
-        id: server
-        Component.onCompleted: {
-            console.log("notification server init")
-        }
         onNotification: (notif) => {
             notif.tracked = true
             const notifObject = notificationComp.createObject(null, {

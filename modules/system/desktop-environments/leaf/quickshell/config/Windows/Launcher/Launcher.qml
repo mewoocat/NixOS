@@ -74,8 +74,8 @@ Common.PanelWindow {
                         required property var modelData
                         property string appId: modelData
                         property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
-                        imgName: desktopEntry.icon ?? desktopEntry.id 
-                        action: desktopEntry.execute
+                        imgName: if (!desktopEntry) { return '' } else { return desktopEntry.icon ?? desktopEntry.id }
+                        action: if (!desktopEntry) { return () => {} } else { return desktopEntry.execute }
                     }
                 }
                 

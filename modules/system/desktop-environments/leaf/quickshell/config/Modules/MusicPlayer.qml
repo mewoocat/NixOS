@@ -29,7 +29,6 @@ GridLayout {
         target: Mpris.players
         // Player added
         function onObjectInsertedPost(object, index) {
-            console.log(`player added`)
             // set this player as the active
             root.currentPlayerIndex = index
         }
