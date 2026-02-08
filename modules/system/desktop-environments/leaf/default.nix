@@ -24,7 +24,8 @@ in{
     enable = true;
     config = {
       theme = {
-        colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
+        #colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
+        colorScheme = "${leaf-dir}/qtengine.colors";
         iconTheme = "kora";
         style = "darkly";
         font = {
