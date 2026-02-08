@@ -14,12 +14,14 @@ Item {
 
     GridView {
         width: root.tileSize
-        height: 400
+        height: root.height
+        Component.onCompleted: console.debug(`gridview height: ${height}`)
         // These have a default of 100, so we need to set them
         cellWidth: root.tileSize
         cellHeight: root.tileSize
 
-        interactive: false // Disable scrolling by default
+        clip: true // Hide items outside the GridView bounds
+        acceptedButtons: Qt.NoButton // Disable dragging the view with the mouse since it makes it hard to drag the tiles
 
         displaced: Transition {
             NumberAnimation {
@@ -34,7 +36,7 @@ Item {
         model: DelegateModel {
             id: delegateModel
             //model: ScriptModel { values: ["blue", "red", "green", "blue", "blue", "blue", "blue", "red", "green", "pink"] }
-            model: ScriptModel { values: root.model }
+            model: root.model
 
             // Note that the DropArea component can't be part of the actually dragged component, since moving the DropArea
             // will cause the grid to no longer render a spot for it

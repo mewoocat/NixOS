@@ -66,7 +66,19 @@ Common.PanelWindow {
                 spacing: 0
 
                 SeqDragGrid.SequentialDragGrid {
-                    model: Root.State.config.pinnedApps
+                    id: grid
+                    Layout.fillHeight: true
+                    property list<string> pinnedApps: Root.State.config.pinnedApps
+                    onPinnedAppsChanged: console.debug(`Root: ${Root.State.config.pinnedApps}`)
+                    model: ScriptModel {
+                        values: {
+                            if (grid.pinnedApps.length > 20) {
+                                grid.pinnedApps.length = 8
+                                console.warn(`pinned apps length greater than max, trimming ...`)
+                            }
+                            return grid.pinnedApps
+                        }
+                    }
                     onModelUpdated: (newModel) => {
                         Root.State.config.pinnedApps = newModel
                     }
@@ -76,11 +88,10 @@ Common.PanelWindow {
                         property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
                         imgName: if (!desktopEntry) { return '' } else { return desktopEntry.icon ?? desktopEntry.id }
                         action: if (!desktopEntry) { return () => {} } else { return desktopEntry.execute }
+                        // TODO: Add left click menu
                     }
                 }
                 
-                Item { Layout.fillHeight: true; } // Push the siblings to the top and bottom
-
                 // Bottom
                 ColumnLayout {
                     spacing: 0
@@ -206,7 +217,7 @@ Common.PanelWindow {
                         Item { implicitHeight: showMoreBtn.buttonHeight }
                         Common.NormalButton {
                             id: showMoreBtn
-                            visible: mainDelegate.scrollItem.interacted && mainDelegate.app.actions.length > 0
+                            visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
                             iconName: "view-more"
                             leftClick: () => scrollItem.expanded = !scrollItem.expanded
@@ -231,6 +242,22 @@ Common.PanelWindow {
                                 text: modelData.name
                                 action: modelData.execute
                                 iconName: ""
+                            }
+                        }
+                        Common.HorizontalLine {}
+                        RowLayout {
+                            Common.NormalButton {
+                                text: "Pin"
+                                leftClick: () => {
+                                    const pinnedApps = Root.State.config.pinnedApps
+                                    pinnedApps.push(subDelegate.modelData.id)
+                                    // Need to set the pinnedApps value to something new to force consumers of it to update.
+                                    // Otherwise the actual value won't change since it's a reference.  And the consumers
+                                    // won't know to update.
+                                    Root.State.config.pinnedApps = null
+                                    Root.State.config.pinnedApps = pinnedApps
+                                    Root.State.configFileView.writeAdapter()
+                                }
                             }
                         }
                     }
