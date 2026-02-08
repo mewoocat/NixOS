@@ -56,7 +56,11 @@ Singleton {
 
         // Reload the file if it changes
         watchChanges: true 
-        onFileChanged: reload()
+        onFileChanged: {
+            console.debug(`file changed`)
+            reload()
+        }
+        onLoadedChanged: console.Debug(`loaded: ${loaded}`)
 
         // If the adapter's contents change, update the file
         onAdapterUpdated: {
@@ -73,8 +77,21 @@ Singleton {
         // Adapter between qml object and json
         // Values set here are the defaults
         adapter: JsonAdapter {
-            property list<string> pinnedApps: [ "foot", "vesktop", "obsidian" ]
-            property string pfpImage: ""
+            
+            /*
+            property var aaa: ({
+                value: "hi"
+            })
+            property string something: "THIS IS DEFAULT"
+            */
+            //property list<string> someStupidPropertyThatsNeededToMakeTheNextPropertyAfterItwork: []
+
+            property var pinnedApps: [ "foot", "vesktop", "obsidian" ]
+            property string pfpImagePath: "ababagb"
+            property string newProp: "default"
+            onNewPropChanged: console.debug(`newProp: ${newProp}`)
+            Component.onCompleted: console.debug(`initall pfp: ${pfpImagePath}`)
+            onPfpImagePathChanged: console.debug(`pfpImagePath: ${pfpImagePath}`)
             property var appFreqMap: ({})
 
             property JsonObject location: JsonObject {

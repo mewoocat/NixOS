@@ -15,6 +15,7 @@ Singleton {
     }
     
     // Needs the file prefix to refer to absolute path
-    property string pfpPath: "file://" + Root.State.config.pfpImage
-    property string username: "???"
+    //property string pfpPath: Root.State.config.pfpImagePath != "" ? "file://" + Root.State.config.pfpImagePath : "wtf"
+    //onPfpPathChanged: console.debug(`pfp path: ${pfpPath}`)
+    //property string username: "???"
 }    

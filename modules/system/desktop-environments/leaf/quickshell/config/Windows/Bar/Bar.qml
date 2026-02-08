@@ -55,7 +55,7 @@ Scope {
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
-                        Button {text: "inc"; onClicked: () => Services.Applications.incrementFreq("foot")}
+                        Button {text: `v: ${Root.State.config.newProp}`; onClicked: () => Services.Applications.incrementFreq("foot")}
                     }
                     // Center
                     RowLayout {
