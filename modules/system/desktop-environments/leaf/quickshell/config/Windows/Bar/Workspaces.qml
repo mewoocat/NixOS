@@ -85,9 +85,9 @@ RowLayout {
                     case "active":
                         return palette.accent
                     case "inactive":
-                        return palette.link
+                        return palette.highlight
                     case "empty":
-                        return palette.alternateBase
+                        return palette.base
                     default:
                         console.error("invalid wsState")
                 }

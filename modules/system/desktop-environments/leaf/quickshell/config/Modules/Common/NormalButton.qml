@@ -39,7 +39,7 @@ MouseArea {
     property color defaultIconColor: palette.text
     property color activeIconColor: palette.text
     property color defaultBgColor: "transparent"
-    property color activeBgColor: palette.alternateBase
+    property color activeBgColor: palette.highlight
 
     implicitWidth: box.width + leftInternalMargin + rightInternalMargin
     implicitHeight: buttonHeight

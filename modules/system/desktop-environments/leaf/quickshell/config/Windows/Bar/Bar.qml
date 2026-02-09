@@ -27,8 +27,6 @@ Scope {
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
-                //focusable: true
-                //WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 Component.onCompleted: {
                     Root.State.bar = bar
                 }
@@ -59,11 +57,9 @@ Scope {
                     // Center
                     RowLayout {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        //anchors.verticalCenter: parent.verticalCenter
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         spacing: 0
-                        //Layout.alignment: Qt.AlignCenter
 
                         NotificationIndicator {}
                         Clock {}
@@ -80,13 +76,11 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
-                        /*
                         Common.NormalButton {
-                            leftClick: () => Root.State.controlPanel.toggleWindow()
+                            //leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
-                           defaultInternalMargin: 6
+                            defaultInternalMargin: 6
                         }
-                        */
                     }
                 }
             }

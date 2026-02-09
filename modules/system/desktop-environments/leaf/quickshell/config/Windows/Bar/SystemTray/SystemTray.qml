@@ -24,7 +24,7 @@ ClippingRectangle {
     implicitHeight: parent.height - root.externalMargin
     implicitWidth: root.isExpanded ? trayContent.width : root.toggleButton.width
 
-    color: palette.highlight
+    color: palette.base
 
     radius: 24
     //anchors.centerIn: parent

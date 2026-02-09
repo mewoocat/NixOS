@@ -69,19 +69,10 @@ Common.PanelWindow {
                     id: grid
                     Layout.fillHeight: true
                     property var pinnedApps: Root.State.config.pinnedApps
-                    model: ScriptModel {
-                        values: {
-                            /*
-                            if (grid.pinnedApps.length > 20) {
-                                grid.pinnedApps.length = 8
-                                console.warn(`pinned apps length greater than max, trimming ...`)
-                            }
-                            */
-                            return Root.State.config.pinnedApps
-                        }
-                    }
+                    model: ScriptModel { values: Root.State.config.pinnedApps }
                     onModelUpdated: (newModel) => {
                         Root.State.config.pinnedApps = newModel.values
+                        Root.State.configFileView.writeAdapter()
                     }
                     delegate: SidePanelItem {
                         id: appPanelItem
@@ -91,10 +82,7 @@ Common.PanelWindow {
                         imgName: if (!desktopEntry) { return '' } else { return desktopEntry.icon ?? desktopEntry.id }
 
                         onLeftClick: () => { if (!desktopEntry) { return () => {} } else { return desktopEntry.execute } }
-                        onRightClick: () => { 
-                            console.debug(`right click`)
-                            appPanelPopup.visible = true
-                        }
+                        onRightClick: () => { appPanelPopup.visible = true }
 
                         Common.PopupWindow {
                             id: appPanelPopup
@@ -113,10 +101,9 @@ Common.PanelWindow {
                                     // TODO: Probably need to find a way to automatically do this
                                     appPanelPopup.closeWindow()
                                     Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appPanelItem.appId)
+                                    Root.State.configFileView.writeAdapter()
+
                                 }; iconName: "remove"}
-                                Common.PopupMenuItem { text: "Remove"; action: () => {
-                                    console.debug(`right click`)
-                                } }
                             }
                         }
                     }
@@ -253,6 +240,7 @@ Common.PanelWindow {
                             leftClick: () => scrollItem.expanded = !scrollItem.expanded
                             defaultIconColor: palette.highlightedText
                             activeIconColor: palette.text
+                            activeBgColor: palette.alternateBase
                             recolorIcon: true
                         }
                     }
@@ -274,13 +262,18 @@ Common.PanelWindow {
                                 iconName: ""
                             }
                         }
-                        Common.HorizontalLine {}
+                        Common.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
                         RowLayout {
                             Common.NormalButton {
                                 text: "Pin"
+                                iconName: "pin"
                                 leftClick: () => {
                                     const pinnedApps = Root.State.config.pinnedApps
-                                    pinnedApps.push(subDelegate.modelData.id)
+                                    const isAppPinned = pinnedApps.find(appId => appId == subDelegate.modelData.id)
+                                    if (!isAppPinned) {
+                                        pinnedApps.push(subDelegate.modelData.id)
+                                    }
+
                                     // Need to set the pinnedApps value to something new to force consumers of it to update.
                                     // Otherwise the actual value won't change since it's a reference.  And the consumers
                                     // won't know to update.
