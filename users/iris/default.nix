@@ -19,6 +19,7 @@
       ungoogled-chromium
       freerdp xrdp
       globalprotect-openconnect
+      onlyoffice-desktopeditors
     ];
   };
 

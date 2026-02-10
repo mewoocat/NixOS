@@ -101,6 +101,10 @@
       aircrack-ng
       linssid # For channel analysis
       #iwconfig # Deprecated
+
+      # Rust
+      cargo
+      rustc
     ];
   };
 
