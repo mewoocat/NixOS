@@ -25,9 +25,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "leaf-theme-manager";
   version = "0.0.1";
 
-  src = "./";
+  src = ./.;
 
-  cargoHash = "";
+  #cargoHash = "";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
   meta = {
     description = "";

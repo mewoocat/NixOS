@@ -9,6 +9,8 @@
   src = builtins.readFile ./theme.sh;
   theme = pkgs.writeShellScriptBin "theme" src;
 
+  leaf-theme-manager = pkgs.callPackage ./LeafThemeManager {};
+
   # Wallust packaging
   #wallust = pkgs.callPackage ./wallust.nix {};
 
@@ -88,6 +90,8 @@ in {
 
     libsForQt5.qtstyleplugin-kvantum
     gruvbox-kvantum
+    
+    leaf-theme-manager
   ];
 
   hjem.users.${config.username}.files = {

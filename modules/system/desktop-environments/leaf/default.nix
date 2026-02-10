@@ -65,8 +65,7 @@ in{
       # theming
       kdePackages.breeze
       kdePackages.breeze.qt5 # For Qt5 support
-      kdePackages.breeze-icons
-      kora-icon-theme
+      kdePackages.breeze-icons kora-icon-theme
       darkly
       darkly-qt5 # For Qt5 support
 
@@ -168,14 +167,13 @@ in{
     ddcui
   ];
 
-
-
   # GreetD
   services.greetd = {
     enable = false;
     settings = {
       default_session = {
-        command = "${pkgs.cage}/bin/cage -s -- leaf";
+        #command = "${pkgs.cage}/bin/cage -s -- leaf";
+        command = "leaf";
         user = "eXia"; # Set user to auto login
       };
     };
