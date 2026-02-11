@@ -45,10 +45,12 @@ command = "swww img --transition-type center {{ image }}"
 # For example, killing the wallpaper daemon. Usage is like a normal hook.
 # pre_hook = ""
 
-[templates.gtk]
+# Assumes adw-gtk3 theme is installed
+[templates.gtk3]
 # Relative paths will be resolved from the path `config.toml` is in.
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
-output_path = "~/.config/leaf-de/gtk-colors.css"
+output_path = "~/.config/gtk-3.0/colors.css"
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme phocus; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
 
 # Defaults to a value of 0 if unspecified, determines the order that each template is processed.
 # You can use index = n to force a particular template hook to run after everything else, and index = -n for before everything else

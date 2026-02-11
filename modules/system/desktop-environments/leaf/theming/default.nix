@@ -64,12 +64,8 @@ in {
         cp ${./../ags/ags-config/assets/bluetooth-disabled-symbolic.svg} $out/share/icons/kora/status/symbolic/bluetooth-disabled-symbolic.svg
       '';
     })
-    #adw-gtk3 # Main GTK theme
-    whitesur-gtk-theme
-    orchis-theme
-    shades-of-gray-theme
-    nwg-look
 
+    # Icon themes
     papirus-icon-theme
     fluent-icon-theme
     whitesur-icon-theme
@@ -82,16 +78,23 @@ in {
 
     wallust
     theme
-    inputs.matugen.packages.x86_64-linux.default
     #libsForQt5.qt5ct
     #qt6Packages.qt6ct
     pywal
-    swww
 
     libsForQt5.qtstyleplugin-kvantum
     gruvbox-kvantum
     
     leaf-theme-manager
+    swww # Wallpaper manager
+    inputs.matugen.packages.x86_64-linux.default
+
+    # Gtk
+    adw-gtk3 # Main GTK theme
+    whitesur-gtk-theme
+    orchis-theme
+    shades-of-gray-theme
+    nwg-look
   ];
 
   hjem.users.${config.username}.files = {
@@ -115,6 +118,15 @@ in {
       source = ./matugen;
     };
 
+    ".config/gtk-3.0/gtk.css" = {
+      clobber = true;
+      # This imports the colors generated from matugen
+      text = ''
+        @import 'colors.css';
+      '';
+    };
+
+    /*
     ".local/share/themes/adw-gtk3-leaf" = {
       clobber = true;
       source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf";
@@ -124,6 +136,7 @@ in {
       clobber = true;
       source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark";
     };
+    */
 
     /*
     ".config/gtk-3.0/gtk.css" = {
@@ -132,10 +145,12 @@ in {
     };
     */
 
+    /*
     ".config/gtk-4.0/gtk.css" = {
       clobber = true;
       source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark/gtk-4.0/gtk.css";
     };
+    */
 
     /*
     ".config/qt5ct" = {
