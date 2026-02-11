@@ -97,71 +97,77 @@ in {
     nwg-look
   ];
 
-  hjem.users.${config.username}.files = {
-    ".config/gtk-3.0/settings.ini" = {
-      clobber = true;
-      text = ''
-        [Settings]
-        gtk-cursor-theme-name=capitaine-cursors
-        gtk-cursor-theme-size=24
-        gtk-icon-theme-name=kora
-      '';
-    };
+  hjem.users.${config.username} = {
+    clobberFiles = true;
+    files = {
+      ".config/gtk-3.0/settings.ini" = {
+        text = ''
+          [Settings]
+          gtk-cursor-theme-name=capitaine-cursors
+          gtk-cursor-theme-size=24
+          gtk-icon-theme-name=kora
+        '';
+      };
 
-    ".config/wallust" = {
-      clobber = true;
-      source = ./wallust;
-    };
+      ".config/wallust" = {
+        source = ./wallust;
+      };
 
-    ".config/matugen" = {
-      clobber = true;
-      source = ./matugen;
-    };
+      ".config/matugen" = {
+        source = ./matugen;
+      };
 
-    ".config/gtk-3.0/gtk.css" = {
-      clobber = true;
-      # This imports the colors generated from matugen
-      text = ''
-        @import 'colors.css';
-      '';
-    };
+      ".config/gtk-3.0/gtk.css" = {
+        # This imports the colors generated from matugen
+        text = ''
+          @import 'colors.css';
+        '';
+      };
 
-    /*
-    ".local/share/themes/adw-gtk3-leaf" = {
-      clobber = true;
-      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf";
-    };
+      ".config/gtk-4.0/gtk.css" = {
+        # This imports the colors generated from matugen
+        text = ''
+          @import 'colors.css';
+        '';
+      };
 
-    ".local/share/themes/adw-gtk3-leaf-dark" = {
-      clobber = true;
-      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark";
-    };
-    */
+      /*
+      ".local/share/themes/adw-gtk3-leaf" = {
+        clobber = true;
+        source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf";
+      };
 
-    /*
-    ".config/gtk-3.0/gtk.css" = {
-      clobber = true;
-      source = ./leaf-gtk-3.0.css; 
-    };
-    */
+      ".local/share/themes/adw-gtk3-leaf-dark" = {
+        clobber = true;
+        source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark";
+      };
+      */
 
-    /*
-    ".config/gtk-4.0/gtk.css" = {
-      clobber = true;
-      source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark/gtk-4.0/gtk.css";
-    };
-    */
+      /*
+      ".config/gtk-3.0/gtk.css" = {
+        clobber = true;
+        source = ./leaf-gtk-3.0.css; 
+      };
+      */
 
-    /*
-    ".config/qt5ct" = {
-      clobber = true;
-      source = ./qt-configs/qt5ct;
-    };
+      /*
+      ".config/gtk-4.0/gtk.css" = {
+        clobber = true;
+        source = "${adw-gtk3-leaf}/adw-gtk3-leaf/adw-gtk3-leaf-dark/gtk-4.0/gtk.css";
+      };
+      */
 
-    ".config/qt6ct" = {
-      clobber = true;
-      source = ./qt-configs/qt6ct;
+      /*
+      ".config/qt5ct" = {
+        clobber = true;
+        source = ./qt-configs/qt5ct;
+      };
+
+      ".config/qt6ct" = {
+        clobber = true;
+        source = ./qt-configs/qt6ct;
+      };
+      */
     };
-    */
   };
 }

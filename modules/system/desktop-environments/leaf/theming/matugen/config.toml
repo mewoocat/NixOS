@@ -52,6 +52,10 @@ input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/g
 output_path = "~/.config/gtk-3.0/colors.css"
 post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme phocus; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
 
+[templates.gtk4]
+input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
+output_path = "~/.config/gtk-4.0/colors.css"
+
 # Defaults to a value of 0 if unspecified, determines the order that each template is processed.
 # You can use index = n to force a particular template hook to run after everything else, and index = -n for before everything else
 index = 1
