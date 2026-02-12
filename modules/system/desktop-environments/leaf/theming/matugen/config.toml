@@ -50,7 +50,7 @@ command = "swww img --transition-type center {{ image }}"
 # Relative paths will be resolved from the path `config.toml` is in.
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
 output_path = "~/.config/gtk-3.0/colors.css"
-post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme phocus; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+#post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme phocus; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
 
 [templates.gtk4]
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
