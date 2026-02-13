@@ -4,3 +4,4 @@ version = "0.0.1"
 edition = "2024"
 
 [dependencies]
+clap = { version = "4.0", features = ["derive"] } # Command line argument parser

@@ -15,14 +15,12 @@
   #wallust = pkgs.callPackage ./wallust.nix {};
 
   # Default GTK theme
+  # TODO: pin the version of adw-gtk3
   adw-gtk3-override = let 
-      colorsImportText = "@import \"../../../../../.config/gtk-3.0/colors.css\";";
+      colorsImportText = "@import \"/home/${config.username}/.config/gtk-3.0/colors.css\";";
       lineToInsertAfter = "125";
   in pkgs.adw-gtk3.overrideAttrs {
     postInstall = ''
-      # MODIFICATION: Use color variables from leaf
-      #echo "@import \"../../../../../.config/leaf-de/theme/gtk.css\"" >> $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk.css
-
       # Modify the gtk css to override specified colors
       # This is needed since ~/.config/gtk-3.0/gtk.css can't be hot reloaded.  If we want to dynamically change
       # the colors of the theme without requiring a restart of any running apps, the theme itself will need to
@@ -31,9 +29,12 @@
       sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3-dark/gtk-3.0/gtk-dark.css
 
       sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3/gtk-3.0/gtk.css
-      # Not sure if the gtk-dark.css needs to be modified.  Seems it is different from gtk.css, unlike in adw-gtk3-dark.
+      sed -i '${lineToInsertAfter}a ${colorsImportText}' $out/share/themes/adw-gtk3/gtk-3.0/gtk-dark.css
+      #The gtk-dark.css in adw-gtk3 is the exact same as both the gtk.css and gtk-dark.css for adw-gtk3-dark
     '';
   };
+
+
   /*
   adw-gtk3-leaf = pkgs.fetchFromGitHub {
     owner = "mewoocat";

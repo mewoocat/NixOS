@@ -50,11 +50,21 @@ command = "swww img --transition-type center {{ image }}"
 # Relative paths will be resolved from the path `config.toml` is in.
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
 output_path = "~/.config/gtk-3.0/colors.css"
-#post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme phocus; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3{{ <* if {{ is_dark_mode }} *> "-dark" <* else *> "" <* endif *> }}'
 
 [templates.gtk4]
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
 output_path = "~/.config/gtk-4.0/colors.css"
+
+[templates.qtengine]
+input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/qtengine.colors"
+output_path = "~/.config/leaf-de/qtengine.colors"
+
+[templates.quickshell]
+input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/quickshell.qml"
+output_path = '~/.config/leaf-de/Colors.qml' # TODO: Should output as json and import to qs via json adapter
+# ...
+
 
 # Defaults to a value of 0 if unspecified, determines the order that each template is processed.
 # You can use index = n to force a particular template hook to run after everything else, and index = -n for before everything else
