@@ -12,7 +12,7 @@
         pad = "12x12";
       };
       colors = {
-        alpha = 0.90;
+        alpha = 0.80;
         #alpha = 1;
       };
     };

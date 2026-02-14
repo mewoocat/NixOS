@@ -7,7 +7,6 @@
     ags.url = "git+https://github.com/Aylur/ags?rev=60180a184cfb32b61a1d871c058b31a3b9b0743d"; # ags v1
     nix-gaming.url = "github:fufexan/nix-gaming";
     myNvimNvf.url = "github:mewoocat/nvim-nvf";
-    microfetch.url = "github:NotAShelf/microfetch";
     agenix.url = "github:ryantm/agenix"; # For secret management
     disko.url = "github:nix-community/disko";
     hjem.url = "github:feel-co/hjem";

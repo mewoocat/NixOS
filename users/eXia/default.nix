@@ -41,13 +41,9 @@
       # Utilities
       bottom    
       blueberry
-      hyfetch
-      htop
       blueman
       nmap
-      glow
       cmakeMinimal
-      tmux
       ascii-image-converter
       gh
       zoxide
@@ -55,7 +51,7 @@
       linux-wifi-hotspot
       #inputs.myNvim.packages.x86_64-linux.default
       inputs.myNvimNvf.packages.x86_64-linux.default
-      inputs.microfetch.packages.x86_64-linux.default  
+      microfetch
       wineWowPackages.stable
       nh # Nix helper
       exfatprogs # exFAT filesystem userspace utilities
@@ -72,10 +68,7 @@
       vscodium
       inkscape
       gimp
-      blanket
       rhythmbox
-      #bookworm # Borken
-      #spotifywm spotify-tray
       vial
       evince # Gnome PDF viewer
       qdirstat
@@ -91,7 +84,6 @@
       onlyoffice-desktopeditors
       flashgbx
       qtcreator
-
       clementine # Music player
 
       # Network tools
@@ -100,7 +92,6 @@
       tcpdump
       aircrack-ng
       linssid # For channel analysis
-      #iwconfig # Deprecated
 
       # Rust
       cargo

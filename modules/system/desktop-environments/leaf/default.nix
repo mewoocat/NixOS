@@ -12,10 +12,9 @@ in{
   imports = [
     ./core-applications
     ./core-functions
-    ./ags
+    #./ags
     ./hyprland
     ./theming
-    ./dynamic
     ./quickshell
     inputs.qtengine.nixosModules.default
   ];
@@ -83,20 +82,8 @@ in{
     };
   };
 
+  # If an error occurs in any of the scripts here, the nixos-activation service will break
   system.userActivationScripts = {
-    # This breaks the nixos-activation service if an error occurs here :/
-    /*
-    # Initialize dynamic configurations
-    leaf-startup.text = ''
-      mkdir -p ${leaf-dir}
-      mkdir -p ${leaf-dir}/theme 
-      cp ${defaultConfigStr} ${leaf-dir}/defaultUserSettings.json
-      mkdir -p ${leaf-dir}/hypr
-      touch ${leaf-dir}/hypr/monitors.conf
-      touch ${leaf-dir}/hypr/workspaces.conf
-      touch ${leaf-dir}/hypr/userSettings.conf
-    '';
-    */
   };
 
   # Autostarts gnome polkit
@@ -130,7 +117,6 @@ in{
   */
 
   users.users.${config.username}.packages = with pkgs; [
-    gnome-bluetooth_1_0
     fastfetch
     xdg-utils # needed for discord/vesktop to open web links in default browser
     usbutils
@@ -145,11 +131,9 @@ in{
     alsa-utils
     pamixer
     pavucontrol
-    swayidle
     wl-clipboard
     glib
     gnome.nixos-gsettings-overrides # For gsettings theming
-    sway-contrib.grimshot
     jaq
     gojq
     socat
