@@ -31,6 +31,7 @@ MouseArea {
     // Shadow for the Rectangle
     // Note: If shadow extends beyond the window, it will create sharp corners
     RectangularShadow {
+        visible: false
         anchors.fill: box
         offset.x: -1
         offset.y: -1
@@ -45,7 +46,7 @@ MouseArea {
         anchors.fill: parent
         anchors.margins: 6
         radius: Root.State.rounding
-        color: mouseArea.containsMouse ? palette.highlight : palette.base
+        color: mouseArea.containsMouse ? "red" : Root.State.colors.surface_container
         children: [
             mouseArea.content
         ]

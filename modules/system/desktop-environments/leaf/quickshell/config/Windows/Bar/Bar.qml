@@ -40,7 +40,7 @@ Scope {
                 implicitHeight: 40 // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
-                    color: palette.window
+                    color: Root.State.colors.surface
                     anchors.fill: parent
                     // Left
                     RowLayout {

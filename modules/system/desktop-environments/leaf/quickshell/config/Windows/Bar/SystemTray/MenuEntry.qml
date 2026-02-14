@@ -47,7 +47,7 @@ MouseArea {
 
     Rectangle {
         id: background
-        color: root.containsMouse ? palette.accent : "transparent"
+        color: root.containsMouse ? Root.State.colors.primary : "transparent"
         radius: Root.State.rounding
         implicitHeight: box.height
         implicitWidth: parent.width
@@ -80,10 +80,18 @@ MouseArea {
                         }
                         RadioButton {
                             visible: content.entry.buttonType === QsMenuButtonType.RadioButton
+                            // TODO: this no work
+                            background: Rectangle {
+                                color: "red"
+                            }
                         }
                         Text { 
                             id: text
-                            color: content.entry.enabled ? palette.text : palette.placeholderText
+                            color: {
+                                if (!content.entry.enabled) return Root.State.colors.red
+                                if (root.containsMouse) return Root.State.colors.on_primary
+                                return Root.State.colors.on_surface
+                            }
                             text: content.entry.text
                         }
                     }

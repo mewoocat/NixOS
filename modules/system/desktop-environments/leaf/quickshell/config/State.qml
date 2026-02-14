@@ -12,8 +12,10 @@ Singleton {
 
     property string leafPath: "/home/eXia/.config/leaf-de/"
     property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
+    property string colorsJsonPath: "/home/eXia/.config/leaf-de/quickshell-colors.json"
     property FileView configFileView: configFile
     property JsonAdapter config: configFile.adapter
+    property JsonAdapter colors: colorFile.adapter
 
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
@@ -136,6 +138,105 @@ Singleton {
                 // `()` fixes undefined issue when modifying
                 property var monitorToWSMap: ({})
             }
+        } 
+    }
+
+    FileView {
+        id: colorFile
+        path: root.colorsJsonPath
+        blockLoading: true
+        // Reload the file if it changes
+        watchChanges: true 
+        onFileChanged: {
+            console.debug(`file changed`)
+            reload()
+        }
+
+        onLoadFailed: (err) => console.error(`File load failed with ${err}`)
+        onLoaded: console.log(`Color file load ok: ${path}`) 
+        onSaveFailed: (err) => console.error(`File ${root.settingsJsonPath} save failed with ${err}`)
+        onSaved: console.log(`Saved color file: ${path}`)
+
+        // Adapter between qml object and json
+        // Values set here are the defaults
+        adapter: JsonAdapter {
+            property color primary: "#9fd49c"
+            property color on_primary: "#063911"
+            property color primary_container: "#215026"
+            property color on_primary_container: "#baf0b6"
+            property color inverse_primary: "#39693b"
+            property color primary_fixed: "#baf0b6"
+            property color primary_fixed_dim: "#9fd49c"
+            property color on_primary_fixed: "#002106"
+            property color on_primary_fixed_variant: "#215026"
+
+            property color secondary: "#b9ccb4"
+            property color on_secondary: "#253424"
+            property color secondary_container: "#3b4b39"
+            property color on_secondary_container: "#d5e8cf"
+            property color secondary_fixed: "#d5e8cf"
+            property color secondary_fixed_dim: "#b9ccb4"
+            property color on_secondary_fixed: "#101f10"
+            property color on_secondary_fixed_variant: "#3b4b39"
+
+            property color tertiary: "#a1ced5"
+            property color on_tertiary: "#00363c"
+            property color tertiary_container: "#1f4d53"
+            property color on_tertiary_container: "#bcebf1"
+            property color tertiary_fixed: "#bcebf1"
+            property color tertiary_fixed_dim: "#a1ced5"
+            property color on_tertiary_fixed: "#001f23"
+            property color on_tertiary_fixed_variant: "#1f4d53"
+
+            property color error: "#ffb4ab"
+            property color on_error: "#690005"
+            property color error_container: "#93000a"
+            property color on_error_container: "#ffdad6"
+
+            property color surface_dim: "#10140f"
+            property color surface: "#10140f"
+            property color surface_tint: "#9fd49c"
+            property color surface_bright: "#363a34"
+            property color surface_container_lowest: "#0b0f0a"
+            property color surface_container_low: "#181d17"
+            property color surface_container: "#1c211b"
+            property color surface_container_high: "#272b25"
+            property color surface_container_highest: "#323630"
+            property color on_surface: "#e0e4db"
+            property color on_surface_variant: "#c2c9bd"
+            property color outline: "#8c9388"
+            property color outline_variant: "#424940"
+            property color inverse_surface: "#e0e4db"
+            property color inverse_on_surface: "#2d322c"
+            property color surface_variant: "#424940"
+
+            property color background: "#10140f"
+            property color on_background: "#e0e4db"
+            property color shadow: "#000000"
+            property color scrim: "#000000"
+         
+            property color blue_source: "#0000ff"
+            property color blue_value: "#0000ff"
+            property color blue: "#afc6ff"
+            property color on_blue: "#142f60"
+            property color blue_container: "#2d4578"
+            property color on_blue_container: "#d9e2ff"
+         
+            property color red_source: "#ff0000"
+            property color red_value: "#ff0000"
+            property color red: "#ffb595"
+            property color on_red: "#542105"
+            property color red_container: "#713619"
+            property color on_red_container: "#ffdbcd"
+         
+            property color green_source: "#00ff00"
+            property color green_value: "#00ff00"
+            property color green: "#a2d399"
+            property color on_green: "#0c390e"
+            property color green_container: "#255023"
+            property color on_green_container: "#bdf0b3"
+
+            property color source_color: "#1b8332"
         } 
     }
 }

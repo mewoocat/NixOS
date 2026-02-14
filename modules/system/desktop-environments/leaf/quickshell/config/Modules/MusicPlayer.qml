@@ -65,8 +65,8 @@ GridLayout {
 
         // To Round the corners of the image
         ClippingRectangle {
-            radius: Root.State.rounding - parent.margin
-            color: palette.window
+            radius: Root.State.rounding - (parent.margin / 2)
+            color: Root.State.colors.surface_container_highest
             implicitHeight: root.height - (parent.margin * 2)
             implicitWidth: implicitHeight
 
@@ -96,7 +96,7 @@ GridLayout {
                 if (root.currentPlayer === null) { return "" }
                 return root.currentPlayer.trackTitle || "Unknown Title"
             }
-            color: palette.text
+            color: Root.State.colors.on_surface
         }
         Text {
             id: artist
@@ -106,7 +106,7 @@ GridLayout {
             }
             elide: Text.ElideRight // Truncate with ... on the right
             Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
-            color: palette.text
+            color: Root.State.colors.on_surface
             font.pointSize: 8
         }
     }
@@ -178,7 +178,7 @@ GridLayout {
             id: passedTime
             anchors.left: slider.left
             anchors.top: slider.bottom
-            color: palette.text
+            color: Root.State.colors.on_surface
             font.pointSize: 8
             leftPadding: 8
             text: {
@@ -192,7 +192,7 @@ GridLayout {
             id: totalTime
             anchors.right: slider.right
             anchors.top: slider.bottom
-            color: palette.text
+            color: Root.State.colors.on_surface
             font.pointSize: 8
             rightPadding: 8
             text: {

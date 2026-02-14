@@ -816,11 +816,11 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1770094439,
-        "narHash": "sha256-ctOgFpV4jicZNapcn4UJR3E+6OVQlj7pDBQM+yN3weI=",
+        "lastModified": 1771062393,
+        "narHash": "sha256-EA8Ey4zp6GUm2xVbxH/QpfJnSHQehtzllmPb4R6Mces=",
         "owner": "InioX",
         "repo": "matugen",
-        "rev": "7272e3cba9140a4bc47045112153b7176825cab5",
+        "rev": "9ffc99628d09826263fbac36819abffe4d7a25aa",
         "type": "github"
       },
       "original": {
@@ -851,11 +851,11 @@
         "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1768184667,
-        "narHash": "sha256-C128zGuNWF1rVDEKGXSMnrZyuTJdQHfSAVC0YG7PRSE=",
+        "lastModified": 1771105083,
+        "narHash": "sha256-z1Qw7x/0jr25ZDQWhErFwpUCtcqS9lkutckdaksdPAU=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "04aadab852e6f52457a3f2231da7a7ecc59304bb",
+        "rev": "fedcf80c913d534d6089844d25ec049c274ea0e3",
         "type": "github"
       },
       "original": {

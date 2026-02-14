@@ -3,7 +3,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.Modules.Common as Common
-
+import qs as Root
 
 Common.PopupWindow {
     id: root
@@ -44,7 +44,7 @@ Common.PopupWindow {
                 property Component menuSeperator: Rectangle {
                     implicitHeight: 1
                     implicitWidth: menuContent.width
-                    color: "#44ffffff"
+                    color: Root.State.colors.on_surface_variant
                 }
                 property Component menuItem: MenuEntry { 
                     entry: loader.modelData

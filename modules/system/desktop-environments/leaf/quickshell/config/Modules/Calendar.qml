@@ -29,7 +29,7 @@ ColumnLayout {
             text: monthGrid.locale.monthName(monthGrid.month)
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 10
-            color: palette.text
+            color: Root.State.colors.on_surface
         }
         Common.NormalButton {
             iconName: "arrow-right"
@@ -54,7 +54,7 @@ ColumnLayout {
             implicitWidth: text.width
             color: {
                 if (model.today) {
-                    return palette.highlight
+                    return Root.State.colors.primary
                 }
                 return "transparent"
             }
@@ -63,7 +63,7 @@ ColumnLayout {
                 id: text
                 text: day.model.day
                 padding: 4
-                color: palette.text
+                color: Root.State.colors.on_primary
                 opacity: {
                     if (day.model.month != monthGrid.month) {
                         return 0.3

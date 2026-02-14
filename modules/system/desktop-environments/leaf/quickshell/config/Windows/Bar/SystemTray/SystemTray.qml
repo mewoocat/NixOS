@@ -7,6 +7,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Modules.Common as Common
+import qs as Root
 
 // The animation jitters here, easy to see on linear easing. UPDATE: jittering fixed.  It was
 // due to nesting the animated rectangle within another rectangle which wasn't animated.
@@ -24,7 +25,7 @@ ClippingRectangle {
     implicitHeight: parent.height - root.externalMargin
     implicitWidth: root.isExpanded ? trayContent.width : root.toggleButton.width
 
-    color: palette.base
+    color: Root.State.colors.surface_container
 
     radius: 24
     //anchors.centerIn: parent
@@ -102,7 +103,7 @@ ClippingRectangle {
                     anchors.bottom: parent.bottom
                     radius: 16
                     implicitWidth: trayItems.width + 8
-                    color: "brown"
+                    color: "red"
                     gradient: Gradient {
                         orientation: Gradient.Horizontal
                         GradientStop { position: 0.7; color: "transparent" }

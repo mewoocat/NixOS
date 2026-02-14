@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
+import qs as Root
 
 MouseArea {
     id: root
@@ -35,11 +36,12 @@ MouseArea {
     property int iconSize: implicitHeight / 2
 
     // Style
-    property color textColor: palette.text
-    property color defaultIconColor: palette.text
-    property color activeIconColor: palette.text
+    property color textColor: Root.State.colors.on_surface
+    property color activeTextColor: Root.State.colors.on_primary
+    property color defaultIconColor: Root.State.colors.on_surface
+    property color activeIconColor: Root.State.colors.on_primary
     property color defaultBgColor: "transparent"
-    property color activeBgColor: palette.highlight
+    property color activeBgColor: Root.State.colors.primary
 
     implicitWidth: box.width + leftInternalMargin + rightInternalMargin
     implicitHeight: buttonHeight
@@ -88,8 +90,7 @@ MouseArea {
                 source: root.iconName == "" ? root.iconSource : Quickshell.iconPath(root.iconName)
 
                 // Icon recoloring
-                //layer.enabled: false
-                layer.enabled: root.recolorIcon
+                //layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
                     //colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
@@ -111,7 +112,7 @@ MouseArea {
                 Layout.rightMargin: 8
                 text: root.text
                 font.pointSize: root.fontSize
-                color: root.textColor
+                color: root.containsMouse ? root.activeTextColor : root.textColor
             }
         }
    }

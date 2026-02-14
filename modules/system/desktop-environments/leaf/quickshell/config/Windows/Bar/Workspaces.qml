@@ -79,15 +79,17 @@ RowLayout {
             anchors.rightMargin: 4
             radius: 24
             color: {
-                if (wsIndicator.containsMouse) return palette.accent
+                if (wsIndicator.containsMouse) {
+                    return Root.State.colors.primary
+                }
                 switch(wsIndicator.wsState) {
                     case "focused":
                     case "active":
-                        return palette.accent
+                        return Root.State.colors.primary
                     case "inactive":
-                        return palette.highlight
+                        return Root.State.colors.primary_container
                     case "empty":
-                        return palette.base
+                        return Root.State.colors.surface_container
                     default:
                         console.error("invalid wsState")
                 }
@@ -135,6 +137,23 @@ RowLayout {
                         }
                     }
                     font.pointSize: 8
+
+                    color: {
+                        if (wsIndicator.containsMouse) {
+                            return Root.State.colors.on_primary
+                        }
+                        switch(wsIndicator.wsState) {
+                            case "focused":
+                            case "active":
+                                return Root.State.colors.on_primary
+                            case "inactive":
+                                return Root.State.colors.on_primary_container
+                            case "empty":
+                                return Root.State.colors.on_surface_container
+                            default:
+                                console.error("invalid wsState")
+                        }
+                    }
                 }
             }
         }
