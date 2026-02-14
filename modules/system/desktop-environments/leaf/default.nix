@@ -20,6 +20,7 @@ in{
     inputs.qtengine.nixosModules.default
   ];
 
+  # Unlike qt(5/6)ct, qtengine doesn't support hot reloading of colors.  Support is planned for the future.
   programs.qtengine = {
     enable = true;
     config = {
