@@ -63,6 +63,10 @@ output_path = "~/.config/leaf-de/qtengine.colors"
 [templates.quickshell]
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/quickshell.qml"
 output_path = '~/.config/leaf-de/Colors.qml' # TODO: Should output as json and import to qs via json adapter
+
+[templates.hypr]
+input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/hyprland-colors.conf"
+output_path = '~/.config/leaf-de/hypr/hyprland-colors.conf'
 # ...
 
 
