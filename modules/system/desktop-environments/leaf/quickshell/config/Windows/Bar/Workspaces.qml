@@ -149,9 +149,10 @@ RowLayout {
                             case "inactive":
                                 return Root.State.colors.on_primary_container
                             case "empty":
-                                return Root.State.colors.on_surface_container
+                                return Root.State.colors.on_surface
                             default:
                                 console.error("invalid wsState")
+                                return "red"
                         }
                     }
                 }

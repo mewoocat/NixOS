@@ -26,13 +26,16 @@ Rectangle {
     property var expandedItem: null // Holds a ref to the currently expanded item in this scrollable, or null if none are expanded
 
     // style
-    property int padding: 16
+    property int padding: 0
     property int animationSpeed: 100
     property int expansionAnimationSpeed: 350
     property int itemHeight: 48
     property int contentMargin: 4
     property color scrollItemBG: Root.State.colors.surface_container
     property color scrollItemBGHighlight: Root.State.colors.primary
+
+    // Behavior
+    property bool interactable: true
 
     onExpandedItemChanged: {
         if (prevExpandedItem != null) {
@@ -49,6 +52,8 @@ Rectangle {
     color: "transparent" //"#770000ff"
     radius: 8
     clip: true
+    implicitHeight: listView.childrenRect.height// Defaults to as large as is needed to show all items
+    implicitWidth: 50 // Default width
 
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
@@ -77,6 +82,7 @@ Rectangle {
         //keyNavigationEnabled: true // Enabled by default
         highlightMoveDuration: 0 // Instantly snaps to item
         clip: true // Ensure that scrolled items don't go outside the widget
+        interactive: root.interactable
 
         model: root.model
 

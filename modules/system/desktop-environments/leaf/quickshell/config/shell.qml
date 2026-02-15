@@ -1,8 +1,8 @@
 //// Needed to enable QT_QUICK_CONTROLS_STYLE and QT_STYLE_OVERRIDE
-//@ pragma RespectSystemStyle 
+////@ pragma RespectSystemStyle 
 //// Allows for Quickshell to use styles from global QT style
-//@ pragma UseQApplication
-//@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
+////@ pragma UseQApplication
+////@ pragma Env QT_QUICK_CONTROLS_STYLE=org.kde.desktop
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Material
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Imagine
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Universal

@@ -77,20 +77,9 @@ Singleton {
 
         // Adapter between qml object and json
         // Values set here are the defaults
-        adapter: JsonAdapter {
-            
-            /*
-            property var aaa: ({
-                value: "hi"
-            })
-            property string something: "THIS IS DEFAULT"
-            */
-            //property list<string> someStupidPropertyThatsNeededToMakeTheNextPropertyAfterItwork: []
-
+        adapter: JsonAdapter {            
             property var pinnedApps: [ "foot", "vesktop", "obsidian" ]
-            property string pfpImagePath: "ababagb"
-            property string newProp: "default"
-            onNewPropChanged: console.debug(`newProp: ${newProp}`)
+            property string pfpImagePath: ""
             Component.onCompleted: console.debug(`initall pfp: ${pfpImagePath}`)
             onPfpImagePathChanged: console.debug(`pfpImagePath: ${pfpImagePath}`)
             property var appFreqMap: ({})
@@ -111,7 +100,8 @@ Singleton {
             //property string monitorMap: "{}" // Stores json of monitor configuration map
             //property string workspaceMap: "{}" // json for workspace config map
 
-            /*
+            // WARNING: It appears that nesting an inline json property (i.e. `property var thing: { "a": 1 }`) inside
+            // a JsonObject causes quickshell to crash.
             property JsonObject workspaces: JsonObject {
                 // Current workspace configuration (the literal values here are the default)
                 // Note that the number of workspaces is hardcoded since using a JsonObject
@@ -138,9 +128,8 @@ Singleton {
                 // Example
                 // { "monitorA-monitorB": " {"monitorA": [1,2,3,4,5], "monitorB": [6,7,8,9,10] }}
                 // `()` fixes undefined issue when modifying
-                property var monitorToWSMap: ({})
+                //property var monitorToWSMap: ({})
             }
-            */
         } 
     }
 

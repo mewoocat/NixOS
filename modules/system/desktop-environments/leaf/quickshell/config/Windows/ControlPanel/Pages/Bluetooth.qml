@@ -22,116 +22,127 @@ PageBase {
             source: Quickshell.iconPath(Bluetooth.defaultAdapter.enabled ? "bluetooth-active" : "bluetooth-disabled")
         }
     }
-    
-    component BTDevice: Common.ScrollableItem {
-        id: device
-        required property BluetoothDevice modelData
-        onClicked: {
-            if (device.expanded) {
-                return device.toggleExpand()
-            }
-            if (modelData.paired) {
-                return modelData.connected ? modelData.disconnect() : modelData.connect()
-            }
-            return modelData.pair()
+
+    component BtMain: RowLayout {
+        id: mainDelegate
+        // Set by the ListViewScrollable
+        property BluetoothDevice modelData: null
+        property var scrollItem: null
+
+        Component.onCompleted: console.debug(`mainDelegate btDevice: ${modelData}`)
+
+        spacing: 8
+        IconImage {
+            Layout.leftMargin: 4
+            implicitSize: 24
+            source: Quickshell.iconPath(mainDelegate.modelData.icon, "bluetooth") // fallbacks to "bluetooth"
         }
-        content: RowLayout {
-            spacing: 8
-            IconImage {
-                Layout.leftMargin: 4
-                implicitSize: 24
-                source: Quickshell.iconPath(device.modelData.icon, "bluetooth") // fallbacks to "bluetooth"
+        ColumnLayout {
+            spacing: 0
+            Text {
+                id: name
+                Layout.fillWidth: true
+                color: palette.text
+                elide: Text.ElideRight
+                text: mainDelegate.modelData.name
             }
-            ColumnLayout {
-                spacing: 0
+            RowLayout {
                 Text {
-                    id: name
-                    Layout.fillWidth: true
-                    color: palette.text
+                    id: status
+                    color: palette.placeholderText
                     elide: Text.ElideRight
-                    text: device.modelData.name
+                    font.pointSize: 8
+                    text: mainDelegate.modelData.paired ? BluetoothDeviceState.toString(mainDelegate.modelData.state) : "Not paired"
                 }
                 RowLayout {
+                    spacing: 0
+                    visible: mainDelegate.modelData.batteryAvailable
+                    IconImage {
+                        implicitSize: 12
+                        source: Quickshell.iconPath("battery-100-symbolic")
+                    }
                     Text {
-                        id: status
+                        id: battery
+                        Layout.fillWidth: true
                         color: palette.placeholderText
                         elide: Text.ElideRight
                         font.pointSize: 8
-                        text: device.modelData.paired ? BluetoothDeviceState.toString(device.modelData.state) : "Not paired"
-                    }
-                    RowLayout {
-                        spacing: 0
-                        visible: device.modelData.batteryAvailable
-                        IconImage {
-                            implicitSize: 12
-                            source: Quickshell.iconPath("battery-100-symbolic")
-                        }
-                        Text {
-                            id: battery
-                            Layout.fillWidth: true
-                            color: palette.placeholderText
-                            elide: Text.ElideRight
-                            font.pointSize: 8
-                            text: device.modelData.batteryAvailable ? (device.modelData.battery * 100) + ' %' : "n/a"
-                        }
+                        text: mainDelegate.modelData.batteryAvailable ? (mainDelegate.modelData.battery * 100) + ' %' : "n/a"
                     }
                 }
-            }
-            Common.NormalButton {
-                Layout.alignment: Qt.AlignRight
-                iconName: "view-more"
-                leftClick: device.toggleExpand
             }
         }
-        subContent: ColumnLayout {
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                Common.NormalButton {
-                    visible: device.modelData.paired
-                    text: device.modelData.connected ? "disconnect" : "connect"
-                    leftClick: device.modelData.connected ? device.modelData.disconnect : device.modelData.connect
-                }
-                Common.NormalButton {
-                    text: device.modelData.paired ? "forget" : "pair"
-                    leftClick: device.modelData.paired ? device.modelData.forget : device.modelData.pair
-                }
+        Common.NormalButton {
+            Layout.alignment: Qt.AlignRight
+            iconName: "view-more"
+            leftClick: () => mainDelegate.scrollItem.expanded = !mainDelegate.scrollItem.expanded
+        }
+    }
+    
+    component BtSub: ColumnLayout {
+        id: subDelegate
+        // These are injected by the ListViewScrollable
+        required property BluetoothDevice modelData
+        required property var scrollItem
+        Component.onCompleted: console.debug(`btDevice: ${modelData}`)
+
+        RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            Common.NormalButton {
+                visible: subDelegate.modelData.paired
+                text: subDelegate.modelData.connected ? "disconnect" : "connect"
+                leftClick: subDelegate.modelData.connected ? subDelegate.modelData.disconnect : subDelegate.modelData.connect
             }
-            Text {
-                Layout.fillWidth: true
-                color: palette.text
-                font.pointSize: 10
-                wrapMode: Text.Wrap
-                text: "name: " + device.modelData.deviceName
+            Common.NormalButton {
+                text: subDelegate.modelData.paired ? "forget" : "pair"
+                leftClick: subDelegate.modelData.paired ? subDelegate.modelData.forget : subDelegate.modelData.pair
             }
-            Text {
-                Layout.fillWidth: true
-                color: palette.text
-                font.pointSize: 10
-                wrapMode: Text.Wrap
-                text: "address: " + device.modelData.address
-            }
-            Text {
-                Layout.fillWidth: true
-                color: palette.text
-                font.pointSize: 10
-                wrapMode: Text.Wrap
-                text: "battery info available: " + device.modelData.batteryAvailable
-            }
+        }
+        Text {
+            Layout.fillWidth: true
+            color: palette.text
+            font.pointSize: 10
+            wrapMode: Text.Wrap
+            text: "name: " + subDelegate.modelData.deviceName
+        }
+        Text {
+            Layout.fillWidth: true
+            color: palette.text
+            font.pointSize: 10
+            wrapMode: Text.Wrap
+            text: "address: " + subDelegate.modelData.address
+        }
+        Text {
+            Layout.fillWidth: true
+            color: palette.text
+            font.pointSize: 10
+            wrapMode: Text.Wrap
+            text: "battery info available: " + subDelegate.modelData.batteryAvailable
         }
     }
 
+
     content: ColumnLayout {
+        id: pageContent
         anchors.fill: parent
 
+        // Size should be determined by the pageContent
         Common.FlickScrollable {
             id: scrollable
-            padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
 
+            // Width should be determined by the scrollable - any padding
+            // Then the children in the layout should be constrained by this size
             content: ColumnLayout {
+                anchors.fill: parent
                 id: col
                 spacing: 0
 
+                // Forces the layout to have a width of this element since it's the largest
+                // All other siblings can then Layout.fillWidth: true to also become the same width
+                Item { implicitWidth: col.width }
+
+                // Paired Devices
                 WrapperItem {
                     Layout.fillWidth: true
                     Text {
@@ -141,17 +152,26 @@ PageBase {
                     }
                 }
                 Common.HorizontalLine { Layout.rightMargin: 20 }
-                Repeater {
+                Common.ListViewScrollable {
+                    Layout.fillWidth: true
+                    interactable: false
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => device.paired)
                     }
-                    delegate: BTDevice {
-                        parentScrollable: scrollable
+                    // When an entry is clicked (modelData is a BluetoothDevice)
+                    onPrimaryClick: (modelData) => {
+                        const btDevice = modelData
+                        if (btDevice.paired) {
+                            return btDevice.connected ? btDevice.disconnect() : btDevice.connect()
+                        }
+                        return btDevice.pair()
                     }
+                    mainDelegate: BtMain {}
+                    subDelegate: BtSub {} 
                 }
 
+                // Nearby Devices
                 RowLayout {
-
                     WrapperItem {
                         Layout.fillWidth: true
                         Text {
@@ -171,13 +191,22 @@ PageBase {
                     }
                 }
                 Common.HorizontalLine { Layout.rightMargin: 20 }
-                Repeater {
+                Common.ListViewScrollable {
+                    Layout.fillWidth: true
+                    interactable: false
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => !device.paired)
                     }
-                    delegate: BTDevice {
-                        parentScrollable: scrollable
+                    // When an entry is clicked (modelData is a BluetoothDevice)
+                    onPrimaryClick: (modelData) => {
+                        const btDevice = modelData
+                        if (btDevice.paired) {
+                            return btDevice.connected ? btDevice.disconnect() : btDevice.connect()
+                        }
+                        return btDevice.pair()
                     }
+                    mainDelegate: BtMain {}
+                    subDelegate: BtSub {} 
                 }
                 Item {
                     id: nearbyFallback

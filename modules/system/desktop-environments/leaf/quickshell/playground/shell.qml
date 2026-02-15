@@ -1,5 +1,6 @@
 
 import Quickshell
+import Quickshell.Widgets
 import QtQuick
 
 // WheelHandler no worky
@@ -7,10 +8,25 @@ ShellRoot {
     PanelWindow {
         anchors.right: true
         anchors.bottom: true
-        implicitWidth: 200
-        implicitHeight: 200
+        implicitWidth: 400
+        implicitHeight: 400
         Rectangle {
             anchors.fill: parent
+            Rectangle {
+                width: 200
+                height: 200
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                color: "black"
+                WrapperItem {
+                    margin: 20
+                    child: Rectangle {
+                        implicitWidth: 20
+                        implicitHeight: 20
+                        color: "blue"
+                    }
+                }
+            }
             Rectangle {
                 focus: true
                 enabled: true

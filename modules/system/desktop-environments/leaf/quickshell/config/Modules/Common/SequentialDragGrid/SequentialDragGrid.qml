@@ -15,7 +15,6 @@ Item {
     GridView {
         width: root.tileSize
         height: root.height
-        Component.onCompleted: console.debug(`gridview height: ${height}`)
         // These have a default of 100, so we need to set them
         cellWidth: root.tileSize
         cellHeight: root.tileSize

@@ -23,7 +23,7 @@ ShellRoot {
                 }
                 property int num: 10
                 property string a: "aaa"
-                //property var inlineJson: { "a": "b" }
+                //property var inlineJson: ({ "a": "b" }) // causes crash
             }
             property var appFreqMap: ({})
         } 

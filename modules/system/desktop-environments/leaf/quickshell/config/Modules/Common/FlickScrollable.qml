@@ -1,21 +1,19 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell
+import Quickshell.Widgets
 
 // Size of root element must be set when consumed
 Control {
     id: root
     required property Item content
     property Item expandedItem: null
+    property int contentPadding: 8
+
     // need to set the content's parent to the flickable 
     // ... might be a bug why it doesn't happen automatically if setting it in the children
-    onContentChanged: content.parent = flickable.contentItem
-    background: Rectangle {
-        anchors.fill: parent
-        color: "#77aa0000"
-        radius: 8
-    }
-    padding: 12
+    //onContentChanged: content.parent = flickable.contentItem
+    //padding: 12
     clip: true
     onHoveredChanged: scrollBar.visible = hovered
 
@@ -35,11 +33,7 @@ Control {
 
     Flickable {
         id: flickable
-
-        anchors {
-            margins: root.padding
-            fill: parent
-        }
+        anchors.fill: parent
 
         ScrollBar.vertical: scrollBar
         contentWidth: root.content.width
@@ -47,5 +41,19 @@ Control {
         // The only way I found that works to set the width of the content to the flickable
         onWidthChanged: root.content.implicitWidth = width
         //children: [ root.content ] // For some reason doesn't auto set the content's parent to the flickable's contentItem prop
+
+        Rectangle {
+            x: root.contentPadding
+            y: root.contentPadding
+            implicitWidth: parent.width - (root.contentPadding * 2)
+            implicitHeight: parent.height - (root.contentPadding * 2)
+            children: [ root.content ]
+        }
+    }
+
+    background: Rectangle {
+        anchors.fill: parent
+        color: "#0000aa"
+        radius: 8
     }
 }

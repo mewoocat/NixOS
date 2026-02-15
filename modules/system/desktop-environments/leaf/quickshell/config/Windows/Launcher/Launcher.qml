@@ -94,7 +94,7 @@ Common.PanelWindow {
                             }
 
                             content: ColumnLayout {
-                                Text { color: palette.text; text: appPanelItem.desktopEntry.name }
+                                Text { color: palette.text; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
                                 Common.PopupMenuItem { text: "Remove"; action: () => {
                                     console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
                                     // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
