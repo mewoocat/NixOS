@@ -93,7 +93,6 @@ MouseArea {
                 //layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
-                    //colorizationColor: root.containsMouse ? palette.highlightedText : palette.text
                     colorizationColor: root.containsMouse ? root.activeIconColor : root.defaultIconColor
                 }
 

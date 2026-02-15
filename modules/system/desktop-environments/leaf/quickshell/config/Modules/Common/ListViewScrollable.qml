@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
+import qs as Root
 
 // Size of root element must be set when consumed
 Rectangle {
@@ -30,8 +31,8 @@ Rectangle {
     property int expansionAnimationSpeed: 350
     property int itemHeight: 48
     property int contentMargin: 4
-    property color scrollItemBG: palette.base
-    property color scrollItemBGHighlight: palette.accent
+    property color scrollItemBG: "red"
+    property color scrollItemBGHighlight: Root.State.colors.primary
 
     onExpandedItemChanged: {
         if (prevExpandedItem != null) {

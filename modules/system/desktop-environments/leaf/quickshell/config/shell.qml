@@ -36,11 +36,11 @@ ShellRoot {
     // Visual
     Bar {} 
     Launcher {}
-    //ControlPanel {}
+    ControlPanel {}
     ActivityCenter {}
     Notifications {}
-    //Workspaces {}
-    //Settings {}
+    Workspaces {}
+    Settings {}
     Lockscreen {}
     /*
     OnScreenDisplay {}

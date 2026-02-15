@@ -38,7 +38,7 @@ MouseArea {
         radius: box.radius
         blur: 4
         spread: 4
-        color: Qt.alpha(Qt.darker(palette.base, 2), 0.4)
+        color: Qt.alpha(Root.State.colors.shadow, 0.4)
     }
 
     Rectangle {
@@ -46,7 +46,7 @@ MouseArea {
         anchors.fill: parent
         anchors.margins: 6
         radius: Root.State.rounding
-        color: mouseArea.containsMouse ? "red" : Root.State.colors.surface_container
+        color: mouseArea.containsMouse ? Root.State.colors.primary : Root.State.colors.surface_container
         children: [
             mouseArea.content
         ]

@@ -64,8 +64,8 @@ PanelWindow {
         Rectangle {
             id: box
             anchors.fill: parent
-            color: palette.window
-            Component.onCompleted: color.a = 0.8
+            color: Root.State.colors.surface
+            Component.onCompleted: color.a = Root.State.opacity
             radius: 0
             children: [
                 window.content

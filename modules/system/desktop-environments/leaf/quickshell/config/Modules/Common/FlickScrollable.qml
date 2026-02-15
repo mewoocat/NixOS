@@ -12,7 +12,7 @@ Control {
     onContentChanged: content.parent = flickable.contentItem
     background: Rectangle {
         anchors.fill: parent
-        color: "#77000000"
+        color: "#77aa0000"
         radius: 8
     }
     padding: 12

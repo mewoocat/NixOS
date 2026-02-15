@@ -24,8 +24,9 @@ in{
     enable = true;
     config = {
       theme = {
-        #colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
-        colorScheme = "${leaf-dir}/qtengine.colors";
+        # Note that this file apparently affect the colors of icons
+        colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
+        #colorScheme = "${leaf-dir}/qtengine.colors";
         iconTheme = "kora";
         style = "darkly";
         font = {

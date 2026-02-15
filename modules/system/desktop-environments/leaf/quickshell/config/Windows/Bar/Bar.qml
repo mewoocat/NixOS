@@ -77,7 +77,7 @@ Scope {
                         Audio {}
                         Battery {}
                         Common.NormalButton {
-                            //leftClick: () => Root.State.controlPanel.toggleWindow()
+                            leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                             defaultInternalMargin: 6
                         }

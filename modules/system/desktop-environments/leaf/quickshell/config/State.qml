@@ -45,6 +45,7 @@ Singleton {
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10
+    property double opacity: 0.8
 
     // There's definitely something fishy going on here
     // Might be due to using multiple json adapter instances

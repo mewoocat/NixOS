@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Services as Services
 import qs.Modules.Common as Common
+import qs as Root
 
 ColumnLayout {
     anchors.margins: 8
@@ -24,7 +25,7 @@ ColumnLayout {
                 text: {
                     Math.round(Services.SystemStats.cpuUsage) + '%'
                 }
-                color: palette.text
+                color: Root.State.colors.on_surface
             }
             ProgressBar {
                 Layout.fillWidth: true
@@ -49,7 +50,7 @@ ColumnLayout {
                 text: {
                     Math.round(Services.SystemStats.memUsage) + '%'
                 }
-                color: palette.text
+                color: Root.State.colors.on_surface
             }
             ProgressBar {
                 Layout.fillWidth: true
@@ -73,7 +74,7 @@ ColumnLayout {
                 text: {
                     Math.round(Services.SystemStats.cpuTemp) + '°C'
                 }
-                color: palette.text
+                color: Root.State.colors.on_surface
             }
             ProgressBar {
                 Layout.fillWidth: true
@@ -95,7 +96,7 @@ ColumnLayout {
             }
             Text {
                 text: Math.round(Services.SystemStats.storageUsage) + '%'
-                color: palette.text
+                color: Root.State.colors.on_surface
             }
             ProgressBar {
                 Layout.fillWidth: true

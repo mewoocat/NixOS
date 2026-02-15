@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import qs.Services as Services
+import qs as Root
 
 Item {
     anchors.margins: 16
@@ -25,13 +26,13 @@ Item {
             ColumnLayout {
                 Text {
                     Layout.alignment: Qt.AlignHCenter
-                    color: palette.text
+                    color: Root.State.colors.on_surface
                     font.pointSize: 20
                     text: `${Services.Weather.current.temperature_2m}`
                 }
                 Text {
                     Layout.alignment: Qt.AlignHCenter
-                    color: palette.text
+                    color: Root.State.colors.on_surface
                     font.pointSize: 8
                     text: `${Services.Weather.daily.temperature_2m_min[0]} | ${Services.Weather.daily.temperature_2m_max[0]}`
                 }
@@ -39,7 +40,7 @@ Item {
         }
 
         Text {
-            color: palette.text
+            color: Root.State.colors.on_surface
             text: Services.Weather.lookupCode(Services.Weather.current.weather_code).name
             font.pointSize: 12
         }
@@ -52,8 +53,8 @@ Item {
                 text: "Current humidity"
                 visible: precipitation.containsMouse
                 background: Rectangle {
-                    radius: 20
-                    color: palette.window
+                    radius: Root.State.rounding
+                    color: Root.State.colors.surface
                 }
             }
 
@@ -63,7 +64,7 @@ Item {
                     source: Quickshell.iconPath("raindrop")
                 }
                 Text {
-                    color: palette.text
+                    color: Root.State.colors.on_surface
                     text: Services.Weather.current.precipitation + '%'
                     font.pointSize: 8
                 }

@@ -1,4 +1,5 @@
-// WARNING: TODO
+// WARNING: TODO: Use or remove
+/*
 
 import Quickshell
 import Quickshell.Widgets
@@ -49,7 +50,7 @@ MouseArea {
         implicitWidth: row.width
         implicitHeight: parent.height - 12
         radius: 24
-        color: mouseArea.containsMouse ? palette.highlight : "#00000000"
+        color: mouseArea.containsMouse ? palette : "red"
 
         RowLayout {
             id: row
@@ -92,3 +93,4 @@ MouseArea {
         }
    }
 }
+*/

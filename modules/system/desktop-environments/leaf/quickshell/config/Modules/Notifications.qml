@@ -7,6 +7,7 @@ import Quickshell.Services.Notifications as QsNotifications
 import qs.Services as Services
 import qs.Modules as Modules
 import "./Common" as Common
+import qs as Root
 
 // A widget to list all tracked notifications
 ColumnLayout {
@@ -15,11 +16,11 @@ ColumnLayout {
     Text {
         Layout.fillWidth: true
         text: "Notifications"
-        color: palette.text
+        color: Root.State.colors.on_surface
     }
     // Horizontal line
     Rectangle {
-        color: palette.text
+        color: Root.State.colors.on_surface_variant
         Layout.fillWidth: true
         implicitHeight: 1
         opacity: 0.2
@@ -44,7 +45,7 @@ ColumnLayout {
         Layout.fillWidth: true
         Text {
             anchors.centerIn: parent
-            color: palette.placeholderText
+            color: Root.State.colors.on_surface_variant
             text: "All caught up :)"
         }
     }

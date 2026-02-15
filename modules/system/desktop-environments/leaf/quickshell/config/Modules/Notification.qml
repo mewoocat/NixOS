@@ -5,6 +5,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Modules.Common as Common
+import qs as Root
 
 // Visual element to represent a single notification
 MouseArea {
@@ -43,9 +44,8 @@ MouseArea {
             fill: parent
             margins: 8
         }
-        radius: 12
-        //color: root.containsMouse ? palette.window : palette.button
-        color: palette.window
+        radius: Root.State.rounding
+        color: Root.State.colors.surface
         margin: 8
         topMargin: 0 // Counteract the extra spacing for the close button
 
@@ -75,7 +75,7 @@ MouseArea {
                     }
                     // App name
                     Text {
-                        color: palette.text
+                        color: Root.State.colors.on_surface
                         font.pointSize: 8
                         text: root.notification.appName
                     }
@@ -106,7 +106,7 @@ MouseArea {
                             Layout.fillWidth: true
                             text: root.notification.summary
                             elide: Text.ElideRight // Truncate with ... on the right
-                            color: palette.text
+                            color: Root.State.colors.on_surface
                         }
 
                         // Body
@@ -115,7 +115,7 @@ MouseArea {
                             text: root.notification.body
                             elide: Text.ElideRight // Truncate with ... on the right
                             font.pointSize: 8
-                            color: palette.text
+                            color: Root.State.colors.on_surface
                             wrapMode: Text.Wrap
                         }
                     }
