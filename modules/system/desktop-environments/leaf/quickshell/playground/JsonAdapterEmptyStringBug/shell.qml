@@ -9,19 +9,23 @@ ShellRoot {
     property FileView file: FileView {
         id: configFile
         path: "/tmp/qs-test.json"
+        watchChanges: true
+        onFileChanged: reload()
 
         adapter: JsonAdapter {            
             Component.onCompleted: console.debug(`initial pfp: ${pfpImagePath}`)
             onPfpImagePathChanged: console.debug(`pfpImagePath: ${pfpImagePath}`)
 
-            property var pinnedApps: [ "foot", "vesktop", "obsidian" ]
-
             property string pfpImagePath: "default"
-
             property JsonObject workspaces: JsonObject {
-                property JsonObject wsMap: JsonObject {}
-                property var monitorToWSMap: ({})
+                property JsonObject wsMap: JsonObject {
+                    property string what: "fuck"
+                }
+                property int num: 10
+                property string a: "aaa"
+                //property var inlineJson: { "a": "b" }
             }
+            property var appFreqMap: ({})
         } 
     }
 

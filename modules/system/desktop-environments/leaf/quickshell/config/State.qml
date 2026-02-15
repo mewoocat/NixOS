@@ -111,6 +111,7 @@ Singleton {
             //property string monitorMap: "{}" // Stores json of monitor configuration map
             //property string workspaceMap: "{}" // json for workspace config map
 
+            /*
             property JsonObject workspaces: JsonObject {
                 // Current workspace configuration (the literal values here are the default)
                 // Note that the number of workspaces is hardcoded since using a JsonObject
@@ -139,6 +140,7 @@ Singleton {
                 // `()` fixes undefined issue when modifying
                 property var monitorToWSMap: ({})
             }
+            */
         } 
     }
 
