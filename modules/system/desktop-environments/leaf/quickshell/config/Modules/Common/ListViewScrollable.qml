@@ -31,7 +31,7 @@ Rectangle {
     property int expansionAnimationSpeed: 350
     property int itemHeight: 48
     property int contentMargin: 4
-    property color scrollItemBG: "red"
+    property color scrollItemBG: Root.State.colors.surface_container
     property color scrollItemBGHighlight: Root.State.colors.primary
 
     onExpandedItemChanged: {
@@ -87,16 +87,9 @@ Rectangle {
             property bool expanded: false
             property bool showBackground: false
             property int contentMargin: 0
-            /*
-            property Item subContentLoader: Loader {
-                visible: active // To unreserve space when the component isn't loaded
-                active: false
-                sourceComponent: root.subContent
-            }
-            */
+            property bool interacted: scrollItem.containsMouse || scrollItem.focus || scrollItem.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
 
             onClicked: root.primaryClick(modelData)
-            property bool interacted: scrollItem.containsMouse || scrollItem.focus // Indicates if active via mouse or focus
             bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
             hoverEnabled: true
@@ -129,7 +122,6 @@ Rectangle {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    //color: "transparent"
                     radius: 8
                     color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
                     margin: root.contentMargin

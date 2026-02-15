@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
+import qs as Root
 
 WrapperMouseArea {
     id: root
@@ -28,7 +29,7 @@ WrapperMouseArea {
     WrapperRectangle {
         margin: 4
         radius: 12
-        color: root.containsMouse ? palette.highlight : "transparent"
+        color: root.containsMouse ? Root.State.colors.primary : "transparent"
         Rectangle {
             color: "transparent"
             implicitHeight: 32

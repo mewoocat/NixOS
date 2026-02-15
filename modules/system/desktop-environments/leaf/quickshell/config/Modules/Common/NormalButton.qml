@@ -90,7 +90,7 @@ MouseArea {
                 source: root.iconName == "" ? root.iconSource : Quickshell.iconPath(root.iconName)
 
                 // Icon recoloring
-                //layer.enabled: root.recolorIcon
+                layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
                     colorizationColor: root.containsMouse ? root.activeIconColor : root.defaultIconColor

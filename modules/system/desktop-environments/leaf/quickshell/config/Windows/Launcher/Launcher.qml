@@ -205,7 +205,7 @@ Common.PanelWindow {
                                 elide: Text.ElideRight // Truncate with ... on the right
                                 text: mainDelegate.app.name
                                 //color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
-                                color: palette.text
+                                color: scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                             }
                             Text{
                                 Layout.fillWidth: true
@@ -226,7 +226,7 @@ Common.PanelWindow {
                                         return "No description"
                                     }
                                 }
-                                color: palette.text
+                                color: scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                                 font.pointSize: 8
                             }
                         }
@@ -238,9 +238,9 @@ Common.PanelWindow {
                             Layout.alignment: Qt.AlignRight
                             iconName: "view-more"
                             leftClick: () => scrollItem.expanded = !scrollItem.expanded
-                            defaultIconColor: palette.highlightedText
-                            activeIconColor: palette.text
-                            activeBgColor: palette.alternateBase
+                            defaultIconColor: Root.State.colors.on_primary
+                            activeIconColor: Root.State.colors.on_primary_container
+                            activeBgColor: Root.State.colors.primary_container
                             recolorIcon: true
                         }
                     }
