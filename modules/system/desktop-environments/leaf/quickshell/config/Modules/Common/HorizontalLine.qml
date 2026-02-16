@@ -9,4 +9,5 @@ Rectangle {
     radius: 20
     implicitHeight: 1
     color: Root.State.colors.on_surface_variant
+    opacity: 0.6
 }

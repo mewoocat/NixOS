@@ -8,6 +8,7 @@ import Quickshell.Bluetooth
 import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules.Common as Common
+import qs as Root
 
 PageBase {
     id: page
@@ -25,13 +26,11 @@ PageBase {
 
     component BtMain: RowLayout {
         id: mainDelegate
+        spacing: 8
         // Set by the ListViewScrollable
         property BluetoothDevice modelData: null
         property var scrollItem: null
 
-        Component.onCompleted: console.debug(`mainDelegate btDevice: ${modelData}`)
-
-        spacing: 8
         IconImage {
             Layout.leftMargin: 4
             implicitSize: 24
@@ -42,14 +41,15 @@ PageBase {
             Text {
                 id: name
                 Layout.fillWidth: true
-                color: palette.text
+                color: mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                 elide: Text.ElideRight
                 text: mainDelegate.modelData.name
             }
             RowLayout {
                 Text {
                     id: status
-                    color: palette.placeholderText
+                    color: mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                    opacity: 0.6
                     elide: Text.ElideRight
                     font.pointSize: 8
                     text: mainDelegate.modelData.paired ? BluetoothDeviceState.toString(mainDelegate.modelData.state) : "Not paired"
@@ -64,8 +64,8 @@ PageBase {
                     Text {
                         id: battery
                         Layout.fillWidth: true
-                        color: palette.placeholderText
-                        elide: Text.ElideRight
+                        color: mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                        opacity: 0.6
                         font.pointSize: 8
                         text: mainDelegate.modelData.batteryAvailable ? (mainDelegate.modelData.battery * 100) + ' %' : "n/a"
                     }
@@ -74,8 +74,13 @@ PageBase {
         }
         Common.NormalButton {
             Layout.alignment: Qt.AlignRight
+            visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
             iconName: "view-more"
             leftClick: () => mainDelegate.scrollItem.expanded = !mainDelegate.scrollItem.expanded
+            defaultIconColor: Root.State.colors.on_primary
+            activeIconColor: Root.State.colors.on_primary_container
+            activeBgColor: Root.State.colors.primary_container
+            recolorIcon: true
         }
     }
     
@@ -126,21 +131,24 @@ PageBase {
         id: pageContent
         anchors.fill: parent
 
-        // Size should be determined by the pageContent
         Common.FlickScrollable {
             id: scrollable
-            Layout.fillWidth: true; Layout.fillHeight: true
+            // Size determined by the pageContent
+            implicitWidth: parent.width
+            implicitHeight: parent.height
+            contentPadding: 0
+            showBackground: false
 
             // Width should be determined by the scrollable - any padding
             // Then the children in the layout should be constrained by this size
             content: ColumnLayout {
                 anchors.fill: parent
                 id: col
-                spacing: 0
+                spacing: 8
 
                 // Forces the layout to have a width of this element since it's the largest
                 // All other siblings can then Layout.fillWidth: true to also become the same width
-                Item { implicitWidth: col.width }
+                //Item { implicitWidth: col.width }
 
                 // Paired Devices
                 WrapperItem {
@@ -151,7 +159,7 @@ PageBase {
                         text: "My Devices"
                     }
                 }
-                Common.HorizontalLine { Layout.rightMargin: 20 }
+                //Common.HorizontalLine { }
                 Common.ListViewScrollable {
                     Layout.fillWidth: true
                     interactable: false
@@ -190,7 +198,7 @@ PageBase {
                         }
                     }
                 }
-                Common.HorizontalLine { Layout.rightMargin: 20 }
+                //Common.HorizontalLine { }
                 Common.ListViewScrollable {
                     Layout.fillWidth: true
                     interactable: false

@@ -52,24 +52,14 @@ ColumnLayout {
             radius: 20
             implicitHeight: text.height
             implicitWidth: text.width
-            color: {
-                if (model.today) {
-                    return Root.State.colors.primary
-                }
-                return "transparent"
-            }
+            color: model.today ? Root.State.colors.primary : "transparent"
             Text {
                 anchors.centerIn: parent
                 id: text
                 text: day.model.day
                 padding: 4
-                color: Root.State.colors.on_primary
-                opacity: {
-                    if (day.model.month != monthGrid.month) {
-                        return 0.3
-                    }
-                    return 1
-                }
+                color: day.model.today ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                opacity: day.model.month != monthGrid.month ? 0.3 : 1
                 font.pointSize: 10
             }
         }

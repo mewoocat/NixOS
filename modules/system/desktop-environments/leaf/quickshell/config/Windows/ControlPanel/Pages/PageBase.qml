@@ -50,7 +50,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             children: [ root.content ]
-            color: "red"
+            color: "transparent"
         }
     }
 }

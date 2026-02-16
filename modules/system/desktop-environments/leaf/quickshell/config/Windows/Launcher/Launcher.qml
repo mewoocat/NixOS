@@ -137,7 +137,7 @@ Common.PanelWindow {
                     focus: true // Make this have focus by default
                     placeholderText: "Search..."
                     background: Rectangle {
-                        color: palette.active.base
+                        color: Root.State.colors.surface_container
                         radius: 16
                     }
                     onTextChanged: () => {
@@ -154,6 +154,7 @@ Common.PanelWindow {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    padding: 16
                     onPrimaryClick: (modelData) => launchApp(modelData)
                     model: ScriptModel {
                         values: DesktopEntries.applications.values
