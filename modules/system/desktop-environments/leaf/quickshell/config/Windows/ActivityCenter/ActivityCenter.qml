@@ -78,30 +78,41 @@ Leaf.PanelWindow {
             rows: 6
             columns: 6
             content: Leaf.ListView {
+                anchors.fill: parent
                 id: listView
                 model: 5
                 delegate: Leaf.ListItemExpandable {
                     id: listItem
                     required property var modelData
                     listView: listView
-                    mainDelegate: Rectangle {
-                        implicitWidth: 100
-                        implicitHeight: 40
-                        color: "green"
-                        RowLayout {
-                            Text {
-                                text: "main shit"
-                            }
-                            Leaf.NormalButton {
-                                text: "what"
-                                onClicked: listItem.expanded = !listItem.expanded
-                            }
+                    mainDelegate: ColumnLayout {
+                        Leaf.NormalButton {
+                            text: "what"
+                            onClicked: listItem.expanded = !listItem.expanded
+                        }
+                        Text {
+                            text: "main shit"
+                        }
+                        Text {
+                            text: "main shit"
+                        }
+                        Text {
+                            text: "main shit"
+                        }
+                        Text {
+                            text: "main shit"
+                        }
+                        Text {
+                            text: "main shit"
                         }
                     }
-                    subDelegate: Rectangle {
-                        color: "red"
-                        implicitWidth: 100
-                        implicitHeight: 40
+                    subDelegate: ColumnLayout {
+                        Text {
+                            text: "fuck shit"
+                        }
+                        Text {
+                            text: "fuck shit"
+                        }
                         Text {
                             text: "fuck shit"
                         }

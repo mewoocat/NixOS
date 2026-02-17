@@ -35,6 +35,10 @@ MouseArea {
     property int bottomInternalMargin: defaultInternalMargin
     property int iconSize: implicitHeight / 2
 
+    // Behavior
+    property bool active: root.containsMouse || root.highlight// Whether the button is in the active state
+    property bool highlight: false // An override to show the button as highlighted
+
     // Style
     property color textColor: Root.State.colors.on_surface
     property color activeTextColor: Root.State.colors.on_primary
@@ -73,7 +77,7 @@ MouseArea {
         implicitWidth: row.width
         implicitHeight: root.internalHeight
         radius: 24
-        color: root.containsMouse ? root.activeBgColor : root.defaultBgColor
+        color: root.active ? root.activeBgColor : root.defaultBgColor
 
         RowLayout {
             id: row

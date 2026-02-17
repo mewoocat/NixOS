@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
+import qs as Root
 
 // Intended to be used as the delegate for a Leaf.ListView
 // This ListItem variant supports the ability to expand it's size to show more content
@@ -15,14 +16,17 @@ WrapperMouseArea {
 
     property bool expanded: false // Whether this item is currently expanded
     property bool showBackground: false
-    property int contentMargin: 0
+    property int contentMargin: 8
     property bool interacted: root.containsMouse || root.focus || root.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
-    property int itemHeight: 40
+    property int itemHeight: 80
+
+    property int collapsedHeight: 80
 
     //onClicked: root.primaryClick(modelData)
     //bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
+    margin: 12
 
     onExpandedChanged: {
         console.log(`expanded: ${expanded}`)
@@ -40,9 +44,10 @@ WrapperMouseArea {
     Rectangle {
         id: background
         clip: true
-        color: "teal"
+        color: root.interacted ? "pink" : "red"
+        radius: Root.State.rounding
         implicitWidth: parent.width
-        implicitHeight: root.itemHeight // !! implicitHeight is modified via a state change
+        implicitHeight: root.collapsedHeight // !! implicitHeight is modified via a state change
 
         // Main content
         WrapperRectangle {
@@ -51,8 +56,9 @@ WrapperMouseArea {
             anchors.left: parent.left
             anchors.right: parent.right
             radius: 8
-            color: root.containsMouse || root.showBackground || root.focus ? "green" : "transparent"
-            margin: root.contentMargin
+            color: root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
+            implicitHeight: root.expanded ? mainLoader.item.implicitHeight : root.collapsedHeight // seems the mainLoader.item.height isn't the full height
+            //margin: root.contentMargin
 
             Loader {
                 id: mainLoader
@@ -93,7 +99,7 @@ WrapperMouseArea {
                     showBackground: true
                 }
                 background {
-                    implicitHeight: root.itemHeight + subBox.height
+                    implicitHeight: mainBox.height + subBox.height
                 }
                 mainBox {
                     bottomLeftRadius: 0
