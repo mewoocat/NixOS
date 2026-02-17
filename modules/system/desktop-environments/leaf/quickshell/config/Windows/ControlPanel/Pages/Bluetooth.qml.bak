@@ -7,7 +7,7 @@ import Quickshell.Widgets
 import Quickshell.Bluetooth
 import Quickshell.Services.Pipewire
 import qs.Services as Services
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
 PageBase {
     id: page
@@ -23,7 +23,7 @@ PageBase {
         }
     }
     
-    component BTDevice: Common.ScrollableItem {
+    component BTDevice: Leaf.ScrollableItem {
         id: device
         required property BluetoothDevice modelData
         onClicked: {
@@ -77,7 +77,7 @@ PageBase {
                     }
                 }
             }
-            Common.NormalButton {
+            Leaf.NormalButton {
                 Layout.alignment: Qt.AlignRight
                 iconName: "view-more"
                 leftClick: device.toggleExpand
@@ -86,12 +86,12 @@ PageBase {
         subContent: ColumnLayout {
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
-                Common.NormalButton {
+                Leaf.NormalButton {
                     visible: device.modelData.paired
                     text: device.modelData.connected ? "disconnect" : "connect"
                     leftClick: device.modelData.connected ? device.modelData.disconnect : device.modelData.connect
                 }
-                Common.NormalButton {
+                Leaf.NormalButton {
                     text: device.modelData.paired ? "forget" : "pair"
                     leftClick: device.modelData.paired ? device.modelData.forget : device.modelData.pair
                 }
@@ -123,7 +123,7 @@ PageBase {
     content: ColumnLayout {
         anchors.fill: parent
 
-        Common.FlickScrollable {
+        Leaf.FlickScrollable {
             id: scrollable
             padding: 0
             Layout.fillWidth: true; Layout.fillHeight: true
@@ -140,7 +140,7 @@ PageBase {
                         text: "My Devices"
                     }
                 }
-                Common.HorizontalLine { Layout.rightMargin: 20 }
+                Leaf.HorizontalLine { Layout.rightMargin: 20 }
                 Repeater {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => device.paired)
@@ -170,7 +170,7 @@ PageBase {
                         }
                     }
                 }
-                Common.HorizontalLine { Layout.rightMargin: 20 }
+                Leaf.HorizontalLine { Layout.rightMargin: 20 }
                 Repeater {
                     model: ScriptModel {
                         values: Bluetooth.devices.values.filter(device => !device.paired)

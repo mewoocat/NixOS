@@ -9,10 +9,10 @@ import Quickshell.Widgets
 import Quickshell.Hyprland
 import qs as Root
 import qs.Services as Services
-import qs.Modules.Common as Common
-import qs.Modules.Common.SequentialDragGrid as SeqDragGrid
+import qs.Modules.Leaf as Leaf
+import qs.Modules.Leaf.SequentialDragGrid as SeqDragGrid
 
-Common.PanelWindow {
+Leaf.PanelWindow {
     // Doesn't seem to force focus
     //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
@@ -84,7 +84,7 @@ Common.PanelWindow {
                         onLeftClick: () => { if (!desktopEntry) { return () => {} } else { return desktopEntry.execute } }
                         onRightClick: () => { appPanelPopup.visible = true }
 
-                        Common.PopupWindow {
+                        Leaf.PopupWindow {
                             id: appPanelPopup
 
                             anchor {
@@ -95,7 +95,7 @@ Common.PanelWindow {
 
                             content: ColumnLayout {
                                 Text { color: palette.text; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
-                                Common.PopupMenuItem { text: "Remove"; action: () => {
+                                Leaf.PopupMenuItem { text: "Remove"; action: () => {
                                     console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
                                     // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
                                     // TODO: Probably need to find a way to automatically do this
@@ -150,7 +150,7 @@ Common.PanelWindow {
                 }
 
                 // Application list
-                Common.ListViewScrollable {
+                Leaf.ListViewScrollable {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -233,7 +233,7 @@ Common.PanelWindow {
                         }
                         // Used to enforce the height of the show more button when it's invisible
                         Item { implicitHeight: showMoreBtn.buttonHeight }
-                        Common.NormalButton {
+                        Leaf.NormalButton {
                             id: showMoreBtn
                             visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
@@ -256,16 +256,16 @@ Common.PanelWindow {
                         Repeater {
                             model: subDelegate.modelData.actions
                             // Maybe should make this type more generic (since it works for a non popup menu scenario)
-                            delegate: Common.SubMenuItem {
+                            delegate: Leaf.SubMenuItem {
                                 required property DesktopAction modelData
                                 text: modelData.name
                                 action: modelData.execute
                                 iconName: ""
                             }
                         }
-                        Common.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
+                        Leaf.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
                         RowLayout {
-                            Common.NormalButton {
+                            Leaf.NormalButton {
                                 text: "Pin"
                                 iconName: "pin"
                                 leftClick: () => {

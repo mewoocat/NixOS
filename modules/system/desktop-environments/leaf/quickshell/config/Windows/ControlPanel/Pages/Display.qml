@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules as Modules
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
 PageBase {
     pageName: "Display" 

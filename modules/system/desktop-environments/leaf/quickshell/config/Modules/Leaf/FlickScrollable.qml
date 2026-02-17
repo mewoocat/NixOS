@@ -3,7 +3,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import qs as Root
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
 // Size of root element must be set when consumed
 Control {
@@ -22,7 +22,7 @@ Control {
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
     // the ListView and parent
-    Common.LeafScrollBar {
+    Leaf.LeafScrollBar {
         id: scrollBar
         anchors {
             left: root.right

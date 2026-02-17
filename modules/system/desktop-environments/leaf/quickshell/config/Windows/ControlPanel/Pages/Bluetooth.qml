@@ -7,7 +7,7 @@ import Quickshell.Widgets
 import Quickshell.Bluetooth
 import Quickshell.Services.Pipewire
 import qs.Services as Services
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 PageBase {
@@ -72,7 +72,7 @@ PageBase {
                 }
             }
         }
-        Common.NormalButton {
+        Leaf.NormalButton {
             Layout.alignment: Qt.AlignRight
             visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
             iconName: "view-more"
@@ -93,12 +93,12 @@ PageBase {
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            Common.NormalButton {
+            Leaf.NormalButton {
                 visible: subDelegate.modelData.paired
                 text: subDelegate.modelData.connected ? "disconnect" : "connect"
                 leftClick: subDelegate.modelData.connected ? subDelegate.modelData.disconnect : subDelegate.modelData.connect
             }
-            Common.NormalButton {
+            Leaf.NormalButton {
                 text: subDelegate.modelData.paired ? "forget" : "pair"
                 leftClick: subDelegate.modelData.paired ? subDelegate.modelData.forget : subDelegate.modelData.pair
             }
@@ -131,7 +131,7 @@ PageBase {
         id: pageContent
         anchors.fill: parent
 
-        Common.FlickScrollable {
+        Leaf.FlickScrollable {
             id: scrollable
             // Size determined by the pageContent
             implicitWidth: parent.width
@@ -159,8 +159,8 @@ PageBase {
                         text: "My Devices"
                     }
                 }
-                //Common.HorizontalLine { }
-                Common.ListViewScrollable {
+                //Leaf.HorizontalLine { }
+                Leaf.ListViewScrollable {
                     Layout.fillWidth: true
                     interactable: false
                     model: ScriptModel {
@@ -198,8 +198,8 @@ PageBase {
                         }
                     }
                 }
-                //Common.HorizontalLine { }
-                Common.ListViewScrollable {
+                //Leaf.HorizontalLine { }
+                Leaf.ListViewScrollable {
                     Layout.fillWidth: true
                     interactable: false
                     model: ScriptModel {

@@ -1,7 +1,7 @@
 import QtQuick
-import "../../Modules/Common" as Common
+import qs.Modules.Leaf as Leaf
 
-Common.NormalButton {
+Leaf.NormalButton {
     leftInternalMargin: 2
     rightInternalMargin: 2
     topInternalMargin: 6

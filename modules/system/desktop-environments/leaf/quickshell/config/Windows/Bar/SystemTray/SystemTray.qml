@@ -6,7 +6,7 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 // The animation jitters here, easy to see on linear easing. UPDATE: jittering fixed.  It was
@@ -152,7 +152,7 @@ ClippingRectangle {
                     }
                     */
 
-                    delegate: Common.NormalButton {
+                    delegate: Leaf.NormalButton {
                         id: button
                         required property SystemTrayItem modelData
                         buttonHeight: root.height - root.internalMargin * 2
@@ -162,7 +162,7 @@ ClippingRectangle {
                         defaultInternalMargin: 0
                         iconSize: 16
 
-                        property var popupWindow: Common.PopupWindow {
+                        property var popupWindow: Leaf.PopupWindow {
                             id: trayPopup
 
                             anchor {
@@ -270,7 +270,7 @@ ClippingRectangle {
                     model: SystemTray.items
 
                     // Using native/platform menu
-                    //Common.NormalButton {
+                    //Leaf.NormalButton {
                     //    required property SystemTrayItem modelData
 
                     //    id: button
@@ -310,7 +310,7 @@ ClippingRectangle {
         */
 
         // Toggle button
-        Common.NormalButton {
+        Leaf.NormalButton {
             id: toggleButton
             buttonHeight: root.height
             iconItem.rotation: root.isExpanded ? 0 : 180

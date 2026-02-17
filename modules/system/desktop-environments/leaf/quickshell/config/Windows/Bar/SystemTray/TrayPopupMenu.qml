@@ -2,10 +2,10 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
-Common.PopupWindow {
+Leaf.PopupWindow {
     id: root
     required property Item parentButton // The button that this popup will be relative to
     required property var menu // The menu object that describes the content

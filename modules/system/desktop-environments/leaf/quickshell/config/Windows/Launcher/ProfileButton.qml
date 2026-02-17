@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import qs.Services as Services
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
 WrapperMouseArea {
     id: root
@@ -18,7 +18,7 @@ WrapperMouseArea {
         userPopup.visible = true
     }
 
-    Common.PopupWindow {
+    Leaf.PopupWindow {
         id: userPopup
 
         anchor {
@@ -29,8 +29,8 @@ WrapperMouseArea {
 
         content: ColumnLayout {
             Text { color: palette.text; text: Services.User.username }
-            Common.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
-            Common.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
+            Leaf.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
+            Leaf.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
         }
     }
 

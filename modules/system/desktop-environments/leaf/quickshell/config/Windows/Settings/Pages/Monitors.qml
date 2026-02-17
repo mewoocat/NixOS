@@ -8,7 +8,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import qs as Root
 import qs.Services as Services
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import "../Components"
 
 PageBase {
@@ -230,7 +230,7 @@ PageBase {
                     }
 
                     // Apply button
-                    Common.NormalButton {
+                    Leaf.NormalButton {
                         text: "Apply"
                         leftClick: () => {
                             Services.Monitors.applyConf()

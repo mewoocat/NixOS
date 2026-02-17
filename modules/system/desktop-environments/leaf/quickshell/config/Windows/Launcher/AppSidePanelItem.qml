@@ -7,7 +7,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.Services as Services
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
 SidePanelItem {
     id: item

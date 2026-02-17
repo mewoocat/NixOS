@@ -1,12 +1,14 @@
+pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import qs as Root
 import qs.Modules as Modules
 import qs.Modules.Tetris as Tetris
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
-Common.PanelWindow {
+Leaf.PanelWindow {
     toggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
     } 
@@ -29,13 +31,13 @@ Common.PanelWindow {
         columns: 8
         rows: 4
 
-        Common.PanelItem { 
+        Leaf.PanelItem { 
             isClickable: false; 
             Layout.columnSpan: 2
             Layout.rowSpan: 2
             content: Modules.Calendar {} 
         }
-        Common.PanelItem { 
+        Leaf.PanelItem { 
             isClickable: false; 
             Layout.columnSpan: 2
             Layout.rowSpan: 2
@@ -45,12 +47,12 @@ Common.PanelWindow {
     */
 
     // Something weird's going on here
-    content: Common.PanelGrid {
+    content: Leaf.PanelGrid {
         columns: 16
         rows: 6
 
         /*
-        Common.PanelItem {
+        Leaf.PanelItem {
             isClickable: true
             rows: 1
             columns: 1
@@ -60,7 +62,7 @@ Common.PanelWindow {
             }
         }
 
-        Common.PanelItem {
+        Leaf.PanelItem {
             isClickable: true
             rows: 1
             columns: 1
@@ -70,42 +72,81 @@ Common.PanelWindow {
             }
         } 
         */
-        Common.PanelItem { 
+
+        Leaf.PanelItem { 
+            isClickable: false; 
+            rows: 6
+            columns: 6
+            content: Leaf.ListView {
+                id: listView
+                model: 5
+                delegate: Leaf.ListItemExpandable {
+                    id: listItem
+                    required property var modelData
+                    listView: listView
+                    mainDelegate: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 40
+                        color: "green"
+                        RowLayout {
+                            Text {
+                                text: "main shit"
+                            }
+                            Leaf.NormalButton {
+                                text: "what"
+                                onClicked: listItem.expanded = !listItem.expanded
+                            }
+                        }
+                    }
+                    subDelegate: Rectangle {
+                        color: "red"
+                        implicitWidth: 100
+                        implicitHeight: 40
+                        Text {
+                            text: "fuck shit"
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        Leaf.PanelItem { 
             isClickable: false; 
             rows: 6
             columns: 6
             content: Modules.Notifications {} 
         }
-        //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        //Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { 
+        */
+        //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Leaf.PanelItem { 
             isClickable: false; 
             rows: 5
             columns: 4
             content: Tetris.Game {}
         }
-        Common.PanelItem { 
+        Leaf.PanelItem { 
             isClickable: false; 
             rows: 2
             columns: 2
             content: Modules.Weather {}
         }
-        Common.PanelItem { 
+        Leaf.PanelItem { 
             isClickable: false; 
             rows: 2
             columns: 2
             content: Modules.AnalogClock {} 
         }
-        Common.PanelItem { 
+        Leaf.PanelItem { 
             isClickable: false; 
             rows: 3
             columns: 3
             content: Modules.Calendar {} 
         }
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Common.PanelItem {
+        Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Leaf.PanelItem {
             isClickable: false
             rows: 2
             columns: 6

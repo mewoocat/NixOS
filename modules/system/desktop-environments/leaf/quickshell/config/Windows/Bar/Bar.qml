@@ -5,7 +5,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Wayland
 import qs as Root
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs.Windows.ControlPanel
 import "./SystemTray"
 
@@ -47,7 +47,7 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        Common.NormalButton {
+                        Leaf.NormalButton {
                             leftClick: () => Root.State.launcher.toggleWindow()
                             defaultInternalMargin: 6
                             iconName: "distributor-logo-nixos"
@@ -76,7 +76,7 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
-                        Common.NormalButton {
+                        Leaf.NormalButton {
                             leftClick: () => Root.State.controlPanel.toggleWindow()
                             iconName: "view-grid-symbolic"
                             defaultInternalMargin: 6

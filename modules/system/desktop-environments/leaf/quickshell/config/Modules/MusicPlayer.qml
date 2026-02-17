@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 GridLayout {
@@ -183,7 +183,7 @@ GridLayout {
             leftPadding: 8
             text: {
                 if (root.currentPlayer === null) { return 0 }
-                return Common.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
+                return Leaf.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
             }
         }
 
@@ -197,7 +197,7 @@ GridLayout {
             rightPadding: 8
             text: {
                 if (root.currentPlayer === null) { return 0 }
-                return Common.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
+                return Leaf.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
             }
         }
     }
@@ -208,14 +208,14 @@ GridLayout {
         Layout.row: 2
         Layout.column: 1
         Layout.alignment: Qt.AlignCenter
-        Common.NormalButton {
+        Leaf.NormalButton {
             iconName: "player_rew"
             leftClick: () => {
                 if (root.currentPlayer === null) { console.warn(`No current player`); return }
                 root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
             }
         }
-        Common.NormalButton {
+        Leaf.NormalButton {
             iconName: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
             leftClick: () => {
                 if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
@@ -226,7 +226,7 @@ GridLayout {
                 root.currentPlayer.playbackState === MprisPlaybackState.Playing ? root.currentPlayer.pause() : root.currentPlayer.play()
             }
         }
-        Common.NormalButton {
+        Leaf.NormalButton {
             iconName: "player_fwd"
             leftClick: () => 
             {

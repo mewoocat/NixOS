@@ -4,7 +4,7 @@ import Quickshell.Services.Notifications as QsNotifications
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 // Visual element to represent a single notification
@@ -83,7 +83,7 @@ MouseArea {
                     Rectangle {Layout.fillWidth: true;}
 
                     // Close button
-                    Common.NormalButton {
+                    Leaf.NormalButton {
                         implicitHeight: 32
                         //Layout.alignment: Qt.AlignRight // This no work?
                         iconName: 'gtk-close'

@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules as Modules
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
 PageBase {
     pageName: "Audio" 
@@ -50,7 +50,7 @@ PageBase {
 
         SectionBase { name: "Mixer"}
         
-        Common.ListViewScrollable {
+        Leaf.ListViewScrollable {
             // If some apps are outputting to the default output
             visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
             Layout.fillHeight: true

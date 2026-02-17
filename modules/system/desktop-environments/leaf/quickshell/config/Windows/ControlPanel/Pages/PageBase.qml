@@ -4,7 +4,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 // Need wrapper item since we want to anchor the ColumnLayout to the top of the SwipeView area but 
@@ -24,7 +24,7 @@ Item {
         // Header
         RowLayout {
             // Back button
-            Common.NormalButton {
+            Leaf.NormalButton {
                 defaultInternalMargin: 2
                 buttonHeight: 32
                 iconName: "back"
@@ -44,7 +44,7 @@ Item {
             }
         }
 
-        Common.HorizontalLine {}
+        Leaf.HorizontalLine {}
 
         Rectangle {
             Layout.fillWidth: true

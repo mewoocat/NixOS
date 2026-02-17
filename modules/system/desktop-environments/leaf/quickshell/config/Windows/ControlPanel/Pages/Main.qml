@@ -9,13 +9,13 @@ import Quickshell.Services.Pipewire
 import qs as Root
 import qs.Services as Services
 import qs.Modules as Modules
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 
-Common.PanelGrid {
+Leaf.PanelGrid {
     columns: 4
     rows: 4
 
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         rows: 2
         columns: 2
         isClickable: false
@@ -42,7 +42,7 @@ Common.PanelGrid {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Common.LeafCircleButton {
+                Leaf.LeafCircleButton {
                     iconName: rowItem.iconName
                 }
                 WrapperMouseArea {
@@ -93,7 +93,7 @@ Common.PanelGrid {
     }
 
 
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         rows: 1
         columns: 1
         action: () => Services.NightLight.toggle()
@@ -110,7 +110,7 @@ Common.PanelGrid {
             }
         }
     }
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         rows: 1
         columns: 1
         content: IconImage {
@@ -119,7 +119,7 @@ Common.PanelGrid {
             source: Quickshell.iconPath("color-profile")
         }
     }
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         rows: 1
         columns: 1
         content: IconImage {
@@ -136,7 +136,7 @@ Common.PanelGrid {
         action: () => {
         }
     }
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         id: testPanelItem
         rows: 1
         columns: 1
@@ -150,9 +150,9 @@ Common.PanelGrid {
             powerProfilePopup.visible = true
         }
         //TODO: The reason this triggers the focus grab for the parent window is because the panelGrab state is set again for each
-        // Common.PanelWindow created.  Need to store the references in the state using a map or something
+        // Leaf.PanelWindow created.  Need to store the references in the state using a map or something
         // also, commenting out the launcher in the shell.qml allows for this popup to work
-        Common.PopupWindow {
+        Leaf.PopupWindow {
             id: powerProfilePopup
             
             anchor {
@@ -168,14 +168,14 @@ Common.PanelGrid {
         }
     }
 
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         rows: 2
         columns: 2
         isClickable: false
         content: Modules.SystemStats {
         }
     }
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         isClickable: false
         rows: 2
         columns: 2
@@ -192,17 +192,17 @@ Common.PanelGrid {
             }
             ColumnLayout {
                 spacing: 0
-                Common.NormalButton {
+                Leaf.NormalButton {
                     text: "Perform"
                     fontSize: 10
                     buttonHeight: 32
                 }
-                Common.NormalButton {
+                Leaf.NormalButton {
                     text: "Balanced"
                     fontSize: 10
                     buttonHeight: 32
                 }
-                Common.NormalButton {
+                Leaf.NormalButton {
                     text: "Low Power"
                     fontSize: 10
                     buttonHeight: 32
@@ -223,7 +223,7 @@ Common.PanelGrid {
         }
     }
 
-    Common.PanelItem { 
+    Leaf.PanelItem { 
         isClickable: false
         rows: 2
         columns: 4
@@ -235,7 +235,7 @@ Common.PanelGrid {
         ColumnLayout {    
             //anchors.fill: parent
             RowLayout {
-                Common.NormalButton {
+                Leaf.NormalButton {
                     iconName: Services.Audio.getIcon(Pipewire.defaultAudioSink)
                     text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
                     leftClick: () => {
@@ -255,7 +255,7 @@ Common.PanelGrid {
             }
 
             RowLayout {
-                Common.NormalButton {
+                Leaf.NormalButton {
                     iconName: Services.Brightness.getIcon()
                     text: Math.ceil(Services.Brightness.value * 100) + '%'
                     leftClick: () => {

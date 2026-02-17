@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import Quickshell.Services.Notifications as QsNotifications
 import qs.Services as Services
 import qs.Modules as Modules
-import "./Common" as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 // A widget to list all tracked notifications
@@ -25,7 +25,7 @@ ColumnLayout {
         implicitHeight: 1
         opacity: 0.2
     }
-    Common.ListViewScrollable {
+    Leaf.ListViewScrollable {
         Layout.fillHeight: true
         Layout.fillWidth: true
         visible: Services.Notifications.notifications.length > 0

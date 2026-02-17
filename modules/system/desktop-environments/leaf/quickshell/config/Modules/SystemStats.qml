@@ -4,7 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Services as Services
-import qs.Modules.Common as Common
+import qs.Modules.Leaf as Leaf
 import qs as Root
 
 ColumnLayout {
@@ -12,7 +12,7 @@ ColumnLayout {
     anchors.fill: parent
 
     // CPU
-    Common.ToolTipArea {
+    Leaf.ToolTipArea {
         //text: Services.SystemStats.cpuUsageText // Text for tooltip
         text: "Cpu usage"
         Layout.fillWidth: true
@@ -37,7 +37,7 @@ ColumnLayout {
     }
 
     // Memory
-    Common.ToolTipArea {
+    Leaf.ToolTipArea {
         text: Services.SystemStats.memUsageText // Text for tooltip
         Layout.fillWidth: true // For some reason the width of the progress bar expands when using a Wrapper here.  
                                // Setting the fillWidth here restricts the size to the parent ig
@@ -62,7 +62,7 @@ ColumnLayout {
     }
 
     // Temp
-    Common.ToolTipArea {
+    Leaf.ToolTipArea {
         text: "CPU Temperature"
         Layout.fillWidth: true
         RowLayout {
@@ -86,7 +86,7 @@ ColumnLayout {
     }
 
     // Disk usage
-    Common.ToolTipArea {
+    Leaf.ToolTipArea {
         text: Services.SystemStats.storageUsageText
         Layout.fillWidth: true
         RowLayout {
