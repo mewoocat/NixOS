@@ -97,7 +97,7 @@ MouseArea {
                 layer.enabled: root.recolorIcon
                 layer.effect: MultiEffect {
                     colorization: 1
-                    colorizationColor: root.containsMouse ? root.activeIconColor : root.defaultIconColor
+                    colorizationColor: root.active ? root.activeIconColor : root.defaultIconColor
                 }
 
                 // Animate changes to the rotation property
@@ -115,7 +115,7 @@ MouseArea {
                 Layout.rightMargin: 8
                 text: root.text
                 font.pointSize: root.fontSize
-                color: root.containsMouse ? root.activeTextColor : root.textColor
+                color: root.active ? root.activeTextColor : root.textColor
             }
         }
    }

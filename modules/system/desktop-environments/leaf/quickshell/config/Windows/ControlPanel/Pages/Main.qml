@@ -190,12 +190,15 @@ Leaf.PanelGrid {
                 stepSize: 1
                 snapMode: Slider.SnapOnRelease
                 implicitHeight: powerProfileList.height
+                value: PowerProfiles.profile // 0 - PowerSaver, 1 - Balanced, 2 - Perfomance
+                onValueChanged: PowerProfiles.profile = value
             }
             ColumnLayout {
                 id: powerProfileList
                 spacing: 0
                 Leaf.NormalButton {
                     visible: PowerProfiles.hasPerformanceProfile
+                    Layout.fillWidth: true
                     text: "Performance"
                     fontSize: 10
                     buttonHeight: 32
@@ -203,6 +206,7 @@ Leaf.PanelGrid {
                     highlight: PowerProfiles.profile == PowerProfile.Performance
                 }
                 Leaf.NormalButton {
+                    Layout.fillWidth: true
                     text: "Balanced"
                     fontSize: 10
                     buttonHeight: 32
@@ -210,6 +214,7 @@ Leaf.PanelGrid {
                     highlight: PowerProfiles.profile == PowerProfile.Balanced
                 }
                 Leaf.NormalButton {
+                    Layout.fillWidth: true
                     text: "Low Power"
                     fontSize: 10
                     buttonHeight: 32
