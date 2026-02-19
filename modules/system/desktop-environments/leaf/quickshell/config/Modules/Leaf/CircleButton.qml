@@ -33,6 +33,10 @@ MouseArea {
     property color defaultBgColor: "transparent"
     property color activeBgColor: Root.State.colors.primary
 
+    // Behavior
+    property bool highlighted: false
+    property bool active: root.containsMouse || root.highlighted
+
     implicitWidth: size
     implicitHeight: size
 
@@ -58,7 +62,7 @@ MouseArea {
         implicitWidth: root.bgSize
         implicitHeight: root.bgSize
         radius: root.bgSize
-        color: root.containsMouse || root.toggled ? root.activeBgColor : root.defaultBgColor
+        color: root.active || root.toggled ? root.activeBgColor : root.defaultBgColor
 
         IconImage {
             id: icon

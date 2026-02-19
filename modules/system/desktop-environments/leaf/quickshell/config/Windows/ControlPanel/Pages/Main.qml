@@ -42,8 +42,11 @@ Leaf.PanelGrid {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Leaf.LeafCircleButton {
+                Leaf.CircleButton {
                     iconName: rowItem.iconName
+                }
+                Leaf.RoundButton {
+
                 }
                 WrapperMouseArea {
                     id: mouseArea
@@ -198,7 +201,7 @@ Leaf.PanelGrid {
                 spacing: 0
                 Leaf.NormalButton {
                     visible: PowerProfiles.hasPerformanceProfile
-                    Layout.fillWidth: true
+                    //Layout.fillWidth: true
                     text: "Performance"
                     fontSize: 10
                     buttonHeight: 32
@@ -206,7 +209,7 @@ Leaf.PanelGrid {
                     highlight: PowerProfiles.profile == PowerProfile.Performance
                 }
                 Leaf.NormalButton {
-                    Layout.fillWidth: true
+                    //Layout.fillWidth: true
                     text: "Balanced"
                     fontSize: 10
                     buttonHeight: 32
@@ -214,7 +217,7 @@ Leaf.PanelGrid {
                     highlight: PowerProfiles.profile == PowerProfile.Balanced
                 }
                 Leaf.NormalButton {
-                    Layout.fillWidth: true
+                    //Layout.fillWidth: true
                     text: "Low Power"
                     fontSize: 10
                     buttonHeight: 32
