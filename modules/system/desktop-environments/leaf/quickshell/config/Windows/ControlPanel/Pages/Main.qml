@@ -45,9 +45,6 @@ Leaf.PanelGrid {
                 Leaf.CircleButton {
                     iconName: rowItem.iconName
                 }
-                Leaf.RoundButton {
-
-                }
                 WrapperMouseArea {
                     id: mouseArea
                     enabled: true

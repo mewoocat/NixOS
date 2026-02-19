@@ -53,6 +53,15 @@ Scope {
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
+                        Button {
+                            text: "what"
+                            icon.name: "weather-fog-symbolic"
+                        }
+                        Leaf.Button {
+                            text: "what"
+                            icon.name: "view-more"
+                            onClicked: () => console.log('hi')
+                        }
                     }
                     // Center
                     RowLayout {
