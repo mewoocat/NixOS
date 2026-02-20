@@ -1,6 +1,7 @@
 
 import Quickshell
 import QtQuick
+import QtQuick.Shapes
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Wayland
@@ -16,7 +17,7 @@ Scope {
 
     // This creates an instance for each screen
     Variants {
-        model: [ Quickshell.screens[0] ] // just for one screen
+        model: Quickshell.screens 
 
         // Note: 
             // Component (s) can be defined implicitly, so it could be ommited here
@@ -33,11 +34,11 @@ Scope {
                 // Set the window's screen to the injected property
                 screen: modelData
                 anchors {
-                    top: true
+                    bottom: true
                     left: true
                     right: true
                 }
-                implicitHeight: 40 // Bar height
+                implicitHeight: 100 // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
                     color: Root.State.colors.surface
@@ -58,6 +59,11 @@ Scope {
                             icon.name: "weather-fog-symbolic"
                         }
                         Leaf.Button {
+                            text: "what"
+                            icon.name: "view-more"
+                            onClicked: () => console.log('hi')
+                        }
+                        Leaf.ButtonSkeuo {
                             text: "what"
                             icon.name: "view-more"
                             onClicked: () => console.log('hi')

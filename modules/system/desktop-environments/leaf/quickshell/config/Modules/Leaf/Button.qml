@@ -1,4 +1,6 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQuick.Shapes
 import QtQuick.Controls.impl // For IconLabel
 import QtQuick.Templates as T
 
@@ -15,7 +17,7 @@ T.Button {
     padding: inset * 2
 
     // Defines the padding of the background
-    property real inset: 6
+    property real inset: 0
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -23,12 +25,56 @@ T.Button {
 
     implicitWidth: background.implicitWidth + leftInset + rightInset
     implicitHeight: background.implicitHeight + bottomInset + topInset
-    background: Rectangle {
+
+    background: MouseArea {
+        id: mouseArea
+        hoverEnabled: true
         implicitWidth: control.contentItem.implicitWidth + control.padding
-        implicitHeight: 28 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
-        color: control.hovered ? Root.State.colors.primary : Root.State.colors.surface_container_highest
-        radius: 4
+        implicitHeight: control.contentItem.implicitHeight + control.padding
+
+        Shape {
+            id: shape
+            //visible: mouseArea.containsMouse
+            implicitWidth: parent.implicitWidth
+            implicitHeight: parent.implicitHeight
+
+            ShapePath {
+                strokeColor: "red"
+                strokeWidth: 0
+                fillGradient: RadialGradient {
+                    centerRadius: 20//shape.implicitHeight
+                    focalRadius: 6
+                    centerX: mouseArea.mouseX - control.padding
+                    centerY: mouseArea.mouseY - control.padding
+                    focalX: centerX; focalY: centerY
+                    GradientStop { position: 0; color: Root.State.colors.primary }
+                    GradientStop { position: 1; color: "#33222222" }
+                }
+                startX: 0
+                startY: 0
+                PathLine {x: shape.width; y: 0}
+                PathLine {x: shape.width; y: shape.height}
+                PathLine {x: 0; y: shape.height}
+                PathLine {x: 0; y: 0}
+            }
+        }
+
+        Rectangle {
+            id: maskBox
+            color: Root.State.colors.primary
+            implicitWidth: control.contentItem.implicitWidth + control.padding
+            implicitHeight: 28 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
+            x: 4
+            y: 4
+        }
+
+        OpacityMask {
+            anchors.fill: shape
+            source: shape
+            maskSource: maskBox
+        }
     }
+
     icon.name: ""
     icon.source: ""
     icon.width: 24
