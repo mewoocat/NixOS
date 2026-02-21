@@ -27,14 +27,14 @@ T.Button {
     background: Rectangle {
         id: background
         implicitWidth: control.contentItem.implicitWidth + control.padding
-        implicitHeight: 60 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
-        color: control.hovered ? Qt.darker(Root.State.colors.surface, 1.4) : Qt.lighter(Root.State.colors.surface, 1.4)
+        implicitHeight: 30 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
+        color: control.hovered ? Qt.darker(Root.State.colors.surface, 1.8) : Qt.lighter(Root.State.colors.surface, 1.4)
         radius: 8
         border.width: 1
-        border.color: control.hovered ? Qt.darker(Root.State.colors.surface, 1.4) : Qt.lighter(Root.State.colors.surface, 1.4)
+        border.color: control.hovered ? Qt.lighter(Root.State.colors.surface, 1.2) : Qt.lighter(Qt.alpha(Root.State.colors.on_surface, 0.1), 0.4)
 
         property int skeuo: 2
-        property int blur: 6
+        property int blur: 4
         property int spread: 2
 
         RectangularShadow {
@@ -88,7 +88,7 @@ T.Button {
             */
             radius: parent.radius
             blur: parent.blur
-            spread: parent.spread
+            spread: control.hovered ? parent.spread : parent.spread - 2
             z: -1 // show behind parent
             color: control.hovered ? Qt.lighter(Root.State.colors.surface, 1.6) : Qt.darker(Root.State.colors.surface, 2)
             //color: "red"
