@@ -35,7 +35,7 @@ T.Button {
         property int blur: 4
         property int spread: 2 // increasing this causes the positions to get wack
         property int animSpeed: 500
-        property var easingType: Easing.InOutCubic
+        property var easingType: Easing.InOutQuart
         //property var easingType: Easing.InOutCirc
         property var topRightPos: QtObject {
             property int x: 0
@@ -46,7 +46,7 @@ T.Button {
             property int y: 0
         }
         property color shadowColor: Qt.darker(Root.State.colors.surface, 4)
-        property color highlightColor: Qt.lighter(Root.State.colors.surface, 2)
+        property color highlightColor: Qt.lighter(Root.State.colors.surface, 1.8)
         property color surfaceColorRaised: Qt.lighter(Root.State.colors.surface, 1.4)
         property color surfaceColorPressed: Qt.darker(Root.State.colors.surface, 1.4)
 
@@ -72,7 +72,7 @@ T.Button {
             // WARNING: Position is set via states
             radius: bg.radius
             blur: bg.blur
-            spread: bg.spread
+            spread: bg.spread - 2
             color: bg.highlightColor
         }
 
@@ -81,108 +81,11 @@ T.Button {
             implicitWidth: bg.implicitWidth
             implicitHeight: bg.implicitHeight
             radius: bg.radius
-            //color: "transparent" // WARNING: Color set via state change
-        }
-        
-        state: "raised" // Default state
-        states: [
-            State {
-                name: "raised"
-                when: !control.hovered
-                PropertyChanges {
-                    highlight {
-                        x: bg.topRightPos.x
-                        y: bg.topRightPos.y
-                    }
-                    shadow {
-                        x: bg.botLeftPos.x
-                        y: bg.botLeftPos.y
-                        z: -1 // show behind highlight
-                    }
-                    surface {
-                        color: bg.surfaceColorRaised
-                    }
-                }
-            },
-            State {
-                name: "pressed"
-                when: control.hovered
-                PropertyChanges {
-                    highlight {
-                        x: bg.botLeftPos.x
-                        y: bg.botLeftPos.y
-                        z: -1 // show behind shadow
-                    }
-                    shadow {
-                        x: bg.topRightPos.x
-                        y: bg.topRightPos.y
-                    }
-                    surface {
-                        color: bg.surfaceColorPressed
-                    }
-                }
-            }
-        ]
-
-        transitions: [
-            Transition {
-                to: "raised"
-                // Reverses the Transition when the conditions that triggered this transition are reversed
-                //reversible: true
-                // Animate the properties changed via state, this allows us to choose when and how during the
-                // state transition the properties are modified 
-                ParallelAnimation {
-                    PropertyAnimation {
-                        target: highlight
-                        properties: "x,y,z"
-                        duration: bg.animSpeed
-                        easing.type: bg.easingType
-                    }
-                    PropertyAnimation {
-                        target: shadow
-                        properties: "x,y,z"
-                        duration: bg.animSpeed
-                        easing.type: bg.easingType
-                    }
-                    ColorAnimation {
-                        from: bg.surfaceColorPressed
-                        to: bg.surfaceColorRaised
-                        duration: bg.animSpeed
-                        easing.type: bg.easingType
-                    }
-                }
-            },
-            Transition {
-                to: "pressed"
-                // Reverses the Transition when the conditions that triggered this transition are reversed
-                //reversible: true
-                // Animate the properties changed via state, this allows us to choose when and how during the
-                // state transition the properties are modified 
-                ParallelAnimation {
-                    PropertyAnimation {
-                        target: highlight
-                        properties: "x,y,z"
-                        duration: bg.animSpeed
-                        easing.type: bg.easingType
-                    }
-                    PropertyAnimation {
-                        target: shadow
-                        properties: "x,y,z"
-                        duration: bg.animSpeed
-                        easing.type: bg.easingType
-                    }
-                    ColorAnimation {
-                        from: bg.surfaceColorRaised
-                        to: bg.surfaceColorPressed
-                        duration: bg.animSpeed
-                        easing.type: bg.easingType
-                    }
-                }
-            }
-        ]    
+            color: "transparent" // WARNING: Color set via state change
+        }        
     }
 
-    icon.name: ""
+    icon.name: "view-more"
     icon.source: ""
     icon.width: 24
     icon.height: 24
@@ -192,20 +95,151 @@ T.Button {
     // IconLabel source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickiconlabel_p.h
     // Might want to look into IconImage (from the impl namespace, not qs) as well
     contentItem: Item {
+        id: content
         implicitHeight: iconLabel.implicitHeight
         implicitWidth: iconLabel.implicitWidth
+
+        property color textColorRaised: Root.State.colors.on_surface
+        property color textColorPressed: Qt.darker(Root.State.colors.on_surface, 1.4)
         IconLabel {
             id: iconLabel
             icon.name: control.icon.name
             icon.color: Root.State.colors.on_surface
             text: control.text
-            color: Root.State.colors.on_surface
+            //color: Root.State.colors.on_surface
+            //color: control.hovered ? content.textColorPressed : content.textColorRaised
+            color: "transparent" // WARNING: Property set via state
+
             /*
-            x: control.hovered ? 1 : 0
-            y: control.hovered ? -1 : 0
+            x: control.hovered ? -1 : 0
+            y: control.hovered ? 1 : 0
             Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
             Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
             */
         }
     }
+
+    state: "raised" // Default state
+    states: [
+        State {
+            name: "raised"
+            when: !control.hovered
+            PropertyChanges {
+                highlight {
+                    x: bg.topRightPos.x
+                    y: bg.topRightPos.y
+                    spread: bg.spread - 2
+                }
+                shadow {
+                    x: bg.botLeftPos.x
+                    y: bg.botLeftPos.y
+                    z: -1 // show behind highlight
+                    spread: bg.spread
+                }
+                surface {
+                    color: bg.surfaceColorRaised
+                }
+                iconLabel {
+                    color: content.textColorRaised
+                    icon.color: content.textColorRaised
+                }
+            }
+        },
+        State {
+            name: "pressed"
+            when: control.hovered
+            PropertyChanges {
+                highlight {
+                    x: bg.botLeftPos.x
+                    y: bg.botLeftPos.y
+                    z: -1 // show behind shadow
+                    spread: bg.spread
+                }
+                shadow {
+                    x: bg.topRightPos.x
+                    y: bg.topRightPos.y
+                    spread: bg.spread - 2
+                }
+                surface {
+                    color: bg.surfaceColorPressed
+                }
+                iconLabel {
+                    color: content.textColorPressed
+                    icon.color: content.textColorPressed
+                }
+            }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            to: "raised"
+            // Reverses the Transition when the conditions that triggered this transition are reversed
+            //reversible: true
+            // Animate the properties changed via state, this allows us to choose when and how during the
+            // state transition the properties are modified 
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: highlight
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: shadow
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                // NOTE: Seems ColorAnimation has a weird effect when the state change is reverted halfway through.  It appears to 
+                // force the color property change to go all the way to the original target color instantly and then starts animating
+                // the whole reverted transition.  PropertyAnimation seems to work fine instead.
+                PropertyAnimation {
+                    target: surface
+                    properties: "color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: iconLabel
+                    properties: "color,icon.color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+            }
+        },
+        Transition {
+            to: "pressed"
+            // Reverses the Transition when the conditions that triggered this transition are reversed
+            //reversible: true
+            // Animate the properties changed via state, this allows us to choose when and how during the
+            // state transition the properties are modified 
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: highlight
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: shadow
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: surface
+                    properties: "color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: iconLabel
+                    properties: "color,icon.color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+            }
+        }
+    ]    
 }
