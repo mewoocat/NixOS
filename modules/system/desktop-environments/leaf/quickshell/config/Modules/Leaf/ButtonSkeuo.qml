@@ -37,13 +37,12 @@ T.Button {
         property int blur: 4
         property int spread: 2 // increasing this causes the positions to get wack
         property int animSpeed: 100
-        property var easingType: Easing.OutInExpo
-
+        //property var easingType: Easing.InOutElastic
+        property var easingType: Easing.OutBounce
         property var topRightPos: QtObject {
             property int x: 0
             property int y: -(bg.skeuo * 2)
         }
-
         property var botLeftPos: QtObject {
             property int x: -bg.skeuo
             property int y: 0
@@ -62,7 +61,7 @@ T.Button {
             radius: bg.radius
             blur: bg.blur
             spread: bg.spread
-            z: -2 // show behind parent
+            z: control.hovered ? -3 : -2 // show behind parent
             color: Qt.lighter(Root.State.colors.surface, 2)
             //color: "green"
         }
@@ -95,7 +94,7 @@ T.Button {
             radius: bg.radius
             blur: bg.blur
             spread: bg.spread
-            z: -3 // show behind parent
+            z: control.hovered ? -2 : -3 // show behind parent
             color: Qt.darker(Root.State.colors.surface, 4)
             //color: "red"
         }
@@ -118,8 +117,8 @@ T.Button {
             icon.color: Root.State.colors.on_surface
             text: control.text
             color: Root.State.colors.on_surface
-            x: control.hovered ? -1 : 0
-            y: control.hovered ? 1 : 0
+            x: control.hovered ? 1 : 0
+            y: control.hovered ? -1 : 0
             Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
             Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
         }
