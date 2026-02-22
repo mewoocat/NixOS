@@ -25,72 +25,78 @@ T.Button {
     implicitWidth: background.implicitWidth + leftInset + rightInset
     implicitHeight: background.implicitHeight + bottomInset + topInset
     background: Rectangle {
-        id: background
+        id: bg
         implicitWidth: control.contentItem.implicitWidth + control.padding
         implicitHeight: 30 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
-        color: control.hovered ? Qt.darker(Root.State.colors.surface, 1.8) : Qt.lighter(Root.State.colors.surface, 1.4)
+        color:  control.hovered ? Qt.darker(Root.State.colors.surface, 1.4) : Qt.lighter(Root.State.colors.surface, 1.4)
         radius: 8
-        border.width: 1
+        border.width: 0
         border.color: control.hovered ? Qt.lighter(Root.State.colors.surface, 1.2) : Qt.lighter(Qt.alpha(Root.State.colors.on_surface, 0.1), 0.4)
 
         property int skeuo: 2
         property int blur: 4
-        property int spread: 2
+        property int spread: 2 // increasing this causes the positions to get wack
+        property int animSpeed: 100
+        property var easingType: Easing.OutInExpo
 
+        property var topRightPos: QtObject {
+            property int x: 0
+            property int y: -(bg.skeuo * 2)
+        }
+
+        property var botLeftPos: QtObject {
+            property int x: -bg.skeuo
+            property int y: 0
+        }
+
+        // Highlight
         RectangularShadow {
             visible: true
-            implicitWidth: parent.implicitWidth + parent.skeuo
-            implicitHeight: parent.implicitHeight + parent.skeuo
-            y: -parent.skeuo
-            /*
-            x: -offset.x
-            y: 0
-            offset.x: parent.skeuo
-            offset.y: -parent.skeuo
-            */
-            radius: parent.radius
-            antialiasing: false
-            blur: parent.blur
-            spread: parent.spread
-            z: -1 // show behind parent
-            //color: Qt.alpha(Root.State.colors.surface, 0.4)
-            color: control.hovered ? Qt.darker(Root.State.colors.surface, 4) : Qt.lighter(Root.State.colors.surface, 2)
+            implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
+            implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
+            x: control.hovered ? bg.botLeftPos.x : bg.topRightPos.x
+            y: control.hovered ? bg.botLeftPos.y : bg.topRightPos.y
+            Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+            Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+
+            radius: bg.radius
+            blur: bg.blur
+            spread: bg.spread
+            z: -2 // show behind parent
+            color: Qt.lighter(Root.State.colors.surface, 2)
             //color: "green"
         }
 
+        // Background
         RectangularShadow {
-            visible: true
-            implicitWidth: parent.implicitWidth + (parent.skeuo * 2)
-            implicitHeight: parent.implicitHeight + (parent.skeuo * 2)
+            visible: false
+            implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
+            implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
             antialiasing: false
-            y: -parent.skeuo
-            x: -parent.skeuo
-            radius: parent.radius
-            blur: parent.blur
-            spread: parent.spread
+            //y: -bg.skeuo
+            //x: -bg.skeuo
+            radius: bg.radius
+            blur: bg.blur
+            spread: bg.spread
             z: -2
-            //color: Qt.alpha(Root.State.colors.surface, 0.4)
-            color: control.hovered ? Qt.darker(Root.State.colors.surface, 4) : Qt.lighter(Root.State.colors.surface, 1.6)
+            color: Qt.lighter(Root.State.colors.surface, 1.6)
             //color: "blue"
         }
 
+        // Shadow
         RectangularShadow {
             visible: true
-            implicitWidth: parent.implicitWidth + parent.skeuo + 1
-            implicitHeight: parent.implicitHeight + parent.skeuo + 1
-            x: -parent.skeuo -2
-            y: 2
-            /*
-            x: 0
-            y: -offset.y 
-            offset.x: -parent.skeuo
-            offset.y: parent.skeuo
-            */
-            radius: parent.radius
-            blur: parent.blur
-            spread: control.hovered ? parent.spread : parent.spread - 2
-            z: -1 // show behind parent
-            color: control.hovered ? Qt.lighter(Root.State.colors.surface, 1.6) : Qt.darker(Root.State.colors.surface, 2)
+            implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
+            implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
+            x: control.hovered ? bg.topRightPos.x : bg.botLeftPos.x
+            y: control.hovered ? bg.topRightPos.y : bg.botLeftPos.y
+            Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+            Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+            radius: bg.radius
+            blur: bg.blur
+            spread: bg.spread
+            z: -3 // show behind parent
+            color: Qt.darker(Root.State.colors.surface, 4)
             //color: "red"
         }
     }
@@ -103,11 +109,19 @@ T.Button {
     // The geometry of the contentItem is determined by the padding
     // IconLabel source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickiconlabel_p.h
     // Might want to look into IconImage (from the impl namespace, not qs) as well
-    contentItem: IconLabel {
-        id: iconLabel
-        icon.name: control.icon.name
-        icon.color: Root.State.colors.on_surface
-        text: control.text
-        color: Root.State.colors.on_surface
+    contentItem: Item {
+        implicitHeight: iconLabel.implicitHeight
+        implicitWidth: iconLabel.implicitWidth
+        IconLabel {
+            id: iconLabel
+            icon.name: control.icon.name
+            icon.color: Root.State.colors.on_surface
+            text: control.text
+            color: Root.State.colors.on_surface
+            x: control.hovered ? -1 : 0
+            y: control.hovered ? 1 : 0
+            Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+            Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+        }
     }
 }

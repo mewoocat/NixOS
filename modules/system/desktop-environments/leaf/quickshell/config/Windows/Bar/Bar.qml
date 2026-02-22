@@ -38,7 +38,7 @@ Scope {
                     left: true
                     right: true
                 }
-                implicitHeight: 40 // Bar height
+                implicitHeight: 80 // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
                     color: Root.State.colors.surface
@@ -54,6 +54,9 @@ Scope {
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
+                        Leaf.ButtonSkeuo {
+                            text: "what"
+                        }
                     }
                     // Center
                     RowLayout {
