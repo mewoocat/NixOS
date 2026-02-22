@@ -27,6 +27,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # Other
     ../../modules/utilities
+    ../../modules/utilities/virtualization.nix
     ../../modules/gaming/game.nix
   ];
 }

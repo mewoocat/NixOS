@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }: {
@@ -18,17 +19,19 @@
       spotify
       ungoogled-chromium
       freerdp xrdp
-      globalprotect-openconnect
+      #globalprotect-openconnect
       onlyoffice-desktopeditors
+
+      inputs.GlobalProtect-openconnect.packages.x86_64-linux.default
     ];
   };
 
-  services.globalprotect.enable = true;
+  #services.globalprotect.enable = true;
   
   # !! WARNING !! The nixpkgs.config option is of type attribute set which cannot merge lists
   # Therefore, only define the permittedInsecurePackages in one place (i.e. here)
   nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19" # For globalprotect-openconnect
+    #"qtwebengine-5.15.19" # For globalprotect-openconnect
   ];
 
   # Set your time zone.

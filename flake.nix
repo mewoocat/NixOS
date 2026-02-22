@@ -15,12 +15,16 @@
       flake = false;
     };
     # Nix formatter
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-    alejandra.inputs.nixpkgs.follows = "nixpkgs";
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     Jovian-NixOS = {
       #url = "github:Jovian-Experiments/Jovian-NixOS";
       url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS?rev=68a1bcc019378272e601558719f82005a80ddab0";
     };
+
+    GlobalProtect-openconnect.url = "github:yuezk/GlobalProtect-openconnect";
 
     # Leaf
     hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.53.0&submodules=1";
