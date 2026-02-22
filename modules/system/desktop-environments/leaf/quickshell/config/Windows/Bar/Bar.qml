@@ -34,11 +34,11 @@ Scope {
                 // Set the window's screen to the injected property
                 screen: modelData
                 anchors {
-                    bottom: true
+                    top: true
                     left: true
                     right: true
                 }
-                implicitHeight: 100 // Bar height
+                implicitHeight: 80 // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
                     color: Root.State.colors.surface
@@ -54,19 +54,11 @@ Scope {
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
-                        Button {
-                            text: "what"
-                            icon.name: "weather-fog-symbolic"
-                        }
-                        Leaf.Button {
-                            text: "what"
-                            icon.name: "view-more"
-                            onClicked: () => console.log('hi')
-                        }
                         Leaf.ButtonSkeuo {
                             text: "what"
-                            icon.name: "view-more"
-                            onClicked: () => console.log('hi')
+                        }
+                        Leaf.ButtonSkeuo2 {
+                            text: "what"
                         }
                     }
                     // Center

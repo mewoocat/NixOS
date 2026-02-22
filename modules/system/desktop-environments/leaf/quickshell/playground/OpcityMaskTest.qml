@@ -18,10 +18,15 @@ FloatingWindow {
 
         Rectangle {
             id: mask
+            color: "transparent"
             visible: false
-            color: "red"
-            implicitWidth: 40
-            implicitHeight: 40
+            implicitWidth: 100
+            implicitHeight: 100
+            Rectangle {
+                color: "red"
+                implicitWidth: 40
+                implicitHeight: 40
+            }
         }
 
         OpacityMask {
