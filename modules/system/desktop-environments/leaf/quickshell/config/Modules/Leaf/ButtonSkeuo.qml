@@ -28,7 +28,9 @@ T.Button {
         id: bg
         implicitWidth: control.contentItem.implicitWidth + control.padding
         implicitHeight: 30 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
-        color:  control.hovered ? Qt.darker(Root.State.colors.surface, 1.4) : Qt.lighter(Root.State.colors.surface, 1.4)
+        color: control.hovered ? Qt.darker(Root.State.colors.surface, 1.4) : Qt.lighter(Root.State.colors.surface, 1.4)
+        Behavior on color { ColorAnimation {duration: 500} }
+        //color: "red"
         radius: 8
         border.width: 0
         border.color: control.hovered ? Qt.lighter(Root.State.colors.surface, 1.2) : Qt.lighter(Qt.alpha(Root.State.colors.on_surface, 0.1), 0.4)
@@ -36,9 +38,9 @@ T.Button {
         property int skeuo: 2
         property int blur: 4
         property int spread: 2 // increasing this causes the positions to get wack
-        property int animSpeed: 100
+        property int animSpeed: 2000
         //property var easingType: Easing.InOutElastic
-        property var easingType: Easing.OutBounce
+        property var easingType: Easing.InQuart
         property var topRightPos: QtObject {
             property int x: 0
             property int y: -(bg.skeuo * 2)
@@ -61,25 +63,9 @@ T.Button {
             radius: bg.radius
             blur: bg.blur
             spread: bg.spread
-            z: control.hovered ? -3 : -2 // show behind parent
+            z: control.hovered ? -2 : -1 // show behind parent
             color: Qt.lighter(Root.State.colors.surface, 2)
             //color: "green"
-        }
-
-        // Background
-        RectangularShadow {
-            visible: false
-            implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
-            implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
-            antialiasing: false
-            //y: -bg.skeuo
-            //x: -bg.skeuo
-            radius: bg.radius
-            blur: bg.blur
-            spread: bg.spread
-            z: -2
-            color: Qt.lighter(Root.State.colors.surface, 1.6)
-            //color: "blue"
         }
 
         // Shadow
@@ -94,11 +80,12 @@ T.Button {
             radius: bg.radius
             blur: bg.blur
             spread: bg.spread
-            z: control.hovered ? -2 : -3 // show behind parent
+            z: control.hovered ? -1 : -2 // show behind parent
             color: Qt.darker(Root.State.colors.surface, 4)
             //color: "red"
         }
     }
+
     icon.name: ""
     icon.source: ""
     icon.width: 24

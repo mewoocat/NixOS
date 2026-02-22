@@ -57,6 +57,9 @@ Scope {
                         Leaf.ButtonSkeuo {
                             text: "what"
                         }
+                        Leaf.ButtonSkeuo2 {
+                            text: "what"
+                        }
                     }
                     // Center
                     RowLayout {

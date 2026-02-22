@@ -14,8 +14,8 @@ Singleton {
     property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
     property string colorsJsonPath: "/home/eXia/.config/leaf-de/quickshell-colors.json"
     property FileView configFileView: configFile
-    property JsonAdapter config: configFile.adapter
-    property JsonAdapter colors: colorFile.adapter
+    property var config: configFile.adapter
+    property var colors: colorFile.adapter
 
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
