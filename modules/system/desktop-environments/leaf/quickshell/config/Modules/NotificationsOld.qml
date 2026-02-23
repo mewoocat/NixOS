@@ -1,6 +1,9 @@
 import Quickshell
+import Quickshell.Widgets
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell.Services.Notifications as QsNotifications
 import qs.Services as Services
 import qs.Modules as Modules
 import qs.Modules.Leaf as Leaf
@@ -8,7 +11,7 @@ import qs as Root
 
 // A widget to list all tracked notifications
 ColumnLayout {
-    anchors.margins: 16 // TODO: Move to PanelItem?
+    anchors.margins: 16
     anchors.fill: parent
     Text {
         Layout.fillWidth: true
@@ -22,17 +25,16 @@ ColumnLayout {
         implicitHeight: 1
         opacity: 0.2
     }
-    Leaf.ListView {
-        id: listView
+    Leaf.ListViewScrollable {
         Layout.fillHeight: true
         Layout.fillWidth: true
         visible: Services.Notifications.notifications.length > 0
         color: "transparent"
         model: Services.Notifications.notificationModel
-        delegate: Notification {
+        mainDelegate: Modules.Notification {
             required property var modelData
-            Component.onCompleted: console.debug(modelData)
-            data: modelData
+            //Layout.fillWidth: true
+            notification: modelData
         }
     }
 

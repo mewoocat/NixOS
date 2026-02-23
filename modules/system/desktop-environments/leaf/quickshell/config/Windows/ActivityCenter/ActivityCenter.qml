@@ -73,6 +73,7 @@ Leaf.PanelWindow {
         } 
         */
 
+        /*
         Leaf.PanelItem { 
             isClickable: false; 
             rows: 6
@@ -120,14 +121,13 @@ Leaf.PanelWindow {
                 }
             }
         }
-        /*
+        */
         Leaf.PanelItem { 
             isClickable: false; 
             rows: 6
             columns: 6
             content: Modules.Notifications {} 
         }
-        */
         //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Leaf.PanelItem { 

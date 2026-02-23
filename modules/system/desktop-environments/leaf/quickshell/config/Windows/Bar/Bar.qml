@@ -48,15 +48,10 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        /*
                         Leaf.NormalButton {
                             leftClick: () => Root.State.launcher.toggleWindow()
                             defaultInternalMargin: 6
                             iconName: "distributor-logo-nixos"
-                        }
-                        */
-                        Leaf.ButtonSkeuo {
-                            icon.name: "distributor-logo-nixos"
                         }
                         Workspaces {}
                         Leaf.ButtonSkeuo {

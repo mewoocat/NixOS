@@ -17,7 +17,7 @@ T.Button {
     padding: inset * 2
 
     // Defines the padding of the background
-    property real inset: 0
+    property real inset: 2
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -26,53 +26,12 @@ T.Button {
     implicitWidth: background.implicitWidth + leftInset + rightInset
     implicitHeight: background.implicitHeight + bottomInset + topInset
 
-    background: MouseArea {
-        id: mouseArea
-        hoverEnabled: true
+    background: Rectangle {
+        id: bg
         implicitWidth: control.contentItem.implicitWidth + control.padding
         implicitHeight: control.contentItem.implicitHeight + control.padding
-
-        Shape {
-            id: shape
-            //visible: mouseArea.containsMouse
-            implicitWidth: parent.implicitWidth
-            implicitHeight: parent.implicitHeight
-
-            ShapePath {
-                strokeColor: "red"
-                strokeWidth: 0
-                fillGradient: RadialGradient {
-                    centerRadius: 20//shape.implicitHeight
-                    focalRadius: 6
-                    centerX: mouseArea.mouseX - control.padding
-                    centerY: mouseArea.mouseY - control.padding
-                    focalX: centerX; focalY: centerY
-                    GradientStop { position: 0; color: Root.State.colors.primary }
-                    GradientStop { position: 1; color: "#33222222" }
-                }
-                startX: 0
-                startY: 0
-                PathLine {x: shape.width; y: 0}
-                PathLine {x: shape.width; y: shape.height}
-                PathLine {x: 0; y: shape.height}
-                PathLine {x: 0; y: 0}
-            }
-        }
-
-        Rectangle {
-            id: maskBox
-            color: Root.State.colors.primary
-            implicitWidth: control.contentItem.implicitWidth + control.padding
-            implicitHeight: 28 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
-            x: 4
-            y: 4
-        }
-
-        OpacityMask {
-            anchors.fill: shape
-            source: shape
-            maskSource: maskBox
-        }
+        color: control.hovered ? Root.State.colors.primary : "transparent"
+        radius: 8
     }
 
     icon.name: ""

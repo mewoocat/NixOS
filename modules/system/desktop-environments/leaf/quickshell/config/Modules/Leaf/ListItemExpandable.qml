@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
@@ -44,7 +46,7 @@ WrapperMouseArea {
     Rectangle {
         id: background
         clip: true
-        color: root.interacted ? "pink" : "red"
+        color: Root.State.colors.surface_container_highest
         radius: Root.State.rounding
         implicitWidth: parent.width
         implicitHeight: root.collapsedHeight // !! implicitHeight is modified via a state change
@@ -57,7 +59,7 @@ WrapperMouseArea {
             anchors.right: parent.right
             radius: 8
             color: root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
-            implicitHeight: root.expanded ? mainLoader.item.implicitHeight : root.collapsedHeight // seems the mainLoader.item.height isn't the full height
+            implicitHeight: mainLoader.item.implicitHeight
             //margin: root.contentMargin
 
             Loader {
@@ -70,6 +72,7 @@ WrapperMouseArea {
         // Sub content
         WrapperRectangle {
             id: subBox
+            visible: false
             anchors.top: mainBox.bottom
             anchors.left: parent.left
             anchors.right: parent.right
@@ -126,6 +129,12 @@ WrapperMouseArea {
                     PropertyAction {
                         target: subDelegateLoader
                         property: "active"
+                        value: true
+                    }
+                    PropertyAction {
+                        target: subBox
+                        property: "visible"
+                        value: true
                     }
                 }
                 // Then run these in parallel
