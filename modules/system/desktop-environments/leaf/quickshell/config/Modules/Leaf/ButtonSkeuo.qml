@@ -13,10 +13,10 @@ T.Button {
     hoverEnabled: true
 
     //defines the padding of the contentItem relative to the edge of the control
-    padding: inset * 2
+    padding: 8
 
     // Defines the padding of the background
-    property real inset: 6
+    property real inset: 4
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -27,20 +27,16 @@ T.Button {
     background: Rectangle {
         id: bg
         implicitWidth: control.contentItem.implicitWidth + control.padding
-        implicitHeight: 30 // control.contentItem.implicitHeight + control.padding // TODO: might want to force this to be static?
-        color: control.hovered ? Qt.darker(Root.State.colors.surface, 1.4) : Qt.lighter(Root.State.colors.surface, 1.4)
-        Behavior on color { ColorAnimation {duration: 500} }
-        //color: "red"
-        radius: 8
-        border.width: 0
-        border.color: control.hovered ? Qt.lighter(Root.State.colors.surface, 1.2) : Qt.lighter(Qt.alpha(Root.State.colors.on_surface, 0.1), 0.4)
+        implicitHeight: control.contentItem.implicitHeight + control.padding
+        color: "transparent"
+        radius: 8 // This propagates to the children RectangularShadow's
 
         property int skeuo: 2
         property int blur: 4
         property int spread: 2 // increasing this causes the positions to get wack
-        property int animSpeed: 2000
-        //property var easingType: Easing.InOutElastic
-        property var easingType: Easing.InQuart
+        property int animSpeed: 200
+        property var easingType: Easing.InOutQuart
+        //property var easingType: Easing.InOutCirc
         property var topRightPos: QtObject {
             property int x: 0
             property int y: -(bg.skeuo * 2)
@@ -49,65 +45,206 @@ T.Button {
             property int x: -bg.skeuo
             property int y: 0
         }
-
-        // Highlight
-        RectangularShadow {
-            visible: true
-            implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
-            implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
-            x: control.hovered ? bg.botLeftPos.x : bg.topRightPos.x
-            y: control.hovered ? bg.botLeftPos.y : bg.topRightPos.y
-            Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
-            Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
-
-            radius: bg.radius
-            blur: bg.blur
-            spread: bg.spread
-            z: control.hovered ? -2 : -1 // show behind parent
-            color: Qt.lighter(Root.State.colors.surface, 2)
-            //color: "green"
-        }
+        property color shadowColor: Qt.darker(Root.State.colors.surface, 4)
+        property color highlightColor: Qt.lighter(Root.State.colors.surface, 1.8)
+        property color surfaceColorRaised: Qt.lighter(Root.State.colors.surface, 1.4)
+        property color surfaceColorPressed: Qt.darker(Root.State.colors.surface, 1.4)
 
         // Shadow
         RectangularShadow {
-            visible: true
+            id: shadow
+
             implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
             implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
-            x: control.hovered ? bg.topRightPos.x : bg.botLeftPos.x
-            y: control.hovered ? bg.topRightPos.y : bg.botLeftPos.y
-            Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
-            Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+            // WARNING: Position is set via states
             radius: bg.radius
             blur: bg.blur
             spread: bg.spread
-            z: control.hovered ? -1 : -2 // show behind parent
-            color: Qt.darker(Root.State.colors.surface, 4)
-            //color: "red"
+            color: bg.shadowColor
         }
+
+        // Highlight
+        RectangularShadow {
+            id: highlight
+
+            implicitWidth: bg.implicitWidth + (bg.skeuo * 2)
+            implicitHeight: bg.implicitHeight + (bg.skeuo * 2)
+            // WARNING: Position is set via states
+            radius: bg.radius
+            blur: bg.blur
+            spread: bg.spread - 2
+            color: bg.highlightColor
+        }
+
+        Rectangle {
+            id: surface
+            implicitWidth: bg.implicitWidth
+            implicitHeight: bg.implicitHeight
+            radius: bg.radius
+            color: "transparent" // WARNING: Color set via state change
+        }        
     }
 
     icon.name: ""
     icon.source: ""
-    icon.width: 24
-    icon.height: 24
+    icon.width: 18
+    icon.height: 18
     icon.color: "red"
 
     // The geometry of the contentItem is determined by the padding
     // IconLabel source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickiconlabel_p.h
     // Might want to look into IconImage (from the impl namespace, not qs) as well
     contentItem: Item {
+        id: content
         implicitHeight: iconLabel.implicitHeight
         implicitWidth: iconLabel.implicitWidth
+
+        property color textColorRaised: Root.State.colors.on_surface
+        property color textColorPressed: Qt.darker(Root.State.colors.on_surface, 1.4)
         IconLabel {
+            anchors.centerIn: content
             id: iconLabel
             icon.name: control.icon.name
             icon.color: Root.State.colors.on_surface
             text: control.text
-            color: Root.State.colors.on_surface
-            x: control.hovered ? 1 : 0
-            y: control.hovered ? -1 : 0
+            icon.width: control.icon.width
+            icon.height: control.icon.height
+            //color: Root.State.colors.on_surface
+            //color: control.hovered ? content.textColorPressed : content.textColorRaised
+            color: "transparent" // WARNING: Property set via state // Try unbinding this <-
+            implicitHeight: control.height
+
+            /*
+            x: control.hovered ? -1 : 0
+            y: control.hovered ? 1 : 0
             Behavior on x { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
             Behavior on y { PropertyAnimation { duration: bg.animSpeed; easing.type: bg.easingType} }
+            */
         }
     }
+
+    state: "raised" // Default state
+    states: [
+        State {
+            name: "raised"
+            when: !control.hovered
+            PropertyChanges {
+                highlight {
+                    x: bg.topRightPos.x
+                    y: bg.topRightPos.y
+                    spread: bg.spread - 2
+                }
+                shadow {
+                    x: bg.botLeftPos.x
+                    y: bg.botLeftPos.y
+                    z: -1 // show behind highlight
+                    spread: bg.spread
+                }
+                surface {
+                    color: bg.surfaceColorRaised
+                }
+                iconLabel {
+                    color: content.textColorRaised
+                    icon.color: content.textColorRaised
+                }
+            }
+        },
+        State {
+            name: "pressed"
+            when: control.hovered
+            PropertyChanges {
+                highlight {
+                    x: bg.botLeftPos.x
+                    y: bg.botLeftPos.y
+                    z: -1 // show behind shadow
+                    spread: bg.spread
+                }
+                shadow {
+                    x: bg.topRightPos.x
+                    y: bg.topRightPos.y
+                    spread: bg.spread - 2
+                }
+                surface {
+                    color: bg.surfaceColorPressed
+                }
+                iconLabel {
+                    color: content.textColorPressed
+                    icon.color: content.textColorPressed
+                }
+            }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            to: "raised"
+            // Reverses the Transition when the conditions that triggered this transition are reversed
+            //reversible: true
+            // Animate the properties changed via state, this allows us to choose when and how during the
+            // state transition the properties are modified 
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: highlight
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: shadow
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                // NOTE: Seems ColorAnimation has a weird effect when the state change is reverted halfway through.  It appears to 
+                // force the color property change to go all the way to the original target color instantly and then starts animating
+                // the whole reverted transition.  PropertyAnimation seems to work fine instead.
+                // UPDATE: This appears to be due to State Fast Forwarding (https://doc.qt.io/qt-6/qtquick-statesanimations-states.html#state-fast-forwarding)
+                PropertyAnimation {
+                    target: surface
+                    properties: "color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: iconLabel
+                    properties: "color,icon.color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+            }
+        },
+        Transition {
+            to: "pressed"
+            // Reverses the Transition when the conditions that triggered this transition are reversed
+            //reversible: true
+            // Animate the properties changed via state, this allows us to choose when and how during the
+            // state transition the properties are modified 
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: highlight
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: shadow
+                    properties: "x,y,z,spread"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: surface
+                    properties: "color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+                PropertyAnimation {
+                    target: iconLabel
+                    properties: "color,icon.color"
+                    duration: bg.animSpeed
+                    easing.type: bg.easingType
+                }
+            }
+        }
+    ]    
 }

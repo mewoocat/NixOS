@@ -38,7 +38,7 @@ Scope {
                     left: true
                     right: true
                 }
-                implicitHeight: 80 // Bar height
+                implicitHeight: 40 // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
                     color: Root.State.colors.surface
@@ -48,17 +48,21 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        /*
                         Leaf.NormalButton {
                             leftClick: () => Root.State.launcher.toggleWindow()
                             defaultInternalMargin: 6
                             iconName: "distributor-logo-nixos"
                         }
+                        */
+                        Leaf.ButtonSkeuo {
+                            icon.name: "distributor-logo-nixos"
+                        }
                         Workspaces {}
                         Leaf.ButtonSkeuo {
                             text: "what"
-                        }
-                        Leaf.ButtonSkeuo2 {
-                            text: "what"
+                            icon.width: 24
+                            icon.height: 24
                         }
                     }
                     // Center
