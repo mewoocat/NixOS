@@ -45,7 +45,7 @@ WrapperMouseArea {
 
     Rectangle {
         id: background
-        clip: true
+        //clip: true
         color: Root.State.colors.surface_container_highest
         radius: Root.State.rounding
         implicitWidth: parent.width
@@ -59,13 +59,16 @@ WrapperMouseArea {
             anchors.right: parent.right
             radius: 8
             color: root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
-            implicitHeight: mainLoader.item.implicitHeight
             //margin: root.contentMargin
+            implicitHeight: parent.height
 
             Loader {
                 id: mainLoader
                 active: true // Should always be shown
                 sourceComponent: root.mainDelegate
+                // Force Loaded component to be size of parent
+                width: parent.implicitWidth
+                height: parent.implicitHeight
             }
         }
 
@@ -108,6 +111,11 @@ WrapperMouseArea {
                     bottomLeftRadius: 0
                     bottomRightRadius: 0
                 }
+                mainLoader {
+                    // Allow loaded component to resize the Loader
+                    width: undefined
+                    height: undefined
+                }
             }
         }
     ]
@@ -129,12 +137,14 @@ WrapperMouseArea {
                     PropertyAction {
                         target: subDelegateLoader
                         property: "active"
-                        value: true
                     }
                     PropertyAction {
                         target: subBox
                         property: "visible"
-                        value: true
+                    }
+                    PropertyAction {
+                        target: mainLoader
+                        property: "width,height"
                     }
                 }
                 // Then run these in parallel

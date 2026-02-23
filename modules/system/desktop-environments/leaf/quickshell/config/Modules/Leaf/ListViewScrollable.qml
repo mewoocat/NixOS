@@ -87,6 +87,7 @@ Rectangle {
 
         model: root.model
 
+        // TODO: This need to be made into it's own component called something like ListButtonExpandable.qml since it's a button ... that expands
         delegate: WrapperMouseArea {
             id: scrollItem
             required property var modelData
