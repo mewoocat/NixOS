@@ -12,9 +12,12 @@ Leaf.ListItemExpandable {
     required property var data // Essentially a Quickshell.Services.Notification as js object
     listView: listView
     mainDelegate: ColumnLayout {
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.top: parent.top
+        id: main
+        implicitWidth: parent.width
+        Connections {
+            target: root
+            function onExpandedChanged () { console.log(`item height: ${main.height}`) }
+        }
         spacing: 0
 
         RowLayout {
@@ -72,12 +75,14 @@ Leaf.ListItemExpandable {
 
                 // Body
                 Text {
+                    id: body
                     Layout.fillWidth: true
                     text: root.data.body
                     elide: Text.ElideRight // Truncate with ... on the right
                     font.pointSize: 8
                     color: Root.State.colors.on_surface
                     wrapMode: Text.Wrap
+                    maximumLineCount: root.expanded ? undefined : 1
                 }
             }
         }

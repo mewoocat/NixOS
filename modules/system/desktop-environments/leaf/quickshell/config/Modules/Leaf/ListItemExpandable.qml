@@ -48,27 +48,25 @@ WrapperMouseArea {
         //clip: true
         color: Root.State.colors.surface_container_highest
         radius: Root.State.rounding
-        implicitWidth: parent.width
+        implicitWidth: parent.implicitWidth - (root.margin * 2)  // We want the width after taking into account the margins
         implicitHeight: root.collapsedHeight // !! implicitHeight is modified via a state change
 
         // Main content
-        WrapperRectangle {
+        Rectangle {
             id: mainBox
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.right: parent.right
+            implicitWidth: background.implicitWidth
+            implicitHeight: mainLoader.implicitHeight
             radius: 8
             color: root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
             //margin: root.contentMargin
-            implicitHeight: parent.height
 
             Loader {
                 id: mainLoader
                 active: true // Should always be shown
                 sourceComponent: root.mainDelegate
-                // Force Loaded component to be size of parent
-                width: parent.implicitWidth
-                height: parent.implicitHeight
+                // Force Loaded component to be size of parent, until state change
+                width: mainBox.implicitWidth
+                //height: parent.implicitHeight
             }
         }
 
@@ -112,9 +110,6 @@ WrapperMouseArea {
                     bottomRightRadius: 0
                 }
                 mainLoader {
-                    // Allow loaded component to resize the Loader
-                    width: undefined
-                    height: undefined
                 }
             }
         }
