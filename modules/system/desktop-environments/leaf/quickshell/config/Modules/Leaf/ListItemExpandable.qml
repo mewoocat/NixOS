@@ -20,15 +20,12 @@ WrapperMouseArea {
     property bool showBackground: false
     property int contentMargin: 8
     property bool interacted: root.containsMouse || root.focus || root.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
-    property int itemHeight: 80
+    property int maxCollapsedHeight: 100
+    property int padding: 8
 
-    property int collapsedHeight: 80
-
-    //onClicked: root.primaryClick(modelData)
-    //bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
-    margin: 12
+    margin: 8
 
     onExpandedChanged: {
         console.log(`expanded: ${expanded}`)
@@ -49,15 +46,17 @@ WrapperMouseArea {
         color: Root.State.colors.surface_container_highest
         radius: Root.State.rounding
         implicitWidth: parent.implicitWidth - (root.margin * 2)  // We want the width after taking into account the margins
-        implicitHeight: root.collapsedHeight // !! implicitHeight is modified via a state change
+        implicitHeight: Math.min(root.maxCollapsedHeight, mainBox.implicitHeight)// !! implicitHeight is modified via a state change
 
         // Main content
-        Rectangle {
+        WrapperRectangle {
             id: mainBox
             implicitWidth: background.implicitWidth
-            implicitHeight: mainLoader.implicitHeight
+            implicitHeight: mainLoader.implicitHeight + (root.padding * 2) // Need to add the margin amount on each side since the mainLoader's height is shrunk by 2x the margin amount
+            //implicitHeight: parent.implicitHeight
             radius: 8
-            color: root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
+            margin: root.padding
+            color: "blue" //root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
             //margin: root.contentMargin
 
             Loader {
@@ -65,7 +64,7 @@ WrapperMouseArea {
                 active: true // Should always be shown
                 sourceComponent: root.mainDelegate
                 // Force Loaded component to be size of parent, until state change
-                width: mainBox.implicitWidth
+                //width: mainBox.implicitWidth
                 //height: parent.implicitHeight
             }
         }

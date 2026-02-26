@@ -10,7 +10,8 @@ import qs as Root
 Leaf.ListItemExpandable {
     id: root
     required property var data // Essentially a Quickshell.Services.Notification as js object
-    listView: listView
+    property int maxBodyLines: 4
+    maxCollapsedHeight: 120
     mainDelegate: ColumnLayout {
         id: main
         implicitWidth: parent.width
@@ -47,18 +48,17 @@ Leaf.ListItemExpandable {
                 onClicked: root.expanded = !root.expanded
             }
 
-            // Close button
-            Leaf.NormalButton {
-                implicitHeight: 32
-                iconName: 'gtk-close'
-                leftClick: root.data.dismiss
+            Leaf.Button {
+                implicitWidth: 32
+                icon.name: 'gtk-close'
+                onClicked: root.data.dismiss
             }
         }
         RowLayout {
             //Layout.alignment: Qt.AlignTop
             spacing: 0
             IconImage {
-                //Layout.alignment: Qt.AlignTop
+                Layout.alignment: Qt.AlignTop
                 visible: root.data.image != ""
                 Layout.margins: 4
                 implicitSize: 40
@@ -82,7 +82,7 @@ Leaf.ListItemExpandable {
                     font.pointSize: 8
                     color: Root.State.colors.on_surface
                     wrapMode: Text.Wrap
-                    maximumLineCount: root.expanded ? undefined : 1
+                    maximumLineCount: root.expanded ? undefined : root.maxBodyLines
                 }
             }
         }

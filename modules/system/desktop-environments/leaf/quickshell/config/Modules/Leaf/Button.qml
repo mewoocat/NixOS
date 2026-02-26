@@ -31,7 +31,7 @@ T.Button {
         implicitWidth: control.contentItem.implicitWidth + control.padding
         implicitHeight: control.contentItem.implicitHeight + control.padding
         color: control.hovered ? Root.State.colors.primary : "transparent"
-        radius: 8
+        radius: implicitHeight
     }
 
     icon.name: ""

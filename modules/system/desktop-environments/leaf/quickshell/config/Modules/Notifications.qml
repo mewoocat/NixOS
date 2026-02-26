@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -23,7 +25,7 @@ ColumnLayout {
         opacity: 0.2
     }
     Leaf.ListView {
-        id: listView
+        id: notifListView
         Layout.fillHeight: true
         Layout.fillWidth: true
         visible: Services.Notifications.notifications.length > 0
@@ -33,6 +35,7 @@ ColumnLayout {
             required property var modelData
             Component.onCompleted: console.debug(modelData)
             data: modelData
+            listView: notifListView // A Required property
         }
     }
 
