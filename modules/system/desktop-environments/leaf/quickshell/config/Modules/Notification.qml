@@ -12,13 +12,14 @@ Leaf.ListItemExpandable {
     required property var data // Essentially a Quickshell.Services.Notification as js object
     property int maxBodyLines: 4
     maxCollapsedHeight: 120 
-    expansionAnimationSpeed: 2000
+    expansionAnimationSpeed: 350
+    onClicked: console.log(JSON.stringify(data.appIcon, null, 4))
     mainDelegate: Rectangle {
         id: main
         implicitWidth: parent.implicitWidth
         //implicitHeight: root.expanded ? header.implicitHeight + content.implicitHeight : Math.min(header.implicitHeight + content.implicitHeight, root.maxCollapsedHeight - root.padding * 2) // Need to subtract out the padding since it affects the overall height of the item
         implicitHeight: header.implicitHeight + content.implicitHeight
-        color: "#aaaa0000"
+        color: "transparent"
 
         RowLayout {
             id: header
@@ -28,23 +29,25 @@ Leaf.ListItemExpandable {
             spacing: 0
 
             // App icon
-            IconImage {
-                id: appIcon
-                implicitSize: 16
-                source: {
-                    let name = root.data.appIcon
-                    if (name === "") { name = root.data.appName.toLowerCase() }
-                    Quickshell.iconPath(name, "dialog-question")
+            RowLayout {
+                IconImage {
+                    id: appIcon
+                    implicitSize: 18
+                    source: {
+                        let name = root.data.appIcon
+                        if (name === "") { name = root.data.appName.toLowerCase() }
+                        Quickshell.iconPath(name, "dialog-question")
+                    }
+                }
+                // App name
+                Text {
+                    color: Root.State.colors.on_surface
+                    font.pointSize: 8
+                    text: root.data.appName
                 }
             }
-            // App name
-            Text {
-                color: Root.State.colors.on_surface
-                font.pointSize: 8
-                text: root.data.appName
-            }
             // Spacer to push close button to right
-            Rectangle {Layout.fillWidth: true;}
+            Item {Layout.fillWidth: true;}
 
             Leaf.Button {
                 text: "Expand"
@@ -54,7 +57,7 @@ Leaf.ListItemExpandable {
             Leaf.Button {
                 implicitWidth: 32
                 icon.name: 'gtk-close'
-                onClicked: root.data.dismiss
+                onClicked: () => root.data.dismiss()
             }
         }
         RowLayout {
@@ -106,6 +109,14 @@ Leaf.ListItemExpandable {
         }
     }
     subDelegate: ColumnLayout {
-        Text { text: "more stuff"}
+        Text { text: "Actions"; color: "red" }
+        Repeater {
+            model: root.data.actions
+            delegate: Leaf.Button {
+                required property var modelData
+                text: modelData.text
+                onClicked: modelData.invoke
+            }
+        }
     }
 }

@@ -44,7 +44,7 @@ WrapperMouseArea {
     Rectangle {
         id: background
         clip: true
-        color: Root.State.colors.surface_container_highest
+        color: root.containsMouse ? Root.State.colors.surface_container_high : Root.State.colors.surface_container_highest
         radius: Root.State.rounding
         implicitWidth: parent.implicitWidth - (root.margin * 2)  // We want the width after taking into account the margins
         implicitHeight: Math.min(root.maxCollapsedHeight, mainBox.implicitHeight)// !! implicitHeight is modified via a state change
@@ -57,7 +57,7 @@ WrapperMouseArea {
             //implicitHeight: parent.implicitHeight
             radius: 8
             margin: root.padding
-            color: "#330044aa" //root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
+            color: "transparent"
             //margin: root.contentMargin
 
             Loader {
