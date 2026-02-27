@@ -22,6 +22,7 @@ WrapperMouseArea {
     property bool interacted: root.containsMouse || root.focus || root.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
     property int maxCollapsedHeight: 100
     property int padding: 8
+    property int expansionAnimationSpeed: 350
 
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
@@ -42,7 +43,7 @@ WrapperMouseArea {
 
     Rectangle {
         id: background
-        //clip: true
+        clip: true
         color: Root.State.colors.surface_container_highest
         radius: Root.State.rounding
         implicitWidth: parent.implicitWidth - (root.margin * 2)  // We want the width after taking into account the margins
@@ -56,7 +57,7 @@ WrapperMouseArea {
             //implicitHeight: parent.implicitHeight
             radius: 8
             margin: root.padding
-            color: "blue" //root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
+            color: "#330044aa" //root.containsMouse || root.showBackground || root.focus ? "blue" : "transparent"
             //margin: root.contentMargin
 
             Loader {
@@ -102,7 +103,7 @@ WrapperMouseArea {
                     showBackground: true
                 }
                 background {
-                    implicitHeight: mainBox.height + subBox.height
+                    implicitHeight: mainBox.implicitHeight + subBox.implicitHeight
                 }
                 mainBox {
                     bottomLeftRadius: 0
@@ -129,7 +130,7 @@ WrapperMouseArea {
                         property: "showBackground"
                     }
                     PropertyAction {
-                        target: subDelegateLoader
+                        target: subLoader
                         property: "active"
                     }
                     PropertyAction {
@@ -146,19 +147,19 @@ WrapperMouseArea {
                     PropertyAnimation {
                         target: mainBox
                         property: "bottomRightRadius"
-                        duration: expansionAnimationSpeed
+                        duration: root.expansionAnimationSpeed
                         easing.type: Easing.InOutQuad
                     }
                     PropertyAnimation {
                         target: mainBox
                         property: "bottomLeftRadius"
-                        duration: expansionAnimationSpeed
+                        duration: root.expansionAnimationSpeed
                         easing.type: Easing.InOutQuad
                     }
                     PropertyAnimation {
                         target: background
                         property: "implicitHeight"
-                        duration: expansionAnimationSpeed
+                        duration: root.expansionAnimationSpeed
                         easing.type: Easing.InOutQuad
                     }
                 }

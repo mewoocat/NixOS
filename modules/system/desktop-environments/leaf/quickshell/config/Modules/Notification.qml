@@ -11,19 +11,22 @@ Leaf.ListItemExpandable {
     id: root
     required property var data // Essentially a Quickshell.Services.Notification as js object
     property int maxBodyLines: 4
-    maxCollapsedHeight: 120
-    mainDelegate: ColumnLayout {
+    maxCollapsedHeight: 120 
+    expansionAnimationSpeed: 2000
+    mainDelegate: Rectangle {
         id: main
-        implicitWidth: parent.width
-        Connections {
-            target: root
-            function onExpandedChanged () { console.log(`item height: ${main.height}`) }
-        }
-        spacing: 0
+        implicitWidth: parent.implicitWidth
+        //implicitHeight: root.expanded ? header.implicitHeight + content.implicitHeight : Math.min(header.implicitHeight + content.implicitHeight, root.maxCollapsedHeight - root.padding * 2) // Need to subtract out the padding since it affects the overall height of the item
+        implicitHeight: header.implicitHeight + content.implicitHeight
+        color: "#aaaa0000"
 
         RowLayout {
-            id: row
+            id: header
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
             spacing: 0
+
             // App icon
             IconImage {
                 id: appIcon
@@ -55,7 +58,10 @@ Leaf.ListItemExpandable {
             }
         }
         RowLayout {
-            //Layout.alignment: Qt.AlignTop
+            id: content
+            anchors.top: header.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
             spacing: 0
             IconImage {
                 Layout.alignment: Qt.AlignTop
@@ -73,16 +79,28 @@ Leaf.ListItemExpandable {
                     color: Root.State.colors.on_surface
                 }
 
-                // Body
-                Text {
-                    id: body
+                Item {
                     Layout.fillWidth: true
-                    text: root.data.body
-                    elide: Text.ElideRight // Truncate with ... on the right
-                    font.pointSize: 8
-                    color: Root.State.colors.on_surface
-                    wrapMode: Text.Wrap
-                    maximumLineCount: root.expanded ? undefined : root.maxBodyLines
+                    implicitHeight: ghostBody.implicitHeight
+                    component Body: Text {
+                        anchors.fill: parent
+                        text: root.data.body
+                        elide: Text.ElideRight // Truncate with ... on the right
+                        font.pointSize: 8
+                        color: Root.State.colors.on_surface
+                        wrapMode: Text.Wrap
+                        maximumLineCount: root.expanded ? undefined : root.maxBodyLines
+                        Behavior on maximumLineCount { PropertyAnimation { duration: root.expansionAnimationSpeed } }
+                    }
+                    // Actual body which is visible
+                    Body {}
+                    // Need another instance to force the height to be static while still being able to use the maximumLineCount
+                    // to truncate text when collapsed.
+                    Body {
+                        id: ghostBody
+                        opacity: 0
+                        maximumLineCount: undefined
+                    }
                 }
             }
         }
