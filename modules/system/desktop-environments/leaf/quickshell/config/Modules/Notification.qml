@@ -13,9 +13,10 @@ Leaf.ListItemExpandable {
     property int maxBodyLines: 4
     maxCollapsedHeight: 120 
     expansionAnimationSpeed: 350
-    onClicked: console.log(JSON.stringify(data.appIcon, null, 4))
+    onClicked: console.log(JSON.stringify(data.actions, null, 4))
     mainDelegate: Rectangle {
         id: main
+        property bool moreBodyText: ghostBody.implicitHeight > body.implicitHeight
         implicitWidth: parent.implicitWidth
         //implicitHeight: root.expanded ? header.implicitHeight + content.implicitHeight : Math.min(header.implicitHeight + content.implicitHeight, root.maxCollapsedHeight - root.padding * 2) // Need to subtract out the padding since it affects the overall height of the item
         implicitHeight: header.implicitHeight + content.implicitHeight
@@ -50,6 +51,7 @@ Leaf.ListItemExpandable {
             Item {Layout.fillWidth: true;}
 
             Leaf.Button {
+                //visible: root.data.actions?.length > 0 || ghostBody.lineCount > root.maxBodyLines
                 text: "Expand"
                 onClicked: root.expanded = !root.expanded
             }
@@ -96,7 +98,9 @@ Leaf.ListItemExpandable {
                         Behavior on maximumLineCount { PropertyAnimation { duration: root.expansionAnimationSpeed } }
                     }
                     // Actual body which is visible
-                    Body {}
+                    Body {
+                        id: body
+                    }
                     // Need another instance to force the height to be static while still being able to use the maximumLineCount
                     // to truncate text when collapsed.
                     Body {
@@ -109,7 +113,7 @@ Leaf.ListItemExpandable {
         }
     }
     subDelegate: ColumnLayout {
-        Text { text: "Actions"; color: "red" }
+        Text { text: "actions"}
         Repeater {
             model: root.data.actions
             delegate: Leaf.Button {

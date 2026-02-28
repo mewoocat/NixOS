@@ -12,12 +12,12 @@ Rectangle {
     required property int yPos
     required property string style // Just a color right now
     property int size: Tetris.blockSize
+    border.width: 1
+    border.color: "black"
 
     implicitWidth: size
     implicitHeight: size
     color: root.style
-    //Layout.row: root.xPos
-    //Layout.column: root.yPos
     
     x: xPos * size
     y: yPos * size

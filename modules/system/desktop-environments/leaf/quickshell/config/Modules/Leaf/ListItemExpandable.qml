@@ -73,13 +73,13 @@ WrapperMouseArea {
         // Sub content
         WrapperRectangle {
             id: subBox
-            visible: false
             anchors.top: mainBox.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             color: "purple"
             bottomLeftRadius: 8
             bottomRightRadius: 8
+            margin: subLoader.implicitHeight > 0 ? root.padding : 0 // Margin appears to take effect even on a zero sized object
 
             Loader {
                 id: subLoader

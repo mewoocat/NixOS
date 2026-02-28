@@ -10,7 +10,7 @@ Singleton {
 
     property int gridRows: 20
     property int gridColumns: 10
-    property int blockSize: 16
+    property int blockSize: 14
 
     property Rectangle gameBoard: null // Ref to gameBoard
     property Rectangle nextShapeBoard: null // Ref to the nextShapeBoard

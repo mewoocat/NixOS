@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -6,6 +8,7 @@ import Quickshell.Widgets
 
 import "./Shapes"
 import "../Common" as Common
+import "../Leaf" as Leaf
 
 FocusScope {
     anchors.fill: parent
@@ -19,43 +22,38 @@ FocusScope {
             if (event.key == Qt.Key_L) { Tetris.activeShape.rotateRight() }
         }
     }
-    Item {
+    Rectangle {
         anchors.centerIn: parent
-        implicitHeight: gameBoard.height
-        implicitWidth: gameBoard.width + sidePanel.width
-
+        implicitHeight: gamePanel.implicitHeight
+        implicitWidth: gamePanel.implicitWidth + sidePanel.implicitWidth
+        color: "transparent"
+        
         // Main game board
+        // Keep in mind that a border on a wrapper rectangle will be drawn outside the area of the child
         WrapperRectangle {
-            id: gameBox
-            color: palette.accent
-            margin: 2
-            topLeftRadius: 2
-            bottomLeftRadius: 2
+            id: gamePanel
+            border.width: 1
+            border.color: "white"
+            color: "transparent"
             Rectangle {
                 id: gameBoard
-                color: "black"
+                color: "transparent"
                 implicitWidth: Tetris.blockSize * Tetris.gridColumns
                 implicitHeight: Tetris.blockSize * Tetris.gridRows
-
                 Component.onCompleted: Tetris.gameBoard = gameBoard
-
             }
         }
 
-        WrapperRectangle {
-            anchors.left: gameBox.right
-            implicitHeight: gameBox.height
-            color: palette.accent
-
-            margin: 2
-            topRightRadius: 2
-            bottomRightRadius: 2
         Rectangle {
             id: sidePanel
-            //Layout.fillHeight: true
-            //Layout.fillWidth: true
-            color: palette.base
-            implicitWidth: 92
+            anchors.left: gamePanel.right
+            implicitHeight: gamePanel.height
+            topRightRadius: 2
+            bottomRightRadius: 2
+            color: "transparent"
+            implicitWidth: 80
+            border.width: 1
+            border.color: "white"
 
             ColumnLayout {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -72,7 +70,7 @@ FocusScope {
                         text: `${Tetris.score}`
                     } 
                 }
-                Button {
+                Leaf.Button {
                     text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
                     onClicked: () => {
                         if (!Tetris.isRunning || Tetris.isPaused) {
@@ -84,7 +82,7 @@ FocusScope {
                     }
                 }
 
-                Button {
+                Leaf.Button {
                     text: "reset"
                     onClicked: Tetris.reset
                 }
@@ -93,11 +91,6 @@ FocusScope {
             // Next shape display
             Rectangle {
                 anchors.bottomMargin: 6
-                /*
-                border {
-                    color: "red"
-                }
-                */
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 id: nextShapeBoard
@@ -108,7 +101,6 @@ FocusScope {
                 Component.onCompleted: Tetris.nextShapeBoard = nextShapeBoard
 
             }
-        }
         }
     }
 }
