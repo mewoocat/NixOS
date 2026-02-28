@@ -34,7 +34,7 @@ ColumnLayout {
         delegate: Notification {
             required property var modelData
             Component.onCompleted: console.debug(modelData)
-            data: modelData
+            notifData: modelData
             listView: notifListView // A Required property
         }
     }

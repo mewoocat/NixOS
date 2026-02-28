@@ -70,20 +70,20 @@ PanelWindow {
                 id: notif
                 Layout.fillWidth: true
                 required property var modelData
-                data: modelData
+                notifData: modelData
                 listView: notifList
                 Component.onCompleted: console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
+                onClosed: Services.Notifications.notificationPopups.values.pop()
+                onContainsMouseChanged: {
+                    if (notif.containsMouse) {timer.stop()}
+                    else {timer.start()}
+                }
 
-                property Timer timer: Timer {
+                Timer {
+                    id: timer
                     interval: 3000
                     running: true
-                    onTriggered: {
-                        console.log(`notif popup timed out for: ${notif.data.id}`)
-                        notif.visible = false
-                    }
-                    Component.onCompleted: {
-                        console.log(`Created timer for: ${notif.data.id}`)
-                    }
+                    onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
                 }
             }
         }
