@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
@@ -23,10 +25,8 @@ PanelWindow {
     // All other clicks besides on this region pass through the window to ones behind it.
     mask: Region { item: notifList.contentItem }
 
-    // TODO: Add new notifications for a limited period of time (osd)
     Rectangle {
         anchors.fill: parent
-        //color: "purple"
         color: "transparent"
         ListView {
             id: notifList
@@ -34,7 +34,7 @@ PanelWindow {
             height: parent.height
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            model: Services.Notifications.notificationPopupModel
+            model: Services.Notifications.notificationPopups
             property int animationSpeed: 300 // ms
 
             // Animations 
@@ -66,15 +66,26 @@ PanelWindow {
                 }
             }
 
-            // TODO
-            /*
             delegate: Modules.Notification {
+                id: notif
                 Layout.fillWidth: true
                 required property var modelData
-                notification: modelData
+                data: modelData
+                listView: notifList
                 Component.onCompleted: console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
+
+                property Timer timer: Timer {
+                    interval: 3000
+                    running: true
+                    onTriggered: {
+                        console.log(`notif popup timed out for: ${notif.data.id}`)
+                        notif.visible = false
+                    }
+                    Component.onCompleted: {
+                        console.log(`Created timer for: ${notif.data.id}`)
+                    }
+                }
             }
-            */
         }
     }
 }

@@ -28,9 +28,9 @@ ColumnLayout {
         id: notifListView
         Layout.fillHeight: true
         Layout.fillWidth: true
-        visible: Services.Notifications.notifications.length > 0
+        visible: Services.Notifications.notifications.values.length > 0
         color: "transparent"
-        model: Services.Notifications.notificationModel
+        model: Services.Notifications.notifications
         delegate: Notification {
             required property var modelData
             Component.onCompleted: console.debug(modelData)
@@ -41,7 +41,7 @@ ColumnLayout {
 
     // No notification placeholder
     Item {
-        visible: Services.Notifications.notifications.length <= 0
+        visible: Services.Notifications.notifications.values.length <= 0
         Layout.fillHeight: true
         Layout.fillWidth: true
         Text {
