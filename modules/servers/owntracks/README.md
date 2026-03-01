@@ -12,6 +12,25 @@ When rebuilding, the file `/var/spool/owntracks/recorder/store/ghash/data.mdb` w
 
 This server uses port 8883 for MQTT connection of TLS.  It needs to be port forwarded.
 
+The Certificate Authority, Server and Client SSL certificates are automatically generated if they don't exist.  These can expire however which can be checked via using the following command.
+
+```
+openssl x509 -enddate -in [NAME].key
+```
+
+If a certificate is expired it can be renewed by regenerating the certificate with the original private key.  An example of renewing the CA certificate.  Note the `-key "ca.key"` uses the original key and the `-out "ca.crt"` specifies where the cert is generated to.
+```
+    openssl req \
+        -new \
+        -x509 \
+        -days 10000 \
+        -extensions v3_ca \
+        -key "ca.key" \ 
+        -out "ca.crt" \
+        -nodes \
+        -subj "/CN=Private-CA"
+```
+
 Other than that, everything should be read to go regarding the server setup.
 
 ### Client Setup
