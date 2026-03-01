@@ -48,6 +48,9 @@ T.Button {
         icon.name: control.icon.name
         icon.color: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
         text: control.text
+        font.pointSize: control.font.pointSize
         color: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
+        leftPadding: 2
+        rightPadding: 2
     }
 }

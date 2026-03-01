@@ -53,20 +53,16 @@ WrapperMouseArea {
         WrapperRectangle {
             id: mainBox
             implicitWidth: background.implicitWidth
-            implicitHeight: mainLoader.implicitHeight + (root.padding * 2) // Need to add the margin amount on each side since the mainLoader's height is shrunk by 2x the margin amount
-            //implicitHeight: parent.implicitHeight
+            // Need to add the margin amount on each side since the mainLoader's height is shrunk by 2x the margin amount
+            implicitHeight: mainLoader.implicitHeight + (root.padding * 2)
             radius: 8
             margin: root.padding
             color: "transparent"
-            //margin: root.contentMargin
 
             Loader {
                 id: mainLoader
                 active: true // Should always be shown
                 sourceComponent: root.mainDelegate
-                // Force Loaded component to be size of parent, until state change
-                //width: mainBox.implicitWidth
-                //height: parent.implicitHeight
             }
         }
 
@@ -76,7 +72,7 @@ WrapperMouseArea {
             anchors.top: mainBox.bottom
             anchors.left: parent.left
             anchors.right: parent.right
-            color: "purple"
+            color: Root.State.colors.surface
             bottomLeftRadius: 8
             bottomRightRadius: 8
             margin: subLoader.implicitHeight > 0 ? root.padding : 0 // Margin appears to take effect even on a zero sized object
@@ -108,8 +104,6 @@ WrapperMouseArea {
                 mainBox {
                     bottomLeftRadius: 0
                     bottomRightRadius: 0
-                }
-                mainLoader {
                 }
             }
         }

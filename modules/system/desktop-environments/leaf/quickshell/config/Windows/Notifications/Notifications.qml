@@ -81,7 +81,7 @@ PanelWindow {
 
                 Timer {
                     id: timer
-                    interval: 3000
+                    interval: 2000
                     running: true
                     onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
                 }

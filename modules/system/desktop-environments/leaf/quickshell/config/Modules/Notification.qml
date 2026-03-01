@@ -26,7 +26,12 @@ Leaf.ListItemExpandable {
     signal closed()
     maxCollapsedHeight: 120 
     expansionAnimationSpeed: 350
-    onClicked: console.log(JSON.stringify(notifData.actions, null, 4))
+    // Seems "View" is usually the first action ... invoke it if clicked anywhere within the notification
+    onClicked: {
+        const firstAction = notifData.actions[0]?.invoke
+        if (firstAction) { firstAction() }
+        else { console.log(`No action for notification`) }
+    }
     mainDelegate: Rectangle {
         id: main
         property bool moreBodyText: ghostBody.implicitHeight > body.implicitHeight
@@ -64,13 +69,16 @@ Leaf.ListItemExpandable {
             Item {Layout.fillWidth: true;}
 
             Leaf.Button {
-                //visible: root.notifData.actions?.length > 0 || ghostBody.lineCount > root.maxBodyLines
+                implicitHeight: 24
+                visible: root.notifData.actions?.length > 0 || ghostBody.lineCount > root.maxBodyLines
                 text: "Expand"
+                font.pointSize: 10
                 onClicked: root.expanded = !root.expanded
             }
 
             Leaf.Button {
                 implicitWidth: 32
+                implicitHeight: 24
                 icon.name: 'gtk-close'
                 onClicked: () => {
                     root.notifData.dismiss()
@@ -108,7 +116,7 @@ Leaf.ListItemExpandable {
                         text: root.notifData.body
                         elide: Text.ElideRight // Truncate with ... on the right
                         font.pointSize: 8
-                        color: Root.State.colors.on_surface
+                        color: Root.State.colors.on_surface_variant
                         wrapMode: Text.Wrap
                         maximumLineCount: root.expanded ? undefined : root.maxBodyLines
                         Behavior on maximumLineCount { PropertyAnimation { duration: root.expansionAnimationSpeed } }
@@ -128,14 +136,17 @@ Leaf.ListItemExpandable {
             }
         }
     }
-    subDelegate: ColumnLayout {
-        Text { text: "actions"}
+    subDelegate: FlexboxLayout {
+        // TODO: For some reason enabling wrap causes the height of the FlexboxLayout to be increased for each child
+        // even if multiple children are layed out horizontally.
+        //wrap: FlexboxLayout.wrapMode
+        direction: FlexboxLayout.Row
         Repeater {
             model: root.notifData.actions
             delegate: Leaf.Button {
                 required property var modelData
                 text: modelData.text
-                onClicked: modelData.invoke
+                onClicked: modelData.invoke()
             }
         }
     }

@@ -5,8 +5,12 @@ import Quickshell.Services.Notifications //as QsNotifications
 
 Singleton {
     id: root
-
-    property var notifications: server.trackedNotifications // ObjectModel<Notification> for all tracked notifications
+    
+    // ScriptModel<Notification> for all tracked notifications (in reverse order)
+    property ScriptModel notifications: ScriptModel {
+        // Need to create a copy with ... to avoid `Unable to assign QQmlListReference to QVariantList` error
+        values: [...server.trackedNotifications.values].reverse()
+    }
     property ScriptModel notificationPopups: ScriptModel {} // ScriptModel<Notification> for notifications which are popped up
 
     function enable() {
