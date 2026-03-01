@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 import qs.Modules.Leaf as Leaf
@@ -9,11 +10,23 @@ import qs as Root
 
 Leaf.ListItemExpandable {
     id: root
-    required property var data // Essentially a Quickshell.Services.Notification as js object
+    required property Notification notifData
+
+    // Ensure this qs notification object can't be destroyed until unlocked
+    // Needed since calling dismiss for the qs notification destroys it, but we want to play an
+    // animation when dismissed.  Need to keep the object around long enough for that animation
+    // to play.  Otherwise quickshell seems to crash.
+    // Then, whenever this object is destroyed, so will the qs notification object.
+    RetainableLock {
+      object: root.notifData
+      locked: true
+    }
+
     property int maxBodyLines: 4
+    signal closed()
     maxCollapsedHeight: 120 
     expansionAnimationSpeed: 350
-    onClicked: console.log(JSON.stringify(data.actions, null, 4))
+    onClicked: console.log(JSON.stringify(notifData.actions, null, 4))
     mainDelegate: Rectangle {
         id: main
         property bool moreBodyText: ghostBody.implicitHeight > body.implicitHeight
@@ -35,8 +48,8 @@ Leaf.ListItemExpandable {
                     id: appIcon
                     implicitSize: 18
                     source: {
-                        let name = root.data.appIcon
-                        if (name === "") { name = root.data.appName.toLowerCase() }
+                        let name = root.notifData.appIcon
+                        if (name === "") { name = root.notifData.appName.toLowerCase() }
                         Quickshell.iconPath(name, "dialog-question")
                     }
                 }
@@ -44,14 +57,14 @@ Leaf.ListItemExpandable {
                 Text {
                     color: Root.State.colors.on_surface
                     font.pointSize: 8
-                    text: root.data.appName
+                    text: root.notifData.appName
                 }
             }
             // Spacer to push close button to right
             Item {Layout.fillWidth: true;}
 
             Leaf.Button {
-                //visible: root.data.actions?.length > 0 || ghostBody.lineCount > root.maxBodyLines
+                //visible: root.notifData.actions?.length > 0 || ghostBody.lineCount > root.maxBodyLines
                 text: "Expand"
                 onClicked: root.expanded = !root.expanded
             }
@@ -59,7 +72,10 @@ Leaf.ListItemExpandable {
             Leaf.Button {
                 implicitWidth: 32
                 icon.name: 'gtk-close'
-                onClicked: () => root.data.dismiss()
+                onClicked: () => {
+                    root.notifData.dismiss()
+                    root.closed()
+                }
             }
         }
         RowLayout {
@@ -70,16 +86,16 @@ Leaf.ListItemExpandable {
             spacing: 0
             IconImage {
                 Layout.alignment: Qt.AlignTop
-                visible: root.data.image != ""
+                visible: root.notifData.image != ""
                 Layout.margins: 4
                 implicitSize: 40
-                source: root.data.image
+                source: root.notifData.image
             }
             ColumnLayout {
                 // Summary
                 Text {
                     Layout.fillWidth: true
-                    text: root.data.summary
+                    text: root.notifData.summary
                     elide: Text.ElideRight // Truncate with ... on the right
                     color: Root.State.colors.on_surface
                 }
@@ -89,7 +105,7 @@ Leaf.ListItemExpandable {
                     implicitHeight: ghostBody.implicitHeight
                     component Body: Text {
                         anchors.fill: parent
-                        text: root.data.body
+                        text: root.notifData.body
                         elide: Text.ElideRight // Truncate with ... on the right
                         font.pointSize: 8
                         color: Root.State.colors.on_surface
@@ -115,7 +131,7 @@ Leaf.ListItemExpandable {
     subDelegate: ColumnLayout {
         Text { text: "actions"}
         Repeater {
-            model: root.data.actions
+            model: root.notifData.actions
             delegate: Leaf.Button {
                 required property var modelData
                 text: modelData.text
