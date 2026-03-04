@@ -63,6 +63,11 @@
       openssl
       arduino
 
+      # yubikey
+      yubikey-manager # ykman cli tool
+      yubico-piv-tool
+      monkeysphere # pgp to ssh utility
+
       # Applications
       vesktop
       vscodium
@@ -100,6 +105,13 @@
   };
 
   programs.wireshark.enable = true; # Add Wireshark to the global environment and create a ‘wireshark’ group
+  programs.gnupg = {
+    agent = {
+      enable = true;
+      enableSSHSupport = true; # Drop in replacement for ssh-agent called gpg-agent
+      #pinentryPackage = pkgs.pinentry-gtk2;
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";

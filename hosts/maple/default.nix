@@ -20,7 +20,7 @@ inputs.nixpkgs-server.lib.nixosSystem {
     ../../modules/servers/nextcloud
     #../../modules/servers/ad-guard-home
     ../../modules/servers/owntracks
-    ../../modules/servers/fail2ban
+    #../../modules/servers/fail2ban
     #../../modules/servers/traccar
     #../../modules/servers/minecraft
 
