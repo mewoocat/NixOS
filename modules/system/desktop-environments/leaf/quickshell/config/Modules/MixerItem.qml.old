@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 import qs.Services as Services
+import qs as Root
 
 Rectangle {
     //Layout.fillWidth: true
@@ -46,7 +47,7 @@ ColumnLayout {
         // Source name
         Text {
             Layout.fillWidth: true
-            color: palette.text
+            color: Root.State.colors.on_surface
             elide: Text.ElideRight
             text: {
                 const text = root.node.properties["application.name"]

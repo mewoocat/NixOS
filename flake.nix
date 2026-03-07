@@ -34,7 +34,8 @@
       inputs.hyprland.follows = "hyprland";
     };
     qtengine = {
-      url = "github:kossLAN/qtengine";
+      #url = "github:kossLAN/qtengine";
+      url = "git+https://github.com/kossLAN/qtengine?rev=353be5d0b29f460c3ec5124daabdaef2bf2e9c40";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #matugen.url = "github:InioX/matugen?ref=v3.1.0";

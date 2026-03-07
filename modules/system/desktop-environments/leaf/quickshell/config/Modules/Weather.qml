@@ -70,11 +70,5 @@ Item {
                 }
             }
         }
-        /*
-        Text {
-            color: palette.text
-            text: `lat/lon: ${Services.Weather.latitude}/${Services.Weather.longitude}`
-        }
-        */
     }
 }

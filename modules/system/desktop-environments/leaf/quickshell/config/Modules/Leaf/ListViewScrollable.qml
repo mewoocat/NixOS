@@ -8,7 +8,6 @@ import Quickshell.Widgets
 import qs as Root
 import qs.Modules.Leaf as Leaf
 
-// Size of root element must be set when consumed
 Rectangle {
     id: root
 

@@ -58,7 +58,7 @@ FocusScope {
             ColumnLayout {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
-                    color: palette.text
+                    color: "white"
                     text: `score`
                 } 
                 WrapperRectangle { 
@@ -66,7 +66,7 @@ FocusScope {
                     margin: 8
                     implicitWidth: parent.width
                     Text {
-                        color: palette.text
+                        color: "white"
                         text: `${Tetris.score}`
                     } 
                 }

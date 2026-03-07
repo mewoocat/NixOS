@@ -20,7 +20,7 @@ WrapperMouseArea {
     WrapperRectangle {
         margin: 4
         radius: Root.State.rounding
-        color: root.containsMouse ? palette.highlight : "transparent"
+        color: root.containsMouse ? Root.State.colors.primary : "transparent"
         RowLayout {
             IconImage {
                 visible: root.iconName != ""
@@ -28,7 +28,7 @@ WrapperMouseArea {
                 source: Quickshell.iconPath(root.iconName)
             }
             Text {
-                color: palette.text
+                color: root.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
                 text: root.text
                 Layout.fillWidth: true
             }

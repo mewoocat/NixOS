@@ -1381,17 +1381,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1769015610,
-        "narHash": "sha256-Uvrb9lpTW77sJvsgO7o2U/BmSAbD8IDdUr9bGmIKtt8=",
-        "owner": "kossLAN",
-        "repo": "qtengine",
-        "rev": "10d61da0369c123d8bde94ffc6b60441e5e7c2f3",
-        "type": "github"
+        "lastModified": 1772617509,
+        "narHash": "sha256-JMFlh1SqR3OJPG345h5QYM/C/Y/UrtcGHydoWnuLhhc=",
+        "ref": "refs/heads/master",
+        "rev": "353be5d0b29f460c3ec5124daabdaef2bf2e9c40",
+        "revCount": 27,
+        "type": "git",
+        "url": "https://github.com/kossLAN/qtengine"
       },
       "original": {
-        "owner": "kossLAN",
-        "repo": "qtengine",
-        "type": "github"
+        "rev": "353be5d0b29f460c3ec5124daabdaef2bf2e9c40",
+        "type": "git",
+        "url": "https://github.com/kossLAN/qtengine"
       }
     },
     "quickshell": {

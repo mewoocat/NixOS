@@ -47,8 +47,7 @@ PopupWindow {
         hoverEnabled: true
         WrapperRectangle {
             id: box
-            //color: palette.window
-            color: "#aa111111"
+            color: Qt.alpha(Root.State.colors.surface, 0.4)
             radius: Root.State.rounding
             margin: 8
             children: [ root.content ]

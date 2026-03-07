@@ -19,9 +19,13 @@ in{
     inputs.qtengine.nixosModules.default
   ];
 
-  # Unlike qt(5/6)ct, qtengine doesn't support hot reloading of colors.  Support is planned for the future.
+  environment.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "qtengine";
+  };
+
+  # Hot reloading support not yet in master
   programs.qtengine = {
-    enable = true;
+    enable = false;
     config = {
       theme = {
         # Note that this file apparently affect the colors of icons
@@ -151,6 +155,7 @@ in{
     grim
     ddcutil
     ddcui
+    inputs.qtengine.packages.${config.hostSystem}.default
   ];
 
   # GreetD
