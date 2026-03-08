@@ -32,7 +32,7 @@ PageBase {
         property var scrollItem: null
 
         IconImage {
-            Layout.leftMargin: 4
+            //Layout.leftMargin: 4
             implicitSize: 24
             source: Quickshell.iconPath(mainDelegate.modelData.icon, "bluetooth") // fallbacks to "bluetooth"
         }
@@ -48,7 +48,9 @@ PageBase {
             RowLayout {
                 Text {
                     id: status
-                    color: mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                    color: mainDelegate.modelData.connected ?
+                        Root.State.colors.green
+                        : mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                     opacity: 0.6
                     elide: Text.ElideRight
                     font.pointSize: 8
@@ -72,15 +74,24 @@ PageBase {
                 }
             }
         }
+        /*
         Leaf.NormalButton {
             Layout.alignment: Qt.AlignRight
-            visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
+            visible: mainDelegate.scrollItem.interacted
             iconName: "view-more"
             leftClick: () => mainDelegate.scrollItem.expanded = !mainDelegate.scrollItem.expanded
             defaultIconColor: Root.State.colors.on_primary
             activeIconColor: Root.State.colors.on_primary_container
             activeBgColor: Root.State.colors.primary_container
-            recolorIcon: true
+        }
+        */
+        Leaf.Button {
+            id: expandBtn
+            visible: mainDelegate.scrollItem.interacted
+            icon.name: "view-more"
+            onClicked: () => mainDelegate.scrollItem.expanded = !mainDelegate.scrollItem.expanded
+            backgroundColor: expandBtn.hovered ? Root.State.colors.primary_container : "transparent"
+            icon.color: expandBtn.hovered ? Root.State.colors.on_primary_container : Root.State.colors.on_primary
         }
     }
     
@@ -127,106 +138,135 @@ PageBase {
     }
 
 
-    content: ColumnLayout {
-        id: pageContent
+    content: Leaf.FlickScrollable {
+        id: scrollable
         anchors.fill: parent
+        contentPadding: 0
+        showBackground: false
 
-        Leaf.FlickScrollable {
-            id: scrollable
-            // Size determined by the pageContent
-            implicitWidth: parent.width
-            implicitHeight: parent.height
-            contentPadding: 0
-            showBackground: false
+        // Width should be determined by the scrollable - any padding
+        // Then the children in the layout should be constrained by this size
+        content: ColumnLayout {
+            anchors.fill: parent
+            id: col
+            spacing: 0
 
-            // Width should be determined by the scrollable - any padding
-            // Then the children in the layout should be constrained by this size
-            content: ColumnLayout {
-                anchors.fill: parent
-                id: col
-                spacing: 8
+            // Forces the layout to have a width of this element since it's the largest
+            // All other siblings can then Layout.fillWidth: true to also become the same width
+            //Item { implicitWidth: col.width }
 
-                // Forces the layout to have a width of this element since it's the largest
-                // All other siblings can then Layout.fillWidth: true to also become the same width
-                //Item { implicitWidth: col.width }
+            // Paired Devices
+            WrapperItem {
+                Layout.fillWidth: true
+                Text {
+                    padding: 8
+                    color: palette.text
+                    text: "My Devices"
+                }
+            }
 
-                // Paired Devices
+            Leaf.ListView {
+                id: pariredListView
+                implicitWidth: parent.implicitWidth 
+                // implicit height defaults to full height of children
+                model: ScriptModel {
+                    values: Bluetooth.devices.values
+                        .filter(device => device.paired)
+                        .sort((a, b) => { // Sort connected devices first
+                            if (a.connected && b.connected) return 0
+                            if (!a.connected && !b.connected) return 0
+                            if (a.connected && !b.connected) return -1
+                            if (!a.connected && b.connected) return 1
+                        })
+                }
+                delegate: Leaf.ListItemExpandable {
+                    id: pairedListItem
+                    margin: 2
+                    padding: 2
+                    contentMargin: 0
+                    listView: pariredListView
+                    required property BluetoothDevice modelData
+                    backgroundColor: pairedListItem.interacted ? Root.State.colors.primary : "transparent"
+                    onClicked: () => {
+                        const btDevice = pairedListItem.modelData
+                        if (btDevice.paired) {
+                            return btDevice.connected ? btDevice.disconnect() : btDevice.connect()
+                        }
+                        return btDevice.pair()
+                    }
+                    mainDelegate: BtMain {
+                        modelData: pairedListItem.modelData
+                        scrollItem: pairedListItem
+                    }
+                    subDelegate: BtSub {
+                        modelData: pairedListItem.modelData
+                        scrollItem: pairedListItem
+                    }
+                }
+            }
+
+            // Nearby Devices
+            RowLayout {
                 WrapperItem {
                     Layout.fillWidth: true
                     Text {
                         padding: 8
                         color: palette.text
-                        text: "My Devices"
+                        text: "Nearby Devices"
                     }
                 }
-                //Leaf.HorizontalLine { }
-                Leaf.ListViewScrollable {
-                    Layout.fillWidth: true
-                    interactable: false
-                    model: ScriptModel {
-                        values: Bluetooth.devices.values.filter(device => device.paired)
+                Leaf.Button {
+                    Layout.rightMargin: 8 // TODO: find a better solution
+                    id: refreshButton
+                    icon.name: "view-refresh-symbolic" 
+                    onClicked: {
+                        console.log(`scannings for bt devices`)
+                        Bluetooth.defaultAdapter.discovering = true
                     }
-                    // When an entry is clicked (modelData is a BluetoothDevice)
-                    onPrimaryClick: (modelData) => {
-                        const btDevice = modelData
-                        if (btDevice.paired) {
-                            return btDevice.connected ? btDevice.disconnect() : btDevice.connect()
-                        }
-                        return btDevice.pair()
-                    }
-                    mainDelegate: BtMain {}
-                    subDelegate: BtSub {} 
                 }
+            }
 
-                // Nearby Devices
-                RowLayout {
-                    WrapperItem {
-                        Layout.fillWidth: true
-                        Text {
-                            padding: 8
-                            color: palette.text
-                            text: "Nearby Devices"
-                        }
-                    }
-                    Button {
-                        Layout.rightMargin: 8 // TODO: find a better solution
-                        id: refreshButton
-                        icon.name: "view-refresh-symbolic" 
-                        onClicked: {
-                           console.log(`scannings for bt devices`)
-                           Bluetooth.defaultAdapter.discovering = true
-                        }
-                    }
-                }
-                //Leaf.HorizontalLine { }
-                Leaf.ListViewScrollable {
-                    Layout.fillWidth: true
-                    interactable: false
-                    model: ScriptModel {
-                        values: Bluetooth.devices.values.filter(device => !device.paired)
-                    }
-                    // When an entry is clicked (modelData is a BluetoothDevice)
-                    onPrimaryClick: (modelData) => {
-                        const btDevice = modelData
+            //Leaf.HorizontalLine { }
+            Leaf.ListView {
+                id: unpariredListView
+                implicitWidth: parent.implicitWidth 
+                // implicit height defaults to full height of children
+                model: ScriptModel { values: Bluetooth.devices.values.filter(device => !device.paired) }
+                delegate: Leaf.ListItemExpandable {
+                    id: listItem
+                    margin: 2
+                    padding: 2
+                    contentMargin: 0
+                    listView: pariredListView
+                    required property BluetoothDevice modelData
+                    backgroundColor: listItem.interacted ? Root.State.colors.primary : "transparent"
+                    onClicked: () => {
+                        const btDevice = listmodelData
                         if (btDevice.paired) {
                             return btDevice.connected ? btDevice.disconnect() : btDevice.connect()
                         }
                         return btDevice.pair()
                     }
-                    mainDelegate: BtMain {}
-                    subDelegate: BtSub {} 
-                }
-                Item {
-                    id: nearbyFallback
-                    visible: !Bluetooth.devices.values.some(device => !device.paired)
-                    Layout.fillWidth: true
-                    implicitHeight: 64
-                    Text {
-                        anchors.centerIn: parent
-                        color: palette.placeholderText
-                        text: "Refresh to scan for new devices"
-                        font.pointSize: 10
+                    mainDelegate: BtMain {
+                        modelData: listItem.modelData
+                        scrollItem: listItem
                     }
+                    subDelegate: BtSub {
+                        modelData: listItem.modelData
+                        scrollItem: listItem
+                    }
+                }
+            }
+            Item {
+                id: nearbyFallback
+                visible: !Bluetooth.devices.values.some(device => !device.paired)
+                Layout.fillWidth: true
+                implicitHeight: 64
+                Text {
+                    anchors.centerIn: parent
+                    color: palette.placeholderText
+                    text: "Refresh to scan for new devices"
+                    font.pointSize: 10
                 }
             }
         }

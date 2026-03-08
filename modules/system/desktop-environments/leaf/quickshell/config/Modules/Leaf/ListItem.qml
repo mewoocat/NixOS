@@ -14,13 +14,12 @@ WrapperMouseArea {
     required property Component delegate
 
     property bool showBackground: false
-    property int contentMargin: 8
     property bool interacted: root.containsMouse || root.focus
-    property int padding: 0
+    property int padding: 8
 
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
-    margin: 0
+    margin: 8
 
     Rectangle {
         id: background

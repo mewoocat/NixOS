@@ -17,18 +17,16 @@ Item {
 
     ColumnLayout {
         id: header
-        anchors.margins: 16
+        anchors.margins: 12
         anchors.fill: parent
-        spacing: 12
+        spacing: 4
 
         // Header
         RowLayout {
             // Back button
-            Leaf.NormalButton {
-                defaultInternalMargin: 2
-                buttonHeight: 32
-                iconName: "back"
-                leftClick: () => Root.State.controlPanelPage = 0
+            Leaf.Button {
+                icon.name: "back"
+                onClicked: () => Root.State.controlPanelPage = 0
             } 
 
             // Spacer

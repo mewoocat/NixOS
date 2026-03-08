@@ -19,10 +19,11 @@ WrapperMouseArea {
     property bool expanded: false // Whether this item is currently expanded
     property bool showBackground: false
     property int contentMargin: 8
-    property bool interacted: root.containsMouse || root.focus || root.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
+    property bool interacted: root.containsMouse || /*root.focus ||*/ root.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
     property int maxCollapsedHeight: 100
     property int padding: 8
     property int expansionAnimationSpeed: 350
+    property color backgroundColor: root.interacted ? Root.State.colors.surface_container_high : Root.State.colors.surface_container_highest
 
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
@@ -44,7 +45,7 @@ WrapperMouseArea {
     Rectangle {
         id: background
         clip: true
-        color: root.containsMouse ? Root.State.colors.surface_container_high : Root.State.colors.surface_container_highest
+        color: root.backgroundColor
         radius: Root.State.rounding
         implicitWidth: parent.implicitWidth - (root.margin * 2)  // We want the width after taking into account the margins
         implicitHeight: Math.min(root.maxCollapsedHeight, mainBox.implicitHeight)// !! implicitHeight is modified via a state change
