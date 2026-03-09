@@ -23,7 +23,9 @@ WrapperMouseArea {
     property int maxCollapsedHeight: 100
     property int padding: 8
     property int expansionAnimationSpeed: 350
-    property color backgroundColor: root.interacted ? Root.State.colors.surface_container_high : Root.State.colors.surface_container_highest
+    property color backgroundColor: root.interacted ? Root.State.colors.surface_container : "transparent"
+    property color mainColor: "transparent"
+    property color subColor: "transparent"
 
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
@@ -56,9 +58,9 @@ WrapperMouseArea {
             implicitWidth: background.implicitWidth
             // Need to add the margin amount on each side since the mainLoader's height is shrunk by 2x the margin amount
             implicitHeight: mainLoader.implicitHeight + (root.padding * 2)
-            radius: 8
             margin: root.padding
-            color: "transparent"
+            color: root.mainColor
+            radius: 8
 
             Loader {
                 id: mainLoader
@@ -73,10 +75,10 @@ WrapperMouseArea {
             anchors.top: mainBox.bottom
             anchors.left: parent.left
             anchors.right: parent.right
-            color: Root.State.colors.surface
             bottomLeftRadius: 8
             bottomRightRadius: 8
             margin: subLoader.implicitHeight > 0 ? root.padding : 0 // Margin appears to take effect even on a zero sized object
+            color: root.subColor
 
             Loader {
                 id: subLoader

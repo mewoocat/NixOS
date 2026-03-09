@@ -32,6 +32,10 @@ Leaf.ListItemExpandable {
         if (firstAction) { firstAction() }
         else { console.log(`No action for notification`) }
     }
+    backgroundColor: root.interacted ? Root.State.colors.surface_container_highest : Root.State.colors.surface
+    //mainColor: Root.State.colors.surface
+    //subColor: Root.State.colors.surface
+
     mainDelegate: Rectangle {
         id: main
         property bool moreBodyText: ghostBody.implicitHeight > body.implicitHeight

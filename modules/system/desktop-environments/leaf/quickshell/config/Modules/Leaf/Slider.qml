@@ -11,7 +11,7 @@ T.Slider {
 
     hoverEnabled: true
 
-    padding: 4
+    padding: 3
     leftPadding: padding
     rightPadding: padding
     topPadding: padding

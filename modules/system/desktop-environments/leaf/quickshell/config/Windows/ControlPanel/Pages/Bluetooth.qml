@@ -179,7 +179,8 @@ PageBase {
                     contentMargin: 0
                     listView: pariredListView
                     required property BluetoothDevice modelData
-                    backgroundColor: pairedListItem.interacted ? Root.State.colors.primary : "transparent"
+                    backgroundColor: pairedListItem.interacted ? Root.State.colors.surface_container : "transparent"
+                    mainColor: pairedListItem.interacted ? Root.State.colors.primary : "transparent"
                     onClicked: () => {
                         const btDevice = pairedListItem.modelData
                         if (btDevice.paired) {
@@ -225,7 +226,7 @@ PageBase {
                     contentMargin: 0
                     listView: pariredListView
                     required property BluetoothDevice modelData
-                    backgroundColor: listItem.interacted ? Root.State.colors.primary : "transparent"
+                    //backgroundColor: listItem.interacted ? Root.State.colors.primary : "transparent"
                     onClicked: () => {
                         const btDevice = listmodelData
                         if (btDevice.paired) {
