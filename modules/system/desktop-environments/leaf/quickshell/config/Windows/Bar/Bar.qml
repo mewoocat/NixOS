@@ -54,10 +54,7 @@ Scope {
                             iconName: "distributor-logo-nixos"
                         }
                         Workspaces {}
-                        Leaf.ButtonSkeuo {
-                            text: "what"
-                            icon.width: 24
-                            icon.height: 24
+                        Leaf.Slider {
                         }
                     }
                     // Center

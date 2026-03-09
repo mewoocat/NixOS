@@ -205,7 +205,6 @@ Leaf.PanelWindow {
                                 rightPadding: 8
                                 elide: Text.ElideRight // Truncate with ... on the right
                                 text: mainDelegate.app.name
-                                //color: mouseArea.containsMouse || mouseArea.focus ? palette.highlightedText : palette.text
                                 color: scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                             }
                             Text{

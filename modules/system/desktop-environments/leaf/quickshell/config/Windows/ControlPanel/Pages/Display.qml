@@ -14,7 +14,7 @@ PageBase {
         anchors.right: parent.right
         anchors.left: parent.left
 
-        SectionBase { name: "Brightness"}
+        SubSection { name: "Brightness"}
         RowLayout {
             Text {
                 text: "Display 1"
@@ -32,7 +32,7 @@ PageBase {
             }
         }
 
-        SectionBase { name: "Night Light"}
+        SubSection { name: "Night Light"}
         RowLayout {
             Text {
                 text: "Warmth"

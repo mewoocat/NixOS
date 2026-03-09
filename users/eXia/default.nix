@@ -90,6 +90,7 @@
       flashgbx
       qtcreator
       clementine # Music player
+      blanket
 
       # Network tools
       wireshark

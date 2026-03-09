@@ -156,14 +156,7 @@ PageBase {
             //Item { implicitWidth: col.width }
 
             // Paired Devices
-            WrapperItem {
-                Layout.fillWidth: true
-                Text {
-                    padding: 8
-                    color: palette.text
-                    text: "My Devices"
-                }
-            }
+            SubSection { name: "My Devices" }
 
             Leaf.ListView {
                 id: pariredListView
@@ -206,16 +199,9 @@ PageBase {
             }
 
             // Nearby Devices
-            RowLayout {
-                WrapperItem {
-                    Layout.fillWidth: true
-                    Text {
-                        padding: 8
-                        color: palette.text
-                        text: "Nearby Devices"
-                    }
-                }
-                Leaf.Button {
+            SubSection { 
+                name: "Nearby Devices"
+                content: Leaf.Button {
                     Layout.rightMargin: 8 // TODO: find a better solution
                     id: refreshButton
                     icon.name: "view-refresh-symbolic" 

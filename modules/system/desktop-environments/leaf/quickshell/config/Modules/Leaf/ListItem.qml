@@ -13,8 +13,8 @@ WrapperMouseArea {
     //required property var modelData // Injected by Leaf.ListView
     required property Component delegate
 
-    property bool showBackground: false
-    property bool interacted: root.containsMouse || root.focus
+    property color backgroundColor: interacted ? Root.State.colors.surface_container_high : Root.State.colors.surface_container_highest
+    property bool interacted: root.containsMouse
     property int padding: 8
 
     implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
@@ -24,7 +24,7 @@ WrapperMouseArea {
     Rectangle {
         id: background
         clip: true
-        color: root.containsMouse ? Root.State.colors.surface_container_high : Root.State.colors.surface_container_highest
+        color: root.backgroundColor
         radius: Root.State.rounding
         implicitWidth: parent.implicitWidth - (root.margin * 2)  // We want the width after taking into account the margins
         implicitHeight: mainBox.implicitHeight

@@ -6,13 +6,6 @@ My personal NixOS system flake.
 
 ![Example](https://github.com/mewoocat/NixOS/blob/main/assets/desktop-4.png)
 
-|                |          |
-| -------------- | -------- |
-| Window Manager | Hyprland |
-| Shell          | AGS      |
-| Editor         | nvim-nvf |
-| Terminal       | Foot     |
-
 # Installation
 
 _Warning_ These instructions are somewhat incomplete

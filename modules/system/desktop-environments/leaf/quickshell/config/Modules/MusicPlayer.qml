@@ -135,7 +135,7 @@ GridLayout {
         Layout.row: 1
         Layout.column: 1
 
-        Slider {
+        Leaf.Slider {
             id: slider
             enabled: root.currentPlayer !== null
             //live: false

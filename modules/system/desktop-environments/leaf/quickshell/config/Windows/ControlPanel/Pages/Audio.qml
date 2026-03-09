@@ -7,6 +7,7 @@ import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules as Modules
 import qs.Modules.Leaf as Leaf
+import qs as Root
 
 PageBase {
     pageName: "Audio" 
@@ -18,8 +19,13 @@ PageBase {
         //implicitHeight: 80
         implicitWidth: parent.width
         //color: "green"
+        padding: 2
+        margin: 2
+        backgroundColor: root.interacted ? Root.State.colors.primary : "transparent"
         required property PwLinkGroup modelData
         property PwNode node: modelData.source // The source node
+        property string name: ""
+        property string description: ""
         delegate: ColumnLayout {
             id: column
             spacing: 0
@@ -35,29 +41,53 @@ PageBase {
                 Layout.fillWidth: true
                 IconImage {
                     implicitSize: 24
-                    // For some reason application.icon-name is "", using .name instead
-                    //source: Quickshell.iconPath(root.node.properties["application.icon-name"])
                     source: {
                         // If node is set and is bound
                         if (root.node && root.node.ready) {
                             const properties = root.node.properties
-                            if (properties["application.name"] !== undefined) {
-                                return Quickshell.iconPath(root.node.properties["application.name"].toLowerCase())
+                            const iconName = properties["application.icon-name"] // Can be ""
+                            const appName = properties["application.name"]
+                            // First try the app icon-name
+                            if (iconName !== undefined) {
+                                // Passing in true for the second param will return an empty string if icon is not found
+                                const iconAttempt = Quickshell.iconPath(iconName, true)
+                                if (iconAttempt != "") return iconAttempt
                             }
+                            // If none is found try the app name
+                            if (appName !== undefined) {
+                                const nameAttempt = Quickshell.iconPath(appName.toLowerCase())
+                                if (nameAttempt != "") return nameAttempt
+                            }
+                            // fallback (generic volume level icon)
+                            return Quickshell.iconPath(Services.Audio.getIcon(root.node))
                         }
-                        // fallback
-                        return Quickshell.iconPath(Services.Audio.getIcon(Pipewire.defaultAudioSink))
                     }
                 }
-                // Source name
-                Text {
-                    Layout.fillWidth: true
-                    color: Root.State.colors.on_surface
-                    elide: Text.ElideRight
-                    text: {
-                        const text = root.node.properties["application.name"]
-                        if (text === undefined) { return "n/a" }
-                        return text
+                ColumnLayout {
+                    spacing: 0
+                    Text {
+                        Layout.fillWidth: true
+                        color: root.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                        elide: Text.ElideRight
+                        text: {
+                            if (root.name != "") { return root.name }
+                            if (root.node.description != "") return root.node.description
+                            const text = root.node.properties["application.name"]
+                            if (text === undefined) { return "n/a" }
+                            return text
+                        }
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: {
+                            if (root.description != "") { return root.description }
+                            if (root.node.properties["media.name"] != "") return root.node.properties["media.name"]
+                            return "n/a"
+                        }
+                        elide: Text.ElideRight
+                        color: root.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                        font.pointSize: 8
+                        opacity: 0.6
                     }
                 }
             }
@@ -74,95 +104,99 @@ PageBase {
             }
             */
 
-            Slider {
+            Leaf.Slider {
                 Layout.fillWidth: true
-                from: 0
                 value: Services.Audio.getVolume(root.node)
                 // Don't allow for value to be changed until node is bound
                 onValueChanged: root.node.ready ? root.node.audio.volume = value : null
-                to: 1
             }
         }
     }
 
 
-    content: ColumnLayout {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.bottom: parent.bottom
+    content: Leaf.FlickScrollable {
+        id: scrollable
+        anchors.fill: parent
+        contentPadding: 0
+        showBackground: false
 
-        SectionBase { name: "Output"}
+        content: ColumnLayout {
+            anchors.fill: parent
+            id: col
+            spacing: 0
+    
+            SubSection { name: "Output"}
 
-        // Default output
-        MixerItem {
-            implicitWidth: parent.width
-            node: Pipewire.defaultAudioSink
-        }
-
-        // Output device selector
-        ComboBox {
-            id: comboBox
-            implicitWidth: parent.width
-            model: Services.Audio.outputDevices
-                .map(n => n.description) // Map to just the output name string (Results in a list of string names)
-            onActivated: (index) => { 
-                console.log(index)
-                Pipewire.preferredDefaultAudioSink = Services.Audio.outputDevices[index] // Set the audio output (untested)
+            // Default output
+            MixerItem {
+                implicitWidth: parent.width
+                node: Pipewire.defaultAudioSink
+                name: node.nickname
+                description: node.properties["media.class"]
             }
+
+            // Output device selector
+            ComboBox {
+                id: comboBox
+                implicitWidth: parent.width
+                model: Services.Audio.outputDevices
+                    .map(n => n.description) // Map to just the output name string (Results in a list of string names)
+                onActivated: (index) => { 
+                    console.log(index)
+                    Pipewire.preferredDefaultAudioSink = Services.Audio.outputDevices[index] // Set the audio output (untested)
+                }
+                /*
+                delegate: WrapperMouseArea {
+                    Component.onCompleted: () => {
+                        console.log(`------------------------------modelData: ${modelData.ready} - ${modelData.description} - stream? ${modelData.isStream}`)
+                    }
+                    id: item
+                    required property PwNode modelData
+                    Text {
+                        color: Root.State.colors.on_surface_container
+                        text: `name: ${item.modelData.name}`
+                    }
+                }
+                */
+            }
+
+            SubSection { name: "Mixer"}
+            
             /*
-            delegate: WrapperMouseArea {
-                Component.onCompleted: () => {
-                    console.log(`------------------------------modelData: ${modelData.ready} - ${modelData.description} - stream? ${modelData.isStream}`)
-                }
-                id: item
-                required property PwNode modelData
-                Text {
-                    color: Root.State.colors.on_surface_container
-                    text: `name: ${item.modelData.name}`
-                }
+            Leaf.ListViewScrollable {
+                // If some apps are outputting to the default output
+                visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                color: palette.base
+
+                // For each source outputting to the default output
+                // i.e. Each program, etc.
+                // A link is a connection between two nodes
+                model: Services.Audio.defaultOutputLinkTracker.linkGroups
+                mainDelegate: Modules.MixerItem {}
             }
             */
-        }
-
-        SectionBase { name: "Mixer"}
-        
-        /*
-        Leaf.ListViewScrollable {
-            // If some apps are outputting to the default output
-            visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            color: palette.base
-
-            // For each source outputting to the default output
-            // i.e. Each program, etc.
-            // A link is a connection between two nodes
-            model: Services.Audio.defaultOutputLinkTracker.linkGroups
-            mainDelegate: Modules.MixerItem {}
-        }
-        */
-        Leaf.ListView {
-            visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            color: "red"
-            // For each source outputting to the default output, i.e. Each program, etc.
-            // A link is a connection between two nodes
-            model: Services.Audio.defaultOutputLinkTracker.linkGroups
-            delegate: MixerItem {}
-        }
-        
-        // No mixer items placeholder
-        Item {
-            // If no apps are outputting to the default output
-            visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length <= 0
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Text {
-                anchors.centerIn: parent
-                color: palette.placeholderText
-                text: "Nothing to mix :/"
+            Leaf.ListView {
+                visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
+                implicitWidth: parent.implicitWidth 
+                // For each source outputting to the default output, i.e. Each program, etc.
+                // A link is a connection between two nodes
+                model: Services.Audio.defaultOutputLinkTracker.linkGroups
+                delegate: MixerItem {}
+            }
+            
+            // No mixer items placeholder
+            Item {
+                // If no apps are outputting to the default output
+                visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length <= 0
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Text {
+                    anchors.centerIn: parent
+                    color: palette.placeholderText
+                    text: "Nothing to mix :/"
+                }
             }
         }
     }
