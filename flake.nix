@@ -39,7 +39,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #matugen.url = "github:InioX/matugen?ref=v3.1.0";
-    matugen.url = "github:InioX/matugen";
+    matugen.url = "github:InioX/matugen?ref=main";
     quickshell = {
       #url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
       #url = "git+https://git.outfoxxed.me/quickshell/quickshell";
