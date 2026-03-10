@@ -8,14 +8,13 @@ import qs.Modules.Leaf as Leaf
 ColumnLayout {
     anchors.centerIn: parent
     spacing: 0
-    // Note that the NormalButtons have margins which increase the size of the RowLayout height
     RowLayout {
         spacing: 0
         Layout.fillWidth: true
-        Leaf.NormalButton {
+        Leaf.Button {
             Layout.alignment: Qt.AlignLeft
-            iconName: "arrow-left"
-            leftClick: () => {
+            icon.name: "arrow-left"
+            onClicked: () => {
                 if (monthGrid.month === Calendar.January) {
                     monthGrid.month = Calendar.December
                 }
@@ -31,9 +30,9 @@ ColumnLayout {
             font.pointSize: 10
             color: Root.State.colors.on_surface
         }
-        Leaf.NormalButton {
-            iconName: "arrow-right"
-            leftClick: () => {
+        Leaf.Button {
+            icon.name: "arrow-right"
+            onClicked: () => {
                 if (monthGrid.month === Calendar.December) {
                     monthGrid.month = Calendar.January
                 }

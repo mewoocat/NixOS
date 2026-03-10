@@ -208,16 +208,16 @@ GridLayout {
         Layout.row: 2
         Layout.column: 1
         Layout.alignment: Qt.AlignCenter
-        Leaf.NormalButton {
-            iconName: "player_rew"
-            leftClick: () => {
+        Leaf.Button {
+            icon.name: "player_rew"
+            onClicked: () => {
                 if (root.currentPlayer === null) { console.warn(`No current player`); return }
                 root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
             }
         }
-        Leaf.NormalButton {
-            iconName: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
-            leftClick: () => {
+        Leaf.Button {
+            icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
+            onClicked: () => {
                 if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
                 if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
                     console.warn(`Current player can't play/pause`)
@@ -226,9 +226,9 @@ GridLayout {
                 root.currentPlayer.playbackState === MprisPlaybackState.Playing ? root.currentPlayer.pause() : root.currentPlayer.play()
             }
         }
-        Leaf.NormalButton {
-            iconName: "player_fwd"
-            leftClick: () => 
+        Leaf.Button {
+            icon.name: "player_fwd"
+            onClicked: () => 
             {
                 if (root.currentPlayer === null) { console.warn(`No current player`); return }
                 root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)

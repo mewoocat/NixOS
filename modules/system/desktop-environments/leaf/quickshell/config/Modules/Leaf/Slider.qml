@@ -25,8 +25,9 @@ T.Slider {
 
     property color backgroundColor: Root.State.colors.surface_container_highest
     property color textColor: control.hovered || control.pressed ? Root.State.colors.on_primary : "transparent"
-    property int handleHeight: 16
-    property int handleWidth: 24
+    property int handleHeight: control.horizontal ? 16 : 24
+    property int handleWidth: control.horizontal ? 24 : 16
+    property int defaultLength: 100
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop
@@ -37,17 +38,27 @@ T.Slider {
 
     background: Rectangle {
         id: bg
-        implicitWidth: 100 + control.padding
-        implicitHeight: control.handleHeight + control.padding
+        implicitWidth: control.horizontal
+            ? control.defaultLength + control.padding
+            : control.handleWidth + control.padding
+        implicitHeight: control.horizontal
+            ? control.handleHeight + control.padding
+            : control.defaultLength + control.padding
         color: control.backgroundColor
-        radius: implicitHeight
+        radius: control.horizontal
+            ? implicitHeight
+            : implicitWidth
     }
 
     handle: Rectangle {
         radius: implicitHeight
         // From: https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
-        x: control.leftPadding + control.visualPosition * (control.availableWidth - width)
-        y: control.topPadding + control.availableHeight / 2 - height / 2
+        x: control.horizontal
+            ? control.leftPadding + control.visualPosition * (control.availableWidth - width)
+            : control.topPadding + control.availableWidth / 2 - width / 2
+        y: control.horizontal
+            ? control.topPadding + control.availableHeight / 2 - height / 2
+            : control.leftPadding + control.visualPosition * (control.availableHeight - height)
         implicitWidth: control.handleWidth
         implicitHeight: control.handleHeight
         color: (control.hovered || control.pressed) ? Root.State.colors.primary : Root.State.colors.on_surface

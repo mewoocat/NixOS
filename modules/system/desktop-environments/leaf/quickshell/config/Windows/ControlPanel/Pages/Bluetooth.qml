@@ -74,17 +74,6 @@ PageBase {
                 }
             }
         }
-        /*
-        Leaf.NormalButton {
-            Layout.alignment: Qt.AlignRight
-            visible: mainDelegate.scrollItem.interacted
-            iconName: "view-more"
-            leftClick: () => mainDelegate.scrollItem.expanded = !mainDelegate.scrollItem.expanded
-            defaultIconColor: Root.State.colors.on_primary
-            activeIconColor: Root.State.colors.on_primary_container
-            activeBgColor: Root.State.colors.primary_container
-        }
-        */
         Leaf.Button {
             id: expandBtn
             visible: mainDelegate.scrollItem.interacted
@@ -104,14 +93,14 @@ PageBase {
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            Leaf.NormalButton {
+            Leaf.Button {
                 visible: subDelegate.modelData.paired
                 text: subDelegate.modelData.connected ? "disconnect" : "connect"
-                leftClick: subDelegate.modelData.connected ? subDelegate.modelData.disconnect : subDelegate.modelData.connect
+                onClicked: subDelegate.modelData.connected ? subDelegate.modelData.disconnect : subDelegate.modelData.connect
             }
-            Leaf.NormalButton {
+            Leaf.Button {
                 text: subDelegate.modelData.paired ? "forget" : "pair"
-                leftClick: subDelegate.modelData.paired ? subDelegate.modelData.forget : subDelegate.modelData.pair
+                onClicked: subDelegate.modelData.paired ? subDelegate.modelData.forget : subDelegate.modelData.pair
             }
         }
         Text {

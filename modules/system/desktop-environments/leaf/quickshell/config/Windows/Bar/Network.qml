@@ -5,8 +5,7 @@ BarButton {
     visible: Networking.devices
     property WifiDevice nic: Networking.devices.values.find(device => device.type === DeviceType.Wifi) ?? null
     property WifiNetwork currentNet: nic?.networks.values.find(network => network.connected == true) ?? null
-    iconSize: 24
-    iconName: {
+    icon.name: {
         if (!currentNet) { return "" } // Todo: find a fallback
         const signal = Math.floor(currentNet.signalStrength * 100)
         if (signal < 20) { return `network-wireless-connected-0` } else

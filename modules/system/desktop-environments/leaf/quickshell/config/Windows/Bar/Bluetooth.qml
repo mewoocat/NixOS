@@ -3,10 +3,7 @@ import Quickshell.Bluetooth
 
 BarButton {
     visible: Bluetooth.defaultAdapter
-    iconName: Bluetooth.defaultAdapter?.enabled ? "bluetooth-active" : "bluetooth-disabled"
-    iconSize: 22
-    leftClick: () => {
-        console.log(Bluetooth.defaultAdapter)
-        Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
-    }
+    icon.name: Bluetooth.defaultAdapter?.enabled ? "bluetooth-active" : "bluetooth-disabled"
+    onClicked: () => Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+    isMutliColorIcon: true
 }

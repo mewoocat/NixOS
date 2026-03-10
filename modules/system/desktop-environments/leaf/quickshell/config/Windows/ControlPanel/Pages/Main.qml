@@ -183,7 +183,7 @@ Leaf.PanelGrid {
             anchors.centerIn: parent
             spacing: 0
 
-            Slider {
+            Leaf.Slider {
                 orientation: Qt.Vertical
                 from: 0
                 to: 2
@@ -258,7 +258,7 @@ Leaf.PanelGrid {
                     }
                     Layout.minimumWidth: 86
                 }
-                Slider {
+                Leaf.Slider {
                     Layout.fillWidth: true
                     //stepSize: 0.01
                     from: 0
@@ -278,7 +278,7 @@ Leaf.PanelGrid {
                     }
                     Layout.minimumWidth: 86
                 }
-                Slider {
+                Leaf.Slider {
                     Layout.fillWidth: true
                     from: 0.01
                     value: Services.Brightness.value

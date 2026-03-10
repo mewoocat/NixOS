@@ -48,10 +48,10 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        Leaf.NormalButton {
-                            leftClick: () => Root.State.launcher.toggleWindow()
-                            defaultInternalMargin: 6
-                            iconName: "distributor-logo-nixos"
+                        BarButton {
+                            onClicked: () => Root.State.launcher.toggleWindow()
+                            icon.name: Root.State.launcherIcon
+                            isMutliColorIcon: true
                         }
                         Workspaces {}
                         Leaf.Slider {
@@ -79,10 +79,12 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
-                        Leaf.NormalButton {
-                            leftClick: () => Root.State.controlPanel.toggleWindow()
-                            iconName: "view-grid-symbolic"
-                            defaultInternalMargin: 6
+                        Leaf.Button {
+                            onClicked: () => Root.State.controlPanel.toggleWindow()
+                            icon.name: "view-grid-symbolic"
+                            inset: 6
+                            implicitHeight: bar.height
+                            implicitWidth: 48
                         }
                     }
                 }

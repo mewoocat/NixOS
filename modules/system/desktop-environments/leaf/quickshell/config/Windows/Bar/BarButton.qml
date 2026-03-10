@@ -1,9 +1,9 @@
 import QtQuick
+import QtQuick.Controls
 import qs.Modules.Leaf as Leaf
+import qs as Root
 
-Leaf.NormalButton {
-    leftInternalMargin: 2
-    rightInternalMargin: 2
-    topInternalMargin: 6
-    bottomInternalMargin: 6
+Leaf.Button {
+    inset: 6
+    implicitHeight: Root.State.barHeight
 }

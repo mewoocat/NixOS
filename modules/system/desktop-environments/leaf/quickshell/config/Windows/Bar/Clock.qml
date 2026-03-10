@@ -3,7 +3,6 @@ import qs as Root
 import qs.Services as Services
 
 BarButton {
-    leftClick: () => Root.State.activityCenter.toggleWindow()
-    //iconName: "security-low"
+    onClicked: () => Root.State.activityCenter.toggleWindow()
     text:  Services.Time.time
 }

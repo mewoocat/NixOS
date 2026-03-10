@@ -24,104 +24,12 @@ Leaf.PanelWindow {
     implicitWidth: content.width
     implicitHeight: content.height
 
-    /*
-    content: GridLayout {
-        width: parent.width
-        height: parent.width / columns * rows
-        columns: 8
-        rows: 4
-
-        Leaf.PanelItem { 
-            isClickable: false; 
-            Layout.columnSpan: 2
-            Layout.rowSpan: 2
-            content: Modules.Calendar {} 
-        }
-        Leaf.PanelItem { 
-            isClickable: false; 
-            Layout.columnSpan: 2
-            Layout.rowSpan: 2
-            content: Modules.Weather {}
-        }
-    }
-    */
 
     // Something weird's going on here
     content: Leaf.PanelGrid {
         columns: 16
         rows: 6
 
-        /*
-        Leaf.PanelItem {
-            isClickable: true
-            rows: 1
-            columns: 1
-            content: Modules.Image {}
-            action: () => {
-                console.log(`${Layout.row} x ${Layout.column}`)
-            }
-        }
-
-        Leaf.PanelItem {
-            isClickable: true
-            rows: 1
-            columns: 1
-            content: Modules.Image {}
-            action: () => {
-                console.log(`${Layout.row} x ${Layout.column}`)
-            }
-        } 
-        */
-
-        /*
-        Leaf.PanelItem { 
-            isClickable: false; 
-            rows: 6
-            columns: 6
-            content: Leaf.ListView {
-                anchors.fill: parent
-                id: listView
-                model: 5
-                delegate: Leaf.ListItemExpandable {
-                    id: listItem
-                    required property var modelData
-                    listView: listView
-                    mainDelegate: ColumnLayout {
-                        Leaf.NormalButton {
-                            text: "what"
-                            onClicked: listItem.expanded = !listItem.expanded
-                        }
-                        Text {
-                            text: "main shit"
-                        }
-                        Text {
-                            text: "main shit"
-                        }
-                        Text {
-                            text: "main shit"
-                        }
-                        Text {
-                            text: "main shit"
-                        }
-                        Text {
-                            text: "main shit"
-                        }
-                    }
-                    subDelegate: ColumnLayout {
-                        Text {
-                            text: "fuck shit"
-                        }
-                        Text {
-                            text: "fuck shit"
-                        }
-                        Text {
-                            text: "fuck shit"
-                        }
-                    }
-                }
-            }
-        }
-        */
         Leaf.PanelItem { 
             isClickable: false; 
             rows: 6

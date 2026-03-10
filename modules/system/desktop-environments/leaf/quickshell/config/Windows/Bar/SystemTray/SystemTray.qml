@@ -162,6 +162,12 @@ ClippingRectangle {
                         defaultInternalMargin: 0
                         iconSize: 16
 
+                        // HEY YOU, YES YOU! THIS IS WHAT YOU SHOULD USE FOR RIGHT CLICK ACTION
+                        // WHEN MOVING AWAY FROM NORMALBUTTON
+                        ContextMenu.onRequested: position => {
+                            console.debug(position)
+                        }
+
                         property var popupWindow: Leaf.PopupWindow {
                             id: trayPopup
 

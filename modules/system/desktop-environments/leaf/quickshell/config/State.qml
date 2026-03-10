@@ -46,6 +46,14 @@ Singleton {
     property int mediumSpace: 8
     property int largeSpace: 10
     property double opacity: 0.8
+    property int barHeight: 40
+    property string launcherIcon: "distributor-logo-nixos"
+    // Variable group lol
+    /*
+    property QtObject bar: QtObject {
+        property int height: 40
+    }
+    */
 
     // There's definitely something fishy going on here
     // Might be due to using multiple json adapter instances

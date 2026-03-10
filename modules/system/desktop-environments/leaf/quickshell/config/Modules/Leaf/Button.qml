@@ -14,7 +14,7 @@ T.Button {
     hoverEnabled: true
 
     //defines the padding of the contentItem relative to the edge of the control
-    padding: 6
+    padding: 4
     leftPadding: padding
     rightPadding: padding
     topPadding: padding
@@ -22,6 +22,8 @@ T.Button {
 
     property color backgroundColor: control.hovered ? Root.State.colors.primary : "transparent"
     property color textColor: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
+    property color iconColor: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
+    property bool isMutliColorIcon: false
     // Defines the padding of the background
     property real inset: 2
     leftInset: inset
@@ -38,12 +40,13 @@ T.Button {
 
     background: Rectangle {
         id: bg
-        implicitWidth: control.contentItem.implicitWidth + control.padding
-        implicitHeight: control.contentItem.implicitHeight + control.padding
+        implicitWidth: 36//control.contentItem.implicitWidth + control.padding
+        implicitHeight: 18//control.contentItem.implicitHeight + control.padding
         color: control.backgroundColor
         radius: implicitHeight
     }
 
+    spacing: 4
     icon.name: ""
     icon.source: ""
     icon.width: 24
@@ -56,11 +59,14 @@ T.Button {
     contentItem: IconLabel {
         id: iconLabel
         icon.name: control.icon.name
-        icon.color: control.icon.color
+        icon.color: control.isMutliColorIcon ? "transparent" : control.icon.color
+        icon.width: control.icon.width
+        icon.height: control.icon.height
         text: control.text
+        spacing: control.spacing
         font.pointSize: control.font.pointSize
         color: textColor
-        leftPadding: 2
-        rightPadding: 2
+        leftPadding: 4
+        rightPadding: 4
     }
 }
