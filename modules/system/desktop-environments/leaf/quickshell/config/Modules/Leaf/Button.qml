@@ -66,7 +66,8 @@ T.Button {
         spacing: control.spacing
         font.pointSize: control.font.pointSize
         color: textColor
-        leftPadding: 4
-        rightPadding: 4
+        leftPadding: 6
+        // Icons generally seem to have a bit of padding built in, if text is included, add more padding to balance it out
+        rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
     }
 }

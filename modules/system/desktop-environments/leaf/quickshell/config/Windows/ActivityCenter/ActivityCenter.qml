@@ -40,12 +40,6 @@ Leaf.PanelWindow {
         //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         Leaf.PanelItem { 
             isClickable: false; 
-            rows: 5
-            columns: 4
-            content: Tetris.Game {}
-        }
-        Leaf.PanelItem { 
-            isClickable: false; 
             rows: 2
             columns: 2
             content: Modules.Weather {}
@@ -62,9 +56,12 @@ Leaf.PanelWindow {
             columns: 3
             content: Modules.Calendar {} 
         }
-        Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
+        Leaf.PanelItem { 
+            isClickable: false; 
+            rows: 5
+            columns: 4
+            content: Tetris.Game {}
+        }
         Leaf.PanelItem {
             isClickable: false
             rows: 2

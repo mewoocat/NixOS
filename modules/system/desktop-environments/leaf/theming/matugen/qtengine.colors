@@ -50,8 +50,8 @@ ForegroundPositive={{colors.tertiary_fixed.default.hex}}
 ForegroundVisited={{colors.on_secondary_container.default.hex}}
 
 [Colors:Header]
-BackgroundAlternate={{colors.surface.default.hex}}
-BackgroundNormal={{colors.surface_container.default.hex}}
+BackgroundAlternate={{colors.surface.default.alpha_hex}}
+BackgroundNormal={{colors.surface_container.default.alpha_hex}}
 DecorationFocus={{colors.primary.default.hex}}
 DecorationHover={{colors.primary.default.hex}}
 ForegroundActive={{colors.primary.default.hex}}
@@ -64,8 +64,8 @@ ForegroundPositive={{colors.tertiary_fixed.default.hex}}
 ForegroundVisited={{colors.on_secondary_container.default.hex}}
 
 [Colors:Header][Inactive]
-BackgroundAlternate={{colors.surface_container.default.hex}}
-BackgroundNormal={{colors.surface.default.hex}}
+BackgroundAlternate={{colors.surface_container.default.alpha_hex}}
+BackgroundNormal={{colors.surface.default.alpha_hex}}
 DecorationFocus={{colors.primary.default.hex}}
 DecorationHover={{colors.primary.default.hex}}
 ForegroundActive={{colors.primary.default.hex}}
@@ -106,8 +106,8 @@ ForegroundPositive={{colors.tertiary_fixed.default.hex}}
 ForegroundVisited={{colors.on_secondary_container.default.hex}}
 
 [Colors:View]
-BackgroundAlternate={{colors.surface_container.default.hex}}
-BackgroundNormal={{colors.background.default.hex}}
+BackgroundAlternate={{colors.surface_container.default.alpha_hex}}
+BackgroundNormal={{colors.background.default.alpha_hex}}
 DecorationFocus={{colors.on_primary_container.default.hex}}
 DecorationHover={{colors.on_primary.default.hex}}
 ForegroundActive={{colors.primary.default.hex}}
@@ -120,8 +120,8 @@ ForegroundPositive={{colors.tertiary_fixed.default.hex}}
 ForegroundVisited={{colors.on_secondary_container.default.hex}}
 
 [Colors:Window]
-BackgroundAlternate={{colors.primary_container.default.hex}}
-BackgroundNormal={{colors.surface_container.default.hex}}
+BackgroundAlternate={{colors.primary_container.default.alpha_hex}}
+BackgroundNormal={{colors.surface_container.default.alpha_hex}}
 DecorationFocus={{colors.primary.default.hex}}
 DecorationHover={{colors.primary.default.hex}}
 ForegroundActive={{colors.primary.default.hex}}
@@ -144,9 +144,9 @@ color_scheme=Shellix
 contrast=4
 
 [WM]
-activeBackground={{colors.primary_container.default.hex}}
+activeBackground={{colors.primary_container.default.alpha_hex}}
 activeBlend={{colors.on_primary_container.default.hex}}
 activeForeground={{colors.on_primary_container.default.hex}}
-inactiveBackground={{colors.surface.default.hex}}
+inactiveBackground={{colors.surface.default.alpha_hex}}
 inactiveBlend={{colors.on_surface_variant.default.hex}}
 inactiveForeground={{colors.on_surface_variant.default.hex}}

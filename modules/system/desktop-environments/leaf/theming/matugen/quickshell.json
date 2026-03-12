@@ -33,7 +33,7 @@
     "on_error_container": "{{ colors.on_error_container.default.hex }}",
 
     "surface_dim": "{{ colors.surface_dim.default.hex }}",
-    "surface": "{{ colors.surface.default.hex }}",
+    "surface": "{{ colors.surface.default.alpha_hex }}",
     "surface_tint": "{{ colors.surface_tint.default.hex }}",
     "surface_bright": "{{ colors.surface_bright.default.hex }}",
     "surface_container_lowest": "{{ colors.surface_container_lowest.default.hex }}",
@@ -49,7 +49,7 @@
     "inverse_on_surface": "{{ colors.inverse_on_surface.default.hex }}",
     "surface_variant": "{{ colors.surface_variant.default.hex }}",
 
-    "background": "{{ colors.background.default.hex_alpha | set_alpha: 0.8 }}",
+    "background": "{{ colors.background.default.alpha_hex}}",
     "on_background": "{{ colors.on_background.default.hex }}",
     "shadow": "{{ colors.shadow.default.hex }}",
     "scrim": "{{ colors.scrim.default.hex }}",

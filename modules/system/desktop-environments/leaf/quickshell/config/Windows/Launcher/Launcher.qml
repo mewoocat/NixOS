@@ -23,10 +23,6 @@ Leaf.PanelWindow {
         top: true
         left: true
     }
-    margins {
-        left: 16
-        top: 16
-    }
     focusable: true // Enable keyboard focus
     implicitWidth: 420
     implicitHeight: 640
@@ -248,6 +244,7 @@ Leaf.PanelWindow {
                     // Expanded content
                     subDelegate: ColumnLayout {
                         id: subDelegate
+                        spacing: 0
                         // These are injected by the ListViewScrollable
                         required property DesktopEntry modelData
                         required property var scrollItem

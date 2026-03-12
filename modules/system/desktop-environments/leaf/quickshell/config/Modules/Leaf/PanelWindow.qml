@@ -24,10 +24,10 @@ PanelWindow {
     focusable: true // Enable keyboard focus
     color: "transparent"
     margins {
-        top: 16
-        right: 16
-        left: 16
-        bottom: 16
+        top: 8
+        right: 8
+        left: 8
+        bottom: 8
     }
     WlrLayershell.namespace: 'quickshell-' + name // Set layer name
 

@@ -91,6 +91,7 @@
       qtcreator
       clementine # Music player
       blanket
+      thunderbird
 
       # Network tools
       wireshark
