@@ -25,7 +25,7 @@ Item {
         RowLayout {
             // Back button
             Leaf.Button {
-                icon.name: "back"
+                icon.name: "arrow-left-symbolic"
                 onClicked: () => Root.State.controlPanelPage = 0
             } 
 

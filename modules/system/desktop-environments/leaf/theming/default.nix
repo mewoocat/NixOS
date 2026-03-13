@@ -87,6 +87,7 @@ in {
     colloid-icon-theme
     beauty-line-icon-theme
     arc-icon-theme
+    reversal-icon-theme
 
     #inputs.adw-gtk3-leaf.packages.${system}.default
 

@@ -51,7 +51,7 @@ Scope {
                         BarButton {
                             onClicked: () => Root.State.launcher.toggleWindow()
                             icon.name: Root.State.launcherIcon
-                            isMutliColorIcon: true
+                            //isMutliColorIcon: true
                         }
                         Workspaces {}
                         Leaf.Slider {
@@ -66,6 +66,13 @@ Scope {
 
                         NotificationIndicator {}
                         Clock {}
+                        Rectangle {
+                            visible: Services.ScreenCapture.recording
+                            width: 4
+                            height: 4
+                            radius: 4
+                            color: "red"
+                        }
                     }
                     // Right
                     RowLayout {
@@ -81,7 +88,7 @@ Scope {
                         Battery {}
                         Leaf.Button {
                             onClicked: () => Root.State.controlPanel.toggleWindow()
-                            icon.name: "view-grid-symbolic"
+                            icon.name: "open-menu-symbolic"
                             inset: 6
                             implicitHeight: bar.height
                             implicitWidth: 48

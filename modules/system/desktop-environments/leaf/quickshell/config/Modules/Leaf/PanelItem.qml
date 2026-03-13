@@ -13,8 +13,8 @@ MouseArea {
     required property int rows // how many rows this element will span
     required property int columns // how many columns this element will span
 
-    property var action // Action on click
     property bool isClickable: true
+    property bool isActive: false
 
     implicitHeight: parent.unitSize * rows
     implicitWidth: parent.unitSize * columns
@@ -26,10 +26,10 @@ MouseArea {
 
     enabled: isClickable // Whether mouse events are accepted
     hoverEnabled: true
-    onClicked: action()
 
     // Shadow for the Rectangle
     // Note: If shadow extends beyond the window, it will create sharp corners
+    /*
     RectangularShadow {
         visible: false
         anchors.fill: box
@@ -40,6 +40,7 @@ MouseArea {
         spread: 4
         color: Qt.alpha(Root.State.colors.shadow, 0.4)
     }
+    */
 
     Rectangle {
         id: box

@@ -77,6 +77,10 @@ in{
       polkit_gnome # Not sure if this is needed since the service is defined below?
       gnome-system-monitor
 
+      # For screen recording
+      wf-recorder
+      slurp
+
     ];
     sessionVariables = {};
     variables = {

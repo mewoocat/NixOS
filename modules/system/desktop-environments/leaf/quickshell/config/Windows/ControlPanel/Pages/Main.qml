@@ -19,11 +19,8 @@ Leaf.PanelGrid {
         rows: 2
         columns: 2
         isClickable: false
-        action: () => {
-            Root.State.controlPanelPage = 2
-        }
+        onClicked: Root.State.controlPanelPage = 2
         
-        //action: () => {grid.height = grid.height + 100}
         content: ColumnLayout {
             anchors.margins: 8
             spacing: 16
@@ -96,7 +93,7 @@ Leaf.PanelGrid {
     Leaf.PanelItem { 
         rows: 1
         columns: 1
-        action: () => Services.NightLight.toggle()
+        onClicked: () => Services.NightLight.toggle()
         content: IconImage {
             anchors.centerIn: parent
             implicitSize: 32
@@ -133,8 +130,8 @@ Leaf.PanelGrid {
                 colorizationColor: "#ee1111"
             }
         }
-        action: () => {
-        }
+        onClicked: () => Services.ScreenCapture.toggleRecording()
+        isActive: Services.ScreenCapture.recording
     }
     Leaf.PanelItem { 
         id: testPanelItem
@@ -145,10 +142,7 @@ Leaf.PanelGrid {
             implicitSize: 32
             source: Quickshell.iconPath("power-profile-balanced-symbolic")
         }
-        action: () => {
-            console.log("action")
-            powerProfilePopup.visible = true
-        }
+        onClicked: () => powerProfilePopup.visible = true
         //TODO: The reason this triggers the focus grab for the parent window is because the panelGrab state is set again for each
         // Leaf.PanelWindow created.  Need to store the references in the state using a map or something
         // also, commenting out the launcher in the shell.qml allows for this popup to work
@@ -223,7 +217,6 @@ Leaf.PanelGrid {
                 }
             }
 
-            //BusyIndicator {}
             //Dial {}
             /*
             Text {
@@ -249,18 +242,21 @@ Leaf.PanelGrid {
         ColumnLayout {    
             //anchors.fill: parent
             RowLayout {
-                Leaf.NormalButton {
-                    iconName: Services.Audio.getIcon(Pipewire.defaultAudioSink)
-                    text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
-                    leftClick: () => {
-                        console.log("clicked")
-                        Root.State.controlPanelPage = 1
+                Leaf.Button {
+                    icon.name: Services.Audio.getIcon(Pipewire.defaultAudioSink)
+                    text: {
+                        return Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
+                        /*
+                        const vol = Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100
+                        const spacing = 
+                        const text = spacing + vol + '%'
+                        */
                     }
+                    onClicked: () => Root.State.controlPanelPage = 1
                     Layout.minimumWidth: 86
                 }
                 Leaf.Slider {
                     Layout.fillWidth: true
-                    //stepSize: 0.01
                     from: 0
                     value: Services.Audio.getVolume(Pipewire.defaultAudioSink)
                     onValueChanged: Pipewire.defaultAudioSink.audio.volume = value
@@ -269,13 +265,10 @@ Leaf.PanelGrid {
             }
 
             RowLayout {
-                Leaf.NormalButton {
-                    iconName: Services.Brightness.getIcon()
+                Leaf.Button {
+                    icon.name: Services.Brightness.getIcon()
                     text: Math.ceil(Services.Brightness.value * 100) + '%'
-                    leftClick: () => {
-                        console.log("clicked")
-                        Root.State.controlPanelPage = 4
-                    }
+                    onClicked: () => Root.State.controlPanelPage = 4
                     Layout.minimumWidth: 86
                 }
                 Leaf.Slider {
@@ -283,9 +276,7 @@ Leaf.PanelGrid {
                     from: 0.01
                     value: Services.Brightness.value
                     //stepSize: 0.01
-                    onValueChanged: {
-                        Services.Brightness.value = value
-                    }
+                    onValueChanged: Services.Brightness.value = value
                     to: 1
                 }
             }
