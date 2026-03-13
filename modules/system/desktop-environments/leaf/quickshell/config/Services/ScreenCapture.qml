@@ -9,8 +9,11 @@ Singleton {
 
     property bool recording: false
 
-    function toggleRecording()
-    {
+    function checkRecording(): bool {
+        recordingCheckProc.running = true
+    }
+
+    function toggleRecording() {
         //Quickshell.execDetached(["sh", "-c", "slurp"]) // THIS WORKS
         if (root.recording){
             console.debug('rec off')
@@ -22,6 +25,22 @@ Singleton {
         }
     }
 
+    function startRecording() {
+        Quickshell.execDetached(["./Scripts/ScreenCapture.sh"])
+    }
+
+    function stopRecording() {
+        Quickshell.execDetached(["sh", "-c", "pkill wf-recorder"])
+    }
+
+    Process {
+        id: recordingCheckProc
+        running: true
+        command: ["sh", "-c", "pidof wf-recorder"]
+        onExited: (exitCode) => exitCode == 0 ? root.recording = true : root.recording = false
+    }
+
+    /*
     Process {
         id: proc
         command: [`./Scripts/ScreenCapture.sh`]
@@ -40,4 +59,5 @@ Singleton {
             onRead: (data) => console.error(`ScreenRecorder.sh: ${data}`)
         }
     }
+    */
 }
