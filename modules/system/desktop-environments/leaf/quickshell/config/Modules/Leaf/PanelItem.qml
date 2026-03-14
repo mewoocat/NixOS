@@ -16,7 +16,7 @@ MouseArea {
     property bool isClickable: true
     property bool isActive: false
     property color bgColor: isActive
-       ? root.containsMouse ? Root.State.colors.surface_container : Root.State.colors.primary
+       ? root.containsMouse ? Root.State.colors.inverse_primary : Root.State.colors.primary
        : root.containsMouse ? Root.State.colors.primary : Root.State.colors.surface_container
 
     implicitHeight: parent.unitSize * rows

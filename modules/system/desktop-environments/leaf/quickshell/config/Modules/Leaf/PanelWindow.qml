@@ -35,7 +35,6 @@ PanelWindow {
     visible: false
     onVisibleChanged: {
         if (visible) {
-            //console.log(`panel window vis changed to ${window.visible}`)
             Services.Hyprland.addGrabWindow(window)
         }
     }

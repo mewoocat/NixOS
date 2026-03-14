@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs.Services as Services
 
 Singleton {
     id: root
@@ -23,6 +24,7 @@ Singleton {
         else {
             root.recording = true
             startRecording()
+            Services.Hyprland.toggleGrab()
             console.debug('rec on')
         }
     }

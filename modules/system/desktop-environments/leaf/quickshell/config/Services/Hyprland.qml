@@ -70,20 +70,19 @@ Singleton {
     onActiveGrabWindowChanged: console.log(`activeGrabWindow: ${activeGrabWindow}`)
 
     // Focus grab stack
-    property list<var> focusGrabStack: [] // Holds the previous grab window.  Used to reset the HyprlandFocusGrab
-                                         // back to the previous grabbed window when a nested grab focus occurs
+    // Holds the previous grab window.  Used to reset the HyprlandFocusGrab
+    // back to the previous grabbed window when a nested grab focus occurs
+    property list<var> focusGrabStack: []
     function addGrabWindow(window: QtObject/*, (ignoredWindows: list<QtObject>*/) { 
         grab.active = false
         // If a window is already grabbed, push it to the stack before overwriting it
         if (root.activeGrabWindow !== null) { 
-            //console.log(`activeGrabWindow was not null and is ${root.activeGrabWindow}`)
             root.focusGrabStack.push(root.activeGrabWindow)
-            //console.log(`focus grab stack ${root.focusGrabStack}`)
         }
         root.activeGrabWindow = window
         root.ignoredGrabWindows = [window]
         //root.ignoredGrabWindows = [...ignoredWindows] // For some reason we need to copy the array in
-        //grab.active = prevGrabState
+
         delay.start() // Set grab active status
     }
     Timer {
@@ -91,11 +90,11 @@ Singleton {
         triggeredOnStart: false
         interval: 100
         repeat: false
-        onTriggered: {
-            //console.log('grab active for ' + root.activeGrabWindow)
-            //grab.active = root.activeGrabWindow.visible
-            grab.active = true
-        }
+        onTriggered: () => grab.active = true
+    }
+
+    function toggleGrab() {
+        grab.active = !grab.active
     }
 
     // A single focus grab instance which is shared
