@@ -9,24 +9,26 @@ Singleton {
 
     property bool recording: false
 
+    // A better idea might be having some ipc commands that the recording script calls to set the recording status
     function checkRecording(): bool {
         recordingCheckProc.running = true
     }
 
     function toggleRecording() {
-        //Quickshell.execDetached(["sh", "-c", "slurp"]) // THIS WORKS
         if (root.recording){
             console.debug('rec off')
+            stopRecording()
             root.recording = false
         }
         else {
             root.recording = true
+            startRecording()
             console.debug('rec on')
         }
     }
 
     function startRecording() {
-        Quickshell.execDetached(["./Scripts/ScreenCapture.sh"])
+        Quickshell.execDetached([`${Quickshell.shellDir}/Scripts/ScreenCapture.sh`])
     }
 
     function stopRecording() {
@@ -37,7 +39,13 @@ Singleton {
         id: recordingCheckProc
         running: true
         command: ["sh", "-c", "pidof wf-recorder"]
-        onExited: (exitCode) => exitCode == 0 ? root.recording = true : root.recording = false
+        onExited: (exitCode, exitStatus) => {
+            if (exitCode == 0) {
+                root.recording = true
+            } else {
+                root.recording = false
+            }
+        }
     }
 
     /*

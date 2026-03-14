@@ -8,13 +8,16 @@ import qs as Root
 
 // Designed to be used as a child of the PanelGrid type
 MouseArea {
-    id: mouseArea
+    id: root
     required property var content // Object to display
     required property int rows // how many rows this element will span
     required property int columns // how many columns this element will span
 
     property bool isClickable: true
     property bool isActive: false
+    property color bgColor: isActive
+       ? root.containsMouse ? Root.State.colors.surface_container : Root.State.colors.primary
+       : root.containsMouse ? Root.State.colors.primary : Root.State.colors.surface_container
 
     implicitHeight: parent.unitSize * rows
     implicitWidth: parent.unitSize * columns
@@ -47,9 +50,9 @@ MouseArea {
         anchors.fill: parent
         anchors.margins: 6
         radius: Root.State.rounding
-        color: mouseArea.containsMouse ? Root.State.colors.primary : Root.State.colors.surface_container
+        color: root.bgColor
         children: [
-            mouseArea.content
+            root.content
         ]
    }
 }
