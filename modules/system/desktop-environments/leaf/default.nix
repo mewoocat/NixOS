@@ -68,11 +68,15 @@ in{
     systemPackages = with pkgs; [
 
       # theming
+      kdePackages.breeze-icons kora-icon-theme
+
+      # QT Styles
       kdePackages.breeze
       kdePackages.breeze.qt5 # For Qt5 support
-      kdePackages.breeze-icons kora-icon-theme
       darkly
       darkly-qt5 # For Qt5 support
+      adwaita-qt
+      qlementine
 
       polkit_gnome # Not sure if this is needed since the service is defined below?
       gnome-system-monitor

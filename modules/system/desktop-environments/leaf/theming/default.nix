@@ -83,9 +83,7 @@ in {
     papirus-icon-theme
     fluent-icon-theme
     whitesur-icon-theme
-    numix-icon-theme-circle
     colloid-icon-theme
-    beauty-line-icon-theme
     arc-icon-theme
     reversal-icon-theme
 
@@ -131,6 +129,10 @@ in {
 
       ".config/matugen" = {
         source = ./matugen;
+      };
+
+      ".config/qtengine/config.json" = {
+        source = ./qtengine.json;
       };
 
       # Note that this file is not dynamically loaded by gtk3 apps

@@ -1,0 +1,22 @@
+{
+  "theme": {
+    "colorScheme": "~/.config/leaf-de/qtengine.colors",
+    "iconTheme": "breeze-dark",
+    "style": "Darkly",
+    "font": {
+      "family": "SpaceMono",
+      "size": 11,
+      "weight": -1
+    },
+    "fontFixed": {
+      "family": "Rubik",
+      "size": 11,
+      "weight": -1
+    }
+  },
+  "misc": {
+    "menusHaveIcons": true,
+    "singleClickActivate": false,
+    "shortcutsForContextMenus": true
+  }
+}
