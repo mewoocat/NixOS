@@ -56,6 +56,13 @@ Scope {
                         Workspaces {}
                         Leaf.Slider {
                         }
+                        Text {
+                            font.family: "Material Symbols Rounded"
+                            text: "dataset" // Material Symbols font auto renders icon when using it's name
+                            color: "white"
+                            //textFormat: Text.PlainText
+                            //renderType: Text.NativeRendering
+                        }
                     }
                     // Center
                     RowLayout {

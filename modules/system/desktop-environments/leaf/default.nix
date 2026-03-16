@@ -51,13 +51,17 @@ in{
   };
 
   fonts.packages = with pkgs; [
-    nerd-fonts.space-mono
+    # GUI
     rubik
-
-    # fonts
     liberation_ttf
     arkpandora_ttf
     cantarell-fonts
+
+    # Monospace
+    nerd-fonts.space-mono
+
+    # Icons
+    material-symbols
   ];
 
   programs.light.enable = true;
@@ -84,7 +88,6 @@ in{
       # For screen recording
       wf-recorder
       slurp
-
     ];
     sessionVariables = {};
     variables = {
