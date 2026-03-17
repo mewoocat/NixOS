@@ -56,6 +56,10 @@ Scope {
                         Workspaces {}
                         Leaf.Slider {
                         }
+                        BarButton {
+                            font.family: "Material Symbols Rounded"
+                            text: "dataset" // Material Symbols font auto renders icon when using it's name
+                        }
                         Text {
                             font.family: "Material Symbols Rounded"
                             text: "dataset" // Material Symbols font auto renders icon when using it's name
