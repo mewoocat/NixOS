@@ -1,10 +1,11 @@
 
 import Quickshell
+import Quickshell.Wayland
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Shapes
 import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell.Wayland
 import qs as Root
 import qs.Modules.Leaf as Leaf
 import qs.Windows.ControlPanel
@@ -60,12 +61,27 @@ Scope {
                             font.family: "Material Symbols Rounded"
                             text: "dataset" // Material Symbols font auto renders icon when using it's name
                         }
-                        Text {
-                            font.family: "Material Symbols Rounded"
-                            text: "dataset" // Material Symbols font auto renders icon when using it's name
-                            color: "white"
-                            //textFormat: Text.PlainText
-                            //renderType: Text.NativeRendering
+                        Rectangle {
+                            height: glyph.height 
+                            width: glyph.width + 1 + 8
+                            color: "red"
+                            radius: height
+                            Text {
+                                id: glyph
+                                anchors.centerIn: parent
+                                font.family: "Material Symbols Rounded"
+                                font.pointSize: 12
+                                text: "dataset" // Material Symbols font auto renders icon when using it's name
+                                color: "white"
+                            }
+                        }
+                        Leaf.SymbolButton {
+                            icon.name: "dataset"
+                            text: "Booo"
+                        }
+                        Leaf.SymbolButton {
+                            icon.name: "search"
+                            text: ""
                         }
                     }
                     // Center

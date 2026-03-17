@@ -3,7 +3,7 @@ import QtQuick.Controls
 import qs.Modules.Leaf as Leaf
 import qs as Root
 
-Leaf.Button {
+Leaf.SymbolButton {
     inset: 6
     implicitHeight: Root.State.barHeight
 }
