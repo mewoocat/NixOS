@@ -23,6 +23,7 @@ Singleton {
     function enable() {
         //console.log("Enabling sound service")
     }
+    // For use with a QT icon pack
     function getIcon(node: PwNode): string {
         if (node === null) {
             return "audio-volume-off"
@@ -36,6 +37,22 @@ Singleton {
             case vol > 50: return "audio-volume-medium"
             case vol > 0: return "audio-volume-low"
             default: return "audio-off"
+        }
+    }
+    // For use with the Material Symbols font
+    function getGlyph(node: PwNode): string {
+        if (node === null) {
+            return "volume_off"
+        }
+        if (node.audio.muted) {
+            return "volume_off"
+        }
+        const vol = node.audio.volume * 100
+        switch (true) {
+            case vol > 80: return "volume_up"
+            case vol > 50: return "volume_down"
+            case vol > 0: return "volume_mute"
+            default: return "volume_off"
         }
     }
     function getVolume(node: PwNode): real {

@@ -29,8 +29,8 @@ WrapperMouseArea {
 
         content: ColumnLayout {
             Text { color: palette.text; text: Services.User.username }
-            Leaf.PopupMenuItem { text: "User Settings"; action: () => {}; iconName: "application-menu-symbolic"}
-            Leaf.PopupMenuItem { text: "Logout"; action: () => {}; iconName: "go-previous-symbolic"}
+            Leaf.PopupMenuItem { text: "User Settings"; onClicked: () => {}; icon.name: "application-menu-symbolic"}
+            Leaf.PopupMenuItem { text: "Logout"; onClicked: () => {}; icon.name: "go-previous-symbolic"}
         }
     }
 

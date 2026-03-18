@@ -55,34 +55,6 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
-                        Leaf.Slider {
-                        }
-                        BarButton {
-                            font.family: "Material Symbols Rounded"
-                            text: "dataset" // Material Symbols font auto renders icon when using it's name
-                        }
-                        Rectangle {
-                            height: glyph.height 
-                            width: glyph.width + 1 + 8
-                            color: "red"
-                            radius: height
-                            Text {
-                                id: glyph
-                                anchors.centerIn: parent
-                                font.family: "Material Symbols Rounded"
-                                font.pointSize: 12
-                                text: "dataset" // Material Symbols font auto renders icon when using it's name
-                                color: "white"
-                            }
-                        }
-                        Leaf.SymbolButton {
-                            icon.name: "dataset"
-                            text: "Booo"
-                        }
-                        Leaf.SymbolButton {
-                            icon.name: "search"
-                            text: ""
-                        }
                     }
                     // Center
                     RowLayout {

@@ -49,7 +49,7 @@ PopupWindow {
             id: box
             color: Qt.alpha(Root.State.colors.surface, 0.4)
             radius: Root.State.rounding
-            margin: 8
+            margin: 0
             children: [ root.content ]
         }
     }

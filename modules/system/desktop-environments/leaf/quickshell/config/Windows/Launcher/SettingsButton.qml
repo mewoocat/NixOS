@@ -6,6 +6,6 @@ SidePanelItem {
         Root.State.settings.openWindow()
         Root.State.launcher.closeWindow()
     }
-    imgName: 'application-menu-symbolic'
+    imgName: 'settings-configure-symbolic'
     imgSize: 24
 }

@@ -124,50 +124,20 @@ Leaf.PanelGrid {
             implicitSize: 32
             source: Quickshell.iconPath("media-record-symbolic")
             // Recolor
-            layer.enabled: true
+            layer.enabled: false
             layer.effect: MultiEffect {
                 colorization: 1 // Full re-color
-                colorizationColor: "#ee1111"
+                colorizationColor: "red"
             }
         }
         onClicked: () => Services.ScreenCapture.toggleRecording()
         isActive: Services.ScreenCapture.recording
     }
     Leaf.PanelItem { 
-        id: testPanelItem
-        rows: 1
-        columns: 1
-        content: IconImage {
-            anchors.centerIn: parent
-            implicitSize: 32
-            source: Quickshell.iconPath("power-profile-balanced-symbolic")
-        }
-        onClicked: () => powerProfilePopup.visible = true
-        //TODO: The reason this triggers the focus grab for the parent window is because the panelGrab state is set again for each
-        // Leaf.PanelWindow created.  Need to store the references in the state using a map or something
-        // also, commenting out the launcher in the shell.qml allows for this popup to work
-        Leaf.PopupWindow {
-            id: powerProfilePopup
-            
-            anchor {
-                //window: Root.State.controlPanel
-                item: testPanelItem
-                edges: Edges.Bottom | Edges.Left
-                gravity: Edges.Top | Edges.Left
-            }
-
-            content: ColumnLayout {
-                Text { color: palette.text; text: "wtf" }
-            }
-        }
-    }
-
-    Leaf.PanelItem { 
         rows: 2
         columns: 2
         isClickable: false
-        content: Modules.SystemStats {
-        }
+        content: Modules.SystemStats {}
     }
     Leaf.PanelItem { 
         isClickable: false

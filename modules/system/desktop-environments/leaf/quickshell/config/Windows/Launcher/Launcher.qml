@@ -90,8 +90,9 @@ Leaf.PanelWindow {
                             }
 
                             content: ColumnLayout {
-                                Text { color: palette.text; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
-                                Leaf.PopupMenuItem { text: "Remove"; action: () => {
+                                spacing: 0
+                                Leaf.PopupMenuText { color: palette.text; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
+                                Leaf.PopupMenuItem { text: "Remove"; onClicked: () => {
                                     console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
                                     // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
                                     // TODO: Probably need to find a way to automatically do this
@@ -99,7 +100,7 @@ Leaf.PanelWindow {
                                     Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appPanelItem.appId)
                                     Root.State.configFileView.writeAdapter()
 
-                                }; iconName: "remove"}
+                                }; icon.name: "remove"}
                             }
                         }
                     }
@@ -228,16 +229,14 @@ Leaf.PanelWindow {
                         }
                         // Used to enforce the height of the show more button when it's invisible
                         Item { implicitHeight: showMoreBtn.buttonHeight }
-                        Leaf.NormalButton {
+                        Leaf.Button {
                             id: showMoreBtn
                             visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
-                            iconName: "view-more"
-                            leftClick: () => scrollItem.expanded = !scrollItem.expanded
-                            defaultIconColor: Root.State.colors.on_primary
-                            activeIconColor: Root.State.colors.on_primary_container
-                            activeBgColor: Root.State.colors.primary_container
-                            recolorIcon: true
+                            icon.name: "overflow-menu-symbolic"
+                            onClicked: () => scrollItem.expanded = !scrollItem.expanded
+                            icon.color: hovered ? Root.State.colors.on_primary_container : Root.State.colors.on_primary
+                            backgroundColor: hovered ? Root.State.colors.primary_container : "transparent"
                         }
                     }
                     
@@ -261,10 +260,10 @@ Leaf.PanelWindow {
                         }
                         Leaf.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
                         RowLayout {
-                            Leaf.NormalButton {
+                            Leaf.Button {
                                 text: "Pin"
-                                iconName: "pin"
-                                leftClick: () => {
+                                icon.name: "pin"
+                                onClicked: () => {
                                     const pinnedApps = Root.State.config.pinnedApps
                                     const isAppPinned = pinnedApps.find(appId => appId == subDelegate.modelData.id)
                                     if (!isAppPinned) {

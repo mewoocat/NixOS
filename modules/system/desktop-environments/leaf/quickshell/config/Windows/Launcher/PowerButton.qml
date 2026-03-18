@@ -31,10 +31,10 @@ SidePanelItem {
         }
 
         content: ColumnLayout {
-            Leaf.PopupMenuItem { text: "Shutdown"; action: () => Services.Power.shutdown(); iconName: "system-shutdown-symbolic"}
-            Leaf.PopupMenuItem { text: "Hibernate"; action: () => Services.Power.hibernate(); iconName: "system-shutdown-symbolic"}
-            Leaf.PopupMenuItem { text: "Restart"; action: () => Services.Power.restart(); iconName: "system-restart-symbolic"}
-            Leaf.PopupMenuItem { text: "Sleep"; action: () => Services.Power.sleep(); iconName: "system-suspend-symbolic"}
+            Leaf.PopupMenuItem { text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
+            Leaf.PopupMenuItem { text: "Hibernate"; onClicked: () => Services.Power.hibernate(); icon.name: "system-shutdown-symbolic"}
+            Leaf.PopupMenuItem { text: "Restart"; onClicked: () => Services.Power.restart(); icon.name: "system-restart-symbolic"}
+            Leaf.PopupMenuItem { text: "Sleep"; onClicked: () => Services.Power.sleep(); icon.name: "system-suspend-symbolic"}
         }
     }
 }

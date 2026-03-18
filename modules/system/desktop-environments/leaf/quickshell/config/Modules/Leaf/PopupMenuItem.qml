@@ -1,37 +1,14 @@
-import Quickshell
-import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import qs as Root
+import qs.Modules.Leaf as Leaf
 
 // For generic popup menus
-WrapperMouseArea { 
+// TODO: Should probably implement the MenuItem control for this: https://doc.qt.io/qt-6/qml-qtquick-controls-menuitem.html
+Leaf.Button { 
     id: root
-    required property string text
-    required property var action
-    property string iconName: ""
-
+    //implicitWidth: parent.width
     Layout.fillWidth: true
-
-    enabled: true
-    hoverEnabled: true
-    onClicked: action()
-
-    WrapperRectangle {
-        margin: 4
-        radius: Root.State.rounding
-        color: root.containsMouse ? Root.State.colors.primary : "transparent"
-        RowLayout {
-            IconImage {
-                visible: root.iconName != ""
-                implicitSize: 18
-                source: Quickshell.iconPath(root.iconName)
-            }
-            Text {
-                color: root.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                text: root.text
-                Layout.fillWidth: true
-            }
-        }
-    }
+    radius: 4
+    leftInset: 6
+    rightInset: 6
 }

@@ -4,6 +4,9 @@ import Quickshell.Widgets
 
 import qs as Root
 
+// Designed for showing the icon using a font glyph like Material Symbols
+// Using font glyphs for icons is still stupid imo.  Alignment issues and 
+// added complexity for multiple opacities.  Svgs are just simpler.
 Button {
     id: control
     contentItem: Item {
