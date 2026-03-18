@@ -9,6 +9,7 @@ Singleton {
     id: root
 
     property bool recording: false
+    onRecordingChanged: console.debug(`recording set to ${recording}`)
 
     // A better idea might be having some ipc commands that the recording script calls to set the recording status
     function checkRecording(): bool {
@@ -22,7 +23,6 @@ Singleton {
             root.recording = false
         }
         else {
-            root.recording = true
             startRecording()
             Services.Hyprland.toggleGrab()
             console.debug('rec on')
@@ -33,14 +33,15 @@ Singleton {
         Quickshell.execDetached([`${Quickshell.shellDir}/Scripts/ScreenCapture.sh`])
     }
 
+    // By default the pkill command sends the SIGTERM signal
     function stopRecording() {
-        Quickshell.execDetached(["sh", "-c", "pkill wf-recorder"])
+        Quickshell.execDetached(["sh", "-c", "pkill -f ScreenCapture.sh"])
     }
 
     Process {
         id: recordingCheckProc
         running: true
-        command: ["sh", "-c", "pidof wf-recorder"]
+        command: ["sh", "-c", "pidof wf-recorder"] // TODO: Check script instead?
         onExited: (exitCode, exitStatus) => {
             if (exitCode == 0) {
                 root.recording = true

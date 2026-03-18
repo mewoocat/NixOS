@@ -2,6 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import qs.Services as Services
 
 Singleton {
     // Used to initialize this singleton
@@ -28,5 +29,9 @@ Singleton {
             State.screenLocked = true 
             console.log(`locked post = ${State.screenLocked}`)
         }
+        // Signals that the recording as actually started and wasn't canceled by the user
+        function recordingStarted() { Services.ScreenCapture.recording = true }
+        // Stops the recording
+        function stopRecording() { Services.ScreenCapture.stopRecording() }
     }
 }
