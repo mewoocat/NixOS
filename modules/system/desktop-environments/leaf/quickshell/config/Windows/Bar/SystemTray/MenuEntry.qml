@@ -69,6 +69,10 @@ MouseArea {
                             implicitSize: content.entry.hasChildren ? 16 : 0
                             source: Quickshell.iconPath("pan-start-symbolic")
                         }
+                        // WARNING! This may log a Could not load icon warning for the following icons
+                        // - bluetooth-disabled-symbolic
+                        // - bluetooth-symbolic
+                        // - application-x-addon-symbolic
                         IconImage {
                             visible: content.entry.icon === ""
                             implicitSize: content.entry.icon !== "" ? 16 : 0

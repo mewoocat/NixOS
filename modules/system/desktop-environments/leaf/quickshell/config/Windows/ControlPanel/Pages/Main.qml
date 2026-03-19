@@ -83,7 +83,7 @@ Leaf.PanelGrid {
             RowItem {
                 title: "Bluetooth"
                 subtext: "my-device"
-                iconName: "network-bluetooth"
+                iconName: "network-bluetooth-symbolic"
                 normalAction: () => Root.State.controlPanelPage = 3
             }
         }

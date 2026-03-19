@@ -134,7 +134,11 @@ Singleton {
     property var currentMonitorToWSMap: {
         const currentMonitorConfigId = Monitors.currentMonitorConfigId
         const monitorToWSMap = Root.State.config.workspaces.monitorToWSMap
-        const configExists = monitorToWSMap.hasOwnProperty(currentMonitorConfigId)
+        if (!monitorToWSMap) {
+            console.warn(`monitorToWSMap doesn't exist`)
+            return
+        }
+        const configExists = monitorToWSMap?.hasOwnProperty(currentMonitorConfigId)
         if (!configExists) {
             console.warn(`Workspace config for monitor config ${currentMonitorConfigId} was not found, auto generating default`)
             monitorToWSMap[currentMonitorConfigId] = generateDefaultMonitorToWSMap()
