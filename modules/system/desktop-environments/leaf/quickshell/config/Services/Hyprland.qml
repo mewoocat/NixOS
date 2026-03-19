@@ -93,10 +93,6 @@ Singleton {
         onTriggered: () => grab.active = true
     }
 
-    function toggleGrab() {
-        grab.active = !grab.active
-    }
-
     // A single focus grab instance which is shared
     HyprlandFocusGrab {
         id: grab

@@ -68,7 +68,7 @@ ColumnLayout {
         RowLayout {
             IconImage {
                 implicitSize: 20
-                source: Quickshell.iconPath("temp-symbolic")
+                source: Quickshell.iconPath("temperature-warm-symbolic")
             }
             Text {
                 text: {

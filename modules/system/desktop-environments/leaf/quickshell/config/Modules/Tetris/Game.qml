@@ -1,13 +1,9 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell
 import Quickshell.Widgets
 
-import "./Shapes"
-import "../Common" as Common
 import "../Leaf" as Leaf
 
 FocusScope {

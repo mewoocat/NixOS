@@ -11,21 +11,14 @@ Singleton {
     property bool recording: false
     onRecordingChanged: console.debug(`recording set to ${recording}`)
 
-    // A better idea might be having some ipc commands that the recording script calls to set the recording status
-    function checkRecording(): bool {
-        recordingCheckProc.running = true
-    }
-
     function toggleRecording() {
         if (root.recording){
-            console.debug('rec off')
             stopRecording()
             root.recording = false
         }
         else {
             startRecording()
-            Services.Hyprland.toggleGrab()
-            console.debug('rec on')
+            // TODO: Might want to disable the HyprlandFocusGrab when slurp is active (as to not auto close the control panel on recording start)
         }
     }
 
@@ -38,6 +31,7 @@ Singleton {
         Quickshell.execDetached(["sh", "-c", "pkill -f ScreenCapture.sh"])
     }
 
+    // Check whether or not a recording is currently occuring on shell startup
     Process {
         id: recordingCheckProc
         running: true
@@ -50,25 +44,4 @@ Singleton {
             }
         }
     }
-
-    /*
-    Process {
-        id: proc
-        command: [`./Scripts/ScreenCapture.sh`]
-        running: root.recording        
-        onExited: (exitCode, existStatus) => {
-            if (exitCode != 0)
-            {
-                Quickshell.execDetached(["sh", "-c", 'notify-send "Screen Recording Error"'])
-                console.log(`Screen capture script stopped with exit code ${exitCode} and exit status ${existStatus}`)
-            }
-        }
-        stdout: SplitParser {
-            onRead: (data) => console.log(`ScreenRecorder.sh: ${data}`)
-        }
-        stderr: SplitParser {
-            onRead: (data) => console.error(`ScreenRecorder.sh: ${data}`)
-        }
-    }
-    */
 }

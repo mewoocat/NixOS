@@ -48,18 +48,18 @@ PageBase {
                             const iconName = properties["application.icon-name"] // Can be ""
                             const appName = properties["application.name"]
                             // First try the app icon-name
-                            if (iconName !== undefined) {
+                            if (!iconName) {
                                 // Passing in true for the second param will return an empty string if icon is not found
                                 const iconAttempt = Quickshell.iconPath(iconName, true)
-                                if (iconAttempt != "") return iconAttempt
+                                if (!iconAttempt) return iconAttempt
                             }
                             // If none is found try the app name
-                            if (appName !== undefined) {
+                            if (!appName) {
                                 const nameAttempt = Quickshell.iconPath(appName.toLowerCase())
-                                if (nameAttempt != "") return nameAttempt
+                                if (!nameAttempt) return nameAttempt
                             }
                             // fallback (generic volume level icon)
-                            return Quickshell.iconPath(Services.Audio.getIcon(root.node))
+                            return Quickshell.iconPath(Services.Audio.getIcon(root.node), "error-symbolic")
                         }
                     }
                 }

@@ -40,7 +40,7 @@ ShellRoot {
     ActivityCenter {}
     Notifications {}
     //Workspaces {}
-    Settings {}
+    //Settings {}
     Lockscreen {}
     /*
     OnScreenDisplay {}
