@@ -12,6 +12,7 @@ Singleton {
         values: [...server.trackedNotifications.values].reverse()
     }
     property ScriptModel notificationPopups: ScriptModel {} // ScriptModel<Notification> for notifications which are popped up
+    property int amount: notifications.values.length
 
     function enable() {
         //console.log("enabling notifications")

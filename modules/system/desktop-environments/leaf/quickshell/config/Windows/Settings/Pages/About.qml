@@ -9,10 +9,12 @@ PageBase {
     pageName: "About"
     content: RowLayout {
         anchors.fill: parent
+        /*
         IconImage {
             source: Quickshell.iconPath('distributor-logo-nixos')
             implicitSize: 64                
         }
+        */
         ColumnLayout {
             Text { color: palette.text; text: "NixOS"}
             

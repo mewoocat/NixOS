@@ -42,25 +42,26 @@ PageBase {
                 IconImage {
                     implicitSize: 24
                     source: {
-                        // If node is set and is bound
-                        if (root.node && root.node.ready) {
-                            const properties = root.node.properties
-                            const iconName = properties["application.icon-name"] // Can be ""
-                            const appName = properties["application.name"]
-                            // First try the app icon-name
-                            if (!iconName) {
-                                // Passing in true for the second param will return an empty string if icon is not found
-                                const iconAttempt = Quickshell.iconPath(iconName, true)
-                                if (!iconAttempt) return iconAttempt
-                            }
-                            // If none is found try the app name
-                            if (!appName) {
-                                const nameAttempt = Quickshell.iconPath(appName.toLowerCase())
-                                if (!nameAttempt) return nameAttempt
-                            }
-                            // fallback (generic volume level icon)
-                            return Quickshell.iconPath(Services.Audio.getIcon(root.node), "error-symbolic")
+                        if (!root.node || !root.node.ready) {
+                            return ""
                         }
+                        // If node is set and is bound
+                        const properties = root.node.properties
+                        const iconName = properties["application.icon-name"] // Can be ""
+                        const appName = properties["application.name"]
+                        // First try the app icon-name
+                        if (!iconName) {
+                            // Passing in true for the second param will return an empty string if icon is not found
+                            const iconAttempt = Quickshell.iconPath(iconName, true)
+                            if (!iconAttempt) return iconAttempt
+                        }
+                        // If none is found try the app name
+                        if (!appName) {
+                            const nameAttempt = Quickshell.iconPath(appName.toLowerCase())
+                            if (!nameAttempt) return nameAttempt
+                        }
+                        // fallback (generic volume level icon)
+                        return Quickshell.iconPath(Services.Audio.getIcon(root.node))
                     }
                 }
                 ColumnLayout {
@@ -70,18 +71,18 @@ PageBase {
                         color: root.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                         elide: Text.ElideRight
                         text: {
-                            if (root.name != "") { return root.name }
-                            if (root.node.description != "") return root.node.description
-                            const text = root.node.properties["application.name"]
-                            if (text === undefined) { return "n/a" }
-                            return text
+                            if (root?.name) return root.name
+                            if (root?.node?.description) return root.node.description
+                            const appName = root?.node?.properties["application.name"]
+                            if (appName) return appName
+                            return "n/a"
                         }
                     }
                     Text {
                         Layout.fillWidth: true
                         text: {
-                            if (root.description != "") { return root.description }
-                            if (root.node.properties["media.name"] != "") return root.node.properties["media.name"]
+                            if (root?.description) return root.description
+                            if (root?.node?.properties["media.name"]) return root.node.properties["media.name"]
                             return "n/a"
                         }
                         elide: Text.ElideRight
@@ -131,8 +132,8 @@ PageBase {
             MixerItem {
                 implicitWidth: parent.width
                 node: Pipewire.defaultAudioSink
-                name: node.nickname
-                description: node.properties["media.class"]
+                name: node?.nickname ?? "no name"
+                description: node?.properties["media.class"] ?? "no description"
             }
 
             // Output device selector

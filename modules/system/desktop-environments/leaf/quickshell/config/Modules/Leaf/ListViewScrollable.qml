@@ -93,11 +93,9 @@ Rectangle {
 
             property bool expanded: false
             property bool showBackground: false
-            property int contentMargin: 0
             property bool interacted: scrollItem.containsMouse || scrollItem.focus || scrollItem.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
 
             onClicked: root.primaryClick(modelData)
-            bottomMargin: 8 // Yes, this will cause extra spacing at the bottom of the scrollable
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
             hoverEnabled: true
 

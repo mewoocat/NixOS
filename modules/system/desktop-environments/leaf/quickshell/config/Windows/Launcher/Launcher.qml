@@ -227,8 +227,6 @@ Leaf.PanelWindow {
                                 font.pointSize: 8
                             }
                         }
-                        // Used to enforce the height of the show more button when it's invisible
-                        Item { implicitHeight: showMoreBtn.buttonHeight }
                         Leaf.Button {
                             id: showMoreBtn
                             visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0

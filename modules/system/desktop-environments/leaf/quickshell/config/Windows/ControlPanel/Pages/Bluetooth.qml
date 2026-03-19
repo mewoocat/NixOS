@@ -15,12 +15,12 @@ PageBase {
     pageName: "Bluetooth"
     headerContent: RowLayout {
         Switch {
-            checked: Bluetooth.defaultAdapter.enabled
+            checked: Bluetooth.defaultAdapter?.enabled ?? false
             onClicked: Bluetooth.defaultAdapter.enabled = checked
         }
         IconImage {
             implicitSize: 18
-            source: Quickshell.iconPath(Bluetooth.defaultAdapter.enabled ? "bluetooth-active" : "bluetooth-disabled")
+            source: Quickshell.iconPath(Bluetooth.defaultAdapter?.enabled ? "network-bluetooth-symbolic" : "network-bluetooth-inactive-symbolic")
         }
     }
 
