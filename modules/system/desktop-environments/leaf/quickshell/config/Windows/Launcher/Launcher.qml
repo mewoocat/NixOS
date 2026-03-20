@@ -151,7 +151,7 @@ Leaf.PanelWindow {
                     id: scrollable
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    padding: 16
+                    padding: 8
                     onPrimaryClick: (modelData) => launchApp(modelData)
                     model: ScriptModel {
                         values: DesktopEntries.applications.values

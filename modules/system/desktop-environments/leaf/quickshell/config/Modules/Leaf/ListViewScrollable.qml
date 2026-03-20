@@ -30,7 +30,8 @@ Rectangle {
     property int animationSpeed: 100
     property int expansionAnimationSpeed: 350
     property int itemHeight: 48
-    property int contentMargin: 4
+    property int contentMargin: 2
+    property int contentPadding: 4
     property color scrollItemBG: Root.State.colors.surface_container
     property color scrollItemBGHighlight: Root.State.colors.primary
 
@@ -98,6 +99,7 @@ Rectangle {
             onClicked: root.primaryClick(modelData)
             implicitWidth: parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
             hoverEnabled: true
+            margin: root.contentMargin
 
             onExpandedChanged: {
                 console.log(`expanded: ${expanded}`)
@@ -116,10 +118,9 @@ Rectangle {
             Rectangle {
                 id: background
                 clip: true
-                //color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
                 color: "transparent"
                 implicitWidth: parent.width
-                implicitHeight: root.itemHeight // !! implicitHeight is modified via a state change
+                implicitHeight: mainBox.height//root.itemHeight // !! implicitHeight is modified via a state change
                 //onImplicitHeightChanged: console.log(`implicitHeight: ${implicitHeight}`)
                 // Main content
                 WrapperRectangle {
@@ -129,7 +130,7 @@ Rectangle {
                     anchors.right: parent.right
                     radius: 8
                     color: scrollItem.containsMouse || scrollItem.showBackground || scrollItem.focus ? root.scrollItemBGHighlight : "transparent"
-                    margin: root.contentMargin
+                    margin: root.contentPadding
 
                     // Working implementation
                     Loader {
@@ -243,7 +244,7 @@ Rectangle {
                             showBackground: true
                         }
                         background {
-                            implicitHeight: root.itemHeight + subBox.height
+                            implicitHeight: mainBox.height + subBox.height
                         }
                         mainBox {
                             bottomLeftRadius: 0
