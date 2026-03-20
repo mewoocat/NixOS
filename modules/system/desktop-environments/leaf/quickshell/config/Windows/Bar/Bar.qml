@@ -9,6 +9,7 @@ import QtQuick.Layouts
 import qs as Root
 import qs.Modules.Leaf as Leaf
 import qs.Windows.ControlPanel
+import qs.Components.Controls as C
 import "./SystemTray"
 
 import qs.Services as Services
@@ -55,6 +56,7 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
+                        C.ComboBox {}
                     }
                     // Center
                     RowLayout {
