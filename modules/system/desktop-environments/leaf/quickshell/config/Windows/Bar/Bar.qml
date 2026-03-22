@@ -56,7 +56,9 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
-                        C.ComboBox {}
+                        C.ComboBox {
+                            model: ["a", "b", "c", "d", "e"]
+                        }
                     }
                     // Center
                     RowLayout {
