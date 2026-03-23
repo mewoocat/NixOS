@@ -11,14 +11,14 @@ T.ComboBox {
     hoverEnabled: true
 
     //defines the padding of the contentItem relative to the edge of the control
-    padding: 0
+    padding: 4
     leftPadding: padding
     rightPadding: padding
     topPadding: padding
     bottomPadding: padding
 
     // Defines the padding of the background
-    property real inset: 2
+    property real inset: 0
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -36,16 +36,6 @@ T.ComboBox {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-
-    delegate: ItemDelegate { // Inherits from AbstractButton
-        id: delegate
-
-        required property var model
-        required property int index
-
-        text: model[control.textRole]
-    }
-
     background: Rectangle {
         id: bg
         implicitWidth: 120
@@ -55,29 +45,50 @@ T.ComboBox {
     }
 
     contentItem: Rectangle {
-        color: "transparent"
+        color: "#1000ff00"
         Text {
-            anchors.centerIn: parent
-            text: "stuff"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.margins: 6
+            text: control.currentText
             color: control.color
         }
     }
 
-    // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
-    popup: Popup {
-        y: control.height + 8
-        width: control.width
-        height: contentItem.implicitHeight + 1 // Can't be 0 or qs will crash
+    delegate: MenuItem {
+        id: delegate
+        hoverEnabled: control.hoverEnabled
+        width: control.contentItem.width
+
+        required property var model
+        required property int index
+
+        text: model[control.textRole]
+        highlighted: index == control.highlightedIndex
+    }
+
+    popup: Menu {
+        padding: control.padding
+        y: control.height
+        implicitWidth: contentWidth + leftPadding + rightPadding
+        implicitHeight: contentHeight + topPadding + bottomPadding // Can't be 0 or qs will crash
+        width: Math.max(control.background.width, implicitWidth)
+        height: Math.max(1, implicitHeight)
         closePolicy: Popup.NoAutoClose // Doesn't seem to take effect
         background: Rectangle {
-            color: Root.State.colors.surface
+            color: "red" //Root.State.colors.surface
             radius: control.radius
         }
+        /*
+        */
         contentItem: ListView {
-            implicitHeight: contentHeight
+            // contentHeight / contentWidth seem to no work in some cases?
+            implicitWidth: contentItem.childrenRect.width
+            implicitHeight: contentItem.childrenRect.height
             model: control.delegateModel // Provides both the model and delegate
         }
-        popupType: Popup.Window
+        popupType: Popup.Window // Used to render the popup as it's own window
+        // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
         /*
         enter: Transition {
             NumberAnimation { property: "height"; from: 1; to: 400 }
