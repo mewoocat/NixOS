@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 ColumnLayout {
@@ -27,7 +28,7 @@ ColumnLayout {
                 }
                 color: Root.State.colors.on_surface
             }
-            ProgressBar {
+            Ctrls.ProgressBar {
                 Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.cpuUsage
@@ -52,7 +53,7 @@ ColumnLayout {
                 }
                 color: Root.State.colors.on_surface
             }
-            ProgressBar {
+            Ctrls.ProgressBar {
                 Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.memUsage
@@ -76,7 +77,7 @@ ColumnLayout {
                 }
                 color: Root.State.colors.on_surface
             }
-            ProgressBar {
+            Ctrls.ProgressBar {
                 Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.cpuTemp
@@ -98,7 +99,7 @@ ColumnLayout {
                 text: Math.round(Services.SystemStats.storageUsage) + '%'
                 color: Root.State.colors.on_surface
             }
-            ProgressBar {
+            Ctrls.ProgressBar {
                 Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.storageUsage

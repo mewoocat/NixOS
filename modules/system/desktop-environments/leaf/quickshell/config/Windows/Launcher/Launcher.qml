@@ -62,6 +62,10 @@ Leaf.PanelWindow {
                 Layout.fillHeight: true
                 spacing: 0
 
+                        ComboBox {
+                            model: ["a", "b", "c", "d", "e"]
+                            Component.onCompleted: popup.popupType = Popup.Window
+                        }
                 SeqDragGrid.SequentialDragGrid {
                     id: grid
                     Layout.fillHeight: true

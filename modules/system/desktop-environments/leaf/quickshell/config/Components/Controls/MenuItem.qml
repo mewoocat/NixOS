@@ -18,8 +18,8 @@ T.MenuItem {
     topPadding: padding
     bottomPadding: padding
 
-    property color backgroundColor: control.hovered ? Root.State.colors.primary : "transparent"
-    property color color: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
+    property color backgroundColor: control.hovered || control.highlighted ? Root.State.colors.primary : "transparent"
+    property color color: control.hovered || control.highlighted ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMutliColorIcon: false
     property int radius: background.implicitHeight
     // Defines the padding of the background
@@ -38,8 +38,8 @@ T.MenuItem {
 
     background: Rectangle {
         id: bg
-        implicitWidth: 36//control.contentItem.implicitWidth + control.padding
-        implicitHeight: 18//control.contentItem.implicitHeight + control.padding
+        implicitWidth: 48//control.contentItem.implicitWidth + control.padding
+        implicitHeight: 28//control.contentItem.implicitHeight + control.padding
         color: control.backgroundColor
         radius: control.radius
     }

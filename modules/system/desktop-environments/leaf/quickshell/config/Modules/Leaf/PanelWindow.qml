@@ -21,7 +21,7 @@ PanelWindow {
     }
 
     exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
-    focusable: true // Enable keyboard focus
+    //focusable: true // Enable keyboard focus !! Warning seems to cause Popup.Window popup types to close immediately after opening
     color: "transparent"
     margins {
         top: 8

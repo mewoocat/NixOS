@@ -138,7 +138,7 @@ Item {
         }
         }
 
-        ComboBox {
+        Ctrls.ComboBox {
             Layout.columnSpan: 1
             Layout.rowSpan: 1
             Layout.row: 0
@@ -147,9 +147,9 @@ Item {
             enabled: root.currentPlayer !== null
             textRole: "identity"
             model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
-            displayText: "♫"
-            implicitWidth: 40
-            Component.onCompleted: popup.width = 160
+            //displayText: "♫"
+            //implicitWidth: 40
+            //Component.onCompleted: popup.width = 160
             onActivated: (index) => {
                 root.currentPlayerIndex = index
             }

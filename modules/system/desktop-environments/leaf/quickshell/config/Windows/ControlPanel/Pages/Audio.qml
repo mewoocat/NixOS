@@ -138,7 +138,7 @@ PageBase {
             }
 
             // Output device selector
-            ComboBox {
+            Ctrls.ComboBox {
                 id: comboBox
                 implicitWidth: parent.width
                 model: Services.Audio.outputDevices

@@ -2,6 +2,7 @@
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Widgets
+import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Shapes
 import QtQuick.Controls
@@ -56,8 +57,27 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
+                        Ctrls.ProgressBar {
+                            id: prog
+                            value: 0.1
+                        }
+                        Ctrls.Slider {
+                            onValueChanged: prog.value = value
+                        }
                         Ctrls.ComboBox {
-                            model: ["a", "b", "c", "d", "e"]
+                            Layout.columnSpan: 1
+                            Layout.rowSpan: 1
+                            Layout.row: 0
+                            Layout.column: 2
+                            Layout.alignment: Qt.AlignTop
+                            textRole: "identity"
+                            model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
+                            //displayText: "♫"
+                            //implicitWidth: 40
+                            //Component.onCompleted: popup.width = 160
+                            onActivated: (index) => {
+                                root.currentPlayerIndex = index
+                            }
                         }
                     }
                     // Center
