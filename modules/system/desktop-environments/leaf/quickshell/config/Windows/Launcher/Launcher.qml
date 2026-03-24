@@ -10,6 +10,7 @@ import Quickshell.Hyprland
 import qs as Root
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs.Modules.Leaf.SequentialDragGrid as SeqDragGrid
 
 Leaf.PanelWindow {
@@ -227,7 +228,7 @@ Leaf.PanelWindow {
                                 font.pointSize: 8
                             }
                         }
-                        Leaf.Button {
+                        Ctrls.Button {
                             id: showMoreBtn
                             visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
@@ -258,7 +259,7 @@ Leaf.PanelWindow {
                         }
                         Leaf.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
                         RowLayout {
-                            Leaf.Button {
+                            Ctrls.Button {
                                 text: "Pin"
                                 icon.name: "pin"
                                 onClicked: () => {

@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import qs as Root
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 
 ColumnLayout {
     anchors.centerIn: parent
@@ -11,7 +12,7 @@ ColumnLayout {
     RowLayout {
         spacing: 0
         Layout.fillWidth: true
-        Leaf.Button {
+        Ctrls.Button {
             Layout.alignment: Qt.AlignLeft
             icon.name: "arrow-left"
             onClicked: () => {
@@ -30,7 +31,7 @@ ColumnLayout {
             font.pointSize: 10
             color: Root.State.colors.on_surface
         }
-        Leaf.Button {
+        Ctrls.Button {
             icon.name: "arrow-right"
             onClicked: () => {
                 if (monthGrid.month === Calendar.December) {

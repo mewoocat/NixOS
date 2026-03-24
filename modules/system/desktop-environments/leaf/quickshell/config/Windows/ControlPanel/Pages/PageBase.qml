@@ -5,6 +5,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 // Need wrapper item since we want to anchor the ColumnLayout to the top of the SwipeView area but 
@@ -24,7 +25,7 @@ Item {
         // Header
         RowLayout {
             // Back button
-            Leaf.Button {
+            Ctrls.Button {
                 icon.name: "arrow-left-symbolic"
                 onClicked: () => Root.State.controlPanelPage = 0
             } 

@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls as C
 import QtQuick.Templates as T
 import qs as Root
 
@@ -67,14 +67,14 @@ T.ComboBox {
         highlighted: index == control.highlightedIndex
     }
 
-    popup: Menu {
+    popup: C.Menu {
         padding: control.padding
         y: control.height
         implicitWidth: contentWidth + leftPadding + rightPadding
         implicitHeight: contentHeight + topPadding + bottomPadding // Can't be 0 or qs will crash
         width: Math.max(control.background.width, implicitWidth)
         height: Math.max(1, implicitHeight)
-        closePolicy: Popup.NoAutoClose // Doesn't seem to take effect
+        closePolicy: C.Popup.NoAutoClose // Doesn't seem to take effect
         background: Rectangle {
             color: "red" //Root.State.colors.surface
             radius: control.radius
@@ -87,7 +87,7 @@ T.ComboBox {
             implicitHeight: contentItem.childrenRect.height
             model: control.delegateModel // Provides both the model and delegate
         }
-        popupType: Popup.Window // Used to render the popup as it's own window
+        popupType: C.Popup.Window // Used to render the popup as it's own window
         // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
         /*
         enter: Transition {

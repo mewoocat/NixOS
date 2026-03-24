@@ -10,6 +10,7 @@ import qs as Root
 import qs.Services as Services
 import qs.Modules as Modules
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 
 Leaf.PanelGrid {
     columns: 4
@@ -147,7 +148,7 @@ Leaf.PanelGrid {
             anchors.centerIn: parent
             spacing: 0
 
-            Leaf.Slider {
+            Ctrls.Slider {
                 orientation: Qt.Vertical
                 from: 0
                 to: 2
@@ -212,7 +213,7 @@ Leaf.PanelGrid {
         ColumnLayout {    
             //anchors.fill: parent
             RowLayout {
-                Leaf.Button {
+                Ctrls.Button {
                     icon.name: Services.Audio.getIcon(Pipewire.defaultAudioSink)
                     text: {
                         return Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
@@ -225,7 +226,7 @@ Leaf.PanelGrid {
                     onClicked: () => Root.State.controlPanelPage = 1
                     Layout.minimumWidth: 86
                 }
-                Leaf.Slider {
+                Ctrls.Slider {
                     Layout.fillWidth: true
                     from: 0
                     value: Services.Audio.getVolume(Pipewire.defaultAudioSink)
@@ -235,13 +236,13 @@ Leaf.PanelGrid {
             }
 
             RowLayout {
-                Leaf.Button {
+                Ctrls.Button {
                     icon.name: Services.Brightness.getIcon()
                     text: Math.ceil(Services.Brightness.value * 100) + '%'
                     onClicked: () => Root.State.controlPanelPage = 4
                     Layout.minimumWidth: 86
                 }
-                Leaf.Slider {
+                Ctrls.Slider {
                     Layout.fillWidth: true
                     from: 0.01
                     value: Services.Brightness.value

@@ -7,6 +7,7 @@ import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules as Modules
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 PageBase {
@@ -105,7 +106,7 @@ PageBase {
             }
             */
 
-            Leaf.Slider {
+            Ctrls.Slider {
                 Layout.fillWidth: true
                 value: Services.Audio.getVolume(root.node)
                 // Don't allow for value to be changed until node is bound

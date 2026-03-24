@@ -6,6 +6,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 Item {
@@ -163,7 +164,7 @@ Item {
             Layout.column: 1
             Layout.bottomMargin: -6
 
-            Leaf.Slider {
+            Ctrls.Slider {
                 id: slider
                 enabled: root.currentPlayer !== null
                 //live: false
@@ -239,14 +240,14 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: controls.height
             Layout.alignment: Qt.AlignHCenter
-            Leaf.Button {
+            Ctrls.Button {
                 icon.name: "player_rew"
                 onClicked: () => {
                     if (root.currentPlayer === null) { console.warn(`No current player`); return }
                     root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
                 }
             }
-            Leaf.Button {
+            Ctrls.Button {
                 icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
                 onClicked: () => {
                     if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
@@ -257,7 +258,7 @@ Item {
                     root.currentPlayer.playbackState === MprisPlaybackState.Playing ? root.currentPlayer.pause() : root.currentPlayer.play()
                 }
             }
-            Leaf.Button {
+            Ctrls.Button {
                 icon.name: "player_fwd"
                 onClicked: () => 
                 {

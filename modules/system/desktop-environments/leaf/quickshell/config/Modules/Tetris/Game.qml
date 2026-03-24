@@ -3,8 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
-
-import "../Leaf" as Leaf
+import qs.Components.Controls as Ctrls
 
 FocusScope {
     anchors.fill: parent
@@ -66,7 +65,7 @@ FocusScope {
                         text: `${Tetris.score}`
                     } 
                 }
-                Leaf.Button {
+                Ctrls.Button {
                     text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
                     onClicked: () => {
                         if (!Tetris.isRunning || Tetris.isPaused) {
@@ -78,7 +77,7 @@ FocusScope {
                     }
                 }
 
-                Leaf.Button {
+                Ctrls.Button {
                     text: "reset"
                     onClicked: Tetris.reset
                 }

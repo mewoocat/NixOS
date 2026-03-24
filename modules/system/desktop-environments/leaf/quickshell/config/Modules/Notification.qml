@@ -6,6 +6,7 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 Leaf.ListItemExpandable {
@@ -72,7 +73,7 @@ Leaf.ListItemExpandable {
             // Spacer to push close button to right
             Item {Layout.fillWidth: true;}
 
-            Leaf.Button {
+            Ctrls.Button {
                 implicitHeight: 24
                 visible: root.notifData.actions?.length > 0 || ghostBody.lineCount > root.maxBodyLines
                 text: "Expand"
@@ -80,7 +81,7 @@ Leaf.ListItemExpandable {
                 onClicked: root.expanded = !root.expanded
             }
 
-            Leaf.Button {
+            Ctrls.Button {
                 implicitWidth: 32
                 implicitHeight: 24
                 icon.name: 'gtk-close'
@@ -147,7 +148,7 @@ Leaf.ListItemExpandable {
         direction: FlexboxLayout.Row
         Repeater {
             model: root.notifData.actions
-            delegate: Leaf.Button {
+            delegate: Ctrls.Button {
                 required property var modelData
                 text: modelData.text
                 onClicked: modelData.invoke()

@@ -8,6 +8,7 @@ import Quickshell.Bluetooth
 import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 PageBase {
@@ -74,7 +75,7 @@ PageBase {
                 }
             }
         }
-        Leaf.Button {
+        Ctrls.Button {
             id: expandBtn
             visible: mainDelegate.scrollItem.interacted
             icon.name: "view-more"
@@ -93,12 +94,12 @@ PageBase {
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            Leaf.Button {
+            Ctrls.Button {
                 visible: subDelegate.modelData.paired
                 text: subDelegate.modelData.connected ? "disconnect" : "connect"
                 onClicked: subDelegate.modelData.connected ? subDelegate.modelData.disconnect : subDelegate.modelData.connect
             }
-            Leaf.Button {
+            Ctrls.Button {
                 text: subDelegate.modelData.paired ? "forget" : "pair"
                 onClicked: subDelegate.modelData.paired ? subDelegate.modelData.forget : subDelegate.modelData.pair
             }
@@ -191,7 +192,7 @@ PageBase {
             // Nearby Devices
             SubSection { 
                 name: "Nearby Devices"
-                content: Leaf.Button {
+                content: Ctrls.Button {
                     Layout.rightMargin: 8 // TODO: find a better solution
                     id: refreshButton
                     icon.name: "view-refresh-symbolic" 

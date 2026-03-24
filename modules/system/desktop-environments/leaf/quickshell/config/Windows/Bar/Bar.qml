@@ -9,7 +9,7 @@ import QtQuick.Layouts
 import qs as Root
 import qs.Modules.Leaf as Leaf
 import qs.Windows.ControlPanel
-import qs.Components.Controls as C
+import qs.Components.Controls as Ctrls
 import "./SystemTray"
 
 import qs.Services as Services
@@ -56,7 +56,7 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
-                        C.ComboBox {
+                        Ctrls.ComboBox {
                             model: ["a", "b", "c", "d", "e"]
                         }
                     }
@@ -89,7 +89,7 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
-                        Leaf.Button {
+                        Ctrls.Button {
                             onClicked: () => Root.State.controlPanel.toggleWindow()
                             icon.name: "open-menu-symbolic"
                             inset: 6
