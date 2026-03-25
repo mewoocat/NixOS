@@ -11,13 +11,13 @@ T.Slider {
 
     hoverEnabled: true
 
-    padding: 3
+    padding: 4
     leftPadding: padding
     rightPadding: padding
     topPadding: padding
     bottomPadding: padding
 
-    property real inset: 0
+    property real inset: 4
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -25,9 +25,10 @@ T.Slider {
 
     property color backgroundColor: Root.State.colors.surface_container_highest
     property color textColor: control.hovered || control.pressed ? Root.State.colors.on_primary : "transparent"
-    property int handleHeight: control.horizontal ? 16 : 24
-    property int handleWidth: control.horizontal ? 24 : 16
+    //property int handleHeight: control.horizontal ? 16 : 24
+    //property int handleWidth: control.horizontal ? 24 : 16
     property int defaultLength: 100
+    property int handleSpacing: padding - inset
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop
@@ -36,18 +37,22 @@ T.Slider {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
 
+    // Fills the entire space of the control minus any inset, unless an explicit size
+    // has been provided
     background: Rectangle {
         id: bg
+        /*
         implicitWidth: control.horizontal
-            ? control.defaultLength + control.padding
-            : control.handleWidth + control.padding
+            ? control.defaultLength + control.leftInset + control.rightInset
+            : control.handleWidth + control.leftInset + control.rightInset
         implicitHeight: control.horizontal
-            ? control.handleHeight + control.padding
-            : control.defaultLength + control.padding
+            ? control.handleHeight + control.topInset + control.bottomInset
+            : control.defaultLength + control.topInset + control.bottomInset
+        */
         color: control.backgroundColor
         radius: control.horizontal
-            ? implicitHeight
-            : implicitWidth
+            ? height
+            : width
         Rectangle {
             implicitHeight: control.horizontal
                 ? parent.height
@@ -55,7 +60,7 @@ T.Slider {
             implicitWidth: control.horizontal
                 ? control.handleWidth + control.handle.x + control.padding  //(control.visualPosition * parent.width) + control.handleWidth
                 : parent.width
-            color: Root.State.colors.primary_container
+            color: control.visualPosition != 0 ? Root.State.colors.primary_container : "transparent"
             radius: parent.radius - anchors.margins
         }
     }
@@ -64,11 +69,11 @@ T.Slider {
         radius: implicitHeight
         // From: https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
         x: control.horizontal
-            ? control.leftPadding + control.visualPosition * (control.availableWidth - width)
-            : control.topPadding + control.availableWidth / 2 - width / 2
+            ? control.handleSpacing + control.visualPosition * (control.availableWidth - width)
+            : control.handleSpacing + control.availableWidth / 2 - width / 2
         y: control.horizontal
-            ? control.topPadding + control.availableHeight / 2 - height / 2
-            : control.leftPadding + control.visualPosition * (control.availableHeight - height)
+            ? control.handleSpacing + control.availableHeight / 2 - height / 2
+            : control.handleSpacing + control.visualPosition * (control.availableHeight - height)
         implicitWidth: control.handleWidth
         implicitHeight: control.handleHeight
         color: (control.hovered || control.pressed) ? Root.State.colors.primary : Root.State.colors.on_surface

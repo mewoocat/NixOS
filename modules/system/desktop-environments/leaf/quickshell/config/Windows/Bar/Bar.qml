@@ -64,6 +64,10 @@ Scope {
                         Ctrls.Slider {
                             onValueChanged: prog.value = value
                         }
+                        Ctrls.Slider {
+                            implicitWidth: 300
+                            onValueChanged: prog.value = value
+                        }
                         Ctrls.ComboBox {
                             Layout.columnSpan: 1
                             Layout.rowSpan: 1
