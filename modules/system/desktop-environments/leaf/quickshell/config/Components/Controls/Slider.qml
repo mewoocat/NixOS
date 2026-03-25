@@ -48,6 +48,16 @@ T.Slider {
         radius: control.horizontal
             ? implicitHeight
             : implicitWidth
+        Rectangle {
+            implicitHeight: control.horizontal
+                ? parent.height
+                : control.handleHeight + control.handle.y + control.padding
+            implicitWidth: control.horizontal
+                ? control.handleWidth + control.handle.x + control.padding  //(control.visualPosition * parent.width) + control.handleWidth
+                : parent.width
+            color: Root.State.colors.primary_container
+            radius: parent.radius - anchors.margins
+        }
     }
 
     handle: Rectangle {
