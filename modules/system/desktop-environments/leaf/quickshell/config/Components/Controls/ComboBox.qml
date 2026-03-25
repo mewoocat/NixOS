@@ -79,7 +79,7 @@ T.ComboBox {
         width: Math.max(control.background.width, implicitWidth)
         height: Math.max(1, implicitHeight)
         closePolicy: C.Popup.NoAutoClose // Doesn't seem to take effect
-        popupType: C.Popup.Native // Used to render the popup as it's own window
+        //popupType: C.Popup.Native // Used to render the popup as it's own window
         background: Rectangle {
             color: Root.State.colors.surface
             radius: control.radius

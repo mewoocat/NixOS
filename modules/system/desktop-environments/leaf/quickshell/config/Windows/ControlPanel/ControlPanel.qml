@@ -10,7 +10,7 @@ Leaf.PanelWindow {
     id: root
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility
-
+    focusable: false
     // Make window size according to it's content
     implicitWidth: content.width
     implicitHeight: content.height 

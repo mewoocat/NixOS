@@ -7,9 +7,9 @@ import qs as Root
 T.ProgressBar {
     id: control
 
-    hoverEnabled: true
+    hoverEnabled: false
 
-    padding: 3
+    padding: 2
     leftPadding: padding
     rightPadding: padding
     topPadding: padding
@@ -62,12 +62,14 @@ T.ProgressBar {
                     : implicitHeight
                 implicitHeight: control.contentItem.height - control.topPadding - control.bottomPadding
                 color: (control.hovered) ? Root.State.colors.primary : Root.State.colors.on_surface
+                /*
                 Text {
                     anchors.centerIn: parent
                     font.pointSize: 6
                     color: control.textColor
                     text: Math.round(control.visualPosition.toFixed(2) * 100) + '%'
                 }
+                */
             }
         }
     }

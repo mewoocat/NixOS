@@ -24,10 +24,11 @@ Leaf.PanelWindow {
         top: true
         left: true
     }
-    focusable: true // Enable keyboard focus
+    //focusable: true // Enable keyboard focus
     implicitWidth: 420
     implicitHeight: 640
-    
+    focusable: false
+
     closeWindow: () => {
         Root.State.launcherVisibility = false
         searchText = "" 
@@ -62,10 +63,6 @@ Leaf.PanelWindow {
                 Layout.fillHeight: true
                 spacing: 0
 
-                        ComboBox {
-                            model: ["a", "b", "c", "d", "e"]
-                            Component.onCompleted: popup.popupType = Popup.Window
-                        }
                 SeqDragGrid.SequentialDragGrid {
                     id: grid
                     Layout.fillHeight: true
