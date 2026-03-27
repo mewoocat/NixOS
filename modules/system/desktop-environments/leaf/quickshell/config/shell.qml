@@ -39,7 +39,7 @@ ShellRoot {
     ControlPanel {}
     ActivityCenter {}
     Notifications {}
-    //Workspaces {}
+    Workspaces {}
     //Settings {}
     Lockscreen {}
     /*
