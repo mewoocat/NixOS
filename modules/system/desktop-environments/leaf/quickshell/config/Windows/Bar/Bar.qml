@@ -64,6 +64,17 @@ Scope {
                         Ctrls.Slider {
                             onValueChanged: prog.value = value
                         }
+                        Ctrls.Slider {
+                            implicitWidth: 150
+                            implicitHeight: 40
+                            onValueChanged: padding = (1 - value) * 12
+                        }
+                        Slider {
+                            implicitWidth: 150
+                            implicitHeight: 8
+                            onValueChanged: prog.value = value
+                        }
+                        /*
                         Ctrls.ComboBox {
                             Layout.columnSpan: 1
                             Layout.rowSpan: 1
@@ -79,6 +90,7 @@ Scope {
                                 root.currentPlayerIndex = index
                             }
                         }
+                        */
                     }
                     // Center
                     RowLayout {
