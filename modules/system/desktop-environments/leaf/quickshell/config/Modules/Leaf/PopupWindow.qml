@@ -49,7 +49,10 @@ PopupWindow {
             id: box
             color: Qt.alpha(Root.State.colors.surface, 0.4)
             radius: Root.State.rounding
-            margin: 0
+            // Needed to move the first item down by 1 pixel since it seems theres a bug where the
+            // topleft most pixel on Qs:PopupWindow has focus went the popup is first opened but the
+            // mouse hasn't moved yet.
+            margin: 1
             children: [ root.content ]
         }
     }

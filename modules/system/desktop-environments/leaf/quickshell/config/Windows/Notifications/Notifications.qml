@@ -5,7 +5,7 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import qs.Services as Services
-import qs.Modules as Modules
+import qs.Components.Shared
 
 // OSD: This is a transparent window that shows any new notifications for a short time
 PanelWindow {
@@ -66,7 +66,7 @@ PanelWindow {
                 }
             }
 
-            delegate: Modules.Notification {
+            delegate: Notification {
                 id: notif
                 Layout.fillWidth: true
                 required property var modelData

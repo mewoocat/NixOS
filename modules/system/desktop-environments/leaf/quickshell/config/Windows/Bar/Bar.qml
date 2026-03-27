@@ -57,6 +57,7 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
+                        /*
                         Ctrls.ProgressBar {
                             id: prog
                             value: 0.1
@@ -74,6 +75,7 @@ Scope {
                             implicitHeight: 8
                             onValueChanged: prog.value = value
                         }
+                        */
                         /*
                         Ctrls.ComboBox {
                             Layout.columnSpan: 1

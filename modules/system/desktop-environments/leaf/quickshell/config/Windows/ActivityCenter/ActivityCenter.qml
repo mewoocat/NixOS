@@ -1,11 +1,9 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Layouts
-import Quickshell
 import qs as Root
-import qs.Modules as Modules
-import qs.Modules.Tetris as Tetris
+import qs.Components.Widgets as Widgets
+import qs.Components.Widgets.Tetris as Tetris
 import qs.Modules.Leaf as Leaf
 
 Leaf.PanelWindow {
@@ -34,7 +32,7 @@ Leaf.PanelWindow {
             isClickable: false; 
             rows: 6
             columns: 6
-            content: Modules.Notifications {} 
+            content: Widgets.Notifications {} 
         }
         //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
         //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
@@ -42,19 +40,19 @@ Leaf.PanelWindow {
             isClickable: false; 
             rows: 2
             columns: 2
-            content: Modules.Weather {}
+            content: Widgets.Weather {}
         }
         Leaf.PanelItem { 
             isClickable: false; 
             rows: 2
             columns: 2
-            content: Modules.AnalogClock {} 
+            content: Widgets.AnalogClock {} 
         }
         Leaf.PanelItem { 
             isClickable: false; 
             rows: 3
             columns: 3
-            content: Modules.Calendar {} 
+            content: Widgets.Calendar {} 
         }
         Leaf.PanelItem { 
             isClickable: false; 
@@ -66,7 +64,7 @@ Leaf.PanelWindow {
             isClickable: false
             rows: 2
             columns: 6
-            content: Modules.MusicPlayer {}
+            content: Widgets.MusicPlayer {}
         }
     }
 }

@@ -1,11 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Quickshell
-import Quickshell.Services.Pipewire
 import qs.Services as Services
-import qs.Modules as Modules
-import qs.Modules.Leaf as Leaf
 
 PageBase {
     pageName: "Display" 

@@ -1,10 +1,9 @@
 pragma ComponentBehavior: Bound
 
-import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.Services as Services
-import qs.Modules as Modules
+import qs.Components.Shared
 import qs.Modules.Leaf as Leaf
 import qs as Root
 

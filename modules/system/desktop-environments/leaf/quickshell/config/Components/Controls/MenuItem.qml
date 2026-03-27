@@ -8,8 +8,8 @@ import qs as Root
 
 T.MenuItem {
     id: control
-
-    //hoverEnabled: true
+    
+    hoverEnabled: true
 
     //defines the padding of the contentItem relative to the edge of the control
     padding: 4

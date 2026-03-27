@@ -48,7 +48,7 @@ PanelWindow {
     // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
     FocusScope {
         anchors.fill: parent
-        focus: false
+        focus: true
         Keys.onPressed: (event) => {
             if (event.key == Qt.Key_Escape) {
                 window.closeWindow()

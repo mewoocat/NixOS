@@ -1,7 +1,4 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
-import QtQuick.Shapes
-import QtQuick.Controls.impl // For IconLabel
 import QtQuick.Templates as T
 
 import qs as Root
@@ -32,10 +29,15 @@ T.Slider {
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop
+    /* Causes binding loop since handle size is determined by control size but here the control size is determined by
+     * the handle size
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitHandleWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitHandleHeight + topPadding + bottomPadding)
+    */
+    implicitWidth: defaultBgWidth + leftInset + rightInset
+    implicitHeight: defaultBgHeight + topInset + bottomInset
 
     // Background will fill the entire width and height of the control unless an explicit size has been given for it or inset is set
     background: Rectangle {
@@ -52,9 +54,9 @@ T.Slider {
         Rectangle { // Highlight
             implicitHeight: control.horizontal
                 ? parent.height
-                : control.handle.y + control.handleHeight + control.padding
+                : control.handle.y + control.handle.height + control.padding - control.inset
             implicitWidth: control.horizontal
-                ? control.handle.x + control.handle.width + control.padding
+                ? control.handle.x + control.handle.width + control.padding - control.inset
                 : parent.width
             color: Root.State.colors.primary_container
             radius: parent.radius
@@ -65,18 +67,20 @@ T.Slider {
         radius: height / 2
         // From: https://doc.qt.io/qt-6/qtquickcontrols-customize.html#customizing-slider
         x: control.horizontal
-            ? control.leftPadding + control.visualPosition * (control.availableWidth - width)
+            ? control.leftPadding + control.visualPosition * (control.availableWidth - width) + control.inset
             : control.topPadding + (control.availableWidth / 2) - (width / 2)
         y: control.horizontal
             ? control.topPadding + (control.availableHeight / 2) - (height / 2)
-            : control.leftPadding + control.visualPosition * (control.availableHeight - height)
+            : control.leftPadding + control.visualPosition * (control.availableHeight - height) + control.inset
         implicitWidth: control.horizontal
             ? height * control.handleWidthScale
-            : control.width - control.leftPadding - control.rightPadding
+            : control.availableWidth - control.inset * 2
         implicitHeight: control.horizontal
-            ? control.height - control.topPadding - control.bottomPadding // Height is remaining height after subtracting
-            : height * control.handleWidthScale
-        color: (control.hovered || control.pressed) ? Root.State.colors.primary : Root.State.colors.on_surface
+            ? control.availableHeight - control.inset * 2
+            : width * control.handleWidthScale
+        color: control.hovered || control.pressed
+            ? Root.State.colors.primary
+            : Root.State.colors.on_surface
         Text {
             anchors.centerIn: parent
             font.pointSize: 6

@@ -24,10 +24,9 @@ Leaf.PanelWindow {
         top: true
         left: true
     }
-    //focusable: true // Enable keyboard focus
     implicitWidth: 420
     implicitHeight: 640
-    focusable: false
+    focusable: true
 
     closeWindow: () => {
         Root.State.launcherVisibility = false
@@ -93,8 +92,8 @@ Leaf.PanelWindow {
 
                             content: ColumnLayout {
                                 spacing: 0
-                                Leaf.PopupMenuText { color: palette.text; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
-                                Leaf.PopupMenuItem { text: "Remove"; onClicked: () => {
+                                Ctrls.MenuItem { hoverEnabled: false; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
+                                Ctrls.MenuItem { text: "Remove"; onClicked: () => {
                                     console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
                                     // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
                                     // TODO: Probably need to find a way to automatically do this
@@ -251,11 +250,11 @@ Leaf.PanelWindow {
                         Repeater {
                             model: subDelegate.modelData.actions
                             // Maybe should make this type more generic (since it works for a non popup menu scenario)
-                            delegate: Leaf.SubMenuItem {
+                            delegate: Ctrls.MenuItem {
                                 required property DesktopAction modelData
+                                implicitWidth: parent.width
                                 text: modelData.name
-                                action: modelData.execute
-                                iconName: ""
+                                onClicked: () => modelData.execute()
                             }
                         }
                         Leaf.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }

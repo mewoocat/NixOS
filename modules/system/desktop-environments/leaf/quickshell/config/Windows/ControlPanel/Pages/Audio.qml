@@ -1,11 +1,9 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Pipewire
 import qs.Services as Services
-import qs.Modules as Modules
 import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 import qs as Root
@@ -164,21 +162,6 @@ PageBase {
 
             SubSection { name: "Mixer"}
             
-            /*
-            Leaf.ListViewScrollable {
-                // If some apps are outputting to the default output
-                visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                color: palette.base
-
-                // For each source outputting to the default output
-                // i.e. Each program, etc.
-                // A link is a connection between two nodes
-                model: Services.Audio.defaultOutputLinkTracker.linkGroups
-                mainDelegate: Modules.MixerItem {}
-            }
-            */
             Leaf.ListView {
                 visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
                 implicitWidth: parent.implicitWidth 

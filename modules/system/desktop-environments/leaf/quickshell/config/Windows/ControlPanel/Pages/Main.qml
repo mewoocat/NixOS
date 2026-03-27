@@ -6,11 +6,13 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.UPower
 import Quickshell.Services.Pipewire
+
+import qs.Modules.Leaf as Leaf // Deprecated
+
 import qs as Root
 import qs.Services as Services
-import qs.Modules as Modules
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
+import qs.Components.Widgets as Widgets
 
 Leaf.PanelGrid {
     columns: 4
@@ -40,8 +42,8 @@ Leaf.PanelGrid {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Leaf.CircleButton {
-                    iconName: rowItem.iconName
+                RoundButton {
+                    icon.name: rowItem.iconName
                 }
                 WrapperMouseArea {
                     id: mouseArea
@@ -138,7 +140,7 @@ Leaf.PanelGrid {
         rows: 2
         columns: 2
         isClickable: false
-        content: Modules.SystemStats {}
+        content: Widgets.SystemStats {}
     }
     Leaf.PanelItem { 
         isClickable: false
