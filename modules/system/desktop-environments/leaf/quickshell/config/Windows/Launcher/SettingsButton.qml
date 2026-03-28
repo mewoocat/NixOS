@@ -1,11 +1,11 @@
 import Quickshell
 import qs as Root
+import qs.Components.Shared as Shared
 
-SidePanelItem {
+Shared.PanelButton {
     onClicked: {
         Root.State.settings.openWindow()
         Root.State.launcher.closeWindow()
     }
-    imgName: 'settings-configure-symbolic'
-    imgSize: 24
+    icon.name: 'settings-configure-symbolic'
 }

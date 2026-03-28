@@ -11,16 +11,14 @@ import Quickshell.Hyprland
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 
 // Power options popup menu
-SidePanelItem {
+Shared.PanelButton {
     id: power
-    imgName: 'system-shutdown-symbolic'
-    imgSize: 22
-    onLeftClick: () => {
-        console.log("click")
-        powerPopup.visible = true
-    }
+    icon.name: 'system-shutdown-symbolic'
+    //imgSize: 22
+    onClicked: () => powerPopup.visible = true
     Leaf.PopupWindow {
         id: powerPopup
 

@@ -4,19 +4,14 @@ import Quickshell
 import Quickshell.Widgets
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
+import qs.Components.Shared as Shared
+import qs.Components.Controls as Ctrls
 
-WrapperMouseArea {
+Shared.PanelButton {
     id: root
     required property string imgPath
 
-    enabled: true
-    hoverEnabled: true
-    margin: 4
-
-    onClicked: () => {
-        console.log("click")
-        userPopup.visible = true
-    }
+    onClicked: () => userPopup.visible = true
 
     Leaf.PopupWindow {
         id: userPopup
@@ -29,21 +24,18 @@ WrapperMouseArea {
 
         content: ColumnLayout {
             Text { color: palette.text; text: Services.User.username }
-            Leaf.PopupMenuItem { text: "User Settings"; onClicked: () => {}; icon.name: "application-menu-symbolic"}
-            Leaf.PopupMenuItem { text: "Logout"; onClicked: () => {}; icon.name: "go-previous-symbolic"}
+            Ctrls.MenuItem { text: "User Settings"; onClicked: () => {}; icon.name: "application-menu-symbolic"}
+            Ctrls.MenuItem { text: "Logout"; onClicked: () => {}; icon.name: "go-previous-symbolic"}
         }
     }
 
-    WrapperRectangle {
-        margin: 4
-        radius: 12
-        color: root.containsMouse ? palette.highlight : "transparent"
-        ClippingRectangle {
-            radius: 20
-            implicitWidth: 32
-            implicitHeight: 32
+    contentItem: Rectangle {
+        color: "blue"
+        ClippingWrapperRectangle {
+            color: "green"
+            radius: root.availableWidth / 2
             IconImage {
-                implicitSize: 32
+                implicitSize: root.availableWidth
                 anchors.centerIn: parent
                 source: Services.User.pfpPath
             }
