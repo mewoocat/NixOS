@@ -33,11 +33,40 @@ SidePanelItem {
         }
 
         content: ColumnLayout {
-            spacing: 0
-            Ctrls.MenuItem { text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
-            Ctrls.MenuItem { text: "Hibernate"; onClicked: () => Services.Power.hibernate(); icon.name: "system-shutdown-symbolic"}
-            Ctrls.MenuItem { text: "Restart"; onClicked: () => Services.Power.restart(); icon.name: "system-restart-symbolic"}
+            //Rectangle { implicitHeight:1; implicitWidth:1 }
+            /*
+            WrapperMouseArea {
+                hoverEnabled: true
+                Rectangle {
+                    color: parent.containsMouse ? "red" : "green"
+                    implicitWidth: 40
+                    implicitHeight: 20
+                }
+            }
+            WrapperMouseArea {
+                hoverEnabled: true
+                Rectangle {
+                    color: parent.containsMouse ? "red" : "green"
+                    implicitWidth: 40
+                    implicitHeight: 20
+                }
+            }
+            WrapperMouseArea {
+                hoverEnabled: true
+                Rectangle {
+                    color: parent.containsMouse ? "red" : "green"
+                    implicitWidth: 40
+                    implicitHeight: 20
+                }
+            }
+            Ctrls.Button { text: "what" }
+            Ctrls.MenuItemTest { text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
+            Ctrls.MenuItemTest { text: "Hibernate"; onClicked: () => Services.Power.hibernate(); icon.name: "system-shutdown-symbolic"}
+            Ctrls.MenuItemTest { text: "Restart"; onClicked: () => Services.Power.restart(); icon.name: "system-restart-symbolic"}
+            */
             Ctrls.MenuItem { text: "Sleep"; onClicked: () => Services.Power.sleep(); icon.name: "system-suspend-symbolic"}
+            Ctrls.MenuItem { text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
+            Ctrls.MenuItem { text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
         }
     }
 }

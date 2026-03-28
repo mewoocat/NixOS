@@ -1,6 +1,6 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
 import QtQuick.Shapes
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.impl // For IconLabel
 import QtQuick.Templates as T
 
