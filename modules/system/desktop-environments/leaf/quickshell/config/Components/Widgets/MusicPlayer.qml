@@ -1,13 +1,11 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
-import qs.Modules.Leaf as Leaf
-import qs.Components.Controls as Ctrls
 import qs as Root
+import qs.Components.Controls as Ctrls
 
 Item {
     id: root
@@ -212,7 +210,7 @@ Item {
                 leftPadding: 8
                 text: {
                     if (root.currentPlayer === null) { return 0 }
-                    return Leaf.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
+                    return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
                 }
             }
 
@@ -226,7 +224,7 @@ Item {
                 rightPadding: 8
                 text: {
                     if (root.currentPlayer === null) { return 0 }
-                    return Leaf.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
+                    return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
                 }
             }
         }
@@ -241,14 +239,14 @@ Item {
             Layout.preferredHeight: controls.height
             Layout.alignment: Qt.AlignHCenter
             Ctrls.Button {
-                icon.name: "player_rew"
+                icon.name: "media-seek-backward-symbolic"
                 onClicked: () => {
                     if (root.currentPlayer === null) { console.warn(`No current player`); return }
                     root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
                 }
             }
             Ctrls.Button {
-                icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "player_pause" : "player_play"
+                icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "media-playback-start-symbolic" : "media-playback-pause-symbolic"
                 onClicked: () => {
                     if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
                     if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
@@ -259,7 +257,7 @@ Item {
                 }
             }
             Ctrls.Button {
-                icon.name: "player_fwd"
+                icon.name: "media-seek-forward-symbolic"
                 onClicked: () => 
                 {
                     if (root.currentPlayer === null) { console.warn(`No current player`); return }

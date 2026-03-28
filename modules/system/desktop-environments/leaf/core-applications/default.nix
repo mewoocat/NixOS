@@ -13,8 +13,15 @@
 
       # File Manager
       pcmanfm-qt 
+
       kdePackages.dolphin
       kdePackages.qtsvg # Needed for icons to work in dolphin
+      /*
+      kdePackages.plasma-workspace # Has the SolidUiServer i think but not sure how to start it
+      kdePackages.kio # needed since 25.11
+      kdePackages.kio-fuse #to mount remote filesystems via FUSE
+      kdePackages.kio-extras #extra protocols support (sftp, fish and more)
+      */
       #nemo-with-extensions
 
       # Calendar

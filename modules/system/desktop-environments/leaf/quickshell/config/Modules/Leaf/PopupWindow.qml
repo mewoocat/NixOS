@@ -14,6 +14,8 @@ import qs as Root
 // WARNING: If blur is disabled in hyprland but the layer still has it enabled for popups, then some square corners
 // will show up around these popup windows.  Also disabling the blur for the layer fixes this.  But disabling the 
 // popup blur globally won't apply to this layer.
+//
+// A basic window to appear over PanelWindows at a certian position
 PopupWindow {
     id: root
 
@@ -40,20 +42,14 @@ PopupWindow {
         }
     }
 
-    WrapperMouseArea {
+    WrapperRectangle {
         id: popupArea
-        enabled: true
-        focus: true
-        hoverEnabled: true
-        WrapperRectangle {
-            id: box
-            color: Qt.alpha(Root.State.colors.surface, 0.4)
-            radius: Root.State.rounding
-            // Needed to move the first item down by 1 pixel since it seems theres a bug where the
-            // topleft most pixel on Qs:PopupWindow has focus went the popup is first opened but the
-            // mouse hasn't moved yet.
-            margin: 1
-            children: [ root.content ]
-        }
+        color: Root.State.colors.surface_container
+        radius: Root.State.rounding
+        // Needed to move the first item down by 1 pixel since it seems theres a bug where the
+        // topleft most pixel on Qs:PopupWindow has focus went the popup is first opened but the
+        // mouse hasn't moved yet.
+        margin: 1
+        children: [ root.content ]
     }
 }

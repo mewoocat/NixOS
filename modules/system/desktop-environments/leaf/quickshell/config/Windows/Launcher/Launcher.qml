@@ -233,6 +233,8 @@ Leaf.PanelWindow {
                             visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
                             Layout.alignment: Qt.AlignRight
                             icon.name: "overflow-menu-symbolic"
+                            icon.width: 16
+                            icon.height: 16
                             onClicked: () => scrollItem.expanded = !scrollItem.expanded
                             icon.color: hovered ? Root.State.colors.on_primary_container : Root.State.colors.on_primary
                             backgroundColor: hovered ? Root.State.colors.primary_container : "transparent"
