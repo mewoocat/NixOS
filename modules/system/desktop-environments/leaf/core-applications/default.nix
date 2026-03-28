@@ -1,11 +1,16 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
     ./nautilus
     ./gnome-calendar.nix
+  ];
+
+  nixpkgs.overlays = [
+        #inputs.dolphin-overlay.overlays.default # Provides open with fix
   ];
 
   users.users.${config.username} = {

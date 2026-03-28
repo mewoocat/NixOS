@@ -22,7 +22,7 @@ T.Button {
 
     property color backgroundColor: control.hovered ? Root.State.colors.primary : "transparent"
     property color color: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
-    property bool isMutliColorIcon: false
+    property bool isMultiColorIcon: false
     property int radius: background.implicitHeight / 2
     // Defines the padding of the background
     property real inset: 2
@@ -59,7 +59,7 @@ T.Button {
     contentItem: IconLabel {
         id: iconLabel
         icon.name: control.icon.name
-        icon.color: control.isMutliColorIcon ? "transparent" : control.icon.color
+        icon.color: control.isMultiColorIcon ? "transparent" : control.icon.color
         icon.width: control.icon.width
         icon.height: control.icon.height
         text: control.text

@@ -46,7 +46,7 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    dolphin-overlay.url = "github:rumboon/dolphin-overlay"; # Fix for dolphin open with not working
   };
 
   # The `@` syntax here is used to alias the attribute set of the

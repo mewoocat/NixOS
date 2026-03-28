@@ -28,7 +28,8 @@ Shared.PanelButton {
             Ctrls.MenuItem { text: "Logout"; onClicked: () => {}; icon.name: "go-previous-symbolic"}
         }
     }
-
+    
+    // Needs to be a perfect square or else it won't look right
     contentItem: Rectangle {
         color: "blue"
         ClippingWrapperRectangle {
