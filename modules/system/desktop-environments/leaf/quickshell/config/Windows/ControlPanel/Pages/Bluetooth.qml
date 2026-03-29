@@ -161,7 +161,7 @@ PageBase {
                             if (!a.connected && b.connected) return 1
                         })
                 }
-                delegate: Leaf.ListItemExpandable {
+                delegate: Shared.ListItemExpandable {
                     id: pairedListItem
                     margin: 2
                     padding: 2
@@ -208,7 +208,7 @@ PageBase {
                 // implicit height defaults to full height of children
                 model: ScriptModel { values: Bluetooth.devices.values.filter(device => !device.paired) }
                 interactable: false
-                delegate: Leaf.ListItemExpandable {
+                delegate: Shared.ListItemExpandable {
                     id: listItem
                     margin: 2
                     padding: 2

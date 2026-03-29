@@ -57,6 +57,13 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
+                        Ctrls.Button {
+                            text: "what"
+
+                            ToolTip.visible: hovered
+                            ToolTip.delay: Application.styleHints.mousePressAndHoldInterval
+                            ToolTip.text:' test'
+                        }
                         /*
                         Ctrls.ProgressBar {
                             id: prog

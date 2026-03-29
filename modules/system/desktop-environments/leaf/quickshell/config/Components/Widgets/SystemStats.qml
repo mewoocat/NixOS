@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 import qs as Root
 
 ColumnLayout {
@@ -13,23 +14,18 @@ ColumnLayout {
     anchors.fill: parent
 
     // CPU
-    Leaf.ToolTipArea {
-        //text: Services.SystemStats.cpuUsageText // Text for tooltip
-        text: "Cpu usage"
-        Layout.fillWidth: true
+    Shared.ToolTipArea {
+        text: Services.SystemStats.cpuUsageText // Text for tooltip
         RowLayout {
             IconImage {
                 implicitSize: 20
                 source: Quickshell.iconPath("cpu")
             }
             Text {
-                text: {
-                    Math.round(Services.SystemStats.cpuUsage) + '%'
-                }
+                //text: Math.round(Services.SystemStats.cpuUsage) + '%'
                 color: Root.State.colors.on_surface
             }
             Ctrls.ProgressBar {
-                Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.cpuUsage
                 to: 100
@@ -38,7 +34,7 @@ ColumnLayout {
     }
 
     // Memory
-    Leaf.ToolTipArea {
+    Shared.ToolTipArea {
         text: Services.SystemStats.memUsageText // Text for tooltip
         Layout.fillWidth: true // For some reason the width of the progress bar expands when using a Wrapper here.  
                                // Setting the fillWidth here restricts the size to the parent ig
@@ -63,7 +59,7 @@ ColumnLayout {
     }
 
     // Temp
-    Leaf.ToolTipArea {
+    Shared.ToolTipArea {
         text: "CPU Temperature"
         Layout.fillWidth: true
         RowLayout {
@@ -87,7 +83,7 @@ ColumnLayout {
     }
 
     // Disk usage
-    Leaf.ToolTipArea {
+    Shared.ToolTipArea {
         text: Services.SystemStats.storageUsageText
         Layout.fillWidth: true
         RowLayout {

@@ -79,7 +79,7 @@ ColumnLayout {
                 })
         }
 
-        delegate: Leaf.ListItemExpandable
+        delegate: Shared.ListItemExpandable
         {
             id: appItem
             margin: 2

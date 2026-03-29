@@ -6,10 +6,11 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 import qs.Modules.Leaf as Leaf
+import qs.Components.Shared as Shared
 import qs.Components.Controls as Ctrls
 import qs as Root
 
-Leaf.ListItemExpandable {
+Shared.ListItemExpandable {
     id: root
     required property Notification notifData
 

@@ -7,6 +7,7 @@ import Quickshell
 import Quickshell.Widgets
 import qs as Root
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 
 // TODO: Could split the expanded portion of this type into a different type that builds off this one
 // Size of root element must be set when consumed
@@ -58,7 +59,7 @@ Rectangle {
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
     // the ListView and parent
-    Leaf.LeafScrollBar {
+    Ctrls.ScrollBar {
         id: scrollBar
         //visible: interactable
         anchors {

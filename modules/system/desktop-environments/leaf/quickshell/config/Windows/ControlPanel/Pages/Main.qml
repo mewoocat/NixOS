@@ -137,12 +137,6 @@ Leaf.PanelGrid {
         isActive: Services.ScreenCapture.recording
     }
     Leaf.PanelItem { 
-        rows: 2
-        columns: 2
-        isClickable: false
-        content: Widgets.SystemStats {}
-    }
-    Leaf.PanelItem { 
         isClickable: false
         rows: 2
         columns: 2

@@ -61,6 +61,12 @@ Shared.PanelWindow {
             columns: 4
             content: Tetris.Game {}
         }
+        Leaf.PanelItem { 
+            rows: 2
+            columns: 4
+            isClickable: false
+            content: Widgets.SystemStats {}
+        }
         Leaf.PanelItem {
             isClickable: false
             rows: 2

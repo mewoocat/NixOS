@@ -6,13 +6,19 @@ import Quickshell.Io
 Singleton {
     id: root 
 
+    // Values
     property real cpuUsage: 0
     property real cpuTemp: 0
     property real memUsage: 0
-    property string memUsageText: ""
     property real storageUsage: 0
-    property string storageUsageText: ""
+
+    // Options
     property string storageDrive: "/" // Defaults to root
+
+    // Text
+    property string cpuUsageText: Math.round(cpuUsage) + '%'
+    property string memUsageText: ""
+    property string storageUsageText: ""
     
     Process {
         id: cpuUsageProc
