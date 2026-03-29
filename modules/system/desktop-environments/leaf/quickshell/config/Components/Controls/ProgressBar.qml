@@ -44,12 +44,20 @@ T.ProgressBar {
 
     // The real width of the progress "bar" after taking into account the clipping
     property int trueBarWidth: visualPosition * (contentItem.width - leftPadding - rightPadding)
+    /* weird issue
+    Behavior on trueBarWidth {
+        PropertyAnimation { 
+            duration: 1000
+            easing.type: Easing.InOutQuint
+        }
+    }
+    */
     contentItem: Item {
 
         Rectangle {
             id: mask
             clip: true
-            color: "#000f0fee"
+            color: "transparent"
             implicitWidth: control.leftPadding + control.trueBarWidth
             implicitHeight: parent.height
             Rectangle {
@@ -61,15 +69,7 @@ T.ProgressBar {
                     ? control.visualPosition * (control.contentItem.width - control.leftPadding - control.rightPadding)
                     : implicitHeight
                 implicitHeight: control.contentItem.height - control.topPadding - control.bottomPadding
-                color: (control.hovered) ? Root.State.colors.primary : Root.State.colors.on_surface
-                /*
-                Text {
-                    anchors.centerIn: parent
-                    font.pointSize: 6
-                    color: control.textColor
-                    text: Math.round(control.visualPosition.toFixed(2) * 100) + '%'
-                }
-                */
+                color: Root.State.colors.primary
             }
         }
     }

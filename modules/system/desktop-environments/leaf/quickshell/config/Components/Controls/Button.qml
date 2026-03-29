@@ -70,5 +70,8 @@ T.Button {
         leftPadding: 6
         // Icons generally seem to have a bit of padding built in, if text is included, add more padding to balance it out
         rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
+        Behavior on rotation {
+            PropertyAnimation { property: "rotation"; duration: 300 }
+        }
     }
 }

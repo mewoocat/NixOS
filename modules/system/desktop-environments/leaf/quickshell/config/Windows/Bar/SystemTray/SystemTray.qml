@@ -1,4 +1,4 @@
-//pragma ComponentBehavior: Bound
+pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
@@ -6,8 +6,8 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import qs.Modules.Leaf as Leaf
 import qs.Components.Shared as Shared
+import qs.Components.Controls as Ctrls
 import qs as Root
 
 // The animation jitters here, easy to see on linear easing. UPDATE: jittering fixed.  It was
@@ -17,21 +17,16 @@ import qs as Root
 // TODO: Optimize by using only one popup window and lazyloading it
 ClippingRectangle {
     id: root
-    property int internalMargin: 4
-    property int externalMargin: 8
+    property int margin: 4
     property bool isExpanded: true // Whether tray is showing all it's contents
     property Item toggleButton: null // Reference to the to toggle button
     property var toggle: () => root.isExpanded = !root.isExpanded
 
-    implicitHeight: parent.height - root.externalMargin
+    implicitHeight: parent.height - root.margin * 2
     implicitWidth: root.isExpanded ? trayContent.width : root.toggleButton.width
-
     color: Root.State.colors.surface_container
-
     radius: 24
-    //anchors.centerIn: parent
     clip: true
-    //implicitWidth: root.isExpanded ? 300 : 60
     Behavior on implicitWidth {
         PropertyAnimation { 
             duration: 500
@@ -39,27 +34,6 @@ ClippingRectangle {
             //easing.type: Easing.InOutBack
         }
     }
-    /* also works
-    implicitWidth: trayContent.width + root.margin * 2
-    state: isExpanded ? "default" : "hidden"
-    states: [
-        State {
-            name: "default"
-        },
-        State {
-            name: "hidden"
-            PropertyChanges {
-                target: trayBackground
-                implicitWidth: 44
-            }
-        }
-    ]
-    transitions: [
-        Transition {
-            PropertyAnimation { property: "implicitWidth"; duration: 300 }
-        }
-    ]
-    */
 
     RowLayout {
         id: trayContent
@@ -75,25 +49,8 @@ ClippingRectangle {
             implicitWidth: trayItemsContainer.width
             implicitHeight: trayItemsContainer.height
             color: "transparent"
-        WrapperItem {
-            id: trayItemsContainer
-            margin: root.internalMargin 
-            // Allow for vertical scrolling (i.e. normal mouses) to horizontally scroll
-            /*
-            onWheel: (event) => {
-                //console.log(`wheel ${event.angleDelta.x}, ${event.angleDelta.y}`)
-                if (!trayItems.flicking) {
-                    if (event.angleDelta.y > 0) {
-                        trayItems.flick(300, 0)
-                    }
-                    else {
-                        trayItems.flick(-300, 0)
-                    }
-                }
-                event.accepted = true
-            }
-            */
             Item {
+                id: trayItemsContainer
                 implicitWidth: trayItems.width
                 implicitHeight: trayItems.height
                 Rectangle {
@@ -115,59 +72,24 @@ ClippingRectangle {
                     id: trayItems
                     property int numItems: SystemTray.items.values.length
                     property int maxNumItems: 8
-                    implicitHeight: root.height - root.externalMargin
-                    //implicitWidth: 32 * 4 //TODO: get tray button width instead of hard coding it
+                    implicitHeight: root.height //- root.externalMargin
+                    //TODO: get tray button width instead of hard coding it
                     implicitWidth: numItems < maxNumItems ? 32 * numItems : 32 * maxNumItems
                     orientation: ListView.Horizontal
                     layoutDirection: Qt.RightToLeft
                     model: SystemTray.items
 
-                    /*
-                    ScrollBar.horizontal: ScrollBar {
-                        id: scrollBar
-                        implicitHeight: 1
-                        parent: trayItems.parent
-                        anchors.left: trayItems.left
-                        anchors.top: trayItems.bottom
-                        anchors.right: trayItems.right
-                    }
-                    */
-                    
-                    // Can't get this to work :(
-                    /*
-                    WheelHandler {
-                        enabled: true
-                        property: "contentX"
-                        onWheel: console.log(`wheel`)
-                    }
-                    */
-
-                    // Also doesn't work?
-                    /*
-                    focus: true
-                    Keys.onPressed: (event) => {
-                        console.log(`key`)
-                        if (event.key == Qt.Key_Escape) {
-                            console.log('escape')
-                        }
-                    }
-                    */
-
-                    delegate: Leaf.NormalButton {
+                    delegate: Ctrls.Button {
                         id: button
+                        inset: 2
                         required property SystemTrayItem modelData
-                        buttonHeight: root.height - root.internalMargin * 2
-                        iconSource: modelData.icon != undefined ? modelData.icon : ""
-                        leftClick: modelData.activate
-                        rightClick: () => popupWindow.visible = true
-                        defaultInternalMargin: 0
-                        iconSize: 16
-
-                        // HEY YOU, YES YOU! THIS IS WHAT YOU SHOULD USE FOR RIGHT CLICK ACTION
-                        // WHEN MOVING AWAY FROM NORMALBUTTON
-                        ContextMenu.onRequested: position => {
-                            console.debug(position)
+                        implicitHeight: trayItems.height
+                        contentItem: IconImage {
+                            implicitSize: 16
+                            source: button.modelData?.icon ?? ""
                         }
+                        onClicked: modelData.activate
+                        ContextMenu.onRequested: () => popupWindow.visible = true
 
                         property var popupWindow: Shared.PopupWindow {
                             id: trayPopup
@@ -262,73 +184,15 @@ ClippingRectangle {
                 }
             }
         }
-        }
-
-        /*
-        // System tray items
-        WrapperItem {
-            margin: root.internalMargin
-            RowLayout {
-                id: trayItems
-                implicitHeight: root.height - root.externalMargin
-                spacing: 0
-                
-                Repeater {
-                    model: SystemTray.items
-
-                    // Using native/platform menu
-                    //Leaf.NormalButton {
-                    //    required property SystemTrayItem modelData
-
-                    //    id: button
-                    //    buttonHeight: root.height - internalMargin * 2
-                    //    iconSource: modelData.icon != undefined ? modelData.icon : ""
-                    //    leftClick: modelData.activate
-                    //    rightClick: menuAnchor.open
-                    //    defaultInternalMargin: 0
-                    //    iconSize: 16
-
-                    //    // Popup menu
-                    //    QsMenuAnchor {
-                    //        id: menuAnchor
-                    //        //anchor.window: bar
-                    //        anchor {
-                    //            window: button.QsWindow.window
-                    //            edges: Edges.Bottom | Edges.Right
-                    //            // Get a rect for the popup that is relative to the button item
-                    //            // The returned rect is then in the context of the window
-                    //            rect: button.QsWindow.window.contentItem.mapFromItem(button, Qt.rect(-20, 16, 0, 0))
-                    //        }
-                    //        menu: button.modelData.menu
-                    //    }
-                    //}
-                }
-            }
-        }
-        */
-
-        // Spacer
-        /*
-        Rectangle {
-            implicitHeight: 18
-            implicitWidth: 1
-            radius: 16
-        }
-        */
 
         // Toggle button
-        Leaf.NormalButton {
+        Ctrls.Button {
             id: toggleButton
-            buttonHeight: root.height
-            iconItem.rotation: root.isExpanded ? 0 : 180
-            leftClick: root.toggle
-            iconName: "pan-start-symbolic"
-            leftInternalMargin: 4
-            rightInternalMargin: 4
+            inset: 2
+            contentItem.rotation: root.isExpanded ? 0 : 180
+            onClicked: () => root.toggle()
+            icon.name: "pan-start-symbolic"
             Component.onCompleted: root.toggleButton = toggleButton
-            Behavior on implicitWidth {
-
-            }
         }
     }
 }

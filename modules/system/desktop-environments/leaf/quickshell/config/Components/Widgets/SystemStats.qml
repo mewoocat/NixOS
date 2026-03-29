@@ -15,25 +15,34 @@ ColumnLayout {
     anchors.margins: 8
     anchors.fill: parent
 
-    component Details: RowLayout {
-        id: details
-        // Idk why implicitWidth doesn't seem to apply here
-        Layout.preferredWidth: icon.width + textMetrics.width
+    component StatusItem: RowLayout {
+        id: status
         required property string iconSource
         required property string text
-        Shared.Icon {
-            id: icon
-            recolorIcon: false
-            implicitSize: 20
-            source: details.iconSource
+        required property int value
+        RowLayout {
+            // Idk why implicitWidth doesn't seem to apply here
+            Layout.preferredWidth: icon.width + textMetrics.width
+            Shared.Icon {
+                id: icon
+                recolorIcon: false
+                implicitSize: 20
+                source: status.iconSource
+            }
+            Text {
+                text: status.text
+                color: Root.State.colors.on_surface
+            }
+            TextMetrics {
+                id: textMetrics
+                text: " 100 %" // example of max text characters
+            }
         }
-        Text {
-            text: details.text
-            color: Root.State.colors.on_surface
-        }
-        TextMetrics {
-            id: textMetrics
-            text: "aaaaa" // 5 char, example of max text characters
+        Ctrls.ProgressBar {
+            Layout.fillWidth: true
+            from: 0
+            value: status.value
+            to: 100
         }
     }
 
@@ -41,17 +50,10 @@ ColumnLayout {
     Shared.ToolTipArea {
         text: Services.SystemStats.cpuToolTipText
         Layout.fillWidth: true
-        RowLayout {
-            Details {
-                iconSource: Quickshell.iconPath("cpu")
-                text: Services.SystemStats.cpuText
-            }
-            Ctrls.ProgressBar {
-                Layout.fillWidth: true
-                from: 0
-                value: Services.SystemStats.cpuUsage
-                to: 100
-            }
+        StatusItem {
+            iconSource: Quickshell.iconPath("cpu")
+            text: Services.SystemStats.cpuText
+            value: Services.SystemStats.cpuUsage
         }
     }
 
@@ -59,17 +61,10 @@ ColumnLayout {
     Shared.ToolTipArea {
         text: Services.SystemStats.memToolTipText
         Layout.fillWidth: true 
-        RowLayout {
-            Details {
-                iconSource: Quickshell.iconPath("memory")
-                text: Services.SystemStats.memText
-            }
-            Ctrls.ProgressBar {
-                Layout.fillWidth: true
-                from: 0
-                value: Services.SystemStats.memUsage
-                to: 100
-            }
+        StatusItem {
+            iconSource: Quickshell.iconPath("memory")
+            text: Services.SystemStats.memText
+            value: Services.SystemStats.memUsage
         }
     }
 
@@ -77,17 +72,10 @@ ColumnLayout {
     Shared.ToolTipArea {
         text: Services.SystemStats.tempToolTipText
         Layout.fillWidth: true
-        RowLayout {
-            Details {
-                iconSource: Quickshell.iconPath("temperature-warm-symbolic")
-                text: Services.SystemStats.tempText
-            }
-            Ctrls.ProgressBar {
-                Layout.fillWidth: true
-                from: 0
-                value: Services.SystemStats.cpuTemp
-                to: 100
-            }
+        StatusItem {
+            iconSource: Quickshell.iconPath("temperature-warm-symbolic")
+            text: Services.SystemStats.tempText
+            value: Services.SystemStats.cpuTemp
         }
     }
 
@@ -95,17 +83,10 @@ ColumnLayout {
     Shared.ToolTipArea {
         text: Services.SystemStats.storageToolTipText
         Layout.fillWidth: true
-        RowLayout {
-            Details {
-                iconSource: Quickshell.iconPath("drive-harddisk")
-                text: Services.SystemStats.storageText
-            }
-            Ctrls.ProgressBar {
-                Layout.fillWidth: true
-                from: 0
-                value: Services.SystemStats.storageUsage
-                to: 100
-            }
+        StatusItem {
+            iconSource: Quickshell.iconPath("drive-harddisk")
+            text: Services.SystemStats.storageText
+            value: Services.SystemStats.storageUsage
         }
     }
 }
