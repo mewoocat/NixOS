@@ -23,6 +23,7 @@ ColumnLayout {
         required property string text
         Shared.Icon {
             id: icon
+            recolorIcon: false
             implicitSize: 20
             source: details.iconSource
         }
@@ -43,7 +44,7 @@ ColumnLayout {
         RowLayout {
             Details {
                 iconSource: Quickshell.iconPath("cpu")
-                text: Math.round(Services.SystemStats.cpuUsage) + '%'
+                text: Services.SystemStats.cpuText
             }
             Ctrls.ProgressBar {
                 Layout.fillWidth: true
@@ -79,7 +80,7 @@ ColumnLayout {
         RowLayout {
             Details {
                 iconSource: Quickshell.iconPath("temperature-warm-symbolic")
-                text: Math.round(Services.SystemStats.cpuTemp) + '°C'
+                text: Services.SystemStats.tempText
             }
             Ctrls.ProgressBar {
                 Layout.fillWidth: true

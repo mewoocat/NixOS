@@ -11,18 +11,19 @@ Singleton {
     property real cpuTemp: 0
     property real memUsage: 0
     property real storageUsage: 0
-    property string storageFraction: ""
 
     // Options
     property string storageDrive: "/" // Defaults to root
 
     // Text
+    property string storageFraction: ""
+    property string memFraction: ""
     property string cpuText: `${Math.round(cpuUsage)}%`
     property string memText: `${Math.round(memUsage)}%`
     property string tempText: `${Math.round(cpuTemp)}°C`
     property string storageText: `${Math.round(storageUsage)}%`
     property string cpuToolTipText: `CPU usage: ${Math.round(cpuUsage)}%`
-    property string memToolTipText: `Memory usage: ${memText}`
+    property string memToolTipText: `Memory usage: ${memText} ${memFraction}`
     property string tempToolTipText: `CPU Temperature: ${tempText}`
     property string storageToolTipText: `Storage usage for drive ${storageDrive}: ${storageText} ${storageFraction}`
     
@@ -42,7 +43,7 @@ Singleton {
     Process {
         id: cpuTempProc
         // Todo: pls remove fastfetch dep omg
-        command: ['bash', '-c', "fastfetch --packages-disabled nix --logo none --cpu-temp | grep 'CPU:' | rev | cut -d ' ' -f1 | cut -c 4- | rev"]
+        command: ['bash', '-c', 'sensors | grep "Package id 0:" | cut -d " " -f5 | cut -c 2-5']
         running: true
 
         stdout: SplitParser {
@@ -71,7 +72,7 @@ Singleton {
                 const used = Math.round(memArray[2] * GBinKiB * 10 ) / 10 // Round to 1 decimal place  
 
                 root.memUsage = Math.round((used / total) * 100) // 0 -> 100
-                root.memUsageText = `Usage: ${used} GB / ${total} GB`
+                root.memFraction = `${used} GB / ${total} GB`
             }
         }
     }
@@ -117,6 +118,7 @@ Singleton {
         // Rerun the processes
         onTriggered: {
             cpuUsageProc.running = true
+            cpuTempProc.running = true
             memUsageProc.running = true
             storageUsageProc.running = true
         }
