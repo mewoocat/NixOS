@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -12,6 +14,8 @@ import qs.Components.Shared.SequentialDragGrid as SeqDragGrid
 ColumnLayout {
     id: root
 
+    signal appSelected(app: DesktopEntry)
+
     spacing: 0
 
     SeqDragGrid.SequentialDragGrid {
@@ -24,14 +28,14 @@ ColumnLayout {
             Root.State.configFileView.writeAdapter()
         }
         delegate: Shared.PanelButton {
-            id: appPanelItem
+            id: appButton
             required property var modelData
             property string appId: modelData
             property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(appId)
             icon.name: if (!desktopEntry) { return '' } else { return desktopEntry.icon ?? desktopEntry.id }
             isMultiColorIcon: true
 
-            onClicked: () => { if (!desktopEntry) { return () => {} } else { return desktopEntry.execute } }
+            onClicked: () => root.appSelected(desktopEntry)
             ContextMenu.onRequested: position => { // on right click
                 console.debug(position)
                 appPanelPopup.visible = true
@@ -41,20 +45,20 @@ ColumnLayout {
                 id: appPanelPopup
 
                 anchor {
-                    item: appPanelItem
+                    item: appButton
                     edges: Edges.Top | Edges.Right
                     gravity: Edges.Bottom | Edges.Right
                 }
 
                 content: ColumnLayout {
                     spacing: 0
-                    Ctrls.MenuItem { hoverEnabled: false; text: appPanelItem.desktopEntry?.name ?? "error: desktop entry not found"}
+                    Ctrls.MenuItem { hoverEnabled: false; text: appButton.desktopEntry?.name ?? "error: desktop entry not found"}
                     Ctrls.MenuItem { text: "Remove"; onClicked: () => {
                         console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
                         // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
                         // TODO: Probably need to find a way to automatically do this
                         appPanelPopup.closeWindow()
-                        Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appPanelItem.appId)
+                        Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appButton.appId)
                         Root.State.configFileView.writeAdapter()
 
                     }; icon.name: "remove"}

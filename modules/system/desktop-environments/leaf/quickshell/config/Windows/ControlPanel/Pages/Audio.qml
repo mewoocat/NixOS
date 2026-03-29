@@ -129,23 +129,23 @@ PageBase {
                 }
             }
 
-            SubSection { name: "Mixer"}
+            SubSection { name: "Mixer" }
             
             ListView {
                 snapMode: ListView.SnapToItem
                 implicitHeight: childrenRect.height// Defaults to as large as is needed to show all items
+                implicitWidth: parent.implicitWidth 
                 //keyNavigationEnabled: true // Enabled by default
                 highlightMoveDuration: 0 // Instantly snaps to item
                 clip: true // Ensure that scrolled items don't go outside the widget
 
                 visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
-                implicitWidth: parent.implicitWidth 
                 // For each source outputting to the default output, i.e. Each program, etc.
                 // A link is a connection between two nodes
                 model: Services.Audio.defaultOutputLinkTracker.linkGroups
                 delegate: MixerItem {
                     required property PwLinkGroup modelData
-                    implicitWidth: parent.width
+                    implicitWidth: parent?.width
                     linkGroup: modelData
                 }
             }

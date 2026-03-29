@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import Quickshell
 import qs as Root
 import qs.Components.Widgets as Widgets
 import qs.Components.Widgets.Tetris as Tetris
@@ -9,10 +8,10 @@ import qs.Components.Shared as Shared
 import qs.Modules.Leaf as Leaf
 
 Shared.PanelWindow {
-    toggleWindow: () => {
+    onToggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
     } 
-    closeWindow: () => {
+    onCloseWindow: () => {
         Root.State.activityCenterVisibility = false
     } 
     //id: window

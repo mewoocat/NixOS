@@ -5,10 +5,9 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Bluetooth
-import Quickshell.Services.Pipewire
-import qs.Services as Services
 import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 import qs as Root
 
 PageBase {
@@ -128,7 +127,7 @@ PageBase {
     }
 
 
-    content: Leaf.FlickScrollable {
+    content: Shared.Scrollable {
         id: scrollable
         anchors.fill: parent
         contentPadding: 0
@@ -136,8 +135,7 @@ PageBase {
 
         // Width should be determined by the scrollable - any padding
         // Then the children in the layout should be constrained by this size
-        content: ColumnLayout {
-            anchors.fill: parent
+        ColumnLayout {
             id: col
             spacing: 0
 
@@ -203,7 +201,6 @@ PageBase {
                 }
             }
 
-            //Leaf.HorizontalLine { }
             Leaf.ListView {
                 id: unpariredListView
                 implicitWidth: parent.implicitWidth 

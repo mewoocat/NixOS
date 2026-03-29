@@ -21,12 +21,12 @@ Shared.PanelWindow {
     implicitHeight: 640
     focusable: true
 
-    closeWindow: () => {
+    onCloseWindow: () => {
         Root.State.launcherVisibility = false
         appList.reset()
     }
 
-    toggleWindow: () => {
+    onToggleWindow: () => {
         Root.State.launcherVisibility = !Root.State.launcherVisibility
         appList.reset()
     }
@@ -46,9 +46,9 @@ Shared.PanelWindow {
             anchors.fill: parent
 
             LeftPanel {
-
                 Layout.margins: 4
                 Layout.fillHeight: true
+                onAppSelected: app => launcher.launchApp(app)
             }
             
             AppList {

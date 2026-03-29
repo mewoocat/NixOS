@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import qs as Root
+import qs.Services as Services
 import qs.Components.Controls as Ctrls
 
 Item {
@@ -145,9 +146,8 @@ Item {
             enabled: root.currentPlayer !== null
             textRole: "identity"
             model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
-            //displayText: "♫"
-            //implicitWidth: 40
-            //Component.onCompleted: popup.width = 160
+            displayText: "♫"
+            implicitWidth: 40
             onActivated: (index) => {
                 root.currentPlayerIndex = index
             }

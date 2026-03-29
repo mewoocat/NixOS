@@ -11,9 +11,9 @@ PanelWindow {
     id: window
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
-    required property var closeWindow
-    //required property var action
-    required property var toggleWindow
+
+    signal closeWindow()
+    signal toggleWindow()
  
     Component.onCompleted: {
         //console.log(`setting state for window: ${name}`)

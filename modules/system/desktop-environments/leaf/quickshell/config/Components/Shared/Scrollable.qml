@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import qs as Root
 import qs.Modules.Leaf as Leaf
+import qs.Components.Controls as Ctrls
 
 // Size of root element must be set when consumed
 // why tf is this a control? be normal
@@ -20,7 +21,7 @@ Control {
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
     // the ListView and parent
-    Leaf.LeafScrollBar {
+    Ctrls.ScrollBar {
         id: scrollBar
         anchors {
             left: root.right
@@ -42,7 +43,6 @@ Control {
 
         // The only way I found that works to set the width of the content to the flickable
         onWidthChanged: root.content.implicitWidth = width
-        //children: [ root.content ] // For some reason doesn't auto set the content's parent to the flickable's contentItem prop
 
         Rectangle {
             id: box

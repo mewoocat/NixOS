@@ -3,9 +3,8 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 import qs as Root
 
 // Need wrapper item since we want to anchor the ColumnLayout to the top of the SwipeView area but 
@@ -43,7 +42,7 @@ Item {
             }
         }
 
-        Leaf.HorizontalLine {}
+        Shared.HorizontalLine {}
 
         Rectangle {
             Layout.fillWidth: true

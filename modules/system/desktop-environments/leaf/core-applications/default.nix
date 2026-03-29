@@ -21,6 +21,7 @@
 
       kdePackages.dolphin
       kdePackages.qtsvg # Needed for icons to work in dolphin
+      kdePackages.ark # File archiver (compression)
       /*
       kdePackages.plasma-workspace # Has the SolidUiServer i think but not sure how to start it
       kdePackages.kio # needed since 25.11

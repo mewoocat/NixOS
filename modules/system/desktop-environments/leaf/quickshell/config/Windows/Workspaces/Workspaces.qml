@@ -3,9 +3,9 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs as Root
-import qs.Modules.Leaf as Leaf
+import qs.Components.Shared as Shared 
 
-Leaf.FullscreenWindow {
+Shared.FullscreenWindow {
     id: root
     toggleWindow: () => {
         Root.State.workspacesVisibility = !Root.State.workspacesVisibility

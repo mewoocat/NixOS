@@ -13,10 +13,10 @@ Shared.PanelWindow {
     implicitWidth: content.width
     implicitHeight: content.height 
 
-    toggleWindow: () => {
+    onToggleWindow: () => {
         Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
     } 
-    closeWindow: () => {
+    onCloseWindow: () => {
         Root.State.controlPanelVisibility = false
         Root.State.controlPanelPage = 0
     } 

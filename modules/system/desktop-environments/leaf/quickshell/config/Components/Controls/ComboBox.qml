@@ -28,6 +28,7 @@ T.ComboBox {
     property color color: control.hovered ? Root.State.colors.on_surface : Root.State.colors.on_surface
     property bool isMutliColorIcon: false
     property int radius: 12 //background.implicitHeight
+    property int minDelegateWidth: 200
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop
@@ -50,7 +51,7 @@ T.ComboBox {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.margins: 4
-            text: control.currentText
+            text: control.displayText
             color: control.color
         }
     }
@@ -58,7 +59,8 @@ T.ComboBox {
     delegate: MenuItem {
         id: delegate
         hoverEnabled: control.hoverEnabled
-        width: control.contentItem.width
+        // Width of MenuItem should be determined by whether it's desired width, the displayed item, or the popup's width is largest
+        width: Math.max(implicitWidth, control.contentItem.width, control.popup.contentWidth)
         radius: control.radius - control.padding - inset
         inset: 2
 

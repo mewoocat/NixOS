@@ -41,7 +41,7 @@ ColumnLayout {
         }
         Keys.onUpPressed: scrollable.listViewRef.decrementCurrentIndex()
         Keys.onDownPressed: scrollable.listViewRef.incrementCurrentIndex()
-        Keys.onReturnPressed: appSelected(scrollable.listViewRef.currentItem.modelData)
+        Keys.onReturnPressed: root.appSelected(scrollable.listViewRef.currentItem.modelData)
     }
 
     // Application list
@@ -50,7 +50,7 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
         padding: 8
-        onPrimaryClick: (modelData) => launchApp(modelData)
+        onPrimaryClick: (modelData) => root.appSelected(modelData)
         model: ScriptModel {
             values: DesktopEntries.applications.values
                 // Filter by search text
@@ -156,7 +156,7 @@ ColumnLayout {
                     onClicked: () => modelData.execute()
                 }
             }
-            Leaf.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
+            Shared.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
             RowLayout {
                 Ctrls.Button {
                     text: "Pin"
