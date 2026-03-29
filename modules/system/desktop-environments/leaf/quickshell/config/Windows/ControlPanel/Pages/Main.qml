@@ -136,6 +136,7 @@ Leaf.PanelGrid {
         onClicked: () => Services.ScreenCapture.toggleRecording()
         isActive: Services.ScreenCapture.recording
     }
+    /*
     Leaf.PanelItem { 
         isClickable: false
         rows: 2
@@ -183,19 +184,9 @@ Leaf.PanelGrid {
                     highlight: PowerProfiles.profile == PowerProfile.PowerSaver
                 }
             }
-
-            //Dial {}
-            /*
-            Text {
-                color: palette.text
-                //text: "what: " + Services.Power.currentProfile
-                text: {
-                    return "profile: " + PowerProfile.toString(PowerProfiles.profile)
-                }
-            }
-            */
         }
     }
+    */
 
     Leaf.PanelItem { 
         isClickable: false

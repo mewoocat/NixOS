@@ -8,7 +8,7 @@ ScrollBar {
     property int minBarWidth: 4
     hoverEnabled: true
     policy: ScrollBar.AsNeeded
-    implicitWidth: contentItem.width
+    implicitWidth: implicitContentWidth
     contentItem: Item {
         implicitWidth: 8
         //implicitHeight: scrollBar.visualSize // Height seems to be auto set

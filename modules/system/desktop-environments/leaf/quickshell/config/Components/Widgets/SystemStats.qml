@@ -1,31 +1,52 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Services as Services
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 import qs as Root
 
+// Todo: Somehow calculate the max detail width
 ColumnLayout {
+    id: root
     anchors.margins: 8
     anchors.fill: parent
 
+    component Details: RowLayout {
+        id: details
+        // Idk why implicitWidth doesn't seem to apply here
+        Layout.preferredWidth: icon.width + textMetrics.width
+        required property string iconSource
+        required property string text
+        Shared.Icon {
+            id: icon
+            implicitSize: 20
+            source: details.iconSource
+        }
+        Text {
+            text: details.text
+            color: Root.State.colors.on_surface
+        }
+        TextMetrics {
+            id: textMetrics
+            text: "aaaaa" // 5 char, example of max text characters
+        }
+    }
+
     // CPU
     Shared.ToolTipArea {
-        text: Services.SystemStats.cpuUsageText // Text for tooltip
+        text: Services.SystemStats.cpuToolTipText
+        Layout.fillWidth: true
         RowLayout {
-            IconImage {
-                implicitSize: 20
-                source: Quickshell.iconPath("cpu")
-            }
-            Text {
-                //text: Math.round(Services.SystemStats.cpuUsage) + '%'
-                color: Root.State.colors.on_surface
+            Details {
+                iconSource: Quickshell.iconPath("cpu")
+                text: Math.round(Services.SystemStats.cpuUsage) + '%'
             }
             Ctrls.ProgressBar {
+                Layout.fillWidth: true
                 from: 0
                 value: Services.SystemStats.cpuUsage
                 to: 100
@@ -35,19 +56,12 @@ ColumnLayout {
 
     // Memory
     Shared.ToolTipArea {
-        text: Services.SystemStats.memUsageText // Text for tooltip
-        Layout.fillWidth: true // For some reason the width of the progress bar expands when using a Wrapper here.  
-                               // Setting the fillWidth here restricts the size to the parent ig
+        text: Services.SystemStats.memToolTipText
+        Layout.fillWidth: true 
         RowLayout {
-            IconImage {
-                implicitSize: 20
-                source: Quickshell.iconPath("memory")
-            }
-            Text {
-                text: {
-                    Math.round(Services.SystemStats.memUsage) + '%'
-                }
-                color: Root.State.colors.on_surface
+            Details {
+                iconSource: Quickshell.iconPath("memory")
+                text: Services.SystemStats.memText
             }
             Ctrls.ProgressBar {
                 Layout.fillWidth: true
@@ -60,18 +74,12 @@ ColumnLayout {
 
     // Temp
     Shared.ToolTipArea {
-        text: "CPU Temperature"
+        text: Services.SystemStats.tempToolTipText
         Layout.fillWidth: true
         RowLayout {
-            IconImage {
-                implicitSize: 20
-                source: Quickshell.iconPath("temperature-warm-symbolic")
-            }
-            Text {
-                text: {
-                    Math.round(Services.SystemStats.cpuTemp) + '°C'
-                }
-                color: Root.State.colors.on_surface
+            Details {
+                iconSource: Quickshell.iconPath("temperature-warm-symbolic")
+                text: Math.round(Services.SystemStats.cpuTemp) + '°C'
             }
             Ctrls.ProgressBar {
                 Layout.fillWidth: true
@@ -82,18 +90,14 @@ ColumnLayout {
         }
     }
 
-    // Disk usage
+    // Storage usage
     Shared.ToolTipArea {
-        text: Services.SystemStats.storageUsageText
+        text: Services.SystemStats.storageToolTipText
         Layout.fillWidth: true
         RowLayout {
-            IconImage {
-                implicitSize: 20
-                source: Quickshell.iconPath("drive-harddisk")
-            }
-            Text {
-                text: Math.round(Services.SystemStats.storageUsage) + '%'
-                color: Root.State.colors.on_surface
+            Details {
+                iconSource: Quickshell.iconPath("drive-harddisk")
+                text: Services.SystemStats.storageText
             }
             Ctrls.ProgressBar {
                 Layout.fillWidth: true

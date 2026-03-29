@@ -11,14 +11,20 @@ Singleton {
     property real cpuTemp: 0
     property real memUsage: 0
     property real storageUsage: 0
+    property string storageFraction: ""
 
     // Options
     property string storageDrive: "/" // Defaults to root
 
     // Text
-    property string cpuUsageText: Math.round(cpuUsage) + '%'
-    property string memUsageText: ""
-    property string storageUsageText: ""
+    property string cpuText: `${Math.round(cpuUsage)}%`
+    property string memText: `${Math.round(memUsage)}%`
+    property string tempText: `${Math.round(cpuTemp)}°C`
+    property string storageText: `${Math.round(storageUsage)}%`
+    property string cpuToolTipText: `CPU usage: ${Math.round(cpuUsage)}%`
+    property string memToolTipText: `Memory usage: ${memText}`
+    property string tempToolTipText: `CPU Temperature: ${tempText}`
+    property string storageToolTipText: `Storage usage for drive ${storageDrive}: ${storageText} ${storageFraction}`
     
     Process {
         id: cpuUsageProc
@@ -96,10 +102,10 @@ Singleton {
                 total = Math.round(storageArray[1] * GBinKiB * 10) / 10 // Round to 1 decimal place
                 available = Math.round(storageArray[3] * GBinKiB * 10) / 10 // Round to 1 decimal place
                 used = Math.round((total - available) * 10) / 10 // Round to 1 decimal place
-                const storageFormatted = `Usage of /: ${used} GB / ${total} GB`
+                const storageFormatted = `${used} GB / ${total} GB`
 
                 root.storageUsage = usage
-                root.storageUsageText = storageFormatted
+                root.storageFraction = storageFormatted
             }
         }
     }
