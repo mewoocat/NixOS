@@ -11,6 +11,7 @@ PanelWindow {
     id: window
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
+    property bool grabEnabled: true
 
     signal closeWindow()
     signal toggleWindow()
@@ -34,7 +35,7 @@ PanelWindow {
     // Visibility
     visible: false
     onVisibleChanged: {
-        if (visible) {
+        if (visible && window.grabEnabled) {
             Services.Hyprland.addGrabWindow(window)
         }
     }

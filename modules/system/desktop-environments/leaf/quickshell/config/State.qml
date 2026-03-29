@@ -20,7 +20,6 @@ Singleton {
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
     property bool activityCenterVisibility: false
-    property bool workspacesVisibility: false
 
     // Window refs
     property var bar: null
@@ -37,9 +36,13 @@ Singleton {
     property var popupGrab: null // The grab object for the active popup (old)
     property var activeGrab: null // The active grab object (either popup or panel) (new)
 
-    // Index of the current page in control panel
-    property int controlPanelPage: 0
+    property int controlPanelPage: 0 // Index of the current page in control panel
+    property bool isWorkspacePopupVisible: false
+    property int hoveredWorkspace: 0
+    property var currentHoveredWorkspace: null
+    onCurrentHoveredWorkspaceChanged: console.debug(`item ref changed to: ${currentHoveredWorkspace}`)
 
+    
     // Styling
     property int rounding: 8
     property int smallSpace: 4

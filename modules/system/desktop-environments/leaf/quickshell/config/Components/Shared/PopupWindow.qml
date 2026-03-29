@@ -20,6 +20,7 @@ PopupWindow {
     id: root
 
     required property Item content
+    property bool grabEnabled: true
     implicitWidth: popupArea.width
     implicitHeight: popupArea.height
     color: "transparent"
@@ -36,7 +37,7 @@ PopupWindow {
     }
 
     onVisibleChanged: {
-        if (visible) {
+        if (visible && grabEnabled) {
             console.log(`popup window vis changed to ${root.visible}`)
             Services.Hyprland.addGrabWindow(root)
         }

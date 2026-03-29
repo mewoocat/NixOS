@@ -17,7 +17,7 @@ ColumnLayout {
     required property int widgetWidth
     property HyprlandWorkspace wsObj: Services.Hyprland.workspaceMap[wsId] ?? null
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
-    property string wsName: Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
+    property string wsName: wsId//Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
 
     // Workspace number indicator
     WrapperRectangle {

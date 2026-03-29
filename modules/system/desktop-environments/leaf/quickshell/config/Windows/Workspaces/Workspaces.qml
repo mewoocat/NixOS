@@ -1,45 +1,24 @@
 pragma ComponentBehavior: Bound
 
+import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs as Root
 import qs.Components.Shared as Shared 
 
-Shared.FullscreenWindow {
+Shared.PopupWindow {
     id: root
-    toggleWindow: () => {
-        Root.State.workspacesVisibility = !Root.State.workspacesVisibility
-    } 
-    closeWindow: () => {
-        Root.State.workspacesVisibility = false
-    } 
-    name: "workspaces"
-    visible: Root.State.workspacesVisibility
-    implicitWidth: content.width
-    implicitHeight: content.height
-    content: MouseArea {
-        id: padding
-        anchors.fill: parent
-        onClicked: () => root.closeWindow()
-        enabled: true
-        hoverEnabled: true
-        GridLayout {
-            id: grid
-            anchors.centerIn: parent
-            // Assuming a max of 10 workspaces
-            rows: 3
-            columns: 4
-            rowSpacing: 24
-            columnSpacing: 24
-            Repeater {
-                model: 10
-                Workspace {
-                    required property int modelData
-                    wsId: modelData + 1 // Hyprland workspaces are 1 indexed
-                    widgetWidth: root.width / (grid.columns + 0.5) 
-                }
-            }
-        }
+    //name: "workspaces"
+    visible: Root.State.isWorkspacePopupVisible
+    grabEnabled: false // Disable the HyprlandFocusGrab
+    anchor {
+        item: Root.State.currentHoveredWorkspace
+        edges: Edges.Bottom | Edges.Left
+        gravity: Edges.Bottom | Edges.Right
+    }
+    content: Workspace {
+        wsId: Root.State.hoveredWorkspace
+        widgetWidth: 400 
     }
 }
 

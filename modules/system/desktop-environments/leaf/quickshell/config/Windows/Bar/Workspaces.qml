@@ -19,6 +19,18 @@ RowLayout {
     component WsIndicator: MouseArea {
         id: wsIndicator
         required property int wsId
+        onHoveredChanged: {
+            if (containsMouse) {
+                Root.State.hoveredWorkspace = wsId
+                console.debug(`wsId: ${wsId}`)
+                console.debug(`wsIndicator: ${wsIndicator}`)
+                Root.State.currentHoveredWorkspace = wsIndicator
+                Root.State.isWorkspacePopupVisible = true
+            }
+            else {
+                Root.State.isWorkspacePopupVisible = false
+            }
+        }
         property HyprlandWorkspace wsObj: Hyprland.workspaces.values.find(ws => ws.id === wsId) ?? null
         property string wsName: Root.State.config.workspaces.wsMap[`ws${wsId}`].name
         // Either focused, active, inactive, or empty
