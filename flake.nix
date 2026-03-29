@@ -47,6 +47,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dolphin-overlay.url = "github:rumboon/dolphin-overlay"; # Fix for dolphin open with not working
+    helium = {
+      url = "github:schembriaiden/helium-browser-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the

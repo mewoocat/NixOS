@@ -46,10 +46,6 @@
 
 in {
 
-  environment.sessionVariables = {
-    #QT_QPA_PLATFORMTHEME = "qt5ct";
-  };
-
   qt = {
     enable = true;
 
@@ -132,7 +128,8 @@ in {
       };
 
       ".config/qtengine/config.json" = {
-        source = ./qtengine.json;
+        #source = ./qtengine.json;
+        source = "/home/eXia/NixOS/modules/system/desktop-environments/leaf/theming/qtengine.json"; # For development
       };
 
       # Note that this file is not dynamically loaded by gtk3 apps

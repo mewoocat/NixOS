@@ -10,7 +10,7 @@
   ];
 
   nixpkgs.overlays = [
-        #inputs.dolphin-overlay.overlays.default # Provides open with fix
+    inputs.dolphin-overlay.overlays.default # Provides open with fix
   ];
 
   users.users.${config.username} = {
@@ -28,6 +28,8 @@
       kdePackages.kio-extras #extra protocols support (sftp, fish and more)
       */
       #nemo-with-extensions
+    
+      kdePackages.konsole
 
       # Calendar
       #libsForQt5.merkuro

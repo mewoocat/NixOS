@@ -92,6 +92,7 @@
       clementine # Music player
       blanket
       thunderbird
+      inputs.helium.packages.${system}.default
 
       # Network tools
       wireshark
