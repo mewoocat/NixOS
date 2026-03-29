@@ -7,6 +7,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Modules.Leaf as Leaf
+import qs.Components.Shared as Shared
 import qs as Root
 
 // The animation jitters here, easy to see on linear easing. UPDATE: jittering fixed.  It was
@@ -168,7 +169,7 @@ ClippingRectangle {
                             console.debug(position)
                         }
 
-                        property var popupWindow: Leaf.PopupWindow {
+                        property var popupWindow: Shared.PopupWindow {
                             id: trayPopup
 
                             anchor {

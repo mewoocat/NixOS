@@ -1,15 +1,9 @@
-
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Widgets
-import Quickshell.Wayland
-import Quickshell.Hyprland
 import qs.Services as Services
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 
@@ -19,7 +13,7 @@ Shared.PanelButton {
     icon.name: 'system-shutdown-symbolic'
     //imgSize: 22
     onClicked: () => powerPopup.visible = true
-    Leaf.PopupWindow {
+    Shared.PopupWindow {
         id: powerPopup
 
         anchor {

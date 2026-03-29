@@ -3,9 +3,10 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.Modules.Leaf as Leaf
+import qs.Components.Shared as Shared
 import qs as Root
 
-Leaf.PopupWindow {
+Shared.PopupWindow {
     id: root
     required property Item parentButton // The button that this popup will be relative to
     required property var menu // The menu object that describes the content

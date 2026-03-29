@@ -1,12 +1,10 @@
 import QtQuick
 import QtQuick.Controls
-import Quickshell
-import Quickshell.Widgets
 import qs as Root
-import qs.Modules.Leaf as Leaf
+import qs.Components.Shared as Shared
 import "./Pages" as Pages
 
-Leaf.PanelWindow {
+Shared.PanelWindow {
     id: root
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility

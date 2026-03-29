@@ -42,8 +42,6 @@ ShellRoot {
     Workspaces {}
     //Settings {}
     Lockscreen {}
-    /*
-    OnScreenDisplay {}
-    */
+    //OnScreenDisplay {}
 
 }

@@ -1,4 +1,7 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
@@ -6,26 +9,24 @@ import Quickshell.Services.Pipewire
 import qs.Services as Services
 import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 import qs as Root
 
 PageBase {
     pageName: "Audio" 
 
-
-    component MixerItem: Leaf.ListItem {
+    component MixerItem: Ctrls.Button {
         id: root
-        //Layout.fillWidth: true
         //implicitHeight: 80
-        implicitWidth: parent.width
         //color: "green"
+        Layout.fillWidth: true
         padding: 2
-        margin: 2
-        backgroundColor: root.interacted ? Root.State.colors.primary : "transparent"
-        required property PwLinkGroup modelData
-        property PwNode node: modelData.source // The source node
+        hoverEnabled: false
+        property PwLinkGroup linkGroup
+        property PwNode node: linkGroup.source // The source node
         property string name: ""
         property string description: ""
-        delegate: ColumnLayout {
+        contentItem: ColumnLayout {
             id: column
             spacing: 0
             anchors.left: parent.left
@@ -38,12 +39,9 @@ PageBase {
 
             RowLayout {
                 Layout.fillWidth: true
-                IconImage {
-                    implicitSize: 24
+                Shared.Icon {
                     source: {
-                        if (!root.node || !root.node.ready) {
-                            return ""
-                        }
+                        if (!root.node || !root.node.ready) { return "" }
                         // If node is set and is bound
                         const properties = root.node.properties
                         const iconName = properties["application.icon-name"] // Can be ""
@@ -92,18 +90,6 @@ PageBase {
                 }
             }
 
-            // Debug
-            /*
-            Button {
-                text: "text"
-                onClicked: () => {
-                    console.log(`app.icon-name: ${root.node.properties["application.icon-name"]}`)
-                    console.log(`app.name: ${root.node.properties["application.name"]}`)
-                    console.log(`media.name: ${root.node.properties["media.name"]}`)
-                }
-            }
-            */
-
             Ctrls.Slider {
                 Layout.fillWidth: true
                 value: Services.Audio.getVolume(root.node)
@@ -113,23 +99,19 @@ PageBase {
         }
     }
 
-
-    content: Leaf.FlickScrollable {
-        id: scrollable
+    content: Shared.Scrollable {
+        id: scrollView
         anchors.fill: parent
-        contentPadding: 0
-        showBackground: false
 
-        content: ColumnLayout {
-            anchors.fill: parent
+        ColumnLayout {
             id: col
-            spacing: 0
-    
-            SubSection { name: "Output"}
+            implicitWidth: parent.width
+            spacing: 0    
+
+            SubSection { Layout.fillWidth: true; name: "Output" }
 
             // Default output
             MixerItem {
-                implicitWidth: parent.width
                 node: Pipewire.defaultAudioSink
                 name: node?.nickname ?? "no name"
                 description: node?.properties["media.class"] ?? "no description"
@@ -145,30 +127,27 @@ PageBase {
                     console.log(index)
                     Pipewire.preferredDefaultAudioSink = Services.Audio.outputDevices[index] // Set the audio output (untested)
                 }
-                /*
-                delegate: WrapperMouseArea {
-                    Component.onCompleted: () => {
-                        console.log(`------------------------------modelData: ${modelData.ready} - ${modelData.description} - stream? ${modelData.isStream}`)
-                    }
-                    id: item
-                    required property PwNode modelData
-                    Text {
-                        color: Root.State.colors.on_surface_container
-                        text: `name: ${item.modelData.name}`
-                    }
-                }
-                */
             }
 
             SubSection { name: "Mixer"}
             
-            Leaf.ListView {
+            ListView {
+                snapMode: ListView.SnapToItem
+                implicitHeight: childrenRect.height// Defaults to as large as is needed to show all items
+                //keyNavigationEnabled: true // Enabled by default
+                highlightMoveDuration: 0 // Instantly snaps to item
+                clip: true // Ensure that scrolled items don't go outside the widget
+
                 visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
                 implicitWidth: parent.implicitWidth 
                 // For each source outputting to the default output, i.e. Each program, etc.
                 // A link is a connection between two nodes
                 model: Services.Audio.defaultOutputLinkTracker.linkGroups
-                delegate: MixerItem {}
+                delegate: MixerItem {
+                    required property PwLinkGroup modelData
+                    implicitWidth: parent.width
+                    linkGroup: modelData
+                }
             }
             
             // No mixer items placeholder

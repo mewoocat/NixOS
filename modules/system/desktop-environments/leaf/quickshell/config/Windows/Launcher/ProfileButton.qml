@@ -3,17 +3,15 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import qs.Services as Services
-import qs.Modules.Leaf as Leaf
 import qs.Components.Shared as Shared
 import qs.Components.Controls as Ctrls
 
 Shared.PanelButton {
     id: root
-    required property string imgPath
 
     onClicked: () => userPopup.visible = true
 
-    Leaf.PopupWindow {
+    Shared.PopupWindow {
         id: userPopup
 
         anchor {
@@ -28,16 +26,17 @@ Shared.PanelButton {
             Ctrls.MenuItem { text: "Logout"; onClicked: () => {}; icon.name: "go-previous-symbolic"}
         }
     }
+
+    padding: 8
     
     // Needs to be a perfect square or else it won't look right
-    contentItem: Rectangle {
-        color: "blue"
+    contentItem: Item {
         ClippingWrapperRectangle {
-            color: "green"
+            color: "transparent"
+            anchors.centerIn: parent
             radius: root.availableWidth / 2
             IconImage {
                 implicitSize: root.availableWidth
-                anchors.centerIn: parent
                 source: Services.User.pfpPath
             }
         }
