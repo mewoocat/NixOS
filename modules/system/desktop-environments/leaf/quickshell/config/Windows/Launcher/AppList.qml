@@ -29,7 +29,12 @@ ColumnLayout {
         Layout.margins: 8
         Layout.fillWidth: true
         leftPadding: 12; rightPadding: 12
-        focus: true // Make this have focus by default
+        // Make this have focus by default
+        // Trying to ensure this item is the last to set focus so it actually recieves focus.
+        // Otherwise if any other item is interacted in the window it will also get focus set to
+        // true and it stays that way unless manually unset (i think).
+        onVisibleChanged: () => focus = true
+        focus: true
         placeholderText: "Search..."
         background: Rectangle {
             color: Root.State.colors.surface_container
@@ -45,12 +50,12 @@ ColumnLayout {
     }
 
     // Application list
-    Leaf.ListViewScrollable {
+    Shared.ScrollableList {
         id: scrollable
         Layout.fillWidth: true
         Layout.fillHeight: true
         padding: 8
-        onPrimaryClick: (modelData) => root.appSelected(modelData)
+        //onPrimaryClick: (modelData) => root.appSelected(modelData)
         model: ScriptModel {
             values: DesktopEntries.applications.values
                 // Filter by search text
@@ -74,106 +79,116 @@ ColumnLayout {
                 })
         }
 
-        // Main content
-        mainDelegate: RowLayout {
-            id: mainDelegate
-
-            // Set by the ListViewScrollable
-            property DesktopEntry modelData: null
-            property var scrollItem: null
-
-            property alias app: mainDelegate.modelData
-
-            anchors.fill: parent
-            // Warning: this icon lookup is expensive on the startup time
-            IconImage {
-                Layout.leftMargin: 4
-                id: icon
-                implicitSize: 32
-                source: Quickshell.iconPath(mainDelegate.app.icon, "dialog-question")
-            }
-            ColumnLayout {
-                spacing: 0
-                Text{
-                    Layout.fillWidth: true
-                    leftPadding: 8
-                    rightPadding: 8
-                    elide: Text.ElideRight // Truncate with ... on the right
-                    text: mainDelegate.app.name
-                    color: scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                }
-                Text{
-                    Layout.fillWidth: true
-                    leftPadding: 8
-                    rightPadding: 8
-                    elide: Text.ElideRight // Truncate with ... on the right
-                    text: {
-                        if (mainDelegate.app.genericName !== "" && mainDelegate.app.comment !== "") {
-                            return mainDelegate.app.genericName + " | " + mainDelegate.app.comment
-                        }
-                        else if (mainDelegate.app.genericName !== "") {
-                            return mainDelegate.app.genericName
-                        }
-                        else if (mainDelegate.app.comment !== "") {
-                            return mainDelegate.app.comment
-                        }
-                        else {
-                            return "No description"
-                        }
-                    }
-                    color: scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                    font.pointSize: 8
-                }
-            }
-            Ctrls.Button {
-                id: showMoreBtn
-                visible: mainDelegate.scrollItem.interacted //&& mainDelegate.app.actions.length > 0
-                Layout.alignment: Qt.AlignRight
-                icon.name: "overflow-menu-symbolic"
-                icon.width: 16
-                icon.height: 16
-                onClicked: () => scrollItem.expanded = !scrollItem.expanded
-                icon.color: hovered ? Root.State.colors.on_primary_container : Root.State.colors.on_primary
-                backgroundColor: hovered ? Root.State.colors.primary_container : "transparent"
-            }
-        }
-        
-        // Expanded content
-        subDelegate: ColumnLayout {
-            id: subDelegate
-            spacing: 0
-            // These are injected by the ListViewScrollable
+        delegate: Leaf.ListItemExpandable
+        {
+            id: appItem
+            margin: 2
+            padding: 2
+            contentMargin: 0
+            listView: scrollable
             required property DesktopEntry modelData
-            required property var scrollItem
+            backgroundColor: interacted ? Root.State.colors.surface_container : "transparent"
+            mainColor: interacted ? Root.State.colors.primary : "transparent"
 
-            Repeater {
-                model: subDelegate.modelData.actions
-                // Maybe should make this type more generic (since it works for a non popup menu scenario)
-                delegate: Ctrls.MenuItem {
-                    required property DesktopAction modelData
-                    implicitWidth: parent.width
-                    text: modelData.name
-                    onClicked: () => modelData.execute()
+            // Main content
+            mainDelegate: RowLayout {
+                id: mainDelegate
+
+                property var scrollItem: null
+
+                property DesktopEntry app: appItem.modelData
+
+                anchors.fill: parent
+                // Warning: this icon lookup is expensive on the startup time
+                IconImage {
+                    Layout.leftMargin: 4
+                    id: icon
+                    implicitSize: 32
+                    source: Quickshell.iconPath(mainDelegate.app.icon, "dialog-question")
+                }
+                ColumnLayout {
+                    spacing: 0
+                    Text{
+                        Layout.fillWidth: true
+                        leftPadding: 8
+                        rightPadding: 8
+                        elide: Text.ElideRight // Truncate with ... on the right
+                        text: mainDelegate.app.name
+                        color: appItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                    }
+                    Text{
+                        Layout.fillWidth: true
+                        leftPadding: 8
+                        rightPadding: 8
+                        elide: Text.ElideRight // Truncate with ... on the right
+                        text: {
+                            if (mainDelegate.app.genericName !== "" && mainDelegate.app.comment !== "") {
+                                return mainDelegate.app.genericName + " | " + mainDelegate.app.comment
+                            }
+                            else if (mainDelegate.app.genericName !== "") {
+                                return mainDelegate.app.genericName
+                            }
+                            else if (mainDelegate.app.comment !== "") {
+                                return mainDelegate.app.comment
+                            }
+                            else {
+                                return "No description"
+                            }
+                        }
+                        color: appItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                        font.pointSize: 8
+                    }
+                }
+                Ctrls.Button {
+                    id: showMoreBtn
+                    visible: appItem.interacted //&& mainDelegate.app.actions.length > 0
+                    Layout.alignment: Qt.AlignRight
+                    icon.name: "overflow-menu-symbolic"
+                    icon.width: 16
+                    icon.height: 16
+                    onClicked: () => appItem.expanded = !appItem.expanded
+                    icon.color: hovered ? Root.State.colors.on_primary_container : Root.State.colors.on_primary
+                    backgroundColor: hovered ? Root.State.colors.primary_container : "transparent"
                 }
             }
-            Shared.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
-            RowLayout {
-                Ctrls.Button {
-                    text: "Pin"
-                    icon.name: "pin"
-                    onClicked: () => {
-                        const pinnedApps = Root.State.config.pinnedApps
-                        const isAppPinned = pinnedApps.find(appId => appId == subDelegate.modelData.id)
-                        if (!isAppPinned) {
-                            pinnedApps.push(subDelegate.modelData.id)
-                        }
+            
+            // Expanded content
+            subDelegate: ColumnLayout {
+                id: subDelegate
+                spacing: 0
+                // These are injected by the ListViewScrollable
+                required property DesktopEntry modelData
+                required property var scrollItem
 
-                        // Need to set the pinnedApps value to something new to force consumers of it to update.
-                        // Otherwise the actual value won't change since it's a reference.  And the consumers
-                        // won't know to update.
-                        Root.State.config.pinnedApps = null
-                        Root.State.config.pinnedApps = pinnedApps
-                        Root.State.configFileView.writeAdapter()
+                Repeater {
+                    model: subDelegate.modelData.actions
+                    // Maybe should make this type more generic (since it works for a non popup menu scenario)
+                    delegate: Ctrls.MenuItem {
+                        required property DesktopAction modelData
+                        implicitWidth: parent.width
+                        text: modelData.name
+                        onClicked: () => modelData.execute()
+                    }
+                }
+                Shared.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
+                RowLayout {
+                    Ctrls.Button {
+                        text: "Pin"
+                        icon.name: "pin"
+                        onClicked: () => {
+                            const pinnedApps = Root.State.config.pinnedApps
+                            const isAppPinned = pinnedApps.find(appId => appId == subDelegate.modelData.id)
+                            if (!isAppPinned) {
+                                pinnedApps.push(subDelegate.modelData.id)
+                            }
+
+                            // Need to set the pinnedApps value to something new to force consumers of it to update.
+                            // Otherwise the actual value won't change since it's a reference.  And the consumers
+                            // won't know to update.
+                            Root.State.config.pinnedApps = null
+                            Root.State.config.pinnedApps = pinnedApps
+                            Root.State.configFileView.writeAdapter()
+                        }
                     }
                 }
             }

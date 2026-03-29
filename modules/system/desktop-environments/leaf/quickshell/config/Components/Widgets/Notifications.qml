@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs.Services as Services
-import qs.Components.Shared
+import qs.Components.Shared as Shared
 import qs.Modules.Leaf as Leaf
 import qs as Root
 
@@ -23,14 +23,14 @@ ColumnLayout {
         implicitHeight: 1
         opacity: 0.2
     }
-    Leaf.ListView {
+    Shared.ScrollableList {
         id: notifListView
         Layout.fillHeight: true
         Layout.fillWidth: true
         visible: Services.Notifications.notifications.values.length > 0
         color: "transparent"
         model: Services.Notifications.notifications
-        delegate: Notification {
+        delegate: Shared.Notification {
             required property var modelData
             Component.onCompleted: console.debug(modelData)
             notifData: modelData

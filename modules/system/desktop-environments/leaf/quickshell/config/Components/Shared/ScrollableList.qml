@@ -117,5 +117,37 @@ Rectangle {
                 }
             }
         }
+
+        // Animations 
+        // TODO: They work but need to set them up to look nice :)
+        /*
+        add: Transition {
+            NumberAnimation {
+                properties: "y"
+                from: -100
+                duration: root.animationSpeed
+            }
+        }
+        addDisplaced: Transition {
+            NumberAnimation {
+                properties: "y"
+                duration: root.animationSpeed
+            }
+        }
+        remove: Transition {
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "x"
+                    to: -8
+                    duration: 100
+                }
+                NumberAnimation {
+                    properties: "y"
+                    to: -100
+                    duration: root.animationSpeed
+                }
+            }
+        }
+        */
     }
 }

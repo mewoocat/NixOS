@@ -99,7 +99,7 @@ PageBase {
         }
     }
 
-    content: Shared.Scrollable {
+    content: Shared.ScrollableView {
         id: scrollView
         anchors.fill: parent
 
@@ -131,14 +131,8 @@ PageBase {
 
             SubSection { name: "Mixer" }
             
-            ListView {
-                snapMode: ListView.SnapToItem
-                implicitHeight: childrenRect.height// Defaults to as large as is needed to show all items
+            Shared.ScrollableList {
                 implicitWidth: parent.implicitWidth 
-                //keyNavigationEnabled: true // Enabled by default
-                highlightMoveDuration: 0 // Instantly snaps to item
-                clip: true // Ensure that scrolled items don't go outside the widget
-
                 visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
                 // For each source outputting to the default output, i.e. Each program, etc.
                 // A link is a connection between two nodes

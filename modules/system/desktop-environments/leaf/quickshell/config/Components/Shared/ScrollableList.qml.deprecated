@@ -9,6 +9,8 @@ import qs as Root
 import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 
+
+// Designed for a homogenous set of items to scroll, prefer this over ScrollableView for performance reasons.
 Rectangle {
     id: root
 

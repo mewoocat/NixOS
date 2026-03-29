@@ -127,7 +127,7 @@ PageBase {
     }
 
 
-    content: Shared.Scrollable {
+    content: Shared.ScrollableView {
         id: scrollable
         anchors.fill: parent
         contentPadding: 0
@@ -146,10 +146,11 @@ PageBase {
             // Paired Devices
             SubSection { name: "My Devices" }
 
-            Leaf.ListView {
+            Shared.ScrollableList {
                 id: pariredListView
                 implicitWidth: parent.implicitWidth 
                 // implicit height defaults to full height of children
+                interactable: false
                 model: ScriptModel {
                     values: Bluetooth.devices.values
                         .filter(device => device.paired)
@@ -201,11 +202,12 @@ PageBase {
                 }
             }
 
-            Leaf.ListView {
+            Shared.ScrollableList {
                 id: unpariredListView
                 implicitWidth: parent.implicitWidth 
                 // implicit height defaults to full height of children
                 model: ScriptModel { values: Bluetooth.devices.values.filter(device => !device.paired) }
+                interactable: false
                 delegate: Leaf.ListItemExpandable {
                     id: listItem
                     margin: 2
