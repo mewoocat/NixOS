@@ -5,7 +5,22 @@ import QtQuick.Layouts
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import qs as Root
+import qs.Components.Controls as Ctrls
 import qs.Services as Services
+
+WrapperMouseArea {
+    id: mouseArea
+    hoverEnabled: true
+    onHoveredChanged: {
+        Root.State.logWsPopupState()
+        if (containsMouse) {
+            popupCloseDelay.running = false
+            Root.State.isWorkspaceWidgetHovered = true
+        }
+        else {
+            popupCloseDelay.running = true
+        }
+    }
 
 RowLayout {
     id: root
@@ -14,13 +29,50 @@ RowLayout {
     property int mediumSize: 18
     property int largeSize: 36
     property int padding: 4
+
     spacing: 0
 
+    Timer {
+        id: popupCloseDelay
+        interval: 300
+        onTriggered: () => {
+            Root.State.isWorkspaceWidgetHovered = false
+        }
+        running: false
+    }
+
+    Repeater {
+        model: root.numWorkspaces
+        Ctrls.Button {
+            id: workspaceButton
+            implicitHeight: Root.State.barHeight
+            topInset: 8
+            bottomInset: 8
+            padding: 0
+            required property int modelData
+            //wsId: modelData + 1
+
+            onHoveredChanged: {
+                console.debug(`ws btn hover is now: ${workspaceButton.hovered}`)
+                if (workspaceButton.hovered) {
+                    Root.State.currentHoveredWorkspace = workspaceButton
+                    Root.State.hoveredWorkspace = modelData + 1
+                }
+            }
+            text: modelData + 1
+            Layout.fillHeight: true
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////
+    // Components
+    ////////////////////////////////////////////////////////////////
     component WsIndicator: MouseArea {
         id: wsIndicator
         required property int wsId
         onHoveredChanged: {
             if (containsMouse) {
+                popupCloseDelay.running = false
                 Root.State.hoveredWorkspace = wsId
                 console.debug(`wsId: ${wsId}`)
                 console.debug(`wsIndicator: ${wsIndicator}`)
@@ -28,7 +80,7 @@ RowLayout {
                 Root.State.isWorkspacePopupVisible = true
             }
             else {
-                Root.State.isWorkspacePopupVisible = false
+                popupCloseDelay.running = true
             }
         }
         property HyprlandWorkspace wsObj: Hyprland.workspaces.values.find(ws => ws.id === wsId) ?? null
@@ -171,14 +223,6 @@ RowLayout {
             }
         }
     }
-
-    Repeater {
-        model: root.numWorkspaces
-        WsIndicator {
-            required property int modelData
-            wsId: modelData + 1
-            Layout.fillHeight: true
-        }
-    }
+}
 }
 

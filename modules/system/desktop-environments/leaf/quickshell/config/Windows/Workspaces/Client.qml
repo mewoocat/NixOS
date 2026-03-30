@@ -7,6 +7,7 @@ import QtQuick.Controls
 import qs as Root
 
 
+// WARNING: CAN CAUSE CRASHES
 MouseArea {
     id: window
     required property HyprlandToplevel toplevel

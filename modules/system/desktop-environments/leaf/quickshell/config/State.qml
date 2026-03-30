@@ -37,10 +37,19 @@ Singleton {
     property var activeGrab: null // The active grab object (either popup or panel) (new)
 
     property int controlPanelPage: 0 // Index of the current page in control panel
-    property bool isWorkspacePopupVisible: false
+
+    property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
+    property bool isWorkspaceWidgetHovered: false
+    property bool isWorkspacePopupHovered: false
     property int hoveredWorkspace: 0
     property var currentHoveredWorkspace: null
-    onCurrentHoveredWorkspaceChanged: console.debug(`item ref changed to: ${currentHoveredWorkspace}`)
+
+    function logWsPopupState() {
+        console.debug(`----------Logging ws popup state -------`)
+        console.debug(`isWorkspacePopupVisible: ${isWorkspacePopupVisible}`)
+        console.debug(`isWorkspaceWidgetHovered: ${isWorkspaceWidgetHovered}`)
+        console.debug(`isWorkspacePopupHovered: ${isWorkspacePopupHovered}`)
+    }
 
     
     // Styling
