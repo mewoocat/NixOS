@@ -1,39 +1,57 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Hyprland
-import qs.Services as Services
 import qs as Root
+import qs.Services as Services
+import qs.Components.Controls as Ctrls
 
 ColumnLayout {
     id: root
-    implicitHeight: indicator.height + workspace.height
-    implicitWidth: workspace.width
     required property int wsId
     required property int widgetWidth
     property HyprlandWorkspace wsObj: Services.Hyprland.workspaceMap[wsId] ?? null
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
     property string wsName: wsId//Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
+    implicitHeight: workspace.height + indicator.height
+    implicitWidth: workspace.width
+
 
     // Workspace number indicator
     WrapperRectangle {
         id: indicator
-        radius: 16
-        color: "red"
+        z: 1
+        radius: height / 2
+        color: Root.State.colors.surface_container_highest
+        Layout.fillWidth: true
+        Layout.margins: 4
 
-        Text {
-            id: displayText
-            anchors.centerIn: parent
-            leftPadding: 8
-            rightPadding: 8
-            topPadding: 3
-            bottomPadding: 3
-            text: root.wsName === "" ? root.wsId : root.wsName
-            font.pointSize: 8
-            color: root.isWsActive ? palette.highlightedText : palette.text
+        RowLayout {
+            Text {
+                id: displayText
+                leftPadding: 14
+                rightPadding: 8
+                topPadding: 4
+                bottomPadding: 4
+                text: root.wsName === "" ? root.wsId : root.wsName
+                font.pointSize: 10
+                color: Root.State.colors.on_surface
+            }
+            TextField {
+
+            }
+            Rectangle {
+                Layout.fillWidth: true
+            }
+            Ctrls.Button {
+                text: "Delete"
+                implicitHeight: 32
+                inset: 4
+            }
         }
     }
 

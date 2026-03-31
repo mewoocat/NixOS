@@ -60,7 +60,6 @@ MouseArea {
     }
 
     // Border highlight
-    //
     Rectangle {
         property int borderSize: 2
         x: -borderSize / 2; y: -borderSize / 2
@@ -68,9 +67,9 @@ MouseArea {
         //implicitHeight: window.height + borderSize
         anchors.fill: parent
         border.width: borderSize
-        border.color: window.containsMouse ? palette.accent : "transparent"
+        border.color: window.containsMouse ? Root.State.colors.primary : "transparent"
         color: "transparent"
-        //radius: 4
+        radius: 2
     }
 
     /*
