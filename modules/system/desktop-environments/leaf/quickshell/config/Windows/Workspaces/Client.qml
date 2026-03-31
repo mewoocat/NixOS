@@ -5,6 +5,7 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
 import qs as Root
+import qs.Services as Services
 
 
 // WARNING: CAN CAUSE CRASHES
@@ -16,6 +17,7 @@ MouseArea {
     required property real monitorScale
     required property real monitorX
     required property real monitorY
+    property DesktopEntry desktopEntry: Services.Applications.findDesktopEntryById(toplevel.wayland.appId)
     property real scaleFactor: widgetScale * monitorScale
     // Need to subtract the monitor positon to account for any monitor offsets
     x: Math.round((clientObj.at[0] - monitorX) * scaleFactor)
@@ -72,41 +74,39 @@ MouseArea {
         radius: 2
     }
 
-    /*
-        // App indicator
-        Rectangle {
-            anchors.fill: parent
-            color: "transparent"
-            visible: width < 40 || height < 40 ? false : true
+    Rectangle {
+        anchors.fill: parent
+        color: "transparent"//Root.State.colors.surface_container_highest
+        visible: width < 40 || height < 40 ? false : true
 
-            IconImage {
-                id: icon
-                anchors.centerIn: parent
-                implicitSize: 32
-                source: Quickshell.iconPath(window.clientObj.class)
+        IconImage {
+            id: icon
+            anchors.centerIn: parent
+            implicitSize: 32
+            source: {
+                console.debug(`toplevela.appId: ${window.toplevel.wayland.appId}`)
+                console.debug(`toplevela desktop Entry: ${window.desktopEntry.icon}`)
+                //Quickshell.iconPath(window.toplevel.wayland.appId)
+                Quickshell.iconPath(window.desktopEntry.icon)
             }
-            Text {
-                anchors.horizontalCenter: icon.horizontalCenter
-                anchors.top: icon.bottom
-                color: palette.text
-                text: Services.Applications.formatClientName(window.clientObj.class)
-                font.pointSize: 8
-            }
+            //source: Quickshell.iconPath(window.clientObj.class)
+        }
+        Text {
+            anchors.horizontalCenter: icon.horizontalCenter
+            anchors.top: icon.bottom
+            color: palette.text
+            text: Services.Applications.formatClientName(window.clientObj.class)
+            font.pointSize: 8
+        }
 
-            ToolTip {
-                delay: 300
-                text: window.clientObj.class
-                visible: window.containsMouse
-                background: Rectangle {
-                    radius: 20
-                    color: palette.window
-                }
+        ToolTip {
+            delay: 300
+            text: window.clientObj.class
+            visible: window.containsMouse
+            background: Rectangle {
+                radius: 20
+                color: palette.window
             }
         }
-        Component.onCompleted: {
-            //console.log(`modelData for ${wsId}: ${JSON.stringify(clientObj)}`)
-            //console.log(`x: ${window.width}, y: ${window.height}, w: ${window.width}, h: ${window.height}`)
-            //console.log("widgetScale " + widgetScale)
-        }
-    */
+    }
 }

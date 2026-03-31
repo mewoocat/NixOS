@@ -90,6 +90,8 @@ ColumnLayout {
             backgroundColor: interacted ? Root.State.colors.surface_container : "transparent"
             mainColor: interacted ? Root.State.colors.primary : "transparent"
 
+            onClicked: console.debug(modelData.icon + modelData.id)
+
             // Main content
             mainDelegate: RowLayout {
                 id: mainDelegate
@@ -104,7 +106,10 @@ ColumnLayout {
                     Layout.leftMargin: 4
                     id: icon
                     implicitSize: 32
-                    source: Quickshell.iconPath(mainDelegate.app.icon, "dialog-question")
+                    source: {
+                        console.debug(`app.icon: ${mainDelegate.app.icon}`)
+                        Quickshell.iconPath(mainDelegate.app.icon, "dialog-question")
+                    }
                 }
                 ColumnLayout {
                     spacing: 0

@@ -109,8 +109,8 @@ ColumnLayout {
                 active: root.wsObj !== null
                 property Component clients: Repeater {
                     model: Hyprland.toplevels.values.filter(toplevel => {
-                        return toplevel.workspace !== null && // workspace can be null
-                        toplevel.monitor !== null && // monitor can be null
+                        return toplevel.workspace !== null &&
+                        toplevel.monitor !== null &&
                         toplevel.workspace.id === root.wsId
                     })
                     // Each window in the workspace

@@ -23,7 +23,9 @@ PopupWindow {
     property bool grabEnabled: true
     property color bgColor: Root.State.colors.surface_container
     implicitWidth: popupArea.width
-    implicitHeight: popupArea.height
+    implicitHeight: 1//popupArea.height
+    //Behavior on implicitHeight { PropertyAnimation { duration: 100 } }
+    //Behavior on anchor.item { PropertyAnimation { duration: 1000 } }
     color: "transparent"
     //surfaceFormat.opaque: true
 
@@ -38,6 +40,12 @@ PopupWindow {
     }
 
     onVisibleChanged: {
+        if (visible) {
+            root.implicitHeight = popupArea.height
+        }
+        else {
+            root.implicitHeight = 1
+        }
         if (visible && grabEnabled) {
             console.log(`popup window vis changed to ${root.visible}`)
             Services.Hyprland.addGrabWindow(root)
