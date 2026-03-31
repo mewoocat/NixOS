@@ -9,7 +9,7 @@ import qs.Components.Shared as Shared
 
 Shared.PopupWindow {
     id: root
-    bgColor: Root.State.colors.surface
+    bgColor: "transparent"//Root.State.colors.surface
     property var currentHoveredWorkspace: Root.State.currentHoveredWorkspace
     onCurrentHoveredWorkspaceChanged: () => {
         // The Popup.anchor.item property seems to have some sort of issue with binding, so manually
@@ -25,21 +25,23 @@ Shared.PopupWindow {
         margins.left: -1
         item: root.currentHoveredWorkspace // WARNING: don't set this to null once visible, will cause crash
         edges: Edges.Bottom | Edges.Left
+        //edges: Edges.Top | Edges.Left
         gravity: Edges.Bottom | Edges.Right
     }
-    content: MouseArea {
+    content: WrapperMouseArea {
         hoverEnabled: true
-        // Add a area around the content to allow for mouse hover checking.  Doesn't seem that nested MouseAreas can
-        // propagate hover events.
-        implicitWidth: workspace.width + 20
-        implicitHeight: workspace.height + 20
         onEntered: () => Root.State.isWorkspacePopupHovered = true
         onExited: () => Root.State.isWorkspacePopupHovered = false
-        Workspace {
-            id: workspace
-            anchors.centerIn: parent
-            wsId: Root.State.hoveredWorkspace
-            widgetWidth: 800
+        // Add a area to top allow for mouse hover checking.  Doesn't seem that nested MouseAreas can
+        // propagate hover events.
+        topMargin: 8
+        WrapperRectangle {
+            color: Root.State.colors.surface
+            Workspace {
+                anchors.centerIn: parent
+                wsId: Root.State.hoveredWorkspace
+                widgetWidth: 800
+            }
         }
     }
 }
