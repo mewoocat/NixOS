@@ -21,6 +21,7 @@ PopupWindow {
 
     required property Item content
     property bool grabEnabled: true
+    property color bgColor: Root.State.colors.surface_container
     implicitWidth: popupArea.width
     implicitHeight: popupArea.height
     color: "transparent"
@@ -45,8 +46,8 @@ PopupWindow {
 
     WrapperRectangle {
         id: popupArea
-        color: Root.State.colors.surface_container
-        radius: 0//Root.State.rounding
+        color: root.bgColor
+        radius: Root.State.rounding
         // Needed to move the first item down by 1 pixel since it seems theres a bug where the
         // topleft most pixel on Qs:PopupWindow has focus went the popup is first opened but the
         // mouse hasn't moved yet.

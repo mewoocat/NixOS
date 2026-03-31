@@ -9,7 +9,7 @@ import qs.Components.Shared as Shared
 
 Shared.PopupWindow {
     id: root
-    //name: "workspaces"
+    bgColor: Root.State.colors.surface
     property var currentHoveredWorkspace: Root.State.currentHoveredWorkspace
     onCurrentHoveredWorkspaceChanged: () => {
         // The Popup.anchor.item property seems to have some sort of issue with binding, so manually
@@ -33,24 +33,13 @@ Shared.PopupWindow {
         // propagate hover events.
         implicitWidth: workspace.width + 20
         implicitHeight: workspace.height + 20
-        onEntered: () => {
-            console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!entered`)
-            Root.State.isWorkspacePopupHovered = true
-            console.log(`isWorkspacePopupHovered: ${Root.State.isWorkspacePopupHovered}`)
-            console.log(`isWorkspacePopupVisible: ${Root.State.isWorkspacePopupVisible}`)
-        }
-        onExited: () => {
-            console.log(`exited`)
-            Root.State.isWorkspacePopupHovered = false
-        }
-        WrapperRectangle {
-            color: "red"
-            Workspace {
-                id: workspace
-                anchors.centerIn: parent
-                wsId: Root.State.hoveredWorkspace
-                widgetWidth: 800
-            }
+        onEntered: () => Root.State.isWorkspacePopupHovered = true
+        onExited: () => Root.State.isWorkspacePopupHovered = false
+        Workspace {
+            id: workspace
+            anchors.centerIn: parent
+            wsId: Root.State.hoveredWorkspace
+            widgetWidth: 800
         }
     }
 }

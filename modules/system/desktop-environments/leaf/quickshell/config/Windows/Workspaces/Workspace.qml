@@ -10,7 +10,6 @@ import qs as Root
 
 ColumnLayout {
     id: root
-    //color: "transparent"
     implicitHeight: indicator.height + workspace.height
     implicitWidth: workspace.width
     required property int wsId
@@ -23,7 +22,7 @@ ColumnLayout {
     WrapperRectangle {
         id: indicator
         radius: 16
-        color: isWsActive ? palette.accent : "transparent"
+        color: "red"
 
         Text {
             id: displayText
@@ -32,7 +31,7 @@ ColumnLayout {
             rightPadding: 8
             topPadding: 3
             bottomPadding: 3
-            text: root.wsName === "" ? root.wsId : root.wsId + " | " + root.wsName
+            text: root.wsName === "" ? root.wsId : root.wsName
             font.pointSize: 8
             color: root.isWsActive ? palette.highlightedText : palette.text
         }
@@ -84,7 +83,7 @@ ColumnLayout {
             implicitWidth: root.wsObj ? parent.width : 64
             implicitHeight: root.wsObj ? parent.height : 64
             radius: 8
-            color: !root.wsObj && workspace.containsMouse ? palette.highlight : palette.alternateBase
+            color: "transparent"//Root.State.colors.surface_container
 
             Loader {
                 anchors.fill: parent

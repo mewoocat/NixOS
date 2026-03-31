@@ -8,6 +8,7 @@ import QtQuick.Shapes
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs as Root
+import qs.Windows.Bar.Workspaces
 import qs.Modules.Leaf as Leaf
 import qs.Windows.ControlPanel
 import qs.Components.Controls as Ctrls
@@ -41,7 +42,7 @@ Scope {
                     left: true
                     right: true
                 }
-                implicitHeight: 40 // Bar height
+                implicitHeight: Root.State.barHeight // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
                 Rectangle {
                     color: Root.State.colors.surface
