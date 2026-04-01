@@ -52,7 +52,7 @@ Shared.PopupWindow {
                     //Layout.fillWidth: true // It appears that this propagates through the 
                 }
                 // The selected component is instantiated here
-                sourceComponent: modelData.isSeparator ? menuSeperator : menuItem
+                sourceComponent: modelData?.isSeparator ? menuSeperator : menuItem
             }
         }
     }
