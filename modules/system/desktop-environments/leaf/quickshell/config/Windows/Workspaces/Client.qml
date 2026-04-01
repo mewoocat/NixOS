@@ -83,13 +83,7 @@ MouseArea {
             id: icon
             anchors.centerIn: parent
             implicitSize: 32
-            source: {
-                console.debug(`toplevela.appId: ${window.toplevel.wayland.appId}`)
-                console.debug(`toplevela desktop Entry: ${window.desktopEntry.icon}`)
-                //Quickshell.iconPath(window.toplevel.wayland.appId)
-                Quickshell.iconPath(window.desktopEntry.icon)
-            }
-            //source: Quickshell.iconPath(window.clientObj.class)
+            source: Quickshell.iconPath(window.desktopEntry.icon)
         }
         Text {
             anchors.horizontalCenter: icon.horizontalCenter

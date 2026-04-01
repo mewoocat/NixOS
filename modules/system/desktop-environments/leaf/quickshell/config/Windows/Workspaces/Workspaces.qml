@@ -36,7 +36,7 @@ Shared.PopupWindow {
         // propagate hover events.
         topMargin: 8
         WrapperRectangle {
-            color: "blue"//Root.State.colors.surface
+            color: Root.State.colors.surface
             radius: Root.State.rounding
             Workspace {
                 anchors.centerIn: parent

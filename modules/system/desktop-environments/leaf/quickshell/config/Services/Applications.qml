@@ -73,6 +73,21 @@ Singleton {
         return DesktopEntries.applications.values.find(entry => entry.id === id)
     }
 
+    function getAppDescription(app: DesktopEntry): string {
+        if (app.genericName !== "" && app.comment !== "") {
+            return app.genericName + " | " + app.comment
+        }
+        else if (app.genericName !== "") {
+            return app.genericName
+        }
+        else if (app.comment !== "") {
+            return app.comment
+        }
+        else {
+            return "No description"
+        }
+    }
+
     /*
     FileView {
         id: appOrderFile

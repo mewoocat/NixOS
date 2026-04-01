@@ -8,12 +8,10 @@ import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Services as Services
 
-
 WrapperMouseArea {
     id: mouseArea
     hoverEnabled: true
     onHoveredChanged: {
-        Root.State.logWsPopupState()
         if (containsMouse) {
             popupCloseDelay.running = false
             Root.State.isWorkspaceWidgetHovered = true

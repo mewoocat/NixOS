@@ -82,34 +82,28 @@ ColumnLayout {
         delegate: Shared.ListItemExpandable
         {
             id: appItem
+            required property DesktopEntry modelData
+            property DesktopEntry desktopEntry: modelData
+            property bool isHighlighted: interacted || ListView.isCurrentItem
             margin: 2
             padding: 2
             contentMargin: 0
             listView: scrollable
-            required property DesktopEntry modelData
-            backgroundColor: interacted ? Root.State.colors.surface_container : "transparent"
-            mainColor: interacted ? Root.State.colors.primary : "transparent"
+            backgroundColor: "transparent"
+            mainColor: isHighlighted ? Root.State.colors.primary : "transparent"
 
-            onClicked: console.debug(modelData.icon + modelData.id)
+            onClicked: root.appSelected(modelData)
 
             // Main content
             mainDelegate: RowLayout {
                 id: mainDelegate
-
-                property var scrollItem: null
-
-                property DesktopEntry app: appItem.modelData
-
                 anchors.fill: parent
                 // Warning: this icon lookup is expensive on the startup time
                 IconImage {
                     Layout.leftMargin: 4
                     id: icon
                     implicitSize: 32
-                    source: {
-                        console.debug(`app.icon: ${mainDelegate.app.icon}`)
-                        Quickshell.iconPath(mainDelegate.app.icon, "dialog-question")
-                    }
+                    source: Quickshell.iconPath(appItem.desktopEntry.icon, "dialog-question")
                 }
                 ColumnLayout {
                     spacing: 0
@@ -118,29 +112,16 @@ ColumnLayout {
                         leftPadding: 8
                         rightPadding: 8
                         elide: Text.ElideRight // Truncate with ... on the right
-                        text: mainDelegate.app.name
-                        color: appItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                        text: appItem.desktopEntry.name
+                        color: appItem.isHighlighted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                     }
-                    Text{
+                    Text {
                         Layout.fillWidth: true
                         leftPadding: 8
                         rightPadding: 8
                         elide: Text.ElideRight // Truncate with ... on the right
-                        text: {
-                            if (mainDelegate.app.genericName !== "" && mainDelegate.app.comment !== "") {
-                                return mainDelegate.app.genericName + " | " + mainDelegate.app.comment
-                            }
-                            else if (mainDelegate.app.genericName !== "") {
-                                return mainDelegate.app.genericName
-                            }
-                            else if (mainDelegate.app.comment !== "") {
-                                return mainDelegate.app.comment
-                            }
-                            else {
-                                return "No description"
-                            }
-                        }
-                        color: appItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                        text: Services.Applications.getAppDescription(appItem.desktopEntry)
+                        color: appItem.isHighlighted ? Root.State.colors.on_primary : Root.State.colors.on_surface
                         font.pointSize: 8
                     }
                 }
@@ -162,8 +143,6 @@ ColumnLayout {
                 id: subDelegate
                 spacing: 0
                 // These are injected by the ListViewScrollable
-                required property DesktopEntry modelData
-                required property var scrollItem
 
                 Repeater {
                     model: subDelegate.modelData.actions

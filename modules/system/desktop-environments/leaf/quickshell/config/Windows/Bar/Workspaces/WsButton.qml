@@ -15,8 +15,6 @@ Ctrls.Button {
     property int mediumSize: 16
     property int largeSize: 36
 
-    //property int bgHeight: impliciHeight - topInset - bottomInset
-    //property int defaultBgWidth: implicitBackgroundHeight
     implicitHeight: 40 // Default
     property int dotSize: 22
     property int smallDotSize: 18
@@ -25,10 +23,8 @@ Ctrls.Button {
     topInset: verticalInset / 2
     bottomInset: verticalInset / 2
     padding: 0
-    //inset: 0
 
     onHoveredChanged: {
-        console.debug(`ws btn hover is now: ${root.hovered}`)
         if (root.hovered) {
             Root.State.currentHoveredWorkspace = root
             Root.State.hoveredWorkspace = wsId
@@ -42,7 +38,7 @@ Ctrls.Button {
     property string wsName: Root.State.config.workspaces.wsMap[`ws${wsId}`].name
     // Either focused, active, inactive, or empty
     property string wsState: {
-        if (wsObj === null ) { 
+        if (wsObj === null) {
             return "empty"
         }
         if (wsObj.focused) {
@@ -51,11 +47,11 @@ Ctrls.Button {
         if (wsObj.active) {
             return "active"
         }
-        if (wsObj.toplevels.values.length > 0) {
-            return "inactive"
-        }
         if (wsObj.toplevels.values.length < 1) {
             return "empty"
+        }
+        if (wsObj.toplevels.values.length > 0) {
+            return "inactive"
         }
         console.error(`something bad happened`)
     }
@@ -106,15 +102,15 @@ Ctrls.Button {
         Text {
             anchors.centerIn: parent
             id: displayName
+            opacity: root.wsState == "empty" ? 0.5 : 1
             text: {
                 switch(root.wsState) {
                     case "focused":
                     case "active":
                         return root.wsName !== "" ? root.wsName : root.wsId
+                    case "empty":
                     case "inactive":
                         return root.wsId
-                    case "empty":
-                        return ""
                     default:
                         console.error("Invalid wsState")
                 }
@@ -132,7 +128,7 @@ Ctrls.Button {
                     case "inactive":
                         return Root.State.colors.on_primary_container
                     case "empty":
-                        return Root.State.colors.on_surface
+                        return Root.State.colors.on_surface_variant
                     default:
                         console.error("invalid wsState")
                         return "red"

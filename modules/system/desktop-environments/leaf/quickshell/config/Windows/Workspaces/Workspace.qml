@@ -20,7 +20,6 @@ ColumnLayout {
     implicitHeight: workspace.height + indicator.height
     implicitWidth: workspace.width
 
-
     // Workspace number indicator
     WrapperRectangle {
         id: indicator
@@ -136,7 +135,6 @@ ColumnLayout {
             anchors.fill: parent
             property alias wsId: root.wsId
             keys: [ "workspace-client" ] // Drag source must have this key or it's ignored
-            onEntered: console.log(`entered`)
             onDropped: (drop) => {
                 // Apparently you need to cast the source type before you can use it 
                 const clientObj = (drag.source as MouseArea).clientObj

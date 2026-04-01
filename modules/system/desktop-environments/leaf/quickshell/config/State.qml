@@ -38,19 +38,12 @@ Singleton {
 
     property int controlPanelPage: 0 // Index of the current page in control panel
 
+    // Workspace popup state
     property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
     property bool isWorkspaceWidgetHovered: false
     property bool isWorkspacePopupHovered: false
     property int hoveredWorkspace: 0
     property var currentHoveredWorkspace: null
-
-    function logWsPopupState() {
-        console.debug(`----------Logging ws popup state -------`)
-        console.debug(`isWorkspacePopupVisible: ${isWorkspacePopupVisible}`)
-        console.debug(`isWorkspaceWidgetHovered: ${isWorkspaceWidgetHovered}`)
-        console.debug(`isWorkspacePopupHovered: ${isWorkspacePopupHovered}`)
-    }
-
     
     // Styling
     property int rounding: 8
