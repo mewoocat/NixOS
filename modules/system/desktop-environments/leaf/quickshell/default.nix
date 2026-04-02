@@ -3,8 +3,25 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  shell-debug = pkgs.writeShellScriptBin "leaf-shell-debug" ''
+    pkill quickshell
+    quickshell \
+        --path "~/NixOS/modules/system/desktop-environments/leaf/quickshell/config"
+  '';
+
+  shell-release = pkgs.writeShellScriptBin "leaf-shell-release" ''
+    pkill quickshell
+    quickshell \
+        --log-rules "*.debug=false;*.warning=false"
+  '';
+in {
+
   environment.systemPackages = with pkgs; [
+
+    # Startup scripts
+    shell-debug
+    shell-release
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/

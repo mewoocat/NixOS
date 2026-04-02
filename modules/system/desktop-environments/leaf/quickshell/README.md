@@ -5,11 +5,13 @@
 and then using QtCreator, go to Debug > Start Debugging > Attach to QML port...
 
 # Modifying log level
-This will no print any debug logs
+This will not print any debug, info, or warning logs
 ```
-    quickshell --log-rules "*.debug=false"
+    quickshell --log-rules "*.debug=false;*.info=false;*.warning=false"
 ```
-These are in the QT_LOGGING_RULES format specified here: https://doc.qt.io/qt-6/qloggingcategory.html
+The `*` can be replaced with a particular logging category to apply the rule to.
+
+These are in the QT_LOGGING_RULES format specified here: https://doc.qt.io/qt-6/qloggingcategory.html#configuring-categories
 
 # Credits
     Thanks to everyone whose helped :)

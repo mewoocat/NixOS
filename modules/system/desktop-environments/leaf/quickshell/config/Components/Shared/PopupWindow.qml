@@ -47,7 +47,7 @@ PopupWindow {
             root.implicitHeight = 1
         }
         if (visible && grabEnabled) {
-            console.log(`popup window vis changed to ${root.visible}`)
+            console.debug(`popup window vis changed to ${root.visible}`)
             Services.Hyprland.addGrabWindow(root)
         }
     }

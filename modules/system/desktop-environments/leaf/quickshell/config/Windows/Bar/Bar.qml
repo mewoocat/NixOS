@@ -58,49 +58,6 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
-                        Ctrls.Button {
-                            text: "what"
-
-                            ToolTip.visible: hovered
-                            ToolTip.delay: Application.styleHints.mousePressAndHoldInterval
-                            ToolTip.text:' test'
-                        }
-                        /*
-                        Ctrls.ProgressBar {
-                            id: prog
-                            value: 0.1
-                        }
-                        Ctrls.Slider {
-                            onValueChanged: prog.value = value
-                        }
-                        Ctrls.Slider {
-                            implicitWidth: 150
-                            implicitHeight: 40
-                            onValueChanged: padding = (1 - value) * 12
-                        }
-                        Slider {
-                            implicitWidth: 150
-                            implicitHeight: 8
-                            onValueChanged: prog.value = value
-                        }
-                        */
-                        /*
-                        Ctrls.ComboBox {
-                            Layout.columnSpan: 1
-                            Layout.rowSpan: 1
-                            Layout.row: 0
-                            Layout.column: 2
-                            Layout.alignment: Qt.AlignTop
-                            textRole: "identity"
-                            model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
-                            //displayText: "♫"
-                            //implicitWidth: 40
-                            //Component.onCompleted: popup.width = 160
-                            onActivated: (index) => {
-                                root.currentPlayerIndex = index
-                            }
-                        }
-                        */
                     }
                     // Center
                     RowLayout {
