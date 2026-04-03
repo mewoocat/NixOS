@@ -26,8 +26,8 @@ Shared.PanelWindow {
 
     content: AbsGrid.PanelGrid {
         id: panelGrid
-        xSize: 8
-        ySize: 6
+        xSize: 10
+        ySize: 8
         model: [
             AbsGrid.WidgetInstance {
                 yPosition: 0
@@ -37,8 +37,7 @@ Shared.PanelWindow {
                 uid: "widget-1"
                 state: null
                 widgetDefinitionId: "weather-2x2"
-            }
-            /*
+            },
             AbsGrid.WidgetInstance {
                 yPosition: 3
                 xPosition: 3
@@ -47,32 +46,21 @@ Shared.PanelWindow {
                 uid: "widget-2"
                 state: null
                 widgetDefinitionId: "calendar-3x3"
-            }
-            */
-        ]
-        availableWidgetDefinitions: [
-            Widgets.Weather {
-                //unitSize: panelGrid.unitSize
-
-            }
-            /*
-            AbsGrid.WidgetDefinition {
-                uid: "weather"
-                name: "Weather"
+            },
+            AbsGrid.WidgetInstance {
+                yPosition: 0
+                xPosition: 4
                 xSize: 2
                 ySize: 2
-                defaultState: null
-                component: Widgets.Weather {}
-            },
-            AbsGrid.WidgetDefinition {
-                uid: "calendar"
-                name: "Calendar"
-                xSize: 3
-                ySize: 3
-                defaultState: null
-                component: Widgets.Calendar {}
+                uid: "widget-3"
+                state: null
+                widgetDefinitionId: "analog-clock-2x2"
             }
-            */
+        ]
+        availableWidgetDefinitions: [
+            Widgets.Weather {},
+            Widgets.Calendar {},
+            Widgets.AnalogClock {}
         ]
     }
 }

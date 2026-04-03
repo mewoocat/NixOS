@@ -27,7 +27,7 @@ ColumnLayout {
         id: textField
         implicitHeight: 32
         Layout.margins: 8
-        //Layout.fillWidth: true
+        Layout.fillWidth: true
         leftPadding: 12; rightPadding: 12
         // Make this have focus by default
         // Trying to ensure this item is the last to set focus so it actually recieves focus.
@@ -53,6 +53,7 @@ ColumnLayout {
     Shared.ScrollableList {
         id: scrollable
         Layout.fillHeight: true
+        implicitWidth: root.width
         padding: 8
         //onPrimaryClick: (modelData) => root.appSelected(modelData)
         model: ScriptModel {
@@ -88,7 +89,7 @@ ColumnLayout {
             padding: 2
             contentMargin: 0
             listView: scrollable
-            implicitWidth: 300
+            implicitWidth: scrollable.width - scrollable.padding * 2
             backgroundColor: "transparent"
             mainColor: isHighlighted ? Root.State.colors.primary : "transparent"
 

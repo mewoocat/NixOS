@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs as Root
@@ -17,8 +18,6 @@ Shared.PanelWindow {
         top: true
         left: true
     }
-    implicitWidth: 420
-    implicitHeight: 640
     focusable: true
 
     onCloseWindow: () => {
@@ -46,10 +45,12 @@ Shared.PanelWindow {
             Layout.fillHeight: true
             onAppSelected: app => launcher.launchApp(app)
         }
-        
+
         AppList {
             id: appList
             onAppSelected: app => launcher.launchApp(app)
+            // NOTE: A layout will set it's implicit size internally, overriding it doesn't do anything ...
+            // seems using preferred size works to specify the size of a layout nested in a layout
             Layout.preferredHeight: 600
             Layout.preferredWidth: 400
         }

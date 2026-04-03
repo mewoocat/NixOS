@@ -50,7 +50,7 @@ Rectangle {
         width: root.selectedTile?.width
         height: root.selectedTile?.height
         Rectangle {
-            color: "white"
+            color: Root.State.colors.on_surface
             anchors.fill: parent
             anchors.margins: 8
         }

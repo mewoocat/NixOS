@@ -46,10 +46,10 @@ MouseArea {
 
     Rectangle {
         anchors.fill: parent
-        color: "red"
-        //radius: Root.State.rounding
+        color: Root.State.colors.surface_container
+        radius: Root.State.rounding
         Loader {
-            anchors.centerIn: parent
+            anchors.fill: parent
             sourceComponent: root.widgetDefinition.component
         }
     }

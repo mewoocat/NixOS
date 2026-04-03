@@ -20,7 +20,7 @@ AbsGrid.WidgetDefinition {
         width: root.availableWidth
         height: root.availableHeight
         anchors.margins: root.padding
-        color: "green"
+        color: "transparent"
 
         ColumnLayout { 
             anchors.centerIn: parent

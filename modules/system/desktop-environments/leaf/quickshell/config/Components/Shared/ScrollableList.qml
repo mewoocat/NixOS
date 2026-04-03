@@ -54,7 +54,7 @@ Rectangle {
     radius: 8
     clip: true
     implicitHeight: listView.childrenRect.height + root.padding * 2// Defaults to as large as is needed to show all items
-    implicitWidth: 200 + root.padding * 2 // Default width
+    implicitWidth: listView.width + root.padding * 2 // Default width
 
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
@@ -73,6 +73,8 @@ Rectangle {
         id: listView
         implicitWidth: root.width - root.padding * 2
         implicitHeight: root.height - root.padding * 2
+        x: root.padding
+        y: root.padding
         ScrollBar.vertical: scrollBar
         snapMode: ListView.SnapToItem
         //keyNavigationEnabled: true // Enabled by default
@@ -82,38 +84,6 @@ Rectangle {
 
         model: root.model
         delegate: root.delegate
-
-        WrapperItem {
-            id: loadBox
-
-            // Use a loader to create the delegate component with Component.createObject() and inject the required properties.
-            // Then call destroy on the created component whenever the loader active property is set to false.  I think this will ensure
-            // that the subDelegate is only loaded when the loader is active while still being able to inject the required properties.
-            Loader {
-                id: delegateLoader
-                active: false //scrollItem.expanded // false // Modified via state change
-
-                function createObject() {
-                    loadBox.child = root.delegate.createObject(loadBox, {
-                        modelData: Qt.binding(() => loadBox.modelData), // Bind the model data
-                        listView: Qt.binding(() => listView) // Bind the ListView ref
-                    })
-                }
-
-                // Only initialize the delegate on startup if the loader is active
-                Component.onCompleted: if (active) { createObject() }
-
-                // If the loader becomes inactive and a created delegate exists, then destroy it.
-                onActiveChanged: {
-                    if (!active && loadBox.child != null) {
-                        loadBox.child.destroy()
-                    }
-                    else {
-                        createObject()
-                    }
-                }
-            }
-        }
 
         // Animations 
         // TODO: They work but need to set them up to look nice :)
