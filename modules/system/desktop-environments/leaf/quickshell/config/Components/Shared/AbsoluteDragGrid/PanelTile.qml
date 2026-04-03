@@ -4,11 +4,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import qs.Components.Widgets
 
 MouseArea {
     id: root
 
     required property WidgetInstance widgetInstance
+    required property WidgetDefinition widgetDefinition
     required property int unitSize
 
     property int initialX: 0
@@ -44,11 +46,13 @@ MouseArea {
     Rectangle {
         anchors.fill: parent
         color: "red"
-        /*
         Loader {
             anchors.fill: parent
-            sourceComponent: root.widgetInstance.component
+            property Component thing: Weather {}
+            //sourceComponent: thing
+            //source: 
+            sourceComponent: root.widgetDefinition.component
+            Component.onCompleted: console.debug(`component! ${root.widgetDefinition.component}`)
         }
-        */
     }
 }

@@ -14,9 +14,8 @@ QtObject {
             yPosition: yPosition,
             xSize: widgetDefinition.xSize,
             ySize: widgetDefinition.ySize,
-            state: widgetDefinition.state,
+            state: widgetDefinition.defaultState,
         })
-
     }
 
     function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {

@@ -39,7 +39,6 @@ Shared.PanelWindow {
                 uid: "widget-1"
                 state: null
                 widgetDefinitionId: "weather"
-                component: Widgets.Weather
             },
             AbsGrid.WidgetInstance {
                 yPosition: 3
@@ -49,11 +48,8 @@ Shared.PanelWindow {
                 uid: "widget-2"
                 state: null
                 widgetDefinitionId: "calendar"
-                component: Widgets.Weather
             }
         ]
-        // Put this somewhere else
-        /*
         availableWidgetDefinitions: [
             AbsGrid.WidgetDefinition {
                 uid: "weather"
@@ -61,7 +57,7 @@ Shared.PanelWindow {
                 xSize: 1
                 ySize: 1
                 defaultState: null
-                component: Widgets.Weather
+                component: Widgets.Weather {}
             },
             AbsGrid.WidgetDefinition {
                 uid: "calendar"
@@ -69,10 +65,9 @@ Shared.PanelWindow {
                 xSize: 2
                 ySize: 2
                 defaultState: null
-                component: Widgets.Calendar
+                component: Widgets.Calendar {}
             }
         ]
-        */
     }
 }
 

@@ -10,6 +10,7 @@ Rectangle {
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
     signal modelInvalid(model: list<var>) // When the model needs to be reset
     required property list<WidgetInstance> model
+    required property list<WidgetDefinition> availableWidgetDefinitions
     property Logic logic: Logic {}
     property int unitSize: 64
     property int xSize: 4
@@ -59,6 +60,7 @@ Rectangle {
             id: gridItem
             required property WidgetInstance modelData
             widgetInstance: modelData
+            widgetDefinition: root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
             unitSize: root.unitSize
             onTileSelected: (item) => root.selectedTile = item
             onPositionUpdateRequested: (item) => {
