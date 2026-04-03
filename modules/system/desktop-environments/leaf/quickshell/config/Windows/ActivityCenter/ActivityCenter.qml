@@ -7,6 +7,8 @@ import qs.Components.Widgets.Tetris as Tetris
 import qs.Components.Shared as Shared
 import qs.Modules.Leaf as Leaf
 
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+
 Shared.PanelWindow {
     onToggleWindow: () => {
         Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
@@ -25,54 +27,52 @@ Shared.PanelWindow {
 
 
     // Something weird's going on here
-    content: Leaf.PanelGrid {
-        columns: 16
-        rows: 6
-
-        Leaf.PanelItem { 
-            isClickable: false; 
-            rows: 6
-            columns: 6
-            content: Widgets.Notifications {} 
-        }
-        //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        //Leaf.PanelItem { isClickable: true; rows: 1; columns: 1; content: Modules.Image {} }
-        Leaf.PanelItem { 
-            isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Widgets.Weather {}
-        }
-        Leaf.PanelItem { 
-            isClickable: false; 
-            rows: 2
-            columns: 2
-            content: Widgets.AnalogClock {} 
-        }
-        Leaf.PanelItem { 
-            isClickable: false; 
-            rows: 3
-            columns: 3
-            content: Widgets.Calendar {} 
-        }
-        Leaf.PanelItem { 
-            isClickable: false; 
-            rows: 5
-            columns: 4
-            content: Tetris.Game {}
-        }
-        Leaf.PanelItem { 
-            rows: 2
-            columns: 4
-            isClickable: false
-            content: Widgets.SystemStats {}
-        }
-        Leaf.PanelItem {
-            isClickable: false
-            rows: 2
-            columns: 6
-            content: Widgets.MusicPlayer {}
-        }
+    content: AbsGrid.PanelGrid {
+        xSize: 8
+        ySize: 6
+        model: [
+            AbsGrid.WidgetInstance {
+                yPosition: 0
+                xPosition: 0
+                xSize: 1
+                ySize: 1
+                uid: "widget-1"
+                state: null
+                widgetDefinitionId: "weather"
+                component: Widgets.Weather
+            },
+            AbsGrid.WidgetInstance {
+                yPosition: 3
+                xPosition: 3
+                xSize: 2
+                ySize: 2
+                uid: "widget-2"
+                state: null
+                widgetDefinitionId: "calendar"
+                component: Widgets.Weather
+            }
+        ]
+        // Put this somewhere else
+        /*
+        availableWidgetDefinitions: [
+            AbsGrid.WidgetDefinition {
+                uid: "weather"
+                name: "Weather"
+                xSize: 1
+                ySize: 1
+                defaultState: null
+                component: Widgets.Weather
+            },
+            AbsGrid.WidgetDefinition {
+                uid: "calendar"
+                name: "Calendar"
+                xSize: 2
+                ySize: 2
+                defaultState: null
+                component: Widgets.Calendar
+            }
+        ]
+        */
     }
 }
 

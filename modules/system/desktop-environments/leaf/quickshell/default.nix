@@ -7,7 +7,7 @@
   shell-debug = pkgs.writeShellScriptBin "leaf-shell-debug" ''
     pkill quickshell
     quickshell \
-        --path "~/NixOS/modules/system/desktop-environments/leaf/quickshell/config"
+        --path "~/NixOS/modules/system/desktop-environments/leaf/quickshell/config/"
   '';
 
   shell-release = pkgs.writeShellScriptBin "leaf-shell-release" ''

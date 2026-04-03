@@ -1,20 +1,69 @@
 import QtQml
 
 QtObject {
-    function generateWidgetInst(widgetId: string, xPos: int, yPos: int, xSpan: int, ySpan: int, uid = null): var {
+    function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): var {
         if (!uid) {
-            console.log(`generateWidgetInst: uid was not provided ... generating one`)
             uid = Math.random().toString().substr(2) // Generate random string if none provided (probably unique)
         }
-        return {
+        // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
+        let component = Qt.createComponent(`WidgetInstance.qml`)
+        let widgetInstance = component.createObject(null, {
             uid: uid,
-            widgetId: widgetId,
-            xPos: xPos, 
-            yPos: yPos,
-            xSpan: xSpan,
-            ySpan: ySpan
-        }
+            widgetDefinitionId: widgetDefinition.uid,
+            xPosition: xPosition,
+            yPosition: yPosition,
+            xSize: widgetDefinition.xSize,
+            ySize: widgetDefinition.ySize,
+            state: widgetDefinition.state,
+        })
+
     }
+
+    function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {
+        return widgetDefinitions.find(def => {
+            return def.uid === widgetDefinitionId
+        })
+    }
+    
+    function isPositionOpen(widgetInstance: WidgetInstance, targetXPosition: int, targetYPosition: int, widgetInstances: list<WidgetInstance>): bool {
+        for (const otherInst of widgetInstances) {
+            console.debug(`comparing with ${otherInst.uid}`)
+            if (otherInst.uid === widgetInstance.uid) { continue } // Ignore self
+            if (doRectanglesOverlap(
+                Qt.point(targetXPosition, targetYPosition),
+                Qt.point(targetXPosition + widgetInstance.xSize, targetYPosition + widgetInstance.ySize),
+                Qt.point(otherInst.xPosition, otherInst.yPosition),
+                Qt.point(otherInst.xPosition + otherInst.xSize, otherInst.yPosition + otherInst.ySize)
+            )) {
+                return false
+            }
+        }
+        return true
+    }
+
+    // Determines whether two rectangles overlap given both of their top left most and bottom 
+    // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
+    // point of B is less than the bottom right point of B and the bottom right point of B is 
+    // greater than the top level point of A.
+    function doRectanglesOverlap(A1, A2, B1, B2): bool {
+        //console.log(`[CHECKING] for overlap for points\nA1: ${A1.x},${A1.y}\nA2: ${A2.x},${A2.y}\nB1: ${B1.x},${B1.y}\nB2: ${B2.x},${B2.y}`)
+        if (
+            A1.x < B2.x &&
+            A1.y < B2.y && 
+            A2.x > B1.x &&
+            A2.y > B1.y
+        ) {
+            return true
+        }
+        return false
+    }
+
+
+
+
+
+
+
 
     function addWidget(widgetId: string) {
         const widgetDef = availableWidgets.find(def => def.widgetId === widgetId)
@@ -54,20 +103,6 @@ QtObject {
         return intersectingDefs.length > 0
     }
 
-    // Gets all the widget instances in the model that intersect with the provided instance
-    function getIntersectingInsts(inst: var): list<var> {
-        console.log(`getIntersectingInsts | grid.model: ${JSON.stringify(grid.model, null, 4)}`)
-        return grid.model
-            .filter(existingInst => {
-                if (existingInst.uid === inst.uid) { return false } // Don't count self
-                return doRectanglesOverlap( // Does existing inst overlap with provided inst
-                    Qt.point(inst.xPos, inst.yPos),
-                    Qt.point(inst.xPos + inst.xSpan, inst.yPos + inst.ySpan),
-                    Qt.point(existingInst.xPos, existingInst.yPos),
-                    Qt.point(existingInst.xPos + existingInst.xSpan, existingInst.yPos + existingInst.ySpan)
-            )})
-    }
-
     // Checks if the position for the instance is within the bounds of the grid
     // Takes in a widget instance and the proposed x and y position.
     function isPositionInBounds(inst: var, x: int, y: int): bool {
@@ -77,24 +112,6 @@ QtObject {
             inst.yPos >= 0 &&
             inst.yPos + inst.yPos < grid.ySize;
         return inBounds
-    }
-
-    // Determines whether two rectangles overlap given both of their top left most and bottom 
-    // right most points.  This assumes x+ is right and y+ is down. Will return true if top left
-    // point of B is less than the bottom right point of B and the bottom right point of B is 
-    // greater than the top level point of A.
-    function doRectanglesOverlap(A1, A2, B1, B2): bool {
-        //console.log("[CHECKING] for overlap")
-        if (
-            A1.x < B2.x &&
-            A1.y < B2.y && 
-            A2.x > B1.x &&
-            A2.y > B1.y
-        ) {
-            //console.log("overlap detected")
-            return true
-        }
-        return false
     }
 
     // Returns the midpoint of the provided item relative to its parent
@@ -123,7 +140,6 @@ QtObject {
         return item
     }
 
-    //
     function moveWidget(item: GridItem, xPos: int, yPos: int) {
         const inst = getWidgetInst(item.uid)
 
@@ -139,51 +155,4 @@ QtObject {
         //grid.modelUpdated(grid.model)
     }
 
-    //
-    function recursiveRearrange(moveeInst: var, collideeInst: var, movedDirection: var, movedInsts: var): bool {
-
-        let proposedX = collideeInst.xPos + movedDirection.x
-        let proposedY = collideeInst.yPos + movedDirection.y
-
-        // Move the collidee in the provided direction until it no longer collides with the movee or hits a grid boundary
-        let intersection = true
-        console.log(`intesection exists`)
-        while (intersection) {
-            intersection = doRectanglesOverlap(
-                Qt.point(moveeInst.xPos, moveeInst.yPos),
-                Qt.point(moveeInst.xPos + moveeInst.xSpan, moveeInst.yPos + moveeInst.ySpan),
-                Qt.point(proposedX, proposedY),
-                Qt.point(collideeInst.xPos + collideeInst.xSpan, collideeInst.yPos + collideeInst.ySpan)
-            )
-            let inBounds = isPositionInBounds(collideeInst, proposedX, proposedY)
-            if (!inBounds) {
-                console.log(`reached out of bounds ... no possible position`)
-                return false; // Base condition
-            }
-            if (!intersection) {
-                console.log(`no longer intesecting ... found position for collidee thats in bounds`)
-
-                // NOTE: the collideeInst here is a ref to the actual inst in the model ... changing the x/y pos here 
-                // moves the item in the grid
-                collideeInst.xPos = proposedX;
-                collideeInst.yPos = proposedY;
-
-                movedInsts.push(collideeInst)
-                return true; // Base condition
-            }
-
-            // Try another space over in the move direction
-            proposedX += movedDirection.x
-            proposedY += movedDirection.y
-        }
-
-        // Find any widgets that intersect with the collidee after we moved it to 
-        // stop colliding with the original movee.
-        const intersectingDefs = getIntersectingInsts(collideeInst)
-
-        // Recursively call to rearrange
-        intersectingDefs.forEach(def => {    
-            recursiveRearrange(collideeId, def.id, movedDirection, movedInsts)
-        })
-    }
 }

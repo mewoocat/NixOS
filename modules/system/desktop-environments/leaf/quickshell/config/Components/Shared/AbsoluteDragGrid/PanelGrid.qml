@@ -10,31 +10,28 @@ Rectangle {
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
     signal modelInvalid(model: list<var>) // When the model needs to be reset
     required property list<WidgetInstance> model
-    required property list<WidgetDefinition> availableWidgets
     property Logic logic: Logic {}
     property int unitSize: 64
     property int xSize: 4
     property int ySize: 8
-    property PanelTile selectedItem: null
-    property var targetInstance: {
-        if (!selectedItem) { return null }
+    property PanelTile selectedTile: null
+    property int selectedTileTargetX: {
+        if (!selectedTile) { return 0 }
 
-        let proposedXPos = Math.round(selectedItem.x / unitSize)
-        let maxXPos = xSize - selectedItem.xSpan
+        let proposedXPos = Math.round(selectedTile.x / unitSize)
+        let maxXPos = xSize - selectedTile.xSize
         if (proposedXPos > maxXPos) { proposedXPos = maxXPos }
         if (proposedXPos < 0) { proposedXPos = 0 }
+        return proposedXPos
+    }
+    property int selectedTileTargetY: {
+        if (!selectedTile) { return 0 }
 
-        let proposedYPos = Math.round(selectedItem.y / unitSize)
-        let maxYPos = ySize - selectedItem.ySpan
+        let proposedYPos = Math.round(selectedTile.y / unitSize)
+        let maxYPos = ySize - selectedTile.ySpan
         if (proposedYPos > maxYPos) { proposedYPos = maxYPos }
         if (proposedYPos < 0) { proposedXPos = 0 }
-
-        return root.logic.generateWidgetInst(
-            selectedItem.widgetId,
-            proposedXPos, proposedYPos,
-            selectedItem.xSpan, selectedItem.ySpan,
-            selectedItem.uid
-        )
+        return proposedYPos
     }
 
     width: unitSize * xSize
@@ -43,11 +40,11 @@ Rectangle {
 
     Item {
         id: targetGhost
-        x: root.targetInstance == null ? 0 : root.targetInstance.xPos * root.unitSize
-        y: root.targetInstance == null ? 0 : root.targetInstance.yPos * root.unitSize
-        visible: root.selectedItem != null
-        width: root.selectedItem?.width
-        height: root.selectedItem?.height
+        x: root.selectedTile == null ? 0 : root.selectedTileTargetX * root.unitSize
+        y: root.selectedTile == null ? 0 : root.selectedTileTargetY * root.unitSize
+        visible: root.selectedTile != null
+        width: root.selectedTile?.width
+        height: root.selectedTile?.height
         Rectangle {
             color: "white"
             anchors.fill: parent
@@ -61,21 +58,24 @@ Rectangle {
         delegate: PanelTile {
             id: gridItem
             required property WidgetInstance modelData
-            property WidgetInstance widgetInstance: modelData
-            property WidgetDefinition widgetDefinition: root.logic.GetWidgetDefinition(widgetInstance.widgetDefinitionId)
-            widgetId: widgetInstance.uid
-            uid: widgetInstance.uid
-            xPos: widgetInstance.xPosition
-            yPos: widgetInstance.yPosition
-            xSpan: widgetInstance.xSize
-            ySpan: widgetInstance.ySize
+            widgetInstance: modelData
             unitSize: root.unitSize
-            onItemSelected: (item) => root.selectedItem = item
-
-            Loader {
-                id: loader
-                anchors.fill: parent
-                sourceComponent: parent.widgetDefinition.component
+            onTileSelected: (item) => root.selectedTile = item
+            onPositionUpdateRequested: (item) => {
+                if (!root.logic.isPositionOpen(widgetInstance, root.selectedTileTargetX, root.selectedTileTargetY, root.model)){
+                    console.debug(`valid position NOT found`)
+                    // Reset the position
+                    x = initialX
+                    y = initialY
+                    return
+                }
+                console.debug(`valid position found`)
+                // Update the instance
+                widgetInstance.xPosition = root.selectedTileTargetX
+                widgetInstance.yPosition = root.selectedTileTargetY
+                // Update the item
+                x = widgetInstance.xPosition * root.unitSize
+                y = widgetInstance.yPosition * root.unitSize
             }
         }
     }
