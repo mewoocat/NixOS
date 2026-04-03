@@ -7,7 +7,6 @@ import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 
 ColumnLayout {
-    anchors.centerIn: parent
     spacing: 0
     RowLayout {
         spacing: 0

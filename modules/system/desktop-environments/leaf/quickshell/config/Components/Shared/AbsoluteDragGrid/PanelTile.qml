@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import qs.Components.Widgets
+import qs as Root
 
 MouseArea {
     id: root
@@ -27,8 +28,8 @@ MouseArea {
 
     // apparently need to use implicit sizes if this component is going to be used 
     // in a BoundComponent.  Otherwise the size is forced to the BoundComponent's size
-    implicitWidth: widgetInstance.xSize * unitSize
-    implicitHeight: widgetInstance.ySize * unitSize
+    implicitWidth: widgetDefinition.xSize * unitSize
+    implicitHeight: widgetDefinition.ySize * unitSize
 
     drag.target: root
     // Moves the client to the top compared to it's sibling clients
@@ -46,13 +47,10 @@ MouseArea {
     Rectangle {
         anchors.fill: parent
         color: "red"
+        //radius: Root.State.rounding
         Loader {
-            anchors.fill: parent
-            property Component thing: Weather {}
-            //sourceComponent: thing
-            //source: 
+            anchors.centerIn: parent
             sourceComponent: root.widgetDefinition.component
-            Component.onCompleted: console.debug(`component! ${root.widgetDefinition.component}`)
         }
     }
 }

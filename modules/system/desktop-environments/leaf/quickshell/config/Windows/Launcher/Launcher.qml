@@ -38,23 +38,20 @@ Shared.PanelWindow {
         launcher.closeWindow() // Needs to be after the execute since this will reset the current index?
     }
 
-    content: Item {
-        id: mainItem
-        anchors.fill: parent
-        RowLayout {
-            spacing: 0
-            anchors.fill: parent
+    content: RowLayout {
+        spacing: 0
 
-            LeftPanel {
-                Layout.margins: 4
-                Layout.fillHeight: true
-                onAppSelected: app => launcher.launchApp(app)
-            }
-            
-            AppList {
-                id: appList
-                onAppSelected: app => launcher.launchApp(app)
-            }
+        LeftPanel {
+            Layout.margins: 4
+            Layout.fillHeight: true
+            onAppSelected: app => launcher.launchApp(app)
+        }
+        
+        AppList {
+            id: appList
+            onAppSelected: app => launcher.launchApp(app)
+            Layout.preferredHeight: 600
+            Layout.preferredWidth: 400
         }
     }
 }

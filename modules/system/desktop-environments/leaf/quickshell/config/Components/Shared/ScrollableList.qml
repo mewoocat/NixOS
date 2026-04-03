@@ -53,8 +53,8 @@ Rectangle {
     color: "transparent" //"#770000ff"
     radius: 8
     clip: true
-    implicitHeight: listView.childrenRect.height// Defaults to as large as is needed to show all items
-    implicitWidth: 200 // Default width
+    implicitHeight: listView.childrenRect.height + root.padding * 2// Defaults to as large as is needed to show all items
+    implicitWidth: 200 + root.padding * 2 // Default width
 
     // Rendered floating as to not affect placement of list items.
     // So the width of the scroll bar must be less than the spacing between the edge of
@@ -71,12 +71,8 @@ Rectangle {
 
     ListView {
         id: listView
-
-        anchors {
-            margins: root.padding
-            fill: parent
-        }
-
+        implicitWidth: root.width - root.padding * 2
+        implicitHeight: root.height - root.padding * 2
         ScrollBar.vertical: scrollBar
         snapMode: ListView.SnapToItem
         //keyNavigationEnabled: true // Enabled by default

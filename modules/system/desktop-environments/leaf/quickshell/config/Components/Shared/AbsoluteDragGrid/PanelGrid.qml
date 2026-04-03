@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import qs as Root
 
 Rectangle {
     id: root
@@ -13,6 +14,8 @@ Rectangle {
     required property list<WidgetDefinition> availableWidgetDefinitions
     property Logic logic: Logic {}
     property int unitSize: 64
+    property int widgetPadding: 8
+    property int widgetMargin: 8
     property int xSize: 4
     property int ySize: 8
     property PanelTile selectedTile: null
@@ -20,7 +23,7 @@ Rectangle {
         if (!selectedTile) { return 0 }
 
         let proposedXPos = Math.round(selectedTile.x / unitSize)
-        let maxXPos = xSize - selectedTile.xSize
+        let maxXPos = xSize - selectedTile.widgetDefinition.xSize
         if (proposedXPos > maxXPos) { proposedXPos = maxXPos }
         if (proposedXPos < 0) { proposedXPos = 0 }
         return proposedXPos
@@ -29,15 +32,15 @@ Rectangle {
         if (!selectedTile) { return 0 }
 
         let proposedYPos = Math.round(selectedTile.y / unitSize)
-        let maxYPos = ySize - selectedTile.ySpan
+        let maxYPos = ySize - selectedTile.widgetDefinition.ySize
         if (proposedYPos > maxYPos) { proposedYPos = maxYPos }
-        if (proposedYPos < 0) { proposedXPos = 0 }
+        if (proposedYPos < 0) { proposedYPos = 0 }
         return proposedYPos
     }
 
     width: unitSize * xSize
     height: unitSize * ySize
-    color: "black"
+    color: "transparent"
 
     Item {
         id: targetGhost
@@ -56,11 +59,22 @@ Rectangle {
     Repeater {
         id: repeater
         model: root.model
+        Component.onCompleted: {
+            root.availableWidgetDefinitions.forEach(v => {
+                console.debug("WidDef: " + v.uid)
+            })
+        }
         delegate: PanelTile {
             id: gridItem
             required property WidgetInstance modelData
             widgetInstance: modelData
-            widgetDefinition: root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
+            widgetDefinition: {
+                let def = root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
+                def.unitSize = root.unitSize
+                def.padding = root.widgetPadding
+                return def
+            }
+            Component.onCompleted: console.debug(`panel tile: ${widgetDefinition.uid}`)
             unitSize: root.unitSize
             onTileSelected: (item) => root.selectedTile = item
             onPositionUpdateRequested: (item) => {

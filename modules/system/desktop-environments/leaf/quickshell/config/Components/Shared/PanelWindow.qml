@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Wayland
 import QtQuick
 
@@ -12,6 +13,7 @@ PanelWindow {
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
     property bool grabEnabled: true
+    property int padding: 0
 
     signal closeWindow()
     signal toggleWindow()
@@ -40,6 +42,9 @@ PanelWindow {
         }
     }
 
+    implicitWidth: background.width
+    implicitHeight: background.height
+
     //////////////////////////////////////////////////////////////// 
     // FocusScope is used to ensure the last item with focus set to true
     // receives the actual focus.  This is useful for a text field in
@@ -48,7 +53,9 @@ PanelWindow {
     // handled here.
     // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
     FocusScope {
-        anchors.fill: parent
+        id: focusScope
+        width: background.width
+        height: background.height
         focus: true
         Keys.onPressed: (event) => {
             if (event.key == Qt.Key_Escape) {
@@ -56,13 +63,21 @@ PanelWindow {
             }
         }
         Rectangle {
-            id: box
-            anchors.fill: parent
+            id: background
             color: Root.State.colors.surface
             radius: Root.State.rounding
-            children: [
-                window.content
-            ]
+            implicitWidth: window.content.width + window.padding * 2
+            implicitHeight: window.content.height + window.padding * 2
+            Rectangle {
+                x: window.padding
+                y: window.padding
+                color: "transparent"
+                implicitWidth: window.content.width
+                implicitHeight: window.content.height
+                children: [
+                    window.content
+                ]
+            }
         }
     }
 }

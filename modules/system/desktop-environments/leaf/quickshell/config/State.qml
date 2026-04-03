@@ -60,6 +60,8 @@ Singleton {
     }
     */
 
+    property int widgetUnitSize: 64
+
     // There's definitely something fishy going on here
     // Might be due to using multiple json adapter instances
     FileView {

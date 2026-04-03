@@ -1,6 +1,9 @@
 import QtQml
 
 QtObject {
+
+    property int unitSize: 64
+
     function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): var {
         if (!uid) {
             uid = Math.random().toString().substr(2) // Generate random string if none provided (probably unique)
@@ -20,6 +23,8 @@ QtObject {
 
     function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {
         return widgetDefinitions.find(def => {
+            console.debug(`looking`)
+            console.debug(`found def: ${def.uid}`)
             return def.uid === widgetDefinitionId
         })
     }
