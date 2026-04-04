@@ -23,7 +23,7 @@ Shared.PanelWindow {
         top: true
     }
     padding: 20
-    implicitHeight: 800
+    implicitHeight: panelGrid.maxHeight // Need to set PanelWindow size to largest possible or else resizing with jitter
 
     content: AbsGrid.PanelGrid {
         id: panelGrid

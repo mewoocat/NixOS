@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import Quickshell
 import qs as Root
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 
 ColumnLayout {
     id: root
@@ -20,6 +21,7 @@ ColumnLayout {
     property int ySize: 8
     property bool editable: false
     property PanelTile selectedTile: null
+    property int maxHeight: gridPanel.height + editPanel.expandedHeight
     property int selectedTileTargetX: {
         if (!selectedTile) { return 0 }
 
@@ -40,7 +42,7 @@ ColumnLayout {
     }
 
     Rectangle {
-
+        id: gridPanel
         implicitWidth: root.unitSize * root.xSize
         implicitHeight: root.unitSize * root.ySize
         color: "green"
@@ -76,13 +78,7 @@ ColumnLayout {
                 required property WidgetInstance modelData
                 editable: root.editable
                 widgetInstance: modelData
-                widgetDefinition: {
-                    let def = root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
-                    def.unitSize = root.unitSize
-                    def.padding = root.widgetPadding
-                    return def
-                }
-                Component.onCompleted: console.debug(`panel tile: ${widgetDefinition.uid}`)
+                widgetDefinition: root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
                 unitSize: root.unitSize
                 onTileSelected: (item) => root.selectedTile = item
                 onPositionUpdateRequested: (item) => {
@@ -118,9 +114,22 @@ ColumnLayout {
     Rectangle {
         id: editPanel
         //visible: root.editable
-        Layout.preferredHeight: root.editable ? 300 : 0
+        property int expandedHeight: 300
+        Layout.preferredHeight: root.editable ? expandedHeight : 0
         Behavior on Layout.preferredHeight { PropertyAnimation { duration: 500; easing.type: Easing.Linear} }
         Layout.fillWidth: true
         color: "red"
+        clip: true
+        Shared.ScrollableList {
+            anchors.fill: parent
+            model: root.availableWidgetDefinitions
+            delegate: PanelTile {
+                required property WidgetDefinition modelData
+                widgetDefinition: modelData
+                widgetInstance: root.logic.generateWidgetInstance(model, 0, 0)
+                editable: root.true
+                unitSize: root.unitSize
+            }
+        }
     }
 }

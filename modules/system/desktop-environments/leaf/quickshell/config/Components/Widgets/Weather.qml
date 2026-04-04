@@ -17,8 +17,7 @@ AbsGrid.WidgetDefinition {
     ySize: 2
     defaultState: null
     component: Rectangle {
-        width: root.availableWidth
-        height: root.availableHeight
+        anchors.fill: parent
         anchors.margins: root.padding
         color: "transparent"
 
