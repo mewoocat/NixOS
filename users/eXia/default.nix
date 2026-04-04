@@ -73,7 +73,6 @@
       vscodium
       inkscape
       gimp
-      rhythmbox
       vial
       evince # Gnome PDF viewer
       qdirstat
@@ -89,10 +88,15 @@
       onlyoffice-desktopeditors
       flashgbx
       qtcreator
-      clementine # Music player
       blanket
       thunderbird
       inputs.helium.packages.${system}.default
+
+      # Music
+      #amarok # Music player
+      #rockbox-utility
+      strawberry
+      rhythmbox
 
       # Network tools
       wireshark
