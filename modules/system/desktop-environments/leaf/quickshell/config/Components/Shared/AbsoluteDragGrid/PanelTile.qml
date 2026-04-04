@@ -7,42 +7,33 @@ import Quickshell
 import qs.Components.Widgets
 import qs as Root
 
-MouseArea {
+Item {
     id: root
 
     required property WidgetInstance widgetInstance
     required property WidgetDefinition widgetDefinition
     required property int unitSize
 
-    property int initialX: 0
-    property int initialY: 0
+    property bool editable: false
 
     signal tileSelected(item: PanelTile)
     signal positionUpdateRequested(item: PanelTile)
     signal widgetPositionChanged(item: PanelTile)
 
-    x: widgetInstance.xPosition * unitSize
-    y: widgetInstance.yPosition * unitSize
-    onXChanged: widgetPositionChanged(root)
-    onYChanged: widgetPositionChanged(root)
+    property int initialX: 0
+    property int initialY: 0
+    function resetPosition() {
+        // Reset the position
+        x = initialX
+        y = initialY
+    }
 
     // apparently need to use implicit sizes if this component is going to be used 
     // in a BoundComponent.  Otherwise the size is forced to the BoundComponent's size
     implicitWidth: widgetDefinition.xSize * unitSize
     implicitHeight: widgetDefinition.ySize * unitSize
-
-    drag.target: root
-    // Moves the client to the top compared to it's sibling clients
-    drag.onActiveChanged: () => drag.active ? root.z = 1 : root.z = 0
-    onPressed: {
-        // Store original position
-        initialX = root.x
-        initialY = root.y
-        tileSelected(root) // emit signal
-    }
-    onReleased: {
-        positionUpdateRequested(root)
-    }
+    x: widgetInstance.xPosition * unitSize
+    y: widgetInstance.yPosition * unitSize
 
     Rectangle {
         anchors.fill: parent
@@ -51,6 +42,29 @@ MouseArea {
         Loader {
             anchors.fill: parent
             sourceComponent: root.widgetDefinition.component
+        }
+    }
+    // Note that this appears over the content when active
+    MouseArea {
+        visible: root.editable
+        anchors.fill: parent
+        onXChanged: root.widgetPositionChanged(root)
+        onYChanged: root.widgetPositionChanged(root)
+
+        Behavior on x { PropertyAnimation { duration: 150; easing.type: Easing.Linear} }
+        Behavior on y { PropertyAnimation { duration: 150; easing.type: Easing.Linear} }
+        
+        drag.target: root
+        // Moves the client to the top compared to it's sibling clients
+        drag.onActiveChanged: () => drag.active ? root.z = 1 : root.z = 0
+        onPressed: {
+            // Store original position
+            root.initialX = root.x
+            root.initialY = root.y
+            root.tileSelected(root) // emit signal
+        }
+        onReleased: {
+            root.positionUpdateRequested(root)
         }
     }
 }

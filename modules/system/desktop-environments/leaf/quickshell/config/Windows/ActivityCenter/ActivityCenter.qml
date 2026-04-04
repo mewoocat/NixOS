@@ -23,11 +23,13 @@ Shared.PanelWindow {
         top: true
     }
     padding: 20
+    implicitHeight: 800
 
     content: AbsGrid.PanelGrid {
         id: panelGrid
         xSize: 10
         ySize: 8
+        onModelUpdated: (newModel) => model = newModel
         model: [
             AbsGrid.WidgetInstance {
                 yPosition: 0

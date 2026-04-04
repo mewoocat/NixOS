@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import qs.Services as Services
-
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 AbsGrid.WidgetDefinition {
