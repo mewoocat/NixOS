@@ -7,12 +7,11 @@ import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
-AbsGrid.WidgetDefinition {
+AbsGrid.WidgetData {
     uid: "calendar-3x3"
     name: "Calendar"
     xSize: 3
     ySize: 3
-    defaultState: null
     component: Item {
         anchors.fill: parent
         ColumnLayout {

@@ -31,49 +31,22 @@ Shared.PanelWindow {
         ySize: 10
         onModelUpdated: (newModel) => model = newModel
         model: [
-            AbsGrid.WidgetInstance {
-                yPosition: 0
+            Widgets.Weather {
                 xPosition: 0
-                xSize: 2
-                ySize: 2
-                uid: "widget-1"
-                state: null
-                widgetDefinitionId: "weather-2x2"
-            },
-            AbsGrid.WidgetInstance {
-                yPosition: 3
-                xPosition: 0
-                xSize: 3
-                ySize: 3
-                uid: "widget-2"
-                state: null
-                widgetDefinitionId: "calendar-3x3"
-            },
-            AbsGrid.WidgetInstance {
                 yPosition: 0
-                xPosition: 4
-                xSize: 2
-                ySize: 2
-                uid: "widget-3"
-                state: null
-                widgetDefinitionId: "analog-clock-2x2"
             },
-            AbsGrid.WidgetInstance {
-                yPosition: 3
-                xPosition: 3
-                xSize: 2
-                ySize: 2
-                uid: "widget-4"
-                state: null
-                widgetDefinitionId: "notifications-6x6"
+            Widgets.AnalogClock {
+                xPosition: 2
+                yPosition: 0
+            },
+            Widgets.Notifications {
+                xPosition: 0
+                yPosition: 2
+            },
+            Widgets.Calendar {
+                xPosition: 6
+                yPosition: 0
             }
-        ]
-        // I think something with how these are constructed makes the required properties not be loaded before accessed
-        availableWidgetDefinitions: [
-            Widgets.Weather {},
-            Widgets.Calendar {},
-            Widgets.AnalogClock {},
-            Widgets.Notifications {}
         ]
     }
 }

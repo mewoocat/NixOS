@@ -1,22 +1,17 @@
-pragma ComponentBehavior: Bound
-
 import Quickshell
 import QtQuick
 import qs.Services as Services
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
-AbsGrid.WidgetDefinition {
+AbsGrid.WidgetData {
     id: rootroot
     uid: "analog-clock-2x2"
     name: "Analog Clock"
     xSize: 2
     ySize: 2
-    defaultState: null
     component: Item {
         id: root
-        //anchors.fill: parent
-        width: root.availableWidth
-        height: rootroot.availableHeight
+        anchors.fill: parent
 
         property var date: Services.Time.date
         readonly property int degreesInSecond: 6

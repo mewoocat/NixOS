@@ -10,10 +10,14 @@ import qs.Components.Shared as Shared
 
 ColumnLayout {
     id: root
-    required property list<WidgetInstance> model
-    required property list<WidgetDefinition> availableWidgetDefinitions
-    signal modelUpdated(model: list<WidgetInstance>) // When a new model state has been confirmed
+    property list<WidgetJson> json: null
+    property list<WidgetData> model: logic.widgetJsonListToWidgetDataList(json)
+    property list<WidgetData> availableWidgets: [
+        
+    ];
+    signal modelUpdated(model: list<WidgetData>) // When a new model state has been confirmed
     property Logic logic: Logic {}
+    property State state: State {}
     property int unitSize: 72
     property int widgetPadding: 8
     property int widgetMargin: 8
@@ -22,12 +26,12 @@ ColumnLayout {
     property bool allowEditToggle: true
     property bool editable: false
     property PanelTile selectedTile: null
-    property int maxHeight: gridPanel.height + editPanel.expandedHeight
+    property int maxHeight: gridPanel.height// + editPanel.expandedHeight
     property int selectedTileTargetX: {
         if (!selectedTile) { return 0 }
 
         let proposedXPos = Math.round(selectedTile.x / unitSize)
-        let maxXPos = xSize - selectedTile.widgetDefinition.xSize
+        let maxXPos = xSize - selectedTile.widgetData.xSize
         if (proposedXPos > maxXPos) { proposedXPos = maxXPos }
         if (proposedXPos < 0) { proposedXPos = 0 }
         return proposedXPos
@@ -36,7 +40,7 @@ ColumnLayout {
         if (!selectedTile) { return 0 }
 
         let proposedYPos = Math.round(selectedTile.y / unitSize)
-        let maxYPos = ySize - selectedTile.widgetDefinition.ySize
+        let maxYPos = ySize - selectedTile.widgetData.ySize
         if (proposedYPos > maxYPos) { proposedYPos = maxYPos }
         if (proposedYPos < 0) { proposedYPos = 0 }
         return proposedYPos
@@ -72,18 +76,14 @@ ColumnLayout {
             model: root.model
             delegate: PanelTile {
                 id: gridItem
-                required property WidgetInstance modelData
+                required property WidgetData modelData
+                widgetData: modelData
                 editable: root.editable
-                widgetInstance: modelData
-                widgetDefinition: {
-                    if (widgetInstance.widgetDefinition) { return widgetInstance.widgetDefinition }
-                    return root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
-                }
-                showBackground: widgetDefinition.showBackground
+                showBackground: widgetData.showBackground
                 unitSize: root.unitSize
                 onTileSelected: (item) => root.selectedTile = item
                 onPositionUpdateRequested: (item) => {
-                    if (!root.logic.isPositionOpen(widgetInstance, root.selectedTileTargetX, root.selectedTileTargetY, root.model)){
+                    if (!root.logic.isPositionOpen(widgetData, root.selectedTileTargetX, root.selectedTileTargetY, root.model)){
                         //console.debug(`valid position NOT found`)
                         resetPosition()
                         root.selectedTile = null
@@ -91,11 +91,11 @@ ColumnLayout {
                     }
                     //console.debug(`valid position found`)
                     // Update the instance
-                    widgetInstance.xPosition = root.selectedTileTargetX
-                    widgetInstance.yPosition = root.selectedTileTargetY
+                    widgetData.xPosition = root.selectedTileTargetX
+                    widgetData.yPosition = root.selectedTileTargetY
                     // Update the item
-                    x = widgetInstance.xPosition * root.unitSize
-                    y = widgetInstance.yPosition * root.unitSize
+                    x = widgetData.xPosition * root.unitSize
+                    y = widgetData.yPosition * root.unitSize
 
                     // Notify the source model to update.  This is needed since we're modifying a property 
                     // of an object in the model, so no actual change occurs from the perspective of the binding.
@@ -115,6 +115,8 @@ ColumnLayout {
         }
 
     }
+    // TODO: Move to seperate component
+    /*
     Rectangle {
         id: editPanel
         visible: root.allowEditToggle
@@ -136,4 +138,5 @@ ColumnLayout {
             }
         }
     }
+    */
 }

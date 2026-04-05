@@ -10,8 +10,7 @@ import qs as Root
 Item {
     id: root
 
-    required property WidgetInstance widgetInstance
-    required property WidgetDefinition widgetDefinition
+    required property WidgetData widgetData
     required property int unitSize
 
     property bool editable: false
@@ -31,10 +30,10 @@ Item {
 
     // apparently need to use implicit sizes if this component is going to be used 
     // in a BoundComponent.  Otherwise the size is forced to the BoundComponent's size
-    implicitWidth: widgetDefinition.xSize * unitSize
-    implicitHeight: widgetDefinition.ySize * unitSize
-    x: widgetInstance?.xPosition * unitSize
-    y: widgetInstance?.yPosition * unitSize
+    implicitWidth: widgetData.xSize * unitSize
+    implicitHeight: widgetData.ySize * unitSize
+    x: widgetData.xPosition * unitSize
+    y: widgetData.yPosition * unitSize
     Behavior on x { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
     Behavior on y { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
     
@@ -48,7 +47,7 @@ Item {
         radius: Root.State.innerRounding
         Loader {
             anchors.fill: parent
-            sourceComponent: root.widgetDefinition.component
+            sourceComponent: root.widgetData.component
         }
     }
     // Note that this appears over the content when active

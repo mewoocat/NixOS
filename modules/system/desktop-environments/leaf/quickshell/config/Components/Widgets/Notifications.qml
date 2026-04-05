@@ -9,13 +9,12 @@ import qs as Root
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 // A widget to list all tracked notifications
-AbsGrid.WidgetDefinition {
+AbsGrid.WidgetData {
     id: root
     uid: `notifications-${xSize}x${ySize}`
     name: "Notifications"
     xSize: 6
     ySize: 6
-    defaultState: null
     component: ColumnLayout {
         anchors.fill: parent
         anchors.margins: root.padding

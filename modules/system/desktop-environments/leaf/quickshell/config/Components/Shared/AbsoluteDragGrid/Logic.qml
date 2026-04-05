@@ -4,6 +4,7 @@ QtObject {
 
     property int unitSize: 64
 
+    /*
     function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): WidgetInstance {
         // For some reason the required properties sometimes are not set on the widgetDefinition
         if (!widgetDefinition.uid) {
@@ -26,6 +27,27 @@ QtObject {
             state: widgetDefinition.defaultState,
         })
     }
+    */
+
+    // TODO: See if this can output an actual JsonObject
+    function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<var> { 
+        return {
+            uid: widgetData.uid,
+            xPosition: widgetData.xPosition,
+            yPosition: widgetData.yPosition,
+            state: widgetData.state
+        }
+    }
+
+    function widgetJsonListToWidgetDataList(widgetJsonList: list<var>): list<WidgetData> { 
+        const component = Qt.createComponent("WidgetData")
+        return widgetJsonList.map(w => component.createObject(null, {
+            uid: w.uid,
+            xPosition: w.xPosition,
+            yPosition: w.yPosition,
+            state: w.state
+        }))
+    }
 
     function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {
         const widgetDef = widgetDefinitions.find(def => def.uid === widgetDefinitionId)
@@ -35,18 +57,16 @@ QtObject {
         return widgetDef
     }
     
-    function isPositionOpen(widgetInstance: WidgetInstance, targetXPosition: int, targetYPosition: int, widgetInstances: list<WidgetInstance>): bool {
-        for (const otherInst of widgetInstances) {
-            console.debug(`comparing with ${otherInst.uid}`)
-            if (otherInst.uid === widgetInstance.uid) { continue } // Ignore self
+    function isPositionOpen(widgetData: WidgetData, targetXPosition: int, targetYPosition: int, allWidgetData: list<WidgetData>): bool {
+        for (const otherData of allWidgetData) {
+            console.debug(`comparing with ${otherData.uid}`)
+            if (otherData.uid === widgetData.uid) { continue } // Ignore self
             if (doRectanglesOverlap(
                 Qt.point(targetXPosition, targetYPosition),
-                Qt.point(targetXPosition + widgetInstance.xSize, targetYPosition + widgetInstance.ySize),
-                Qt.point(otherInst.xPosition, otherInst.yPosition),
-                Qt.point(otherInst.xPosition + otherInst.xSize, otherInst.yPosition + otherInst.ySize)
-            )) {
-                return false
-            }
+                Qt.point(targetXPosition + widgetData.xSize, targetYPosition + widgetData.ySize),
+                Qt.point(otherData.xPosition, otherData.yPosition),
+                Qt.point(otherData.xPosition + otherData.xSize, otherData.yPosition + otherData.ySize)
+            )) { return false }
         }
         return true
     }
