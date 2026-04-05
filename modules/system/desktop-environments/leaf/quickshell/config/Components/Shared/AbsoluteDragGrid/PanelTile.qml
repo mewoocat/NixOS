@@ -7,21 +7,16 @@ import Quickshell
 import qs.Components.Widgets
 import qs as Root
 
-MouseArea {
+Item {
     id: root
 
     required property WidgetInstance widgetInstance
     required property WidgetDefinition widgetDefinition
     required property int unitSize
 
-    enabled: widgetDefinition.isButton
-    hoverEnabled: enabled
-    property bool interactable: enabled
-
-    onClicked: widgetDefinition.clicked()
-
     property bool editable: false
     property int padding: 8
+    property bool showBackground: true
 
     signal tileSelected(item: PanelTile)
     signal positionUpdateRequested(item: PanelTile)
@@ -49,7 +44,7 @@ MouseArea {
         y: root.padding
         width: parent.width - root.padding * 2
         height: parent.height - root.padding * 2
-        color: root.interactable && root.containsMouse ? Root.State.colors.primary : Root.State.colors.surface_container
+        color: root.showBackground ? Root.State.colors.surface_container : "transparent"
         radius: Root.State.innerRounding
         Loader {
             anchors.fill: parent

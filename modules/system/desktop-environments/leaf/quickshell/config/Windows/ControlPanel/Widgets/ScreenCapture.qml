@@ -9,6 +9,7 @@ import QtQuick.Controls
 import qs.Services as Services
 import qs as Root
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+import qs.Components.Controls as Ctrls
 
 AbsGrid.WidgetDefinition { 
     id: root
@@ -17,18 +18,16 @@ AbsGrid.WidgetDefinition {
     xSize: 1
     ySize: 1
     defaultState: null
-    onClicked: () => Services.ScreenCapture.toggleRecording()
-    active: Services.ScreenCapture.recording
-    component: IconImage {
-        visible: root.active || root.hovered
-        anchors.centerIn: parent
-        implicitSize: 32
-        source: Quickshell.iconPath("media-record-symbolic")
-        // Recolor
-        layer.enabled: false
-        layer.effect: MultiEffect {
-            colorization: 1 // Full re-color
-            colorizationColor: "red"
-        }
+    //active: Services.ScreenCapture.recording
+    showBackground: false
+    component: Ctrls.Button {
+        id: btn
+        anchors.fill: parent
+        inset: 0
+        backgroundColor: btn.hovered ? Root.State.colors.primary : Root.State.colors.surface_container
+        icon.name: "media-record-symbolic"
+        icon.color: "red"
+        radius: root.radius
+        onClicked: () => Services.ScreenCapture.toggleRecording()
     }
 }

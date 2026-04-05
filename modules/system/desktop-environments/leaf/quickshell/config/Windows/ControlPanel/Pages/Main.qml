@@ -42,6 +42,36 @@ AbsGrid.PanelGrid {
             state: null
             widgetDefinitionId: "network-1x1"
             widgetDefinition: Widgets.ScreenCapture {}
+        },
+        AbsGrid.WidgetInstance {
+            yPosition: 0
+            xPosition: 3
+            xSize: 1
+            ySize: 1
+            uid: "widget-2"
+            state: null
+            widgetDefinitionId: "network-1x1"
+            widgetDefinition: Widgets.ScreenCapture {}
+        },
+        AbsGrid.WidgetInstance {
+            yPosition: 1
+            xPosition: 2
+            xSize: 1
+            ySize: 1
+            uid: "widget-2"
+            state: null
+            widgetDefinitionId: "network-1x1"
+            widgetDefinition: Widgets.ScreenCapture {}
+        },
+        AbsGrid.WidgetInstance {
+            yPosition: 1
+            xPosition: 3
+            xSize: 1
+            ySize: 1
+            uid: "widget-2"
+            state: null
+            widgetDefinitionId: "network-1x1"
+            widgetDefinition: Widgets.ScreenCapture {}
         }
     ]
 }

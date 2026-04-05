@@ -10,13 +10,11 @@ Item {
     required property Component component // The actual content to render
  
     property int padding: 8
-    property bool isButton: false
+    property int radius: 8
+    property bool showBackground: true
     /*
     property int unitSize: 64
     property int availableWidth: unitSize * xSize
     property int availableHeight: unitSize * ySize
     */
-
-    signal clicked()
-    property bool active: false
 }

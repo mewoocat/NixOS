@@ -79,6 +79,7 @@ ColumnLayout {
                     if (widgetInstance.widgetDefinition) { return widgetInstance.widgetDefinition }
                     return root.logic.getWidgetDefinition(widgetInstance.widgetDefinitionId, root.availableWidgetDefinitions)
                 }
+                showBackground: widgetDefinition.showBackground
                 unitSize: root.unitSize
                 onTileSelected: (item) => root.selectedTile = item
                 onPositionUpdateRequested: (item) => {
