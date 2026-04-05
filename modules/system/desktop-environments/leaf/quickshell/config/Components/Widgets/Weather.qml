@@ -18,7 +18,6 @@ AbsGrid.WidgetDefinition {
     defaultState: null
     component: Rectangle {
         anchors.fill: parent
-        anchors.margins: root.padding
         color: "transparent"
 
         ColumnLayout { 

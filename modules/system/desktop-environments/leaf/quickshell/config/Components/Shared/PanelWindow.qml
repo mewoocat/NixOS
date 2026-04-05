@@ -14,6 +14,7 @@ PanelWindow {
     required property var content // Thing to place in window
     property bool grabEnabled: true
     property int padding: 0
+    property int radius: Root.State.rounding
 
     signal closeWindow()
     signal toggleWindow()
@@ -65,7 +66,7 @@ PanelWindow {
         Rectangle {
             id: background
             color: Root.State.colors.surface
-            radius: Root.State.rounding
+            radius: window.radius
             implicitWidth: window.content.width + window.padding * 2
             implicitHeight: window.content.height + window.padding * 2
             Rectangle {

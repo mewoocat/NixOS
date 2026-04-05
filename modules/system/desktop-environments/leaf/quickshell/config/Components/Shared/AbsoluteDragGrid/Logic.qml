@@ -4,7 +4,13 @@ QtObject {
 
     property int unitSize: 64
 
-    function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): var {
+    function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): WidgetInstance {
+        // For some reason the required properties sometimes are not set on the widgetDefinition
+        if (!widgetDefinition.uid) {
+            console.error(`REQUIRED PROP NOT DEFINED ON WIDGET DEF: ${widgetDefinition.uid}`)
+            return null
+        }
+        console.debug(`generating widget instance for ${widgetDefinition}`)
         if (!uid) {
             uid = Math.random().toString().substr(2) // Generate random string if none provided (probably unique)
         }
@@ -22,11 +28,11 @@ QtObject {
     }
 
     function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {
-        return widgetDefinitions.find(def => {
-            console.debug(`looking`)
-            console.debug(`found def: ${def.uid}`)
-            return def.uid === widgetDefinitionId
-        })
+        const widgetDef = widgetDefinitions.find(def => def.uid === widgetDefinitionId)
+        if (widgetDef == null) {
+            console.error(`Could not fine WidgetDefinition with id: ${widgetDefinitionId}`)
+        }
+        return widgetDef
     }
     
     function isPositionOpen(widgetInstance: WidgetInstance, targetXPosition: int, targetYPosition: int, widgetInstances: list<WidgetInstance>): bool {

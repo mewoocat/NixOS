@@ -22,13 +22,13 @@ Shared.PanelWindow {
     anchors {
         top: true
     }
-    padding: 20
+    padding: Root.State.windowPadding
     implicitHeight: panelGrid.maxHeight // Need to set PanelWindow size to largest possible or else resizing with jitter
 
     content: AbsGrid.PanelGrid {
         id: panelGrid
-        xSize: 10
-        ySize: 8
+        xSize: 12
+        ySize: 10
         onModelUpdated: (newModel) => model = newModel
         model: [
             AbsGrid.WidgetInstance {
@@ -42,7 +42,7 @@ Shared.PanelWindow {
             },
             AbsGrid.WidgetInstance {
                 yPosition: 3
-                xPosition: 3
+                xPosition: 0
                 xSize: 3
                 ySize: 3
                 uid: "widget-2"
@@ -57,12 +57,23 @@ Shared.PanelWindow {
                 uid: "widget-3"
                 state: null
                 widgetDefinitionId: "analog-clock-2x2"
+            },
+            AbsGrid.WidgetInstance {
+                yPosition: 3
+                xPosition: 3
+                xSize: 2
+                ySize: 2
+                uid: "widget-4"
+                state: null
+                widgetDefinitionId: "notifications-6x6"
             }
         ]
+        // I think something with how these are constructed makes the required properties not be loaded before accessed
         availableWidgetDefinitions: [
             Widgets.Weather {},
             Widgets.Calendar {},
-            Widgets.AnalogClock {}
+            Widgets.AnalogClock {},
+            Widgets.Notifications {}
         ]
     }
 }

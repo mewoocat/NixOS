@@ -46,7 +46,9 @@ Singleton {
     property var currentHoveredWorkspace: null
     
     // Styling
-    property int rounding: 8
+    property int rounding: 24
+    property int innerRounding: rounding - windowPadding
+    property int windowPadding: 16
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10

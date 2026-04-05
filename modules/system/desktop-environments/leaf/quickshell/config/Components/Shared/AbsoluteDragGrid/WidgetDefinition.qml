@@ -8,10 +8,10 @@ Item {
     required property int ySize // The number of cells this widget spans on the y-axis
     required property var defaultState // An object representing the default state of the widget.  Null if widget has no state.
     required property Component component // The actual content to render
-
+ 
+    property int padding: 8
     /*
     property int unitSize: 64
-    property int padding: 0
     property int availableWidth: unitSize * xSize
     property int availableHeight: unitSize * ySize
     */

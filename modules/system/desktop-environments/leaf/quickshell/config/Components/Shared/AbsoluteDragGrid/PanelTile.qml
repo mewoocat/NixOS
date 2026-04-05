@@ -15,6 +15,7 @@ Item {
     required property int unitSize
 
     property bool editable: false
+    property int padding: 8
 
     signal tileSelected(item: PanelTile)
     signal positionUpdateRequested(item: PanelTile)
@@ -23,7 +24,6 @@ Item {
     property int initialX: 0
     property int initialY: 0
     function resetPosition() {
-        // Reset the position
         x = initialX
         y = initialY
     }
@@ -32,13 +32,19 @@ Item {
     // in a BoundComponent.  Otherwise the size is forced to the BoundComponent's size
     implicitWidth: widgetDefinition.xSize * unitSize
     implicitHeight: widgetDefinition.ySize * unitSize
-    x: widgetInstance.xPosition * unitSize
-    y: widgetInstance.yPosition * unitSize
+    x: widgetInstance?.xPosition * unitSize
+    y: widgetInstance?.yPosition * unitSize
+    Behavior on x { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
+    Behavior on y { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
+    
 
     Rectangle {
-        anchors.fill: parent
+        x: root.padding
+        y: root.padding
+        width: parent.width - root.padding * 2
+        height: parent.height - root.padding * 2
         color: Root.State.colors.surface_container
-        radius: Root.State.rounding
+        radius: Root.State.innerRounding
         Loader {
             anchors.fill: parent
             sourceComponent: root.widgetDefinition.component

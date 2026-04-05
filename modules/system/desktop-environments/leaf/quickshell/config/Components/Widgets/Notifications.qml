@@ -11,14 +11,14 @@ import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 // A widget to list all tracked notifications
 AbsGrid.WidgetDefinition {
     id: root
-    uid: "analog-clock-2x2"
-    name: "Analog Clock"
-    xSize: 2
-    ySize: 2
+    uid: `notifications-${xSize}x${ySize}`
+    name: "Notifications"
+    xSize: 6
+    ySize: 6
     defaultState: null
     component: ColumnLayout {
-        anchors.margins: 16 // TODO: Move to PanelItem?
         anchors.fill: parent
+        anchors.margins: root.padding
         Text {
             Layout.fillWidth: true
             text: "Notifications"
