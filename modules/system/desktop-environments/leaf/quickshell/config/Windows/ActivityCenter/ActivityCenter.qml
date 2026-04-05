@@ -30,6 +30,39 @@ Shared.PanelWindow {
         xSize: 12
         ySize: 10
         onModelUpdated: (newModel) => model = newModel
+
+        
+        widgetJson: [
+            AbsGrid.WidgetJson {
+                uid: "Components/Widgets/Weather.qml"
+                xPosition: 0
+                yPosition: 0
+            }
+            /*
+            AbsGrid.WidgetJson {
+                uid: "calendar-3x3"
+                xPosition: 2
+                yPosition: 0
+            },
+            AbsGrid.WidgetJson {
+                uid: "analog-clock-2x2"
+                xPosition: 0
+                yPosition: 2
+            },
+            AbsGrid.WidgetJson {
+                uid: "notifications-6x6"
+                xPosition: 6
+                yPosition: 0
+            },
+            */
+        ]
+        /*
+        availableWidgetDataComponents: [
+            Qt.createComponent("Widgets.Weather"),
+            Widgets.AnalogClock {},
+            Widgets.Notifications {},
+            Widgets.Calendar {}
+        ]
         model: [
             Widgets.Weather {
                 xPosition: 0
@@ -48,6 +81,7 @@ Shared.PanelWindow {
                 yPosition: 0
             }
         ]
+        */
     }
 }
 

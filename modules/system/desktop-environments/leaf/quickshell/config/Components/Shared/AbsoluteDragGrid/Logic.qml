@@ -1,47 +1,15 @@
 import QtQml
+import Quickshell
 
 QtObject {
 
     property int unitSize: 64
 
-    /*
-    function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): WidgetInstance {
-        // For some reason the required properties sometimes are not set on the widgetDefinition
-        if (!widgetDefinition.uid) {
-            console.error(`REQUIRED PROP NOT DEFINED ON WIDGET DEF: ${widgetDefinition.uid}`)
-            return null
-        }
-        console.debug(`generating widget instance for ${widgetDefinition}`)
-        if (!uid) {
-            uid = Math.random().toString().substr(2) // Generate random string if none provided (probably unique)
-        }
-        // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
-        let component = Qt.createComponent(`WidgetInstance.qml`)
-        let widgetInstance = component.createObject(null, {
-            uid: uid,
-            widgetDefinitionId: widgetDefinition.uid,
-            xPosition: xPosition,
-            yPosition: yPosition,
-            xSize: widgetDefinition.xSize,
-            ySize: widgetDefinition.ySize,
-            state: widgetDefinition.defaultState,
-        })
-    }
-    */
 
-    // TODO: See if this can output an actual JsonObject
-    function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<var> { 
-        return {
-            uid: widgetData.uid,
-            xPosition: widgetData.xPosition,
-            yPosition: widgetData.yPosition,
-            state: widgetData.state
-        }
-    }
-
-    function widgetJsonListToWidgetDataList(widgetJsonList: list<var>): list<WidgetData> { 
-        const component = Qt.createComponent("WidgetData")
-        return widgetJsonList.map(w => component.createObject(null, {
+    // Useful for writing out the widget state to config file
+    function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<WidgetJson> { 
+        const component = Qt.createComponent("WidgetJson")
+        return widgetDataList.map(w => component.createObject(null, {
             uid: w.uid,
             xPosition: w.xPosition,
             yPosition: w.yPosition,
@@ -49,12 +17,18 @@ QtObject {
         }))
     }
 
-    function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {
-        const widgetDef = widgetDefinitions.find(def => def.uid === widgetDefinitionId)
-        if (widgetDef == null) {
-            console.error(`Could not fine WidgetDefinition with id: ${widgetDefinitionId}`)
-        }
-        return widgetDef
+    // Useful for reading in widget state from config file
+    function widgetJsonListToWidgetDataList(widgetJsonList: list<WidgetJson>): list<WidgetData> { 
+        return widgetJsonList.map(w => {
+            const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
+            console.debug(`component: ${component.url}`)
+            return component.createObject(null, {
+                uid: w.uid,
+                xPosition: w.xPosition,
+                yPosition: w.yPosition,
+                state: w.state
+            })
+        })
     }
     
     function isPositionOpen(widgetData: WidgetData, targetXPosition: int, targetYPosition: int, allWidgetData: list<WidgetData>): bool {
@@ -93,6 +67,40 @@ QtObject {
 
 
 
+    /*
+    function generateWidgetInstance(widgetDefinition: WidgetDefinition, xPosition: int, yPosition: int, uid = null): WidgetInstance {
+        // For some reason the required properties sometimes are not set on the widgetDefinition
+        if (!widgetDefinition.uid) {
+            console.error(`REQUIRED PROP NOT DEFINED ON WIDGET DEF: ${widgetDefinition.uid}`)
+            return null
+        }
+        console.debug(`generating widget instance for ${widgetDefinition}`)
+        if (!uid) {
+            uid = Math.random().toString().substr(2) // Generate random string if none provided (probably unique)
+        }
+        // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
+        let component = Qt.createComponent(`WidgetInstance.qml`)
+        let widgetInstance = component.createObject(null, {
+            uid: uid,
+            widgetDefinitionId: widgetDefinition.uid,
+            xPosition: xPosition,
+            yPosition: yPosition,
+            xSize: widgetDefinition.xSize,
+            ySize: widgetDefinition.ySize,
+            state: widgetDefinition.defaultState,
+        })
+    }
+    */
+
+    /* Not needed i think
+    function getWidgetDefinition(widgetDefinitionId: string, widgetDefinitions: list<WidgetDefinition>): WidgetDefinition {
+        const widgetDef = widgetDefinitions.find(def => def.uid === widgetDefinitionId)
+        if (widgetDef == null) {
+            console.error(`Could not fine WidgetDefinition with id: ${widgetDefinitionId}`)
+        }
+        return widgetDef
+    }
+    */
 
 
     function addWidget(widgetId: string) {

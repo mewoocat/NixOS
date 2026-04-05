@@ -1,5 +1,6 @@
 import QtQml
 
+// Only some of the properties here are serialized to json
 QtObject {
     // Definition properties
     required property string uid // A unique ID across all WidgetData
