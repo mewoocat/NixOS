@@ -32,6 +32,16 @@ AbsGrid.PanelGrid {
             state: null
             widgetDefinitionId: "network-2x2"
             widgetDefinition: Widgets.Network {}
+        },
+        AbsGrid.WidgetInstance {
+            yPosition: 0
+            xPosition: 2
+            xSize: 1
+            ySize: 1
+            uid: "widget-2"
+            state: null
+            widgetDefinitionId: "network-1x1"
+            widgetDefinition: Widgets.ScreenCapture {}
         }
     ]
 }

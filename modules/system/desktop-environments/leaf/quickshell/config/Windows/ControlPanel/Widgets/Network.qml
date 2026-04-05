@@ -16,7 +16,8 @@ AbsGrid.WidgetDefinition {
     xSize: 2
     ySize: 2
     defaultState: null
-    //onClicked: Root.State.controlPanelPage = 2
+    onClicked: () => console.log(`clicked`)
+    isButton: true
     component: ColumnLayout {
         anchors.margins: 8
         spacing: 16

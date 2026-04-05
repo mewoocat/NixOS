@@ -7,12 +7,18 @@ import Quickshell
 import qs.Components.Widgets
 import qs as Root
 
-Item {
+MouseArea {
     id: root
 
     required property WidgetInstance widgetInstance
     required property WidgetDefinition widgetDefinition
     required property int unitSize
+
+    enabled: widgetDefinition.isButton
+    hoverEnabled: enabled
+    property bool interactable: enabled
+
+    onClicked: widgetDefinition.clicked()
 
     property bool editable: false
     property int padding: 8
@@ -43,7 +49,7 @@ Item {
         y: root.padding
         width: parent.width - root.padding * 2
         height: parent.height - root.padding * 2
-        color: Root.State.colors.surface_container
+        color: root.interactable && root.containsMouse ? Root.State.colors.primary : Root.State.colors.surface_container
         radius: Root.State.innerRounding
         Loader {
             anchors.fill: parent
