@@ -15,4 +15,6 @@ Item {
     property int availableWidth: unitSize * xSize
     property int availableHeight: unitSize * ySize
     */
+
+    signal onClicked()
 }
