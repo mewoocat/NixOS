@@ -7,19 +7,21 @@ QtObject {
 
 
     // Useful for writing out the widget state to config file
-    function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<WidgetJson> { 
-        const component = Qt.createComponent("WidgetJson")
-        return widgetDataList.map(w => component.createObject(null, {
-            uid: w.uid,
-            xPosition: w.xPosition,
-            yPosition: w.yPosition,
-            state: w.state
-        }))
+    function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<var> { 
+        console.debug(`widgetDataListToWidgetJsonList: ${widgetDataListToWidgetJsonList.length}`)
+        return widgetDataList.map(w => {
+            return {
+                uid: w.uid,
+                xPosition: w.xPosition,
+                yPosition: w.yPosition,
+                state: w.state
+            }
+        })
     }
 
     // Useful for reading in widget state from config file
     function widgetJsonListToWidgetDataList(widgetJsonList: list<var>): list<WidgetData> { 
-        console.debug(`widgetJsonList: ${widgetJsonList[0]}`)
+        console.debug(`widgetJsonList: ${widgetJsonList[0].xPosition}`)
         return widgetJsonList.map(w => {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             console.debug(`component: ${component.url}`)

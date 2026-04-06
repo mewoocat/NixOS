@@ -98,13 +98,16 @@ Singleton {
         //
         // Supported property types are:
         //    Primitves (int, bool, string, real)
-        //    Sub-object adapters (JsonObject) (!! Only non derived !!)
+        //    Sub-object adapters (JsonObject) (!! DOES NOT WORK FOR list<> !!)
         //    JSON objects and arrays, as a var type
         //    Lists of any of the above (list<string> etc)
+
+        // Can be ignored, apparently due to a compilation speed up hack in Quickshell.
+        // qmllint disable unresolved-type
         adapter: JsonAdapter {            
 
             //Component.onCompleted: console.debug(`state: ${activityCenterWidgets[0].uid}`)
-            onActivityCenterWidgetsChanged: console.debug(`state: ${activityCenterWidgets[0].uid}`)
+            onActivityCenterWidgetsChanged: console.debug(`onActivityCenterWidgetsChanged: ${JSON.stringify(activityCenterWidgets, null, 4)}`)
             property list<var> activityCenterWidgets: [
                 {
                     uid: "Components/Widgets/Weather.qml",

@@ -15,6 +15,7 @@ ColumnLayout {
     property list<WidgetData> model: logic.widgetJsonListToWidgetDataList(widgetJson)
     onModelChanged: console.debug(`model[0]: ${model}`)
     signal modelUpdated(model: list<WidgetData>) // When a new model state has been confirmed
+    signal widgetJsonUpdated(widgetJson: list<var>)
     property Logic logic: Logic {}
     property State state: State {}
     property int unitSize: 72
@@ -89,16 +90,32 @@ ColumnLayout {
                         return
                     }
                     //console.debug(`valid position found`)
-                    // Update the instance
+
+                    // Update the item
+                    x = root.selectedTileTargetX * root.unitSize
+                    y = root.selectedTileTargetY * root.unitSize
                     widgetData.xPosition = root.selectedTileTargetX
                     widgetData.yPosition = root.selectedTileTargetY
-                    // Update the item
-                    x = widgetData.xPosition * root.unitSize
-                    y = widgetData.yPosition * root.unitSize
+                    console.debug(`model: ${root.model[0].yPosition}`)
+
+
+                    // Update the json
+                    const newJson = root.logic.widgetDataListToWidgetJsonList(root.model)
+                    console.debug(`newJson: ${JSON.stringify(newJson, null, 4)}`)
+                    //root.widgetJson = newJson
+                    //console.debug(`rootJson: ${JSON.stringify(root.widgetJson, null, 4)}`)
+                    //root.widgetJson = newJson
+
+                    // Update the instance
+                    /*
+                    widgetData.xPosition = root.selectedTileTargetX
+                    widgetData.yPosition = root.selectedTileTargetY
+                    */
 
                     // Notify the source model to update.  This is needed since we're modifying a property 
                     // of an object in the model, so no actual change occurs from the perspective of the binding.
-                    root.modelUpdated(root.model)
+                    //root.modelUpdated(root.model)
+                    root.widgetJsonUpdated(newJson)
                     root.selectedTile = null
                 }
             }
