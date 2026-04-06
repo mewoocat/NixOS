@@ -3,10 +3,12 @@ import Quickshell.Io
 import QtQuick
 import qs as Root
 
-QtObject {
+Item {
     id: root
+    property FileView configFile: configFile
 
-    property FileView configFile: FileView {
+    FileView {
+        id: configFile
         path: `${Root.State.leafPath}/widget-test.json`
         blockLoading: true // Block all operations until the file is loaded
         watchChanges: true // Reload the file if it changes
@@ -29,7 +31,13 @@ QtObject {
         // Adapter between qml object and json
         // Values set here are the defaults
         adapter: JsonAdapter {            
-            widgetData: ({})
+            property var widgetData: [
+                {
+                    uid: "Components/Widgets/Weather.qml",
+                    xPosition: 0,
+                    yPosition: 0
+                }
+            ]
         } 
     }
 }

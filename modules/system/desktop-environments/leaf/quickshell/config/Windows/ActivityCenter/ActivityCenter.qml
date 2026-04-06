@@ -30,14 +30,17 @@ Shared.PanelWindow {
         xSize: 12
         ySize: 10
         onModelUpdated: (newModel) => model = newModel
+    
 
         
-        widgetJson: [
+    widgetJson: Root.State.config.activityCenterWidgets
+            /*
             AbsGrid.WidgetJson {
                 uid: "Components/Widgets/Weather.qml"
                 xPosition: 0
                 yPosition: 0
             }
+            */
             /*
             AbsGrid.WidgetJson {
                 uid: "calendar-3x3"
@@ -55,7 +58,6 @@ Shared.PanelWindow {
                 yPosition: 0
             },
             */
-        ]
         /*
         availableWidgetDataComponents: [
             Qt.createComponent("Widgets.Weather"),

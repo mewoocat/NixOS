@@ -18,7 +18,8 @@ QtObject {
     }
 
     // Useful for reading in widget state from config file
-    function widgetJsonListToWidgetDataList(widgetJsonList: list<WidgetJson>): list<WidgetData> { 
+    function widgetJsonListToWidgetDataList(widgetJsonList: list<var>): list<WidgetData> { 
+        console.debug(`widgetJsonList: ${widgetJsonList[0]}`)
         return widgetJsonList.map(w => {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             console.debug(`component: ${component.url}`)

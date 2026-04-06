@@ -58,6 +58,10 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
+                        Ctrls.Button {
+                            text: "write"
+                            onClicked: () => Root.State.configFileView.writeAdapter()
+                        }
                     }
                     // Center
                     RowLayout {
@@ -70,8 +74,8 @@ Scope {
                         Clock {}
                         Rectangle {
                             visible: Services.ScreenCapture.recording
-                            width: 4
-                            height: 4
+                            implicitWidth: 4
+                            implicitHeight: 4
                             radius: 4
                             color: "red"
                         }

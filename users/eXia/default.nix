@@ -19,6 +19,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = true;
 
+  services.teamviewer.enable = false;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
     isNormalUser = true;

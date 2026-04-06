@@ -127,13 +127,13 @@ Singleton {
     
     property var selectedWorkspaceId: 1 // Id of selected workspace for configuring
     // Currently selected workspace for configuration
-    property Workspace selectedWorkspace: Root.State.config.workspaces.wsMap[`ws${selectedWorkspaceId}`]
-    property int selectedWsGapsOut: selectedWorkspace.gapsOut === -1 ? Root.State.config.appearance.gapsOut : selectedWorkspace.gapsOut
-    property int selectedWsGapsIn: selectedWorkspace.gapsIn === -1 ? Root.State.config.appearance.gapsIn : selectedWorkspace.gapsIn
+    //property Workspace selectedWorkspace: Root.State.config.workspaces.wsMap[`ws${selectedWorkspaceId}`]
+    //property int selectedWsGapsOut: selectedWorkspace.gapsOut === -1 ? Root.State.config.appearance.gapsOut : selectedWorkspace.gapsOut
+    //property int selectedWsGapsIn: selectedWorkspace.gapsIn === -1 ? Root.State.config.appearance.gapsIn : selectedWorkspace.gapsIn
 
     property var currentMonitorToWSMap: {
         const currentMonitorConfigId = Monitors.currentMonitorConfigId
-        const monitorToWSMap = Root.State.config.workspaces.monitorToWSMap
+        const monitorToWSMap = {}//Root.State.config.workspaces.monitorToWSMap
         if (!monitorToWSMap) {
             console.warn(`monitorToWSMap doesn't exist`)
             return

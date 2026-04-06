@@ -3,6 +3,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 //import qs.Services as Services
 import "./Services/" as Services
@@ -94,11 +95,28 @@ Singleton {
 
         // Adapter between qml object and json
         // Values set here are the defaults
+        //
+        // Supported property types are:
+        //    Primitves (int, bool, string, real)
+        //    Sub-object adapters (JsonObject) (!! Only non derived !!)
+        //    JSON objects and arrays, as a var type
+        //    Lists of any of the above (list<string> etc)
         adapter: JsonAdapter {            
-            property var pinnedApps: [ "foot", "vesktop", "obsidian" ]
-            property string pfpImagePath: ""
-            Component.onCompleted: console.debug(`initall pfp: ${pfpImagePath}`)
-            onPfpImagePathChanged: console.debug(`pfpImagePath: ${pfpImagePath}`)
+
+            //Component.onCompleted: console.debug(`state: ${activityCenterWidgets[0].uid}`)
+            onActivityCenterWidgetsChanged: console.debug(`state: ${activityCenterWidgets[0].uid}`)
+            property list<var> activityCenterWidgets: [
+                {
+                    uid: "Components/Widgets/Weather.qml",
+                    xPosition: 0,
+                    yPosition: 0
+                }
+            ]
+
+            property var pfpImagePath: ""
+            property var pinnedApps: ([ "foot", "vesktop", "obsidian" ])
+            //Component.onCompleted: console.debug(`initall pfp: ${pfpImagePath}`)
+            //onPfpImagePathChanged: console.debug(`pfpImagePath: ${pfpImagePath}`)
             property var appFreqMap: ({})
 
             property JsonObject location: JsonObject {
@@ -119,6 +137,7 @@ Singleton {
 
             // WARNING: It appears that nesting an inline json property (i.e. `property var thing: { "a": 1 }`) inside
             // a JsonObject causes quickshell to crash.
+            /*
             property JsonObject workspaces: JsonObject {
                 // Current workspace configuration (the literal values here are the default)
                 // Note that the number of workspaces is hardcoded since using a JsonObject
@@ -147,6 +166,7 @@ Singleton {
                 // `()` fixes undefined issue when modifying
                 //property var monitorToWSMap: ({})
             }
+            */
         } 
     }
 

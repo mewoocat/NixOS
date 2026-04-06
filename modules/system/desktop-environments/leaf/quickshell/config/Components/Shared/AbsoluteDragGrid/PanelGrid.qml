@@ -10,7 +10,8 @@ import qs.Components.Shared as Shared
 
 ColumnLayout {
     id: root
-    property list<WidgetJson> widgetJson: [] // Persisted json form of widget instances (required availableWidgets to be populated)
+    property list<var> widgetJson: [] // Persisted json form of widget instances (required availableWidgets to be populated)
+    onWidgetJsonChanged: console.debug(`widgetJson: ${widgetJson}`)
     property list<WidgetData> model: logic.widgetJsonListToWidgetDataList(widgetJson)
     onModelChanged: console.debug(`model[0]: ${model}`)
     signal modelUpdated(model: list<WidgetData>) // When a new model state has been confirmed

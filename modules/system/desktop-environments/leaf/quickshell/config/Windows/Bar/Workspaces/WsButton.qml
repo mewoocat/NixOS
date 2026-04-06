@@ -35,7 +35,7 @@ Ctrls.Button {
     }
 
     property HyprlandWorkspace wsObj: Hyprland.workspaces.values.find(ws => ws.id === wsId) ?? null
-    property string wsName: Root.State.config.workspaces.wsMap[`ws${wsId}`].name
+    //property string wsName: Root.State.config.workspaces.wsMap[`ws${wsId}`].name
     // Either focused, active, inactive, or empty
     property string wsState: {
         if (wsObj === null) {
@@ -107,7 +107,7 @@ Ctrls.Button {
                 switch(root.wsState) {
                     case "focused":
                     case "active":
-                        return root.wsName !== "" ? root.wsName : root.wsId
+                        return root.wsId
                     case "empty":
                     case "inactive":
                         return root.wsId
