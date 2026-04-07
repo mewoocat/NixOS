@@ -6,7 +6,6 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import qs as Root
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 
 // TODO: Could split the expanded portion of this type into a different type that builds off this one

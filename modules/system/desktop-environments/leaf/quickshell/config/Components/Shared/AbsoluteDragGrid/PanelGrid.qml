@@ -10,7 +10,7 @@ import qs.Components.Shared as Shared
 
 ColumnLayout {
     id: root
-    property list<var> widgetJson: [] // Persisted json form of widget instances (required availableWidgets to be populated)
+    property list<var> widgetJson: [] // Persisted json form of widget instances
     onWidgetJsonChanged: console.debug(`widgetJson: ${widgetJson}`)
     property list<WidgetData> model: logic.widgetJsonListToWidgetDataList(widgetJson)
     onModelChanged: console.debug(`model[0]: ${model}`)
@@ -102,19 +102,12 @@ ColumnLayout {
                     // Update the json
                     const newJson = root.logic.widgetDataListToWidgetJsonList(root.model)
                     console.debug(`newJson: ${JSON.stringify(newJson, null, 4)}`)
-                    //root.widgetJson = newJson
-                    //console.debug(`rootJson: ${JSON.stringify(root.widgetJson, null, 4)}`)
-                    //root.widgetJson = newJson
 
-                    // Update the instance
-                    /*
-                    widgetData.xPosition = root.selectedTileTargetX
-                    widgetData.yPosition = root.selectedTileTargetY
-                    */
-
-                    // Notify the source model to update.  This is needed since we're modifying a property 
-                    // of an object in the model, so no actual change occurs from the perspective of the binding.
-                    //root.modelUpdated(root.model)
+                    // Notify the source data to update. Since bindings are only one way, if the widgetJson
+                    // property for this PanelGrid gets re-bound, the original source value won't be updated.
+                    // So instead we send the updated jsonWidgets to the consumer and it can then update the 
+                    // source data.  The widgetJson is then implicitly updated due to it's continued binding
+                    // with the source source data.
                     root.widgetJsonUpdated(newJson)
                     root.selectedTile = null
                 }

@@ -7,261 +7,268 @@ import Quickshell.Services.Mpris
 import qs as Root
 import qs.Services as Services
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
-Item {
-    id: root
-    anchors.fill: parent
-    anchors.margins: 8
-
-    property int maxTextWidth: 200
-    property int currentPlayerIndex: findPlayingPlayer()
-    property bool artExists: root.currentPlayer !== null && root.currentPlayer.trackArtUrl !== ""
-    // Can be null if no players exist
-    property MprisPlayer currentPlayer: {
-        if (currentPlayerIndex === -1) {
-            return null
-        }
-        return Mpris.players.values[currentPlayerIndex]
-    }
-
-    function findPlayingPlayer()
-    {
-        // Sometimes there may be null players, need to filter them out
-        const players = Mpris.players.values.filter(player => player !== null)
-        // If there are no players
-        if (players.length < 1) {
-            return -1
-        }
-        // Find first playing player
-        let index = players.findIndex(player => player.isPlaying)
-        // If no player is playing select the first player
-        if (index === -1) {
-            index = 0
-        }
-        return index
-    }
-
-    GridLayout {
-        id: grid
+AbsGrid.WidgetData {
+    uid: "is this even needed lol"
+    name: "Music Player"
+    xSize: 6
+    ySize: 2
+    component: Item {
+        id: root
         anchors.fill: parent
-        rows: 3
-        columns: 3
-        rowSpacing: 0
-        columnSpacing: root.anchors.margins
+        anchors.margins: 8
 
-        Connections {
-            target: Mpris.players
-            // Player added
-            function onObjectInsertedPost(object, index) {
-                // set this player as the active
-                root.currentPlayerIndex = index
+        property int maxTextWidth: 200
+        property int currentPlayerIndex: findPlayingPlayer()
+        property bool artExists: root.currentPlayer !== null && root.currentPlayer.trackArtUrl !== ""
+        // Can be null if no players exist
+        property MprisPlayer currentPlayer: {
+            if (currentPlayerIndex === -1) {
+                return null
             }
-            // Player removed
-            function onObjectRemovedPre(object, index) {
-                console.log(`player removed`)
-                // find and set another active player (if one exists)
-                // otherwise set the first player or null if none exist
-                root.currentPlayerIndex = root.findPlayingPlayer()
-            }
+            return Mpris.players.values[currentPlayerIndex]
         }
 
-        // To Round the corners of the image
-        ClippingRectangle {
-            Layout.columnSpan: 1
-            Layout.rowSpan: 3
-            radius: Root.State.rounding
-            color: Root.State.colors.surface_container_highest
-            Layout.fillHeight: true
-            implicitWidth: height
-
-            Image {
-                id: artBlurred
-                visible: artExists
-                anchors.centerIn: parent
-                source: root.artExists ? root.currentPlayer.trackArtUrl : ""
+        function findPlayingPlayer()
+        {
+            // Sometimes there may be null players, need to filter them out
+            const players = Mpris.players.values.filter(player => player !== null)
+            // If there are no players
+            if (players.length < 1) {
+                return -1
             }
-            MultiEffect {
-                anchors.fill: artBlurred
-                source: artBlurred
-                blurEnabled: true
-                blur: 0.85
+            // Find first playing player
+            let index = players.findIndex(player => player.isPlaying)
+            // If no player is playing select the first player
+            if (index === -1) {
+                index = 0
             }
-
-            IconImage {
-                id: art
-                visible: true
-                anchors.centerIn: parent
-                implicitSize: artExists ? parent.height : parent.height - 24
-                source: root.artExists ? root.currentPlayer.trackArtUrl : Quickshell.iconPath("emblem-music-symbolic")
-            }
+            return index
         }
 
-        Rectangle {
-            Layout.columnSpan: 1
-            Layout.rowSpan: 1
-            Layout.row: 0
-            Layout.column: 1
-            //Layout.topMargin: 12
-            //Layout.leftMargin: 12
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+        GridLayout {
+            id: grid
+            anchors.fill: parent
+            rows: 3
+            columns: 3
+            rowSpacing: 0
+            columnSpacing: root.anchors.margins
 
-            color: "transparent"
-
-        ColumnLayout {
-            implicitWidth: parent.width
-            
-            Text {
-                id: title
-                elide: Text.ElideRight // Truncate with ... on the right
-                //Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
-                Layout.preferredWidth: parent.width
-                text: {
-                    if (root.currentPlayer === null) { return "" }
-                    return root.currentPlayer.trackTitle || "Unknown Title"
+            Connections {
+                target: Mpris.players
+                // Player added
+                function onObjectInsertedPost(object, index) {
+                    // set this player as the active
+                    root.currentPlayerIndex = index
                 }
-                color: Root.State.colors.on_surface
-            }
-            Text {
-                id: artist
-                text: {
-                    if (root.currentPlayer === null) { return "" }
-                    return root.currentPlayer.trackArtist || "Unknown Artist"
+                // Player removed
+                function onObjectRemovedPre(object, index) {
+                    console.log(`player removed`)
+                    // find and set another active player (if one exists)
+                    // otherwise set the first player or null if none exist
+                    root.currentPlayerIndex = root.findPlayingPlayer()
                 }
-                elide: Text.ElideRight // Truncate with ... on the right
-                Layout.preferredWidth: parent.width
-                //Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
-                color: Root.State.colors.on_surface
-                font.pointSize: 8
             }
-        }
-        }
 
-        Ctrls.ComboBox {
-            Layout.columnSpan: 1
-            Layout.rowSpan: 1
-            Layout.row: 0
-            Layout.column: 2
-            Layout.alignment: Qt.AlignTop
-            enabled: root.currentPlayer !== null
-            textRole: "identity"
-            model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
-            displayText: "♫"
-            implicitWidth: 40
-            onActivated: (index) => {
-                root.currentPlayerIndex = index
+            // To Round the corners of the image
+            ClippingRectangle {
+                Layout.columnSpan: 1
+                Layout.rowSpan: 3
+                radius: Root.State.rounding
+                color: Root.State.colors.surface_container_highest
+                Layout.fillHeight: true
+                implicitWidth: height
+
+                Image {
+                    id: artBlurred
+                    visible: artExists
+                    anchors.centerIn: parent
+                    source: root.artExists ? root.currentPlayer.trackArtUrl : ""
+                }
+                MultiEffect {
+                    anchors.fill: artBlurred
+                    source: artBlurred
+                    blurEnabled: true
+                    blur: 0.85
+                }
+
+                IconImage {
+                    id: art
+                    visible: true
+                    anchors.centerIn: parent
+                    implicitSize: artExists ? parent.height : parent.height - 24
+                    source: root.artExists ? root.currentPlayer.trackArtUrl : Quickshell.iconPath("emblem-music-symbolic")
+                }
             }
-        }
 
-        Rectangle {
-            color: "transparent"
-            Layout.fillWidth: true
-            implicitHeight: 32
-            Layout.columnSpan: 2
-            Layout.row: 1
-            Layout.column: 1
-            Layout.bottomMargin: -6
+            Rectangle {
+                Layout.columnSpan: 1
+                Layout.rowSpan: 1
+                Layout.row: 0
+                Layout.column: 1
+                //Layout.topMargin: 12
+                //Layout.leftMargin: 12
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-            Ctrls.Slider {
-                id: slider
+                color: "transparent"
+
+            ColumnLayout {
+                implicitWidth: parent.width
+                
+                Text {
+                    id: title
+                    elide: Text.ElideRight // Truncate with ... on the right
+                    //Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
+                    Layout.preferredWidth: parent.width
+                    text: {
+                        if (root.currentPlayer === null) { return "" }
+                        return root.currentPlayer.trackTitle || "Unknown Title"
+                    }
+                    color: Root.State.colors.on_surface
+                }
+                Text {
+                    id: artist
+                    text: {
+                        if (root.currentPlayer === null) { return "" }
+                        return root.currentPlayer.trackArtist || "Unknown Artist"
+                    }
+                    elide: Text.ElideRight // Truncate with ... on the right
+                    Layout.preferredWidth: parent.width
+                    //Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
+                    color: Root.State.colors.on_surface
+                    font.pointSize: 8
+                }
+            }
+            }
+
+            Ctrls.ComboBox {
+                Layout.columnSpan: 1
+                Layout.rowSpan: 1
+                Layout.row: 0
+                Layout.column: 2
+                Layout.alignment: Qt.AlignTop
                 enabled: root.currentPlayer !== null
-                //live: false
-                anchors.left: parent.left
-                anchors.right: parent.right
-                property real futureValue: 0
+                textRole: "identity"
+                model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
+                displayText: "♫"
+                implicitWidth: 40
+                onActivated: (index) => {
+                    root.currentPlayerIndex = index
+                }
+            }
 
-                // The position changed signal handler on the player isn't auto triggered due to performance reasons
-                // This FrameAnimation element will signal that the position has changed given the condition at every frame interval
-                // Also see: https://quickshell.org/docs/v0.2.0/types/Quickshell.Services.Mpris/MprisPlayer/#position
-                FrameAnimation {
-                // Only emit the signal when the position is actually changing
-                running: root.currentPlayer !== null && root.currentPlayer.playbackState == MprisPlaybackState.Playing && !slider.pressed
-                // Emit the positionChanged signal every frame.
-                onTriggered: root.currentPlayer.positionChanged()
-                }
-                value: {
-                    if (root.currentPlayer === null || !root.currentPlayer.lengthSupported || !root.currentPlayer.positionSupported) { return 0 }
-                    const normalizedPosition = root.currentPlayer.position / root.currentPlayer.length
-                    //console.log(`pos: ${normalizedPosition}`)
-                    return normalizedPosition
-                }
-                onMoved: () => {
-                    console.log(`value: ${value}`)
-                    if (root.currentPlayer === null || !root.currentPlayer.positionSupported || !root.currentPlayer.canSeek) { 
-                        return
+            Rectangle {
+                color: "transparent"
+                Layout.fillWidth: true
+                implicitHeight: 32
+                Layout.columnSpan: 2
+                Layout.row: 1
+                Layout.column: 1
+                Layout.bottomMargin: -6
+
+                Ctrls.Slider {
+                    id: slider
+                    enabled: root.currentPlayer !== null
+                    //live: false
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    property real futureValue: 0
+
+                    // The position changed signal handler on the player isn't auto triggered due to performance reasons
+                    // This FrameAnimation element will signal that the position has changed given the condition at every frame interval
+                    // Also see: https://quickshell.org/docs/v0.2.0/types/Quickshell.Services.Mpris/MprisPlayer/#position
+                    FrameAnimation {
+                    // Only emit the signal when the position is actually changing
+                    running: root.currentPlayer !== null && root.currentPlayer.playbackState == MprisPlaybackState.Playing && !slider.pressed
+                    // Emit the positionChanged signal every frame.
+                    onTriggered: root.currentPlayer.positionChanged()
                     }
-                    futureValue = value
+                    value: {
+                        if (root.currentPlayer === null || !root.currentPlayer.lengthSupported || !root.currentPlayer.positionSupported) { return 0 }
+                        const normalizedPosition = root.currentPlayer.position / root.currentPlayer.length
+                        //console.log(`pos: ${normalizedPosition}`)
+                        return normalizedPosition
+                    }
+                    onMoved: () => {
+                        console.log(`value: ${value}`)
+                        if (root.currentPlayer === null || !root.currentPlayer.positionSupported || !root.currentPlayer.canSeek) { 
+                            return
+                        }
+                        futureValue = value
+                    }
+                    onPressedChanged: {
+                        // If a release occured
+                        if (!pressed) {
+                            root.currentPlayer.position = futureValue * root.currentPlayer.length
+                        }
+                    }
                 }
-                onPressedChanged: {
-                    // If a release occured
-                    if (!pressed) {
-                        root.currentPlayer.position = futureValue * root.currentPlayer.length
+
+                // Time passed
+                Text {
+                    id: passedTime
+                    anchors.left: slider.left
+                    anchors.top: slider.bottom
+                    color: Root.State.colors.on_surface
+                    font.pointSize: 8
+                    leftPadding: 8
+                    text: {
+                        if (root.currentPlayer === null) { return 0 }
+                        return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
+                    }
+                }
+
+                // Total time
+                Text {
+                    id: totalTime
+                    anchors.right: slider.right
+                    anchors.top: slider.bottom
+                    color: Root.State.colors.on_surface
+                    font.pointSize: 8
+                    rightPadding: 8
+                    text: {
+                        if (root.currentPlayer === null) { return 0 }
+                        return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
                     }
                 }
             }
 
-            // Time passed
-            Text {
-                id: passedTime
-                anchors.left: slider.left
-                anchors.top: slider.bottom
-                color: Root.State.colors.on_surface
-                font.pointSize: 8
-                leftPadding: 8
-                text: {
-                    if (root.currentPlayer === null) { return 0 }
-                    return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
-                }
-            }
-
-            // Total time
-            Text {
-                id: totalTime
-                anchors.right: slider.right
-                anchors.top: slider.bottom
-                color: Root.State.colors.on_surface
-                font.pointSize: 8
-                rightPadding: 8
-                text: {
-                    if (root.currentPlayer === null) { return 0 }
-                    return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
-                }
-            }
-        }
-
-        RowLayout {
-            id: controls
-            Layout.columnSpan: 2
-            Layout.rowSpan: 1
-            Layout.row: 2
-            Layout.column: 1
-            Layout.fillWidth: true
-            Layout.preferredHeight: controls.height
-            Layout.alignment: Qt.AlignHCenter
-            Ctrls.Button {
-                icon.name: "media-seek-backward-symbolic"
-                onClicked: () => {
-                    if (root.currentPlayer === null) { console.warn(`No current player`); return }
-                    root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
-                }
-            }
-            Ctrls.Button {
-                icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "media-playback-start-symbolic" : "media-playback-pause-symbolic"
-                onClicked: () => {
-                    if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
-                    if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
-                        console.warn(`Current player can't play/pause`)
-                        return
+            RowLayout {
+                id: controls
+                Layout.columnSpan: 2
+                Layout.rowSpan: 1
+                Layout.row: 2
+                Layout.column: 1
+                Layout.fillWidth: true
+                Layout.preferredHeight: controls.height
+                Layout.alignment: Qt.AlignHCenter
+                Ctrls.Button {
+                    icon.name: "media-seek-backward-symbolic"
+                    onClicked: () => {
+                        if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                        root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
                     }
-                    root.currentPlayer.playbackState === MprisPlaybackState.Playing ? root.currentPlayer.pause() : root.currentPlayer.play()
                 }
-            }
-            Ctrls.Button {
-                icon.name: "media-seek-forward-symbolic"
-                onClicked: () => 
-                {
-                    if (root.currentPlayer === null) { console.warn(`No current player`); return }
-                    root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
+                Ctrls.Button {
+                    icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "media-playback-start-symbolic" : "media-playback-pause-symbolic"
+                    onClicked: () => {
+                        if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
+                        if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
+                            console.warn(`Current player can't play/pause`)
+                            return
+                        }
+                        root.currentPlayer.playbackState === MprisPlaybackState.Playing ? root.currentPlayer.pause() : root.currentPlayer.play()
+                    }
+                }
+                Ctrls.Button {
+                    icon.name: "media-seek-forward-symbolic"
+                    onClicked: () => 
+                    {
+                        if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                        root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
+                    }
                 }
             }
         }

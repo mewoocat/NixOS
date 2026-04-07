@@ -3,7 +3,6 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import qs as Root
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 
 // Size of root element must be set when consumed

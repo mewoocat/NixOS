@@ -9,7 +9,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import qs as Root
 import qs.Windows.Bar.Workspaces
-import qs.Modules.Leaf as Leaf
 import qs.Windows.ControlPanel
 import qs.Components.Controls as Ctrls
 import "./SystemTray"

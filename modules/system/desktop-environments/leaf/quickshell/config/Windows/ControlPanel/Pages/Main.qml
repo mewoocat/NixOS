@@ -6,14 +6,10 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.UPower
 import Quickshell.Services.Pipewire
-
-import qs.Modules.Leaf as Leaf // Deprecated
-
 import qs as Root
 import qs.Services as Services
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
-//import qs.Components.Widgets as Widgets
 import "../Widgets" as Widgets
 
 AbsGrid.PanelGrid {

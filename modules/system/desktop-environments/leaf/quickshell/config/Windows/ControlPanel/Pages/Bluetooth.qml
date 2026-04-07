@@ -5,7 +5,6 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Bluetooth
-import qs.Modules.Leaf as Leaf
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 import qs as Root

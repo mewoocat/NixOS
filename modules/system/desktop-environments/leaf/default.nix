@@ -23,6 +23,8 @@ in{
     QT_QPA_PLATFORMTHEME = "qtengine";
   };
 
+  programs.niri.enable = true;
+
   # Hot reloading support not yet in master
   programs.qtengine = {
     enable = false;
