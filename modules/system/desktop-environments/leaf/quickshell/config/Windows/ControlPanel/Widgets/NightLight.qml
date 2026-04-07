@@ -1,18 +1,19 @@
+pragma ComponentBehavior: Bound
 
-    Leaf.PanelItem { 
-        rows: 1
-        columns: 1
+import QtQuick
+import qs.Services as Services
+import qs as Root
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+import qs.Components.Controls as Ctrls
+
+AbsGrid.WidgetData { 
+    id: widgetData
+    name: "Screen Capture"
+    xSize: 1
+    ySize: 1
+    component: Ctrls.Button { 
         onClicked: () => Services.NightLight.toggle()
-        content: IconImage {
-            anchors.centerIn: parent
-            implicitSize: 32
-            source: `file://${Quickshell.shellDir}/Icons/nightlight-symbolic.svg` // For some reason configDir exists but shellRoot doesn't
-
-            // Recolor
-            layer.enabled: true
-            layer.effect: MultiEffect {
-                colorization: 1 // Full re-color
-                colorizationColor: palette.text
-            }
-        }
+        icon.name: "weather-clear-night-symbolic"
+        radius: widgetData.radius
     }
+}

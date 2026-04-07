@@ -3,7 +3,7 @@ import QtQml
 // Only some of the properties here are serialized to json
 QtObject {
     // Definition properties
-    required property string uid // A unique ID across all WidgetData
+    property string uid // A unique ID across all WidgetData ... TODO: Remove?
     required property string name // A human readable name for the widget
     required property int xSize // The number of cells this widget spans on the x-axis
     required property int ySize // The number of cells this widget spans on the y-axis

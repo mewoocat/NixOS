@@ -26,6 +26,10 @@ AbsGrid.PanelGrid {
         Widgets.ScreenCapture {
             xPosition: 2
             yPosition: 0
+        },
+        Widgets.NightLight {
+            xPosition: 3
+            yPosition: 0
         }
     ]
 }
