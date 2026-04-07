@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
@@ -9,74 +10,83 @@ import qs as Root
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 AbsGrid.WidgetData { 
-    name: "Network (2x2)"
+    id: widgetData
+    name: "Network"
     xSize: 2
     ySize: 2
-    component: ColumnLayout {
+    component: Item {
         id: root
-        anchors.margins: 8
-        spacing: 16
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.fill: parent
+        anchors.margins: widgetData.radius
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 0
 
-        component RowItem: RowLayout {
-            id: rowItem
-            required property string iconName
-            required property string title
-            required property string subtext
-            property var toggleAction: () => {}
-            property var normalAction: () => {}
+            component RowItem: RowLayout {
+                id: rowItem
+                required property string iconName
+                required property string title
+                required property string subtext
 
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+                signal normalAction()
+                signal toggleAction()
 
-            RoundButton {
-                icon.name: rowItem.iconName
-            }
-            WrapperMouseArea {
-                id: mouseArea
-                enabled: true
-                hoverEnabled: true
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                onClicked: normalAction()
-                WrapperRectangle {
-                    //anchors.verticalCenter: parent.verticalCenter // Doesn't seem to do anything lol
-                    //anchors.left: parent.left
-                    radius: Root.State.rounding 
-                    color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
-                    margin: 4
-                    ColumnLayout {
-                        spacing: 0
-                        Text {
-                            color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                            text: rowItem.title
-                            font.pointSize: 10
-                        }
-                        Text { 
-                            color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                            opacity: 0.6
-                            text: rowItem.subtext
-                            font.pointSize: 8
+
+                RoundButton {
+                    icon.name: rowItem.iconName
+                    onClicked: rowItem.toggleAction()
+                }
+                WrapperMouseArea {
+                    id: mouseArea
+                    enabled: true
+                    hoverEnabled: true
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    onClicked: rowItem.normalAction()
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.topMargin: root.anchors.topMargin / 2
+                        anchors.bottomMargin: root.anchors.topMargin / 2
+                        radius: Root.State.smallRounding
+                        color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
+                        Item {
+                            anchors.fill: parent
+                            anchors.margins: 4
+                            ColumnLayout {
+                                anchors.verticalCenter: parent.verticalCenter
+                                spacing: 0
+                                Text {
+                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                    text: rowItem.title
+                                    font.pointSize: 10
+                                }
+                                Text { 
+                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                    opacity: 0.6
+                                    text: rowItem.subtext
+                                    font.pointSize: 8
+                                }
+                            }
                         }
                     }
                 }
             }
-        }
-        // Internet
-        RowItem {
-            title: "Wifi"
-            subtext: "my-ssid"
-            iconName: "network-wireless-symbolic"
-            normalAction: () => Root.State.controlPanelPage = 2
-        }
-        // Bluetooth
-        RowItem {
-            title: "Bluetooth"
-            subtext: "my-device"
-            iconName: "network-bluetooth-symbolic"
-            normalAction: () => Root.State.controlPanelPage = 3
+            // Internet
+            RowItem {
+                title: "Wifi"
+                subtext: "my-ssid"
+                iconName: "network-wireless-symbolic"
+                onNormalAction: () => Root.State.controlPanelPage = 2
+            }
+            // Bluetooth
+            RowItem {
+                title: "Bluetooth"
+                subtext: "my-device"
+                iconName: "network-bluetooth-symbolic"
+                onNormalAction: () => Root.State.controlPanelPage = 3
+            }
         }
     }
 }

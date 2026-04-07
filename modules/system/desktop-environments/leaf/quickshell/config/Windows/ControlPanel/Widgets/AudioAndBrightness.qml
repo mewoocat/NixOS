@@ -1,26 +1,28 @@
 
-    Leaf.PanelItem { 
-        isClickable: false
-        rows: 2
-        columns: 4
-        content: WrapperRectangle {
-            anchors.fill: parent
-            color: "transparent"
-            margin: 8
+import Quickshell
+import Quickshell.Widgets
+import Quickshell.Services.Pipewire
+import QtQuick
+import QtQuick.Layouts
+import qs.Services as Services
+import qs as Root
+import qs.Components.Controls as Ctrls
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+
+AbsGrid.WidgetData { 
+    name: "Audio and Brightness"
+    xSize: 4
+    ySize: 2
+    component: WrapperRectangle {
+        anchors.fill: parent
+        color: "transparent"
+        margin: 8
 
         ColumnLayout {    
-            //anchors.fill: parent
             RowLayout {
                 Ctrls.Button {
                     icon.name: Services.Audio.getIcon(Pipewire.defaultAudioSink)
-                    text: {
-                        return Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
-                        /*
-                        const vol = Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100
-                        const spacing = 
-                        const text = spacing + vol + '%'
-                        */
-                    }
+                    text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
                     onClicked: () => Root.State.controlPanelPage = 1
                     Layout.minimumWidth: 86
                 }
@@ -50,4 +52,5 @@
                 }
             }
         }
-        }
+    }
+}
