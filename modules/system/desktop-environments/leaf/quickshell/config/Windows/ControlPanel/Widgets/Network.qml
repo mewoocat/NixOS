@@ -1,4 +1,3 @@
-pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Widgets
@@ -9,14 +8,12 @@ import qs.Services as Services
 import qs as Root
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
-AbsGrid.WidgetDefinition { 
-    id: root
-    uid: "network-2x2"
+AbsGrid.WidgetData { 
     name: "Network (2x2)"
     xSize: 2
     ySize: 2
-    defaultState: null
     component: ColumnLayout {
+        id: root
         anchors.margins: 8
         spacing: 16
         anchors.verticalCenter: parent.verticalCenter
