@@ -17,6 +17,7 @@ AbsGrid.WidgetData {
     component: Shared.Expander {
         id: root
         backdrop: widgetData.panelGrid
+        Component.onCompleted: console.debug(`widget's backdrop: ${backdrop}`)
         onParentChanged: console.debug(`PARENT: ${parent}`)
         button: Ctrls.Button { 
             inset: 0
@@ -30,6 +31,10 @@ AbsGrid.WidgetData {
             width: 100
             height: 100
             color: "red"
+            Ctrls.Button {
+                onClicked: () => root.hideContent()
+                text: "hide"
+            }
         }
     }
 }

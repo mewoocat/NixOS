@@ -6,19 +6,35 @@ WrapperItem {
     required property Item button
     required property Component content
     required property Item backdrop
+    // This is a hack, find a better solution
+    onBackdropChanged: () => {
+        console.debug(`backdrop changed ${backdrop}, ${buttonOrigin.x}`)
+        // Re-parent the content to the backdrop
+        contentItem.parent = backdrop
+        // Need to recalculate since it's could have been null
+        buttonOrigin = contentItem.mapFromItem(button, 0, 0)
+        // On Initial load set the content's position to the button
+        contentItem.x = buttonOrigin.x
+        contentItem.y = buttonOrigin.y
+    }
+    Component.onCompleted: console.debug(`backdrop: ${backdrop}`)
+    property Item contentItem: contentLoader.item as Item
+    property point buttonOrigin: contentItem.mapFromItem(button, 0, 0)
 
     property Loader contentLoader: Loader {
-        parent: null // Don't render (i think it's null by default here)
         sourceComponent: root.content
     }
 
     function showContent() {
-        console.debug(`showing content`)
-        contentLoader.parent = backdrop
+        console.debug(`showing content: ${root.backdrop}`)
+        //contentItem.x = 0
+        //contentItem.y = 0
     }
 
     function hideContent() {
-        contentLoader.parent = null
+        // Reset the content's position back to the button
+        contentItem.x = buttonOrigin.x
+        contentItem.y = buttonOrigin.y
     }
 
     child: button
