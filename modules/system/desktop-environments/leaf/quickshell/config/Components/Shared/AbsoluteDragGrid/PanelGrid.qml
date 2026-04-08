@@ -1,26 +1,21 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
-import Quickshell
 import qs as Root
 import qs.Components.Controls as Ctrls
-import qs.Components.Shared as Shared
 
 ColumnLayout {
     id: root
     property list<var> widgetJson: [] // Persisted json form of widget instances
-    onWidgetJsonChanged: console.debug(`widgetJson: ${widgetJson}`)
     property list<WidgetData> model: logic.widgetJsonListToWidgetDataList(widgetJson)
-    onModelChanged: console.debug(`model[0]: ${model}`)
     signal modelUpdated(model: list<WidgetData>) // When a new model state has been confirmed
     signal widgetJsonUpdated(widgetJson: list<var>)
     property Logic logic: Logic {}
-    property State state: State {}
     property int unitSize: 72
-    property int widgetPadding: 8
-    property int widgetMargin: 8
+    property int widgetPadding: Root.State.mediumSpace
+    //property int widgetMargin: 8
+    property int widgetRadius: Root.State.innerRounding
     property int xSize: 4
     property int ySize: 8
     property bool allowEditToggle: true
@@ -79,29 +74,26 @@ ColumnLayout {
                 required property WidgetData modelData
                 widgetData: modelData
                 editable: root.editable
+                padding: root.widgetPadding
+                radius: root.widgetRadius
                 showBackground: widgetData.showBackground
                 unitSize: root.unitSize
                 onTileSelected: (item) => root.selectedTile = item
                 onPositionUpdateRequested: (item) => {
                     if (!root.logic.isPositionOpen(widgetData, root.selectedTileTargetX, root.selectedTileTargetY, root.model)){
-                        //console.debug(`valid position NOT found`)
                         resetPosition()
                         root.selectedTile = null
                         return
                     }
-                    //console.debug(`valid position found`)
 
                     // Update the item
                     x = root.selectedTileTargetX * root.unitSize
                     y = root.selectedTileTargetY * root.unitSize
                     widgetData.xPosition = root.selectedTileTargetX
                     widgetData.yPosition = root.selectedTileTargetY
-                    console.debug(`model: ${root.model[0].yPosition}`)
-
 
                     // Update the json
                     const newJson = root.logic.widgetDataListToWidgetJsonList(root.model)
-                    console.debug(`newJson: ${JSON.stringify(newJson, null, 4)}`)
 
                     // Notify the source data to update. Since bindings are only one way, if the widgetJson
                     // property for this PanelGrid gets re-bound, the original source value won't be updated.

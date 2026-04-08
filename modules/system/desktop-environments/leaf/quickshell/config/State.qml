@@ -37,7 +37,9 @@ Singleton {
     property var popupGrab: null // The grab object for the active popup (old)
     property var activeGrab: null // The active grab object (either popup or panel) (new)
 
-    property int controlPanelPage: 0 // Index of the current page in control panel
+    //property int controlPanelPage: 0 // Index of the current page in control panel
+    property string controlPanelPage: "main"
+    property Item controlPanelPageItem: null
 
     // Workspace popup state
     property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
@@ -50,7 +52,7 @@ Singleton {
     property int rounding: 18
     property int smallRounding: 8
     property int innerRounding: rounding - windowPadding
-    property int windowPadding: 16
+    property int windowPadding: 8
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10
@@ -106,9 +108,6 @@ Singleton {
         // Can be ignored, apparently due to a compilation speed up hack in Quickshell.
         // qmllint disable unresolved-type
         adapter: JsonAdapter {            
-
-            //Component.onCompleted: console.debug(`state: ${activityCenterWidgets[0].uid}`)
-            onActivityCenterWidgetsChanged: console.debug(`onActivityCenterWidgetsChanged: ${JSON.stringify(activityCenterWidgets, null, 4)}`)
             property list<var> activityCenterWidgets: [
                 {
                     uid: "Components/Widgets/Weather.qml",
@@ -119,8 +118,6 @@ Singleton {
 
             property var pfpImagePath: ""
             property var pinnedApps: ([ "foot", "vesktop", "obsidian" ])
-            //Component.onCompleted: console.debug(`initall pfp: ${pfpImagePath}`)
-            //onPfpImagePathChanged: console.debug(`pfpImagePath: ${pfpImagePath}`)
             property var appFreqMap: ({})
 
             property JsonObject location: JsonObject {

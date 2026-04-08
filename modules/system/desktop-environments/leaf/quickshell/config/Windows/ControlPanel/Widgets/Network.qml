@@ -7,7 +7,10 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import qs.Services as Services
 import qs as Root
+import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+import Quickshell.Networking 
+import Quickshell.Bluetooth
 
 AbsGrid.WidgetData { 
     id: widgetData
@@ -28,15 +31,18 @@ AbsGrid.WidgetData {
                 required property string title
                 required property string subtext
 
+                property bool active: false
                 signal normalAction()
                 signal toggleAction()
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                RoundButton {
+                Ctrls.RoundButton {
                     icon.name: rowItem.iconName
                     onClicked: rowItem.toggleAction()
+                    backgroundColor: rowItem.active || hovered ? Root.State.colors.primary : Root.State.colors.surface_container_highest
+                    color: rowItem.active || hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
                 }
                 WrapperMouseArea {
                     id: mouseArea
@@ -47,8 +53,8 @@ AbsGrid.WidgetData {
                     onClicked: rowItem.normalAction()
                     Rectangle {
                         anchors.fill: parent
-                        anchors.topMargin: root.anchors.topMargin / 2
-                        anchors.bottomMargin: root.anchors.topMargin / 2
+                        anchors.topMargin: root.anchors.topMargin
+                        anchors.bottomMargin: root.anchors.topMargin
                         radius: Root.State.smallRounding
                         color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
                         Item {
@@ -79,13 +85,18 @@ AbsGrid.WidgetData {
                 subtext: "my-ssid"
                 iconName: "network-wireless-symbolic"
                 onNormalAction: () => Root.State.controlPanelPage = 2
+                active: Networking.wifiEnabled
+                onToggleAction: Networking.wifiEnabled = !Networking.wifiEnabled
             }
             // Bluetooth
             RowItem {
+                id: bluetooth
                 title: "Bluetooth"
                 subtext: "my-device"
                 iconName: "network-bluetooth-symbolic"
-                onNormalAction: () => Root.State.controlPanelPage = 3
+                onNormalAction: () => Root.State.controlPanelPageItem = bluetooth
+                active: Bluetooth.defaultAdapter.enabled
+                onToggleAction: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
             }
         }
     }

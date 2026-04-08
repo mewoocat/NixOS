@@ -9,8 +9,10 @@ import qs as Root
 
 // Need wrapper item since we want to anchor the ColumnLayout to the top of the SwipeView area but 
 // it doesn't like anchors being set on root item in a SwipeView
-Item {
+Rectangle {
     id: root
+    color: "blue"
+    clip: true
     required property string pageName
     required property Item content
     property Item headerContent: Item {}
@@ -26,7 +28,7 @@ Item {
             // Back button
             Ctrls.Button {
                 icon.name: "arrow-left-symbolic"
-                onClicked: () => Root.State.controlPanelPage = 0
+                onClicked: () => Root.State.controlPanelPageItem = null
             } 
 
             // Spacer

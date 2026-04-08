@@ -11,8 +11,11 @@ AbsGrid.WidgetData {
     name: "Screen Capture"
     xSize: 1
     ySize: 1
+    showBackground: false
     component: Ctrls.Button { 
+        inset: 0
         onClicked: () => Services.NightLight.toggle()
+        backgroundColor: hovered ? Root.State.colors.primary : Root.State.colors.surface_container
         icon.name: "weather-clear-night-symbolic"
         radius: widgetData.radius
     }

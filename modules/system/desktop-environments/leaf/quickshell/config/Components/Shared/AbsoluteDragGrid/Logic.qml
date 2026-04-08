@@ -8,7 +8,6 @@ QtObject {
 
     // Useful for writing out the widget state to config file
     function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<var> { 
-        console.debug(`widgetDataListToWidgetJsonList: ${widgetDataListToWidgetJsonList.length}`)
         return widgetDataList.map(w => {
             return {
                 uid: w.uid,
@@ -21,10 +20,8 @@ QtObject {
 
     // Useful for reading in widget state from config file
     function widgetJsonListToWidgetDataList(widgetJsonList: list<var>): list<WidgetData> { 
-        console.debug(`widgetJsonList: ${widgetJsonList[0].xPosition}`)
         return widgetJsonList.map(w => {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
-            console.debug(`component: ${component.url}`)
             return component.createObject(null, {
                 uid: w.uid,
                 xPosition: w.xPosition,
@@ -36,7 +33,6 @@ QtObject {
     
     function isPositionOpen(widgetData: WidgetData, targetXPosition: int, targetYPosition: int, allWidgetData: list<WidgetData>): bool {
         for (const otherData of allWidgetData) {
-            console.debug(`comparing with ${otherData.uid}`)
             if (otherData.uid === widgetData.uid) { continue } // Ignore self
             if (doRectanglesOverlap(
                 Qt.point(targetXPosition, targetYPosition),

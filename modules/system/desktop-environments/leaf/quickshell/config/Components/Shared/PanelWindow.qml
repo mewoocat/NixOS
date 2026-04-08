@@ -13,7 +13,7 @@ PanelWindow {
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
     property bool grabEnabled: true
-    property int padding: 0
+    property int padding: Root.State.windowPadding
     property int radius: Root.State.rounding
 
     signal closeWindow()

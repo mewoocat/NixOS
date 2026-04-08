@@ -127,7 +127,7 @@ ColumnLayout {
                 }
                 Ctrls.Button {
                     id: showMoreBtn
-                    visible: appItem.interacted //&& mainDelegate.app.actions.length > 0
+                    visible: appItem.isHighlighted //&& mainDelegate.app.actions.length > 0
                     Layout.alignment: Qt.AlignRight
                     icon.name: "overflow-menu-symbolic"
                     icon.width: 16
@@ -161,10 +161,8 @@ ColumnLayout {
                         icon.name: "pin"
                         onClicked: () => {
                             const pinnedApps = Root.State.config.pinnedApps
-                            const isAppPinned = pinnedApps.find(appId => appId == subDelegate.modelData.id)
-                            if (!isAppPinned) {
-                                pinnedApps.push(subDelegate.modelData.id)
-                            }
+                            const isAppPinned = pinnedApps.find(appId => appId == appItem.desktopEntry.id)
+                            if (!isAppPinned) { pinnedApps.push(appItem.desktopEntry.id) }
 
                             // Need to set the pinnedApps value to something new to force consumers of it to update.
                             // Otherwise the actual value won't change since it's a reference.  And the consumers

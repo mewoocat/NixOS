@@ -14,8 +14,9 @@ Item {
     required property int unitSize
 
     property bool editable: false
-    property int padding: 8
+    property int padding: 0
     property bool showBackground: true
+    property int radius: 0
 
     signal tileSelected(item: PanelTile)
     signal positionUpdateRequested(item: PanelTile)
@@ -44,7 +45,7 @@ Item {
         width: parent.width - root.padding * 2
         height: parent.height - root.padding * 2
         color: root.showBackground ? Root.State.colors.surface_container : "transparent"
-        radius: Root.State.innerRounding
+        radius: root.radius
         Loader {
             anchors.fill: parent
             sourceComponent: root.widgetData.component

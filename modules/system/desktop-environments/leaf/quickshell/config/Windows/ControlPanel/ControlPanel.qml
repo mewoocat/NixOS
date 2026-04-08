@@ -1,57 +1,69 @@
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import qs as Root
 import qs.Components.Shared as Shared
 import "./Pages" as Pages
+import "./Widgets" as Widgets
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 Shared.PanelWindow {
     id: root
     name: "controlPanel"
     visible: Root.State.controlPanelVisibility
     focusable: false
-    // Make window size according to it's content
-    implicitWidth: content.width
-    implicitHeight: content.height 
 
     onToggleWindow: () => {
         Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
     } 
     onCloseWindow: () => {
         Root.State.controlPanelVisibility = false
-        Root.State.controlPanelPage = 0
+        Root.State.controlPanelPage = "main"
     } 
     anchors {
         top: true
         right: true
     }
 
-    content: SwipeView {
-        id: swipeView
-        currentIndex: Root.State.controlPanelPage
-        //background: Rectangle {
-        //    color: "transparent"
-        //}
-
-        // Set size to first child element
-        // Need to use implicit sizes here for some reason
-        // In order to properly size this element to the GridLayout child with no fixed size
-        implicitWidth: itemAt(0).implicitWidth
-        implicitHeight: itemAt(0).implicitHeight
-
-        // Multiple items here seems to make the width of the swipeview expand when accessed?
-        Pages.Main {}  // 0
-        Pages.Audio {} // 1
-        Pages.Network {} // 2
-        Pages.Bluetooth {} // 3
-        Pages.Display {} // 4
-
-        //PageIndicator {
-        //    id: pageIndicator
-        //    count: swipeView.count
-        //    currentIndex: swipeView.currentIndex
-        //    //anchors.bottom: swipeView.bottom
-        //    //anchors.horizontalCenter: parent.horizontalCenter
-        //    Layout.alignment: Qt.AlignHCenter
-        //}
+    content: Item {
+        width: panelGrid.width
+        height: panelGrid.height
+        AbsGrid.PanelGrid {
+            visible: Root.State.controlPanelPage == "main"
+            id: panelGrid
+            xSize: 4
+            ySize: 6
+            allowEditToggle: false
+            onModelUpdated: (newModel) => model = newModel
+            model: [
+                Widgets.Network {
+                    xPosition: 0
+                    yPosition: 0
+                },
+                Widgets.ScreenCapture {
+                    xPosition: 2
+                    yPosition: 0
+                },
+                Widgets.NightLight {
+                    xPosition: 3
+                    yPosition: 0
+                },
+                Widgets.AudioAndBrightness {
+                    xPosition: 0
+                    yPosition: 4
+                }
+            ]
+        }
+        Loader {
+            visible: Root.State.controlPanelPageItem != null
+            x: parent.mapFromItem(Root.State.controlPanelPageItem, 0, 0).x
+            y: parent.mapFromItem(Root.State.controlPanelPageItem, 0, 0).y
+            width: visible ? parent.width : 0//networkWidget.width
+            height: visible ? parent.height : 0//networkWidget.height
+            Behavior on height { PropertyAnimation { duration: 1000; easing.type: Easing.InOutQuint; } }
+            Behavior on width { PropertyAnimation { duration: 1000; easing.type: Easing.InOutQuint; } }
+            property Component component: Pages.Bluetooth {}
+            sourceComponent: component
+        }
     }
 }
