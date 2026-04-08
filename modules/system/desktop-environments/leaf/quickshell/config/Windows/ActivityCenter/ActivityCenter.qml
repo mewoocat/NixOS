@@ -24,9 +24,9 @@ Shared.PanelWindow {
         id: panelGrid
         xSize: 12
         ySize: 10
-        widgetJson: Root.State.config.activityCenterWidgets
-        onWidgetJsonUpdated: (newJson) => {
-            Root.State.config.activityCenterWidgets = newJson
+        model: Root.State.config.activityCenterWidgets
+        onModelUpdated: (newInstances) => {
+            Root.State.config.activityCenterWidgets = newInstances
             Root.State.configFileView.writeAdapter()
         }
     }

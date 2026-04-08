@@ -36,24 +36,29 @@ Shared.PanelWindow {
             allowEditToggle: false
             onModelUpdated: (newModel) => model = newModel
             model: [
-                Widgets.Network {
-                    xPosition: 0
+                {
+                    uid: "Windows/ControlPanel/Widgets/Network.qml",
+                    xPosition: 0,
                     yPosition: 0
                 },
-                Widgets.ScreenCapture {
-                    xPosition: 2
+                {
+                    uid: "Windows/ControlPanel/Widgets/ScreenCapture.qml",
+                    xPosition: 2,
                     yPosition: 0
                 },
-                Widgets.NightLight {
-                    xPosition: 3
+                {
+                    uid: "Windows/ControlPanel/Widgets/NightLight.qml",
+                    xPosition: 3,
                     yPosition: 0
                 },
-                Widgets.AudioAndBrightness {
-                    xPosition: 0
+                {
+                    uid: "Windows/ControlPanel/Widgets/AudioAndBrightness.qml",
+                    xPosition: 0,
                     yPosition: 4
                 },
-                Widgets.ExpandTest {
-                    xPosition: 3
+                {
+                    uid: "Windows/ControlPanel/Widgets/ExpandTest.qml",
+                    xPosition: 3,
                     yPosition: 1
                 }
             ]

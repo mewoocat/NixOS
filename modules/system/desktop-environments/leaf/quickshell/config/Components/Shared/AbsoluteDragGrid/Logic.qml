@@ -1,4 +1,5 @@
 import QtQml
+import QtQuick
 import Quickshell
 
 QtObject {
@@ -6,8 +7,8 @@ QtObject {
     property int unitSize: 64
 
 
-    // Useful for writing out the widget state to config file
-    function widgetDataListToWidgetJsonList(widgetDataList: list<WidgetData>): list<var> { 
+    // Useful for writing out the widget state
+    function widgetDataListToWidgetInstanceList(widgetDataList: list<WidgetData>): list<var> { 
         return widgetDataList.map(w => {
             return {
                 uid: w.uid,
@@ -18,15 +19,16 @@ QtObject {
         })
     }
 
-    // Useful for reading in widget state from config file
-    function widgetJsonListToWidgetDataList(widgetJsonList: list<var>): list<WidgetData> { 
+    // Useful for reading in widget state
+    function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle): list<WidgetData> { 
         return widgetJsonList.map(w => {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             return component.createObject(null, {
                 uid: w.uid,
                 xPosition: w.xPosition,
                 yPosition: w.yPosition,
-                state: w.state
+                state: w.state,
+                panelGrid: panelGrid
             })
         })
     }

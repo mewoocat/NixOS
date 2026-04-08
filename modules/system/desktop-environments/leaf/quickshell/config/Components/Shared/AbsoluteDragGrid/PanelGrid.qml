@@ -7,14 +7,10 @@ import qs.Components.Controls as Ctrls
 
 ColumnLayout {
     id: root
-    property list<var> widgetJson: [] // Persisted json form of widget instances
-    property list<WidgetData> model: logic.widgetJsonListToWidgetDataList(widgetJson)
-    signal modelUpdated(model: list<WidgetData>) // When a new model state has been confirmed
-    signal widgetJsonUpdated(widgetJson: list<var>)
+    property list<var> model: [] // Expects a list of WidgetInstances
     property Logic logic: Logic {}
     property int unitSize: 72
     property int widgetPadding: Root.State.mediumSpace
-    //property int widgetMargin: 8
     property int widgetRadius: Root.State.innerRounding
     property int xSize: 4
     property int ySize: 8
@@ -40,6 +36,9 @@ ColumnLayout {
         if (proposedYPos < 0) { proposedYPos = 0 }
         return proposedYPos
     }
+
+    signal modelUpdated(model: list<var>) // When a new model state has been confirmed
+    //signal widgetJsonUpdated(widgetJson: list<var>)
 
     Rectangle {
         id: gridPanel
@@ -68,17 +67,11 @@ ColumnLayout {
 
         Repeater {
             id: repeater
-            model: root.model
+            model: logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
             delegate: PanelTile {
                 id: gridItem
                 required property WidgetData modelData
                 widgetData: modelData
-                // For each WidgetData used to create a PanelTile, load it's ancestor PanelGrid into it.
-                // This is useful when a widget component needs to know the geometry of it's PanelGrid
-                Component.onCompleted: {
-                    console.log(`loading in ${gridPanel} into widgetData`)
-                    widgetData.panelGrid = gridPanel
-                }
                 editable: root.editable
                 padding: root.widgetPadding
                 radius: root.widgetRadius
@@ -98,15 +91,15 @@ ColumnLayout {
                     widgetData.xPosition = root.selectedTileTargetX
                     widgetData.yPosition = root.selectedTileTargetY
 
-                    // Update the json
-                    const newJson = root.logic.widgetDataListToWidgetJsonList(root.model)
+                    // Recompute the list of widget instances given the state change
+                    const newInstances = root.logic.widgetDataListToWidgetInstanceList(repeater.model)
 
-                    // Notify the source data to update. Since bindings are only one way, if the widgetJson
+                    // Notify the source data to update. Since bindings are only one way, if the model
                     // property for this PanelGrid gets re-bound, the original source value won't be updated.
-                    // So instead we send the updated jsonWidgets to the consumer and it can then update the 
-                    // source data.  The widgetJson is then implicitly updated due to it's continued binding
+                    // So instead we send the updated model to the consumer and it can then update the 
+                    // source data.  The model is then implicitly updated due to it's continued binding
                     // with the source source data.
-                    root.widgetJsonUpdated(newJson)
+                    root.modelUpdated(newInstances)
                     root.selectedTile = null
                 }
             }

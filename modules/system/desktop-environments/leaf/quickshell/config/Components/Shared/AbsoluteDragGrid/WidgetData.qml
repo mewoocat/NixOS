@@ -20,5 +20,5 @@ QtObject {
     property int padding: 8
     property int radius: 8
     property bool showBackground: true
-    property Item panelGrid: null
+    required property Item panelGrid // This is useful when a widget component needs to know the geometry of it's PanelGrid
 }
