@@ -51,9 +51,14 @@ Shared.PanelWindow {
                 Widgets.AudioAndBrightness {
                     xPosition: 0
                     yPosition: 4
+                },
+                Widgets.ExpandTest {
+                    xPosition: 3
+                    yPosition: 1
                 }
             ]
         }
+        /*
         Loader {
             visible: Root.State.controlPanelPageItem != null
             x: parent.mapFromItem(Root.State.controlPanelPageItem, 0, 0).x
@@ -65,5 +70,6 @@ Shared.PanelWindow {
             property Component component: Pages.Bluetooth {}
             sourceComponent: component
         }
+        */
     }
 }

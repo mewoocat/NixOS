@@ -73,6 +73,9 @@ ColumnLayout {
                 id: gridItem
                 required property WidgetData modelData
                 widgetData: modelData
+                // For each WidgetData used to create a PanelTile, load it's ancestor PanelGrid into it.
+                // This is useful when a widget component needs to know the geometry of it's PanelGrid
+                Component.onCompleted: widgetData.panelGrid = gridPanel
                 editable: root.editable
                 padding: root.widgetPadding
                 radius: root.widgetRadius

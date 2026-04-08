@@ -1,4 +1,5 @@
 import QtQml
+import QtQuick
 
 // Only some of the properties here are serialized to json
 QtObject {
@@ -19,4 +20,5 @@ QtObject {
     property int padding: 8
     property int radius: 8
     property bool showBackground: true
+    property Item panelGrid: null
 }
