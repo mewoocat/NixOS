@@ -17,8 +17,6 @@ AbsGrid.WidgetData {
     component: Shared.Expander {
         id: root
         backdrop: widgetData.panelGrid
-        Component.onCompleted: console.debug(`widget's backdrop: ${backdrop}`)
-        onParentChanged: console.debug(`PARENT: ${parent}`)
         button: Ctrls.Button { 
             inset: 0
             onClicked: () => root.showContent()
@@ -27,9 +25,7 @@ AbsGrid.WidgetData {
             radius: widgetData.radius
         }
         content: Rectangle {
-            //anchors.fill: parent
-            width: 100
-            height: 100
+            opacity: 0.4
             color: "red"
             Ctrls.Button {
                 onClicked: () => root.hideContent()

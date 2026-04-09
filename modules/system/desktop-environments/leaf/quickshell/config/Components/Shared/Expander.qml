@@ -1,53 +1,61 @@
 import QtQuick
 import Quickshell.Widgets
 
-WrapperItem {
+WrapperRectangle {
     id: root
+    //anchors.fill: parent
     required property Item button
     required property Component content
     required property Item backdrop
-    // This is a hack, find a better solution
-    onBackdropChanged: () => {
-        console.debug(`backdrop changed ${backdrop}, ${buttonOrigin.x}`)
-        // Re-parent the content to the backdrop
-        contentItem.parent = backdrop
-        // Need to recalculate since it's could have been null
-        buttonOrigin = contentItem.mapFromItem(button, 0, 0)
-        // On Initial load set the content's position to the button
-        contentItem.x = buttonOrigin.x
-        contentItem.y = buttonOrigin.y
-    }
-    Component.onCompleted: console.debug(`backdrop: ${backdrop}`)
+    property int collaspedWidth: root.width
+    property int collaspedHeight: root.height
+    property int expandedWidth: backdrop.width
+    property int expandedHeight: backdrop.height
+    onCollaspedWidthChanged: console.debug(`collaspedWidth: ${collaspedWidth}`)
+    onCollaspedHeightChanged: console.debug(`collaspedHeight: ${collaspedHeight}`)
+    onExpandedWidthChanged: console.debug(`expandedWidth: ${expandedWidth}`)
+    onExpandedHeightChanged: console.debug(`expandedHeight: ${expandedHeight}`)
+    onWidthChanged: console.debug(`Expander x: ${x}`)
+    onHeightChanged: console.debug(`Expander y: ${y}`)
+
     property Item contentItem: contentLoader.item as Item
-    property point buttonOrigin: contentItem.mapFromItem(button, 0, 0)
+    property point buttonOrigin: contentLoader.mapFromItem(root.child, 0, 0) // idk why this doesn't work when using root instead of root.child
+    onButtonOriginChanged: console.debug(`buttenOrigin: ${buttonOrigin}`)
 
     property Loader contentLoader: Loader {
+        parent: root.backdrop
+        x: root.buttonOrigin.x
+        onXChanged: console.debug(`onXChanged for Loader: ${x}`)
+        y: root.buttonOrigin.y
+        width: root.collaspedWidth
+        height: root.collaspedHeight
         sourceComponent: root.content
     }
 
     function showContent() {
         console.debug(`showing content: ${root.backdrop}`)
-        //contentItem.x = 0
-        //contentItem.y = 0
+        console.debug(`button origin: ${root.buttonOrigin}`)
+        contentLoader.x = 0
+        contentLoader.y = 0
+        contentLoader.width = expandedWidth
+        contentLoader.height = expandedHeight
     }
 
     function hideContent() {
         // Reset the content's position back to the button
-        contentItem.x = buttonOrigin.x
-        contentItem.y = buttonOrigin.y
+        contentLoader.x = buttonOrigin.x
+        contentLoader.y = buttonOrigin.y
+        contentLoader.width = collaspedWidth
+        contentLoader.height = collaspedHeight
     }
 
     child: button
 
-    
-
     /*
-    property Connections btnConn: Connections {
-        target: root.button
-        function onClicked() {
-            root.showContent()
-            console.log(`eeeeeee`)
-        }
+    Loader {
+        id: buttonBox
+        anchors.fill: parent
+        sourceComponent: root.button
     }
     */
 }

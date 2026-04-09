@@ -58,7 +58,7 @@ Shared.PanelWindow {
                 },
                 {
                     uid: "Windows/ControlPanel/Widgets/ExpandTest.qml",
-                    xPosition: 3,
+                    xPosition: 2,
                     yPosition: 1
                 }
             ]
