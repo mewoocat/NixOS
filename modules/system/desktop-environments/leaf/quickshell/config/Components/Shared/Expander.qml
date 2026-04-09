@@ -4,6 +4,7 @@ import Quickshell.Widgets
 WrapperRectangle {
     id: root
     //anchors.fill: parent
+    Component.onCompleted: root.dumpItemTree()
     required property Item button
     required property Component content
     required property Item backdrop
@@ -19,13 +20,12 @@ WrapperRectangle {
     onHeightChanged: console.debug(`Expander y: ${y}`)
 
     property Item contentItem: contentLoader.item as Item
-    property point buttonOrigin: contentLoader.mapFromItem(root.child, 0, 0) // idk why this doesn't work when using root instead of root.child
+    property point buttonOrigin: backdrop.mapFromItem(root, 0, 0) // The window padding is causing this to be mispositioned
     onButtonOriginChanged: console.debug(`buttenOrigin: ${buttonOrigin}`)
 
     property Loader contentLoader: Loader {
         parent: root.backdrop
         x: root.buttonOrigin.x
-        onXChanged: console.debug(`onXChanged for Loader: ${x}`)
         y: root.buttonOrigin.y
         width: root.collaspedWidth
         height: root.collaspedHeight
@@ -49,7 +49,9 @@ WrapperRectangle {
         contentLoader.height = collaspedHeight
     }
 
-    child: button
+    children: [
+        button
+    ]
 
     /*
     Loader {
