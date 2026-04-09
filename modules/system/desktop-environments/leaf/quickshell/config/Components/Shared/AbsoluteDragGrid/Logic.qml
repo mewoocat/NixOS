@@ -21,16 +21,40 @@ QtObject {
 
     // Useful for reading in widget state
     function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle): list<WidgetData> { 
+        console.debug(`GENERATING WIDGETDATA LIST`)
+        // TODO: try without map
+        /*
         return widgetJsonList.map(w => {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
-            return component.createObject(null, {
+            const widgetData = component.createObject(null, {
                 uid: w.uid,
                 xPosition: w.xPosition,
                 yPosition: w.yPosition,
                 state: w.state,
                 panelGrid: panelGrid
             })
+            console.debug(`WidgetData generated: ${widgetData}`)
+            return widgetData
         })
+        */
+
+
+        const widgetDataList = []
+        for (const w of widgetJsonList) {
+            const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
+            //console.debug(`COMPONENT STATUS: ${component.status == Component.Ready}`) // is true
+            const widgetData = component.createObject(null, {
+                uid: w.uid,
+                xPosition: w.xPosition,
+                yPosition: w.yPosition,
+                state: w.state,
+                panelGrid: panelGrid
+            })
+            widgetDataList.push(widgetData)
+        }
+
+        console.debug(`widgetDataList generated: ${widgetDataList}`)
+        return widgetDataList
     }
     
     function isPositionOpen(widgetData: WidgetData, targetXPosition: int, targetYPosition: int, allWidgetData: list<WidgetData>): bool {

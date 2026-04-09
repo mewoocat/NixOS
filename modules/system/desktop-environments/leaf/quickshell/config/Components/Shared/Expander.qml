@@ -20,7 +20,7 @@ WrapperRectangle {
     onHeightChanged: console.debug(`Expander y: ${y}`)
 
     property Item contentItem: contentLoader.item as Item
-    property point buttonOrigin: backdrop.mapFromItem(root, 0, 0) // The window padding is causing this to be mispositioned
+    property point buttonOrigin: backdrop.mapFromItem(root.child, 0, 0) // The window padding is causing this to be mispositioned
     onButtonOriginChanged: console.debug(`buttenOrigin: ${buttonOrigin}`)
 
     property Loader contentLoader: Loader {
@@ -33,8 +33,6 @@ WrapperRectangle {
     }
 
     function showContent() {
-        console.debug(`showing content: ${root.backdrop}`)
-        console.debug(`button origin: ${root.buttonOrigin}`)
         contentLoader.x = 0
         contentLoader.y = 0
         contentLoader.width = expandedWidth
@@ -49,9 +47,7 @@ WrapperRectangle {
         contentLoader.height = collaspedHeight
     }
 
-    children: [
-        button
-    ]
+    child: button
 
     /*
     Loader {

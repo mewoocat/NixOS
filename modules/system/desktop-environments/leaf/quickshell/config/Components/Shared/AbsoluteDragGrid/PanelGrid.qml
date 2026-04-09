@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import Quickshell
 import QtQuick.Layouts
 import qs as Root
 import qs.Components.Controls as Ctrls
@@ -67,11 +68,21 @@ ColumnLayout {
 
         Repeater {
             id: repeater
-            model: logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
+            model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
+            onModelChanged: console.debug(`REPEATER.MODEL CHANGED TO: ${model}`)
+            // This is needed to fix an issue where this model becomes filled with null values on hot reload.
+            // The source root.model still seems to be populated correctly.
+            //Component.onCompleted: model = logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
             delegate: PanelTile {
                 id: gridItem
                 required property WidgetData modelData
+                Component.onCompleted: {
+                    console.debug(`root.model: ${root.model}`)
+                    console.debug(`repeater.model: ${repeater.model}`)
+                    console.debug(`modelData: ${modelData}`)
+                }
                 widgetData: modelData
+                onWidgetDataChanged: console.debug(`WIDGETDATA CHANGED TO: ${widgetData}`)
                 editable: root.editable
                 padding: root.widgetPadding
                 radius: root.widgetRadius

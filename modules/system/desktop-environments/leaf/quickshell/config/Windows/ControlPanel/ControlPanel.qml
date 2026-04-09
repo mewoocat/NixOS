@@ -34,7 +34,7 @@ Shared.PanelWindow {
             xSize: 4
             ySize: 6
             allowEditToggle: false
-            onModelUpdated: (newModel) => model = newModel
+            //onModelUpdated: (newModel) => model = newModel
             model: [
                 {
                     uid: "Windows/ControlPanel/Widgets/Network.qml",
