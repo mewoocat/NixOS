@@ -44,6 +44,7 @@ QtObject {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             //console.debug(`COMPONENT STATUS: ${component.status == Component.Ready}`) // is true
             const widgetData = component.createObject(null, {
+
                 uid: w.uid,
                 xPosition: w.xPosition,
                 yPosition: w.yPosition,

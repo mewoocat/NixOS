@@ -68,11 +68,12 @@ ColumnLayout {
 
         Repeater {
             id: repeater
-            model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
             onModelChanged: console.debug(`REPEATER.MODEL CHANGED TO: ${model}`)
             // This is needed to fix an issue where this model becomes filled with null values on hot reload.
             // The source root.model still seems to be populated correctly.
-            //Component.onCompleted: model = logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
+            Component.onCompleted: model = root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
+            //model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel) // Causes new objects to get destroyed on hot reload
+
             delegate: PanelTile {
                 id: gridItem
                 required property WidgetData modelData
