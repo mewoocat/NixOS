@@ -3,7 +3,7 @@ import QtQuick
 import Quickshell
 
 QtObject {
-
+    id: root
     property int unitSize: 64
 
 
@@ -43,8 +43,9 @@ QtObject {
         for (const w of widgetJsonList) {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             //console.debug(`COMPONENT STATUS: ${component.status == Component.Ready}`) // is true
-            const widgetData = component.createObject(null, {
-
+            // !! IMPORTANT: Need to parent the item here or keep a handle on it's return value, otherwise
+            // the garbage collector could just delete it when it feels like it.  (Fix for 4/9/26 incident)
+            const widgetData = component.createObject(root, {
                 uid: w.uid,
                 xPosition: w.xPosition,
                 yPosition: w.yPosition,
