@@ -69,8 +69,11 @@ ColumnLayout {
         Repeater {
             id: repeater
             onModelChanged: console.debug(`REPEATER.MODEL CHANGED TO: ${model}`)
+            // !! WARNING: Stupid fucking hack
             // This is needed to fix an issue where this model becomes filled with null values on hot reload.
             // The source root.model still seems to be populated correctly.
+            // I believe this fixes the issue due to waiting for the old objects of the model to be destroyed 
+            // before creating the new ones.
             Component.onCompleted: model = root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
             //model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel) // Causes new objects to get destroyed on hot reload
 
