@@ -37,7 +37,6 @@ Item {
     y: widgetData.yPosition * unitSize
     Behavior on x { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
     Behavior on y { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
-    
 
     Rectangle {
         x: root.padding

@@ -3,36 +3,37 @@ import Quickshell.Widgets
 
 WrapperRectangle {
     id: root
-    //anchors.fill: parent
-    Component.onCompleted: root.dumpItemTree()
+
     required property Item button
     required property Component content
     required property Item backdrop
+
     property int collaspedWidth: root.width
     property int collaspedHeight: root.height
     property int expandedWidth: backdrop.width
     property int expandedHeight: backdrop.height
-    onCollaspedWidthChanged: console.debug(`collaspedWidth: ${collaspedWidth}`)
-    onCollaspedHeightChanged: console.debug(`collaspedHeight: ${collaspedHeight}`)
-    onExpandedWidthChanged: console.debug(`expandedWidth: ${expandedWidth}`)
-    onExpandedHeightChanged: console.debug(`expandedHeight: ${expandedHeight}`)
-    onWidthChanged: console.debug(`Expander x: ${x}`)
-    onHeightChanged: console.debug(`Expander y: ${y}`)
-
     property Item contentItem: contentLoader.item as Item
-    property point buttonOrigin: backdrop.mapFromItem(root.child, 0, 0) // The window padding is causing this to be mispositioned
-    onButtonOriginChanged: console.debug(`buttenOrigin: ${buttonOrigin}`)
+    property point buttonOrigin: backdrop.mapFromItem(root.child, 0, 0)
+    property int animationSpeed: 500
+    property var easingType: Easing.InOutQuint
 
     property Loader contentLoader: Loader {
+        opacity: 0
+        Behavior on opacity { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         parent: root.backdrop
         x: root.buttonOrigin.x
         y: root.buttonOrigin.y
+        Behavior on x { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
+        Behavior on y { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         width: root.collaspedWidth
         height: root.collaspedHeight
+        Behavior on width { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
+        Behavior on height { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         sourceComponent: root.content
     }
 
     function showContent() {
+        contentLoader.opacity = 1
         contentLoader.x = 0
         contentLoader.y = 0
         contentLoader.width = expandedWidth
@@ -40,6 +41,7 @@ WrapperRectangle {
     }
 
     function hideContent() {
+        contentLoader.opacity = 0
         // Reset the content's position back to the button
         contentLoader.x = buttonOrigin.x
         contentLoader.y = buttonOrigin.y

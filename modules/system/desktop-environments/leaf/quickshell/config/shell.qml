@@ -37,7 +37,7 @@ ShellRoot {
     Bar {} 
     Launcher {}
     ControlPanel {}
-    //ActivityCenter {}
+    ActivityCenter {}
     Notifications {}
     Workspaces {}
     //Settings {}

@@ -6,7 +6,6 @@ QtObject {
     id: root
     property int unitSize: 64
 
-
     // Useful for writing out the widget state
     function widgetDataListToWidgetInstanceList(widgetDataList: list<WidgetData>): list<var> { 
         return widgetDataList.map(w => {
@@ -21,28 +20,9 @@ QtObject {
 
     // Useful for reading in widget state
     function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle): list<WidgetData> { 
-        console.debug(`GENERATING WIDGETDATA LIST`)
-        // TODO: try without map
-        /*
-        return widgetJsonList.map(w => {
-            const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
-            const widgetData = component.createObject(null, {
-                uid: w.uid,
-                xPosition: w.xPosition,
-                yPosition: w.yPosition,
-                state: w.state,
-                panelGrid: panelGrid
-            })
-            console.debug(`WidgetData generated: ${widgetData}`)
-            return widgetData
-        })
-        */
-
-
         const widgetDataList = []
         for (const w of widgetJsonList) {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
-            //console.debug(`COMPONENT STATUS: ${component.status == Component.Ready}`) // is true
             // !! IMPORTANT: Need to parent the item here or keep a handle on it's return value, otherwise
             // the garbage collector could just delete it when it feels like it.  (Fix for 4/9/26 incident)
             const widgetData = component.createObject(root, {
@@ -54,8 +34,6 @@ QtObject {
             })
             widgetDataList.push(widgetData)
         }
-
-        console.debug(`widgetDataList generated: ${widgetDataList}`)
         return widgetDataList
     }
     
