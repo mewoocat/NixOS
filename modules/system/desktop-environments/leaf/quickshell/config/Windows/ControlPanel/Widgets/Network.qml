@@ -58,11 +58,13 @@ AbsGrid.WidgetData {
                         id: expander
                         anchors.fill: parent
                         backdrop: widgetData.panelGrid
+                        backgroundRadius: widgetData.radius
+                        backgroundMargin: widgetData.padding
                         content: Rectangle {
                             anchors.fill: parent
                             anchors.margins: 0//widgetData.padding
                             radius: widgetData.radius
-                            color: Root.State.colors.surface_container
+                            color: "transparent"//Root.State.colors.surface_container
                             Pages.Bluetooth {
                                 anchors.fill: parent
                                 onGoBack: expander.expanded = false
