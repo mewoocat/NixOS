@@ -23,7 +23,7 @@ WrapperItem {
     // Doing this seems to work for now.  Be warned that the order in which components are completed is undefined
     Component.onCompleted: { expandeeOrigin = backdrop.mapFromItem(root.child, 0, 0) }
 
-    property int animationSpeed: 400
+    property int animationSpeed: 300
     property var easingType: Easing.InOutQuint
 
     // Wrap the Loader in a MouseArea to trap any mouse events since this content could be rendered over
@@ -72,7 +72,7 @@ WrapperItem {
                     width: expandedWidth - root.backgroundMargin * 2
                     height: expandedHeight - root.backgroundMargin * 2
                 }
-                expandee {
+                root.expandee { // qmllint disable uncreatable-type
                     opacity: 0
                 }
                 loader {
@@ -103,28 +103,26 @@ WrapperItem {
                     }
                 }
                 NumberAnimation{
-                    target: root.child
-                    properties: "opacity"
+                    target: root.expandee
+                    property: "opacity"
                     duration: 100
-                    easing.type: root.easingType
+                    easing.type: Easing.Linear
                 }
                 PropertyAction {
                     target: contentItem
                     property: "visible"
                 }
-                ParallelAnimation {
-                    NumberAnimation{
-                        target: root.contentItem
-                        properties: "x,y,width,height"
-                        duration: root.animationSpeed
-                        easing.type: root.easingType
-                    }
-                    NumberAnimation{
-                        target: loader
-                        properties: "opacity"
-                        duration: root.animationSpeed
-                        easing.type: root.easingType
-                    }
+                NumberAnimation{
+                    target: root.contentItem
+                    properties: "x,y,width,height"
+                    duration: root.animationSpeed
+                    easing.type: root.easingType
+                }
+                NumberAnimation{
+                    target: loader
+                    properties: "opacity"
+                    duration: 150
+                    easing.type: Easing.Linear
                 }
             }
         }
