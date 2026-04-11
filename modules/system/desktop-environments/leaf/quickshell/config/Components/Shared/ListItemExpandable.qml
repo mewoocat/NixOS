@@ -27,7 +27,7 @@ WrapperMouseArea {
     property color mainColor: "transparent"
     property color subColor: "transparent"
 
-    implicitWidth: 300 //parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
+    implicitWidth: 150 //parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
     margin: 8
 

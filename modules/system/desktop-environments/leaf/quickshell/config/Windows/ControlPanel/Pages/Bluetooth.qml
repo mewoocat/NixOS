@@ -8,6 +8,7 @@ import Quickshell.Bluetooth
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 import qs as Root
+import qs.Services as Services
 
 PageBase {
     id: page
@@ -58,10 +59,12 @@ PageBase {
                 RowLayout {
                     spacing: 0
                     visible: mainDelegate.modelData.batteryAvailable
+                    /*
                     IconImage {
                         implicitSize: 12
                         source: Quickshell.iconPath("battery-100-symbolic")
                     }
+                    */
                     Text {
                         id: battery
                         Layout.fillWidth: true
@@ -76,7 +79,7 @@ PageBase {
         Ctrls.Button {
             id: expandBtn
             visible: mainDelegate.scrollItem.interacted
-            icon.name: "view-more"
+            icon.name: "view-more-symbolic"
             onClicked: () => mainDelegate.scrollItem.expanded = !mainDelegate.scrollItem.expanded
             backgroundColor: expandBtn.hovered ? Root.State.colors.primary_container : "transparent"
             icon.color: expandBtn.hovered ? Root.State.colors.on_primary_container : Root.State.colors.on_primary
@@ -150,18 +153,11 @@ PageBase {
                 implicitWidth: parent.implicitWidth 
                 // implicit height defaults to full height of children
                 interactable: false
-                model: ScriptModel {
-                    values: Bluetooth.devices.values
-                        .filter(device => device.paired)
-                        .sort((a, b) => { // Sort connected devices first
-                            if (a.connected && b.connected) return 0
-                            if (!a.connected && !b.connected) return 0
-                            if (a.connected && !b.connected) return -1
-                            if (!a.connected && b.connected) return 1
-                        })
-                }
+                model: Services.Bluetooth.pairedDevices
                 delegate: Shared.ListItemExpandable {
+
                     id: pairedListItem
+                    implicitWidth: pariredListView.width - pariredListView.padding * 2
                     margin: 2
                     padding: 2
                     contentMargin: 0
@@ -205,7 +201,7 @@ PageBase {
                 id: unpariredListView
                 implicitWidth: parent.implicitWidth 
                 // implicit height defaults to full height of children
-                model: ScriptModel { values: Bluetooth.devices.values.filter(device => !device.paired) }
+                model: Services.Bluetooth.unpariredDevices
                 interactable: false
                 delegate: Shared.ListItemExpandable {
                     id: listItem

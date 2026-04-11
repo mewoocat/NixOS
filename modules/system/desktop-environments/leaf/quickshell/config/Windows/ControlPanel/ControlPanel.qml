@@ -38,8 +38,8 @@ Shared.PanelWindow {
             model: [
                 {
                     uid: "Windows/ControlPanel/Widgets/Network.qml",
-                    xPosition: 2,
-                    yPosition: 2
+                    xPosition: 0,
+                    yPosition: 0
                 },
                 {
                     uid: "Windows/ControlPanel/Widgets/ScreenCapture.qml",
@@ -56,11 +56,13 @@ Shared.PanelWindow {
                     xPosition: 0,
                     yPosition: 4
                 },
+                /*
                 {
                     uid: "Windows/ControlPanel/Widgets/ExpandTest.qml",
                     xPosition: 2,
                     yPosition: 1
                 }
+                */
             ]
         }
         /*

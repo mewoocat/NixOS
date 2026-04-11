@@ -129,7 +129,7 @@ ColumnLayout {
                     id: showMoreBtn
                     visible: appItem.isHighlighted //&& mainDelegate.app.actions.length > 0
                     Layout.alignment: Qt.AlignRight
-                    icon.name: "overflow-menu-symbolic"
+                    icon.name: "view-more-symbolic"
                     icon.width: 16
                     icon.height: 16
                     onClicked: () => appItem.expanded = !appItem.expanded

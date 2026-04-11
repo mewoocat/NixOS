@@ -11,11 +11,12 @@ import qs as Root
 // it doesn't like anchors being set on root item in a SwipeView
 Rectangle {
     id: root
-    color: "blue"
+    color: "transparent"
     clip: true
     required property string pageName
     required property Item content
     property Item headerContent: Item {}
+    signal goBack()
 
     ColumnLayout {
         id: header
@@ -28,7 +29,7 @@ Rectangle {
             // Back button
             Ctrls.Button {
                 icon.name: "arrow-left-symbolic"
-                onClicked: () => Root.State.controlPanelPageItem = null
+                onClicked: () => root.goBack()
             } 
 
             // Spacer

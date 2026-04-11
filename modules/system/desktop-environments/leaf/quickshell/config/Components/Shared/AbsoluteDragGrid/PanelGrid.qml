@@ -72,8 +72,6 @@ ColumnLayout {
                 id: gridItem
                 required property WidgetData modelData
                 widgetData: modelData
-                onWidgetDataChanged: console.debug(`WIDGETDATA CHANGED TO: ${widgetData}`)
-                onXChanged: console.debug(`X: What! changed to ${x}`)
                 editable: root.editable
                 padding: root.widgetPadding
                 radius: root.widgetRadius

@@ -47,30 +47,28 @@ AbsGrid.WidgetData {
                     backgroundColor: rowItem.active || hovered ? Root.State.colors.primary : Root.State.colors.surface_container_highest
                     color: rowItem.active || hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
                 }
-                Shared.Expander {
-                    id: expander
+                MouseArea {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    backdrop: widgetData.panelGrid
-                    content: Rectangle {
+                    id: mouseArea
+                    enabled: true
+                    hoverEnabled: true
+                    onClicked: expander.expanded = true
+                    Shared.Expander {
+                        id: expander
                         anchors.fill: parent
-                        anchors.margins: widgetData.padding
-                        radius: widgetData.radius
-                        color: Root.State.colors.surface_container
-                        Ctrls.Button {
-                            onClicked: () => expander.hideContent()
-                            text: "hide"
-                        }
-                        Pages.Bluetooth {
+                        backdrop: widgetData.panelGrid
+                        content: Rectangle {
                             anchors.fill: parent
+                            anchors.margins: 0//widgetData.padding
+                            radius: widgetData.radius
+                            color: Root.State.colors.surface_container
+                            Pages.Bluetooth {
+                                anchors.fill: parent
+                                onGoBack: expander.expanded = false
+                            }
                         }
-                    }
-                    button: WrapperMouseArea {
-                        id: mouseArea
-                        enabled: true
-                        hoverEnabled: true
-                        onClicked: expander.showContent()
-                        Rectangle {
+                        expandee: Rectangle {
                             anchors.fill: parent
                             anchors.topMargin: root.anchors.topMargin
                             anchors.bottomMargin: root.anchors.topMargin
