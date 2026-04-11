@@ -1,3 +1,5 @@
+# Notes:
+# Relative paths will be resolved from the path `config.toml` is in.
 [config]
 # If set to enabled, it will check for updates when you run the matugen command, notifying you that an update is avaiable.
 # WARNING: Matugen needs to be compiled with the `update-informer` feature for this to work.
@@ -47,7 +49,6 @@ command = "swww img --transition-type center {{ image }}"
 
 # Assumes adw-gtk3 theme is installed
 [templates.gtk3]
-# Relative paths will be resolved from the path `config.toml` is in.
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
 output_path = "~/.config/gtk-3.0/colors.css"
 post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3{{ <* if {{ is_dark_mode }} *> "-dark" <* else *> "" <* endif *> }}'
@@ -67,7 +68,12 @@ output_path = '~/.config/leaf-de/quickshell-colors.json'
 [templates.hypr]
 input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/hyprland-colors.conf"
 output_path = '~/.config/leaf-de/hypr/hyprland-colors.conf'
-# ...
+
+[templates.terminal-sequences]
+input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/terminal-sequences"
+output_path = "~/.cache/terminal-sequences"
+post_hook = "tee /dev/pts/[0-9]* < ~/.cache/terminal-sequences" # export the sequences to every running terminal
+
 
 
 # Defaults to a value of 0 if unspecified, determines the order that each template is processed.

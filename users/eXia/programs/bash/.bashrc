@@ -27,7 +27,7 @@ alias rebuild='nixos-rebuild --sudo switch --flake ~/NixOS#$(hostname)'
 alias ls='eza -al --icons=always'
 alias rm='rm -I'
 
-# Environment varialbes
+# Environment variables
 ########################################################################################################
 export EDITOR='nvim'
 
@@ -43,4 +43,7 @@ if [[ -f ~/startup.sh ]]; then
 fi
 
 # Set terminal with wallust colors
-cat ~/.cache/wallust/sequences
+#cat ~/.cache/wallust/sequences
+
+# Set terminal colors with ansi sequences generated via matugen
+[[ -f ~/.cache/terminal-sequences ]] && (cat ~/.cache/terminal-sequences &)

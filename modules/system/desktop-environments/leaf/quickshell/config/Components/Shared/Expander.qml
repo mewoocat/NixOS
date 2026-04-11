@@ -13,14 +13,12 @@ WrapperRectangle {
     property int collaspedHeight: root.height
     property int expandedWidth: backdrop.width
     property int expandedHeight: backdrop.height
-    property point buttonOrigin: Qt.point(0,0) // IMPORTANT! Calculating this value should be done after the component completes since it's position seems to shift around before then  //backdrop.mapFromItem(root.child, 0, 0)
-    Component.onCompleted: {
-        buttonOrigin = backdrop.mapFromItem(root.child, 0, 0)
-        console.debug(`backdrop: ${backdrop.mapToGlobal(0,0)}`)
-        console.debug(`button: ${button}`)
-        console.debug(`root.child: ${root.child}`)
-        console.debug(`buttonOrigin: ${buttonOrigin}`)
-    }
+    // IMPORTANT! Calculating the actual value here should be done after the component completes since it's 
+    // position seems to shift around before then
+    property point buttonOrigin: Qt.point(0,0)
+    // Doing this seems to work for now.  Be warned that the order in which components are completed is undefined
+    Component.onCompleted: { buttonOrigin = backdrop.mapFromItem(root.child, 0, 0) }
+
     property int animationSpeed: 500
     property var easingType: Easing.InOutQuint
 
