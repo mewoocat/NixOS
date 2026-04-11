@@ -4,6 +4,7 @@ import Quickshell.Widgets
 WrapperRectangle {
     id: root
 
+    opacity: 0.3
     required property Item button
     required property Component content
     required property Item backdrop
@@ -12,41 +13,52 @@ WrapperRectangle {
     property int collaspedHeight: root.height
     property int expandedWidth: backdrop.width
     property int expandedHeight: backdrop.height
-    property Item contentItem: contentLoader.item as Item
-    property point buttonOrigin: backdrop.mapFromItem(root.child, 0, 0)
+    property point buttonOrigin: Qt.point(0,0) // IMPORTANT! Calculating this value should be done after the component completes since it's position seems to shift around before then  //backdrop.mapFromItem(root.child, 0, 0)
+    Component.onCompleted: {
+        buttonOrigin = backdrop.mapFromItem(root.child, 0, 0)
+        console.debug(`backdrop: ${backdrop.mapToGlobal(0,0)}`)
+        console.debug(`button: ${button}`)
+        console.debug(`root.child: ${root.child}`)
+        console.debug(`buttonOrigin: ${buttonOrigin}`)
+    }
     property int animationSpeed: 500
     property var easingType: Easing.InOutQuint
 
-    property Loader contentLoader: Loader {
-        opacity: 0
-        Behavior on opacity { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
+    property Item contentItem: Loader {
+        opacity: 1
+        active: false
         parent: root.backdrop
         x: root.buttonOrigin.x
         y: root.buttonOrigin.y
-        Behavior on x { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
-        Behavior on y { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         width: root.collaspedWidth
         height: root.collaspedHeight
+        Behavior on opacity { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
+        Behavior on x { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
+        Behavior on y { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         Behavior on width { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         Behavior on height { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType; } }
         sourceComponent: root.content
     }
 
     function showContent() {
-        contentLoader.opacity = 1
-        contentLoader.x = 0
-        contentLoader.y = 0
-        contentLoader.width = expandedWidth
-        contentLoader.height = expandedHeight
+        buttonOrigin = backdrop.mapFromItem(root.child, 0, 0)
+        console.debug(`buttonOrigin: ${buttonOrigin}`)
+
+        contentItem.active = true
+        contentItem.opacity = 1
+        contentItem.x = 0
+        contentItem.y = 0
+        contentItem.width = expandedWidth
+        contentItem.height = expandedHeight
     }
 
     function hideContent() {
-        contentLoader.opacity = 0
-        // Reset the content's position back to the button
-        contentLoader.x = buttonOrigin.x
-        contentLoader.y = buttonOrigin.y
-        contentLoader.width = collaspedWidth
-        contentLoader.height = collaspedHeight
+        //contentItem.opacity = 0
+        contentItem.active = false
+        contentItem.x = buttonOrigin.x
+        contentItem.y = buttonOrigin.y
+        contentItem.width = collaspedWidth
+        contentItem.height = collaspedHeight
     }
 
     child: button

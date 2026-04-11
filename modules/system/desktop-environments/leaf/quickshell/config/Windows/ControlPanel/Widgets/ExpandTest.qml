@@ -25,8 +25,10 @@ AbsGrid.WidgetData {
             radius: widgetData.radius
         }
         content: Rectangle {
-            opacity: 0.4
-            color: "red"
+            anchors.fill: parent
+            anchors.margins: widgetData.padding
+            radius: widgetData.radius
+            color: Root.State.colors.surface_container
             Ctrls.Button {
                 onClicked: () => root.hideContent()
                 text: "hide"

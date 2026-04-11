@@ -38,8 +38,8 @@ Shared.PanelWindow {
             model: [
                 {
                     uid: "Windows/ControlPanel/Widgets/Network.qml",
-                    xPosition: 0,
-                    yPosition: 0
+                    xPosition: 2,
+                    yPosition: 2
                 },
                 {
                     uid: "Windows/ControlPanel/Widgets/ScreenCapture.qml",

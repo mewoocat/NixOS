@@ -9,8 +9,11 @@ import qs.Services as Services
 import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+import qs.Components.Shared as Shared
 import Quickshell.Networking 
 import Quickshell.Bluetooth
+
+import "../Pages" as Pages
 
 AbsGrid.WidgetData { 
     id: widgetData
@@ -44,35 +47,52 @@ AbsGrid.WidgetData {
                     backgroundColor: rowItem.active || hovered ? Root.State.colors.primary : Root.State.colors.surface_container_highest
                     color: rowItem.active || hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
                 }
-                WrapperMouseArea {
-                    id: mouseArea
-                    enabled: true
-                    hoverEnabled: true
+                Shared.Expander {
+                    id: expander
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    onClicked: rowItem.normalAction()
-                    Rectangle {
+                    backdrop: widgetData.panelGrid
+                    content: Rectangle {
                         anchors.fill: parent
-                        anchors.topMargin: root.anchors.topMargin
-                        anchors.bottomMargin: root.anchors.topMargin
-                        radius: Root.State.smallRounding
-                        color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
-                        Item {
+                        anchors.margins: widgetData.padding
+                        radius: widgetData.radius
+                        color: Root.State.colors.surface_container
+                        Ctrls.Button {
+                            onClicked: () => expander.hideContent()
+                            text: "hide"
+                        }
+                        Pages.Bluetooth {
                             anchors.fill: parent
-                            anchors.margins: 4
-                            ColumnLayout {
-                                anchors.verticalCenter: parent.verticalCenter
-                                spacing: 0
-                                Text {
-                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                                    text: rowItem.title
-                                    font.pointSize: 10
-                                }
-                                Text { 
-                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                                    opacity: 0.6
-                                    text: rowItem.subtext
-                                    font.pointSize: 8
+                        }
+                    }
+                    button: WrapperMouseArea {
+                        id: mouseArea
+                        enabled: true
+                        hoverEnabled: true
+                        onClicked: expander.showContent()
+                        Rectangle {
+                            anchors.fill: parent
+                            anchors.topMargin: root.anchors.topMargin
+                            anchors.bottomMargin: root.anchors.topMargin
+                            radius: Root.State.smallRounding
+                            color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
+                            Item {
+                                anchors.fill: parent
+                                anchors.margins: 4
+                                ColumnLayout {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    spacing: 0
+                                    Text {
+                                        color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                        text: rowItem.title
+                                        font.pointSize: 10
+                                    }
+                                    Text { 
+                                        color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                        opacity: 0.6
+                                        text: rowItem.subtext
+                                        font.pointSize: 8
+                                    }
                                 }
                             }
                         }
