@@ -10,7 +10,6 @@ import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 import qs.Components.Shared as Shared
-import Quickshell.Networking 
 import Quickshell.Bluetooth
 
 import "../Pages" as Pages
@@ -99,13 +98,16 @@ AbsGrid.WidgetData {
             RowItem {
                 id: internet
                 title: "Wifi"
-                subtext: "my-ssid"
-                iconName: "network-wireless-symbolic"
+                subtext: Services.Networking.currentWifiNetwork.name
+                iconName: Services.Networking.currentWifiIconName
+                content: null
+                /*
                 content: Pages.Network {
                     onGoBack: internet.goBack()
                 }
-                active: Networking.wifiEnabled
-                onToggleAction: Networking.wifiEnabled = !Networking.wifiEnabled
+                */
+                active: Services.Networking.isWifiEnabled
+                onToggleAction: Services.Networking.setWifiEnabled(!Services.Networking.isWifiEnabled)
             }
             // Bluetooth
             RowItem {
