@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import qs as Root
 import qs.Components.Shared as Shared
-
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 Shared.PanelWindow {
@@ -18,7 +17,6 @@ Shared.PanelWindow {
     anchors {
         top: true
     }
-    implicitHeight: panelGrid.maxHeight // Need to set PanelWindow size to largest possible or else resizing with jitter
 
     content: AbsGrid.PanelGrid {
         id: panelGrid

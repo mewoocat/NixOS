@@ -39,6 +39,7 @@ AbsGrid.WidgetData {
             delegate: Shared.Notification {
                 required property var modelData
                 Component.onCompleted: console.debug(modelData)
+                implicitWidth: notifListView.width
                 notifData: modelData
                 listView: notifListView // A Required property
             }

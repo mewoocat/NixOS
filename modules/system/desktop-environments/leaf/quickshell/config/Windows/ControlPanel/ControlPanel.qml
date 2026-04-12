@@ -34,7 +34,6 @@ Shared.PanelWindow {
             xSize: 4
             ySize: 6
             allowEditToggle: false
-            //onModelUpdated: (newModel) => model = newModel
             model: [
                 {
                     uid: "Windows/ControlPanel/Widgets/Network.qml",
@@ -55,28 +54,8 @@ Shared.PanelWindow {
                     uid: "Windows/ControlPanel/Widgets/AudioAndBrightness.qml",
                     xPosition: 0,
                     yPosition: 4
-                },
-                /*
-                {
-                    uid: "Windows/ControlPanel/Widgets/ExpandTest.qml",
-                    xPosition: 2,
-                    yPosition: 1
                 }
-                */
             ]
         }
-        /*
-        Loader {
-            visible: Root.State.controlPanelPageItem != null
-            x: parent.mapFromItem(Root.State.controlPanelPageItem, 0, 0).x
-            y: parent.mapFromItem(Root.State.controlPanelPageItem, 0, 0).y
-            width: visible ? parent.width : 0//networkWidget.width
-            height: visible ? parent.height : 0//networkWidget.height
-            Behavior on height { PropertyAnimation { duration: 1000; easing.type: Easing.InOutQuint; } }
-            Behavior on width { PropertyAnimation { duration: 1000; easing.type: Easing.InOutQuint; } }
-            property Component component: Pages.Bluetooth {}
-            sourceComponent: component
-        }
-        */
     }
 }

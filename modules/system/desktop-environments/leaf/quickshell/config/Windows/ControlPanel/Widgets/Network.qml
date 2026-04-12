@@ -33,10 +33,15 @@ AbsGrid.WidgetData {
                 required property string iconName
                 required property string title
                 required property string subtext
+                required property Component content
 
                 property bool active: false
                 signal normalAction()
                 signal toggleAction()
+
+                function goBack() {
+                    expander.expanded = false
+                }
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -57,19 +62,10 @@ AbsGrid.WidgetData {
                     Shared.Expander {
                         id: expander
                         anchors.fill: parent
-                        backdrop: widgetData.panelGrid
                         backgroundRadius: widgetData.radius
                         backgroundMargin: widgetData.padding
-                        content: Rectangle {
-                            anchors.fill: parent
-                            anchors.margins: 0//widgetData.padding
-                            radius: widgetData.radius
-                            color: "transparent"//Root.State.colors.surface_container
-                            Pages.Bluetooth {
-                                anchors.fill: parent
-                                onGoBack: expander.expanded = false
-                            }
-                        }
+                        backdrop: widgetData.panelGrid
+                        content: rowItem.content
                         expandee: Rectangle {
                             anchors.fill: parent
                             anchors.topMargin: root.anchors.topMargin
@@ -101,10 +97,13 @@ AbsGrid.WidgetData {
             }
             // Internet
             RowItem {
+                id: internet
                 title: "Wifi"
                 subtext: "my-ssid"
                 iconName: "network-wireless-symbolic"
-                onNormalAction: () => Root.State.controlPanelPage = 2
+                content: Pages.Network {
+                    onGoBack: internet.goBack()
+                }
                 active: Networking.wifiEnabled
                 onToggleAction: Networking.wifiEnabled = !Networking.wifiEnabled
             }
@@ -114,7 +113,9 @@ AbsGrid.WidgetData {
                 title: "Bluetooth"
                 subtext: "my-device"
                 iconName: "network-bluetooth-symbolic"
-                onNormalAction: () => Root.State.controlPanelPageItem = bluetooth
+                content: Pages.Bluetooth {
+                    onGoBack: bluetooth.goBack()
+                }
                 active: Bluetooth.defaultAdapter.enabled
                 onToggleAction: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
             }

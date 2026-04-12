@@ -44,7 +44,7 @@ PanelWindow {
     }
 
     implicitWidth: background.width
-    implicitHeight: background.height
+    implicitHeight: background.height // NOTE: Need to set PanelWindow size to largest possible or else resizing with jitter
 
     //////////////////////////////////////////////////////////////// 
     // FocusScope is used to ensure the last item with focus set to true

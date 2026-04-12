@@ -23,6 +23,10 @@ QtObject {
         const widgetDataList = []
         for (const w of widgetJsonList) {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
+            if (component.status == Component.Error) {
+                console.error(component.errorString())
+            }
+
             // !! IMPORTANT: Need to parent the item here or keep a handle on it's return value, otherwise
             // the garbage collector could just delete it when it feels like it.  (Fix for 4/9/26 incident)
             const widgetData = component.createObject(root, {

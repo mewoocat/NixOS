@@ -46,6 +46,7 @@ Item {
         color: root.showBackground ? Root.State.colors.surface_container : "transparent"
         radius: root.radius
         Loader {
+            active: root.widgetData.component != null
             anchors.fill: parent
             sourceComponent: root.widgetData.component
         }
