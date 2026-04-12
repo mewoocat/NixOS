@@ -22,6 +22,8 @@ WrapperItem {
     property point expandeeOrigin: Qt.point(0,0)
     // Doing this seems to work for now.  Be warned that the order in which components are completed is undefined
     Component.onCompleted: { expandeeOrigin = backdrop.mapFromItem(root.child, 0, 0) }
+    
+    onVisibleChanged: () => expanded = false
 
     property int animationSpeed: 300
     property var easingType: Easing.InOutQuint

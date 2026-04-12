@@ -17,8 +17,8 @@ Singleton {
         return "brightness-high-symbolic"
     }
 
-    function enable(){
-        //console.log("Enabling brightness service")
+    function setDDCCIBrightness(value: int) {
+        Quickshell.execDetached([`${Quickshell.shellDir}/Scripts/Brightness-ddcutil.sh`, `${value}`])
     }
 
     onValueChanged: () => {

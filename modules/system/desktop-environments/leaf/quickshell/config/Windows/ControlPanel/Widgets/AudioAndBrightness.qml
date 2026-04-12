@@ -74,6 +74,9 @@ AbsGrid.WidgetData {
                     //stepSize: 0.01
                     onValueChanged: Services.Brightness.value = value
                     to: 1
+                    onPressedChanged: () => {
+                        if (!pressed) { Services.Brightness.setDDCCIBrightness(value * 100) }
+                    }
                 }
             }
         }

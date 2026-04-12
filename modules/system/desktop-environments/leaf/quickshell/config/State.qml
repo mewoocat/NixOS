@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+import qs.Components.Shared as Shared
 
 //import qs.Services as Services
 import "./Services/" as Services
@@ -37,9 +38,7 @@ Singleton {
     property var popupGrab: null // The grab object for the active popup (old)
     property var activeGrab: null // The active grab object (either popup or panel) (new)
 
-    //property int controlPanelPage: 0 // Index of the current page in control panel
-    property string controlPanelPage: "main"
-    property Item controlPanelPageItem: null
+    property Shared.Expander currentControlPanelPage: null
 
     // Workspace popup state
     property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
