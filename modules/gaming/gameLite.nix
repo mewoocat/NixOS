@@ -14,12 +14,24 @@
     extraCompatPackages = [
       pkgs.proton-ge-bin
     ];
-
-    extraPackages = [
-    ];
   };
 
-  # Required for steam to run?
+  # Enable SteamOS like experience
+  # This host doesn't support vulken (i5-2435M)
+  # gamescope fails to launch with "[gamescope] [Error] vulkan: physical device doesn't support VK_EXT_physical_device_drm"
+  # Also see https://github.com/Jovian-Experiments/Jovian-NixOS/issues/512
+  /*
+  jovian = {
+    steam = {
+      enable = true;
+      autoStart = true;
+      user = "eXia";
+      desktopSession = "plasma";
+    };
+    devices.steamdeck.enableVendorDrivers = false;
+    hardware.has.amd.gpu = false;
+  };
+  */
 
   # Unstable
   hardware.graphics.enable = true;

@@ -11,6 +11,7 @@
 
       "mqtt"
     ];
+    configDir = "/var/lib/hass";
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/

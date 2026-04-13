@@ -21,19 +21,28 @@
   boot.loader.grub.enable = true;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+ 
+  # Disable action on laptop lid close
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+  };
 
   users.users.eXia = {
     isNormalUser = true;
-    extraGroups = ["wheel" "video"]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+    ]; 
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4NXTpvhSTTtinjDzyCuPQmcAzuMES/gMtLvLp93xMA"
     ];
     packages = with pkgs; [
       git
-      neovim
-      firefox
+      vim
       btop
+      zellij
     ];
   };
 
@@ -41,6 +50,7 @@
   networking = {
     hostName = "chrysanthemum";
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
+    #networkmanager.logLevel = "DEBUG";
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
@@ -48,41 +58,15 @@
     };
   };
 
-  programs.steam = {
-    enable = true;
-  };
-  # Required for steam to run?
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    #allowSFTP = false; # Not using this
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
       LogLevel = "VERBOSE";
     };
   };
-
-
-  # Enable SteamOS like experience
-  # This host doesn't support vulken (i5-2435M)
-  # gamescope fails to launch with "[gamescope] [Error] vulkan: physical device doesn't support VK_EXT_physical_device_drm"
-  # Also see https://github.com/Jovian-Experiments/Jovian-NixOS/issues/512
-  /*
-  jovian = {
-    steam = {
-      enable = true;
-      autoStart = true;
-      user = "eXia";
-      desktopSession = "plasma";
-    };
-    devices.steamdeck.enableVendorDrivers = false;
-    hardware.has.amd.gpu = false;
-  };
-  */
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -90,5 +74,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

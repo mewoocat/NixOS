@@ -14,9 +14,9 @@ inputs.nixpkgs.lib.nixosSystem {
 
 
     # Desktop environment
-    ../../modules/system/desktop-environments/kde
+    #../../modules/system/desktop-environments/kde
 
-    #../../modules/gaming/gameLite.nix
+    ../../modules/servers/home-assistant
 
     # Utilities
     #../../modules/utilities
