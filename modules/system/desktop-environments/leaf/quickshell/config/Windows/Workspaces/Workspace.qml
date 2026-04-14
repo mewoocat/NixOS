@@ -14,7 +14,7 @@ ColumnLayout {
     id: root
     required property int wsId
     required property int widgetWidth
-    property HyprlandWorkspace wsObj: Services.Hyprland.workspaceMap[wsId] ?? null
+    property HyprlandWorkspace wsObj: Services.Hyprland.workspaces.filter(w => w.id == wsId) ?? null
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
     property string wsName: wsId//Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
     implicitHeight: workspace.height + indicator.height

@@ -56,7 +56,9 @@ Scope {
                             icon.name: Root.State.launcherIcon
                             //isMutliColorIcon: true
                         }
-                        Workspaces {}
+                        WorkspacesDynamic {
+                            screen: bar.screen
+                        }
                     }
                     // Center
                     RowLayout {

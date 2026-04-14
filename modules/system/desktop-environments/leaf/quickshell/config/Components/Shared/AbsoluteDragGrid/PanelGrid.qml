@@ -67,6 +67,7 @@ ColumnLayout {
 
         Repeater {
             id: repeater
+            // TODO: Look into Variants instead of dynamic obj creation from js https://quickshell.org/docs/v0.1.0/types/Quickshell/Variants
             model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
             delegate: PanelTile {
                 id: gridItem

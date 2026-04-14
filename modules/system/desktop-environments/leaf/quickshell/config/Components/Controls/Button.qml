@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Widgets
 import Qt5Compat.GraphicalEffects
 import QtQuick.Shapes
 import QtQuick.Controls.impl // For IconLabel

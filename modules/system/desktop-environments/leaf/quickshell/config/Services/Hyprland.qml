@@ -10,12 +10,10 @@ Singleton {
     id: root
 
     property int numWorkspaces: 10
-    property int activeWsId: {
-        if (Hyprland.focusedMonitor === null) {
-            return 1
-        }
-        return Hyprland.focusedMonitor.activeWorkspace.id
-    }
+    property var workspaces: Hyprland.workspaces
+    property HyprlandWorkspace activeWsId: Hyprland.focusedMonitor.activeWorkspace
+
+    /*
     property var workspaceMap: {
         let map = {}
         Hyprland.workspaces.values.forEach(w => {
@@ -24,6 +22,7 @@ Singleton {
         })
         return map
     }
+    */
 
     Connections {
         target: Hyprland
