@@ -57,10 +57,6 @@ Scope {
                             //isMutliColorIcon: true
                         }
                         Workspaces {}
-                        Ctrls.Button {
-                            text: "write"
-                            onClicked: () => Root.State.configFileView.writeAdapter()
-                        }
                     }
                     // Center
                     RowLayout {

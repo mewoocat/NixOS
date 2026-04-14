@@ -68,7 +68,7 @@ PanelWindow {
 
             delegate: Shared.Notification {
                 id: notif
-                Layout.fillWidth: true
+                implicitWidth: notifList.width
                 required property var modelData
                 notifData: modelData
                 listView: notifList

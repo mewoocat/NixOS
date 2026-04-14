@@ -5,17 +5,21 @@ import qs as Root
 
 Rectangle {
     id: root
-    implicitWidth: text.width < 24 ? 24 : text.width
-    implicitHeight: 24
-    radius: 24
+    implicitWidth: text.width < text.height ? text.height : text.width
+    implicitHeight: text.height
+    radius: height
     color: Root.State.colors.red_source
     visible: Services.Notifications.amount > 0
     Text {
         id: text
-        padding: 4
+        topPadding: 2
+        bottomPadding: 1
+        leftPadding: 5
+        rightPadding: 5
         anchors.centerIn: parent
         text: Services.Notifications.amount
-        font.pointSize: 10
-        color: Root.State.colors.on_red
+        font.pointSize: 9
+        font.weight: Font.DemiBold
+        color: Root.State.colors.on_surface
     }
 }

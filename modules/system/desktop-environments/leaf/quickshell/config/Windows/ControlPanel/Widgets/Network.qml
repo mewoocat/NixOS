@@ -1,10 +1,7 @@
 pragma ComponentBehavior: Bound
 
-import Quickshell
-import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import qs.Services as Services
 import qs as Root
 import qs.Components.Controls as Ctrls
@@ -71,23 +68,22 @@ AbsGrid.WidgetData {
                             anchors.bottomMargin: root.anchors.topMargin
                             radius: Root.State.smallRounding
                             color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
-                            Item {
+                            Column {
                                 anchors.fill: parent
                                 anchors.margins: 4
-                                ColumnLayout {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    spacing: 0
-                                    Text {
-                                        color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                                        text: rowItem.title
-                                        font.pointSize: 10
-                                    }
-                                    Text { 
-                                        color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                                        opacity: 0.6
-                                        text: rowItem.subtext
-                                        font.pointSize: 8
-                                    }
+                                spacing: 0
+                                Text {
+                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                    text: rowItem.title
+                                    font.pointSize: 10
+                                }
+                                Text { 
+                                    width: parent.width
+                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                    opacity: 0.6
+                                    text: rowItem.subtext
+                                    elide: Text.ElideRight // Truncate with ... on the right
+                                    font.pointSize: 8
                                 }
                             }
                         }
