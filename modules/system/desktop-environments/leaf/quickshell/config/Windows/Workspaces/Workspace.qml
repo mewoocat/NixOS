@@ -14,9 +14,9 @@ ColumnLayout {
     id: root
     required property int wsId
     required property int widgetWidth
-    property HyprlandWorkspace wsObj: Services.Hyprland.workspaces.filter(w => w.id == wsId) ?? null
+    property HyprlandWorkspace wsObj: Root.State.currentHoveredWorkspace//Services.Hyprland.workspaces.filter(w => w.id == wsId) ?? null
     property bool isWsActive: Services.Hyprland.activeWsId === wsId
-    property string wsName: wsId//Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
+    property string wsName: wsObj.name//Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
     implicitHeight: workspace.height + indicator.height
     implicitWidth: workspace.width
 
@@ -36,12 +36,15 @@ ColumnLayout {
                 rightPadding: 8
                 topPadding: 4
                 bottomPadding: 4
-                text: root.wsName === "" ? root.wsId : root.wsName
+                text: root.wsName// === "" ? root.wsId : root.wsName
                 font.pointSize: 10
                 color: Root.State.colors.on_surface
             }
             TextField {
-
+                Keys.onReturnPressed: () => {
+                    Hyprland.dispatch(`renameworkspace ${root.wsId} ${text}`)
+                    Hyprland.refreshWorkspaces()
+                }
             }
             Rectangle {
                 Layout.fillWidth: true

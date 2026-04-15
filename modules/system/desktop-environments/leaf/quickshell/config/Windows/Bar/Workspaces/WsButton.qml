@@ -9,7 +9,7 @@ import qs.Components.Controls as Ctrls
 
 Ctrls.Button {
     id: root
-    required property int wsId
+    required property HyprlandWorkspace ws
 
     property int smallSize: 10
     property int mediumSize: 16
@@ -27,30 +27,26 @@ Ctrls.Button {
     onHoveredChanged: {
         if (root.hovered) {
             Root.State.currentHoveredWorkspace = root
-            Root.State.hoveredWorkspace = wsId
+            Root.State.hoveredWorkspace = ws
         }
     }
     onClicked: {
-        Hyprland.dispatch(`workspace ${root.wsId}`)
+        Hyprland.dispatch(`workspace ${root.ws.id}`)
     }
 
-    property HyprlandWorkspace wsObj: Hyprland.workspaces.values.find(ws => ws.id === wsId) ?? null
     //property string wsName: Root.State.config.workspaces.wsMap[`ws${wsId}`].name
     // Either focused, active, inactive, or empty
     property string wsState: {
-        if (wsObj === null) {
-            return "empty"
-        }
-        if (wsObj.focused) {
+        if (ws.focused) {
             return "focused"
         }
-        if (wsObj.active) {
+        if (ws.active) {
             return "active"
         }
-        if (wsObj.toplevels.values.length < 1) {
+        if (ws.toplevels.values.length < 1) {
             return "empty"
         }
-        if (wsObj.toplevels.values.length > 0) {
+        if (ws.toplevels.values.length > 0) {
             return "inactive"
         }
         console.error(`something bad happened`)
@@ -74,7 +70,7 @@ Ctrls.Button {
                     return root.smallDotSize
                 default:
                     console.error("Invalid wsState")
-                    return root.mediumSpace
+                    return 0
             }
         }
         Behavior on implicitWidth { PropertyAnimation {duration: 100} }
@@ -107,10 +103,10 @@ Ctrls.Button {
                 switch(root.wsState) {
                     case "focused":
                     case "active":
-                        return root.wsId
+                        return root.ws.name
                     case "empty":
                     case "inactive":
-                        return root.wsId
+                        return root.ws.id
                     default:
                         console.error("Invalid wsState")
                 }

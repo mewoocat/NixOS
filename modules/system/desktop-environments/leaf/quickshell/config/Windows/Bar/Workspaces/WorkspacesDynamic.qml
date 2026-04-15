@@ -41,19 +41,10 @@ WrapperMouseArea {
             WsButton {
                 id: workspaceButton
                 required property HyprlandWorkspace modelData
-                wsId: modelData.id
-                wsObj: modelData
-                text: modelData.name
+                ws: modelData
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight
             }
-        }
-
-        BarButton {
-            text: "+"
-            inset: 10
-            padding: 0
-            onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
         }
     }
 }

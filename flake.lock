@@ -1014,11 +1014,11 @@
         "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1775675843,
-        "narHash": "sha256-gdHgWVDldRUyDy9ixi8A3guhm1c0UzLqPm7RChTSoAQ=",
+        "lastModified": 1776221860,
+        "narHash": "sha256-xLl1Q4OT5QdyHOAWIU7W5zGXr9wvVFRhZyC2bTLimVM=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "fd53adee8142477d965317ddba144d16ae16a4bf",
+        "rev": "a0c2cc06dbdde9a80bda2fc0f06133ce283ef33f",
         "type": "github"
       },
       "original": {

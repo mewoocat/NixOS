@@ -17,6 +17,7 @@ Shared.PopupWindow {
         root.anchor.item = currentHoveredWorkspace
         root.anchor.updateAnchor()
     }
+    //Behavior on anchor.rect.x { NumberAnimation { duration: 200; easing.type: Easing.Linear} }
     visible: Root.State.isWorkspacePopupVisible
     grabEnabled: false // Disable the HyprlandFocusGrab
     anchor {

@@ -44,7 +44,6 @@ Singleton {
     property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
     property bool isWorkspaceWidgetHovered: false
     property bool isWorkspacePopupHovered: false
-    property int hoveredWorkspace: 0
     property var currentHoveredWorkspace: null
     
     // Styling

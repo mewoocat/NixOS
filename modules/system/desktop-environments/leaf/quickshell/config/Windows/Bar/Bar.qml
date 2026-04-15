@@ -1,6 +1,7 @@
 
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import QtQuick
@@ -31,6 +32,7 @@ Scope {
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
+                focusable: false // TODO: Toggle to true when needed?
                 Component.onCompleted: {
                     Root.State.bar = bar
                 }
@@ -51,6 +53,7 @@ Scope {
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        spacing: 0
                         BarButton {
                             onClicked: () => Root.State.launcher.toggleWindow()
                             icon.name: Root.State.launcherIcon
@@ -58,6 +61,13 @@ Scope {
                         }
                         WorkspacesDynamic {
                             screen: bar.screen
+                        }
+
+                        BarButton {
+                            text: "+"
+                            inset: 10
+                            padding: 0
+                            onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
                     }
                     // Center
