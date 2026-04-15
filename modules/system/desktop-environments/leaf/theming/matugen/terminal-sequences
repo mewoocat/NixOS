@@ -1,10 +1,10 @@
 ]4;0;{{colors.surface.default.hex}}
-\]4;8;{{colors.surface_container_high.default.hex}}
+\]4;8;{{colors.outline.default.hex         | auto_lightness: 15 }}
 \]4;1;{{colors.error.default.hex           | auto_lightness: 15 }}
 \]4;9;{{colors.error.default.hex           | auto_lightness: 10 }}
 \]4;2;{{colors.tertiary.default.hex        | auto_lightness: 25 }}
 \]4;10;{{colors.tertiary.default.hex       | auto_lightness: 10 }}
-\]4;3;{{colors.tertiary.default.hex        | auto_lightness: 20 }}
+\]4;3;{{colors.tertiary.default.hex        | auto_lightness: 5 }}
 \]4;11;{{colors.tertiary_fixed.default.hex | auto_lightness: 10 }}
 \]4;4;{{colors.secondary.default.hex       | auto_lightness: 25 }}
 \]4;12;{{colors.secondary.default.hex      | auto_lightness: 10 }}
