@@ -28,29 +28,52 @@ ColumnLayout {
         Layout.margins: 4
 
         RowLayout {
-            Text {
-                leftPadding: 14
-                rightPadding: 8
-                topPadding: 4
-                bottomPadding: 4
-                text: root.ws.id
-                font.pointSize: 10
-                color: Root.State.colors.on_surface
+            Rectangle {
+                color: Root.State.colors.primary
+                implicitWidth: 26
+                implicitHeight: width
+                radius: 26
+                Text {
+                    anchors.centerIn: parent
+                    text: root.ws.id
+                    color: Root.State.colors.on_primary
+                }
             }
             TextField {
+                id: nameField
                 onVisibleChanged: focus = false
                 focus: false
+                enabled: false
+                color: Root.State.colors.on_surface
                 text: root.ws.name
                 placeholderText: "name..."
-                background: null
+                Layout.fillWidth: true
+                topInset: 2
+                bottomInset: 2
+                leftInset: 2
+                rightInset: 2
+                leftPadding: 8
+                background: Rectangle {
+                    color: nameField.enabled ? Root.State.colors.surface_container : "transparent"
+                    border.color: nameField.enabled ? Root.State.colors.primary : "transparent"
+                    radius: height
+                }
                 Keys.onReturnPressed: () => {
                     Hyprland.dispatch(`renameworkspace ${root.ws.id} ${text}`)
                     Hyprland.refreshWorkspaces() // TODO: Is this needed?
+                    nameField.enabled = false
                     console.debug(`renaming ws ${root.ws.id} to ${text}`)
                 }
             }
             Rectangle {
                 Layout.fillWidth: true
+            }
+            Ctrls.Button {
+                text: "edit"
+                onClicked: () => {
+                    nameField.enabled = !nameField.enabled
+                    if (nameField.enabled) { nameField.focus = true }
+                }
             }
         }
     }
