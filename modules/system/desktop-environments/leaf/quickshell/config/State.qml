@@ -91,10 +91,10 @@ Singleton {
             //writeAdapter() // Test this before re-enabling
         }
 
-        onLoadFailed: (err) => console.error(`File load failed with ${err}`)
-        onLoaded: console.log(`Config file load ok: ${path}`) 
-        onSaveFailed: (err) => console.error(`File ${root.settingsJsonPath} save failed with ${err}`)
-        onSaved: console.log(`Saved config file: ${path}`)
+        onLoadFailed: (err) => console.error(`File load failed for: ${path} with ${err}`)
+        onLoaded: console.info(`File load ok for: ${path}`) 
+        onSaveFailed: (err) => console.error(`File save failed for: ${path} with ${err}`)
+        onSaved: console.info(`File save ok for ${path}`)
 
         // Adapter between qml object and json
         // Values set here are the defaults
@@ -178,14 +178,14 @@ Singleton {
         // Reload the file if it changes
         watchChanges: true 
         onFileChanged: {
-            console.debug(`file changed`)
+            console.debug(`${path} changed`)
             reload()
         }
 
-        onLoadFailed: (err) => console.error(`File load failed with ${err}`)
-        onLoaded: console.log(`Color file load ok: ${path}`) 
-        onSaveFailed: (err) => console.error(`File ${root.settingsJsonPath} save failed with ${err}`)
-        onSaved: console.log(`Saved color file: ${path}`)
+        onLoadFailed: (err) => console.error(`File load failed for: ${path} with ${err}`)
+        onLoaded: console.info(`File load ok for: ${path}`) 
+        onSaveFailed: (err) => console.error(`File save failed for: ${path} with ${err}`)
+        onSaved: console.info(`File save ok for ${path}`)
 
         // Adapter between qml object and json
         // Values set here are the defaults

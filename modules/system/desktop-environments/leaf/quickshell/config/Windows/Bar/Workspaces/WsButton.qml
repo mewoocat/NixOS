@@ -62,7 +62,8 @@ Ctrls.Button {
                         return displayName.implicitWidth
                     }
                     */
-                    return root.largeSize
+                    //return root.largeSize
+                    return Math.max(root.contentItem.implicitWidth, root.dotSize)
                 case "active":
                 case "inactive":
                     return root.dotSize
@@ -93,44 +94,43 @@ Ctrls.Button {
         }
     }
 
-    contentItem: Rectangle {
-        color: "transparent"
-        Text {
-            anchors.centerIn: parent
-            id: displayName
-            opacity: root.wsState == "empty" ? 0.5 : 1
-            text: {
-                switch(root.wsState) {
-                    case "focused":
-                    case "active":
-                        return root.ws.name
-                    case "empty":
-                    case "inactive":
-                        return root.ws.id
-                    default:
-                        console.error("Invalid wsState")
-                }
+    contentItem: Text {
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        leftPadding: 6
+        rightPadding: 6
+        id: displayName
+        opacity: root.wsState == "empty" ? 0.5 : 1
+        text: {
+            switch(root.wsState) {
+                case "focused":
+                case "active":
+                    return root.ws.name
+                case "empty":
+                case "inactive":
+                    return root.ws.id
+                default:
+                    console.error("Invalid wsState")
             }
-            font.pointSize: 8
+        }
+        font.pointSize: 8
 
-            color: {
-                if (root.hovered) {
+        color: {
+            if (root.hovered) {
+                return Root.State.colors.on_primary
+            }
+            switch(root.wsState) {
+                case "focused":
+                case "active":
                     return Root.State.colors.on_primary
-                }
-                switch(root.wsState) {
-                    case "focused":
-                    case "active":
-                        return Root.State.colors.on_primary
-                    case "inactive":
-                        return Root.State.colors.on_primary_container
-                    case "empty":
-                        return Root.State.colors.on_surface_variant
-                    default:
-                        console.error("invalid wsState")
-                        return "red"
-                }
+                case "inactive":
+                    return Root.State.colors.on_primary_container
+                case "empty":
+                    return Root.State.colors.on_surface_variant
+                default:
+                    console.error("invalid wsState")
+                    return "red"
             }
         }
     }
-
 }

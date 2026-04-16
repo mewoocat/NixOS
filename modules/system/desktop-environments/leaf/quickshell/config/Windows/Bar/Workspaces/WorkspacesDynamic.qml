@@ -37,7 +37,7 @@ WrapperMouseArea {
 
         Repeater {
             // Only show workspaces for this screen
-            model: Services.Hyprland.workspaces.values.filter(w => w.monitor.name == root.screen.name)
+            model: Services.Hyprland.workspaces.values.filter(w => w.monitor?.name == root.screen.name)
             WsButton {
                 id: workspaceButton
                 required property HyprlandWorkspace modelData

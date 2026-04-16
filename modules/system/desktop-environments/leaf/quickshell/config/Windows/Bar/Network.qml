@@ -2,6 +2,6 @@ import QtQuick
 import qs.Services as Services
 
 BarButton {
-    visible: Networking.devices
+    visible: Services.Networking.networkInterfaces
     icon.name: Services.Networking.currentWifiIconName
 }

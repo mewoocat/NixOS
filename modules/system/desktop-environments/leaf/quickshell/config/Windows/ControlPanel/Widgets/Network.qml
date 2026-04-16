@@ -94,7 +94,7 @@ AbsGrid.WidgetData {
             RowItem {
                 id: internet
                 title: "Wifi"
-                subtext: Services.Networking.currentWifiNetwork.name
+                subtext: Services.Networking.currentWifiNetwork?.name ?? "n/a"
                 iconName: Services.Networking.currentWifiIconName
                 content: null
                 /*
@@ -114,7 +114,7 @@ AbsGrid.WidgetData {
                 content: Pages.Bluetooth {
                     onGoBack: bluetooth.goBack()
                 }
-                active: Bluetooth.defaultAdapter.enabled
+                active: Bluetooth.defaultAdapter?.enabled ?? false
                 onToggleAction: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
             }
         }
