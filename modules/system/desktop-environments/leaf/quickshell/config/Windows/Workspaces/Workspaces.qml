@@ -10,11 +10,11 @@ import qs.Components.Shared as Shared
 Shared.PopupWindow {
     id: root
     bgColor: "transparent"//Root.State.colors.surface
-    property var currentHoveredWorkspace: Root.State.currentHoveredWorkspace
-    onCurrentHoveredWorkspaceChanged: () => {
+    property Item hoveredWsBtn: Root.State.hoveredWorkspaceButton
+    onHoveredWsBtnChanged: () => {
         // The Popup.anchor.item property seems to have some sort of issue with binding, so manually
         // setting the item when it changes and updating the anchor seems to be needed.
-        root.anchor.item = currentHoveredWorkspace
+        root.anchor.item = hoveredWsBtn
         root.anchor.updateAnchor()
     }
     //Behavior on anchor.rect.x { NumberAnimation { duration: 200; easing.type: Easing.Linear} }
@@ -24,7 +24,7 @@ Shared.PopupWindow {
         // Give a slight negative margin to move the popup to the left so that there's hopefully no posibility that the mouse can exit the 
         // workspace button while only clipping the edge of the popup so that only the entered signal is fired.
         margins.left: -1
-        item: root.currentHoveredWorkspace // WARNING: don't set this to null once visible, will cause crash
+        item: Root.State.hoveredWorkspaceButton // WARNING: don't set this to null once visible, will cause crash
         edges: Edges.Bottom | Edges.Left
         //edges: Edges.Top | Edges.Left
         gravity: Edges.Bottom | Edges.Right
@@ -39,10 +39,14 @@ Shared.PopupWindow {
         WrapperRectangle {
             color: Root.State.colors.surface
             radius: Root.State.rounding
-            Workspace {
-                anchors.centerIn: parent
-                wsId: Root.State.hoveredWorkspace
-                widgetWidth: 400
+            Loader {
+                active: Root.State.hoveredWorkspace != null
+                property Component workspace: Workspace {
+                    anchors.centerIn: parent
+                    ws: Root.State.hoveredWorkspace
+                    widgetWidth: 400
+                }
+                sourceComponent: workspace
             }
         }
     }

@@ -32,7 +32,7 @@ Scope {
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
-                focusable: false // TODO: Toggle to true when needed?
+                focusable: Root.State.isWorkspacePopupVisible
                 Component.onCompleted: {
                     Root.State.bar = bar
                 }
@@ -62,13 +62,29 @@ Scope {
                         WorkspacesDynamic {
                             screen: bar.screen
                         }
-
                         BarButton {
                             text: "+"
                             inset: 10
                             padding: 0
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
+                        /*
+                        TextField {
+                            id: textField
+                            onFocusChanged: {
+                                if (focus) { bar.focusable = true }
+                            }
+                        }
+                        BarButton {
+                            text: "-"
+                            inset: 10
+                            padding: 0
+                            onClicked: () => {
+                                bar.focusable = false
+                                textField.focus = false
+                            }
+                        }
+                        */
                     }
                     // Center
                     RowLayout {

@@ -26,7 +26,7 @@ Ctrls.Button {
 
     onHoveredChanged: {
         if (root.hovered) {
-            Root.State.currentHoveredWorkspace = root
+            Root.State.hoveredWorkspaceButton = root
             Root.State.hoveredWorkspace = ws
         }
     }

@@ -1,6 +1,7 @@
 pragma Singleton
 
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import QtQuick
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
@@ -44,7 +45,8 @@ Singleton {
     property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
     property bool isWorkspaceWidgetHovered: false
     property bool isWorkspacePopupHovered: false
-    property var currentHoveredWorkspace: null
+    property HyprlandWorkspace hoveredWorkspace: null
+    property Item hoveredWorkspaceButton: null
     
     // Styling
     property int rounding: 18

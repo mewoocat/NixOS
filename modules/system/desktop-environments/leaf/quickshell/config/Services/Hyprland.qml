@@ -11,7 +11,7 @@ Singleton {
 
     property int numWorkspaces: 10
     property var workspaces: Hyprland.workspaces
-    property HyprlandWorkspace activeWsId: Hyprland.focusedMonitor.activeWorkspace
+    property HyprlandWorkspace activeWorkspace: Hyprland.focusedMonitor?.activeWorkspace ?? null
 
     /*
     property var workspaceMap: {

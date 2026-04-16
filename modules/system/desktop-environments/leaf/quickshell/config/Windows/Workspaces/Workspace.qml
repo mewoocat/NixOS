@@ -12,11 +12,9 @@ import qs.Components.Controls as Ctrls
 
 ColumnLayout {
     id: root
-    required property int wsId
     required property int widgetWidth
-    property HyprlandWorkspace wsObj: Root.State.currentHoveredWorkspace//Services.Hyprland.workspaces.filter(w => w.id == wsId) ?? null
-    property bool isWsActive: Services.Hyprland.activeWsId === wsId
-    property string wsName: wsObj.name//Root.State.config.workspaces.wsMap[`ws${root.wsId}`].name
+    required property HyprlandWorkspace ws
+    property bool isWsActive: Services.Hyprland.activeWorkspace.id == ws.id
     implicitHeight: workspace.height + indicator.height
     implicitWidth: workspace.width
 
@@ -31,28 +29,28 @@ ColumnLayout {
 
         RowLayout {
             Text {
-                id: displayText
                 leftPadding: 14
                 rightPadding: 8
                 topPadding: 4
                 bottomPadding: 4
-                text: root.wsName// === "" ? root.wsId : root.wsName
+                text: root.ws.id
                 font.pointSize: 10
                 color: Root.State.colors.on_surface
             }
             TextField {
+                onVisibleChanged: focus = false
+                focus: false
+                text: root.ws.name
+                placeholderText: "name..."
+                background: null
                 Keys.onReturnPressed: () => {
-                    Hyprland.dispatch(`renameworkspace ${root.wsId} ${text}`)
-                    Hyprland.refreshWorkspaces()
+                    Hyprland.dispatch(`renameworkspace ${root.ws.id} ${text}`)
+                    Hyprland.refreshWorkspaces() // TODO: Is this needed?
+                    console.debug(`renaming ws ${root.ws.id} to ${text}`)
                 }
             }
             Rectangle {
                 Layout.fillWidth: true
-            }
-            Ctrls.Button {
-                text: "Delete"
-                implicitHeight: 32
-                inset: 4
             }
         }
     }
@@ -64,18 +62,18 @@ ColumnLayout {
         property int widgetWidth: root.widgetWidth
         property real aspectRatio: {
             // This should only occur on initial startup, might be worth using a loader instead
-            if (!wsObj || wsObj.monitor === null) {
+            if (root.ws.monitor === null) {
                 return 0.5
             }
-            return wsObj.monitor.height / wsObj.monitor.width
+            return root.ws.monitor.height / root.ws.monitor.width
         }
         // Scale of virtual size to actual size
         property real widgetScale: {
             // This should only occur on initial startup, might be worth using a loader instead
-            if (!wsObj || wsObj.monitor === null) {
+            if (root.ws.monitor === null) {
                 return 1
             }
-            return widgetWidth / wsObj.monitor.width
+            return widgetWidth / root.ws.monitor.width
         }
         implicitWidth: widgetWidth
         implicitHeight: Math.round(widgetWidth * aspectRatio)
@@ -84,7 +82,7 @@ ColumnLayout {
         onClicked: (event) => {
             switch(event.button) {
                 case Qt.LeftButton:
-                    Hyprland.dispatch(`workspace ${wsId}`) 
+                    Hyprland.dispatch(`workspace ${root.ws.id}`) 
                     break
                 case Qt.RightButton:
                     break
@@ -99,21 +97,20 @@ ColumnLayout {
         Rectangle {
             id: box
             anchors.centerIn: parent
-            // If the workspace doesn't exist, set a fixed smaller size
-            implicitWidth: root.wsObj ? parent.width : 64
-            implicitHeight: root.wsObj ? parent.height : 64
+            implicitWidth: parent.width
+            implicitHeight: parent.height
             radius: 8
             color: "transparent"//Root.State.colors.surface_container
 
+            // TODO: Probably don't need loader here anymore
             Loader {
                 anchors.fill: parent
-                // Only try to render clients if the workspace exists
-                active: root.wsObj !== null
+                active: true
                 property Component clients: Repeater {
                     model: Hyprland.toplevels.values.filter(toplevel => {
                         return toplevel.workspace !== null &&
                         toplevel.monitor !== null &&
-                        toplevel.workspace.id === root.wsId
+                        toplevel.workspace.id === root.ws.id
                     })
                     // Each window in the workspace
                     Client {
@@ -121,9 +118,9 @@ ColumnLayout {
                         toplevel: modelData
                         clientObj: modelData.lastIpcObject
                         widgetScale: workspace.widgetScale
-                        monitorScale: root.wsObj.monitor.scale
-                        monitorX: root.wsObj.monitor.x
-                        monitorY: root.wsObj.monitor.y
+                        monitorScale: root.ws.monitor.scale
+                        monitorX: root.ws.monitor.x
+                        monitorY: root.ws.monitor.y
                         // Moves the workspace to the top when one of its clients is being dragged
                         drag.onActiveChanged: () => drag.active ? root.z = 1 : root.z = 0
                     }
@@ -136,13 +133,12 @@ ColumnLayout {
         DropArea {
             id: dropArea
             anchors.fill: parent
-            property alias wsId: root.wsId
             keys: [ "workspace-client" ] // Drag source must have this key or it's ignored
             onDropped: (drop) => {
                 // Apparently you need to cast the source type before you can use it 
                 const clientObj = (drag.source as MouseArea).clientObj
                 console.log(`dropped client with pid ${clientObj.pid} from ws ${clientObj.workspace.id}`)
-                Hyprland.dispatch(`movetoworkspacesilent ${root.wsId}, pid:${clientObj.pid}`)
+                Hyprland.dispatch(`movetoworkspacesilent ${root.ws.id}, pid:${clientObj.pid}`)
                 Hyprland.refreshToplevels() // Need to refresh to rerender changes to clients
             }
 
