@@ -13,6 +13,7 @@ import "../"
 WrapperMouseArea {
     id: root
     required property ShellScreen screen
+    property var popup: Workspaces {}
     hoverEnabled: true
     onHoveredChanged: {
         if (containsMouse) {

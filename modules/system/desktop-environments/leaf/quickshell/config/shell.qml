@@ -39,7 +39,6 @@ ShellRoot {
     ControlPanel {}
     ActivityCenter {}
     Notifications {}
-    Workspaces {}
     //Settings {}
     Lockscreen {}
     //OnScreenDisplay {}

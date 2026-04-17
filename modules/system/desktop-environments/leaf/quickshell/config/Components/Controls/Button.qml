@@ -21,12 +21,12 @@ T.Button {
     topPadding: padding
     bottomPadding: padding
 
-    property color backgroundColor: control.hovered ? Root.State.colors.primary : "transparent"
-    property color color: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
+    property color backgroundColor: control.hovered || control.checked ? Root.State.colors.primary : "transparent"
+    property color color: control.hovered || control.checked ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMultiColorIcon: false
     property int radius: background.height / 2
     // Defines the padding of the background
-    property real inset: 2
+    property real inset: 4
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -42,7 +42,7 @@ T.Button {
     background: Rectangle {
         id: bg
         implicitWidth: 36//control.contentItem.implicitWidth + control.padding
-        implicitHeight: 18//control.contentItem.implicitHeight + control.padding
+        implicitHeight: 24//control.contentItem.implicitHeight + control.padding
         color: control.backgroundColor
         radius: control.radius
     }

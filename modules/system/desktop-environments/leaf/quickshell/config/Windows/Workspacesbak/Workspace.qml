@@ -18,7 +18,7 @@ ColumnLayout {
     implicitHeight: workspace.height + indicator.height
     implicitWidth: workspace.width
 
-    // Workspace number indicator
+    // Workspace status bar
     WrapperRectangle {
         id: indicator
         z: 1
@@ -28,31 +28,27 @@ ColumnLayout {
         Layout.margins: 4
 
         RowLayout {
-            Rectangle {
-                color: Root.State.colors.primary
-                implicitWidth: 26
-                implicitHeight: width
-                radius: 26
-                Text {
-                    anchors.centerIn: parent
-                    text: root.ws.id
-                    color: Root.State.colors.on_primary
-                }
+            spacing: 0
+            Ctrls.Button {
+                //hoverEnabled: false
+                text: root.ws.id
             }
             TextField {
                 id: nameField
-                onVisibleChanged: focus = false
+                onVisibleChanged: {
+                    focus = false
+                    enabled = false
+                }
                 focus: false
                 enabled: false
                 color: Root.State.colors.on_surface
-                text: root.ws.name
-                placeholderText: "name..."
+                text: root.ws.name == root.ws.id ? "" : root.ws.name
+                placeholderText: "Enter name..."
                 Layout.fillWidth: true
                 topInset: 2
                 bottomInset: 2
-                leftInset: 2
-                rightInset: 2
-                leftPadding: 8
+                leftPadding: 10
+                rightPadding: 10
                 background: Rectangle {
                     color: nameField.enabled ? Root.State.colors.surface_container : "transparent"
                     border.color: nameField.enabled ? Root.State.colors.primary : "transparent"
@@ -69,7 +65,8 @@ ColumnLayout {
                 Layout.fillWidth: true
             }
             Ctrls.Button {
-                text: "edit"
+                icon.name: "edit-rename-symbolic"
+                checked: nameField.enabled
                 onClicked: () => {
                     nameField.enabled = !nameField.enabled
                     if (nameField.enabled) { nameField.focus = true }

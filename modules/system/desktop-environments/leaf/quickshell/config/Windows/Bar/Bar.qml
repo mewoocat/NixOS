@@ -64,8 +64,6 @@ Scope {
                         }
                         BarButton {
                             text: "+"
-                            inset: 10
-                            padding: 0
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
                         /*

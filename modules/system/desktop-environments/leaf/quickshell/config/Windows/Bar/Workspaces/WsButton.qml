@@ -23,6 +23,8 @@ Ctrls.Button {
     topInset: verticalInset / 2
     bottomInset: verticalInset / 2
     padding: 0
+    leftInset: 2
+    rightInset: 2
 
     onHoveredChanged: {
         if (root.hovered) {
