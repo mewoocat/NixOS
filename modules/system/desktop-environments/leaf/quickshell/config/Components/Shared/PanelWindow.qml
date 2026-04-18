@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Effects
 
 import qs as Root
 import qs.Services as Services
@@ -62,6 +63,10 @@ PanelWindow {
             if (event.key == Qt.Key_Escape) {
                 window.closeWindow()
             }
+        }
+        RectangularShadow {
+            color: "red"
+            spread: 4
         }
         Rectangle {
             id: background

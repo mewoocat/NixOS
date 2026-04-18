@@ -58,7 +58,7 @@ Singleton {
     property int largeSpace: 10
     property double opacity: 0.8
     property int barHeight: 40
-    property string launcherIcon: "search"//"distributor-logo-nixos"
+    property string launcherIcon: "system-search-symbolic"//"distributor-logo-nixos"
     // Variable group lol
     /*
     property QtObject bar: QtObject {

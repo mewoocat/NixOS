@@ -23,18 +23,16 @@ Shared.PopupWindow {
     anchor {
         // Give a slight negative margin to move the popup to the left so that there's hopefully no posibility that the mouse can exit the 
         // workspace button while only clipping the edge of the popup so that only the entered signal is fired.
-        margins.left: -1
+        //margins.left: -1
         item: Root.State.hoveredWorkspaceButton // WARNING: don't set this to null once visible, will cause crash
         edges: Edges.Bottom | Edges.Left
         gravity: Edges.Bottom | Edges.Right
     }
+
     content: WrapperMouseArea {
         hoverEnabled: true
         onEntered: () => Root.State.isWorkspacePopupHovered = true
         onExited: () => Root.State.isWorkspacePopupHovered = false
-        // Add a area to top allow for mouse hover checking.  Doesn't seem that nested MouseAreas can
-        // propagate hover events.
-        topMargin: 8
         WrapperRectangle {
             color: Root.State.colors.surface
             radius: Root.State.rounding

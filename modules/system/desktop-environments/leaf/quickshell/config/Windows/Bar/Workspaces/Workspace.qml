@@ -54,7 +54,7 @@ ColumnLayout {
                     border.color: nameField.enabled ? Root.State.colors.primary : "transparent"
                     radius: height
                 }
-                Keys.onReturnPressed: () => {
+                onEditingFinished: () => {
                     Hyprland.dispatch(`renameworkspace ${root.ws.id} ${text}`)
                     Hyprland.refreshWorkspaces() // TODO: Is this needed?
                     nameField.enabled = false
@@ -117,13 +117,14 @@ ColumnLayout {
         }
 
         // The workspace
-        Rectangle {
+        ClippingRectangle {
             id: box
             anchors.centerIn: parent
             implicitWidth: parent.width
             implicitHeight: parent.height
             radius: 8
             color: "transparent"//Root.State.colors.surface_container
+            clip: true
 
             // TODO: Probably don't need loader here anymore
             Loader {

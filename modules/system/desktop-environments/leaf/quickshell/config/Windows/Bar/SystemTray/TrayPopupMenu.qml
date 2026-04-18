@@ -4,13 +4,12 @@ import QtQuick
 import QtQuick.Layouts
 import qs.Components.Shared as Shared
 import qs as Root
+import qs.Components.Controls as Ctrls
 
 Shared.PopupWindow {
     id: root
     required property Item parentButton // The button that this popup will be relative to
-    required property var menu // The menu object that describes the content
-    property bool isNested: false
-    //Component.onCompleted: console.log(`isNested: ${isNested}`)
+    required property QsMenuHandle menuHandle // The menu object that describes the content
 
     anchor {
         // Only window or item should be set at a time, otherwise a crash can occur
@@ -23,7 +22,7 @@ Shared.PopupWindow {
     // Used to extract the menu items from the menu
     QsMenuOpener {
         id: menuOpener
-        menu: root.menu
+        menu: root.menuHandle
     }
 
     content: ColumnLayout {
@@ -46,12 +45,11 @@ Shared.PopupWindow {
                     implicitWidth: menuContent.width
                     color: Root.State.colors.on_surface_variant
                 }
-                property Component menuItem: MenuEntry { 
-                    entry: loader.modelData
-                    //Layout.fillWidth: true // It appears that this propagates through the 
+                property Component newMenuItem: Ctrls.MenuItem {
+                    text: modelData.text
                 }
                 // The selected component is instantiated here
-                sourceComponent: modelData?.isSeparator ? menuSeperator : menuItem
+                sourceComponent: modelData?.isSeparator ? menuSeperator : newMenuItem
             }
         }
     }

@@ -22,17 +22,6 @@ import "Windows/Lockscreen"
 //import Quickshell.Services.NetworkManager
 
 ShellRoot {
-    // Logic
-    Component.onCompleted: {
-        Controller.enable() // Need to call something from the controller to init it
-        Services.Notifications.enable() // don't think this is needed anymore
-        Services.Monitors.enable()
-        //Services.Weather.enable()
-        //Services.Hyprland.enable()
-        //Services.Brightness.enable()
-        //Services.Audio.enable()
-    }
-
     // Visual
     Bar {} 
     Launcher {}
@@ -42,5 +31,4 @@ ShellRoot {
     //Settings {}
     Lockscreen {}
     //OnScreenDisplay {}
-
 }

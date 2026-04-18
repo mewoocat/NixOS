@@ -64,6 +64,7 @@
       eza # ls replacement
       openssl
       arduino
+      nwg-displays
 
       # yubikey
       yubikey-manager # ykman cli tool
