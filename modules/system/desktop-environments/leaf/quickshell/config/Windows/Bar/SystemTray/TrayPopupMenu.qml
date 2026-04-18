@@ -46,7 +46,12 @@ Shared.PopupWindow {
                     color: Root.State.colors.on_surface_variant
                 }
                 property Component newMenuItem: Ctrls.MenuItem {
-                    text: modelData.text
+                    text: loader.modelData.text
+                    onClicked: {
+                        // setting the popup visibility if children exist
+                        if (root.entry?.hasChildren) { childrenLoader.item.item.visible = true }
+                        root.entry?.triggered()
+                    }
                 }
                 // The selected component is instantiated here
                 sourceComponent: modelData?.isSeparator ? menuSeperator : newMenuItem
