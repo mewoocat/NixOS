@@ -10,6 +10,7 @@ Shared.PopupWindow {
     id: root
     required property Item parentButton // The button that this popup will be relative to
     required property QsMenuHandle menuHandle // The menu object that describes the content
+    Component.onCompleted: () => console.debug(`menuHandle: ${menuHandle}`)
 
     anchor {
         // Only window or item should be set at a time, otherwise a crash can occur
@@ -45,7 +46,8 @@ Shared.PopupWindow {
                     implicitWidth: menuContent.width
                     color: Root.State.colors.on_surface_variant
                 }
-                property Component newMenuItem: Ctrls.MenuItem {
+                /*
+                property Component menuItem: Ctrls.MenuItem {
                     text: loader.modelData.text
                     onClicked: {
                         // setting the popup visibility if children exist
@@ -53,8 +55,12 @@ Shared.PopupWindow {
                         root.entry?.triggered()
                     }
                 }
+                */
+                property Component menuItem: MenuItem {
+                    menuEntry: loader.modelData
+                }
                 // The selected component is instantiated here
-                sourceComponent: modelData?.isSeparator ? menuSeperator : newMenuItem
+                sourceComponent: modelData?.isSeparator ? menuSeperator : menuItem
             }
         }
     }

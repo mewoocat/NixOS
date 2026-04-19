@@ -65,9 +65,9 @@ ClippingRectangle {
                     gradient: Gradient {
                         orientation: Gradient.Horizontal
                         GradientStop { position: 0.7; color: "transparent" }
-                        GradientStop { position: 1.0; color: "#77000000" }
                     }
                 }
+
                 ListView {
                     id: trayItems
                     property int numItems: SystemTray.items.values.length
@@ -86,7 +86,7 @@ ClippingRectangle {
                         implicitHeight: trayItems.height
                         contentItem: IconImage {
                             implicitSize: 16
-                            source: button.modelData?.icon ?? ""
+                            source: button.modelData?.icon ?? Qt.url("")
                         }
                         onClicked: modelData.activate
                         ContextMenu.onRequested: () => popupWindow.visible = true
@@ -94,12 +94,12 @@ ClippingRectangle {
                         // Used to extract the menu items from the menu
                         property QsMenuOpener menuOpener: QsMenuOpener {
                             id: menuOpener
-                            menu: button.modelData?.menu
+                            menu: button.modelData.menu
                         }
 
-                        property var popupWindow: TrayPopupMenu {
+                        property TrayPopupMenu popupWindow: TrayPopupMenu {
                             id: trayPopup
-                            menuHandle: button.menuOpener.menu
+                            menuHandle: button.modelData.menu
                             parentButton: button
                             
                             anchor {
