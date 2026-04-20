@@ -10,7 +10,6 @@ Shared.PopupWindow {
     id: root
     required property Item parentButton // The button that this popup will be relative to
     required property QsMenuHandle menuHandle // The menu object that describes the content
-    Component.onCompleted: () => console.debug(`menuHandle: ${menuHandle}`)
 
     anchor {
         // Only window or item should be set at a time, otherwise a crash can occur
@@ -33,6 +32,8 @@ Shared.PopupWindow {
             delegate: Loader {
                 id: loader
                 required property QsMenuEntry modelData
+                // WARNING: Seems the children of a QsMenuOpener can randomly go null
+                //onModelDataChanged: console.debug(`modelData changed to ${modelData}`)
                 // This seems to be required when wrapping with a loader
                 Layout.fillWidth: true // It appears that this propagates through the 
                 active: true

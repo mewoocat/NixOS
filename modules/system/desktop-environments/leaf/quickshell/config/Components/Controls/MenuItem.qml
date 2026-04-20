@@ -1,8 +1,9 @@
 import QtQuick
 import QtQuick.Shapes
 import Qt5Compat.GraphicalEffects
-import QtQuick.Controls.impl // For IconLabel
+import QtQuick.Controls.impl
 import QtQuick.Templates as T
+import Quickshell
 
 import qs as Root
 
@@ -13,8 +14,8 @@ T.MenuItem {
 
     //defines the padding of the contentItem relative to the edge of the control
     padding: 4
-    leftPadding: padding
-    rightPadding: padding
+    leftPadding: Math.max(padding, background.height / 2)
+    rightPadding: Math.max(padding, background.height / 2)
     topPadding: padding
     bottomPadding: padding
 
@@ -22,6 +23,7 @@ T.MenuItem {
     property color color: control.hovered || control.highlighted ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMutliColorIcon: false
     property int radius: background.implicitHeight
+    property bool hasChildren: false
     // Defines the padding of the background
     property real inset: 2
     leftInset: inset
@@ -50,6 +52,8 @@ T.MenuItem {
     icon.width: 24
     icon.height: 24
     icon.color: control.color
+    //implicitTextPadding: checkable || hasChildren ? Math.max(indicator.width, arrow.width) : 0
+    implicitTextPadding: 40
 
     // The geometry of the contentItem is determined by the padding
     // IconLabel source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickiconlabel_p.h
@@ -66,8 +70,57 @@ T.MenuItem {
         font.pointSize: control.font.pointSize
         font.family: control.font.family
         color: control.color
-        leftPadding: 6
+        // WARNING: I don't think the textPadding is properly getting set since there is no menu defined for this MenuItem
+        leftPadding: control.textPadding
+        //leftPadding: control.checkable || control.hasChildren ? control.padding + control.indicator.width : control.padding
         // Icons generally seem to have a bit of padding built in, if text is included, add more padding to balance it out
         rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
+    }
+    
+    // The sub-menu arrow item for indicating a sub menu
+    arrow: Rectangle {
+        visible: control.hasChildren
+        color: "transparent"
+        x: control.leftPadding
+        y: control.topPadding
+        width: height
+        height: control.availableHeight
+        // ColorImage source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickcolorimage_p.h
+        ColorImage {
+            anchors.centerIn: parent
+            height: 16
+            width: 16
+            source: Quickshell.iconPath("arrow-left-symbolic")
+            color: control.color
+        }
+    }
+
+    // Used for check boxes
+    indicator: Rectangle {
+        color: "transparent"
+        x: control.leftPadding
+        y: control.topPadding
+        width: height
+        height: control.availableHeight
+        visible: control.checkable
+
+        Rectangle {
+            anchors.centerIn: parent
+            radius: 4
+            border.width: 2
+            border.color: control.color
+            color: "transparent"
+            width: height
+            height: 18
+            
+            Rectangle {
+                visible: control.checked
+                anchors.centerIn: parent
+                color: control.color
+                width: height
+                height: parent.height - (parent.border.width * 2) - 6
+                radius: 1
+            }
+        }
     }
 }

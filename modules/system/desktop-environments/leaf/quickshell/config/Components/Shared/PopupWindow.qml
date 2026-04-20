@@ -87,6 +87,7 @@ PopupWindow {
                 // mouse hasn't moved yet.
                 //margin: 1
                 child: root.content
+                margin: 4
             }
         }
     }

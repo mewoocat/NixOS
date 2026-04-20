@@ -91,12 +91,6 @@ ClippingRectangle {
                         onClicked: modelData.activate
                         ContextMenu.onRequested: () => popupWindow.visible = true
 
-                        // Used to extract the menu items from the menu
-                        property QsMenuOpener menuOpener: QsMenuOpener {
-                            id: menuOpener
-                            menu: button.modelData.menu
-                        }
-
                         property TrayPopupMenu popupWindow: TrayPopupMenu {
                             id: trayPopup
                             menuHandle: button.modelData.menu
