@@ -19,6 +19,7 @@ Shared.PopupWindow {
         margins.left: -8
     }
 
+    // WARNING: Seems the children of a QsMenuOpener can randomly go null
     // Used to extract the menu items from the menu
     QsMenuOpener {
         id: menuOpener
@@ -32,11 +33,9 @@ Shared.PopupWindow {
             delegate: Loader {
                 id: loader
                 required property QsMenuEntry modelData
-                // WARNING: Seems the children of a QsMenuOpener can randomly go null
-                //onModelDataChanged: console.debug(`modelData changed to ${modelData}`)
-                // This seems to be required when wrapping with a loader
                 Layout.fillWidth: true // It appears that this propagates through the 
                 active: true
+
                 // These are the possible components that would need to be loaded here
                 // They are only Components which define a type to be created, not actual
                 // instances of the type
@@ -47,16 +46,6 @@ Shared.PopupWindow {
                     implicitWidth: menuContent.width
                     color: Root.State.colors.on_surface_variant
                 }
-                /*
-                property Component menuItem: Ctrls.MenuItem {
-                    text: loader.modelData.text
-                    onClicked: {
-                        // setting the popup visibility if children exist
-                        if (root.entry?.hasChildren) { childrenLoader.item.item.visible = true }
-                        root.entry?.triggered()
-                    }
-                }
-                */
                 property Component menuItem: MenuItem {
                     menuEntry: loader.modelData
                 }

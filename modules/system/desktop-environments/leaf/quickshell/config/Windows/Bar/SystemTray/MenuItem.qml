@@ -13,7 +13,7 @@ Ctrls.MenuItem {
     text: menuEntry?.text ?? "..."
     checkable: menuEntry?.buttonType === QsMenuButtonType.CheckBox
     checked: menuEntry?.checkState === Qt.Checked
-    hasChildren: menuEntry?.hasChildren
+    hasChildren: menuEntry?.hasChildren ?? false
     onClicked: {
         // NOTE: The loaded item here is actually a BoundComponent instance.  So the second item property
         // is the item of the BoundComponent

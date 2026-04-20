@@ -13,9 +13,9 @@ T.MenuItem {
     hoverEnabled: true
 
     //defines the padding of the contentItem relative to the edge of the control
-    padding: 4
-    leftPadding: Math.max(padding, background.height / 2)
-    rightPadding: Math.max(padding, background.height / 2)
+    padding: 6
+    leftPadding: padding //Math.max(padding, background.height / 2)
+    rightPadding: padding //Math.max(padding, background.height / 2)
     topPadding: padding
     bottomPadding: padding
 
@@ -52,8 +52,7 @@ T.MenuItem {
     icon.width: 24
     icon.height: 24
     icon.color: control.color
-    //implicitTextPadding: checkable || hasChildren ? Math.max(indicator.width, arrow.width) : 0
-    implicitTextPadding: 40
+    //implicitTextPadding: 40 // I don't think this works unless the menu property is set
 
     // The geometry of the contentItem is determined by the padding
     // IconLabel source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickiconlabel_p.h
@@ -71,8 +70,8 @@ T.MenuItem {
         font.family: control.font.family
         color: control.color
         // WARNING: I don't think the textPadding is properly getting set since there is no menu defined for this MenuItem
-        leftPadding: control.textPadding
-        //leftPadding: control.checkable || control.hasChildren ? control.padding + control.indicator.width : control.padding
+        //leftPadding: control.textPadding
+        leftPadding: control.checkable || control.hasChildren ? control.padding + Math.max(control.indicator.width, control.arrow.width) : control.padding
         // Icons generally seem to have a bit of padding built in, if text is included, add more padding to balance it out
         rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
     }
@@ -83,7 +82,7 @@ T.MenuItem {
         color: "transparent"
         x: control.leftPadding
         y: control.topPadding
-        width: height
+        width: height//visible ? height : 0
         height: control.availableHeight
         // ColorImage source: https://github.com/qt/qtdeclarative/blob/dev/src/quickcontrolsimpl/qquickcolorimage_p.h
         ColorImage {
@@ -100,14 +99,14 @@ T.MenuItem {
         color: "transparent"
         x: control.leftPadding
         y: control.topPadding
-        width: height
+        width: visible ? height : 0
         height: control.availableHeight
         visible: control.checkable
 
         Rectangle {
             anchors.centerIn: parent
             radius: 4
-            border.width: 2
+            border.width: 1
             border.color: control.color
             color: "transparent"
             width: height
