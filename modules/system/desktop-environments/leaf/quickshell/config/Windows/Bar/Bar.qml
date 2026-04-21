@@ -9,7 +9,8 @@ import QtQuick.Shapes
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs as Root
-import qs.Windows.Bar.Workspaces
+//import qs.Windows.Bar.Workspaces
+import qs.Windows.Bar.WorkspacesGeneric
 import qs.Windows.ControlPanel
 import qs.Components.Controls as Ctrls
 import "./SystemTray"
@@ -66,23 +67,6 @@ Scope {
                             text: "+"
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
-                        /*
-                        TextField {
-                            id: textField
-                            onFocusChanged: {
-                                if (focus) { bar.focusable = true }
-                            }
-                        }
-                        BarButton {
-                            text: "-"
-                            inset: 10
-                            padding: 0
-                            onClicked: () => {
-                                bar.focusable = false
-                                textField.focus = false
-                            }
-                        }
-                        */
                     }
                     // Center
                     RowLayout {

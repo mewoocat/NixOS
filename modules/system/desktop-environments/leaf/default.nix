@@ -16,14 +16,13 @@ in{
     ./hyprland
     ./theming
     ./quickshell
+    ./niri
     inputs.qtengine.nixosModules.default
   ];
 
   environment.sessionVariables = {
     QT_QPA_PLATFORMTHEME = "qtengine";
   };
-
-  programs.niri.enable = true;
 
   # Hot reloading support not yet in master
   programs.qtengine = {
@@ -172,6 +171,7 @@ in{
   ];
 
   # GreetD
+  /*
   services.greetd = {
     enable = false;
     settings = {
@@ -182,4 +182,5 @@ in{
       };
     };
   };
+  */
 }
