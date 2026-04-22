@@ -51,6 +51,11 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    qml-niri = {
+      url = "github:imiric/qml-niri/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the

@@ -44,10 +44,12 @@ WrapperMouseArea {
                     console.debug(`windowset | id: ${w.id} | name: ${w.name}`)
                     return w.projection.screens.includes(root.screen)
                 })
+                /*
                 .sort((a, b) => {
                     if (parseInt(a.id) > parseInt(b.id)) { return 1 }
                     return -1
                 })
+                */
             WsButton {
                 id: workspaceButton
                 required property Windowset modelData
@@ -55,6 +57,17 @@ WrapperMouseArea {
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight
             }
+
+            /*
+            model: Services.Niri.plugin.workspaces
+            WsButtonNiriPlugin {
+                id: workspaceButton
+                required property var modelData
+                ws: modelData
+                Layout.fillHeight: true
+                implicitHeight: Root.State.barHeight
+            }
+            */
         }
     }
 }
