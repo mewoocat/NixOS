@@ -64,6 +64,8 @@ WrapperMouseArea {
             WsButtonNiriPlugin {
                 id: workspaceButton
                 required property var modelData
+                required property var index
+                wsIndex: index
                 ws: modelData
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight

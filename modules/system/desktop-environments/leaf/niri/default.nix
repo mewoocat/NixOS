@@ -7,6 +7,12 @@
   programs.niri.enable = true;
   programs.niri.package = inputs.niri.packages.x86_64-linux.default;
 
+  environment = {
+    systemPackages = with pkgs; [
+      xwayland-satellite # For xwayland support in niri
+    ];
+  };
+
   hjem.users.eXia = {
     enable = true;
     files = {

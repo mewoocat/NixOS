@@ -10,6 +10,7 @@ import qs.Components.Controls as Ctrls
 Ctrls.Button {
     id: root
     required property var ws
+    required property int wsIndex
 
     property int smallSize: 10
     property int mediumSize: 16
@@ -51,7 +52,7 @@ Ctrls.Button {
         leftPadding: 6
         rightPadding: 6
         id: displayName
-        text: root.ws.id + " | " + root.ws.name
+        text: root.wsIndex + " | " + root.ws.name
         font.pointSize: 8
         color: root.hovered || root.ws.isActive
             ? Root.State.colors.on_primary
