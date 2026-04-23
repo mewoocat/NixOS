@@ -1,8 +1,11 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import Quickshell.Widgets
 import qs.Services as Services
 import qs as Root
@@ -12,6 +15,8 @@ import qs as Root
 // WARNING: If blur is disabled in hyprland but the layer still has it enabled for popups, then some square corners
 // will show up around these popup windows.  Also disabling the blur for the layer fixes this.  But disabling the 
 // popup blur globally won't apply to this layer.
+//
+// NOTE: Shadows are implemented here since they are not supported in niri/hyprland for layer popups
 //
 // A basic window to appear over PanelWindows at a certian position
 PopupWindow {
@@ -26,12 +31,18 @@ PopupWindow {
     //Behavior on implicitHeight { PropertyAnimation { duration: 100 } }
     //Behavior on anchor.item { PropertyAnimation { duration: 1000 } }
     color: "transparent"
+    grabFocus: true
     anchor {
         /*
         // The rect[x,y] seems to always be relative to the item's (0,0)
         rect.x: -root.shadowSize
         rect.y: 0//root.anchor.item.height
         */
+    }
+    // Specify the region of the layer to have blur applied to it
+    BackgroundEffect.blurRegion: Region {
+        item: background
+        radius: background.radius
     }
 
     // IMPORTANT: Make sure to call this method before the PopupWindow is destoryed, or else a 

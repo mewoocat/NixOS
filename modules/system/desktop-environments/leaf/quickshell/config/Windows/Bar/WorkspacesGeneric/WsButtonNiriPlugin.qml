@@ -52,7 +52,9 @@ Ctrls.Button {
         leftPadding: 6
         rightPadding: 6
         id: displayName
-        text: root.wsIndex + " | " + root.ws.name
+        text: root.ws.name
+            ? root.wsIndex + " | " + root.ws.name
+            : root.wsIndex
         font.pointSize: 8
         color: root.hovered || root.ws.isActive
             ? Root.State.colors.on_primary

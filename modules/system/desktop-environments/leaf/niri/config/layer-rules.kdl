@@ -1,0 +1,82 @@
+layer-rule {
+  match namespace="^quickshell-bar.*"
+    // Properties that apply continuously.
+    shadow {
+        on
+        // off
+        softness 8
+        spread 4
+        offset x=0 y=3
+        draw-behind-window false
+        color "#00000099"
+        // inactive-color "#00000064"
+    }
+
+    geometry-corner-radius 0
+    place-within-backdrop false
+    baba-is-float false
+
+    background-effect {
+        xray false
+        blur true
+        noise 0.05
+        saturation 3
+    }
+
+    popups {
+        geometry-corner-radius 0
+
+        background-effect {
+            xray false
+            blur true
+            noise 0.05
+            saturation 3
+        }
+    }
+}
+
+layer-rule {
+    match namespace="^quickshell-panel.*"
+    //match at-startup=true
+    //match layer="top"
+
+    // Properties that apply continuously.
+    opacity 1.0
+    block-out-from "screencast"
+    // block-out-from "screen-capture"
+
+    shadow {
+        on
+        // off
+        softness 8
+        spread 4
+        offset x=-3 y=3
+        draw-behind-window false
+        color "#00000099"
+        // inactive-color "#00000064"
+    }
+
+    geometry-corner-radius 18
+    place-within-backdrop false
+    baba-is-float false
+
+    background-effect {
+        xray false
+        blur true
+        noise 0.05
+        saturation 3
+    }
+
+    popups {
+        opacity 1.0
+        geometry-corner-radius 0
+
+        background-effect {
+            xray false
+            blur true
+            noise 0.05
+            saturation 3
+        }
+
+    }
+}
