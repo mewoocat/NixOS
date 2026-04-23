@@ -22,6 +22,7 @@ in{
 
   environment.sessionVariables = {
     QT_QPA_PLATFORMTHEME = "qtengine";
+    XDG_SESSION_TYPE = "wayland";
   };
 
   # Hot reloading support not yet in master

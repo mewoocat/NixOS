@@ -1,9 +1,11 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   programs.niri.enable = true;
+  programs.niri.package = inputs.niri.packages.x86_64-linux.default;
 
   hjem.users.eXia = {
     enable = true;
@@ -17,7 +19,7 @@
   };
 
   services.greetd = {
-    enable = true;
+    enable = false;
     settings = {
       default_session = {
         command = "${config.programs.niri.package}/bin/niri-session";

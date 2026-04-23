@@ -27,7 +27,7 @@
     GlobalProtect-openconnect.url = "github:yuezk/GlobalProtect-openconnect";
 
     # Leaf
-    hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.53.0&submodules=1";
+    hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.54.0&submodules=1";
     hypridle.url = "github:hyprwm/hypridle";
     hyprland-plugins = {
       url = "git+https://github.com/hyprwm/hyprland-plugins?ref=refs/tags/v0.53.0";
@@ -55,6 +55,10 @@
       url = "github:imiric/qml-niri/main";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
+    };
+    niri = {
+      url = "github:niri-wm/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

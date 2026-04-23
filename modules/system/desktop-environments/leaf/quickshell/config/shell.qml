@@ -22,6 +22,10 @@ import "Windows/Lockscreen"
 //import Quickshell.Services.NetworkManager
 
 ShellRoot {
+    Component.onCompleted: {
+        Controller.enable() // Needed for ipc to find target
+    }
+
     // Visual
     Bar {} 
     Launcher {}

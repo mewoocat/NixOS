@@ -38,18 +38,19 @@ WrapperMouseArea {
 
         Repeater {
             // Only show workspaces for this screen
-            model: WindowManager.windowsets
-                .filter(w => w.id) // Only account for workspaces with an id
-                .filter(w => {
-                    console.debug(`windowset | id: ${w.id} | name: ${w.name}`)
-                    return w.projection.screens.includes(root.screen)
-                })
-                /*
-                .sort((a, b) => {
-                    if (parseInt(a.id) > parseInt(b.id)) { return 1 }
-                    return -1
-                })
-                */
+            //model: WindowManager.windowsets
+            //    .filter(w => w.id) // Only account for workspaces with an id
+            //    .filter(w => {
+            //        console.debug(`windowset | id: ${w.id} | name: ${w.name}`)
+            //        return w.projection.screens.includes(root.screen)
+            //    })
+            //    /*
+            //    .sort((a, b) => {
+            //        if (parseInt(a.id) > parseInt(b.id)) { return 1 }
+            //        return -1
+            //    })
+            //    */
+            /*
             WsButton {
                 id: workspaceButton
                 required property Windowset modelData
@@ -57,8 +58,8 @@ WrapperMouseArea {
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight
             }
+            */
 
-            /*
             model: Services.Niri.plugin.workspaces
             WsButtonNiriPlugin {
                 id: workspaceButton
@@ -67,7 +68,6 @@ WrapperMouseArea {
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight
             }
-            */
         }
     }
 }

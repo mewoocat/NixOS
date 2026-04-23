@@ -18,18 +18,18 @@
     };
     
     # To load the plugins when hyprland starts
-    ".config/hypr/nixManaged.conf" = {
-      clobber = true;
-      #text = '''';
-      text = ''
-        plugin = ${inputs.hyprland-plugins.packages.${config.hostSystem}.hyprbars}/lib/libhyprbars.so
-        exec-once = hyprctl plugin load ${inputs.hyprland-plugins.packages.${config.hostSystem}.hyprbars}/lib/libhyprbars.so
-      '';
-        /*
-        #plugin = ${inputs.Hyprspace.packages.${config.hostSystem}.Hyprspace}/lib/libHyprspace.so
-        #exec-once = hyprctl plugin load ${inputs.Hyprspace.packages.${config.hostSystem}.Hyprspace}/lib/libHyprspace.so
-        */
-    };
+    #".config/hypr/nixManaged.conf" = {
+    #  clobber = true;
+    #  #text = '''';
+    #  text = ''
+    #    plugin = ${inputs.hyprland-plugins.packages.${config.hostSystem}.hyprbars}/lib/libhyprbars.so
+    #    exec-once = hyprctl plugin load ${inputs.hyprland-plugins.packages.${config.hostSystem}.hyprbars}/lib/libhyprbars.so
+    #  '';
+    #    /*
+    #    #plugin = ${inputs.Hyprspace.packages.${config.hostSystem}.Hyprspace}/lib/libHyprspace.so
+    #    #exec-once = hyprctl plugin load ${inputs.Hyprspace.packages.${config.hostSystem}.Hyprspace}/lib/libHyprspace.so
+    #    */
+    #};
   };
 
   programs.hyprland = {
@@ -41,7 +41,7 @@
     # However having the plugin value set here doesn't seem to work
     # Manully adding it to the main config file above
     plugins = [
-      inputs.hyprland-plugins.packages.${config.hostSystem}.hyprbars
+      #inputs.hyprland-plugins.packages.${config.hostSystem}.hyprbars
       #inputs.Hyprspace.packages.${config.hostSystem}.Hyprspace
     ];
   };

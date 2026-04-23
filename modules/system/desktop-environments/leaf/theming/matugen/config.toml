@@ -74,7 +74,10 @@ input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/t
 output_path = "~/.cache/terminal-sequences"
 post_hook = "tee /dev/pts/[0-9]* < ~/.cache/terminal-sequences" # export the sequences to every running terminal
 
-
+[templates.niri]
+input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/niri-colors.kdl"
+output_path = '~/.config/niri/colors.kdl'
+post_hook = 'niri msg action load-config-file'
 
 # Defaults to a value of 0 if unspecified, determines the order that each template is processed.
 # You can use index = n to force a particular template hook to run after everything else, and index = -n for before everything else
