@@ -17,7 +17,7 @@ in{
     ./theming
     ./quickshell
     ./niri
-    ./qt.nix
+    ./fonts.nix
   ];
 
   environment.sessionVariables = {
@@ -25,46 +25,18 @@ in{
     XDG_SESSION_TYPE = "wayland";
   };
 
-  fonts.packages = with pkgs; [
-    # GUI
-    rubik
-    liberation_ttf
-    arkpandora_ttf
-    cantarell-fonts
-
-    # Monospace
-    nerd-fonts.space-mono
-
-    # Icons
-    material-symbols
-  ];
-
   programs.light.enable = true;
   programs.dconf.enable = true; # Required for gtk?
-  programs.kdeconnect.enable = true;
 
   environment = {
     systemPackages = with pkgs; [
 
-      # theming
-      kdePackages.breeze-icons kora-icon-theme
-
-      # QT Styles
-      kdePackages.breeze
-      kdePackages.breeze.qt5 # For Qt5 support
-      darkly
-      darkly-qt5 # For Qt5 support
-      adwaita-qt
-      qlementine
-
-      polkit_gnome # Not sure if this is needed since the service is defined below?
-      gnome-system-monitor
+      #polkit_gnome # Not sure if this is needed since the service is defined below?
 
       # For screen recording
       wf-recorder
       slurp
     ];
-    sessionVariables = {};
     variables = {
       NIXOS_OZONE_WL = "1";
       SDL_VIDEODRIVER = "wayland";
@@ -74,8 +46,7 @@ in{
   };
 
   # If an error occurs in any of the scripts here, the nixos-activation service will break
-  system.userActivationScripts = {
-  };
+  system.userActivationScripts = {};
 
   # Autostarts gnome polkit
   # Needed for apps that require sudo permissions (i.e. gnome-disks)
@@ -108,7 +79,6 @@ in{
   */
 
   users.users.${config.username}.packages = with pkgs; [
-    fastfetch
     xdg-utils # needed for discord/vesktop to open web links in default browser
     usbutils
     coreutils
@@ -141,7 +111,6 @@ in{
     grim
     ddcutil
     ddcui
-    inputs.qtengine.packages.${config.hostSystem}.default
   ];
 
   # GreetD

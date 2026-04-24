@@ -9,6 +9,9 @@
   # This is a custom option
   username = "eXia";
 
+  # Set your time zone.
+  time.timeZone = "America/Chicago";
+
   imports = [
     ../../modules/applications
     ../../modules/dev-environments
@@ -117,6 +120,7 @@
     ];
   };
 
+  programs.kdeconnect.enable = true;
   programs.wireshark.enable = true; # Add Wireshark to the global environment and create a ‘wireshark’ group
   programs.gnupg = {
     agent = {
@@ -125,8 +129,5 @@
       #pinentryPackage = pkgs.pinentry-gtk2;
     };
   };
-
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
 
 }

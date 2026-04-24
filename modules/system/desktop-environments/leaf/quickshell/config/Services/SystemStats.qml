@@ -42,7 +42,6 @@ Singleton {
 
     Process {
         id: cpuTempProc
-        // Todo: pls remove fastfetch dep omg
         command: ['bash', '-c', 'sensors | grep "Package id 0:" | cut -d " " -f5 | cut -c 2-5']
         running: true
 

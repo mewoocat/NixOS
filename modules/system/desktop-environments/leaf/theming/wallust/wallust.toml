@@ -48,18 +48,6 @@ saturation = 50
 # If one is a directory, the other one NEEDS to also be one, one line example below
 # zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
 
-ags.src = 'ags.scss'
-ags.dst = '~/.config/leaf-de/theme/_ags-colors.scss'
-
-gtk.src = 'gtk.css'
-gtk.dst = '~/.config/leaf-de/theme/gtk.css'
-
-vim.src = 'colors_neopywal.vim'
-vim.dst = '~/.cache/wallust/colors_neopywal.vim'
-
-zellij.src = 'zellij.kdl'
-zellij.dst = '~/.config/zellij/themes/default.kdl'
-
-hypr.src = 'hypr.conf'
-hypr.dst = '~/.config/leaf-de/hypr/colors.conf'
+#zellij.src = 'zellij.kdl'
+#zellij.dst = '~/.config/zellij/themes/default.kdl'
 
