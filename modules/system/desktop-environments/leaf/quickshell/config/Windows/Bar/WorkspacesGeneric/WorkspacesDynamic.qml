@@ -13,25 +13,7 @@ import "../"
 WrapperMouseArea {
     id: root
     required property ShellScreen screen
-    property var popup: Workspaces {}
     hoverEnabled: true
-    onHoveredChanged: {
-        if (containsMouse) {
-            popupCloseDelay.running = false
-            Root.State.isWorkspaceWidgetHovered = true
-        }
-        else {
-            popupCloseDelay.running = true
-        }
-    }
-    Timer {
-        id: popupCloseDelay
-        interval: 200
-        onTriggered: () => {
-            Root.State.isWorkspaceWidgetHovered = false
-        }
-        running: false
-    }
 
     RowLayout {
         spacing: 0

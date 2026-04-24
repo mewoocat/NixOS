@@ -49,33 +49,33 @@ command = "swww img --transition-type center {{ image }}"
 
 # Assumes adw-gtk3 theme is installed
 [templates.gtk3]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
+input_path = "~/.config/matugen/templates/gtk-colors.css"
 output_path = "~/.config/gtk-3.0/colors.css"
 post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3{{ <* if {{ is_dark_mode }} *> "-dark" <* else *> "" <* endif *> }}'
 
 [templates.gtk4]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/gtk-colors.css"
+input_path = "~/.config/matugen/templates/gtk-colors.css"
 output_path = "~/.config/gtk-4.0/colors.css"
 
 [templates.qtengine]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/qtengine.colors"
+input_path = "~/.config/matugen/templates/qtengine.colors"
 output_path = "~/.config/leaf-de/qtengine.colors"
 
 [templates.quickshell]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/quickshell.json"
+input_path = "~/.config/matugen/templates/quickshell.json"
 output_path = '~/.config/leaf-de/quickshell-colors.json'
 
 [templates.hypr]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/hyprland-colors.conf"
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = '~/.config/leaf-de/hypr/hyprland-colors.conf'
 
 [templates.terminal-sequences]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/terminal-sequences"
+input_path = "~/.config/matugen/templates/terminal-sequences"
 output_path = "~/.cache/terminal-sequences"
 post_hook = "tee /dev/pts/[0-9]* < ~/.cache/terminal-sequences" # export the sequences to every running terminal
 
 [templates.niri]
-input_path = "~/NixOS/modules/system/desktop-environments/leaf/theming/matugen/niri-colors.kdl"
+input_path = "~/.config/matugen/templates/niri-colors.kdl"
 output_path = '~/.config/niri/colors.kdl'
 post_hook = 'niri msg action load-config-file'
 
