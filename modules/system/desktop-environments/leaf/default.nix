@@ -17,39 +17,12 @@ in{
     ./theming
     ./quickshell
     ./niri
-    inputs.qtengine.nixosModules.default
+    ./qt.nix
   ];
 
   environment.sessionVariables = {
     QT_QPA_PLATFORMTHEME = "qtengine";
     XDG_SESSION_TYPE = "wayland";
-  };
-
-  # Hot reloading support not yet in master
-  programs.qtengine = {
-    enable = false;
-    config = {
-      theme = {
-        # Note that this file apparently affect the colors of icons
-        colorScheme = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
-        #colorScheme = "${leaf-dir}/qtengine.colors";
-        iconTheme = "kora";
-        style = "darkly";
-        font = {
-          family = "Rubik";
-          size = 11;
-          weight = -1;
-        };
-        fontFixed = {
-          family = "SpaceMono Nerd Font";
-          size = 11;
-          weight = -1;
-        };
-      };
-      misc = {
-        menusHaveIcons = true;
-      };
-    };
   };
 
   fonts.packages = with pkgs; [

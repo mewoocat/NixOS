@@ -93,7 +93,7 @@
       qtcreator
       blanket
       thunderbird
-      inputs.helium.packages.${system}.default
+      inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # Music
       #amarok # Music player
@@ -111,6 +111,9 @@
       # Rust
       cargo
       rustc
+
+      # Dev
+      inputs.alejandra.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 

@@ -1032,11 +1032,11 @@
         "plugin-neopywal": "plugin-neopywal"
       },
       "locked": {
-        "lastModified": 1776307951,
-        "narHash": "sha256-LQ4uHYL1UKYIvXs0OY/23RO3lfMJUJV7mg1zwEaDeNw=",
+        "lastModified": 1777001804,
+        "narHash": "sha256-/Cui3r8DkFAsDFA2Gg8ltCbbao/VOB49A2NKQrpkPRo=",
         "owner": "mewoocat",
         "repo": "nvim-nvf",
-        "rev": "c968df316c3dbfecc42f080fe814fcfa9657f24b",
+        "rev": "338425ec9b5200ba9f119f44a6d61986c96dc712",
         "type": "github"
       },
       "original": {

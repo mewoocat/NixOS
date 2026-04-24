@@ -48,7 +48,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages."${system}".default # Agenix cli client
+    inputs.agenix.packages.${stdenv.hostPlatform.system}.default # Agenix cli client
     man-pages
   ];
 

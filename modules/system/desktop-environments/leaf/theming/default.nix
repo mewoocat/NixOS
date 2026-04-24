@@ -83,8 +83,6 @@ in {
     arc-icon-theme
     reversal-icon-theme
 
-    #inputs.adw-gtk3-leaf.packages.${system}.default
-
     wallust
     theme
     #libsForQt5.qt5ct
