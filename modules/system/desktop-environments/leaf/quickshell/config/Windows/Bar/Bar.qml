@@ -67,6 +67,21 @@ Scope {
                             text: "+"
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
+                        BarButton {
+                            icon.name: "search-symbolic"
+                        }
+                        BarButton {
+                            icon.name: "network-wireless-connected-50"
+                            icon.color: "red"
+                        }
+                        IconImage {
+                            source: Quickshell.iconPath("network-wireless-connected-50")
+                            implicitSize: 18
+                        }
+                        IconImage {
+                            source: Quickshell.iconPath("search-symbolic")
+                            implicitSize: 18
+                        }
                     }
                     // Center
                     RowLayout {

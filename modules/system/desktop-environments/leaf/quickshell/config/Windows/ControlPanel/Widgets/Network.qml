@@ -95,7 +95,7 @@ AbsGrid.WidgetData {
                 id: internet
                 title: "Wifi"
                 subtext: Services.Networking.currentWifiNetwork?.name ?? "n/a"
-                iconName: Services.Networking.currentWifiIconName
+                iconName: Services.Networking.getWifiActiveIconName(Services.Networking.currentWifiNetwork)
                 content: Pages.Network {
                     onGoBack: internet.goBack()
                 }

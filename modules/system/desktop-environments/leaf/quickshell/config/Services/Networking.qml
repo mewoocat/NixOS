@@ -11,6 +11,7 @@ Singleton {
     property WifiNetwork currentWifiNetwork: wifiInterface?.networks.values
         .find(d => d.state != ConnectionState.Disconnected) ?? null
 
+    /*
     property string currentWifiIconName: {
         if (!currentWifiNetwork) { return "network-wireless-disconnected-symbolic" }
 
@@ -43,32 +44,52 @@ Singleton {
                 return `network-wireless-100-${connStr}`
         }
     }
+    */
 
-    // The useState property here determines whether the network's state will be taken into account
-    // when forming it's icon string.  If false, connected will be assumed.  Useful for looking up
-    // form unconnected access points since we wouldn't want to indicate a disconnected state since 
-    // it's assumed.
-    function getWifiIconName(wifiNet: WifiNetwork, useState): string {
+    // Helper function for getting the xdg icon for the active wifi network
+    function getWifiActiveIconName(wifiNet: WifiNetwork): string {
         if (!wifiNet) { return "network-wireless-disconnected-symbolic" }
-
+        
+        let signalStrength = Math.floor(currentWifiNetwork.signalStrength * 100)
+        switch(true) {
+            case signalStrength < 20: 
+                signalStrength = "20"; break
+            case signalStrength < 40:
+                signalStrength = "40"; break
+            case signalStrength < 60:
+                signalStrength = "60"; break
+            case signalStrength < 80:
+                signalStrength = "80"; break
+            default:
+                signalStrength = "100"
+        }
+    
         let state
-        if (useState) {
-            switch(currentWifiNetwork.state){
-                case ConnectionState.Disconnected:
-                    state = "disconnected"
-                    break;
-                case ConnectionState.Connected:
-                    state = "connected"
-                    break
-                case ConnectionState.Connecting:
-                case ConnectionState.Disconnecting:
-                    state = "limited"
-                    break
-                default:
-                    console.error("Invalid connection state reached for network icon, assuming limited")
-            }
-        } else {
-            state = "connected"
+        switch(currentWifiNetwork.state){
+            case ConnectionState.Disconnected:
+                state = "disconnected"
+                break;
+            case ConnectionState.Connected:
+                state = "connected"
+                break
+            case ConnectionState.Connecting:
+            case ConnectionState.Disconnecting:
+                state = "limited"
+                break
+            default:
+                console.error("Invalid connection state reached for network icon, assuming limited")
+        }
+
+        const iconName = `network-wireless-${signalStrength}-${state}-symbolic`
+        return iconName
+    }
+
+
+    // Helper function for getting the xdg icon name for a wifi access point (that's not currently activated)
+    function getWifiAPIconName(wifiNet: WifiNetwork): string {
+        if (!wifiNet) {
+            log.warn(`WifiNetwork not provided`)
+            return "network-wireless-disconnected-symbolic"
         }
 
         let signalStrength = Math.floor(currentWifiNetwork.signalStrength * 100)
@@ -85,7 +106,15 @@ Singleton {
                 signalStrength = "100"
         }
 
-        const iconName = `network-wireless-${signalStrength}-${state}-symbolic`
+        let security = wifiNet.security
+        switch(security) {
+            case WifiSecurityType.Open:
+                security = ""; break
+            default: 
+                security = "-locked";
+        }
+
+        const iconName = `network-wireless-${signalStrength}${security}-symbolic`
         return iconName
     }
 }

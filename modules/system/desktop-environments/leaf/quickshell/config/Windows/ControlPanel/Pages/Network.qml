@@ -43,6 +43,8 @@ PageBase {
                 name: "Wifi Networks"
                 content: Ctrls.Button {
                     icon.name: "view-refresh-symbolic"
+                    icon.width: 16
+                    icon.height: 16
                     onClicked: () => Services.Networking.wifiInterface.scannerEnabled = true
                 }
             }
@@ -90,7 +92,7 @@ PageBase {
             Layout.leftMargin: 4
             implicitSize: 24
             color: mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
-            source: Quickshell.iconPath(Services.Networking.getWifiIconName(modelData), "network-wireless-disconnected")
+            source: Quickshell.iconPath(Services.Networking.getWifiAPIconName(modelData), "network-wireless-disconnected")
         }
         ColumnLayout {
             spacing: 0
@@ -107,24 +109,19 @@ PageBase {
                     opacity: 0.6
                     elide: Text.ElideRight
                     font.pointSize: 8
+                    color: {
+                        switch(mainDelegate.modelData.state) {
+                            case ConnectionState.Connected:
+                                return "green"
+                            case ConnectionState.Connecting:
+                                return "orange"
+                            case ConnectionState.Disconnecting:
+                                return "red"
+                            case ConnectionState.Disconnected:
+                                return mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface_variant
+                        }
+                    }
                     text: ConnectionState.toString(mainDelegate.modelData.state)
-                }
-                RowLayout {
-                    spacing: 0
-                    /*
-                    IconImage {
-                        implicitSize: 12
-                        source: Quickshell.iconPath("battery-100-symbolic")
-                    }
-                    */
-                    Text {
-                        id: battery
-                        Layout.fillWidth: true
-                        color: mainDelegate.scrollItem.interacted ? Root.State.colors.on_primary : Root.State.colors.on_surface
-                        opacity: 0.6
-                        font.pointSize: 8
-                        text: "test"
-                    }
                 }
             }
         }
