@@ -107,7 +107,7 @@ PageBase {
                     opacity: 0.6
                     elide: Text.ElideRight
                     font.pointSize: 8
-                    text: "state " + ConnectionState.toString(mainDelegate.modelData.state)
+                    text: ConnectionState.toString(mainDelegate.modelData.state)
                 }
                 RowLayout {
                     spacing: 0
