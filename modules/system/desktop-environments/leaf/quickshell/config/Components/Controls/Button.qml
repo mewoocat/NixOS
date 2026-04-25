@@ -50,8 +50,8 @@ T.Button {
     spacing: 4
     icon.name: ""
     icon.source: ""
-    icon.width: 18
-    icon.height: 18
+    icon.width: 20
+    icon.height: 20
     icon.color: control.color
 
     // The geometry of the contentItem is determined by the padding

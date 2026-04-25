@@ -2,11 +2,12 @@
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
-import Quickshell.Widgets
+import Quickshell.Widgets as QsWidgets
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Shapes
 import QtQuick.Controls
+import QtQuick.Controls.impl // For IconLabel
 import QtQuick.Layouts
 import qs as Root
 //import qs.Windows.Bar.WorkspacesHyprland
@@ -67,20 +68,35 @@ Scope {
                             text: "+"
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
-                        BarButton {
-                            icon.name: "search-symbolic"
+                        QsWidgets.IconImage {
+                            source: Quickshell.iconPath("network-wireless-connected-100-symbolic")
+                            Component.onCompleted: console.debug(`network path: ${source}`)
+                            implicitSize: 32
                         }
-                        BarButton {
-                            icon.name: "network-wireless-connected-50"
-                            icon.color: "red"
-                        }
-                        IconImage {
-                            source: Quickshell.iconPath("network-wireless-connected-50")
-                            implicitSize: 18
-                        }
-                        IconImage {
+                        QsWidgets.IconImage {
                             source: Quickshell.iconPath("search-symbolic")
-                            implicitSize: 18
+                            Component.onCompleted: console.debug(`search-symbolic path: ${source}`)
+                            implicitSize: 32
+                        }
+                        IconLabel {
+                            icon.name: "network-wireless-connected-100-symbolic"
+                            icon.width: 32
+                            icon.height: 32
+                        }
+                        IconLabel {
+                            icon.name: "search-symbolic"
+                            icon.width: 32
+                            icon.height: 32
+                        }
+                        Button {
+                            icon.name: "search-symbolic"
+                            icon.width: 32
+                            icon.height: 32
+                        }
+                        Button {
+                            icon.name: "network-wireless-connected-100-symbolic"
+                            icon.width: 32
+                            icon.height: 32
                         }
                     }
                     // Center
@@ -112,12 +128,9 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
-                        Ctrls.Button {
+                        BarButton {
                             onClicked: () => Root.State.controlPanel.toggleWindow()
                             icon.name: "open-menu-symbolic"
-                            inset: 6
-                            implicitHeight: bar.height
-                            implicitWidth: 48
                         }
                     }
                 }
