@@ -43,4 +43,49 @@ Singleton {
                 return `network-wireless-100-${connStr}`
         }
     }
+
+    // The useState property here determines whether the network's state will be taken into account
+    // when forming it's icon string.  If false, connected will be assumed.  Useful for looking up
+    // form unconnected access points since we wouldn't want to indicate a disconnected state since 
+    // it's assumed.
+    function getWifiIconName(wifiNet: WifiNetwork, useState): string {
+        if (!wifiNet) { return "network-wireless-disconnected-symbolic" }
+
+        let state
+        if (useState) {
+            switch(currentWifiNetwork.state){
+                case ConnectionState.Disconnected:
+                    state = "disconnected"
+                    break;
+                case ConnectionState.Connected:
+                    state = "connected"
+                    break
+                case ConnectionState.Connecting:
+                case ConnectionState.Disconnecting:
+                    state = "limited"
+                    break
+                default:
+                    console.error("Invalid connection state reached for network icon, assuming limited")
+            }
+        } else {
+            state = "connected"
+        }
+
+        let signalStrength = Math.floor(currentWifiNetwork.signalStrength * 100)
+        switch(true) {
+            case signalStrength < 20: 
+                signalStrength = "20"; break
+            case signalStrength < 40:
+                signalStrength = "40"; break
+            case signalStrength < 60:
+                signalStrength = "60"; break
+            case signalStrength < 80:
+                signalStrength = "80"; break
+            default:
+                signalStrength = "100"
+        }
+
+        const iconName = `network-wireless-${signalStrength}-${state}-symbolic`
+        return iconName
+    }
 }

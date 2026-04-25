@@ -96,12 +96,9 @@ AbsGrid.WidgetData {
                 title: "Wifi"
                 subtext: Services.Networking.currentWifiNetwork?.name ?? "n/a"
                 iconName: Services.Networking.currentWifiIconName
-                content: null
-                /*
                 content: Pages.Network {
                     onGoBack: internet.goBack()
                 }
-                */
                 active: Services.Networking.isWifiEnabled
                 onToggleAction: Services.Networking.setWifiEnabled(!Services.Networking.isWifiEnabled)
             }
