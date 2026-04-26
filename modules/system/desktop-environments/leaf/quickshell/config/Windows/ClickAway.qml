@@ -17,18 +17,18 @@ Scope {
                 right: true
                 bottom: true
             }
-            color: "#33ff0000"
+            color: "#00ff0000"
             MouseArea {
                 id: area
                 hoverEnabled: true
                 anchors.fill: parent
                 onClicked: () => {
-                    console.log(`click`)
-                    //const poppedWindow = Root.State.focusStack.pop()
+                    // Close the most recent focused window
                     Root.State.focusStack[Root.State.focusStack.length - 1].closeWindow()
                 }
             }
             // Allow clicks to pass through
+            // Doesn't seem to be a way to do this *and* detect mouse clicks
             /*
             mask: Region {
                 item: area

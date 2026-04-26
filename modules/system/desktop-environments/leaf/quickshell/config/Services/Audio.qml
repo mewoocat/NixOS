@@ -26,17 +26,17 @@ Singleton {
     // For use with a QT icon pack
     function getIcon(node: PwNode): string {
         if (node === null) {
-            return "audio-volume-off"
+            return "audio-volume-off-symbolic"
         }
         if (node.audio.muted) {
-            return "audio-volume-muted"
+            return "audio-volume-muted-symbolic"
         }
         const vol = node.audio.volume * 100
         switch (true) {
-            case vol > 80: return "audio-volume-high"
-            case vol > 50: return "audio-volume-medium"
-            case vol > 0: return "audio-volume-low"
-            default: return "audio-off"
+            case vol > 80: return "audio-volume-high-symbolic"
+            case vol > 50: return "audio-volume-medium-symbolic"
+            case vol > 0: return "audio-volume-low-symbolic"
+            default: return "audio-volume-off-symbolic" // Why is this icon so much smaller
         }
     }
     // For use with the Material Symbols font

@@ -29,7 +29,7 @@ Scope {
             // Component (s) can be defined implicitly, so it could be ommited here
             // Delegate is a default property and can be skipped as well
         delegate: Component {
-            PanelWindow {
+            PanelWindow { // qmllint disable uncreatable-type
                 id: bar
                 // The screen from the screens list will be injected into this property
                 property var modelData
@@ -79,7 +79,6 @@ Scope {
                             Component.onCompleted: console.debug(`search-symbolic path: ${source}`)
                             implicitSize: 32
                         }
-                        */
                         IconLabel {
                             icon.name: "network-wireless-connected-100-symbolic"
                             icon.width: 32
@@ -95,7 +94,6 @@ Scope {
                             icon.width: 32
                             icon.height: 32
                         }
-                        /*
                         Button {
                             icon.name: "search-symbolic"
                             icon.width: 32

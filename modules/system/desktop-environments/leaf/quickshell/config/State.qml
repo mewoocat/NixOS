@@ -34,12 +34,7 @@ Singleton {
 
     property bool clickAwayVisible: false
     property list<PanelWindow>focusStack: []
-    onFocusStackChanged: {
-        console.debug(`focus stack: ${focusStack}`)
-        if (focusStack.length == 0) {
-            clickAwayVisible = false
-        }
-    }
+    onFocusStackChanged: if (focusStack.length == 0) { clickAwayVisible = false }
 
     property bool screenLocked: false
 

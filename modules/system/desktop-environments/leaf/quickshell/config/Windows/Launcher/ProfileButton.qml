@@ -32,11 +32,12 @@ Shared.PanelButton {
     // Needs to be a perfect square or else it won't look right
     contentItem: Item {
         ClippingWrapperRectangle {
-            color: "transparent"
+            color: "green"
             anchors.centerIn: parent
             radius: root.availableWidth / 2
+
             IconImage {
-                implicitSize: root.availableWidth
+                implicitSize: root.availableHeight
                 source: Services.User.pfpPath
             }
         }

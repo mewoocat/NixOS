@@ -28,6 +28,7 @@ Shared.PopupWindow {
 
     content: ColumnLayout {
         id: menuContent
+        spacing: 0
         Repeater {
             model: menuOpener.children
             delegate: Loader {

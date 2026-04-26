@@ -56,14 +56,13 @@ PageBase {
                 interactable: false
                 model: Services.Networking.wifiInterface.networks
                 delegate: Shared.ListItemExpandable {
-
                     id: pairedListItem
+                    required property WifiNetwork modelData
                     implicitWidth: pariredListView.width - pariredListView.padding * 2
                     margin: 2
                     padding: 2
                     contentMargin: 0
                     listView: pariredListView
-                    required property WifiNetwork modelData
                     backgroundColor: pairedListItem.interacted ? Root.State.colors.surface_container : "transparent"
                     mainColor: pairedListItem.interacted ? Root.State.colors.primary : "transparent"
                     onClicked: () => {

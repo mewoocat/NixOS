@@ -11,41 +11,6 @@ Singleton {
     property WifiNetwork currentWifiNetwork: wifiInterface?.networks.values
         .find(d => d.state != ConnectionState.Disconnected) ?? null
 
-    /*
-    property string currentWifiIconName: {
-        if (!currentWifiNetwork) { return "network-wireless-disconnected-symbolic" }
-
-        let connStr = "limited"
-        switch(currentWifiNetwork.state){
-            case ConnectionState.Disconnected:
-                return "network-wireless-disconnected-symbolic"
-            case ConnectionState.Connected:
-                connStr = "connected"
-                break
-            case ConnectionState.Connecting:
-            case ConnectionState.Disconnecting:
-                connStr = "limited"
-                break
-            default:
-                console.error("Invalid connection state reached for network icon, assuming limited")
-        }
-
-        const signal = Math.floor(currentWifiNetwork.signalStrength * 100)
-        switch(signal) {
-            case signal < 20: 
-                return `network-wireless-20-${connStr}`
-            case signal < 40:
-                return `network-wireless-40-${connStr}`
-            case signal < 60:
-                return `network-wireless-60-${connStr}`
-            case signal < 80:
-                return `network-wireless-80-${connStr}`
-            default:
-                return `network-wireless-100-${connStr}`
-        }
-    }
-    */
-
     // Helper function for getting the xdg icon for the active wifi network
     function getWifiActiveIconName(wifiNet: WifiNetwork): string {
         if (!wifiNet) { return "network-wireless-disconnected-symbolic" }
@@ -87,8 +52,9 @@ Singleton {
 
     // Helper function for getting the xdg icon name for a wifi access point (that's not currently activated)
     function getWifiAPIconName(wifiNet: WifiNetwork): string {
+        console.log(`getting icon for ${wifiNet.name}`)
         if (!wifiNet) {
-            log.warn(`WifiNetwork not provided`)
+            console.warn(`WifiNetwork not provided`)
             return "network-wireless-disconnected-symbolic"
         }
 
