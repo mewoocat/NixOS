@@ -52,7 +52,6 @@ Singleton {
 
     // Helper function for getting the xdg icon name for a wifi access point (that's not currently activated)
     function getWifiAPIconName(wifiNet: WifiNetwork): string {
-        console.log(`getting icon for ${wifiNet.name}`)
         if (!wifiNet) {
             console.warn(`WifiNetwork not provided`)
             return "network-wireless-disconnected-symbolic"
@@ -80,7 +79,8 @@ Singleton {
                 security = "-locked";
         }
 
-        const iconName = `network-wireless-${signalStrength}${security}-symbolic`
+        const iconName = `network-wireless-${signalStrength}${security}`
+        console.log(`getting icon ${iconName}`)
         return iconName
     }
 }

@@ -75,20 +75,10 @@ BarButton {
 
             Repeater {
                 model: Services.Networking.wifiInterface.networks
-                /*
                 Ctrls.MenuItem {
                     required property WifiNetwork modelData
                     text: modelData?.name
-                    icon.name: "network-wireless-100-connected-symbolic"//Services.Networking.getWifiAPIconName(modelData)
-                    //icon.name: "view-refresh-symbolic"
-                    Layout.fillWidth: true
-                    Component.onCompleted: console.log(`network completed`)
-                }
-                */
-                Ctrls.Button {
-                    required property WifiNetwork modelData
-                    text: modelData?.name
-                    icon.name: "network-wireless-connected-100-symbolic"//Services.Networking.getWifiAPIconName(modelData)
+                    icon.name: Services.Networking.getWifiAPIconName(modelData)
                     Layout.fillWidth: true
                 }
             }
