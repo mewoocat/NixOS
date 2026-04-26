@@ -68,6 +68,7 @@ Scope {
                             text: "+"
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
+                        /*
                         QsWidgets.IconImage {
                             source: Quickshell.iconPath("network-wireless-connected-100-symbolic")
                             Component.onCompleted: console.debug(`network path: ${source}`)
@@ -78,6 +79,7 @@ Scope {
                             Component.onCompleted: console.debug(`search-symbolic path: ${source}`)
                             implicitSize: 32
                         }
+                        */
                         IconLabel {
                             icon.name: "network-wireless-connected-100-symbolic"
                             icon.width: 32
@@ -88,6 +90,12 @@ Scope {
                             icon.width: 32
                             icon.height: 32
                         }
+                        IconLabel {
+                            icon.name: "weather-snow-symbolic.svg"
+                            icon.width: 32
+                            icon.height: 32
+                        }
+                        /*
                         Button {
                             icon.name: "search-symbolic"
                             icon.width: 32
@@ -98,6 +106,7 @@ Scope {
                             icon.width: 32
                             icon.height: 32
                         }
+                        */
                     }
                     // Center
                     RowLayout {

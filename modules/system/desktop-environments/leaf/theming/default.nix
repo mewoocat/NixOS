@@ -27,12 +27,12 @@ in {
       '';
       */
     })
-    papirus-icon-theme
-    fluent-icon-theme
+    #papirus-icon-theme
+    #fluent-icon-theme
     whitesur-icon-theme
-    colloid-icon-theme
-    arc-icon-theme
-    reversal-icon-theme
+    #colloid-icon-theme
+    #arc-icon-theme
+    #reversal-icon-theme
     kdePackages.breeze-icons
     kora-icon-theme
 
