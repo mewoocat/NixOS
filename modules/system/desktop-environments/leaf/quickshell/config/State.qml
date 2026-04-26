@@ -32,6 +32,15 @@ Singleton {
     property var workspaces: null
     property var settings: null
 
+    property bool clickAwayVisible: false
+    property list<PanelWindow>focusStack: []
+    onFocusStackChanged: {
+        console.debug(`focus stack: ${focusStack}`)
+        if (focusStack.length == 0) {
+            clickAwayVisible = false
+        }
+    }
+
     property bool screenLocked: false
 
     //property list<QtObject> focusGrabIgnore: []
@@ -67,6 +76,7 @@ Singleton {
     */
 
     property int widgetUnitSize: 64
+
 
     // There's definitely something fishy going on here
     // Might be due to using multiple json adapter instances

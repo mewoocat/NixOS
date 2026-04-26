@@ -1,7 +1,7 @@
 {
   "theme": {
     "colorScheme": "~/.config/leaf-de/qtengine.colors",
-    "iconTheme": "Reversal",
+    "iconTheme": "Colloid",
     "style": "Darkly",
     "font": {
       "family": "Cantarell",

@@ -19,6 +19,7 @@ import "Windows/Notifications"
 import "Windows/Settings"
 import "Windows/OnScreenDisplay"
 import "Windows/Lockscreen"
+import "Windows"
 //import Quickshell.Services.NetworkManager
 
 ShellRoot {
@@ -35,4 +36,5 @@ ShellRoot {
     //Settings {}
     Lockscreen {}
     //OnScreenDisplay {}
+    ClickAway {}
 }

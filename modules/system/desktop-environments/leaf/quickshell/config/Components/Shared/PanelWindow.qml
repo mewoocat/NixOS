@@ -45,8 +45,14 @@ PanelWindow {
     // Visibility
     visible: false
     onVisibleChanged: {
-        if (visible && window.grabEnabled) {
-            Services.Hyprland.addGrabWindow(window)
+        if (window.grabEnabled) {
+            if (visible) {
+                Root.State.clickAwayVisible = true
+                Root.State.focusStack.push(window)
+            }
+            else {
+                Root.State.focusStack.pop()
+            }
         }
     }
 
