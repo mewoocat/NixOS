@@ -97,6 +97,7 @@
       blanket
       thunderbird
       inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
+      tauon
 
       # Music
       #amarok # Music player

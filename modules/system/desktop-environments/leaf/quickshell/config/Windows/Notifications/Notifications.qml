@@ -25,66 +25,79 @@ PanelWindow {
     // All other clicks besides on this region pass through the window to ones behind it.
     mask: Region { item: notifList.contentItem }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "transparent"
-        ListView {
-            id: notifList
-            implicitWidth: 400
-            height: parent.height
-            anchors.top: parent.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            model: Services.Notifications.notificationPopups
-            property int animationSpeed: 300 // ms
+    // Specify the regions of this layer to have blur applied to it.  In this case, each notification item
+    property Variants notifRegions: Variants {
+        model: notifList.contentItem.children
+        onModelChanged: console.debug(`model: ${model}`)
+        Region {
+            required property Item modelData
+            item: modelData
+            radius: 0
+        }
+    }
+    BackgroundEffect.blurRegion: Region {
+        regions: notifRegions.instances
+    }
 
-            // Animations 
-            add: Transition {
+    ListView {
+        id: notifList
+        implicitWidth: 400
+        height: parent.height
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        model: Services.Notifications.notificationPopups
+        property int animationSpeed: 300 // ms
+
+        // Animations 
+        add: Transition {
+            NumberAnimation {
+                properties: "y"
+                from: -100
+                duration: notifList.animationSpeed
+            }
+        }
+        addDisplaced: Transition {
+            NumberAnimation {
+                properties: "y"
+                duration: notifList.animationSpeed
+            }
+        }
+        remove: Transition {
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "x"
+                    to: -8
+                    duration: 100
+                }
                 NumberAnimation {
                     properties: "y"
-                    from: -100
+                    to: -100
                     duration: notifList.animationSpeed
                 }
             }
-            addDisplaced: Transition {
-                NumberAnimation {
-                    properties: "y"
-                    duration: notifList.animationSpeed
-                }
+        }
+
+        delegate: Shared.Notification {
+            id: notif
+            implicitWidth: notifList.width
+            required property var modelData
+            notifData: modelData
+            listView: notifList
+            margin: 0
+            Component.onCompleted: {
+                console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
             }
-            remove: Transition {
-                SequentialAnimation {
-                    NumberAnimation {
-                        properties: "x"
-                        to: -8
-                        duration: 100
-                    }
-                    NumberAnimation {
-                        properties: "y"
-                        to: -100
-                        duration: notifList.animationSpeed
-                    }
-                }
+            onClosed: Services.Notifications.notificationPopups.values.pop()
+            onContainsMouseChanged: {
+                if (notif.containsMouse) {timer.stop()}
+                else {timer.start()}
             }
 
-            delegate: Shared.Notification {
-                id: notif
-                implicitWidth: notifList.width
-                required property var modelData
-                notifData: modelData
-                listView: notifList
-                Component.onCompleted: console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
-                onClosed: Services.Notifications.notificationPopups.values.pop()
-                onContainsMouseChanged: {
-                    if (notif.containsMouse) {timer.stop()}
-                    else {timer.start()}
-                }
-
-                Timer {
-                    id: timer
-                    interval: 2000
-                    running: true
-                    onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
-                }
+            Timer {
+                id: timer
+                interval: 2000
+                running: true
+                onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
             }
         }
     }

@@ -86,7 +86,6 @@ ColumnLayout {
             property bool isHighlighted: interacted || ListView.isCurrentItem
             margin: 2
             padding: 2
-            contentMargin: 0
             listView: scrollable
             implicitWidth: scrollable.width - scrollable.padding * 2
             backgroundColor: "transparent"

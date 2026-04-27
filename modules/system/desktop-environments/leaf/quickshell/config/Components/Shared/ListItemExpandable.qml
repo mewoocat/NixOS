@@ -18,7 +18,6 @@ WrapperMouseArea {
 
     property bool expanded: false // Whether this item is currently expanded
     property bool showBackground: false
-    property int contentMargin: 8
     property bool interacted: root.containsMouse || /*root.focus ||*/ root.expanded // TODO: figure out how to make interacted false after the animation plays for expansion
     property int maxCollapsedHeight: 100
     property int padding: 8

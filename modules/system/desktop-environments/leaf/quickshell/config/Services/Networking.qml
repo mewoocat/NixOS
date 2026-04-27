@@ -80,7 +80,6 @@ Singleton {
         }
 
         const iconName = `network-wireless-${signalStrength}${security}`
-        console.log(`getting icon ${iconName}`)
         return iconName
     }
 }
