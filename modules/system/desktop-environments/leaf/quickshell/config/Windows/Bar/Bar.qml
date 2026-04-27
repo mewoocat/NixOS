@@ -68,6 +68,7 @@ Scope {
                             text: "+"
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
+
                         /*
                         QsWidgets.IconImage {
                             source: Quickshell.iconPath("network-wireless-connected-100-symbolic")

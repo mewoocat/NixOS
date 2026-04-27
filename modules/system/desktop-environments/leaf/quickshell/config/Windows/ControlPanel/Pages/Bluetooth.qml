@@ -160,7 +160,6 @@ PageBase {
                     implicitWidth: pariredListView.width - pariredListView.padding * 2
                     margin: 2
                     padding: 2
-                    contentMargin: 0
                     listView: pariredListView
                     required property BluetoothDevice modelData
                     backgroundColor: pairedListItem.interacted ? Root.State.colors.surface_container : "transparent"
@@ -207,7 +206,6 @@ PageBase {
                     id: listItem
                     margin: 2
                     padding: 2
-                    contentMargin: 0
                     listView: pariredListView
                     required property BluetoothDevice modelData
                     //backgroundColor: listItem.interacted ? Root.State.colors.primary : "transparent"

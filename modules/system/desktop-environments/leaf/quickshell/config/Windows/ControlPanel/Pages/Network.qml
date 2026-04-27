@@ -61,7 +61,6 @@ PageBase {
                     implicitWidth: pariredListView.width - pariredListView.padding * 2
                     margin: 2
                     padding: 2
-                    contentMargin: 0
                     listView: pariredListView
                     backgroundColor: pairedListItem.interacted ? Root.State.colors.surface_container : "transparent"
                     mainColor: pairedListItem.interacted ? Root.State.colors.primary : "transparent"

@@ -24,8 +24,9 @@ PopupWindow {
 
     required property Item content
     property bool grabEnabled: true
-    property color bgColor: Root.State.colors.surface_container
+    property color bgColor: Root.State.colors.surface
     property int shadowSize: 8
+    property int contentMargin: Root.State.windowPadding
     implicitWidth: mouseArea.width
     implicitHeight: mouseArea.height
     //Behavior on implicitHeight { PropertyAnimation { duration: 100 } }
@@ -98,7 +99,7 @@ PopupWindow {
                 // mouse hasn't moved yet.
                 //margin: 1
                 child: root.content
-                margin: 4
+                margin: root.contentMargin
             }
         }
     }

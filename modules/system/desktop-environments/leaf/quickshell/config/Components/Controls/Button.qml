@@ -60,6 +60,7 @@ T.Button {
     contentItem: IconLabel {
         id: iconLabel
         icon.name: control.icon.name
+        icon.source: control.icon.source
         icon.color: control.isMultiColorIcon ? "transparent" : control.icon.color
         icon.width: control.icon.width
         icon.height: control.icon.height

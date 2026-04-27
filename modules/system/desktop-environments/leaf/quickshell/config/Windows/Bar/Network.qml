@@ -41,6 +41,8 @@ BarButton {
                     }
                     Item { Layout.fillWidth: true }
                     Switch {
+                        checked: Networking.wifiEnabled ?? false
+                        onClicked: Networking.wifiEnabled = checked
                     }
                 }
                 ColumnLayout {
@@ -60,8 +62,23 @@ BarButton {
             }
 
             RowLayout {
+                visible: Services.Networking.currentWifiNetwork != null
                 Shared.TextBlock {
-                    text: "Networks"
+                    text: "Connected Network"
+                    font.bold: true
+                }
+            }
+            Ctrls.MenuItem {
+                visible: Services.Networking.currentWifiNetwork != null
+                property WifiNetwork wifiNet: Services.Networking.currentWifiNetwork
+                text: wifiNet?.name
+                icon.name: Services.Networking.getWifiAPIconName(wifiNet)
+                Layout.fillWidth: true
+            }
+
+            RowLayout {
+                Shared.TextBlock {
+                    text: "Nearby Networks"
                     font.bold: true
                 }
                 Item { Layout.fillWidth: true }
@@ -73,14 +90,27 @@ BarButton {
                 }
             }
 
-            Repeater {
+            Shared.ScrollableList {
                 model: Services.Networking.wifiInterface.networks
-                Ctrls.MenuItem {
+                Layout.preferredHeight: implicitHeight < 200 ? implicitHeight : 200
+                Layout.fillWidth: true
+                delegate: Ctrls.MenuItem {
                     required property WifiNetwork modelData
                     text: modelData?.name
                     icon.name: Services.Networking.getWifiAPIconName(modelData)
-                    Layout.fillWidth: true
+                    width: parent.width
+                    onClicked: () => {}
                 }
+            }
+
+            Shared.Seperator {
+                implicitHeight: 8
+                Layout.fillWidth: true
+            }
+
+            Ctrls.MenuItem {
+                text: "Wifi Settings"
+                Layout.fillWidth: true
             }
         }
     }

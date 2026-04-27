@@ -1,7 +1,7 @@
 {
   "theme": {
     "colorScheme": "~/.config/leaf-de/qtengine.colors",
-    "iconTheme": "breeze",
+    "iconTheme": "breeze-dark",
     "style": "Darkly",
     "font": {
       "family": "Cantarell",
