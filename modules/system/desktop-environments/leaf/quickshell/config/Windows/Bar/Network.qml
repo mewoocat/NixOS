@@ -99,7 +99,22 @@ BarButton {
                     text: modelData?.name
                     icon.name: Services.Networking.getWifiAPIconName(modelData)
                     width: parent.width
-                    onClicked: () => {}
+                    onClicked: () => {
+                        Root.State.promptStack.push(apPrompt)
+                    }
+                    property Component apPrompt: ColumnLayout {
+                        Shared.TextBlock {
+                            text: "Connect to Network"
+                        }
+                        Ctrls.TextField {
+
+                        }
+                        Ctrls.Button {
+                            text: "Cancel"
+                            onClicked: Root.State.promptStack.pop()
+                        }
+                    }
+
                 }
             }
 

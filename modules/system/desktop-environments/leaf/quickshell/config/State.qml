@@ -38,6 +38,10 @@ Singleton {
 
     property bool screenLocked: false
 
+
+    property list<Component> promptStack: []
+    onPromptStackChanged: console.debug(`promptStack: ${promptStack}`)
+
     //property list<QtObject> focusGrabIgnore: []
     property var panelGrab: null // The grab object for the active panel (old)
     property var popupGrab: null // The grab object for the active popup (old)
