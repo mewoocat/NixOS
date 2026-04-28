@@ -22,7 +22,7 @@ import qs as Root
 PopupWindow {
     id: root
 
-    required property Item content
+    required property Item content // WARNING! Can't have explicit width/height due to WrapperRectangle
     property bool grabEnabled: true
     property color bgColor: Root.State.colors.surface
     property int shadowSize: 8

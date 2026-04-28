@@ -24,10 +24,28 @@ Singleton {
         //console.log("Enabling sound service")
     }
     // For use with a QT icon pack
-    function getIcon(node: PwNode): string {
-        if (node === null) {
-            return "audio-volume-off-symbolic"
+    function getIconName(node: PwNode): string {
+
+        // Ensure node is set and is bound
+        if (!node || !node.ready) { return "audio-volume-off-symbolic" }
+        const properties = node.properties
+
+        // First try the app icon-name
+        const iconName = properties["application.icon-name"] // Can be ""
+        if (iconName) {
+            // Passing in true for the second param will return an empty string if icon is not found
+            const iconAttempt = Quickshell.iconPath(iconName, true)
+            if (iconAttempt) return iconName
         }
+        // If none is found try the app name
+        const appName = properties["application.name"]?.toLowerCase()
+        console.debug(`appName: ${appName}`)
+        if (appName) {
+            const nameAttempt = Quickshell.iconPath(appName, true)
+            console.debug(`nameAttempt: ${nameAttempt}`)
+            if (nameAttempt) return appName
+        }
+
         if (node.audio.muted) {
             return "audio-volume-muted-symbolic"
         }
@@ -36,7 +54,7 @@ Singleton {
             case vol > 80: return "audio-volume-high-symbolic"
             case vol > 50: return "audio-volume-medium-symbolic"
             case vol > 0: return "audio-volume-low-symbolic"
-            default: return "audio-volume-off-symbolic" // Why is this icon so much smaller
+            default: return "audio-volume-off-symbolic"
         }
     }
     // For use with the Material Symbols font

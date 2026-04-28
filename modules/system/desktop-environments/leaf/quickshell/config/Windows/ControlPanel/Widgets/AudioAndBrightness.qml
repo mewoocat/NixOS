@@ -32,7 +32,7 @@ AbsGrid.WidgetData {
                     backgroundMargin: widgetData.padding
                     backdrop: widgetData.panelGrid
                     expandee: Ctrls.Button {
-                        icon.name: Services.Audio.getIcon(Pipewire.defaultAudioSink)
+                        icon.name: Services.Audio.getIconName(Pipewire.defaultAudioSink)
                         text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
                         Layout.minimumWidth: 86
                         onClicked: () => volumeExpander.expanded = true

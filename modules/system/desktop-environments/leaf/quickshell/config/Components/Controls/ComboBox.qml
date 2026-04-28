@@ -24,7 +24,7 @@ T.ComboBox {
     topInset: inset
     bottomInset: inset
 
-    property color backgroundColor: control.hovered ? Root.State.colors.surface_container_high : Root.State.colors.surface_container
+    property color backgroundColor: control.hovered ? Root.State.colors.surface_container_highest : Root.State.colors.surface_container_high
     property color color: control.hovered ? Root.State.colors.on_surface : Root.State.colors.on_surface
     property bool isMutliColorIcon: false
     property int radius: 12 //background.implicitHeight

@@ -1,4 +1,3 @@
-
 pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Networking
@@ -87,11 +86,12 @@ BarButton {
                     icon.width: 16
                     icon.height: 16
                     onClicked: () => Services.Networking.wifiInterface.scannerEnabled = true
+                    color: Services.Networking.wifiInterface.scannerEnabled ? "red" : "blue"
                 }
             }
 
             Shared.ScrollableList {
-                model: Services.Networking.wifiInterface.networks
+                model: Services.Networking.wifiDisconnectedNetworks
                 Layout.preferredHeight: implicitHeight < 200 ? implicitHeight : 200
                 Layout.fillWidth: true
                 delegate: Ctrls.MenuItem {

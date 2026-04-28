@@ -7,7 +7,10 @@ Singleton {
     property bool isWifiEnabled: Networking.wifiEnabled
     function setWifiEnabled(value: bool) { Networking.wifiEnabled = value }
     property ObjectModel networkInterfaces: Networking.devices
-    property WifiDevice wifiInterface: Networking.devices.values.find(d => d.type == DeviceType.Wifi) ?? null
+    property WifiDevice wifiInterface: Networking.devices.values
+        .find(d => d.type == DeviceType.Wifi) ?? null
+    property list<WifiNetwork> wifiDisconnectedNetworks: wifiInterface.networks.values
+        .filter(n => !n.connected)
     property WifiNetwork currentWifiNetwork: wifiInterface?.networks.values
         .find(d => d.state != ConnectionState.Disconnected) ?? null
 
