@@ -17,7 +17,7 @@ Shared.PanelWindow {
     color: "transparent"
     focusable: true
     onCloseWindow: () => {
-        Root.State.promptVisibility = false
+        Root.State.promptStack.pop()
     }
     content: Loader {
         id: contentLoader

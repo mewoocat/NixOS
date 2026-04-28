@@ -23,7 +23,6 @@ Singleton {
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
     property bool activityCenterVisibility: false
-    property bool promptVisibility: false
 
     // Window refs
     property var bar: null
@@ -39,6 +38,7 @@ Singleton {
 
     property bool screenLocked: false
 
+    property bool promptVisibility: promptStack.length != 0
     property list<Component> promptStack: []
     onPromptStackChanged: {
         if (promptStack.length == 0) { promptVisibility = false }
