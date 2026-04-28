@@ -8,21 +8,20 @@ import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 
+
+// This is a general purpose window used to render a prompt from the global prompt stack
 Shared.PanelWindow {
     id: root
     name: "prompt"
-
-    property bool active: Root.State.promptStack.length != 0
-    visible: active
+    visible: Root.State.promptVisibility
     color: "transparent"
     focusable: true
+    onCloseWindow: () => {
+        Root.State.promptVisibility = false
+    }
     content: Loader {
         id: contentLoader
-        active: root.active
-        onActiveChanged: console.debug(`active: ${active}`)
-        //sourceComponent: Root.State.promptStack[Root.State.promptStack.length - 1]
-        sourceComponent: Root.State.promptStack[0]
-        Component.onCompleted: console.debug(`sourceComponent: ${sourceComponent}`)
-        onSourceComponentChanged: console.debug(`sourceComponent: ${sourceComponent}`)
+        active: Root.State.promptStack.length != 0
+        sourceComponent: Root.State.promptStack[Root.State.promptStack.length - 1]
     }
 }

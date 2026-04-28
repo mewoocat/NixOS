@@ -23,6 +23,7 @@ Singleton {
     property bool launcherVisibility: false
     property bool controlPanelVisibility: false
     property bool activityCenterVisibility: false
+    property bool promptVisibility: false
 
     // Window refs
     property var bar: null
@@ -38,9 +39,11 @@ Singleton {
 
     property bool screenLocked: false
 
-
     property list<Component> promptStack: []
-    onPromptStackChanged: console.debug(`promptStack: ${promptStack}`)
+    onPromptStackChanged: {
+        if (promptStack.length == 0) { promptVisibility = false }
+        else { promptVisibility = true }
+    }
 
     //property list<QtObject> focusGrabIgnore: []
     property var panelGrab: null // The grab object for the active panel (old)

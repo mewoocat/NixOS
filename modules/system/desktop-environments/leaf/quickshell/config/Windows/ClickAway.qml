@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import qs as Root
 
+// TODO: Maybe build this in to each panel window than having a shared instance?
 Scope {
     Variants {
         model: Quickshell.screens 
@@ -17,13 +18,14 @@ Scope {
                 right: true
                 bottom: true
             }
-            color: "#00ff0000"
+            color: "#33ff0000"
             MouseArea {
                 id: area
                 hoverEnabled: true
                 anchors.fill: parent
                 onClicked: () => {
                     // Close the most recent focused window
+                    console.log(`what`)
                     Root.State.focusStack[Root.State.focusStack.length - 1].closeWindow()
                 }
             }
