@@ -8,7 +8,7 @@ PanelWindow {
     Behavior on implicitWidth {
         PropertyAnimation { 
             duration: 1000
-            easing.type: Easing.InOutQuint
+            easing.type: Easing.Linear
         }
     }
     implicitHeight: 200

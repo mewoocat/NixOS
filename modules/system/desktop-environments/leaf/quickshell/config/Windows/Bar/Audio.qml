@@ -16,6 +16,23 @@ BarButton {
     text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
     ContextMenu.onRequested: () => popupWindow.visible = true
 
+    property Shared.PanelWindow panel: Shared.PanelWindow {
+        name: "audioPanel"
+        visible: false
+        focusable: false
+
+        onToggleWindow: () => {
+        } 
+        onCloseWindow: () => {
+        } 
+
+        content: Rectangle {
+            color: "red"
+            implicitHeight: 200
+            implicitWidth: 100
+        }
+    }
+    /*
     property Shared.PopupWindow popupWindow: Shared.PopupWindow {
         id: root
         //visible: buttonRoot.hovered
@@ -108,4 +125,5 @@ BarButton {
             }
         }
     }
+    */
 }

@@ -39,10 +39,8 @@ Singleton {
         }
         // If none is found try the app name
         const appName = properties["application.name"]?.toLowerCase()
-        console.debug(`appName: ${appName}`)
         if (appName) {
             const nameAttempt = Quickshell.iconPath(appName, true)
-            console.debug(`nameAttempt: ${nameAttempt}`)
             if (nameAttempt) return appName
         }
 

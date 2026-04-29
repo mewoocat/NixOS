@@ -45,10 +45,7 @@ Singleton {
         else { promptVisibility = true }
     }
 
-    //property list<QtObject> focusGrabIgnore: []
-    property var panelGrab: null // The grab object for the active panel (old)
-    property var popupGrab: null // The grab object for the active popup (old)
-    property var activeGrab: null // The active grab object (either popup or panel) (new)
+    property var activeGrab: null // The active grab object (either popup or panel)
 
     property Shared.Expander currentControlPanelPage: null
 
