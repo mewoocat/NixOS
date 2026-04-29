@@ -14,34 +14,38 @@ BarButton {
     id: buttonRoot
     icon.name: Services.Audio.getIconName(Pipewire.defaultAudioSink)
     text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
-    ContextMenu.onRequested: () => popupWindow.visible = true
+    ContextMenu.onRequested: () => {
+        const point = QsWindow.mapFromItem(buttonRoot, 0, 0)
+        buttonRoot.buttonAbsX = point.x
+        buttonRoot.buttonAbsY = point.y
+        panel.visible = true
+        console.log(`a`)
+    }
+    //property point buttonAbsPos: QsWindow.mapFromItem(buttonRoot, buttonRoot.height, buttonRoot.width)
+    property int buttonAbsX: 0
+    property int buttonAbsY: 0
+
 
     property Shared.PanelWindow panel: Shared.PanelWindow {
+        id: audioPanel
         name: "audioPanel"
         visible: false
+
+        anchors.top: true
+        anchors.left: true
+        margins {
+            left: buttonRoot.buttonAbsX - implicitWidth + buttonRoot.width
+            top: buttonRoot.buttonAbsY + 8 //- implicitHeight
+        }
+
         focusable: false
+
+
 
         onToggleWindow: () => {
         } 
         onCloseWindow: () => {
         } 
-
-        content: Rectangle {
-            color: "red"
-            implicitHeight: 200
-            implicitWidth: 100
-        }
-    }
-    /*
-    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
-        id: root
-        //visible: buttonRoot.hovered
-        anchor {
-            // Only window or item should be set at a time, otherwise a crash can occur
-            item: buttonRoot
-            edges: Edges.Bottom | Edges.Right
-            gravity: Edges.Bottom | Edges.Left
-        }
 
         content: ColumnLayout {
             Shared.ScrollableView {
@@ -124,6 +128,18 @@ BarButton {
                 }
             }
         }
+    }
+    /*
+    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
+        id: root
+        //visible: buttonRoot.hovered
+        anchor {
+            // Only window or item should be set at a time, otherwise a crash can occur
+            item: buttonRoot
+            edges: Edges.Bottom | Edges.Right
+            gravity: Edges.Bottom | Edges.Left
+        }
+
     }
     */
 }

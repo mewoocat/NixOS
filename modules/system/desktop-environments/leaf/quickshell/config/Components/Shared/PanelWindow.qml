@@ -44,6 +44,9 @@ PanelWindow {
 
     // Visibility
     visible: false
+
+    // TODO: make each panel window have their own focus grab
+    /*
     onVisibleChanged: {
         if (window.grabEnabled) {
             if (visible) {
@@ -55,6 +58,7 @@ PanelWindow {
             }
         }
     }
+    */
 
     implicitWidth: background.width
     implicitHeight: background.height // NOTE: Need to set PanelWindow size to largest possible or else resizing with jitter

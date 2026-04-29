@@ -21,3 +21,4 @@ These are in the QT_LOGGING_RULES format specified here: https://doc.qt.io/qt-6/
     - end-4 - for ideas and quickshell examples
     - Sora, Rexi - answering questions, and examples
     - E3nviction - for dyanmic grid ideas
+    - M7moud El-zayat - for anwsering my questions
