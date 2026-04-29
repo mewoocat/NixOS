@@ -15,27 +15,120 @@ BarButton {
     icon.name: Services.Audio.getIconName(Pipewire.defaultAudioSink)
     text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
     ContextMenu.onRequested: () => {
-        const point = QsWindow.mapFromItem(buttonRoot, 0, 0)
-        buttonRoot.buttonAbsX = point.x
-        buttonRoot.buttonAbsY = point.y
-        panel.visible = true
-        console.log(`a`)
+        panel.visible = !panel.visible
+    }    
+
+    property Shared.PanelWindowNew panel: Shared.PanelWindowNew {
+        id: audioPanel
+        name: "audioPanel"
+        visible: false
+        anchorItem: buttonRoot
+        content: ColumnLayout {
+            Shared.ScrollableView {
+                id: scrollView
+                Layout.preferredHeight: col.height < 600 ? col.height : 600
+                Layout.preferredWidth: 260
+
+                ColumnLayout {
+                    id: col
+
+                    Shared.TextBlock {
+                        text: "Sound"
+                        font.bold: true
+                    }
+                    Shared.Seperator {
+                        implicitHeight: 8
+                        Layout.fillWidth: true
+                    }
+
+                    Shared.TextBlock {
+                        padding: 8
+                        text: "Output"
+                        font.bold: true
+                    }
+
+                    // Default output
+                    Shared.MixerItem {
+                        node: Pipewire.defaultAudioSink
+                        name: node?.nickname ?? "no name"
+                        description: node?.properties["media.class"] ?? "no description"
+                    }
+
+                    // Output device selector
+                    Ctrls.ComboBox {
+                        id: comboBox
+                        implicitWidth: parent.width
+                        model: Services.Audio.outputDevices
+                            .map(n => n.description) // Map to just the output name string (Results in a list of string names)
+                        onActivated: (index) => { 
+                            console.log(index)
+                            Pipewire.preferredDefaultAudioSink = Services.Audio.outputDevices[index] // Set the audio output (untested)
+                        }
+                    }
+                    Shared.Seperator {
+                        implicitHeight: 8
+                        Layout.fillWidth: true
+                    }
+
+                    Shared.TextBlock {
+                        padding: 8
+                        text: "Mixer"
+                        font.bold: true
+                    }
+                    
+                    Shared.ScrollableList {
+                        implicitWidth: parent.implicitWidth 
+                        visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length > 0
+                        // For each source outputting to the default output, i.e. Each program, etc.
+                        // A link is a connection between two nodes
+                        model: Services.Audio.defaultOutputLinkTracker.linkGroups
+                        delegate: Shared.MixerItem {
+                            required property PwLinkGroup modelData
+                            implicitWidth: parent?.width
+                            linkGroup: modelData
+                        }
+                    }
+                    
+                    // No mixer items placeholder
+                    Item {
+                        // If no apps are outputting to the default output
+                        visible: Services.Audio.defaultOutputLinkTracker.linkGroups.length <= 0
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Text {
+                            anchors.centerIn: parent
+                            color: palette.placeholderText
+                            text: "Nothing to mix :/"
+                        }
+                    }
+                }
+            }
+        }
     }
-    //property point buttonAbsPos: QsWindow.mapFromItem(buttonRoot, buttonRoot.height, buttonRoot.width)
-    property int buttonAbsX: 0
-    property int buttonAbsY: 0
 
-
+    /*
     property Shared.PanelWindow panel: Shared.PanelWindow {
         id: audioPanel
         name: "audioPanel"
         visible: false
+            
+        // TODO: Use enum?
+        property string xGravity: "left"
+        property string yGravity: "bottom"
 
         anchors.top: true
         anchors.left: true
         margins {
-            left: buttonRoot.buttonAbsX - implicitWidth + buttonRoot.width
-            top: buttonRoot.buttonAbsY + 8 //- implicitHeight
+            left: {
+                if (xGravity === "left") { return buttonRoot.anchorPoint.x - implicitWidth }
+                if (xGravity === "right") { return buttonRoot.anchorPoint.x }
+                else { console.error(`invalid x gravity`) }
+            }
+            top: {
+                if (yGravity === "top") { return buttonRoot.anchorPoint.y - implicitHeight }
+                if (yGravity === "bottom") { return buttonRoot.anchorPoint.y}
+                else { console.error(`invalid y gravity`) }
+            }
         }
 
         focusable: false
@@ -129,6 +222,7 @@ BarButton {
             }
         }
     }
+    */
     /*
     property Shared.PopupWindow popupWindow: Shared.PopupWindow {
         id: root
