@@ -36,6 +36,6 @@ ShellRoot {
     //Settings {}
     Lockscreen {}
     //OnScreenDisplay {}
-    ClickAway {}
+    //ClickAway {}
     PromptWindow {}
 }

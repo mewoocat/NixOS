@@ -4,16 +4,16 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Wayland
 import qs as Root
 import qs.Services as Services
 import qs.Components.Shared as Shared
 
 Shared.PanelWindow {
-    // Doesn't seem to force focus
-    //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     id: launcher
     name: "launcher"
     visible: Root.State.launcherVisibility
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     anchors {
         top: true
         left: true

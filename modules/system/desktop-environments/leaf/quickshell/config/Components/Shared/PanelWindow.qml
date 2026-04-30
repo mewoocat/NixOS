@@ -1,21 +1,56 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Wayland
 import QtQuick
-import QtQuick.Effects
-
 import qs as Root
-import qs.Services as Services
+import qs.Components.Shared as Shared
 
 // TODO: I think that the required keyword doesn't trigger an error on missing 
 // prop with the PanelWindow type (need to test)
-PanelWindow {
+PanelWindow { // qmllint disable uncreatable-type
     id: window
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
     property bool grabEnabled: true
     property int padding: Root.State.windowPadding
     property int radius: Root.State.rounding
+    // Create a close on click away area for each screen
+    property var clickAway: Variants {
+        model: Quickshell.screens 
+        // qmllint disable uncreatable-type
+        PanelWindow {
+            visible: window.visible
+            required property ShellScreen modelData
+            screen: modelData
+            focusable: false
+            anchors {
+                top: true
+                left: true
+                right: true
+                bottom: true
+            }
+            color: "#33ff0000"
+            MouseArea {
+                id: area
+                hoverEnabled: true
+                anchors.fill: parent
+                onClicked: () => {
+                    // Close the most recent focused window
+                    console.log(`what`)
+                    window.closeWindow()
+                }
+            }
+            // Allow clicks to pass through
+            // Doesn't seem to be a way to do this *and* detect mouse clicks
+            /*
+            mask: Region {
+                item: area
+                intersection: Intersection.Subtract
+            }
+            */
+        }
+    }
 
     signal closeWindow()
     signal toggleWindow()
