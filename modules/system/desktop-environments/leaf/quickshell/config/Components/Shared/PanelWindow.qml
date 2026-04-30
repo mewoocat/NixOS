@@ -25,18 +25,16 @@ PanelWindow {
         Root.State[name] = window // Set the window ref in state
     }
 
-    exclusionMode: ExclusionMode.Ignore
+    //exclusionMode: ExclusionMode.Ignore
     exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
     //focusable: true // Enable keyboard focus !! Warning seems to cause Popup.Window popup types to close immediately after opening
     color: "transparent"
-    /*
     margins {
-        top: 8
-        right: 8
-        left: 8
-        bottom: 8
+        top: Root.State.panelMargin
+        right: Root.State.panelMargin
+        left: Root.State.panelMargin
+        bottom: Root.State.panelMargin
     }
-    */
     WlrLayershell.namespace: 'quickshell-panel-' + name // Set layer name
     //WlrLayershell.namespace: 'quickshell' // Set layer name
     // Specify the region of the layer to have blur applied to it

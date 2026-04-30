@@ -61,6 +61,7 @@ Singleton {
     property int smallRounding: 8
     property int innerRounding: rounding - windowPadding
     property int windowPadding: 8
+    property int panelMargin: 8
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10

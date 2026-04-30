@@ -27,9 +27,11 @@ PopupWindow {
     property color bgColor: Root.State.colors.surface
     property int shadowSize: 8
     property int contentMargin: Root.State.windowPadding
-    implicitWidth: mouseArea.width
-    implicitHeight: mouseArea.height
-    //Behavior on implicitHeight { PropertyAnimation { duration: 100 } }
+    implicitWidth: visible ? mouseArea.width : shadowSize * 2
+    implicitHeight: visible ? mouseArea.height : shadowSize * 2
+    // TODO: Figure out stutter with animations
+    //Behavior on implicitHeight { PropertyAnimation { duration: 2000 } }
+    //Behavior on implicitWidth { PropertyAnimation { duration: 2000 } }
     //Behavior on anchor.item { PropertyAnimation { duration: 1000 } }
     color: "transparent"
     grabFocus: true

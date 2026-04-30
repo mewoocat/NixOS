@@ -9,8 +9,8 @@ import QtQuick.Effects
 import qs as Root
 import qs.Services as Services
 
-// TODO: I think that the required keyword doesn't trigger an error on missing 
-// prop with the PanelWindow type (need to test)
+// This new panel window allows for placing a window relative to an item in another window
+// As well as gravity
 PanelWindow {
     id: root
     required property string name // Needs to be camelCase
