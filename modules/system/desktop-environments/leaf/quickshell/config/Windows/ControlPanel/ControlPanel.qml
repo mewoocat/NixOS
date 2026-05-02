@@ -13,12 +13,6 @@ Shared.PanelWindow {
     visible: Root.State.controlPanelActive
     focusable: false
 
-    onToggleWindow: () => {
-        Root.State.controlPanelVisibility = !Root.State.controlPanelVisibility
-    } 
-    onCloseWindow: () => {
-        Root.State.controlPanelVisibility = false
-    } 
     anchors {
         top: true
         right: true

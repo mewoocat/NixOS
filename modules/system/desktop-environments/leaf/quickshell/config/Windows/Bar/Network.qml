@@ -86,7 +86,6 @@ BarButton {
                     icon.width: 16
                     icon.height: 16
                     onClicked: () => Services.Networking.wifiInterface.scannerEnabled = true
-                    color: Services.Networking.wifiInterface.scannerEnabled ? "red" : "blue"
                 }
             }
 

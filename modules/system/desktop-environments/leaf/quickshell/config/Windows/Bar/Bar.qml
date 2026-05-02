@@ -34,7 +34,6 @@ Scope {
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
-                focusable: Root.State.isWorkspacePopupVisible
                 Component.onCompleted: {
                     Root.State.bar = bar
                 }

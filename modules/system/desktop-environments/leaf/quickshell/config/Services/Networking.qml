@@ -9,8 +9,8 @@ Singleton {
     property ObjectModel networkInterfaces: Networking.devices
     property WifiDevice wifiInterface: Networking.devices.values
         .find(d => d.type == DeviceType.Wifi) ?? null
-    property list<WifiNetwork> wifiDisconnectedNetworks: wifiInterface.networks.values
-        .filter(n => !n.connected)
+    property list<WifiNetwork> wifiDisconnectedNetworks: wifiInterface?.networks.values
+        .filter(n => !n.connected) ?? []
     property WifiNetwork currentWifiNetwork: wifiInterface?.networks.values
         .find(d => d.state != ConnectionState.Disconnected) ?? null
 
@@ -56,11 +56,10 @@ Singleton {
     // Helper function for getting the xdg icon name for a wifi access point (that's not currently activated)
     function getWifiAPIconName(wifiNet: WifiNetwork): string {
         if (!wifiNet) {
-            console.warn(`WifiNetwork not provided`)
             return "network-wireless-disconnected-symbolic"
         }
 
-        let signalStrength = Math.floor(currentWifiNetwork.signalStrength * 100)
+        let signalStrength = Math.floor(currentWifiNetwork?.signalStrength * 100)
         switch(true) {
             case signalStrength < 20: 
                 signalStrength = "20"; break

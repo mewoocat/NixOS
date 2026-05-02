@@ -9,12 +9,9 @@
 import Quickshell
 import QtQuick
 import "Windows/ActivityCenter"
-import "Windows/Workspaces"
 import "Windows/Settings"
 import "Windows/OnScreenDisplay"
 import "Windows/Bar"
-
-import "Windows"
 import "Windows/Launcher"
 import "Windows/ControlPanel"
 import "Windows/Notifications"
