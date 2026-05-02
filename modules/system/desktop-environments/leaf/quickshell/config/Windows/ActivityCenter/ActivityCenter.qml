@@ -6,14 +6,8 @@ import qs.Components.Shared as Shared
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 Shared.PanelWindow {
-    onToggleWindow: () => {
-        Root.State.activityCenterVisibility = !Root.State.activityCenterVisibility
-    } 
-    onCloseWindow: () => {
-        Root.State.activityCenterVisibility = false
-    } 
     name: "activityCenter"
-    visible: Root.State.activityCenterVisibility
+    visible: Root.State.activityCenterActive
     anchors {
         top: true
     }

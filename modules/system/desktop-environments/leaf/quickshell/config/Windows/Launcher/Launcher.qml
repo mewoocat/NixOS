@@ -12,7 +12,7 @@ import qs.Components.Shared as Shared
 Shared.PanelWindow {
     id: launcher
     name: "launcher"
-    visible: Root.State.launcherVisibility
+    visible: Root.State.launcherActive
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     anchors {
         top: true

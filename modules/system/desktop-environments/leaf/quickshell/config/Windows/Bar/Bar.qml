@@ -56,11 +56,8 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
                         spacing: 0
-                        BarButton {
-                            onClicked: () => Root.State.launcher.toggleWindow()
-                            icon.name: Root.State.launcherIcon
-                            //isMutliColorIcon: true
-                        }
+
+                        Launcher {}
                         WorkspacesDynamic {
                             screen: bar.screen
                         }
@@ -68,44 +65,6 @@ Scope {
                             text: "+"
                             onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
                         }
-
-                        /*
-                        QsWidgets.IconImage {
-                            source: Quickshell.iconPath("network-wireless-connected-100-symbolic")
-                            Component.onCompleted: console.debug(`network path: ${source}`)
-                            implicitSize: 32
-                        }
-                        QsWidgets.IconImage {
-                            source: Quickshell.iconPath("search-symbolic")
-                            Component.onCompleted: console.debug(`search-symbolic path: ${source}`)
-                            implicitSize: 32
-                        }
-                        IconLabel {
-                            icon.name: "network-wireless-connected-100-symbolic"
-                            icon.width: 32
-                            icon.height: 32
-                        }
-                        IconLabel {
-                            icon.name: "search-symbolic"
-                            icon.width: 32
-                            icon.height: 32
-                        }
-                        IconLabel {
-                            icon.name: "weather-snow-symbolic.svg"
-                            icon.width: 32
-                            icon.height: 32
-                        }
-                        Button {
-                            icon.name: "search-symbolic"
-                            icon.width: 32
-                            icon.height: 32
-                        }
-                        Button {
-                            icon.name: "network-wireless-connected-100-symbolic"
-                            icon.width: 32
-                            icon.height: 32
-                        }
-                        */
                     }
                     // Center
                     RowLayout {
@@ -137,7 +96,7 @@ Scope {
                         Audio {}
                         Battery {}
                         BarButton {
-                            onClicked: () => Root.State.controlPanel.toggleWindow()
+                            onClicked: () => Root.State.controlPanelActive = !Root.State.controlPanelActive
                             icon.name: "open-menu-symbolic"
                         }
                     }

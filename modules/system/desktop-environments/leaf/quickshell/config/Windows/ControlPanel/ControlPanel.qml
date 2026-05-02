@@ -10,7 +10,7 @@ import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 Shared.PanelWindow {
     id: root
     name: "controlPanel"
-    visible: Root.State.controlPanelVisibility
+    visible: Root.State.controlPanelActive
     focusable: false
 
     onToggleWindow: () => {

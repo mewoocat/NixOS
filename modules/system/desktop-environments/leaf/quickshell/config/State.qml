@@ -4,57 +4,56 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 import QtQuick
-import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 import qs.Components.Shared as Shared
 
-//import qs.Services as Services
-import "./Services/" as Services
+import "Windows"
+import "Windows/Bar"
+import "Windows/Launcher"
+import "Windows/ControlPanel"
+import "Windows/ActivityCenter"
+import "Windows/Notifications"
+import "Windows/Lockscreen"
+
 
 Singleton {
     id: root
 
-    property string leafPath: "/home/eXia/.config/leaf-de/"
-    property string settingsJsonPath: "/home/eXia/.config/leaf-de/settings.json"
-    property string colorsJsonPath: "/home/eXia/.config/leaf-de/quickshell-colors.json"
+    function enable() {
+        console.log(`starting leaf shell...`)
+    }
+
+    property string leafConfigDir: "/home/eXia/.config/leaf-de"
+    property string settingsJsonPath: `${leafConfigDir}/settings.json`
+    property string colorsJsonPath: `${leafConfigDir}/quickshell-colors.json`
     property FileView configFileView: configFile
-    property var config: configFile.adapter
-    property var colors: colorFile.adapter
-
-    property bool launcherVisibility: false
-    property bool controlPanelVisibility: false
-    property bool activityCenterVisibility: false
-
-    // Window refs
-    property var bar: null
-    property var launcher: null
-    property var controlPanel: null
-    property var activityCenter: null
-    property var workspaces: null
-    property var settings: null
-
-    property bool clickAwayVisible: false
-    property list<PanelWindow>focusStack: []
-    onFocusStackChanged: if (focusStack.length == 0) { clickAwayVisible = false }
+    property JsonAdapter config: configFile.adapter
+    property JsonAdapter colors: colorFile.adapter
 
     property bool screenLocked: false
 
-    property bool promptVisibility: promptStack.length != 0
-    property list<Component> promptStack: []
-    onPromptStackChanged: {
-        if (promptStack.length == 0) { promptVisibility = false }
-        else { promptVisibility = true }
-    }
+    property bool launcherActive: false
+    property bool controlPanelActive: false
+    property bool activityCenterActive: false
 
-    property var activeGrab: null // The active grab object (either popup or panel)
+    // Windows
+    /*
+    property Bar bar: Bar {} 
+    property Launcher launcher: Launcher {}
+    property ControlPanel controlPanel: ControlPanel {}
+    property ActivityCenter activityCenter: ActivityCenter {}
+    property Notifications notifications: Notifications {}
+    property Lockscreen lockscreen: Lockscreen {}
+    */
+    property PromptWindow promptWindow: PromptWindow {}
+        property bool promptVisibility: promptStack.length != 0
+        property list<Component> promptStack: []
+        onPromptStackChanged: {
+            if (promptStack.length == 0) { promptVisibility = false }
+            else { promptVisibility = true }
+        }
 
     property Shared.Expander currentControlPanelPage: null
 
-    // Workspace popup state
-    property bool isWorkspacePopupVisible: isWorkspaceWidgetHovered || isWorkspacePopupHovered
-    property bool isWorkspaceWidgetHovered: false
-    property bool isWorkspacePopupHovered: false
-    property HyprlandWorkspace hoveredWorkspace: null
-    property Item hoveredWorkspaceButton: null
     
     // Styling
     property int rounding: 18
@@ -148,36 +147,6 @@ Singleton {
 
             // WARNING: It appears that nesting an inline json property (i.e. `property var thing: { "a": 1 }`) inside
             // a JsonObject causes quickshell to crash.
-            /*
-            property JsonObject workspaces: JsonObject {
-                // Current workspace configuration (the literal values here are the default)
-                // Note that the number of workspaces is hardcoded since using a JsonObject
-                // type within a list causes a qs crash.  If a dynamic amount of workspaces is desired,
-                // the maximum supported should be defined here and then each workspace should
-                // have some sort of enabled property.
-                // Alternatively a list of var type should also work but I prefer this approach for now
-                property JsonObject wsMap: JsonObject {
-                    property JsonObject ws1: Services.Hyprland.Workspace { wsId: 1; isDefault: true }
-                    property JsonObject ws2: Services.Hyprland.Workspace { wsId: 2 }
-                    property JsonObject ws3: Services.Hyprland.Workspace { wsId: 3 }
-                    property JsonObject ws4: Services.Hyprland.Workspace { wsId: 4 }
-                    property JsonObject ws5: Services.Hyprland.Workspace { wsId: 5 }
-                    property JsonObject ws6: Services.Hyprland.Workspace { wsId: 6 }
-                    property JsonObject ws7: Services.Hyprland.Workspace { wsId: 7 }
-                    property JsonObject ws8: Services.Hyprland.Workspace { wsId: 8 }
-                    property JsonObject ws9: Services.Hyprland.Workspace { wsId: 9 }
-                    property JsonObject ws10: Services.Hyprland.Workspace { wsId: 10 }
-                }
-
-                // Map of monitor state to workspace configuration
-                // Becomes populated with keys (which are a generated monitor config id)
-                // and the associated values are a map of each monitor to a list of workspace ids assigned to that monitor
-                // Example
-                // { "monitorA-monitorB": " {"monitorA": [1,2,3,4,5], "monitorB": [6,7,8,9,10] }}
-                // `()` fixes undefined issue when modifying
-                //property var monitorToWSMap: ({})
-            }
-            */
         } 
     }
 

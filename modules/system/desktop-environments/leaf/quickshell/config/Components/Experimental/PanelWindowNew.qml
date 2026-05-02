@@ -107,23 +107,6 @@ PanelWindow {
         radius: background.radius
     }
 
-    // Visibility
-
-    // TODO: make each panel window have their own focus grab
-    /*
-    onVisibleChanged: {
-        if (window.grabEnabled) {
-            if (visible) {
-                Root.State.clickAwayVisible = true
-                Root.State.focusStack.push(window)
-            }
-            else {
-                Root.State.focusStack.pop()
-            }
-        }
-    }
-    */
-
     implicitWidth: background.width
     implicitHeight: background.height // NOTE: Need to set PanelWindow size to largest possible or else resizing with jitter
 

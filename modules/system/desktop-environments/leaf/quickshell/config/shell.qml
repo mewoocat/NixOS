@@ -8,34 +8,26 @@
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Universal
 import Quickshell
 import QtQuick
-import Quickshell.Hyprland
-import "Services" as Services
-import "Windows/Bar"
-import "Windows/Launcher"
-import "Windows/ControlPanel"
 import "Windows/ActivityCenter"
 import "Windows/Workspaces"
-import "Windows/Notifications"
 import "Windows/Settings"
 import "Windows/OnScreenDisplay"
-import "Windows/Lockscreen"
+import "Windows/Bar"
+
 import "Windows"
-//import Quickshell.Services.NetworkManager
+import "Windows/Launcher"
+import "Windows/ControlPanel"
+import "Windows/Notifications"
+import "Windows/Lockscreen"
 
 ShellRoot {
     Component.onCompleted: {
-        Controller.enable() // Needed for ipc to find target
+        Controller.initialize() // Needed for ipc to find target
     }
-
-    // Visual
-    Bar {} 
-    Launcher {}
+    Bar {}
     ControlPanel {}
-    ActivityCenter {}
+    Launcher {}
     Notifications {}
-    //Settings {}
+    ActivityCenter {}
     Lockscreen {}
-    //OnScreenDisplay {}
-    //ClickAway {}
-    PromptWindow {}
 }

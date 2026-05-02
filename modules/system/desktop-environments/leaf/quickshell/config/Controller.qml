@@ -6,8 +6,8 @@ import qs.Services as Services
 
 Singleton {
     // Used to initialize this singleton
-    function enable(){
-        //console.log("Enabling Controller Singleton")
+    function initialize(){
+        console.log("Initializing Controller singleton")
     }
     IpcHandler {
         target: "control"
