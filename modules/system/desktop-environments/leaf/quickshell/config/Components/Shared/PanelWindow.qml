@@ -10,8 +10,12 @@ import qs.Components.Shared as Shared
 // prop with the PanelWindow type (need to test)
 PanelWindow { // qmllint disable uncreatable-type
     id: window
+
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
+
+    signal closeRequested() // To let the consumer know when the window wants to close
+
     property bool grabEnabled: true
     property int padding: Root.State.windowPadding
     property int radius: Root.State.rounding
@@ -36,9 +40,8 @@ PanelWindow { // qmllint disable uncreatable-type
                 hoverEnabled: true
                 anchors.fill: parent
                 onClicked: () => {
-                    // Close the most recent focused window
                     console.log(`what`)
-                    window.closeWindow()
+                    window.closeRequested()
                 }
             }
             // Allow clicks to pass through
@@ -55,10 +58,12 @@ PanelWindow { // qmllint disable uncreatable-type
     signal closeWindow()
     signal toggleWindow()
  
+    /*
     Component.onCompleted: {
         //console.log(`setting state for window: ${name}`)
         Root.State[name] = window // Set the window ref in state
     }
+    */
 
     //exclusionMode: ExclusionMode.Ignore
     exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
@@ -80,21 +85,6 @@ PanelWindow { // qmllint disable uncreatable-type
 
     // Visibility
     visible: false
-
-    // TODO: make each panel window have their own focus grab
-    /*
-    onVisibleChanged: {
-        if (window.grabEnabled) {
-            if (visible) {
-                Root.State.clickAwayVisible = true
-                Root.State.focusStack.push(window)
-            }
-            else {
-                Root.State.focusStack.pop()
-            }
-        }
-    }
-    */
 
     implicitWidth: background.width
     implicitHeight: background.height // NOTE: Need to set PanelWindow size to largest possible or else resizing with jitter

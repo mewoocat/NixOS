@@ -13,6 +13,10 @@ Shared.PanelWindow {
     visible: Root.State.controlPanelActive
     focusable: false
 
+    onCloseRequested: () => {
+        Root.State.controlPanelActive = false
+    }
+
     anchors {
         top: true
         right: true

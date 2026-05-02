@@ -20,13 +20,11 @@ Shared.PanelWindow {
     }
     focusable: true
 
-    onCloseWindow: () => {
-        Root.State.launcherVisibility = false
-        appList.reset()
+    onCloseRequested: () => {
+        Root.State.launcherActive = false
     }
 
-    onToggleWindow: () => {
-        Root.State.launcherVisibility = !Root.State.launcherVisibility
+    onVisibleChanged: () => {
         appList.reset()
     }
 
@@ -34,7 +32,7 @@ Shared.PanelWindow {
         console.log(`Launching app: ${app.id}`)
         Services.Applications.incrementFreq(app.id) // Update it's frequency
         app.execute()
-        launcher.closeWindow() // Needs to be after the execute since this will reset the current index?
+        launcher.closeRequested()
     }
 
     content: RowLayout {

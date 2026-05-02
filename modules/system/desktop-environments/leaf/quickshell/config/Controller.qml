@@ -3,6 +3,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import qs.Services as Services
+import qs as Root
 
 Singleton {
     // Used to initialize this singleton
@@ -13,21 +14,16 @@ Singleton {
         target: "control"
 
         function toggleLauncher() {
-            State.launcher.toggleWindow()
+            Root.State.launcherActive = !Root.State.launcherActive
         }
         function toggleActivityCenter() {
-            State.activityCenter.toggleWindow()
+            Root.State.activityCenterActive = !Root.State.activityCenterActive
         }
         function toggleControlPanel() {
-            State.controlPanel.toggleWindow()
-        }
-        function toggleWorkspaces() {
-            State.workspaces.toggleWindow()
+            Root.State.controlPanelActive = !Root.State.controlPanelActive
         }
         function lockScreen() { 
-            console.log(`locked pre = ${State.screenLocked}`)
-            State.screenLocked = true 
-            console.log(`locked post = ${State.screenLocked}`)
+            Root.State.screenLocked = true 
         }
         // Signals that the recording as actually started and wasn't canceled by the user
         function recordingStarted() { Services.ScreenCapture.recording = true }

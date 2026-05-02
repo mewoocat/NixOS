@@ -12,6 +12,10 @@ Shared.PanelWindow {
         top: true
     }
 
+    onCloseRequested: () => {
+        Root.State.activityCenterActive = false
+    }
+
     content: AbsGrid.PanelGrid {
         id: panelGrid
         xSize: 12
