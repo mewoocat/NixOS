@@ -19,12 +19,17 @@ RowLayout {
 
     SeqDragGrid.SequentialDragGrid {
         implicitHeight: 32
-        implicitWidth: 200
-        tileSize: 32
+        tileHeight: dummy.height
+        tileWidth: dummy.width
         model: Services.SystemTray.mainItems
-        onModelUpdated: (newModel) => {
+        onModelUpdated: (newModel) => {}
+        // Warning! This is a hack to determine the size of a tray button in order to set the cell size
+        property Item dummyTrayButton: SystemTrayButton {
+            id: dummy
+            trayItem: SystemTray.items[0]
         }
         delegate: SystemTrayButton {
+            id: delegate
             required property SystemTrayItem modelData
             trayItem: modelData
         }
