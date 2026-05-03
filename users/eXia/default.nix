@@ -68,6 +68,7 @@
       openssl
       arduino
       nwg-displays
+      idevicerestore # Restore/upgrade firmware of iOS devices
 
       # yubikey
       yubikey-manager # ykman cli tool
