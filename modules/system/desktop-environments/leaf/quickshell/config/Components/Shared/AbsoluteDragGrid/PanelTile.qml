@@ -43,7 +43,7 @@ Item {
         y: root.padding
         width: parent.width - root.padding * 2
         height: parent.height - root.padding * 2
-        color: root.showBackground ? Root.State.colors.surface_container : "transparent"
+        color: root.showBackground ? Qt.alpha(Root.State.colors.surface_container, 0.85) : "transparent"
         radius: root.radius
         Loader {
             active: root.widgetData.component != null

@@ -3,18 +3,19 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 
-Item {
+Rectangle {
     id: root
-    required property ScriptModel model // Some sort of model
+    required property var model // Some sort of model
     required property Component delegate
 
     signal modelUpdated(model: var) // When the model has been modified
 
     property int tileSize: 48
+    color: "red"
 
     GridView {
-        width: root.tileSize
-        height: root.height
+        width: root.width
+        height: root.tileSize
         // These have a default of 100, so we need to set them
         cellWidth: root.tileSize
         cellHeight: root.tileSize
@@ -77,6 +78,7 @@ Item {
                     visualIndex: dropArea.visualIndex
                     delegate: root.delegate
                     modelData: dropArea.modelData
+                    tileSize: root.tileSize
 
                     onDropped: {
 

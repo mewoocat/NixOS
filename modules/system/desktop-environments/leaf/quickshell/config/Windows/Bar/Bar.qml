@@ -60,10 +60,6 @@ Scope {
                         WorkspacesDynamic {
                             screen: bar.screen
                         }
-                        BarButton {
-                            text: "+"
-                            onClicked: Hyprland.dispatch(`workspace emptynm`) // "Create" the next empty workspace
-                        }
                     }
                     // Center
                     RowLayout {

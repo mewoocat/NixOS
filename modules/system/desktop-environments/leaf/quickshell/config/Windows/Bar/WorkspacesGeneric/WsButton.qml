@@ -6,10 +6,12 @@ import Quickshell.WindowManager
 import Quickshell.Widgets
 import qs as Root
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 
 Ctrls.Button {
     id: root
     required property Windowset ws
+    required property bool isLast
 
     property int smallSize: 10
     property int mediumSize: 16
@@ -19,8 +21,8 @@ Ctrls.Button {
     property int dotSize: 22
     property int smallDotSize: 18
 
-    topInset: 10
-    bottomInset: 10
+    topInset: 8
+    bottomInset: 8
     padding: 0
     leftInset: 2
     rightInset: 2
@@ -32,7 +34,7 @@ Ctrls.Button {
         }
     }
     onClicked: {
-        //Hyprland.dispatch(`workspace ${root.ws.id}`)
+        ws.activate()
     }
 
     background: Rectangle {
@@ -42,19 +44,29 @@ Ctrls.Button {
         Behavior on implicitHeight { PropertyAnimation {duration: 20} }
         color: root.hovered || root.ws.active
             ? Root.State.colors.primary
-            : Root.State.colors.primary_container
+            : !root.isLast 
+                ? Root.State.colors.primary_container
+                : "transparent"
     }
 
-    contentItem: Text {
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        leftPadding: 6
-        rightPadding: 6
-        id: displayName
-        text: root.ws.id + " | " + root.ws.name
-        font.pointSize: 8
-        color: root.hovered || root.ws.active
-            ? Root.State.colors.on_primary
-            : Root.State.colors.on_primary_container
+    contentItem: RowLayout {
+        spacing: 0
+        Repeater {
+            // TODO
+            //Shared.Icon {}
+        }
+        Text {
+            id: displayName
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            Layout.fillWidth: true
+            text: !isLast ? root.ws.name : "+"
+            font.pointSize: 8
+            color: root.hovered || root.ws.active
+                ? Root.State.colors.on_primary
+                : !root.isLast 
+                    ? Root.State.colors.on_primary_container
+                    : Root.State.colors.on_surface
+            }
     }
 }

@@ -11,11 +11,26 @@ import qs.Components.Controls as Ctrls
 import qs.Services as Services
 import qs as Root
 import "../"
+import qs.Components.Shared.SequentialDragGrid as SeqDragGrid
 
 RowLayout {
     id: root
     spacing: 0
 
+    SeqDragGrid.SequentialDragGrid {
+        implicitHeight: 32
+        implicitWidth: 200
+        tileSize: 32
+        model: Services.SystemTray.mainItems
+        onModelUpdated: (newModel) => {
+        }
+        delegate: SystemTrayButton {
+            required property SystemTrayItem modelData
+            trayItem: modelData
+        }
+    }
+
+    /*
     Repeater {
         model: Services.SystemTray.mainItems
         delegate: SystemTrayButton {
@@ -23,6 +38,7 @@ RowLayout {
             trayItem: modelData
         }
     }
+    */
 
     // Toggle button
     BarButton {

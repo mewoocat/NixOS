@@ -11,11 +11,12 @@ Item {
     required property int index // The current index of this tile within the source model
     required property int visualIndex // The current index of this tile within the visual model
     required property var modelData
+    required property int tileSize
 
     signal dropped()
+    width: tileSize
+    height: tileSize
 
-    width: 48
-    height: 48
     states: [
         // When dragging, parent the dragged item to the grid instead of it's DropArea
         State {
@@ -60,7 +61,7 @@ Item {
         anchors.fill: parent
         children: [
             // Using Qt.binding() to bind the modelData property, otherwise this
-            // binding of the children will treat root.modelData as a dependecy of children
+            // binding of the children will treat root.modelData as a dependency of children
             // And recreate the object everytime modelData changes
             root.delegate.createObject(box, { modelData: Qt.binding(() => root.modelData) })
         ]

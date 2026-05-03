@@ -34,7 +34,7 @@ PanelWindow { // qmllint disable uncreatable-type
                 right: true
                 bottom: true
             }
-            color: "#33ff0000"
+            color: "#00ff0000"
             MouseArea {
                 id: area
                 hoverEnabled: true

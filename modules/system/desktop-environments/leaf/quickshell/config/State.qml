@@ -65,7 +65,7 @@ Singleton {
     property int mediumSpace: 8
     property int largeSpace: 10
     property double opacity: 0.8
-    property int barHeight: 40
+    property int barHeight: 32
     property string launcherIcon: "system-search-symbolic"//"distributor-logo-nixos"
     // Variable group lol
     /*
