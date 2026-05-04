@@ -18,9 +18,10 @@ RowLayout {
     spacing: 0
 
     SeqDragGrid.SequentialDragGrid {
-        implicitHeight: 32
         tileHeight: dummy.height
         tileWidth: dummy.width
+        Layout.preferredHeight: tileHeight
+        Layout.preferredWidth: tileWidth * model.length
         model: Services.SystemTray.mainItems
         onModelUpdated: (newModel) => {}
         // Warning! This is a hack to determine the size of a tray button in order to set the cell size
@@ -73,6 +74,27 @@ RowLayout {
                     }
                 }
             }
+            // TODO
+            /*
+            content: SeqDragGrid.SequentialDragGrid {
+                tileHeight: dummy2.height
+                tileWidth: dummy2.width
+                height: tileHeight * 2
+                width: tileWidth * 4
+                Layout.preferredWidth: tileWidth * model.length
+                model: Services.SystemTray.mainItems
+                onModelUpdated: (newModel) => {}
+                // Warning! This is a hack to determine the size of a tray button in order to set the cell size
+                property Item dummyTrayButton: SystemTrayButton {
+                    id: dummy2
+                    trayItem: SystemTray.items[0]
+                }
+                delegate: SystemTrayButton {
+                    required property SystemTrayItem modelData
+                    trayItem: modelData
+                }
+            }
+            */
         }
     }
 }

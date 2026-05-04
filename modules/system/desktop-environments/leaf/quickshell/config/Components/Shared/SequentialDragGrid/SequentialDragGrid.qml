@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 
+// Usage: The width and height must be set by the consumer
 Rectangle {
     id: root
     required property var model // Some sort of model
@@ -13,16 +14,16 @@ Rectangle {
 
     property int tileWidth: 48
     property int tileHeight: 48
-    color: "red"
+    color: "transparent"
 
     GridView {
         id: gridView
-        width: contentWidth
-        height: root.tileHeight
+        width: root.width
+        height: root.height
         // These have a default of 100, so we need to set them
         cellWidth: root.tileWidth
         cellHeight: root.tileHeight
-        layoutDirection: Qt.RightToLeft
+        //layoutDirection: Qt.RightToLeft
         contentHeight: root.tileHeight
         contentWidth: count * root.tileWidth
 

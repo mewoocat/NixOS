@@ -20,7 +20,11 @@ ColumnLayout {
 
     SeqDragGrid.SequentialDragGrid {
         id: grid
+        tileWidth: 48
+        tileHeight: 48
         Layout.fillHeight: true
+        Layout.preferredWidth: tileWidth
+
         property var pinnedApps: Root.State.config.pinnedApps
         model: ScriptModel { values: Root.State.config.pinnedApps }
         onModelUpdated: (newModel) => {
