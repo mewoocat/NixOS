@@ -61,6 +61,7 @@ T.Button {
         id: iconLabel
         icon.name: control.icon.name
         icon.source: control.icon.source
+        // !! WARNING !! Recoloring the icon at runtime causes sluggish behavior
         icon.color: control.isMultiColorIcon ? "transparent" : control.icon.color
         icon.width: control.icon.width
         icon.height: control.icon.height

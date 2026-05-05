@@ -51,11 +51,6 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    qml-niri = {
-      url = "github:imiric/qml-niri/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
-    };
     niri = {
       url = "github:niri-wm/niri";
       inputs.nixpkgs.follows = "nixpkgs";

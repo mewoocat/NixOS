@@ -153,7 +153,6 @@ ColumnLayout {
                         onClicked: () => modelData.execute()
                     }
                 }
-                Shared.HorizontalLine { visible: subDelegate.modelData.actions.length > 0 }
                 RowLayout {
                     Ctrls.Button {
                         text: "Pin"

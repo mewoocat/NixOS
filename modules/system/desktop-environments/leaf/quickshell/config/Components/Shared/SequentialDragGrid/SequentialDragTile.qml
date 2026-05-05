@@ -24,17 +24,10 @@ Item {
     states: [
         // When dragging, parent the dragged item to the grid instead of it's DropArea
         State {
-            when: root.Drag.active && root.dragGrid.hovered
+            when: root.Drag.active
             ParentChange { 
               target: root
               parent: root.dragGrid
-            }
-        },
-        State {
-            when: root.Drag.active && !root.dragGrid.hovered
-            ParentChange { 
-              target: root
-              parent: Root.State.dragOverlay.areaItem
             }
         }
     ]

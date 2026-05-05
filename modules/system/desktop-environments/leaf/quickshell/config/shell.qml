@@ -6,6 +6,7 @@
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Material
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Imagine
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Universal
+////@ pragma DropExpensiveFonts
 import Quickshell
 import QtQuick
 import "Windows/ActivityCenter"

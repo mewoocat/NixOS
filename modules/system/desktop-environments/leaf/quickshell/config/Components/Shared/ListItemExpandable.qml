@@ -24,7 +24,7 @@ WrapperMouseArea {
     property int expansionAnimationSpeed: 350
     property color backgroundColor: root.interacted ? Root.State.colors.surface_container : "transparent"
     property color mainColor: "transparent"
-    property color subColor: "transparent"
+    property color subColor: Root.State.colors.surface_container_highest
 
     implicitWidth: 150 //parent ? parent.width : 0 // Idk why but parent is sometimes null here.  Maybe when this delegate is removed from the view?
     hoverEnabled: true
@@ -142,13 +142,7 @@ WrapperMouseArea {
                 ParallelAnimation {
                     PropertyAnimation {
                         target: mainBox
-                        property: "bottomRightRadius"
-                        duration: root.expansionAnimationSpeed
-                        easing.type: Easing.InOutQuad
-                    }
-                    PropertyAnimation {
-                        target: mainBox
-                        property: "bottomLeftRadius"
+                        properties: "bottomRightRadius,bottomLeftRadius"
                         duration: root.expansionAnimationSpeed
                         easing.type: Easing.InOutQuad
                     }

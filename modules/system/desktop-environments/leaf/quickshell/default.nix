@@ -25,8 +25,7 @@ in {
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
-    #inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
-    inputs.qml-niri.packages.${config.hostSystem}.quickshell # Quickshell package from qml-niri which includes a wrapped build of quickshell including the plugin
+    inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
 
     kdePackages.qtdeclarative # Add qml types in path for qmlls
     kdePackages.qt5compat # For Qt5Compat.GraphicalEffects

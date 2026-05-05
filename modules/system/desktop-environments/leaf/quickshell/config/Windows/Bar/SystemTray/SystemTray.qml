@@ -22,7 +22,7 @@ RowLayout {
         tileWidth: dummy.width
         Layout.preferredHeight: tileHeight
         Layout.preferredWidth: tileWidth * model.length
-        model: Services.SystemTray.mainItems
+        model: Services.SystemTray.items
         onModelUpdated: (newModel) => {}
         // Warning! This is a hack to determine the size of a tray button in order to set the cell size
         property Item dummyTrayButton: SystemTrayButton {
@@ -36,6 +36,18 @@ RowLayout {
         }
     }
 
+    Item {
+        Layout.fillHeight: true
+        Layout.preferredWidth: 16
+        Rectangle {
+            anchors.centerIn: parent
+            width: 1
+            height: parent.height - 12
+            color: Root.State.colors.on_surface
+            opacity: 0.7
+        }
+    }
+
     /*
     Repeater {
         model: Services.SystemTray.mainItems
@@ -46,6 +58,7 @@ RowLayout {
     }
     */
 
+    /*
     // Toggle button
     BarButton {
         id: toggleButton
@@ -74,27 +87,7 @@ RowLayout {
                     }
                 }
             }
-            // TODO
-            /*
-            content: SeqDragGrid.SequentialDragGrid {
-                tileHeight: dummy2.height
-                tileWidth: dummy2.width
-                height: tileHeight * 2
-                width: tileWidth * 4
-                Layout.preferredWidth: tileWidth * model.length
-                model: Services.SystemTray.mainItems
-                onModelUpdated: (newModel) => {}
-                // Warning! This is a hack to determine the size of a tray button in order to set the cell size
-                property Item dummyTrayButton: SystemTrayButton {
-                    id: dummy2
-                    trayItem: SystemTray.items[0]
-                }
-                delegate: SystemTrayButton {
-                    required property SystemTrayItem modelData
-                    trayItem: modelData
-                }
-            }
-            */
         }
     }
+    */
 }

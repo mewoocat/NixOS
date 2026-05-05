@@ -4,18 +4,8 @@ import Quickshell
 import QtQuick
 
 // Usage: The width and height must be set by the consumer
-DropArea {
+Item {
     id: root
-    /*
-    HoverHandler {
-        id: hoverHandler
-        onHoveredChanged: console.log(`hovered: ${hovered}`)
-    }
-    property bool hovered: hoverHandler.hovered
-    */
-    //property bool hovered: hoverHandler.hovered
-    property bool hovered: hovered
-    onHoveredChanged: console.log(`hovered: ${hovered}`)
     required property var model // Some sort of model
     required property Component delegate
 
