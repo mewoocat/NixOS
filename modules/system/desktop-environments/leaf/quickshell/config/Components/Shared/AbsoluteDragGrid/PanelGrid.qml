@@ -11,8 +11,8 @@ ColumnLayout {
     property list<var> model: [] // Expects a list of WidgetInstances
     property Logic logic: Logic {}
     property int unitSize: 72
-    property int widgetPadding: Root.State.mediumSpace
-    property int widgetRadius: Root.State.innerRounding
+    property int widgetPadding: Root.State.widgetPadding
+    property int widgetRadius: Root.State.widgetRounding
     property int xSize: 4
     property int ySize: 8
     property bool allowEditToggle: true

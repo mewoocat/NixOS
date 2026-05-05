@@ -27,14 +27,48 @@ PopupWindow {
     property color bgColor: Root.State.colors.surface
     property int shadowSize: 8
     property int contentMargin: Root.State.windowPadding
-    implicitWidth: visible ? mouseArea.width : shadowSize * 2
-    implicitHeight: visible ? mouseArea.height : shadowSize * 2
+    implicitWidth: visible ? focusScope.width : shadowSize * 2
+    implicitHeight: visible ? focusScope.height : shadowSize * 2
     // TODO: Figure out stutter with animations
     //Behavior on implicitHeight { PropertyAnimation { duration: 2000 } }
     //Behavior on implicitWidth { PropertyAnimation { duration: 2000 } }
     //Behavior on anchor.item { PropertyAnimation { duration: 1000 } }
     color: "transparent"
-    grabFocus: true
+
+    //grabFocus: true // Built in focus grab handler (doesn't detect clicks within other qs windows)
+    // Create a close on click away area for each screen
+    property var clickAway: Variants {
+        model: Quickshell.screens 
+        // qmllint disable uncreatable-type
+        PanelWindow {
+            visible: root.visible
+            required property ShellScreen modelData
+            screen: modelData
+            focusable: false
+            anchors {
+                top: true
+                left: true
+                right: true
+                bottom: true
+            }
+            color: "#00ff0000"
+            MouseArea {
+                id: area
+                hoverEnabled: true
+                anchors.fill: parent
+                onClicked: () => root.visible = false
+            }
+            // Allow clicks to pass through
+            // Doesn't seem to be a way to do this *and* detect mouse clicks
+            /*
+            mask: Region {
+                item: area
+                intersection: Intersection.Subtract
+            }
+            */
+        }
+    }
+
     anchor {
         /*
         // The rect[x,y] seems to always be relative to the item's (0,0)
@@ -57,15 +91,15 @@ PopupWindow {
         root.visible = false
     }
 
-    onVisibleChanged: {
-        if (visible && grabEnabled) {
-            Services.Hyprland.addGrabWindow(root)
+    FocusScope {
+        id: focusScope
+        focus: true
+        Keys.onPressed: (event) => {
+            console.log('eh')
+            if (event.key == Qt.Key_Escape) {
+                root.closeWindow()
+            }
         }
-    }
-
-    // MouseArea for detecting if mouse is contained within the popup
-    MouseArea {
-        id: mouseArea
         width: shadowBox.width
         height: shadowBox.height
 

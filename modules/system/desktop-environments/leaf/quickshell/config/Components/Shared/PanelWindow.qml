@@ -19,6 +19,9 @@ PanelWindow { // qmllint disable uncreatable-type
     property bool grabEnabled: true
     property int padding: Root.State.windowPadding
     property int radius: Root.State.rounding
+
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+
     // Create a close on click away area for each screen
     property var clickAway: Variants {
         model: Quickshell.screens 
@@ -103,7 +106,7 @@ PanelWindow { // qmllint disable uncreatable-type
         focus: true
         Keys.onPressed: (event) => {
             if (event.key == Qt.Key_Escape) {
-                window.closeWindow()
+                window.closeRequested()
             }
         }
         Rectangle {

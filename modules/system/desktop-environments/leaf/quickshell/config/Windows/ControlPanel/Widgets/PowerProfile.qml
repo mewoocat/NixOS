@@ -1,50 +1,56 @@
 
-    Leaf.PanelItem { 
-        isClickable: false
-        rows: 2
-        columns: 2
-        content: RowLayout {
-            anchors.centerIn: parent
-            spacing: 0
+pragma ComponentBehavior: Bound
 
-            Ctrls.Slider {
-                orientation: Qt.Vertical
-                from: 0
-                to: 2
-                stepSize: 1
-                snapMode: Slider.SnapOnRelease
-                implicitHeight: powerProfileList.height
-                value: PowerProfiles.profile // 0 - PowerSaver, 1 - Balanced, 2 - Perfomance
-                onValueChanged: PowerProfiles.profile = value
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import qs.Services as Services
+import Quickshell.Services.UPower
+import qs as Root
+import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
+import qs.Components.Controls as Ctrls
+
+AbsGrid.WidgetData { 
+    id: widgetData
+    name: "Power Profile Selector"
+    xSize: 3
+    ySize: 1
+    //active: Services.ScreenCapture.recording
+    showBackground: false
+    component: Rectangle {
+        id: root
+        color: Root.State.colors.surface_container
+        radius: widgetData.radius
+        ButtonGroup { buttons: row.children } // Non visual item
+        RowLayout {
+            id: row
+            spacing: 0
+            anchors.fill: parent
+            Ctrls.Button {
+                onClicked: () => PowerProfiles.profile = PowerProfile.PowerSaver
+                icon.name: "battery-profile-powersave-symbolic"
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                radius: widgetData.radius
+                checked: PowerProfiles.profile == PowerProfile.PowerSaver
             }
-            ColumnLayout {
-                id: powerProfileList
-                spacing: 0
-                Leaf.NormalButton {
-                    visible: PowerProfiles.hasPerformanceProfile
-                    //Layout.fillWidth: true
-                    text: "Performance"
-                    fontSize: 10
-                    buttonHeight: 32
-                    leftClick: () => PowerProfiles.profile = PowerProfile.Performance
-                    highlight: PowerProfiles.profile == PowerProfile.Performance
-                }
-                Leaf.NormalButton {
-                    //Layout.fillWidth: true
-                    text: "Balanced"
-                    fontSize: 10
-                    buttonHeight: 32
-                    leftClick: () => PowerProfiles.profile = PowerProfile.Balanced
-                    highlight: PowerProfiles.profile == PowerProfile.Balanced
-                }
-                Leaf.NormalButton {
-                    //Layout.fillWidth: true
-                    text: "Low Power"
-                    fontSize: 10
-                    buttonHeight: 32
-                    leftClick: () => PowerProfiles.profile = PowerProfile.PowerSaver
-                    highlight: PowerProfiles.profile == PowerProfile.PowerSaver
-                }
+            Ctrls.Button {
+                onClicked: () => PowerProfiles.profile = PowerProfile.Balanced
+                icon.name: "battery-profile-balanced-symbolic"
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                radius: widgetData.radius
+                checked: PowerProfiles.profile == PowerProfile.Balanced
+            }
+            Ctrls.Button {
+                //visible: PowerProfiles.hasPerformanceProfile
+                onClicked: () => PowerProfiles.profile = PowerProfile.Performance
+                icon.name: "battery-profile-performance-symbolic"
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                radius: widgetData.radius
+                checked: PowerProfiles.profile == PowerProfile.Performance
             }
         }
     }
+}

@@ -1,4 +1,5 @@
 import Quickshell.Widgets
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
 import qs as Root
@@ -11,7 +12,7 @@ Shared.PanelWindow {
     id: root
     name: "controlPanel"
     visible: Root.State.controlPanelActive
-    focusable: false
+    padding: 0
 
     onCloseRequested: () => {
         Root.State.controlPanelActive = false
@@ -42,6 +43,11 @@ Shared.PanelWindow {
                 uid: "Windows/ControlPanel/Widgets/NightLight.qml",
                 xPosition: 3,
                 yPosition: 0
+            },
+            {
+                uid: "Windows/ControlPanel/Widgets/PowerProfile.qml",
+                xPosition: 0,
+                yPosition: 2
             },
             {
                 uid: "Windows/ControlPanel/Widgets/AudioAndBrightness.qml",

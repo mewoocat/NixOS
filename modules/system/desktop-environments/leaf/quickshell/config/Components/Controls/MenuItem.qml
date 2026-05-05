@@ -22,7 +22,7 @@ T.MenuItem {
     property color backgroundColor: control.hovered || control.highlighted ? Root.State.colors.primary : "transparent"
     property color color: control.hovered || control.highlighted ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMutliColorIcon: false
-    property int radius: background.implicitHeight
+    property int radius: Root.State.innerRounding//background.implicitHeight
     property bool hasChildren: false
     // Defines the padding of the background
     property real inset: 2

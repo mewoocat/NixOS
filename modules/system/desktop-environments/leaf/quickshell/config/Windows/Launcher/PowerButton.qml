@@ -12,7 +12,7 @@ Shared.PanelButton {
     id: power
     icon.name: 'system-shutdown-symbolic'
     //imgSize: 22
-    onClicked: () => powerPopup.visible = true
+    onClicked: () => powerPopup.visible = !powerPopup.visible
     Shared.PopupWindow {
         id: powerPopup
 
@@ -25,7 +25,7 @@ Shared.PanelButton {
         }
 
         content: ColumnLayout {
-            Ctrls.MenuItem { checkable: true; Layout.fillWidth: true; text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
+            Ctrls.MenuItem { Layout.fillWidth: true; text: "Shutdown"; onClicked: () => Services.Power.shutdown(); icon.name: "system-shutdown-symbolic"}
             Ctrls.MenuItem { Layout.fillWidth: true; text: "Hibernate"; onClicked: () => Services.Power.hibernate(); icon.name: "system-shutdown-symbolic"}
             Ctrls.MenuItem { Layout.fillWidth: true; text: "Restart"; onClicked: () => Services.Power.restart(); icon.name: "system-reboot-symbolic"}
             Ctrls.MenuItem { Layout.fillWidth: true; text: "Sleep"; onClicked: () => Services.Power.sleep(); icon.name: "system-suspend-symbolic"}

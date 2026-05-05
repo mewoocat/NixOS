@@ -85,6 +85,8 @@ Singleton {
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10
+    property int widgetPadding: 16
+    property int widgetRounding: rounding - windowPadding + widgetPadding
     property double opacity: 0.8
     property int barHeight: 32
     property string launcherIcon: "system-search-symbolic"//"distributor-logo-nixos"
