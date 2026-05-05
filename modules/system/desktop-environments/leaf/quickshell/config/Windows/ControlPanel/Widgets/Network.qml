@@ -19,7 +19,7 @@ AbsGrid.WidgetData {
     component: Item {
         id: root
         anchors.fill: parent
-        anchors.margins: widgetData.radius
+        anchors.margins: widgetData.padding
         ColumnLayout {
             anchors.fill: parent
             spacing: 0

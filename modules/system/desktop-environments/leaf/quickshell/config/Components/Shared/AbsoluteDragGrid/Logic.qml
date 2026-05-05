@@ -19,13 +19,15 @@ QtObject {
     }
 
     // Useful for reading in widget state
-    function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle): list<WidgetData> { 
+    function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle, widgetRadius: int, widgetPadding: int): list<WidgetData> { 
         const widgetDataList = []
         for (const w of widgetJsonList) {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             if (component.status == Component.Error) {
                 console.error(component.errorString())
             }
+
+            console.debug(`about to create widgetData with panelGrid ${panelGrid}`)
 
             // !! IMPORTANT: Need to parent the item here or keep a handle on it's return value, otherwise
             // the garbage collector could just delete it when it feels like it.  (Fix for 4/9/26 incident)
@@ -34,7 +36,9 @@ QtObject {
                 xPosition: w.xPosition,
                 yPosition: w.yPosition,
                 state: w.state,
-                panelGrid: panelGrid
+                panelGrid: panelGrid,
+                radius: widgetRadius,
+                padding: widgetPadding,
             })
             widgetDataList.push(widgetData)
         }

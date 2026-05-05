@@ -12,7 +12,6 @@ Shared.PanelWindow {
     id: root
     name: "controlPanel"
     visible: Root.State.controlPanelActive
-    padding: 0
 
     onCloseRequested: () => {
         Root.State.controlPanelActive = false

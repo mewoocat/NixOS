@@ -1,7 +1,8 @@
 import QtQml
 import QtQuick
 
-// Only some of the properties here are serialized to json
+// NOTE: Only some of the properties here are serialized to json
+// NOTE: Some of the required properties are injected when the component is created, not when it's defined (i.e. panelGrid)
 QtObject {
     // Definition properties
     property string uid // A unique ID across all WidgetData ... TODO: Remove?
@@ -17,8 +18,8 @@ QtObject {
 
     // Item properties
     required property Component component // The actual content to render 
-    property int padding: 8
-    property int radius: 8
+    required property int padding
+    required property int radius
     property bool showBackground: true
     required property Item panelGrid // This is useful when a widget component needs to know the geometry of it's PanelGrid
 }

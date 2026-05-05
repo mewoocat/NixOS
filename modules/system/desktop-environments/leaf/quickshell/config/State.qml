@@ -77,7 +77,7 @@ Singleton {
 
     
     // Styling
-    property int rounding: 18
+    property int rounding: 16
     property int smallRounding: 8
     property int innerRounding: rounding - windowPadding
     property int windowPadding: 8
@@ -85,7 +85,7 @@ Singleton {
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10
-    property int widgetPadding: 16
+    property int widgetPadding: 6
     property int widgetRounding: rounding - windowPadding + widgetPadding
     property double opacity: 0.8
     property int barHeight: 32

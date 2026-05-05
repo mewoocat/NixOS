@@ -15,13 +15,10 @@ AbsGrid.WidgetData {
     name: "Power Profile Selector"
     xSize: 3
     ySize: 1
-    //active: Services.ScreenCapture.recording
-    showBackground: false
-    component: Rectangle {
+    showBackground: true
+    component: Item {
         id: root
-        color: Root.State.colors.surface_container
-        radius: widgetData.radius
-        ButtonGroup { buttons: row.children } // Non visual item
+        //ButtonGroup { buttons: row.children } // Non visual item
         RowLayout {
             id: row
             spacing: 0
