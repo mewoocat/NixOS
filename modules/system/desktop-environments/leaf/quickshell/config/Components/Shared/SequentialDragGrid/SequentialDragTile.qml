@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
+import qs as Root
 
 Item {
     id: root 
@@ -19,13 +20,21 @@ Item {
     width: tileWidth
     height: tileHeight
 
+    onStateChanged: console.log(`state changed to ${state}`)
     states: [
         // When dragging, parent the dragged item to the grid instead of it's DropArea
         State {
-            when: root.Drag.active
+            when: root.Drag.active && root.dragGrid.hovered
             ParentChange { 
               target: root
               parent: root.dragGrid
+            }
+        },
+        State {
+            when: root.Drag.active && !root.dragGrid.hovered
+            ParentChange { 
+              target: root
+              parent: Root.State.dragOverlay.areaItem
             }
         }
     ]

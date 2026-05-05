@@ -4,8 +4,18 @@ import Quickshell
 import QtQuick
 
 // Usage: The width and height must be set by the consumer
-Rectangle {
+DropArea {
     id: root
+    /*
+    HoverHandler {
+        id: hoverHandler
+        onHoveredChanged: console.log(`hovered: ${hovered}`)
+    }
+    property bool hovered: hoverHandler.hovered
+    */
+    //property bool hovered: hoverHandler.hovered
+    property bool hovered: hovered
+    onHoveredChanged: console.log(`hovered: ${hovered}`)
     required property var model // Some sort of model
     required property Component delegate
 
@@ -14,12 +24,10 @@ Rectangle {
 
     property int tileWidth: 48
     property int tileHeight: 48
-    color: "transparent"
 
     GridView {
         id: gridView
-        width: root.width
-        height: root.height
+        anchors.fill: parent
         // These have a default of 100, so we need to set them
         cellWidth: root.tileWidth
         cellHeight: root.tileHeight

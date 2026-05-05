@@ -16,6 +16,7 @@ import "Windows/Launcher"
 import "Windows/ControlPanel"
 import "Windows/Notifications"
 import "Windows/Lockscreen"
+import "Windows"
 
 ShellRoot {
     Component.onCompleted: {

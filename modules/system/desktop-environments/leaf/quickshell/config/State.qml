@@ -34,6 +34,27 @@ Singleton {
     property bool launcherActive: false
     property bool controlPanelActive: false
     property bool activityCenterActive: false
+    property PanelWindow dragOverlay: PanelWindow {
+        color: "#00000033"
+        anchors {
+            left: true
+            right: true
+            top: true
+            bottom: true
+        }
+        exclusionMode: ExclusionMode.Ignore
+        mask: Region {
+            item: area
+            intersection: Intersection.Subtract
+        }
+        property Item areaItem: Item {
+            id: area
+            anchors.fill: parent
+        }
+        data: [
+            areaItem
+        ]
+    }
 
     // Windows
     /*
