@@ -17,18 +17,13 @@ AbsGrid.WidgetData {
     component: ColumnLayout {
         anchors.fill: parent
         anchors.margins: root.padding
-        Text {
+        Shared.TextBlock {
             Layout.fillWidth: true
             text: "Notifications"
             color: Root.State.colors.on_surface
         }
         // Horizontal line
-        Rectangle {
-            color: Root.State.colors.on_surface_variant
-            Layout.fillWidth: true
-            implicitHeight: 1
-            opacity: 0.2
-        }
+        Shared.HorizontalLine {}
         Shared.ScrollableList {
             id: notifListView
             Layout.fillHeight: true

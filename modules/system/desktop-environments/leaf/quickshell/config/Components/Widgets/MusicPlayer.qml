@@ -252,14 +252,17 @@ AbsGrid.WidgetData {
                     }
                 }
                 Ctrls.Button {
-                    icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing ? "media-playback-start-symbolic" : "media-playback-pause-symbolic"
+                    icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing
+                        ? "media-playback-pause-symbolic"
+                        : "media-playback-start-symbolic"
                     onClicked: () => {
-                        if (root.currentPlayer === null) { console.warn(`No current player`); console.log(`players (${Mpris.players.values.length}): ${Mpris.players.values}`); return }
-                        if (!root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
+                        if (!root.currentPlayer || !root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
                             console.warn(`Current player can't play/pause`)
                             return
                         }
-                        root.currentPlayer.playbackState === MprisPlaybackState.Playing ? root.currentPlayer.pause() : root.currentPlayer.play()
+                        root.currentPlayer.playbackState === MprisPlaybackState.Playing 
+                            ? root.currentPlayer.pause()
+                            : root.currentPlayer.play()
                     }
                 }
                 Ctrls.Button {
