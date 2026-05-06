@@ -31,6 +31,11 @@ Singleton {
 
     property bool screenLocked: false
 
+    function closeAll() {
+        launcherActive = false
+        controlPanelActive = false
+        activityCenterActive = false
+    }
     property bool launcherActive: false
     property bool controlPanelActive: false
     property bool activityCenterActive: false

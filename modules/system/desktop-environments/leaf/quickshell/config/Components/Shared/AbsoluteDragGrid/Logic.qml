@@ -27,8 +27,6 @@ QtObject {
                 console.error(component.errorString())
             }
 
-            console.debug(`about to create widgetData with panelGrid ${panelGrid}`)
-
             // !! IMPORTANT: Need to parent the item here or keep a handle on it's return value, otherwise
             // the garbage collector could just delete it when it feels like it.  (Fix for 4/9/26 incident)
             const widgetData = component.createObject(root, {

@@ -34,6 +34,7 @@ ColumnLayout {
         // true and it stays that way unless manually unset (i think).
         onVisibleChanged: () => focus = true
         focus: true
+        onFocusChanged: () => focus = true // Always ensure this item has keyboard focus
         placeholderText: "Search..."
         background: Rectangle {
             color: Root.State.colors.surface_container

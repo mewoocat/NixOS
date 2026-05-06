@@ -12,7 +12,6 @@ import QtQuick.Layouts
 import qs as Root
 //import qs.Windows.Bar.WorkspacesHyprland
 import qs.Windows.Bar.WorkspacesGeneric
-import qs.Windows.ControlPanel
 import qs.Components.Controls as Ctrls
 import "./SystemTray"
 
@@ -34,9 +33,6 @@ Scope {
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
-                Component.onCompleted: {
-                    Root.State.bar = bar
-                }
                 // Set the window's screen to the injected property
                 screen: modelData
                 anchors {
@@ -90,10 +86,7 @@ Scope {
                         Bluetooth {}
                         Audio {}
                         Battery {}
-                        BarButton {
-                            onClicked: () => Root.State.controlPanelActive = !Root.State.controlPanelActive
-                            icon.name: "open-menu-symbolic"
-                        }
+                        ControlPanel {}
                     }
                 }
             }

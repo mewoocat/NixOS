@@ -37,7 +37,6 @@ WrapperMouseArea {
                 isLast: index + 1 === wsRepeater.model.length
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight
-                Component.onCompleted: console.debug(`ws ${ws.name} with index of ${index}, model length ${wsRepeater.model.length}`)
             }
         }
     }
