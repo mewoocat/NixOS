@@ -41,6 +41,11 @@ BarButton {
                     Item { Layout.fillWidth: true }
                     Switch {
                         checked: Networking.wifiEnabled ?? false
+                        onCheckedChanged: console.log(`checked changed to ${checked}`)
+                        onClicked: Networking.wifiEnabled = checked
+                    }
+                    Ctrls.Switch {
+                        checked: Networking.wifiEnabled
                         onClicked: Networking.wifiEnabled = checked
                     }
                 }
