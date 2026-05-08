@@ -7,6 +7,7 @@
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Imagine
 ////@ pragma Env QT_QUICK_CONTROLS_STYLE=Universal
 ////@ pragma DropExpensiveFonts
+////@ pragma Env QT_HIGHDPI_DISABLE_2X_IMAGE_LOADING=1
 import Quickshell
 import QtQuick
 import "Windows/ActivityCenter"

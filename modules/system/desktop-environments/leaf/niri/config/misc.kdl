@@ -19,3 +19,8 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
+
+// Needed to make notification activation to work ... idk why ... might be a nixos issue?
+debug {
+    honor-xdg-activation-with-invalid-serial
+}

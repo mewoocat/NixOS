@@ -149,9 +149,12 @@ Shared.ListItemExpandable {
         Repeater {
             model: root.notifData.actions
             delegate: Ctrls.Button {
-                required property var modelData
+                required property NotificationAction modelData
                 text: modelData.text
-                onClicked: modelData.invoke()
+                onClicked: () => {
+                    console.debug(`invoking ${modelData.id}`)
+                    modelData.invoke()
+                }
             }
         }
     }

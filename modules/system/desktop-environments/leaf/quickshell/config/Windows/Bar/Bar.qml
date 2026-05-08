@@ -13,6 +13,7 @@ import qs as Root
 //import qs.Windows.Bar.WorkspacesHyprland
 import qs.Windows.Bar.WorkspacesGeneric
 import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 import "./SystemTray"
 
 import qs.Services as Services
