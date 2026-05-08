@@ -22,4 +22,6 @@ Singleton {
 
     property var currentProfile: PowerProfiles.profile
 
+    property string timeRemaining: UPower.displayDevice.timeToEmpty / 60
+
 }

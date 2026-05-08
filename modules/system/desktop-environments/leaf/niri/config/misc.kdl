@@ -4,7 +4,6 @@ hotkey-overlay {
     // skip-at-startup
 }
 
-
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
@@ -23,4 +22,25 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Needed to make notification activation to work ... idk why ... might be a nixos issue?
 debug {
     honor-xdg-activation-with-invalid-serial
+}
+
+cursor {
+    xcursor-theme "breeze_cursors"
+    xcursor-size 24
+
+    hide-when-typing
+    hide-after-inactive-ms 1000
+}
+
+overview {
+    zoom 0.5
+    //backdrop-color "#262626"
+
+    workspace-shadow {
+        // off
+        softness 40
+        spread 10
+        offset x=0 y=10
+        color "#00000050"
+    }
 }

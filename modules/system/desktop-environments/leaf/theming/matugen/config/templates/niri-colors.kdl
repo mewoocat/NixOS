@@ -26,3 +26,6 @@ layout {
     }
 }
 
+overview {
+    backdrop-color "{{colors.surface.default.hex}}"
+}
