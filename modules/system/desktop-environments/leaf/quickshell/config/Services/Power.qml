@@ -22,6 +22,8 @@ Singleton {
 
     property var currentProfile: PowerProfiles.profile
 
-    property string timeRemaining: UPower.displayDevice.timeToEmpty / 60
+    property string timeToEmpty: Helpers.formatTime(UPower.displayDevice.timeToEmpty)
+    property string timeToFull: Helpers.formatTime(UPower.displayDevice.timeToFull) 
+    property bool charging: UPower.displayDevice.state === UPowerDeviceState.Charging
 
 }

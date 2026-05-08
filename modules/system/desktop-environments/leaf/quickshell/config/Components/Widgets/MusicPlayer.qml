@@ -216,7 +216,7 @@ AbsGrid.WidgetData {
                     leftPadding: 8
                     text: {
                         if (root.currentPlayer === null) { return 0 }
-                        return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.position))
+                        return Services.Helpers.formatTime(Math.ceil(root.currentPlayer.position))
                     }
                 }
 
@@ -230,7 +230,7 @@ AbsGrid.WidgetData {
                     rightPadding: 8
                     text: {
                         if (root.currentPlayer === null) { return 0 }
-                        return Services.Helpers.secToMinAndSec(Math.ceil(root.currentPlayer.length))
+                        return Services.Helpers.formatTime(Math.ceil(root.currentPlayer.length))
                     }
                 }
             }

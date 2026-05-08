@@ -9,6 +9,7 @@ import Quickshell.Services.UPower
 import qs.Services as Services
 import qs.Components.Shared as Shared
 import qs.Components.Controls as Ctrls
+import qs as Root
 
 BarButton {
     id: buttonRoot
@@ -35,25 +36,31 @@ BarButton {
             ColumnLayout {
                 //Layout.minimumWidth: 240
                 RowLayout {
+                    Shared.Icon {
+                        source: Quickshell.iconPath("battery")
+                    }
                     Shared.TextBlock {
                         text: "Power"
                         font.bold: true
                     }
+                }    
+                Shared.Seperator {
+                    Layout.fillWidth: true
                 }
                 ColumnLayout {
                     Shared.TextBlock {
-                        text: "Time remaining:  " + Services.Power.timeRemaining
+                        text: (Services.Power.charging
+                            ? `Time to charged: \t ${Services.Power.timeToFull}` + '\n'
+                            : `Time remaining: \t ${Services.Power.timeToEmpty}` + '\n')
+                            + `Percent remaining: \t ${UPower.displayDevice.percentage * 100}%` + '\n'
+                            + `Current energy: \t ${UPower.displayDevice.energy.toFixed(2)} Wh` + '\n'
+                            + `Energy capacity: \t ${UPower.displayDevice.energyCapacity.toFixed(2)} Wh` + '\n'
+                            + `Change rate: \t\t ${UPower.displayDevice.changeRate.toFixed(2)} W` + '\n'
                         font.pointSize: 10 
                         opacity: 0.6
                     }
                 }
             }
-
-            Shared.Seperator {
-                implicitHeight: 8
-                Layout.fillWidth: true
-            }
-
         }
     }
 }
