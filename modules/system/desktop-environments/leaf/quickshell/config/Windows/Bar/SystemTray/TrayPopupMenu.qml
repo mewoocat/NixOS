@@ -42,10 +42,8 @@ Shared.PopupWindow {
                 // instances of the type
                 // Event though it looks like these are creating the component, the Component type
                 // here should be coercing it into a Component instead
-                property Component menuSeperator: Rectangle {
-                    implicitHeight: 1
+                property Component menuSeperator: Shared.Seperator {
                     implicitWidth: menuContent.width
-                    color: Root.State.colors.on_surface_variant
                 }
                 property Component menuItem: MenuItem {
                     menuEntry: loader.modelData

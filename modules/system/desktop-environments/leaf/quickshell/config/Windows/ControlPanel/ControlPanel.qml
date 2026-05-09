@@ -35,8 +35,8 @@ Shared.PanelWindow {
             },
             {
                 uid: "Windows/ControlPanel/Widgets/ScreenCapture.qml",
-                xPosition: 2,
-                yPosition: 0
+                xPosition: 3,
+                yPosition: 1
             },
             {
                 uid: "Windows/ControlPanel/Widgets/NightLight.qml",

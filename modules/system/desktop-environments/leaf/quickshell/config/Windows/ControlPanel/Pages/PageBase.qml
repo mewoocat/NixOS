@@ -45,7 +45,7 @@ Rectangle {
             }
         }
 
-        Shared.HorizontalLine {}
+        Shared.Seperator { Layout.fillWidth: true }
 
         Rectangle {
             Layout.fillWidth: true

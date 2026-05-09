@@ -34,8 +34,13 @@ AbsGrid.WidgetData {
                     expandee: Ctrls.Button {
                         icon.name: Services.Audio.getIconName(Pipewire.defaultAudioSink)
                         text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
-                        Layout.minimumWidth: 86
+                        implicitWidth: icon.width + spacing + leftPadding + rightPadding + volumeTextMetrics.width
                         onClicked: () => volumeExpander.expanded = true
+                        TextMetrics {
+                            id: volumeTextMetrics
+                            text: "100%"
+                            Component.onCompleted: console.log(`text metrics: ${width}`)
+                        }
                     }
                     content: Pages.Audio {
                         onGoBack: volumeExpander.expanded = false
@@ -60,7 +65,11 @@ AbsGrid.WidgetData {
                         icon.name: Services.Brightness.getIcon()
                         text: Math.ceil(Services.Brightness.value * 100) + '%'
                         onClicked: () => brightnessExpander.expanded = true
-                        Layout.minimumWidth: 86
+                        width: brightnessTextMetrics.width
+                        TextMetrics {
+                            id: brightnessTextMetrics
+                            text: "100%"
+                        }
                     }
                     content: Pages.Display {
                         onGoBack: brightnessExpander.expanded = false

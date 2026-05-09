@@ -16,7 +16,7 @@ AbsGrid.WidgetData {
     component: Ctrls.Button {
         anchors.fill: parent
         inset: 0
-        backgroundColor: hovered ? Root.State.colors.primary : Root.State.colors.surface_container
+        backgroundColor: hovered ? Root.State.colors.surface_container_high : Root.State.colors.surface_container
         icon.name: "media-record-symbolic"
         icon.color: "red"
         radius: widgetData.radius

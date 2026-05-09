@@ -13,12 +13,11 @@ import qs.Components.Shared as Shared
 PageBase {
     pageName: "Network"
     headerContent: RowLayout {
-        Switch {
+        Ctrls.Switch {
             checked: Networking.wifiEnabled ?? false
             onClicked: Networking.wifiEnabled = checked
         }
-        IconImage {
-            implicitSize: 18
+        Shared.Icon {
             source: Quickshell.iconPath(Networking.wifiEnabled ? "network-bluetooth-symbolic" : "network-bluetooth-inactive-symbolic")
         }
     }

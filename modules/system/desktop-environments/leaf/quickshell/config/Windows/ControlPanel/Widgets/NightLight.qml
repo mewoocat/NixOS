@@ -15,7 +15,7 @@ AbsGrid.WidgetData {
     component: Ctrls.Button { 
         inset: 0
         onClicked: () => Services.NightLight.toggle()
-        backgroundColor: hovered ? Root.State.colors.primary : Root.State.colors.surface_container
+        backgroundColor: hovered ? Root.State.colors.surface_container_high : Root.State.colors.surface_container
         icon.name: "weather-clear-night-symbolic"
         radius: widgetData.radius
     }

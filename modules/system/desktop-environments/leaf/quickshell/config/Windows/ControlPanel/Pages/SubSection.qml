@@ -26,14 +26,4 @@ ColumnLayout {
             sourceComponent: root.content
         }
     }
-
-    // Horizontal line
-    /*
-    Rectangle {
-        radius: 20
-        implicitHeight: 1
-        Layout.fillWidth: true
-        color: "#777777"
-    }
-    */
 }

@@ -2,7 +2,7 @@ import QtQuick
 import qs as Root
 
 Item {
-    height: Root.State.windowPadding
+    height: Root.State.windowPadding * 2
     width: 100 // Default
     Rectangle {
         id: line

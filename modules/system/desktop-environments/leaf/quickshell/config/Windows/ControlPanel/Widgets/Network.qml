@@ -14,7 +14,7 @@ import "../Pages" as Pages
 AbsGrid.WidgetData { 
     id: widgetData
     name: "Network"
-    xSize: 2
+    xSize: 3
     ySize: 2
     component: Item {
         id: root
@@ -31,6 +31,8 @@ AbsGrid.WidgetData {
                 required property string subtext
                 required property Component content
 
+                spacing: 0
+
                 property bool active: false
                 signal normalAction()
                 signal toggleAction()
@@ -43,6 +45,7 @@ AbsGrid.WidgetData {
                 Layout.fillHeight: true
 
                 Ctrls.RoundButton {
+                    id: toggleButton
                     icon.name: rowItem.iconName
                     onClicked: rowItem.toggleAction()
                     backgroundColor: rowItem.active || hovered ? Root.State.colors.primary : Root.State.colors.surface_container_highest
@@ -64,22 +67,21 @@ AbsGrid.WidgetData {
                         content: rowItem.content
                         expandee: Rectangle {
                             anchors.fill: parent
-                            anchors.topMargin: root.anchors.topMargin
-                            anchors.bottomMargin: root.anchors.topMargin
+                            anchors.margins: root.anchors.margins
                             radius: Root.State.smallRounding
-                            color: mouseArea.containsMouse ? Root.State.colors.primary : "transparent"
+                            color: mouseArea.containsMouse ? Root.State.colors.surface_container_high : "transparent"
                             Column {
                                 anchors.fill: parent
                                 anchors.margins: 4
                                 spacing: 0
                                 Text {
-                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                    color: Root.State.colors.on_surface
                                     text: rowItem.title
                                     font.pointSize: 10
                                 }
                                 Text { 
                                     width: parent.width
-                                    color: mouseArea.containsMouse ? Root.State.colors.on_primary : Root.State.colors.on_surface
+                                    color: Root.State.colors.on_surface
                                     opacity: 0.6
                                     text: rowItem.subtext
                                     elide: Text.ElideRight // Truncate with ... on the right
@@ -94,7 +96,7 @@ AbsGrid.WidgetData {
             RowItem {
                 id: internet
                 title: "Wifi"
-                subtext: Services.Networking.currentWifiNetwork?.name ?? "n/a"
+                subtext: Services.Networking.currentWifiNetwork?.name ?? "disconnected"
                 iconName: Services.Networking.getWifiActiveIconName(Services.Networking.currentWifiNetwork)
                 content: Pages.Network {
                     onGoBack: internet.goBack()

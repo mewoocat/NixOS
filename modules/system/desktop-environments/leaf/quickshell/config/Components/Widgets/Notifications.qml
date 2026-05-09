@@ -23,7 +23,9 @@ AbsGrid.WidgetData {
             color: Root.State.colors.on_surface
         }
         // Horizontal line
-        Shared.HorizontalLine {}
+        Shared.Seperator {
+            Layout.fillWidth: true
+        }
         Shared.ScrollableList {
             id: notifListView
             Layout.fillHeight: true

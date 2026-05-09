@@ -16,8 +16,8 @@ T.Button {
 
     //defines the padding of the contentItem relative to the edge of the control
     padding: 4
-    leftPadding: padding
-    rightPadding: padding
+    leftPadding: padding + 6
+    rightPadding: padding + 6
     topPadding: padding
     bottomPadding: padding
 
@@ -70,9 +70,9 @@ T.Button {
         font.pointSize: control.font.pointSize
         font.family: control.font.family
         color: control.color
-        leftPadding: 6
+        leftPadding: 0
         // Icons generally seem to have a bit of padding built in, if text is included, add more padding to balance it out
-        rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
+        //rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
         Behavior on rotation {
             PropertyAnimation { property: "rotation"; duration: 300 }
         }
