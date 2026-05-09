@@ -21,8 +21,13 @@ T.Button {
     topPadding: padding
     bottomPadding: padding
 
-    property color backgroundColor: control.hovered || control.checked ? Root.State.colors.surface_container_high : "transparent"
-    property color color: Root.State.colors.on_surface //control.hovered || control.checked ? Root.State.colors.on_primary : Root.State.colors.on_surface
+    property color inactiveBackgroundColor: "transparent"
+    property color backgroundColor: control.checked 
+        ? Root.State.colors.primary
+        : hovered
+            ? Root.State.colors.surface_container_high
+            : inactiveBackgroundColor
+    property color color: control.checked ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMultiColorIcon: false
     property int radius: background.height / 2
     // Defines the padding of the background

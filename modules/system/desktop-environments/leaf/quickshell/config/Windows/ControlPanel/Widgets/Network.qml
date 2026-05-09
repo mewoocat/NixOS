@@ -108,7 +108,9 @@ AbsGrid.WidgetData {
             RowItem {
                 id: bluetooth
                 title: "Bluetooth"
-                subtext: "my-device"
+                subtext: Services.Bluetooth.connectedDevices.values.length > 0
+                    ? Services.Bluetooth.connectedDevices.values[0].name
+                    : "disconnected"
                 iconName: "network-bluetooth-symbolic"
                 content: Pages.Bluetooth {
                     onGoBack: bluetooth.goBack()

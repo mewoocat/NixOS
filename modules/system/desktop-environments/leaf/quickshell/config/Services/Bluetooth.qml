@@ -6,6 +6,11 @@ import qs as Root
 
 Singleton {
 
+    property ScriptModel connectedDevices: ScriptModel {
+        values: Bluetooth.devices.values
+            .filter(device => device.connected)
+    }
+
     property ScriptModel pairedDevices: ScriptModel {
         values: Bluetooth.devices.values
             .filter(device => device.paired)

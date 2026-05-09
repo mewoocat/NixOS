@@ -6,13 +6,11 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    function toggle(): void {
-        process.running = !process.running
-    }
+    property bool running: process.running
 
     Process {
         id: process
-        running: false
+        running: root.running
         command: ["sh", "-c", "wlsunset -T 4010"]
     }
 }

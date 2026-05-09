@@ -25,7 +25,7 @@ Shared.PanelWindow {
     content: AbsGrid.PanelGrid {
         id: panelGrid
         xSize: 4
-        ySize: 6
+        ySize: 5
         allowEditToggle: false
         model: [
             {
@@ -44,6 +44,11 @@ Shared.PanelWindow {
                 yPosition: 0
             },
             {
+                uid: "Windows/ControlPanel/Widgets/ColorMode.qml",
+                xPosition: 3,
+                yPosition: 2
+            },
+            {
                 uid: "Windows/ControlPanel/Widgets/PowerProfile.qml",
                 xPosition: 0,
                 yPosition: 2
@@ -51,7 +56,7 @@ Shared.PanelWindow {
             {
                 uid: "Windows/ControlPanel/Widgets/AudioAndBrightness.qml",
                 xPosition: 0,
-                yPosition: 4
+                yPosition: 3
             }
         ]
     }

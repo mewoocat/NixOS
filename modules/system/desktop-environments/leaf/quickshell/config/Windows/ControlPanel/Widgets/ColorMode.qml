@@ -8,16 +8,16 @@ import qs.Components.Controls as Ctrls
 
 AbsGrid.WidgetData { 
     id: widgetData
-    name: "Screen Capture"
+    name: "Color Mode"
     xSize: 1
     ySize: 1
     showBackground: false
     component: Ctrls.Button { 
         inset: 0
-        onClicked: () => Services.NightLight.running = !Services.NightLight.running
+        onClicked: () => Services.Theme.darkMode = !Services.Theme.darkMode
         inactiveBackgroundColor: Root.State.colors.surface_container
-        checked: Services.NightLight.running
-        icon.name: "weather-clear-night-symbolic"
+        checked: Services.Theme.darkMode
+        icon.name: "color-mode-black-white-symbolic"
         radius: widgetData.radius
     }
 }
