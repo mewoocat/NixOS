@@ -11,8 +11,8 @@ Singleton {
         // so that darkMode is set to it's new value.
         Qt.callLater(applyTheme)
     }
-    property string wallpaper: "/home/eXia/Nextcloud/Wallpapers/Favorites/a_large_red_barrels_with_numbers_and_pipes.jpg"
-    property real opacity: 0.7
+    property string wallpaper: "/home/eXia/Nextcloud/Wallpapers/Favorites/wp2461890-mars-wallpapers.jpg"
+    property real opacity: 1
     Process {
         id: process
         command: ["sh", "-c", `notify-send "${root.darkMode}"; matugen image ${root.wallpaper} --mode ${root.darkMode ? "dark" : "light"} -t scheme-rainbow --opacity ${root.opacity} --source-color-index 0`]

@@ -65,7 +65,7 @@ AbsGrid.WidgetData {
                         icon.name: Services.Brightness.getIcon()
                         text: Math.ceil(Services.Brightness.value * 100) + '%'
                         onClicked: () => brightnessExpander.expanded = true
-                        width: brightnessTextMetrics.width
+                        implicitWidth: icon.width + spacing + leftPadding + rightPadding + brightnessTextMetrics.width
                         TextMetrics {
                             id: brightnessTextMetrics
                             text: "100%"
