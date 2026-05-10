@@ -14,7 +14,10 @@ AbsGrid.WidgetData {
     showBackground: false
     component: Ctrls.Button { 
         inset: 0
-        onClicked: () => Services.Theme.darkMode = !Services.Theme.darkMode
+        onClicked: () => {
+            Services.Theme.darkMode = !Services.Theme.darkMode
+            //Services.Theme.applyTheme()
+        }
         inactiveBackgroundColor: Root.State.colors.surface_container
         checked: Services.Theme.darkMode
         icon.name: "color-mode-black-white-symbolic"
