@@ -169,6 +169,9 @@ Singleton {
                 property bool blur: false
             }
 
+            // Note that tray items which are not running still hold a "virtual space for themselves"
+            property var systemTrayOrder: ([])
+
             // TODO: migrate config file to this
             //property string monitorMap: "{}" // Stores json of monitor configuration map
             //property string workspaceMap: "{}" // json for workspace config map

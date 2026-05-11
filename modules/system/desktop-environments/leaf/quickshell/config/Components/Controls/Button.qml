@@ -25,7 +25,7 @@ T.Button {
     property color backgroundColor: control.checked 
         ? Root.State.colors.primary
         : hovered
-            ? Root.State.colors.surface_container_high
+            ? Root.State.colors.surface_container_highest
             : inactiveBackgroundColor
     property color color: control.checked ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMultiColorIcon: false

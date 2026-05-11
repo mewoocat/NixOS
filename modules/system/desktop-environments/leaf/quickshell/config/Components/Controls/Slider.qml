@@ -25,7 +25,7 @@ T.Slider {
     property color textColor: control.hovered || control.pressed ? Root.State.colors.on_primary : "transparent"
     property int defaultBgWidth: control.horizontal ? 100 : 24
     property int defaultBgHeight: control.horizontal ? 24 : 100
-    property real handleWidthScale: 1.3
+    property real handleWidthScale: 1.75
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop

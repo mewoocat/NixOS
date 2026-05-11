@@ -41,8 +41,9 @@ RowLayout {
         Layout.preferredWidth: 16
         Rectangle {
             anchors.centerIn: parent
-            width: 1
-            height: parent.height - 12
+            width: 2
+            radius: 2
+            height: parent.height - 16
             color: Root.State.colors.on_surface
             opacity: 0.7
         }
