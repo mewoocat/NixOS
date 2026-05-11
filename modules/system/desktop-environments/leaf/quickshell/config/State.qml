@@ -170,7 +170,7 @@ Singleton {
             }
 
             // Note that tray items which are not running still hold a "virtual space for themselves"
-            property var systemTrayOrder: ([])
+            property list<string> systemTrayOrder: ([ "steam", "Nextcloud" ])
 
             // TODO: migrate config file to this
             //property string monitorMap: "{}" // Stores json of monitor configuration map
