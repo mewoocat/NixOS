@@ -10,10 +10,12 @@ Item {
     required property Component delegate
 
     signal modelUpdated(model: var) // When the model has been modified
+    signal tileDropped(data: var) // When a tile has been dropped
     width: gridView.width
 
     property int tileWidth: 48
     property int tileHeight: 48
+    property bool reverseDirection: false
 
     GridView {
         id: gridView
@@ -21,7 +23,7 @@ Item {
         // These have a default of 100, so we need to set them
         cellWidth: root.tileWidth
         cellHeight: root.tileHeight
-        //layoutDirection: Qt.RightToLeft
+        layoutDirection: root.reverseDirection ? Qt.RightToLeft : Qt.LeftToRight
         contentHeight: root.tileHeight
         contentWidth: count * root.tileWidth
 
@@ -78,6 +80,7 @@ Item {
                 height: root.tileHeight
 
                 SequentialDragTile {
+                    id: tile
                     dragGrid: root
                     index: dropArea.index
                     visualIndex: dropArea.visualIndex
@@ -103,6 +106,7 @@ Item {
                         console.log(`modified model ${root.model}`)
 
                         root.modelUpdated(root.model)
+                        root.tileDropped(tile.modelData)
                     }
                 }
             }

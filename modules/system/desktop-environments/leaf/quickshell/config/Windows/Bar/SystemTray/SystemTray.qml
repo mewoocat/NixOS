@@ -20,10 +20,12 @@ RowLayout {
     SeqDragGrid.SequentialDragGrid {
         tileHeight: dummy.height
         tileWidth: dummy.width
+        reverseDirection: true
         Layout.preferredHeight: tileHeight
         Layout.preferredWidth: tileWidth * model.length
-        model: Services.SystemTray.items
+        model: Services.SystemTray.items.values
         onModelUpdated: (newModel) => {}
+        onTileDropped: (data) => console.log(`data: ${data}`)
         // Warning! This is a hack to determine the size of a tray button in order to set the cell size
         property Item dummyTrayButton: SystemTrayButton {
             id: dummy
