@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.Services as Services
 import qs.Components.Shared as Shared
+import qs as Root
 
 // This is a transparent window that shows any new notifications for a short time
 PanelWindow {
@@ -31,7 +32,7 @@ PanelWindow {
         Region {
             required property Item modelData
             item: modelData
-            radius: 0
+            radius: Root.State.rounding
         }
     }
     BackgroundEffect.blurRegion: Region {
