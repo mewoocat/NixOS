@@ -3,10 +3,11 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 
-// Usage: The width and height must be set by the consumer
+// Usage:
+// - The width and height must be set by the consumer
 Item {
     id: root
-    required property var model // Some sort of model
+    required property ScriptModel model // Some sort of model
     required property Component delegate
 
     signal modelUpdated(model: var) // When the model has been modified
@@ -90,23 +91,24 @@ Item {
                     tileWidth: root.tileWidth
 
                     onDropped: {
+                        root.tileDropped(tile.modelData)
 
-                        console.log(`onDropped`)
+                        // Create a copy of the model's list to modify notify the consumer
+                        // Assumes the model is a ScriptModel
+                        const modelList = [... root.model.values]
 
+                        // Remove item from previous index in model
                         const originalIndex = dropArea.index // The original index of the item in the source model
-                        const newIndex = dropArea.visualIndex // The desired index indicated by the placement of this delegate in the visual model
-                        console.log(`originalIndex: ${originalIndex}`)
-                        console.log(`newIndex: ${newIndex}`)
-
-                        const removedValues = root.model.values.splice(originalIndex, 1) // Remove value at the original index
+                        const removedValues = modelList.splice(originalIndex, 1) // Remove value at the original index
                         const draggedValue = removedValues[0]
 
                         // Insert dragged item at new index in model
-                        root.model.values.splice(newIndex, 0, draggedValue)
-                        console.log(`modified model ${root.model}`)
+                        const newIndex = dropArea.visualIndex // The desired index indicated by the placement of this delegate in the visual model
+                        modelList.splice(newIndex, 0, draggedValue)
+                        console.log(`modified model ${modelList}`)
 
-                        root.modelUpdated(root.model)
-                        root.tileDropped(tile.modelData)
+                        // Notify that model has changed
+                        root.modelUpdated(modelList)
                     }
                 }
             }

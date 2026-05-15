@@ -27,8 +27,8 @@ ColumnLayout {
 
         property var pinnedApps: Root.State.config.pinnedApps
         model: ScriptModel { values: Root.State.config.pinnedApps }
-        onModelUpdated: (newModel) => {
-            Root.State.config.pinnedApps = newModel.values
+        onModelUpdated: (model) => {
+            Root.State.config.pinnedApps = model
             Root.State.configFileView.writeAdapter()
         }
         delegate: Shared.PanelButton {

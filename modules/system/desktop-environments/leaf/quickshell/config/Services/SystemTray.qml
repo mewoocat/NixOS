@@ -14,8 +14,8 @@ Singleton {
                 const indexAFound = indexA != -1
                 const indexB = Root.State.config.systemTrayOrder.indexOf(b.id)
                 const indexBFound = indexB != -1
-                console.log(`a: ${a.id} with index ${indexA}`)
-                console.log(`b: ${b.id} with index ${indexB}`)
+                //console.log(`a: ${a.id} with index ${indexA}`)
+                //console.log(`b: ${b.id} with index ${indexB}`)
                 if (!indexAFound && !indexBFound) {
                     return 0 // If both not found then consider them equal
                 }

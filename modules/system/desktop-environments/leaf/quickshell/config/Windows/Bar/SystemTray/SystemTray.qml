@@ -22,14 +22,14 @@ RowLayout {
         tileWidth: dummy.width
         reverseDirection: true
         Layout.preferredHeight: tileHeight
-        Layout.preferredWidth: tileWidth * model.length
-        model: Services.SystemTray.items.values
+        Layout.preferredWidth: tileWidth * model.values.length
+        model: Services.SystemTray.items
         onModelUpdated: (newModel) => {}
         onTileDropped: (data) => console.log(`data: ${data}`)
         // Warning! This is a hack to determine the size of a tray button in order to set the cell size
         property Item dummyTrayButton: SystemTrayButton {
             id: dummy
-            trayItem: SystemTray.items[0]
+            trayItem: Services.SystemTray.items.values[0] ?? null
         }
         delegate: SystemTrayButton {
             id: delegate

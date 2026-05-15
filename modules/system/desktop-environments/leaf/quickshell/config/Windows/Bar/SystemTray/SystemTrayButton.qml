@@ -21,17 +21,17 @@ BarButton {
         IconImage {
             anchors.centerIn: parent
             implicitSize: 24
-            source: button.modelData?.icon ?? Qt.url("")
+            source: button.trayItem?.icon ?? Qt.url("")
         }
     }
     
     //isMultiColorIcon: true
-    onClicked: modelData.activate
+    onClicked: trayItem.activate
     ContextMenu.onRequested: () => popupWindow.visible = true
 
     property TrayPopupMenu popupWindow: TrayPopupMenu {
         id: trayPopup
-        menuHandle: button.modelData.menu
+        menuHandle: button.trayItem.menu
         parentButton: button
         
         anchor {
