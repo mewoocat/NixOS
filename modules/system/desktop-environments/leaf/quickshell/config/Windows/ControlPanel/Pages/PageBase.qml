@@ -29,8 +29,15 @@ Rectangle {
             // Back button
             Ctrls.Button {
                 icon.name: "arrow-left-symbolic"
+                icon.width: 20
+                icon.height: 20
                 onClicked: () => root.goBack()
             } 
+            // Name
+            Text {
+                color: Root.State.colors.on_surface
+                text: root.pageName
+            }
 
             // Spacer
             Item { Layout.fillWidth: true }
@@ -38,11 +45,6 @@ Rectangle {
             // Extra optional content
             WrapperItem { children: [root.headerContent] }
 
-            // Name
-            Text {
-                color: palette.text
-                text: root.pageName
-            }
         }
 
         Shared.Seperator { Layout.fillWidth: true }

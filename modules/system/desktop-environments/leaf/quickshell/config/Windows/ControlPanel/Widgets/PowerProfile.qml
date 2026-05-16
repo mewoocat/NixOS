@@ -28,7 +28,7 @@ AbsGrid.WidgetData {
                 icon.name: "battery-profile-powersave-symbolic"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: widgetData.radius
+                radius: widgetData.radius - inset
                 checked: PowerProfiles.profile == PowerProfile.PowerSaver
             }
             Ctrls.Button {
@@ -36,7 +36,7 @@ AbsGrid.WidgetData {
                 icon.name: "battery-profile-balanced-symbolic"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: widgetData.radius
+                radius: widgetData.radius - inset
                 checked: PowerProfiles.profile == PowerProfile.Balanced
             }
             Ctrls.Button {
@@ -45,7 +45,7 @@ AbsGrid.WidgetData {
                 icon.name: "battery-profile-performance-symbolic"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                radius: widgetData.radius
+                radius: widgetData.radius - inset
                 checked: PowerProfiles.profile == PowerProfile.Performance
             }
         }

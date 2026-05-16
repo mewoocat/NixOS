@@ -7,9 +7,11 @@ Item {
     Rectangle {
         id: line
         anchors.centerIn: parent
-        implicitHeight: 1
+        radius: 1
+        implicitHeight: 2
         implicitWidth: parent.width
-        color: Root.State.colors.on_surface_variant
+        color: Root.State.colors.on_surface
+        opacity: 0.7
     }
 }
 

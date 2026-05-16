@@ -11,14 +11,11 @@ import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 
 PageBase {
-    pageName: "Network"
+    pageName: "Wi-Fi"
     headerContent: RowLayout {
         Ctrls.Switch {
             checked: Networking.wifiEnabled ?? false
             onClicked: Networking.wifiEnabled = checked
-        }
-        Shared.Icon {
-            source: Quickshell.iconPath(Networking.wifiEnabled ? "network-bluetooth-symbolic" : "network-bluetooth-inactive-symbolic")
         }
     }
     content: Shared.ScrollableView {
@@ -37,9 +34,8 @@ PageBase {
             // All other siblings can then Layout.fillWidth: true to also become the same width
             //Item { implicitWidth: col.width }
 
-            // Paired Devices
             SubSection {
-                name: "Wifi Networks"
+                name: "Nearby Networks"
                 content: Ctrls.Button {
                     icon.name: "view-refresh-symbolic"
                     icon.width: 16
