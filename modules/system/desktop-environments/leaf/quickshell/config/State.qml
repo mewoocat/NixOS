@@ -39,37 +39,7 @@ Singleton {
     property bool launcherActive: false
     property bool controlPanelActive: false
     property bool activityCenterActive: false
-    property PanelWindow dragOverlay: PanelWindow {
-        color: "#00000033"
-        anchors {
-            left: true
-            right: true
-            top: true
-            bottom: true
-        }
-        exclusionMode: ExclusionMode.Ignore
-        mask: Region {
-            item: area
-            intersection: Intersection.Subtract
-        }
-        property Item areaItem: Item {
-            id: area
-            anchors.fill: parent
-        }
-        data: [
-            areaItem
-        ]
-    }
 
-    // Windows
-    /*
-    property Bar bar: Bar {} 
-    property Launcher launcher: Launcher {}
-    property ControlPanel controlPanel: ControlPanel {}
-    property ActivityCenter activityCenter: ActivityCenter {}
-    property Notifications notifications: Notifications {}
-    property Lockscreen lockscreen: Lockscreen {}
-    */
     property PromptWindow promptWindow: PromptWindow {}
         property bool promptVisibility: promptStack.length != 0
         property list<Component> promptStack: []
@@ -79,8 +49,7 @@ Singleton {
         }
 
     property Shared.Expander currentControlPanelPage: null
-
-    
+ 
     // Styling
     property int rounding: 16
     property int smallRounding: 8
@@ -141,6 +110,9 @@ Singleton {
         //    Sub-object adapters (JsonObject) (!! DOES NOT WORK FOR list<> !!)
         //    JSON objects and arrays, as a var type
         //    Lists of any of the above (list<string> etc)
+        //
+        // WARNING: It appears that nesting an inline json property (i.e. `property var thing: { "a": 1 }`) inside
+        // a JsonObject causes quickshell to crash.
 
         // Can be ignored, apparently due to a compilation speed up hack in Quickshell.
         // qmllint disable unresolved-type
@@ -168,16 +140,6 @@ Singleton {
                 property int gapsOut: 32
                 property bool blur: false
             }
-
-            // Note that tray items which are not running still hold a "virtual space for themselves"
-            property list<string> systemTrayOrder: ([ "steam", "Nextcloud" ])
-
-            // TODO: migrate config file to this
-            //property string monitorMap: "{}" // Stores json of monitor configuration map
-            //property string workspaceMap: "{}" // json for workspace config map
-
-            // WARNING: It appears that nesting an inline json property (i.e. `property var thing: { "a": 1 }`) inside
-            // a JsonObject causes quickshell to crash.
         } 
     }
 

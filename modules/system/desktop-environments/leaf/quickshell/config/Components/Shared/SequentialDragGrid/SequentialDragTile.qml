@@ -35,6 +35,10 @@ Item {
     DragHandler {
         id: dragHandler
         target: root
+        xAxis.minimum: 0
+        xAxis.maximum: root.dragGrid.width - root.tileWidth
+        yAxis.minimum: 0
+        yAxis.maximum: root.dragGrid.height - root.tileHeight
         // Need to explicitly invoke the drop method so a DropArea can read the drop
         onActiveChanged: {
             if (!active) {
