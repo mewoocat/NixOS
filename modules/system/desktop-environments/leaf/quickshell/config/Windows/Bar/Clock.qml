@@ -8,5 +8,5 @@ BarButton {
         Root.State.closeAll()
         Root.State.activityCenterActive = !prevActiveState
     }
-    text:  Services.Time.time
+    text:  Services.DateTime.date + '  ' + Services.DateTime.time
 }

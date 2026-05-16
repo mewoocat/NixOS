@@ -6,6 +6,9 @@ import Quickshell
 import Quickshell.Services.Pam
 import Quickshell.Wayland
 import qs as Root
+import qs.Services as Services
+import qs.Components.Controls as Ctrls
+import qs.Components.Shared as Shared
 
 Scope {
     PamContext {
@@ -39,22 +42,39 @@ Scope {
         WlSessionLockSurface {
             Rectangle {
                 anchors.fill: parent
-                color: palette.window
-                ColumnLayout {
+                color: "black"
+                Rectangle {
+                    color: Root.State.colors.surface
                     anchors.centerIn: parent
-                    Button {
-                        text: "close"
-                        onClicked: () => Root.State.screenLocked = false
-                    }
-                    RowLayout {
-                        TextField {
-                            focus: true
-                            onTextChanged: context.currentText = text
-                            onAccepted: context.unlock()
+                    width: 300
+                    height: 200
+                    radius: Root.State.rounding
+                    ColumnLayout {
+                        anchors.centerIn: parent
+                        spacing: 20
+                        ColumnLayout {
+                            spacing: 0
+                            Text {
+                                color: Root.State.colors.on_surface
+                                text: Services.DateTime.date
+                            }
+                            Text {
+                                text: Services.DateTime.time
+                                color: Root.State.colors.on_surface
+                                font.pointSize: 24
+                            }
                         }
-                        Button {
-                            text: "unlock"
-                            onClicked: () => context.unlock()
+                        RowLayout {
+                            Ctrls.TextField {
+                                focus: true
+                                onTextChanged: context.currentText = text
+                                onAccepted: context.unlock()
+                                echoMode: TextInput.Password
+                            }
+                            Ctrls.Button {
+                                text: "unlock"
+                                onClicked: () => context.unlock()
+                            }
                         }
                     }
                 }

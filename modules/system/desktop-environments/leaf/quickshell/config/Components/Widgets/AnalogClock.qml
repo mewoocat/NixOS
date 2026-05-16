@@ -13,7 +13,7 @@ AbsGrid.WidgetData {
         id: root
         anchors.fill: parent
 
-        property var date: Services.Time.date
+        property var date: Services.DateTime.dateObj
         readonly property int degreesInSecond: 6
         property int tickOuterPadding: 24
         property int handOuterPadding: 24

@@ -4,8 +4,6 @@ import QtQuick
 import QtQuick.Controls
 import qs as Root
 import qs.Components.Shared as Shared
-import "./Pages" as Pages
-import "./Widgets" as Widgets
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 Shared.PanelWindow {
@@ -29,32 +27,32 @@ Shared.PanelWindow {
         allowEditToggle: false
         model: [
             {
-                uid: "Windows/ControlPanel/Widgets/Network.qml",
+                uid: "Components/Widgets/Network.qml",
                 xPosition: 0,
                 yPosition: 0
             },
             {
-                uid: "Windows/ControlPanel/Widgets/ScreenCapture.qml",
+                uid: "Components/Widgets/ScreenCapture.qml",
                 xPosition: 3,
                 yPosition: 1
             },
             {
-                uid: "Windows/ControlPanel/Widgets/NightLight.qml",
+                uid: "Components/Widgets/NightLight.qml",
                 xPosition: 3,
                 yPosition: 0
             },
             {
-                uid: "Windows/ControlPanel/Widgets/ColorMode.qml",
+                uid: "Components/Widgets/ColorMode.qml",
                 xPosition: 3,
                 yPosition: 2
             },
             {
-                uid: "Windows/ControlPanel/Widgets/PowerProfile.qml",
+                uid: "Components/Widgets/PowerProfile.qml",
                 xPosition: 0,
                 yPosition: 2
             },
             {
-                uid: "Windows/ControlPanel/Widgets/AudioAndBrightness.qml",
+                uid: "Components/Widgets/AudioAndBrightness.qml",
                 xPosition: 0,
                 yPosition: 3
             }

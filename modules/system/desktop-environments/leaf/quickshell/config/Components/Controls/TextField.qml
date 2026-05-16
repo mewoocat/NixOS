@@ -15,14 +15,14 @@ T.TextField {
     hoverEnabled: true
 
     //defines the padding of the contentItem relative to the edge of the control
-    padding: 4
+    padding: 8
     leftPadding: padding
     rightPadding: padding
     topPadding: padding
     bottomPadding: padding
 
-    property color backgroundColor: control.hovered ? Root.State.colors.primary : "transparent"
-    property color color: control.hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
+    property color backgroundColor: Root.State.colors.surface_container
+    color: Root.State.colors.on_surface
     property bool isMultiColorIcon: false
     property int radius: background.height / 2
     // Defines the padding of the background
@@ -39,10 +39,11 @@ T.TextField {
 
     background: Rectangle {
         id: bg
-        implicitWidth: 36//control.contentItem.implicitWidth + control.padding
-        implicitHeight: 18//control.contentItem.implicitHeight + control.padding
+        implicitWidth: 128
+        implicitHeight: control.font.pointSize + control.topPadding + control.bottomPadding
         color: control.backgroundColor
         radius: control.radius
     }
 
+    
 }

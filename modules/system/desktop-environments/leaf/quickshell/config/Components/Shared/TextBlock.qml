@@ -3,5 +3,5 @@ import qs as Root
 
 Text {
     color: Root.State.colors.on_surface
-    padding: 16 - font.pointSize
+    padding: 8
 }
