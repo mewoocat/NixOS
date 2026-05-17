@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import qs.Services as Services
 import qs.Components.Shared as Shared
 import qs as Root
+import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 // A widget to list all tracked notifications
@@ -17,13 +18,32 @@ AbsGrid.WidgetData {
     component: ColumnLayout {
         anchors.fill: parent
         anchors.margins: root.padding
-        Shared.TextBlock {
-            Layout.fillWidth: true
-            text: "Notifications"
-            color: Root.State.colors.on_surface
+        RowLayout {
+            Shared.TextBlock {
+                Layout.fillWidth: true
+                text: "Notifications"
+                color: Root.State.colors.on_surface
+            }
+            Ctrls.Button {
+                text: "Clear all"
+                Timer {
+                    id: dismissAllTimer
+                    interval: 500
+                    property var notif: null
+                    onTriggered: () => {
+                        if (notif) notif.dismiss()
+                        if (Services.Notifications.notifications.values.length > 0) {
+                            notif = Services.Notifications.notifications.values.pop()
+                            running = true
+                        }
+                    }
+                }
+                onClicked: dismissAllTimer.running = true
+            }
         }
         // Horizontal line
         Shared.Seperator {
+            Layout.preferredHeight: 2
             Layout.fillWidth: true
         }
         Shared.ScrollableList {

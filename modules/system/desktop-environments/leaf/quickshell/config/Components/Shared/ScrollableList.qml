@@ -27,7 +27,8 @@ Rectangle {
 
     // style
     property int padding: 0
-    property int animationSpeed: 100
+    property int animationSpeed: 350
+    property var easingType: Easing.InOutQuint
     property int expansionAnimationSpeed: 350
     property int itemHeight: 48
     property int contentMargin: 4
@@ -86,34 +87,35 @@ Rectangle {
 
         // Animations 
         // TODO: They work but need to set them up to look nice :)
-        /*
         add: Transition {
             NumberAnimation {
-                properties: "y"
-                from: -100
+                properties: "x"
+                from: -listView.width
                 duration: root.animationSpeed
+                easing.type: root.easingType
             }
         }
         addDisplaced: Transition {
             NumberAnimation {
                 properties: "y"
                 duration: root.animationSpeed
+                easing.type: root.easingType
             }
         }
         remove: Transition {
-            SequentialAnimation {
-                NumberAnimation {
-                    properties: "x"
-                    to: -8
-                    duration: 100
-                }
-                NumberAnimation {
-                    properties: "y"
-                    to: -100
-                    duration: root.animationSpeed
-                }
+            NumberAnimation {
+                properties: "x"
+                to: -listView.width
+                duration: root.animationSpeed
+                easing.type: root.easingType
             }
         }
-        */
+        removeDisplaced: Transition {
+            NumberAnimation {
+                properties: "y"
+                duration: root.animationSpeed
+                easing.type: root.easingType
+            }
+        }
     }
 }

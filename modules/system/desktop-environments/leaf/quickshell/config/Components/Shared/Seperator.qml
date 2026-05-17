@@ -11,7 +11,7 @@ Item {
         implicitHeight: 2
         implicitWidth: parent.width
         color: Root.State.colors.on_surface
-        opacity: 0.7
+        opacity: 0.5
     }
 }
 
