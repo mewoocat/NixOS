@@ -56,16 +56,25 @@ ColumnLayout {
 
                 content: ColumnLayout {
                     spacing: 0
-                    Ctrls.MenuItem { hoverEnabled: false; text: appButton.desktopEntry?.name ?? "error: desktop entry not found"}
-                    Ctrls.MenuItem { text: "Remove"; onClicked: () => {
-                        console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
-                        // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
-                        // TODO: Probably need to find a way to automatically do this
-                        appPanelPopup.closeWindow()
-                        Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appButton.appId)
-                        Root.State.configFileView.writeAdapter()
+                    Ctrls.MenuItem {
+                        hoverEnabled: false;
+                        text: appButton.desktopEntry?.name ?? "error: desktop entry not found"
+                        Layout.fillWidth: true
+                    }
+                    Ctrls.MenuItem {
+                        text: "Unpin"
+                        onClicked: () => {
+                            console.log(`pinned apps: ${Root.State.config.pinnedApps}`)
+                            // Need to close the window before the delegate that created this popup window gets destroyed by removing it from the model
+                            // TODO: Probably need to find a way to automatically do this
+                            appPanelPopup.closeWindow()
+                            Root.State.config.pinnedApps = Root.State.config.pinnedApps.filter(appId => appId != appButton.appId)
+                            Root.State.configFileView.writeAdapter()
 
-                    }; icon.name: "remove"}
+                        };
+                        icon.name: "remove"
+                        Layout.fillWidth: true
+                    }
                 }
             }
         }

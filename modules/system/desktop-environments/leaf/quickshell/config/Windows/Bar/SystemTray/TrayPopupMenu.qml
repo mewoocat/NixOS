@@ -34,7 +34,7 @@ Shared.PopupWindow {
             delegate: Loader {
                 id: loader
                 required property QsMenuEntry modelData
-                Layout.fillWidth: true // It appears that this propagates through the 
+                Layout.fillWidth: true // It appears that this propagates to the loaded component
                 active: true
 
                 // These are the possible components that would need to be loaded here

@@ -2,12 +2,9 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Effects
-import QtQuick.Layouts
 import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Widgets
-import qs.Services as Services
 import qs as Root
 
 // TODO: wrap in loader so that popup is only loaded when it needs to be seen

@@ -34,9 +34,10 @@ Shared.PanelButton {
         ClippingWrapperRectangle {
             color: "green"
             anchors.centerIn: parent
-            radius: root.availableWidth / 2
+            radius: icon.height / 2
 
             IconImage {
+                id: icon
                 implicitSize: root.availableHeight
                 source: Services.User.pfpPath
             }

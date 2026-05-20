@@ -10,9 +10,9 @@ import "./Pages/" as Pages
 
 FloatingWindow {
     id: root    
-    minimumSize: "600x400"
+    minimumSize: Qt.size(600,400)
     color: contentItem.palette.window
-    visible: false
+    visible: true
 
     Component.onCompleted: {
         Root.State["settings"] = root // Set the window ref in state
@@ -173,6 +173,7 @@ FloatingWindow {
 
                 // It appears these children are auto given the parent's size?
                 Pages.General {}
+                /*
                 Pages.Monitors {}
                 Pages.Appearance {}
                 Pages.Network {}
@@ -180,6 +181,7 @@ FloatingWindow {
                 Pages.Sound {}
                 Pages.Notifications {}
                 Pages.About {}
+                */
             }
         }
     }

@@ -30,4 +30,5 @@ ShellRoot {
     Notifications {}
     ActivityCenter {}
     Lockscreen {}
+    //Settings {}
 }

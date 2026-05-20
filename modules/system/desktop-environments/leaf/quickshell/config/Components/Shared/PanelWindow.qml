@@ -42,6 +42,7 @@ PanelWindow { // qmllint disable uncreatable-type
                 id: area
                 hoverEnabled: true
                 anchors.fill: parent
+                acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
                 onClicked: () => {
                     console.log(`what`)
                     window.closeRequested()

@@ -1,40 +1,26 @@
-
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
-import Quickshell.Widgets as QsWidgets
-import Quickshell.Services.Mpris
 import QtQuick
-import QtQuick.Shapes
-import QtQuick.Controls
-import QtQuick.Controls.impl // For IconLabel
 import QtQuick.Layouts
 import qs as Root
-//import qs.Windows.Bar.WorkspacesHyprland
-import qs.Windows.Bar.WorkspacesGeneric
-import qs.Components.Controls as Ctrls
-import qs.Components.Shared as Shared
 import "./SystemTray"
-
-import qs.Services as Services
+import "./Workspaces"
 
 Scope {
-    property string time;
 
     // This creates an instance for each screen
     Variants {
         model: Quickshell.screens 
 
         // Note: 
-            // Component (s) can be defined implicitly, so it could be ommited here
-            // Delegate is a default property and can be skipped as well
+        // Component (s) can be defined implicitly, so it could be ommited here
+        // Delegate is a default property and can be skipped as well
         delegate: Component {
             PanelWindow { // qmllint disable uncreatable-type
                 id: bar
                 // The screen from the screens list will be injected into this property
                 property var modelData
                 color: "transparent"
-                // Set the window's screen to the injected property
                 screen: modelData
                 anchors {
                     top: true
@@ -43,9 +29,13 @@ Scope {
                 }
                 implicitHeight: Root.State.barHeight // Bar height
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
+
                 Rectangle {
                     color: Root.State.colors.surface
                     anchors.fill: parent
+
+                    // Set the window's screen to the injected property
+
                     // Left
                     RowLayout {
                         anchors.left: parent.left
@@ -58,6 +48,7 @@ Scope {
                             screen: bar.screen
                         }
                     }
+
                     // Center
                     RowLayout {
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -67,14 +58,9 @@ Scope {
 
                         NotificationIndicator {}
                         Clock {}
-                        Rectangle {
-                            visible: Services.ScreenCapture.recording
-                            implicitWidth: 4
-                            implicitHeight: 4
-                            radius: 4
-                            color: "red"
-                        }
+                        RecordingIndicator {}
                     }
+
                     // Right
                     RowLayout {
                         anchors.right: parent.right

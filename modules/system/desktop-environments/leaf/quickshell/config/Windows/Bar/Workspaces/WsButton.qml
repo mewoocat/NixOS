@@ -13,19 +13,13 @@ Ctrls.Button {
     required property Windowset ws
     required property bool isLast
 
-    property int smallSize: 10
-    property int mediumSize: 16
-    property int largeSize: 36
-
-    implicitHeight: 40 // Default
-    property int dotSize: 22
-    property int smallDotSize: 18
-
-    topInset: 8
-    bottomInset: 8
-    padding: 0
     leftInset: 2
     rightInset: 2
+    topInset: root.ws.active ? 6 : 8
+    bottomInset: root.ws.active ? 6 : 8
+    Behavior on topInset { PropertyAnimation {duration: 150} }
+    Behavior on bottomInset { PropertyAnimation {duration: 150} }
+    padding: 0
 
     onHoveredChanged: {
         if (root.hovered) {
@@ -39,9 +33,9 @@ Ctrls.Button {
 
     background: Rectangle {
         radius: height / 2
-        implicitWidth: 40
+        implicitWidth: root.ws.active ? 52 : 40
+        Component.onCompleted: console.log(`rect height: ${height}`)
         Behavior on implicitWidth { PropertyAnimation {duration: 100} }
-        Behavior on implicitHeight { PropertyAnimation {duration: 20} }
         color: root.hovered || root.ws.active
             ? Root.State.colors.primary
             : !root.isLast 
@@ -60,7 +54,7 @@ Ctrls.Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             Layout.fillWidth: true
-            text: !isLast ? root.ws.name : "+"
+            text: !root.isLast ? root.ws.name : "+"
             font.pointSize: 8
             color: root.hovered || root.ws.active
                 ? Root.State.colors.on_primary
