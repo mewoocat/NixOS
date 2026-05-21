@@ -42,7 +42,14 @@ window-rule {
 }
 // ^ this is commented out
 
+// Apply to all windows
 window-rule {
-    geometry-corner-radius 0
+    geometry-corner-radius 16
     clip-to-geometry true
+    background-effect {
+      blur true
+      xray false
+    }
 }
+
+

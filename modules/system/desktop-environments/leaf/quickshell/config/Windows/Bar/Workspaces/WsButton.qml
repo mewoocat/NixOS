@@ -8,6 +8,7 @@ import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 
+// TODO: Maybe rewrite this without using the button control since we want some more special animation behavior
 Ctrls.Button {
     id: root
     required property Windowset ws
@@ -34,8 +35,7 @@ Ctrls.Button {
     background: Rectangle {
         radius: height / 2
         implicitWidth: root.ws.active ? 52 : 40
-        Component.onCompleted: console.log(`rect height: ${height}`)
-        Behavior on implicitWidth { PropertyAnimation {duration: 100} }
+        Behavior on implicitWidth { PropertyAnimation {duration: 150} }
         color: root.hovered || root.ws.active
             ? Root.State.colors.primary
             : !root.isLast 

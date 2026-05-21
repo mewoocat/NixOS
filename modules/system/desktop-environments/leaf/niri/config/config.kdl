@@ -27,16 +27,11 @@ workspace "Chat"
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-//spawn-at-startup "waybar"
 spawn-at-startup "quickshell"
 spawn-at-startup "swww-daemon"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-
-
-
-
 
 blur {
     // off
@@ -46,11 +41,6 @@ blur {
     saturation 1.5
 }
 
-window-rule {
-   background-effect {
-      blur true
-  }
-}
 
 // Override color values
 // TODO: This will give an error if the file doesn't exist

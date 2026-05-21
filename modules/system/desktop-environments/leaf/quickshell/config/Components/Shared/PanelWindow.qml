@@ -27,7 +27,7 @@ PanelWindow { // qmllint disable uncreatable-type
         model: Quickshell.screens 
         // qmllint disable uncreatable-type
         PanelWindow {
-            visible: window.visible
+            visible: window.visible && window.grabEnabled
             required property ShellScreen modelData
             screen: modelData
             focusable: false
@@ -88,7 +88,7 @@ PanelWindow { // qmllint disable uncreatable-type
     }
 
     // Visibility
-    visible: false
+    visible: true
 
     implicitWidth: background.width
     implicitHeight: background.height // NOTE: Need to set PanelWindow size to largest possible or else resizing with jitter

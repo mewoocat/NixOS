@@ -18,6 +18,7 @@ import "Windows/Launcher"
 import "Windows/ControlPanel"
 import "Windows/Notifications"
 import "Windows/Lockscreen"
+import "Windows/Dock"
 import "Windows"
 
 ShellRoot {
@@ -30,5 +31,6 @@ ShellRoot {
     Notifications {}
     ActivityCenter {}
     Lockscreen {}
+    Dock {}
     //Settings {}
 }

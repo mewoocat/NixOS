@@ -56,7 +56,7 @@ layer-rule {
         // inactive-color "#00000064"
     }
 
-    geometry-corner-radius 18
+    geometry-corner-radius 16
     place-within-backdrop false
     baba-is-float false
 
