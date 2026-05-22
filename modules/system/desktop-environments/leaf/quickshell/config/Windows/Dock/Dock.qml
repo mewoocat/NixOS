@@ -10,17 +10,19 @@ import qs.Components.Shared as Shared
 import qs as Root
 
 Scope {
+    id: root
+    property int animationSpeed: 500
+    property var easingType: Easing.InOutQuint
+    property int indicatorWidth: 200
+
     // This creates an instance for each screen
     Variants {
         model: Quickshell.screens 
         delegate: Component {
             PanelWindow { // qmllint disable uncreatable-type
-                id: dock
+                id: window
                 property var modelData
                 screen: modelData
-                property int animationSpeed: 2000
-                property var easingType: Easing.InOutQuint
-                property int indicatorWidth: 200
                 WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 exclusiveZone: 0
                 color: "transparent"
@@ -41,17 +43,18 @@ Scope {
                 Timer {
                     id: closeTimer
                     interval: 250
-                    onTriggered: dock.active = false
+                    onTriggered: dock.state = ""
                 }
 
                 Rectangle {
-                    id: box
+                    id: dock
                     anchors.fill: parent
+                    state: ""
+                    color: "green"
 
                     Item {
                         id: indicator
-                        visible: !dock.active
-                        width: dock.indicatorWidth
+                        width: root.indicatorWidth
                         height: 12
                         anchors.horizontalCenter: parent.horizontalCenter
                         Rectangle {
@@ -67,24 +70,23 @@ Scope {
                         anchors.centerIn: parent
                         hoverEnabled: true
                         onEntered: {
-                            dock.active = true
+                            dock.state = "shown"
                             closeTimer.running = false
                         }
                         onExited: closeTimer.running = true
                         height: Root.State.dockHeight
                         width: indicator.width
-                        //Behavior on width { PropertyAnimation { duration: dock.animationSpeed; easing.type: dock.easingType } }
 
-                        Item {
+                        Rectangle {
+                            color: "red"
                             id: appBox
                             y: height // Hide by default
-                            //Behavior on y { PropertyAnimation { duration: dock.animationSpeed; easing.type: dock.easingType } }
                             width: parent.width
                             height: parent.height
                             ClippingRectangle {
                                 id: background
                                 anchors.centerIn: parent
-                                width: Math.min(appRow.width, dock.screen.width)
+                                width: Math.min(appRow.width, window.screen.width)
                                 Behavior on width { PropertyAnimation { duration: dock.animationSpeed; easing.type: dock.easingType } }
                                 height: appRow.height
                                 color: Root.State.colors.surface
@@ -111,13 +113,12 @@ Scope {
                     states: [
                         State {
                             name: "shown"
-                            when: dock.active
                             PropertyChanges {
-                                dock {
+                                window {
                                     implicitHeight: Root.State.dockHeight
                                 }
                                 mouseArea {
-                                    width: box.width
+                                    width: dock.width
                                 }
                                 appBox {
                                     y: 0
@@ -130,9 +131,9 @@ Scope {
                             to: "shown"
                             reversible: true
                             SequentialAnimation { 
-                                PropertyAnimation { target: dock; duration: 0 }
-                                PropertyAnimation { target: mouseArea; duration: 0 }
-                                PropertyAnimation { target: appBox; duration: dock.animationSpeed; easing.type: dock.easingType }
+                                PropertyAnimation { target: window; property: "implicitHeight"; duration: 0 }
+                                PropertyAnimation { target: mouseArea; property: "width"; duration: 0 }
+                                PropertyAnimation { target: appBox; property: "y"; duration: root.animationSpeed; easing.type: root.easingType }
                             }
                         }
                     ]
