@@ -140,7 +140,7 @@ Scope {
                             SequentialAnimation { 
                                 PropertyAnimation { target: window; property: "implicitHeight"; duration: 0 }
                                 PropertyAnimation { target: mouseArea; property: "width"; duration: 0 }
-                                PropertyAnimation { target: indicator; property: "visible"; duration: 0 }
+                                PropertyAction { target: indicator; property: "visible" }
                                 PropertyAnimation { target: appBox; property: "y"; duration: root.animationSpeed; easing.type: root.easingType }
                             }
                         }
