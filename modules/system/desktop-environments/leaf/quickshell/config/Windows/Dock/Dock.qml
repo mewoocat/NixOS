@@ -24,7 +24,7 @@ Scope {
                 property var modelData
                 screen: modelData
                 WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-                exclusiveZone: 0
+                exclusiveZone: implicitHeight
                 color: "transparent"
                 anchors {
                     bottom: true
@@ -37,7 +37,7 @@ Scope {
                 // Specify the region of the layer to have blur applied to it
                 BackgroundEffect.blurRegion: Region {
                     item: background
-                    radius: background.radius
+                    radius: Root.State.rounding
                 }
 
                 Timer {
@@ -50,7 +50,7 @@ Scope {
                     id: dock
                     anchors.fill: parent
                     state: ""
-                    color: "green"
+                    color: "transparent"
 
                     Item {
                         id: indicator
@@ -78,30 +78,34 @@ Scope {
                         width: indicator.width
 
                         Rectangle {
-                            color: "red"
+                            color: "transparent"
                             id: appBox
                             y: height // Hide by default
                             width: parent.width
-                            height: parent.height
+                            height: background.height
                             ClippingRectangle {
                                 id: background
                                 anchors.centerIn: parent
                                 width: Math.min(appRow.width, window.screen.width)
-                                Behavior on width { PropertyAnimation { duration: dock.animationSpeed; easing.type: dock.easingType } }
+                                Behavior on width { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType } }
                                 height: appRow.height
                                 color: Root.State.colors.surface
-                                radius: Root.State.rounding
+                                topLeftRadius: Root.State.rounding
+                                topRightRadius: Root.State.rounding
                                 RowLayout {
                                     id: appRow
                                     anchors.centerIn: parent
                                     Repeater {
                                         model: ToplevelManager.toplevels
-                                        Shared.PanelButton {
+                                        Ctrls.Button {
                                             required property Toplevel modelData
-                                            text: modelData.appId
+                                            implicitWidth: 64
+                                            implicitHeight: 64
+                                            inset: 8
+                                            radius: Root.State.rounding
                                             icon.name: modelData.appId
-                                            icon.width: 36
-                                            icon.height: 36
+                                            icon.width: 52
+                                            icon.height: 52
                                             isMultiColorIcon: true
                                             onClicked: () => modelData.activate()
                                         }
@@ -120,6 +124,9 @@ Scope {
                                 mouseArea {
                                     width: dock.width
                                 }
+                                indicator {
+                                    visible: false
+                                }
                                 appBox {
                                     y: 0
                                 }
@@ -133,6 +140,7 @@ Scope {
                             SequentialAnimation { 
                                 PropertyAnimation { target: window; property: "implicitHeight"; duration: 0 }
                                 PropertyAnimation { target: mouseArea; property: "width"; duration: 0 }
+                                PropertyAnimation { target: indicator; property: "visible"; duration: 0 }
                                 PropertyAnimation { target: appBox; property: "y"; duration: root.animationSpeed; easing.type: root.easingType }
                             }
                         }
