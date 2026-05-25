@@ -10,7 +10,7 @@
   username = "eXia";
 
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  time.timeZone = "US/Eastern";
 
   imports = [
     ../../modules/applications
@@ -45,7 +45,6 @@
 
       # Utilities
       bottom    
-      blueberry
       blueman
       nmap
       cmakeMinimal

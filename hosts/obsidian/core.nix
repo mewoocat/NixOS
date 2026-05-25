@@ -1,9 +1,16 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
   ...
 }: {
+
+  imports = [
+    inputs.dms.nixosModules.dank-material-shell
+  ];
+
+  programs.dank-material-shell.enable = true;
 
   # Android emulation
   #virtualisation.waydroid.enable = true;

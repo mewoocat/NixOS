@@ -23,8 +23,9 @@ Scope {
                 id: window
                 property var modelData
                 screen: modelData
+                WlrLayershell.namespace: 'quickshell-panel-dock' 
                 WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-                exclusiveZone: implicitHeight
+                exclusiveZone: 0
                 color: "transparent"
                 anchors {
                     bottom: true
@@ -138,8 +139,8 @@ Scope {
                             to: "shown"
                             reversible: true
                             SequentialAnimation { 
-                                PropertyAnimation { target: window; property: "implicitHeight"; duration: 0 }
-                                PropertyAnimation { target: mouseArea; property: "width"; duration: 0 }
+                                PropertyAction { target: window; property: "implicitHeight"; }
+                                PropertyAction { target: mouseArea; property: "width"; }
                                 PropertyAction { target: indicator; property: "visible" }
                                 PropertyAnimation { target: appBox; property: "y"; duration: root.animationSpeed; easing.type: root.easingType }
                             }

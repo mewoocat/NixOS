@@ -81,11 +81,14 @@ PanelWindow { // qmllint disable uncreatable-type
     }
     WlrLayershell.namespace: 'quickshell-panel-' + name // Set layer name
     //WlrLayershell.namespace: 'quickshell' // Set layer name
-    // Specify the region of the layer to have blur applied to it
+
+    // Specify the region of the layer to have blur applied to it rather than the whole layer
+    /*
     BackgroundEffect.blurRegion: Region {
         item: background
         radius: background.radius
     }
+    */
 
     // Visibility
     visible: true

@@ -4,6 +4,8 @@
   lib,
   ...
 }: {
-  programs.adb.enable = true;
+  environment.systemPackages = with pkgs; [
+    android-tools
+  ];
   users.users.eXia.extraGroups = [ "adbusers" ];
 }

@@ -32,11 +32,7 @@ in {
 
   users.users.${config.username}.packages = with pkgs; [
     # GTK Themes
-    #adw-gtk3 # Main GTK theme
     adw-gtk3-override
-    whitesur-gtk-theme
-    orchis-theme
-    shades-of-gray-theme
     nwg-look
   ];
 
