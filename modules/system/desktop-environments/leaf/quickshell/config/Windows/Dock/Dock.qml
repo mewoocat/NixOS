@@ -5,6 +5,7 @@ import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
 import qs as Root
@@ -23,22 +24,22 @@ Scope {
                 id: window
                 property var modelData
                 screen: modelData
-                WlrLayershell.namespace: 'quickshell-panel-dock' 
+                WlrLayershell.namespace: 'quickshell-dock' 
                 WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
                 exclusiveZone: 0
                 color: "transparent"
                 anchors {
                     bottom: true
-                    left: true
-                    right: true
                 }
                 implicitHeight: indicator.height
+                implicitWidth: indicator.width
                 property bool active: false
 
                 // Specify the region of the layer to have blur applied to it
                 BackgroundEffect.blurRegion: Region {
-                    item: background
-                    radius: Root.State.rounding
+                    item: appBox // use the appBox since it's the element which moves
+                    topLeftRadius: Root.State.rounding
+                    topRightRadius: Root.State.rounding
                 }
 
                 Timer {
@@ -88,7 +89,6 @@ Scope {
                                 id: background
                                 anchors.centerIn: parent
                                 width: Math.min(appRow.width, window.screen.width)
-                                Behavior on width { PropertyAnimation { duration: root.animationSpeed; easing.type: root.easingType } }
                                 height: appRow.height
                                 color: Root.State.colors.surface
                                 topLeftRadius: Root.State.rounding
@@ -99,16 +99,34 @@ Scope {
                                     Repeater {
                                         model: ToplevelManager.toplevels
                                         Ctrls.Button {
+                                            id: dockButton
                                             required property Toplevel modelData
                                             implicitWidth: 64
                                             implicitHeight: 64
                                             inset: 8
+                                            padding: 0
                                             radius: Root.State.rounding
                                             icon.name: modelData.appId
-                                            icon.width: 52
-                                            icon.height: 52
+                                            icon.width: 40
+                                            icon.height: 40
                                             isMultiColorIcon: true
                                             onClicked: () => modelData.activate()
+                                            indicator: Rectangle {
+                                                id: openedWindowsIndicator
+                                                anchors.bottom: dockButton.bottom
+                                                anchors.horizontalCenter: dockButton.horizontalCenter
+                                                color: "transparent"
+                                                width: dockButton.inset
+                                                height: dockButton.inset
+                                                Rectangle {
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    anchors.top: parent.top
+                                                    anchors.margins: 2
+                                                    height: 4
+                                                    width: 4
+                                                    radius: height
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -121,6 +139,7 @@ Scope {
                             PropertyChanges {
                                 window {
                                     implicitHeight: Root.State.dockHeight
+                                    implicitWidth: Math.min(appRow.width, window.screen.width)
                                 }
                                 mouseArea {
                                     width: dock.width
@@ -139,7 +158,7 @@ Scope {
                             to: "shown"
                             reversible: true
                             SequentialAnimation { 
-                                PropertyAction { target: window; property: "implicitHeight"; }
+                                PropertyAction { target: window; properties: "implicitHeight,implicitWidth"; }
                                 PropertyAction { target: mouseArea; property: "width"; }
                                 PropertyAction { target: indicator; property: "visible" }
                                 PropertyAnimation { target: appBox; property: "y"; duration: root.animationSpeed; easing.type: root.easingType }
