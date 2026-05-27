@@ -15,11 +15,9 @@ PanelWindow {
     WlrLayershell.namespace: 'quickshell-' + name // Set layer name
     WlrLayershell.layer: WlrLayer.Overlay
     visible: true
+    exclusiveZone: 0
     anchors {
         top: true
-        bottom: true
-        left: true
-        right: true
     }
     color: "transparent"
     
@@ -39,14 +37,24 @@ PanelWindow {
         regions: notifRegions.instances
     }
 
+    implicitWidth: notifList.width
+    implicitHeight: notifList.height
     ListView {
         id: notifList
         implicitWidth: 400
-        height: parent.height
+        height: 600
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         model: Services.Notifications.notificationPopups
         property int animationSpeed: 300 // ms
+
+        // Might could use this to pad the top
+        /*
+        header: Rectangle {
+            width: 100
+            height: 21
+        }
+        */
 
         // Animations 
         add: Transition {

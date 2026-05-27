@@ -46,7 +46,7 @@ Singleton {
             notif.tracked = true // Track this notification
             console.log(`notif: ${notif.id}`)
 
-            root.notificationPopups.values.pop() // Remove any currently popped up notification
+            //root.notificationPopups.values.pop() // Remove any currently popped up notification
             root.notificationPopups.values.push(notif) // Add the new one
 
             // Only show 3 popups max at a time

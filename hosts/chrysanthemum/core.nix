@@ -36,7 +36,9 @@
     ]; 
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4NXTpvhSTTtinjDzyCuPQmcAzuMES/gMtLvLp93xMA"
+      #"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4NXTpvhSTTtinjDzyCuPQmcAzuMES/gMtLvLp93xMA"
+      # PGP Auth
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeX8NlT5LeZIFXNCORH4oGp/++NA6FLlfUxjdq/UQe63Q4/BNT2Yr6CJLF9EEYUaUO1+iEfQMTEnWyYHfoEQvCaXjHOMf2w/GCEZRME9vR3EujVDUNcBKbytPO0bnccG96u4dvRP8/E0lrln1kkMmukhwawaLR/TkF0YYxwR21ExRQpDac6tr7qDHf+R0JW+evzrz1geuE5m3vMYMulwL6d7lfw5zqyJw53ef8FdjJS0shSjRwOaGYBTIywneCORvJeyXo1ZhbArhdcrqM+oMsPuciwcjnkbvI8+yTG+e8FyD1i0sLFKCZOnPFrH2y7z/04gZTtZfHmWJo90j8utEl"
     ];
     packages = with pkgs; [
       git
