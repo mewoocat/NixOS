@@ -50,11 +50,9 @@ Singleton {
             root.notificationPopups.values.push(notif) // Add the new one
 
             // Only show 3 popups max at a time
-            /*
-            if (root.notificationPopups.length > 3) {
-                root.notificationPopups.splice(3, root.notificationPopups.length - 1)
+            if (root.notificationPopups.values.length > 3) {
+                root.notificationPopups.values.splice(0, 1) // Remove oldest
             }
-            */
 
             console.debug(`notifcationPopus: ${root.notificationPopups.values}`)
         }

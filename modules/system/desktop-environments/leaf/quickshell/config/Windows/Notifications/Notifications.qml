@@ -12,7 +12,8 @@ import qs as Root
 PanelWindow {
     id: window
     property string name: "notifications"
-    WlrLayershell.namespace: 'quickshell-' + name // Set layer name
+    //WlrLayershell.namespace: 'quickshell-' + name
+    WlrLayershell.namespace: 'notification'
     WlrLayershell.layer: WlrLayer.Overlay
     visible: true
     exclusiveZone: 0
@@ -37,24 +38,19 @@ PanelWindow {
         regions: notifRegions.instances
     }
 
-    implicitWidth: notifList.width
-    implicitHeight: notifList.height
+    property bool notifsActive: Services.Notifications.notificationPopups.values.length > 0
+    implicitWidth: notifsActive ? notifList.width + notifList.spacing : 0
+    implicitHeight: notifsActive ? notifList.height + notifList.spacing : 0
     ListView {
         id: notifList
-        implicitWidth: 400
+        implicitWidth: 320
+        anchors.topMargin: spacing
         height: 600
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         model: Services.Notifications.notificationPopups
-        property int animationSpeed: 300 // ms
-
-        // Might could use this to pad the top
-        /*
-        header: Rectangle {
-            width: 100
-            height: 21
-        }
-        */
+        property int animationSpeed: 1000 // ms
+        spacing: 8
 
         // Animations 
         add: Transition {
@@ -105,7 +101,7 @@ PanelWindow {
                 id: timer
                 interval: 2000
                 running: true
-                onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
+                //onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
             }
         }
     }
