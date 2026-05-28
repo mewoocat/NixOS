@@ -10,7 +10,9 @@ import qs as Root
 
 // This is a transparent window that shows any new notifications for a short time
 PanelWindow {
-    id: window
+    id: root
+    property int animationSpeed: 300 // ms
+    property bool active: Services.Notifications.notificationPopups.values.length > 0
     property string name: "notifications"
     //WlrLayershell.namespace: 'quickshell-' + name
     WlrLayershell.namespace: 'notification'
@@ -38,70 +40,105 @@ PanelWindow {
         regions: notifRegions.instances
     }
 
-    property bool notifsActive: Services.Notifications.notificationPopups.values.length > 0
-    implicitWidth: notifsActive ? notifList.width + notifList.spacing : 0
-    implicitHeight: notifsActive ? notifList.height + notifList.spacing : 0
-    ListView {
-        id: notifList
-        implicitWidth: 320
-        anchors.topMargin: spacing
-        height: 600
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        model: Services.Notifications.notificationPopups
-        property int animationSpeed: 1000 // ms
-        spacing: 8
+    implicitWidth: area.width
+    implicitHeight: area.height
+    Rectangle {
+        id: area
 
-        // Animations 
-        add: Transition {
-            NumberAnimation {
-                properties: "y"
-                from: -100
-                duration: notifList.animationSpeed
-            }
-        }
-        addDisplaced: Transition {
-            NumberAnimation {
-                properties: "y"
-                duration: notifList.animationSpeed
-            }
-        }
-        remove: Transition {
-            SequentialAnimation {
-                NumberAnimation {
-                    properties: "x"
-                    to: -8
-                    duration: 100
+        width: 0
+        height: 0
+
+        states: [
+            State {
+                when: active
+                name: "shown"
+                PropertyChanges {
+                    area {
+                        width: notifList.width + notifList.spacing * 2
+                        height: notifList.height + notifList.spacing * 2
+                    }
                 }
+            }
+        ]
+
+        transitions: [
+            Transition {
+                to: "shown"
+                reversible: true
+                SequentialAnimation { 
+                    PropertyAction { target: area; properties: "width,height" }
+                    PauseAnimation { duration: root.animationSpeed }
+                }
+            }
+        ]
+
+        ListView {
+            id: notifList
+            implicitWidth: 320
+            anchors.topMargin: spacing
+            height: 600
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            model: Services.Notifications.notificationPopups
+            spacing: 8
+
+            // Animations 
+            add: Transition {
                 NumberAnimation {
                     properties: "y"
-                    to: -100
-                    duration: notifList.animationSpeed
+                    from: -100
+                    duration: root.animationSpeed
                 }
             }
-        }
-
-        delegate: Shared.Notification {
-            id: notif
-            implicitWidth: notifList.width
-            required property var modelData
-            notifData: modelData
-            listView: notifList
-            margin: 0
-            Component.onCompleted: {
-                console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
+            addDisplaced: Transition {
+                NumberAnimation {
+                    properties: "y"
+                    duration: root.animationSpeed
+                }
             }
-            onClosed: Services.Notifications.notificationPopups.values.pop()
-            onContainsMouseChanged: {
-                if (notif.containsMouse) {timer.stop()}
-                else {timer.start()}
+            remove: Transition {
+                ParallelAnimation {
+                    NumberAnimation {
+                        properties: "x"
+                        to: -8
+                        duration: 100
+                    }
+                    NumberAnimation {
+                        properties: "y"
+                        to: -100
+                        duration: root.animationSpeed
+                    }
+                }
+            }
+            removeDisplaced: Transition {
+                NumberAnimation {
+                    property: "y"
+                    duration: root.animationSpeed
+                }
             }
 
-            Timer {
-                id: timer
-                interval: 2000
-                running: true
-                //onTriggered: Services.Notifications.notificationPopups.values.pop() // Remove the notif from popup model
+            delegate: Shared.Notification {
+                id: notif
+                implicitWidth: notifList.width
+                required property var modelData
+                notifData: modelData
+                listView: notifList
+                margin: 0
+                Component.onCompleted: {
+                    console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
+                }
+                onClosed: Services.Notifications.notificationPopups.values.splice(Services.Notifications.notificationPopups.values.indexOf(modelData),1)
+                onContainsMouseChanged: {
+                    if (notif.containsMouse) {timer.stop()}
+                    else {timer.start()}
+                }
+
+                Timer {
+                    id: timer
+                    interval: 2000
+                    running: true
+                    onTriggered: Services.Notifications.notificationPopups.values.splice(0,1) // Remove the notif from popup model (probably itself)
+                }
             }
         }
     }
