@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import Quickshell.Widgets
 import qs as Root
 
@@ -43,8 +44,11 @@ WrapperItem {
         Rectangle {
             id: background
             anchors.fill: parent
-            //anchors.margins: root.backgroundMargin
-            color: Root.State.colors.surface_container
+            color: {
+                // Remove any opacity (not sure of a better way to handle this)
+                let c = Root.State.colors.surface_container
+                return Qt.rgba(c.r, c.g, c.b, 1)
+            }
             radius: root.backgroundRadius
 
             Loader {

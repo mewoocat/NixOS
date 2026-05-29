@@ -30,7 +30,7 @@ PanelWindow {
 
     // Specify the regions of this layer to have blur applied to it.  In this case, each notification item
     property Variants notifRegions: Variants {
-        model: notifList.contentItem.children
+        model: notifList.contentItem.children.filter(c => c instanceof Item)
         Region {
             required property Item modelData
             item: modelData

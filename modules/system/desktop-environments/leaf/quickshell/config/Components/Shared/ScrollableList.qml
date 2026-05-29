@@ -88,11 +88,17 @@ Rectangle {
         // Animations 
         // TODO: They work but need to set them up to look nice :)
         add: Transition {
-            NumberAnimation {
-                properties: "x"
-                from: -listView.width
-                duration: root.animationSpeed
-                easing.type: root.easingType
+            SequentialAnimation {
+                PropertyAction {
+                    property: listView.width * 2
+                }
+                PauseAnimation { duration: root.animationSpeed }
+                NumberAnimation {
+                    properties: "x"
+                    to: 0
+                    duration: root.animationSpeed
+                    easing.type: root.easingType
+                }
             }
         }
         addDisplaced: Transition {
@@ -103,18 +109,29 @@ Rectangle {
             }
         }
         remove: Transition {
-            NumberAnimation {
-                properties: "x"
-                to: -listView.width
-                duration: root.animationSpeed
-                easing.type: root.easingType
+            ParallelAnimation {
+                NumberAnimation {
+                    properties: "x"
+                    to: -listView.width
+                    duration: root.animationSpeed
+                    easing.type: root.easingType
+                }
+                NumberAnimation {
+                    properties: "opacity"
+                    to: 0
+                    duration: root.animationSpeed / 2
+                    easing.type: Easing.Linear
+                }
             }
         }
         removeDisplaced: Transition {
-            NumberAnimation {
-                properties: "y"
-                duration: root.animationSpeed
-                easing.type: root.easingType
+            SequentialAnimation {
+                PauseAnimation { duration: root.animationSpeed }
+                NumberAnimation {
+                    properties: "y"
+                    duration: root.animationSpeed
+                    easing.type: root.easingType
+                }
             }
         }
     }
