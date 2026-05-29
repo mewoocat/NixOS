@@ -18,6 +18,7 @@ Shared.ListItemExpandable {
     // animation when dismissed.  Need to keep the object around long enough for that animation
     // to play.  Otherwise quickshell seems to crash.
     // Then, whenever this object is destroyed, so will the qs notification object.
+    // TODO: Look into using the attached ListView property "ListView.delayRemove"
     RetainableLock {
       object: root.notifData
       locked: true

@@ -13,6 +13,7 @@ PanelWindow {
     id: root
     property int animationSpeed: 300 // ms
     property bool active: Services.Notifications.notificationPopups.values.length > 0
+    property bool isAnimationPaused: area.containsMouse
     property string name: "notifications"
     //WlrLayershell.namespace: 'quickshell-' + name
     WlrLayershell.namespace: 'notification'
@@ -37,12 +38,12 @@ PanelWindow {
         }
     }
     BackgroundEffect.blurRegion: Region {
-        regions: notifRegions.instances
+        regions: root.notifRegions.instances
     }
 
     implicitWidth: area.width
     implicitHeight: area.height
-    Rectangle {
+    Item {
         id: area
 
         width: 0
@@ -50,7 +51,7 @@ PanelWindow {
 
         states: [
             State {
-                when: active
+                when: root.active
                 name: "shown"
                 PropertyChanges {
                     area {
@@ -76,7 +77,7 @@ PanelWindow {
             id: notifList
             implicitWidth: 320
             anchors.topMargin: spacing
-            height: 600
+            height: 600 
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
             model: Services.Notifications.notificationPopups
@@ -127,17 +128,17 @@ PanelWindow {
                 Component.onCompleted: {
                     console.log(`notif: ${modelData.desktopEntry}, ${modelData.appName}, ${JSON.stringify(modelData.hints)}`)
                 }
-                onClosed: Services.Notifications.notificationPopups.values.splice(Services.Notifications.notificationPopups.values.indexOf(modelData),1)
+                onClosed: Services.Notifications.removeNotifFromPopupModel(modelData)
                 onContainsMouseChanged: {
-                    if (notif.containsMouse) {timer.stop()}
-                    else {timer.start()}
+                    if (notif.containsMouse) root.isAnimationPaused = true
+                    else root.isAnimationPaused = false
                 }
 
                 Timer {
                     id: timer
                     interval: 2000
-                    running: true
-                    onTriggered: Services.Notifications.notificationPopups.values.splice(0,1) // Remove the notif from popup model (probably itself)
+                    running: true && !root.isAnimationPaused
+                    onTriggered: Services.Notifications.removeNotifFromPopupModel(notif.modelData)
                 }
             }
         }

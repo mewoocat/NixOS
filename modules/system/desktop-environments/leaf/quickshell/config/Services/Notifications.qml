@@ -18,6 +18,10 @@ Singleton {
         //console.log("enabling notifications")
     }
 
+    function removeNotifFromPopupModel(notif: Notification) {
+        notificationPopups.values.splice(notificationPopups.values.indexOf(notif),1)
+    }
+
     // Listens for notifications
     NotificationServer {
         id: server
