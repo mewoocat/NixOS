@@ -27,8 +27,8 @@ Rectangle {
 
     // style
     property int padding: 0
-    property int animationSpeed: 350
-    property var easingType: Easing.InOutQuint
+    property int animationSpeed: 100
+    property var easingType: Easing.Linear
     property int expansionAnimationSpeed: 350
     property int itemHeight: 48
     property int contentMargin: 4
@@ -86,11 +86,11 @@ Rectangle {
         delegate: root.delegate
 
         // Animations 
-        // TODO: They work but need to set them up to look nice :)
         add: Transition {
             SequentialAnimation {
                 PropertyAction {
-                    property: listView.width * 2
+                    property: "x"
+                    value: -listView.width
                 }
                 PauseAnimation { duration: root.animationSpeed }
                 NumberAnimation {
@@ -102,10 +102,12 @@ Rectangle {
             }
         }
         addDisplaced: Transition {
-            NumberAnimation {
-                properties: "y"
-                duration: root.animationSpeed
-                easing.type: root.easingType
+            SequentialAnimation {
+                NumberAnimation {
+                    properties: "y"
+                    duration: root.animationSpeed
+                    easing.type: root.easingType
+                }
             }
         }
         remove: Transition {
@@ -115,12 +117,6 @@ Rectangle {
                     to: -listView.width
                     duration: root.animationSpeed
                     easing.type: root.easingType
-                }
-                NumberAnimation {
-                    properties: "opacity"
-                    to: 0
-                    duration: root.animationSpeed / 2
-                    easing.type: Easing.Linear
                 }
             }
         }

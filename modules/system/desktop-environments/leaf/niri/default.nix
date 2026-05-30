@@ -6,6 +6,18 @@
 }: {
   programs.niri.enable = true;
   programs.niri.package = inputs.niri.packages.x86_64-linux.default;
+  # systemctl status --user xdg-desktop-portal-gnome
+  /*
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      kdePackages.xdg-desktop-portal-kde
+    ];
+    config = {
+      common.default = [ "kde" ];
+    };
+  };
+  */
 
   environment = {
     systemPackages = with pkgs; [
