@@ -3,8 +3,6 @@ pragma Singleton
 import Quickshell
 import QtQuick
 
-import './Shapes'
-
 Singleton {
     id: root
 
@@ -16,6 +14,9 @@ Singleton {
     property Rectangle nextShapeBoard: null // Ref to the nextShapeBoard
     property Shape activeShape: null // Player controlled shape
     property Shape nextShape: null // Next shape to spawn
+
+    onActiveShapeChanged: console.log(`active shape changed to: ${activeShape}`)
+    onNextShapeChanged: console.log(`next shape changed to: ${nextShape}`)
 
     property bool isRunning: false
     property bool isPaused: false
@@ -73,7 +74,6 @@ Singleton {
         console.log(`Resetting tetris`)
     }
 
-
     function createShape() {
         console.log('creating shape')
 
@@ -81,10 +81,11 @@ Singleton {
         // And ensure that it wasn't the last picked shape
         let shapeIndex = root.lastShapeIndex
         while (shapeIndex === root.lastShapeIndex) {
+            console.debug(`generating shape index`)
             shapeIndex = Math.floor(Math.random() * root.shapes.length)
         }
 
-        // Apparently need to provide the full relative path, doesn't seem to inherit imported paths
+        // Get shape component by relative path
         const shapeComponent = `Shapes/${root.shapes[shapeIndex]}.qml`
         let component = Qt.createComponent(shapeComponent)
         let shape = component.createObject(null, {})
@@ -98,12 +99,15 @@ Singleton {
         root.isRunning = false
     }
 
+    // TODO: have generic createBlocks method that gets called here for the active and next shapes 
     function spawnShape() {
         console.log('spawning shape')
         if (activeShape === null) {
             root.activeShape = createShape()
         }
         else {
+            root.activeShape.destroy() // Destroy the existing shape obj since it's no longer active and just blocks now
+
             // Destroy all rendered blocks for the previous nextShape
             // Since we will recreate them when rendering it as the active shape
             root.nextShape.blocks.forEach((block) => {
@@ -123,15 +127,22 @@ Singleton {
         // For each block within the shape
         for (let i = 0; i < root.activeShape.orientations[orientationIndex].length; i++) {
 
+            // Calculate the position to render each block at
             let xPos = root.activeShape.originPos.x + root.activeShape.orientations[orientationIndex][i].x
             let yPos = root.activeShape.originPos.y + root.activeShape.orientations[orientationIndex][i].y
 
             // Instantiate
             let blockComp = Qt.createComponent("Block.qml")
+            let blockStyleComp = Qt.createComponent("BlockStyle.qml")
             let blockRef = blockComp.createObject(root.gameBoard, {
                 xPos: xPos,
                 yPos: yPos,
-                style: root.activeShape.color,
+                // Need to create a copy of the style so that when the shape is destroyed, we still hold
+                // the style data here.
+                style: blockStyleComp.createObject(null, {
+                    color: root.activeShape.style.color,
+                    borderColor: root.activeShape.style.borderColor,
+                })
             })
 
             // Add the block ref to the active shape
@@ -156,10 +167,14 @@ Singleton {
 
             // Instantiate
             let blockComp = Qt.createComponent("Block.qml")
+            let blockStyleComp = Qt.createComponent("BlockStyle.qml")
             let blockRef = blockComp.createObject(root.nextShapeBoard, {
                 xPos: xPos,
                 yPos: yPos,
-                style: root.nextShape.color,
+                style: blockStyleComp.createObject(null, {
+                    color: root.activeShape.style.color,
+                    borderColor: root.activeShape.style.borderColor,
+                })
             })
 
             // Add the block ref to the active shape

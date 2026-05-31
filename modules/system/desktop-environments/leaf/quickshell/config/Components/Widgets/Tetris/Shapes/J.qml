@@ -1,8 +1,10 @@
 import "../"
 
 Shape {
-    id: root
-    property string color: "blue"
+    style: BlockStyle {
+        color: "yellow"
+        borderColor: "blue"
+    }
     orientations: [
         [
             {x: 0, y: 1},

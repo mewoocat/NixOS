@@ -14,7 +14,9 @@ Item {
         anchors.centerIn: parent
         implicitHeight: gamePanel.implicitHeight
         implicitWidth: gamePanel.implicitWidth + sidePanel.implicitWidth
-        color: "red"
+        color: "transparent"
+        focus: true // This item needs focus to handle keyboard inputs
+        onVisibleChanged: Tetris.pause()
 
         onFocusChanged: console.log(`controlBoard focus changed to ${focus}`)
         Keys.onPressed: (event) => {
@@ -32,7 +34,7 @@ Item {
         WrapperRectangle {
             id: gamePanel
             border.width: 1
-            border.color: "white"
+            border.color: controlBoard.focus ? "deepskyblue" : "grey"
             color: "transparent"
             Rectangle {
                 id: gameBoard
@@ -40,6 +42,19 @@ Item {
                 implicitWidth: Tetris.blockSize * Tetris.gridColumns
                 implicitHeight: Tetris.blockSize * Tetris.gridRows
                 Component.onCompleted: Tetris.gameBoard = gameBoard
+            }
+        }
+        Rectangle {
+            id: pauseOverlay
+            visible: Tetris.isPaused
+            anchors.fill: gamePanel
+            color: "transparent"
+            WrapperRectangle {
+                anchors.centerIn: parent
+                margin: 2
+                Text {
+                    text: "Paused"
+                }
             }
         }
 
@@ -52,7 +67,7 @@ Item {
             color: "transparent"
             implicitWidth: 80
             border.width: 1
-            border.color: "white"
+            border.color: controlBoard.focus ? "deepskyblue" : "grey"
 
             ColumnLayout {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -75,27 +90,19 @@ Item {
                     onClicked: () => {
                         if (!Tetris.isRunning || Tetris.isPaused) {
                             Tetris.start()
+                            controlBoard.forceActiveFocus()
+                            //root.focus = true // idk why setting this doesn't give root the active focus
                         }
                         else {
                             Tetris.pause()
+                            controlBoard.focus = false
                         }
                     }
-                }
-
-                Ctrls.Button {
-                    text: "what"
                 }
 
                 Button {
                     text: "reset"
-                    onClicked: Tetris.reset
-                }
-
-                Button {
-                    text: "get focus"
-                    onClicked: () => {
-                        controlBoard.focus = true
-                    }
+                    onClicked: () => Tetris.reset()
                 }
             }
 

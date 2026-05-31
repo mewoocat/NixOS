@@ -99,6 +99,7 @@
       inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
       tauon
       supercell-wx
+      mgba
 
       # Music
       #amarok # Music player

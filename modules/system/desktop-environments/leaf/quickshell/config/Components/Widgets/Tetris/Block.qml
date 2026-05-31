@@ -10,16 +10,16 @@ Rectangle {
 
     required property int xPos
     required property int yPos
-    required property string style // Just a color right now
+    required property BlockStyle style
     property int size: Tetris.blockSize
-    border.width: 1
-    border.color: "black"
+    border.width: 2
+    border.color: style.borderColor
 
     implicitWidth: size
     implicitHeight: size
-    color: root.style
+    color: style.color
     
     x: xPos * size
     y: yPos * size
-    Component.onCompleted: console.log(`created block with pos: ${x},${y}`)
+    Component.onCompleted: console.debug(`created block with pos: ${x},${y}`)
 }

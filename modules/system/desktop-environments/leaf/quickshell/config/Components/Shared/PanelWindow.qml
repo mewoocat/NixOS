@@ -109,6 +109,7 @@ PanelWindow { // qmllint disable uncreatable-type
         height: background.height
         focus: true
         Keys.onPressed: (event) => {
+            console.log(`PanelWindow key event`)
             if (event.key == Qt.Key_Escape) {
                 window.closeRequested()
             }
