@@ -6,13 +6,14 @@ MouseArea {
     id: root
     width: 64
     height: 32
+    Keys.onPressed: (event) => {
+        console.log(`key event from mouse area`)
+    }
     hoverEnabled: true 
     required property string text
     onFocusChanged: () => {
-        focus = false
-        console.log(`focus changed to ${focus}`)
+        console.log(`mousearea focus changed to ${focus}`)
     }
-
     Rectangle {
         id: background
         anchors.fill: parent

@@ -5,26 +5,27 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 import qs.Components.Controls as Ctrls
 
-FocusScope {
+Item {
     id: root
     anchors.fill: parent
     
-    focus: true
-    onFocusChanged: console.log(`focus changed to ${focus}`)
-    Keys.onPressed: (event) => {
-        console.log(`key event`)
-        if (Tetris.isRunning) {
-            if (event.key == Qt.Key_A) { Tetris.activeShape.moveLeft() }
-            if (event.key == Qt.Key_D) { Tetris.activeShape.moveRight() }
-            if (event.key == Qt.Key_S) { Tetris.activeShape.moveDown() }
-            if (event.key == Qt.Key_L) { Tetris.activeShape.rotateRight() }
-        }
-    }
     Rectangle {
+        id: controlBoard
         anchors.centerIn: parent
         implicitHeight: gamePanel.implicitHeight
         implicitWidth: gamePanel.implicitWidth + sidePanel.implicitWidth
-        color: "transparent"
+        color: "red"
+
+        onFocusChanged: console.log(`controlBoard focus changed to ${focus}`)
+        Keys.onPressed: (event) => {
+            console.log(`key event root`)
+            if (Tetris.isRunning) {
+                if (event.key == Qt.Key_A) { Tetris.activeShape.moveLeft() }
+                if (event.key == Qt.Key_D) { Tetris.activeShape.moveRight() }
+                if (event.key == Qt.Key_S) { Tetris.activeShape.moveDown() }
+                if (event.key == Qt.Key_L) { Tetris.activeShape.rotateRight() }
+            }
+        }
         
         // Main game board
         // Keep in mind that a border on a wrapper rectangle will be drawn outside the area of the child
@@ -68,6 +69,7 @@ FocusScope {
                         text: `${Tetris.score}`
                     }
                 }
+                
                 Button {
                     text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
                     onClicked: () => {
@@ -80,6 +82,10 @@ FocusScope {
                     }
                 }
 
+                Ctrls.Button {
+                    text: "what"
+                }
+
                 Button {
                     text: "reset"
                     onClicked: Tetris.reset
@@ -88,8 +94,7 @@ FocusScope {
                 Button {
                     text: "get focus"
                     onClicked: () => {
-                        root.focus = false
-                        root.focus = true
+                        controlBoard.focus = true
                     }
                 }
             }
