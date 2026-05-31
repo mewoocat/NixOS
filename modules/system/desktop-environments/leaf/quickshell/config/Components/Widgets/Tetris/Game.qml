@@ -63,9 +63,9 @@ FocusScope {
                     Text {
                         color: "white"
                         text: `${Tetris.score}`
-                    } 
+                    }
                 }
-                Ctrls.Button {
+                Button {
                     text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
                     onClicked: () => {
                         if (!Tetris.isRunning || Tetris.isPaused) {
@@ -77,7 +77,7 @@ FocusScope {
                     }
                 }
 
-                Ctrls.Button {
+                Button {
                     text: "reset"
                     onClicked: Tetris.reset
                 }
