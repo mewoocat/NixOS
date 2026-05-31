@@ -52,7 +52,6 @@ Singleton {
         }
     }
 
-
     function start() {
         console.log(`Starting tetris state singleton`)
         // Add shape if game is first starting

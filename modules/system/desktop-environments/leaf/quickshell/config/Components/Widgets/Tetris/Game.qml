@@ -6,10 +6,13 @@ import Quickshell.Widgets
 import qs.Components.Controls as Ctrls
 
 FocusScope {
+    id: root
     anchors.fill: parent
     
     focus: true
+    onFocusChanged: console.log(`focus changed to ${focus}`)
     Keys.onPressed: (event) => {
+        console.log(`key event`)
         if (Tetris.isRunning) {
             if (event.key == Qt.Key_A) { Tetris.activeShape.moveLeft() }
             if (event.key == Qt.Key_D) { Tetris.activeShape.moveRight() }
@@ -80,6 +83,14 @@ FocusScope {
                 Button {
                     text: "reset"
                     onClicked: Tetris.reset
+                }
+
+                Button {
+                    text: "get focus"
+                    onClicked: () => {
+                        root.focus = false
+                        root.focus = true
+                    }
                 }
             }
 

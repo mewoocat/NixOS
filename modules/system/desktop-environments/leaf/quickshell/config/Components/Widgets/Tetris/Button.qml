@@ -1,13 +1,17 @@
 import QtQuick
+import QtQuick.Controls
 
 // For some reason this seems to capture key events
 MouseArea {
     id: root
     width: 64
     height: 32
-    focus: false
     hoverEnabled: true 
     required property string text
+    onFocusChanged: () => {
+        focus = false
+        console.log(`focus changed to ${focus}`)
+    }
 
     Rectangle {
         id: background
@@ -20,3 +24,8 @@ MouseArea {
         }
     }
 }
+/*
+Button {
+    
+}
+*/
