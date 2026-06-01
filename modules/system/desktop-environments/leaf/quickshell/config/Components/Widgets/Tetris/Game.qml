@@ -5,49 +5,50 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 import qs.Components.Controls as Ctrls
 
-Item {
+Rectangle {
     id: root
     anchors.fill: parent
-    
+    color: "red"
+
+    property int blockSize: 14
+
+    property Tetris tetris: Tetris {
+        blockSize: blockSize
+    }
+
     Rectangle {
         id: controlBoard
         anchors.centerIn: parent
-        implicitHeight: gamePanel.implicitHeight
-        implicitWidth: gamePanel.implicitWidth + sidePanel.implicitWidth
+        implicitHeight: gameBoard.implicitHeight
+        implicitWidth: gameBoard.implicitWidth + sidePanel.implicitWidth
         color: "transparent"
-        focus: true // This item needs focus to handle keyboard inputs
-        onVisibleChanged: Tetris.pause()
+        onVisibleChanged: root.tetris.pause()
 
         onFocusChanged: console.log(`controlBoard focus changed to ${focus}`)
         Keys.onPressed: (event) => {
             console.log(`key event root`)
-            if (Tetris.isRunning) {
-                if (event.key == Qt.Key_A) { Tetris.activeShape.moveLeft() }
-                if (event.key == Qt.Key_D) { Tetris.activeShape.moveRight() }
-                if (event.key == Qt.Key_S) { Tetris.activeShape.moveDown() }
-                if (event.key == Qt.Key_L) { Tetris.activeShape.rotateRight() }
+            if (root.tetris.isRunning) {
+                if (event.key == Qt.Key_A) { root.tetris.moveLeft() }
+                if (event.key == Qt.Key_D) { root.tetris.moveRight() }
+                if (event.key == Qt.Key_S) { root.tetris.moveDown() }
+                if (event.key == Qt.Key_L) { root.tetris.rotateRight() }
             }
         }
         
-        // Main game board
-        // Keep in mind that a border on a wrapper rectangle will be drawn outside the area of the child
-        WrapperRectangle {
-            id: gamePanel
+        Rectangle {
+            id: gameBoard
             border.width: 1
             border.color: controlBoard.focus ? "deepskyblue" : "grey"
             color: "transparent"
-            Rectangle {
-                id: gameBoard
-                color: "transparent"
-                implicitWidth: Tetris.blockSize * Tetris.gridColumns
-                implicitHeight: Tetris.blockSize * Tetris.gridRows
-                Component.onCompleted: Tetris.gameBoard = gameBoard
-            }
+            implicitWidth: root.tetris.blockSize * root.tetris.gridColumns
+            implicitHeight: root.tetris.blockSize * root.tetris.gridRows
+            Component.onCompleted: root.tetris.gameBoard = gameBoard
         }
+
         Rectangle {
             id: pauseOverlay
-            visible: Tetris.isPaused
-            anchors.fill: gamePanel
+            visible: root.tetris.isPaused
+            anchors.fill: gameBoard
             color: "transparent"
             WrapperRectangle {
                 anchors.centerIn: parent
@@ -60,8 +61,8 @@ Item {
 
         Rectangle {
             id: sidePanel
-            anchors.left: gamePanel.right
-            implicitHeight: gamePanel.height
+            anchors.left: gameBoard.right
+            implicitHeight: gameBoard.height
             topRightRadius: 2
             bottomRightRadius: 2
             color: "transparent"
@@ -81,28 +82,26 @@ Item {
                     implicitWidth: parent.width
                     Text {
                         color: "white"
-                        text: `${Tetris.score}`
+                        text: `${root.tetris.score}`
                     }
                 }
-                
                 Button {
-                    text: !Tetris.isRunning || Tetris.isPaused ? "start" : "pause" ;
+                    text: !root.tetris.isRunning || root.tetris.isPaused ? "start" : "pause" ;
                     onClicked: () => {
-                        if (!Tetris.isRunning || Tetris.isPaused) {
-                            Tetris.start()
+                        if (!root.tetris.isRunning || root.tetris.isPaused) {
+                            root.tetris.start()
                             controlBoard.forceActiveFocus()
                             //root.focus = true // idk why setting this doesn't give root the active focus
                         }
                         else {
-                            Tetris.pause()
+                            root.tetris.pause()
                             controlBoard.focus = false
                         }
                     }
                 }
-
                 Button {
                     text: "reset"
-                    onClicked: () => Tetris.reset()
+                    onClicked: () => root.tetris.reset()
                 }
             }
 
@@ -113,11 +112,10 @@ Item {
                 anchors.bottom: parent.bottom
                 id: nextShapeBoard
                 color: "black"
-                implicitWidth: Tetris.blockSize * 4
-                implicitHeight: Tetris.blockSize * 4
+                implicitWidth: root.tetris.blockSize * 4
+                implicitHeight: root.tetris.blockSize * 4
 
-                Component.onCompleted: Tetris.nextShapeBoard = nextShapeBoard
-
+                Component.onCompleted: root.tetris.nextShapeBoard = nextShapeBoard
             }
         }
     }

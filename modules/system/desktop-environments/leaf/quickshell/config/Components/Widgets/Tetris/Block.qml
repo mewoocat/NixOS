@@ -11,7 +11,7 @@ Rectangle {
     required property int xPos
     required property int yPos
     required property BlockStyle style
-    property int size: Tetris.blockSize
+    required property int size
     border.width: 2
     border.color: style.borderColor
 
