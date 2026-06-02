@@ -45,3 +45,4 @@ blur {
 // Override color values
 // TODO: This will give an error if the file doesn't exist
 include "./colors.kdl"
+include "~/.config/leaf-de/niri-output.kdl"
