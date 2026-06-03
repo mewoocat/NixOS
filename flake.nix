@@ -55,6 +55,10 @@
       url = "github:niri-wm/niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    qetris = {
+      url = "github:mewoocat/Qetris";
+      flake = false;
+    };
   };
 
   # The `@` syntax here is used to alias the attribute set of the

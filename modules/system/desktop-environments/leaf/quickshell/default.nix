@@ -53,6 +53,10 @@ in {
         source = "/home/eXia/NixOS/modules/system/desktop-environments/leaf/quickshell/config/"; # For development
         clobber = true;
       };
+      ".config/quickshell-widgets" = {
+        source = inputs.qetris;
+        clobber = true;
+      };
     };
   };
 

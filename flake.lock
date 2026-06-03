@@ -1071,11 +1071,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1779987025,
-        "narHash": "sha256-kiuCI22PO46DUV9+3xNod7XulzrjKPwYgsmsnOs8Q98=",
+        "lastModified": 1780056110,
+        "narHash": "sha256-t7lKVshV/srD0G06j4r5P5qj9zaDeZ9JYFCxHDGROZU=",
         "owner": "niri-wm",
         "repo": "niri",
-        "rev": "9bd6c2cadda26450d435785815a634c320127a1c",
+        "rev": "f9f43d826ab4014a7c302be28d7da33e12f5be37",
         "type": "github"
       },
       "original": {
@@ -1508,6 +1508,22 @@
         "type": "github"
       }
     },
+    "qetris": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780367937,
+        "narHash": "sha256-f/blA20GSF8ShHmGX4eqwwG/9S5XHGhMSfJRMLKFwRQ=",
+        "owner": "mewoocat",
+        "repo": "Qetris",
+        "rev": "d1beab615f250c41dc38033aaf2bda9b20c6867a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mewoocat",
+        "repo": "Qetris",
+        "type": "github"
+      }
+    },
     "qtengine": {
       "inputs": {
         "nixpkgs": [
@@ -1570,6 +1586,7 @@
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_17",
         "nixpkgs-server": "nixpkgs-server",
+        "qetris": "qetris",
         "qtengine": "qtengine",
         "quickshell": "quickshell",
         "secrets": "secrets"
