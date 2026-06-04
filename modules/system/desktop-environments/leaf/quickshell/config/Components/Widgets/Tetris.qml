@@ -1,9 +1,13 @@
-import "Tetris" as Tetris
+import QtQuick
+//import "Tetris" as Tetris
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 AbsGrid.WidgetData {
     name: "Tetris"
     xSize: 4
     ySize: 5
-    component: Tetris.Game {}
+    //component: Tetris.Game {}
+    component: Loader {
+        source: "/home/eXia/.config/quickshell-widgets/Tetris/Game.qml"
+    }
 }
