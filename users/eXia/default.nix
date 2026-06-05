@@ -2,7 +2,6 @@
   options,
   config,
   pkgs,
-  inputs,
   lib,
   ...
 }: {
@@ -15,7 +14,7 @@
   imports = [
     ../../modules/applications
     ../../modules/dev-environments
-    inputs.hjem.nixosModules.default
+    #inputs.hjem.nixosModules.default
     ./programs
   ];
 
@@ -54,7 +53,7 @@
       openvpn
       linux-wifi-hotspot
       #inputs.myNvim.packages.x86_64-linux.default
-      inputs.myNvimNvf.packages.x86_64-linux.default
+      #inputs.myNvimNvf.packages.x86_64-linux.default
       microfetch
       wineWowPackages.stable
       nh # Nix helper
@@ -96,7 +95,7 @@
       qtcreator
       blanket
       thunderbird
-      inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
+      #inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
       tauon
       supercell-wx
       mgba
@@ -119,7 +118,7 @@
       rustc
 
       # Dev
-      inputs.alejandra.packages.${pkgs.stdenv.hostPlatform.system}.default
+      #inputs.alejandra.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 

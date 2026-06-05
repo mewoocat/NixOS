@@ -13,7 +13,7 @@ in{
     ./core-applications
     ./core-functions
     #./ags
-    ./hyprland
+    #./hyprland
     ./theming
     ./quickshell
     ./niri

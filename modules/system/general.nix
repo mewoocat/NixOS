@@ -2,12 +2,11 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
 
   imports = [
-    inputs.agenix.nixosModules.default
+    #inputs.agenix.nixosModules.default
   ];
 
   nix = {
@@ -48,7 +47,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${stdenv.hostPlatform.system}.default # Agenix cli client
+    #inputs.agenix.packages.${stdenv.hostPlatform.system}.default # Agenix cli client
     man-pages
   ];
 

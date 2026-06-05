@@ -1,7 +1,7 @@
-{config, pkgs, inputs, ...} : {
+{config, pkgs, ...} : {
 
   imports = [
-    inputs.qtengine.nixosModules.default
+    #inputs.qtengine.nixosModules.default
   ];
 
   qt = {
@@ -30,6 +30,7 @@
     inputs.qtengine.packages.${stdenv.hostPlatform.system}.default # For imperative qtengine config management
   ];
 
+  /*
   programs.qtengine = {
     enable = false;
     config = {
@@ -55,6 +56,7 @@
       };
     };
   };
+  */
 
   hjem.users.${config.username} = {
     clobberFiles = true;

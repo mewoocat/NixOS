@@ -1,0 +1,47 @@
+{
+  "pins": {
+    "flake-compat": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "flake-compat"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.1.0",
+      "revision": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+      "url": "https://api.github.com/repos/NixOS/flake-compat/tarball/v1.1.0",
+      "hash": "19d2z6xsvpxm184m41qrpi1bplilwipgnzv9jy17fgw421785q1m"
+    },
+    "hjem": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "feel-co",
+        "repo": "hjem"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ffa433dd86e761de45ef985d4293f31a4d2a775d",
+      "url": "https://github.com/feel-co/hjem/archive/ffa433dd86e761de45ef985d4293f31a4d2a775d.tar.gz",
+      "hash": "1f34ah97hyn88qq3g7hwff51kakn4gmjzbfapl8pdfd89k3mc6rn"
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-26.05",
+      "submodules": false,
+      "revision": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
+      "url": "https://github.com/NixOS/nixpkgs/archive/6b316287bae2ee04c9b93c8c858d930fd07d7338.tar.gz",
+      "hash": "0mpcj1cn2hl2z7w87z6qimwx14i4gb2c60mybj7p9c2ksmmi2wvd"
+    }
+  },
+  "version": 5
+}
