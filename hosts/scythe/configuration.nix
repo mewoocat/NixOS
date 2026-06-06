@@ -1,13 +1,8 @@
-{ config, pkgs, ... }: let
-  sources = import ../../npins;
-  flake-compat = sources.flake-compat;
-  hjem-flake = (import sources.flake-compat {
-    src = sources.hjem;
-  });
+{ config, pkgs, sources, ... }: let
 
 in {
     imports = [
-      hjem-flake.outputs.nixosModules.default
+      (import sources.hjem { inherit pkgs; }).nixosModules.default
       # Core system config
       ./core.nix
 
@@ -37,5 +32,4 @@ in {
 
       #./patches.nix
     ];
-
 }

@@ -24,7 +24,6 @@ in{
     XDG_SESSION_TYPE = "wayland";
   };
 
-  programs.light.enable = true;
   programs.dconf.enable = true; # Required for gtk?
 
   environment = {

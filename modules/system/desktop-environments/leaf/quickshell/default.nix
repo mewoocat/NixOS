@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  sources,
   ...
 }: let
   shell-debug = pkgs.writeShellScriptBin "leaf-shell-debug" ''
@@ -54,7 +55,7 @@ in {
         clobber = true;
       };
       ".config/quickshell-widgets" = {
-        source = inputs.qetris;
+        source = sources.qetris;
         clobber = true;
       };
     };

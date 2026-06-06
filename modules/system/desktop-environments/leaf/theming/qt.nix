@@ -1,4 +1,4 @@
-{config, pkgs, ...} : {
+{inputs, config, pkgs, ...} : {
 
   imports = [
     #inputs.qtengine.nixosModules.default
@@ -23,11 +23,12 @@
     kdePackages.breeze
     kdePackages.breeze.qt5 # For Qt5 support
     darkly
-    darkly-qt5 # For Qt5 support
+    #darkly-qt5 # For Qt5 support # Removed in 26.05
     adwaita-qt
     qlementine
 
-    inputs.qtengine.packages.${stdenv.hostPlatform.system}.default # For imperative qtengine config management
+    #inputs.qtengine.packages.${stdenv.hostPlatform.system}.default # For imperative qtengine config management
+    qtengine
   ];
 
   /*

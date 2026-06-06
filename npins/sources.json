@@ -1,5 +1,18 @@
 {
   "pins": {
+    "dolphin-overlay": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "rumboon",
+        "repo": "dolphin-overlay"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c32758737a0cb02d0bf380753d11df1b8537a944",
+      "url": "https://github.com/rumboon/dolphin-overlay/archive/c32758737a0cb02d0bf380753d11df1b8537a944.tar.gz",
+      "hash": "1fgybz44dh7xs4106pc6czh0nyvh0znncsn5hwk0drjb3nhl4w6i"
+    },
     "flake-compat": {
       "type": "GitRelease",
       "repository": {
@@ -29,6 +42,38 @@
       "url": "https://github.com/feel-co/hjem/archive/ffa433dd86e761de45ef985d4293f31a4d2a775d.tar.gz",
       "hash": "1f34ah97hyn88qq3g7hwff51kakn4gmjzbfapl8pdfd89k3mc6rn"
     },
+    "matugen": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "InioX",
+        "repo": "matugen"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v4.1.0",
+      "revision": "ddf73df8fd0d809f73805c093481728a4fe8747e",
+      "url": "https://api.github.com/repos/InioX/matugen/tarball/v4.1.0",
+      "hash": "1agyz90pbfw3916iv72xvjk5h6inlz3lns6m9bl5v97scq6hqg67"
+    },
+    "niri": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "niri-wm",
+        "repo": "niri"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v26.04",
+      "revision": "6a0a862b8089accd72a4b7298817c8d76cc26b7b",
+      "url": "https://api.github.com/repos/niri-wm/niri/tarball/v26.04",
+      "hash": "0fzpx709xwi9pvvrp8akijqy1acipkmv35gdmwy4kys45aqqq53s"
+    },
     "nixpkgs": {
       "type": "Git",
       "repository": {
@@ -41,6 +86,35 @@
       "revision": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
       "url": "https://github.com/NixOS/nixpkgs/archive/6b316287bae2ee04c9b93c8c858d930fd07d7338.tar.gz",
       "hash": "0mpcj1cn2hl2z7w87z6qimwx14i4gb2c60mybj7p9c2ksmmi2wvd"
+    },
+    "qetris": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mewoocat",
+        "repo": "qetris"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "d1beab615f250c41dc38033aaf2bda9b20c6867a",
+      "url": "https://github.com/mewoocat/qetris/archive/d1beab615f250c41dc38033aaf2bda9b20c6867a.tar.gz",
+      "hash": "0561hnr30lgj9566h72p5vsvy0f3ma3mz1krhh95yj06dl1ybxkz"
+    },
+    "quickshell": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "quickshell-mirror",
+        "repo": "quickshell"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.3.0",
+      "revision": "b8d4367cc337f84c85005f9c9bc1d683ad600542",
+      "url": "https://api.github.com/repos/quickshell-mirror/quickshell/tarball/v0.3.0",
+      "hash": "1rmr5lh2byj1l9lpkf2ypgcbx6wgdyjn5ba9hgpnn9q6khd9akw1"
     }
   },
   "version": 5

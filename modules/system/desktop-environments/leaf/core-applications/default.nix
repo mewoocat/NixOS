@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  sources,
   ...
 }: {
   imports = [
@@ -9,7 +10,8 @@
   ];
 
   nixpkgs.overlays = [
-    inputs.dolphin-overlay.overlays.default # Provides "open with" fix
+    #inputs.dolphin-overlay.overlays.default # Provides "open with" fix
+    (import "${sources.dolphin-overlay}/default.nix") # Provides "open with" fix
   ];
 
   users.users.${config.username} = {
