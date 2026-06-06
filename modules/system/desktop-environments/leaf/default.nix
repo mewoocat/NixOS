@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
   leaf-dir = "/home/${config.username}/.config/leaf-de";
