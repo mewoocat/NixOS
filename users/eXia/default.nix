@@ -3,6 +3,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   # This is a custom option
@@ -53,9 +54,9 @@
       openvpn
       linux-wifi-hotspot
       #inputs.myNvim.packages.x86_64-linux.default
-      #inputs.myNvimNvf.packages.x86_64-linux.default
+      inputs.nvim-nvf.packages.x86_64-linux.default
       microfetch
-      wineWowPackages.stable
+      wineWow64Packages.stable
       nh # Nix helper
       exfatprogs # exFAT filesystem userspace utilities
       stress 

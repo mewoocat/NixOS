@@ -33,6 +33,7 @@ in {
     #inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
     #(pkgs.callPackage (import sources.quickshell {}))
     (pkgs.callPackage (import sources.quickshell) {})
+    #quickshell
 
 
     kdePackages.qtdeclarative # Add qml types in path for qmlls

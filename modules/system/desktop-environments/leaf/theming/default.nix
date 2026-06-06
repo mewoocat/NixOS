@@ -43,7 +43,7 @@ in {
     #libsForQt5.qt5ct
     #qt6Packages.qt6ct
     leaf-theme-manager
-    swww # Wallpaper manager
+    awww # Wallpaper manager
     inputs.matugen.packages.x86_64-linux.default
 
   ];

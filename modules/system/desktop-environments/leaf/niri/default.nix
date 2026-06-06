@@ -5,7 +5,7 @@
   ...
 }: {
   programs.niri.enable = true;
-  programs.niri.package = inputs.niri.packages.x86_64-linux.default;
+  #programs.niri.package = inputs.niri.packages.x86_64-linux.default;
   # systemctl status --user xdg-desktop-portal-gnome
   /*
   xdg.portal = {

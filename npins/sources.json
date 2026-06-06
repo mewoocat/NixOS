@@ -11,7 +11,7 @@
       "submodules": false,
       "revision": "c32758737a0cb02d0bf380753d11df1b8537a944",
       "url": "https://github.com/rumboon/dolphin-overlay/archive/c32758737a0cb02d0bf380753d11df1b8537a944.tar.gz",
-      "hash": "1fgybz44dh7xs4106pc6czh0nyvh0znncsn5hwk0drjb3nhl4w6i"
+      "hash": "sha256-0XBCoR1L5gYmh8VqZu0HcHsL4GeGXQMC0f3ARshf/rk="
     },
     "flake-compat": {
       "type": "Git",
@@ -23,7 +23,7 @@
       "submodules": false,
       "revision": "382052b74656a369c5408822af3f2501e9b1af81",
       "url": null,
-      "hash": "191ik5mj7pfav8qvc9ilsb2a2z60pncb65q16wq2c45zpbz5n3qj"
+      "hash": "sha256-Eg9b/rq/ECYwNwEXs5i9wHyhxNI0JrYx2srdI2uZMaQ="
     },
     "hjem": {
       "type": "Git",
@@ -36,7 +36,7 @@
       "submodules": false,
       "revision": "ffa433dd86e761de45ef985d4293f31a4d2a775d",
       "url": "https://github.com/feel-co/hjem/archive/ffa433dd86e761de45ef985d4293f31a4d2a775d.tar.gz",
-      "hash": "1f34ah97hyn88qq3g7hwff51kakn4gmjzbfapl8pdfd89k3mc6rn"
+      "hash": "sha256-NhtWx0youXYRvcqtL+sjdqoZinMcnjcwRsh6eBJUZLg="
     },
     "matugen": {
       "type": "GitRelease",
@@ -52,7 +52,7 @@
       "version": "v4.1.0",
       "revision": "ddf73df8fd0d809f73805c093481728a4fe8747e",
       "url": "https://api.github.com/repos/InioX/matugen/tarball/v4.1.0",
-      "hash": "1agyz90pbfw3916iv72xvjk5h6inlz3lns6m9bl5v97scq6hqg67"
+      "hash": "sha256-xzwMDWb6pF3oStVoS8enNhpYptxdnB1NSIO7dUH6/qk="
     },
     "niri": {
       "type": "GitRelease",
@@ -68,7 +68,20 @@
       "version": "v26.04",
       "revision": "6a0a862b8089accd72a4b7298817c8d76cc26b7b",
       "url": "https://api.github.com/repos/niri-wm/niri/tarball/v26.04",
-      "hash": "0fzpx709xwi9pvvrp8akijqy1acipkmv35gdmwy4kys45aqqq53s"
+      "hash": "sha256-ehSMsSpE+0k8r+2Vseu8kangsYxToZv3vinynsDp9zs="
+    },
+    "nix-gaming": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "fufexan",
+        "repo": "nix-gaming"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "b7ca7b683fded9623dc5f2e7f1a8d111c4a5d215",
+      "url": "https://github.com/fufexan/nix-gaming/archive/b7ca7b683fded9623dc5f2e7f1a8d111c4a5d215.tar.gz",
+      "hash": "sha256-l800yeumkT92AlTl7trOEeh2Of6Lx2nU6l55uWt0kxk="
     },
     "nixpkgs": {
       "type": "Git",
@@ -77,11 +90,24 @@
         "owner": "NixOS",
         "repo": "nixpkgs"
       },
-      "branch": "nixos-25.11",
+      "branch": "nixos-26.05",
       "submodules": false,
-      "revision": "535f3e6942cb1cead3929c604320d3db54b542b9",
-      "url": "https://github.com/NixOS/nixpkgs/archive/535f3e6942cb1cead3929c604320d3db54b542b9.tar.gz",
-      "hash": "0f9137a4dggpm5p6ikzh5zvigjnlyfwpi3ssskhx5rwsii7nbzys"
+      "revision": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
+      "url": "https://github.com/NixOS/nixpkgs/archive/6b316287bae2ee04c9b93c8c858d930fd07d7338.tar.gz",
+      "hash": "sha256-bXMRa9VTsHSPXL4Cw8R6JJLQeY3Y/IP4+YJCYVmQ7FY="
+    },
+    "nvim-nvf": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mewoocat",
+        "repo": "nvim-nvf"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2210efd59def612f6fc61572eccb29b224a5344f",
+      "url": "https://github.com/mewoocat/nvim-nvf/archive/2210efd59def612f6fc61572eccb29b224a5344f.tar.gz",
+      "hash": "sha256-8vvI8Z16xbDB7hIyWHgZc4Wiz8XiI508hJO5pcGSRjU="
     },
     "qetris": {
       "type": "Git",
@@ -94,7 +120,7 @@
       "submodules": false,
       "revision": "d1beab615f250c41dc38033aaf2bda9b20c6867a",
       "url": "https://github.com/mewoocat/qetris/archive/d1beab615f250c41dc38033aaf2bda9b20c6867a.tar.gz",
-      "hash": "0561hnr30lgj9566h72p5vsvy0f3ma3mz1krhh95yj06dl1ybxkz"
+      "hash": "sha256-f/blA20GSF8ShHmGX4eqwwG/9S5XHGhMSfJRMLKFwRQ="
     },
     "qtengine": {
       "type": "GitRelease",
@@ -110,23 +136,20 @@
       "version": "0.2.1",
       "revision": "abf8c1d3068dd10739b0671fa62f96c5347f276f",
       "url": "https://api.github.com/repos/kossLAN/qtengine/tarball/0.2.1",
-      "hash": "1gdgwhrnd2ivl9ffq3y9b2z4flmq1jj3zqy2rjhpklpmhms5k7k8"
+      "hash": "sha256-aJ5ZdIX10nmhzMLjP6QMuFJHvljJD+xcojuKZjPkr70="
     },
     "quickshell": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "Git",
         "url": "https://git.outfoxxed.me/quickshell/quickshell"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "master",
       "submodules": false,
-      "version": "v0.3.0",
-      "revision": "b8d4367cc337f84c85005f9c9bc1d683ad600542",
+      "revision": "b66495fcc5022681b56b61f928c7acbe910e722c",
       "url": null,
-      "hash": "1rmr5lh2byj1l9lpkf2ypgcbx6wgdyjn5ba9hgpnn9q6khd9akw1"
+      "hash": "sha256-7HgdJBG4BgAPDyHKKxWtxj7nziqsQo6zQCXtwy+L9fs="
     }
   },
-  "version": 5
+  "version": 7
 }

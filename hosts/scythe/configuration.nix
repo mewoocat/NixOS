@@ -1,8 +1,15 @@
-{ config, pkgs, sources, ... }: let
+{ config, pkgs, inputs, ... }: let
+  /*
+  sources = import ../../npins;
+  flake-compat = sources.flake-compat;
+  hjem-flake = (import sources.flake-compat {
+    src = sources.hjem;
+  });
+  */
 
 in {
     imports = [
-      (import sources.hjem { inherit pkgs; }).nixosModules.default
+      inputs.hjem.outputs.nixosModules.default
       # Core system config
       ./core.nix
 
@@ -28,8 +35,9 @@ in {
       #../../modules/gaming/gameLite.nix
 
       # Utilities
-      #../../modules/utilities
+      ../../modules/utilities
 
       #./patches.nix
     ];
+
 }

@@ -35,7 +35,7 @@
     protontricks # Causes build error if installed in steam.extraPackages
 
     # Emulators
-    duckstation
+    #duckstation
     pcsx2
     rpcs3
     dolphin-emu
@@ -64,7 +64,7 @@
         # List package dependencies here
         #wine
         #wine-wayland
-        wineWowPackages.stable
+        wineWow64Packages.stable
         winetricks
       ];
     })
