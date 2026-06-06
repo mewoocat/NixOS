@@ -16,6 +16,10 @@
     quickshell \
         --log-rules "*.debug=false;*.warning=false"
   '';
+
+  # quickshell's flake.nix is imcompatible with flake-compat.  create the package from the derivation in it's default.nix instead
+  #qsDrv = import sources.quickshell;
+  #qs = pkgs.callPackage qsDrv {};
 in {
 
   environment.systemPackages = with pkgs; [
@@ -26,7 +30,10 @@ in {
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
-    inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
+    #inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
+    #(pkgs.callPackage (import sources.quickshell {}))
+    (pkgs.callPackage (import sources.quickshell) {})
+
 
     kdePackages.qtdeclarative # Add qml types in path for qmlls
     kdePackages.qt5compat # For Qt5Compat.GraphicalEffects

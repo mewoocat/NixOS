@@ -2,8 +2,10 @@
   config,
   pkgs,
   inputs,
+  sources,
   ...
 }: let
+  /*
   ags-lockscreen = pkgs.writeShellApplication {
     name = "ags-lock";
     runtimeInputs = with pkgs; [  
@@ -25,11 +27,13 @@
       #fi
     '';
   };
+  */
 
   qs-lockscreen = pkgs.writeShellApplication {
     name = "qs-lock";
     runtimeInputs = [   
-      inputs.quickshell.packages.${config.hostSystem}.default
+      #inputs.quickshell.packages.${config.hostSystem}.default
+      (pkgs.callPackage (import sources.quickshell) {})
     ];
     text = '' 
       quickshell ipc call control lockScreen
@@ -52,7 +56,6 @@ in{
   };
 
   users.users.${config.username}.packages = [
-    ags-lockscreen
     qs-lockscreen
   ];
 

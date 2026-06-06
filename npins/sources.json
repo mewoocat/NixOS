@@ -14,20 +14,16 @@
       "hash": "1fgybz44dh7xs4106pc6czh0nyvh0znncsn5hwk0drjb3nhl4w6i"
     },
     "flake-compat": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
-        "type": "GitHub",
-        "owner": "NixOS",
-        "repo": "flake-compat"
+        "type": "Git",
+        "url": "https://git.lix.systems/lix-project/flake-compat"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "v1.1.0",
-      "revision": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
-      "url": "https://api.github.com/repos/NixOS/flake-compat/tarball/v1.1.0",
-      "hash": "19d2z6xsvpxm184m41qrpi1bplilwipgnzv9jy17fgw421785q1m"
+      "revision": "382052b74656a369c5408822af3f2501e9b1af81",
+      "url": null,
+      "hash": "191ik5mj7pfav8qvc9ilsb2a2z60pncb65q16wq2c45zpbz5n3qj"
     },
     "hjem": {
       "type": "Git",
@@ -81,11 +77,11 @@
         "owner": "NixOS",
         "repo": "nixpkgs"
       },
-      "branch": "nixos-26.05",
+      "branch": "nixos-25.11",
       "submodules": false,
-      "revision": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
-      "url": "https://github.com/NixOS/nixpkgs/archive/6b316287bae2ee04c9b93c8c858d930fd07d7338.tar.gz",
-      "hash": "0mpcj1cn2hl2z7w87z6qimwx14i4gb2c60mybj7p9c2ksmmi2wvd"
+      "revision": "535f3e6942cb1cead3929c604320d3db54b542b9",
+      "url": "https://github.com/NixOS/nixpkgs/archive/535f3e6942cb1cead3929c604320d3db54b542b9.tar.gz",
+      "hash": "0f9137a4dggpm5p6ikzh5zvigjnlyfwpi3ssskhx5rwsii7nbzys"
     },
     "qetris": {
       "type": "Git",
@@ -100,12 +96,27 @@
       "url": "https://github.com/mewoocat/qetris/archive/d1beab615f250c41dc38033aaf2bda9b20c6867a.tar.gz",
       "hash": "0561hnr30lgj9566h72p5vsvy0f3ma3mz1krhh95yj06dl1ybxkz"
     },
-    "quickshell": {
+    "qtengine": {
       "type": "GitRelease",
       "repository": {
         "type": "GitHub",
-        "owner": "quickshell-mirror",
-        "repo": "quickshell"
+        "owner": "kossLAN",
+        "repo": "qtengine"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "0.2.1",
+      "revision": "abf8c1d3068dd10739b0671fa62f96c5347f276f",
+      "url": "https://api.github.com/repos/kossLAN/qtengine/tarball/0.2.1",
+      "hash": "1gdgwhrnd2ivl9ffq3y9b2z4flmq1jj3zqy2rjhpklpmhms5k7k8"
+    },
+    "quickshell": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "Git",
+        "url": "https://git.outfoxxed.me/quickshell/quickshell"
       },
       "pre_releases": false,
       "version_upper_bound": null,
@@ -113,7 +124,7 @@
       "submodules": false,
       "version": "v0.3.0",
       "revision": "b8d4367cc337f84c85005f9c9bc1d683ad600542",
-      "url": "https://api.github.com/repos/quickshell-mirror/quickshell/tarball/v0.3.0",
+      "url": null,
       "hash": "1rmr5lh2byj1l9lpkf2ypgcbx6wgdyjn5ba9hgpnn9q6khd9akw1"
     }
   },
