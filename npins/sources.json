@@ -121,9 +121,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "2210efd59def612f6fc61572eccb29b224a5344f",
-      "url": "https://github.com/mewoocat/nvim-nvf/archive/2210efd59def612f6fc61572eccb29b224a5344f.tar.gz",
-      "hash": "sha256-8vvI8Z16xbDB7hIyWHgZc4Wiz8XiI508hJO5pcGSRjU="
+      "revision": "0f3d9b452a504e4837641fade430c5f390373a07",
+      "url": "https://github.com/mewoocat/nvim-nvf/archive/0f3d9b452a504e4837641fade430c5f390373a07.tar.gz",
+      "hash": "sha256-HjStcFgqErxc6BPA8agMX8inicDkE6aJalEHxIsBdIQ="
     },
     "qetris": {
       "type": "Git",
