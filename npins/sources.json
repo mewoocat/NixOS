@@ -25,6 +25,22 @@
       "url": null,
       "hash": "sha256-Eg9b/rq/ECYwNwEXs5i9wHyhxNI0JrYx2srdI2uZMaQ="
     },
+    "flake-inputs": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "fricklerhandwerk",
+        "repo": "flake-inputs"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "4.1.0",
+      "revision": "ad02792f7543754569fe2fd3d5787ee00ef40be2",
+      "url": "https://api.github.com/repos/fricklerhandwerk/flake-inputs/tarball/refs/tags/4.1.0",
+      "hash": "sha256-dSECtDeIOGKGsbEOOcOHbZ2NYDy0D/x0hlbiKvpWp8g="
+    },
     "hjem": {
       "type": "Git",
       "repository": {
@@ -123,20 +139,17 @@
       "hash": "sha256-f/blA20GSF8ShHmGX4eqwwG/9S5XHGhMSfJRMLKFwRQ="
     },
     "qtengine": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "kossLAN",
         "repo": "qtengine"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "master",
       "submodules": false,
-      "version": "0.2.1",
-      "revision": "abf8c1d3068dd10739b0671fa62f96c5347f276f",
-      "url": "https://api.github.com/repos/kossLAN/qtengine/tarball/0.2.1",
-      "hash": "sha256-aJ5ZdIX10nmhzMLjP6QMuFJHvljJD+xcojuKZjPkr70="
+      "revision": "073987f0120ac77a92fb9f0c0877aa7f1f04d3bf",
+      "url": "https://github.com/kossLAN/qtengine/archive/073987f0120ac77a92fb9f0c0877aa7f1f04d3bf.tar.gz",
+      "hash": "sha256-D7mzavE5WfLyvEXV0pvO3/gxC+SSmfjw4Lxy7I5qvnI="
     },
     "quickshell": {
       "type": "Git",

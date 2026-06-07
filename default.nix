@@ -8,7 +8,10 @@ let
     matugen = getFlakeOutputs sources.matugen;
     #quickshell = getFlakeOutputs sources.quickshell; # borked
     #niri = getFlakeOutputs sources.niri;
-    qtengine = getFlakeOutputs sources.qtengine;
+    #qtengine = getFlakeOutputs sources.qtengine;
+
+    # This uses flake-inputs instead of flake-compat, in order to override the nixpkgs dependency.  qtengine requires this or else issues can occur due to mismatches
+    qtengine =  (import sources.flake-inputs).import-flake { src = sources.qtengine; overrides = { nixpkgs = sources.nixpkgs.outPath; }; };
     nix-gaming = getFlakeOutputs sources.nix-gaming;
     nvim-nvf = getFlakeOutputs sources.nvim-nvf;
   };
