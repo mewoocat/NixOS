@@ -4,7 +4,44 @@
   ...
 }: {
 
+  imports = [
+    # Core host related configuration
+    ./core.nix
+
+    # Hardware
+    ./hardware-configuration.nix
+    ../../modules/hardware/bluetooth.nix
+    ../../modules/hardware/ios.nix
+    ../../modules/hardware/rgb.nix
+    ../../modules/hardware/vial-keyboards.nix
+    ../../modules/hardware/nvidia.nix
+
+    # Core system components
+    ../../modules/system
+
+    # Desktop environment
+    #../../modules/system/desktop-environments/leaf
+    ../../modules/system/desktop-environments/kde
+
+    # User
+    ../../users/iris
+
+    # Other
+    ../../modules/utilities
+    ../../modules/utilities/virtualization.nix
+    ../../modules/gaming/game.nix
+  ];
+
   networking.hostName = "orchid";
+
+  # Use the systemd-boot EFI boot loader.
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    supportedFilesystems = ["ntfs"];
+  };
 
   nix = {
     settings = {    

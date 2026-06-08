@@ -5,11 +5,29 @@
   inputs,
   ...
 }: {
-  system.stateVersion = "24.11";
 
-  # Use the systemd-boot EFI boot loader.
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
+  imports = [
+    #inputs.disko.nixosModules.disko
+    inputs.agenix.nixosModules.default
+
+    ./core.nix
+    ./hardware-configuration.nix
+
+    ./disk-config.nix # Disk setup for nixos-anywhere
+
+    # User
+    #../../users/eXia # need to add user without all the other junk
+
+    # Services
+    ./wireguard-server.nix
+    ../../common/servers/nextcloud
+    #../../common/servers/ad-guard-home
+    ../../common/servers/owntracks
+    #../../common/servers/fail2ban
+    #../../common/servers/traccar
+    #../../common/servers/minecraft
+
+  ];
 
   # zfs
   boot.supportedFilesystems = [ "zfs" ]; # also enabled boot.zfs
@@ -90,4 +108,5 @@
     ];
   };
 
+  system.stateVersion = "24.11";
 }

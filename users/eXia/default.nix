@@ -13,9 +13,6 @@
   time.timeZone = "US/Eastern";
 
   imports = [
-    ../../modules/applications
-    ../../modules/dev-environments
-    #inputs.hjem.nixosModules.default
     ./programs
   ];
 

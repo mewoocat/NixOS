@@ -7,7 +7,6 @@
 }: {
   imports = [
     ./user.nix
-    ./boot.nix
     ./power.nix
     ./networking.nix
     ./disks.nix
