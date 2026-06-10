@@ -4,14 +4,14 @@
       "type": "Git",
       "repository": {
         "type": "GitHub",
-        "owner": "rumboon",
+        "owner": "mewoocat",
         "repo": "dolphin-overlay"
       },
       "branch": "main",
       "submodules": false,
-      "revision": "c32758737a0cb02d0bf380753d11df1b8537a944",
-      "url": "https://github.com/rumboon/dolphin-overlay/archive/c32758737a0cb02d0bf380753d11df1b8537a944.tar.gz",
-      "hash": "sha256-0XBCoR1L5gYmh8VqZu0HcHsL4GeGXQMC0f3ARshf/rk="
+      "revision": "623aad81ee6ca980e1e8e39d62399c47381f302f",
+      "url": "https://github.com/mewoocat/dolphin-overlay/archive/623aad81ee6ca980e1e8e39d62399c47381f302f.tar.gz",
+      "hash": "sha256-il74x66c8LoyJil7JHMSoE38ihtP4HJHv8KOd2n25ww="
     },
     "flake-compat": {
       "type": "Git",

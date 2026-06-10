@@ -22,6 +22,7 @@ let
     qtengine = getFlakeOutputs { npinsSource = sources.qtengine; followsNixpkgs = true; };
     nix-gaming = getFlakeOutputs { npinsSource = sources.nix-gaming; };
     nvim-nvf = getFlakeOutputs { npinsSource = sources.nvim-nvf; };
+    dolphin-overlay = getFlakeOutputs { npinsSource = sources.dolphin-overlay; };
   };
 
   # System builder
