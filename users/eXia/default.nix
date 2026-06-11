@@ -65,6 +65,7 @@
       arduino
       nwg-displays
       idevicerestore # Restore/upgrade firmware of iOS devices
+      inputs.tack.packages.x86_64-linux.default
 
       # yubikey
       yubikey-manager # ykman cli tool

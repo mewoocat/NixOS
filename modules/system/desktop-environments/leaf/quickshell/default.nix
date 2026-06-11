@@ -2,7 +2,7 @@
   config,
   pkgs,
   inputs,
-  sources,
+  #sources,
   ...
 }: let
   shell-debug = pkgs.writeShellScriptBin "leaf-shell-debug" ''
@@ -30,9 +30,9 @@ in {
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
-    #inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
+    inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
     #(pkgs.callPackage (import sources.quickshell {}))
-    (pkgs.callPackage (import sources.quickshell) {})
+    #(pkgs.callPackage (import sources.quickshell) {})
     #quickshell
 
 
@@ -63,7 +63,7 @@ in {
         clobber = true;
       };
       ".config/quickshell-widgets" = {
-        source = sources.qetris;
+        source = inputs.qetris;
         clobber = true;
       };
     };

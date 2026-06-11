@@ -4,8 +4,11 @@
 let
   sources = import ./npins;
 
+  inputs = import ./.tack;
+
   # Flake compatibility
   #getFlakeOutputs = npinsSource: (import sources.flake-compat { src = npinsSource; }).outputs;
+  /*
   getFlakeOutputs = {npinsSource, followsNixpkgs ? false}: ((import sources.flake-inputs).import-flake {
     src = npinsSource;
     overrides = if followsNixpkgs then { nixpkgs = sources.nixpkgs.outPath; } else {};
@@ -23,10 +26,14 @@ let
     nix-gaming = getFlakeOutputs { npinsSource = sources.nix-gaming; };
     nvim-nvf = getFlakeOutputs { npinsSource = sources.nvim-nvf; };
     dolphin-overlay = getFlakeOutputs { npinsSource = sources.dolphin-overlay; };
+
+    # From tack
+    tack = tack-inputs.tack;
   };
+  */
 
   # System builder
-  nixpkgs = sources.nixpkgs;
+  nixpkgs = inputs.nixpkgs;
   nixosSystem = import "${nixpkgs}/nixos/lib/eval-config.nix"; # Same thing as flake nixpkgs.lib.nixosSystem, apparently what nixos-rebuild also uses 
   makeNixosSystem = configPath: nixosSystem {
     modules = [ configPath ];
