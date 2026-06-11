@@ -24,6 +24,7 @@ Rectangle {
     //// Could better type these if scrollItem was moved to it's own file ... might have issue with cyclic dependency though
     property var prevExpandedItem: null // Holds ref to previously expanded item, for collapsing it when expanded item changed
     property var expandedItem: null // Holds a ref to the currently expanded item in this scrollable, or null if none are expanded
+    property bool enableAnimations: true
 
     // style
     property int padding: 0
@@ -86,6 +87,7 @@ Rectangle {
         delegate: root.delegate
 
         // Animations 
+        /*
         add: Transition {
             SequentialAnimation {
                 PropertyAction {
@@ -130,5 +132,6 @@ Rectangle {
                 }
             }
         }
+        */
     }
 }
