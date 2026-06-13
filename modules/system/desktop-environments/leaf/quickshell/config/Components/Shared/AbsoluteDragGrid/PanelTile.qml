@@ -15,6 +15,7 @@ Item {
 
     property bool editable: false
     property int padding: 0
+    property int contentPadding: widgetData.padding
     property bool showBackground: true
     property int radius: 0
 
@@ -39,15 +40,18 @@ Item {
     Behavior on y { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
 
     Rectangle {
+        color: Root.State.colors.surface_container
+        radius: root.radius
         x: root.padding
         y: root.padding
         width: parent.width - root.padding * 2
         height: parent.height - root.padding * 2
-        color: Root.State.colors.surface_container
-        radius: root.radius
         Loader {
+            x: root.contentPadding
+            y: root.contentPadding
+            width: parent.width - root.contentPadding * 2
+            height: parent.height - root.contentPadding * 2
             active: root.widgetData.component != null
-            anchors.fill: parent
             sourceComponent: root.widgetData.component
         }
     }

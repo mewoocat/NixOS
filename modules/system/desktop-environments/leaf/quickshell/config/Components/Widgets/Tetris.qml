@@ -5,6 +5,7 @@ AbsGrid.WidgetData {
     name: "Tetris"
     xSize: 4
     ySize: 4
+    padding: 8
     //component: Tetris.Game {}
     component: Loader {
         // Warning: using a url that is a symlink seems to cause any updates to the content in the url not to show up after
