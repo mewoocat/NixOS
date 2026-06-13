@@ -37,7 +37,7 @@
     # Emulators
     #duckstation
     pcsx2
-    rpcs3
+    #rpcs3
     dolphin-emu
 
     # Games
