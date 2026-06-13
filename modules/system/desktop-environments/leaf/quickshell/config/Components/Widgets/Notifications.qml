@@ -17,7 +17,6 @@ AbsGrid.WidgetData {
     ySize: 6
     component: ColumnLayout {
         anchors.fill: parent
-        anchors.margins: root.padding
         RowLayout {
             Shared.TextBlock {
                 Layout.fillWidth: true

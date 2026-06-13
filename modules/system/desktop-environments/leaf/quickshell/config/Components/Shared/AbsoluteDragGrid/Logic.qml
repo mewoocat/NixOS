@@ -19,7 +19,7 @@ QtObject {
     }
 
     // Useful for reading in widget state
-    function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle, widgetRadius: int): list<WidgetData> { 
+    function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle, widgetRadius: int, widgetPadding: int): list<WidgetData> { 
         const widgetDataList = []
         for (const w of widgetJsonList) {
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
@@ -36,6 +36,7 @@ QtObject {
                 state: w.state,
                 panelGrid: panelGrid,
                 radius: widgetRadius,
+                padding: widgetPadding,
             })
             widgetDataList.push(widgetData)
         }

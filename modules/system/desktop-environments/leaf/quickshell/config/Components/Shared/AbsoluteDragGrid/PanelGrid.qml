@@ -13,6 +13,7 @@ ColumnLayout {
     property int unitSize: 64
     property int widgetPadding: Root.State.widgetPadding
     property int widgetRadius: Root.State.widgetRounding
+    property int widgetContentPadding: 8
     property int xSize: 4
     property int ySize: 8
     property bool allowEditToggle: true
@@ -68,7 +69,7 @@ ColumnLayout {
         Repeater {
             id: repeater
             // TODO: Look into Variants instead of dynamic obj creation from js https://quickshell.org/docs/v0.1.0/types/Quickshell/Variants
-            model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel)
+            model: root.logic.widgetInstanceListToWidgetDataList(root.model, gridPanel, root.widgetRadius, root.widgetContentPadding)
             delegate: PanelTile {
                 id: gridItem
                 required property WidgetData modelData

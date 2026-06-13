@@ -18,7 +18,7 @@ QtObject {
 
     // Item properties
     required property Component component // The actual content to render 
-    property int padding: 0 // The spacing between the background of the widget panel and the edge of the widget content
+    required property int padding // The spacing between the background of the widget panel and the edge of the widget content
     required property int radius // The radius of the widget tile background, useful for matching the radius of the content background
     property bool showBackground: true
     required property Item panelGrid // This is useful when a widget component needs to know the geometry of it's PanelGrid

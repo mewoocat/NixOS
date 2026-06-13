@@ -17,7 +17,6 @@ AbsGrid.WidgetData {
     component: Item {
         id: root
         anchors.fill: parent
-        anchors.margins: 8
 
         property int maxTextWidth: 200
         property int currentPlayerIndex: findPlayingPlayer()
