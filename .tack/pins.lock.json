@@ -48,11 +48,11 @@
     "type": "github"
   },
   "qetris": {
-    "lastModified": 1781142046,
-    "narHash": "sha256-b6oKe0l2/vSv4p7e9V4Kv2pgG6qUzeaHNpM5yU0AePY=",
+    "lastModified": 1781311438,
+    "narHash": "sha256-CV/nrc1FElxMqBxXbZLiEOtpQuLC0skyE4xM80ebE44=",
     "owner": "mewoocat",
     "repo": "Qetris",
-    "rev": "cd380910a74f94961cba4553ae3fa5f14103eda2",
+    "rev": "d4e56593f23e6489371869718e4200ea4c4f9377",
     "type": "github"
   },
   "qtengine": {
