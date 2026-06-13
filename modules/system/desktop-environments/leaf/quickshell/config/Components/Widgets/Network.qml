@@ -20,10 +20,10 @@ AbsGrid.WidgetData {
     name: "Network"
     xSize: 3
     ySize: 2
+    padding: 8
     component: Item {
         id: root
         anchors.fill: parent
-        anchors.margins: widgetData.padding
         ColumnLayout {
             anchors.fill: parent
             spacing: 0

@@ -16,10 +16,10 @@ AbsGrid.WidgetData {
     name: "Audio and Brightness"
     xSize: 4
     ySize: 2
+    padding: 8
     component: WrapperRectangle {
         anchors.fill: parent
         color: "transparent"
-        margin: 8
 
         ColumnLayout {
 

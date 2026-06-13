@@ -14,6 +14,7 @@ AbsGrid.WidgetData {
     name: "Music Player"
     xSize: 6
     ySize: 2
+    padding: 8
     component: Item {
         id: root
         anchors.fill: parent

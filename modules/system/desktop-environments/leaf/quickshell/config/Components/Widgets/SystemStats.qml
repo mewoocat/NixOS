@@ -17,6 +17,7 @@ AbsGrid.WidgetData {
     name: "System Stats"
     xSize: 4
     ySize: 2
+    padding: 8
     component: ColumnLayout {
         id: root
         anchors.fill: parent
