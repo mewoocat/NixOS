@@ -21,17 +21,16 @@ AbsGrid.WidgetData {
     ySize: 2
     padding: 8
     component: ColumnLayout {
+        id: root
         anchors.fill: parent
         spacing: widgetData.padding
 
-        component RowItem: RowLayout {
+        component RowItem: Item {
             id: rowItem
             required property string iconName
             required property string title
             required property string subtext
             required property Component content
-
-            spacing: parent.spacing
 
             property bool active: false
             signal normalAction()
@@ -46,8 +45,8 @@ AbsGrid.WidgetData {
 
             Ctrls.RoundButton {
                 id: toggleButton
-                Layout.fillHeight: true
-                Layout.preferredWidth: height
+                width: parent.height
+                height: parent.height
                 inset: 4
                 icon.name: rowItem.iconName
                 onClicked: rowItem.toggleAction()
@@ -55,10 +54,11 @@ AbsGrid.WidgetData {
                 color: rowItem.active || hovered ? Root.State.colors.on_primary : Root.State.colors.on_surface
             }
             MouseArea {
-                Layout.fillWidth: true
-                //Layout.fillHeight: true
-                Layout.preferredHeight: toggleButton.height
                 id: mouseArea
+                anchors.leftMargin: root.spacing
+                anchors.left: toggleButton.right
+                anchors.right: parent.right
+                height: parent.height
                 enabled: true
                 hoverEnabled: true
                 onClicked: expander.expanded = true
@@ -86,7 +86,7 @@ AbsGrid.WidgetData {
                                 width: parent.width - parent.padding * 2
                                 color: Root.State.colors.on_surface
                                 opacity: 0.6
-                                text: "ofijpsoijfpsoidjfpsoidjfpsoidjfpsoidfj"//rowItem.subtext
+                                text: rowItem.subtext
                                 elide: Text.ElideRight // Truncate with ... on the right
                                 font.pointSize: 8
                             }
