@@ -24,7 +24,6 @@ ColumnLayout {
     // Search field
     TextField {
         id: textField
-        implicitHeight: 32
         Layout.margins: 8
         Layout.fillWidth: true
         leftPadding: 12; rightPadding: 12
