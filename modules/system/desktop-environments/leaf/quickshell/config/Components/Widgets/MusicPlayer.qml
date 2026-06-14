@@ -10,6 +10,7 @@ import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
 AbsGrid.WidgetData {
+    id: widgetData
     uid: "is this even needed lol"
     name: "Music Player"
     xSize: 6
@@ -75,7 +76,7 @@ AbsGrid.WidgetData {
             ClippingRectangle {
                 Layout.columnSpan: 1
                 Layout.rowSpan: 3
-                radius: Root.State.rounding
+                radius: Root.State.rounding - widgetData.padding
                 color: Root.State.colors.surface_container_highest
                 Layout.fillHeight: true
                 implicitWidth: height
@@ -103,22 +104,25 @@ AbsGrid.WidgetData {
             }
 
             Rectangle {
-                Layout.columnSpan: 1
+                Layout.columnSpan: 2
                 Layout.rowSpan: 1
                 Layout.row: 0
                 Layout.column: 1
-                //Layout.topMargin: 12
-                //Layout.leftMargin: 12
+                Layout.leftMargin: widgetData.padding
                 Layout.fillWidth: true
-                Layout.fillHeight: true
+                //Layout.fillHeight: true
+                height: textCol.height
 
                 color: "transparent"
 
             ColumnLayout {
+                id: textCol
                 implicitWidth: parent.width
+                spacing: 0
                 
                 Text {
                     id: title
+                    padding: 0
                     elide: Text.ElideRight // Truncate with ... on the right
                     //Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
                     Layout.preferredWidth: parent.width
@@ -146,14 +150,14 @@ AbsGrid.WidgetData {
             Ctrls.ComboBox {
                 Layout.columnSpan: 1
                 Layout.rowSpan: 1
-                Layout.row: 0
+                Layout.row: 2
                 Layout.column: 2
                 Layout.alignment: Qt.AlignTop
                 enabled: root.currentPlayer !== null
                 textRole: "identity"
                 model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
-                displayText: "♫"
-                implicitWidth: 40
+                //displayText: "♫"
+                Layout.fillWidth: true
                 onActivated: (index) => {
                     root.currentPlayerIndex = index
                 }
@@ -166,7 +170,8 @@ AbsGrid.WidgetData {
                 Layout.columnSpan: 2
                 Layout.row: 1
                 Layout.column: 1
-                Layout.bottomMargin: -6
+                //Layout.bottomMargin: -6
+                Layout.leftMargin: widgetData.padding
 
                 Ctrls.Slider {
                     id: slider
@@ -237,7 +242,7 @@ AbsGrid.WidgetData {
 
             RowLayout {
                 id: controls
-                Layout.columnSpan: 2
+                Layout.columnSpan: 1
                 Layout.rowSpan: 1
                 Layout.row: 2
                 Layout.column: 1
