@@ -10,6 +10,7 @@ import qs.Services as Services
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
 
+// Note: Mpris is busted with firefox, things like track art and length don't work.
 AbsGrid.WidgetData {
     id: widgetData
     uid: "is this even needed lol"
@@ -261,6 +262,7 @@ AbsGrid.WidgetData {
                             if (root.currentPlayer === null) { console.warn(`No current player`); return }
                             root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
                         }
+                        enabled: root.currentPlayer !== null
                     }
                     Ctrls.Button {
                         icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing
@@ -275,6 +277,7 @@ AbsGrid.WidgetData {
                                 ? root.currentPlayer.pause()
                                 : root.currentPlayer.play()
                         }
+                        enabled: root.currentPlayer !== null
                     }
                     Ctrls.Button {
                         icon.name: "media-seek-forward-symbolic"
@@ -283,6 +286,7 @@ AbsGrid.WidgetData {
                             if (root.currentPlayer === null) { console.warn(`No current player`); return }
                             root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
                         }
+                        enabled: root.currentPlayer !== null
                     }
                 }
             }

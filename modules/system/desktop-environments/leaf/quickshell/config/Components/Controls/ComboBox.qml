@@ -8,7 +8,7 @@ import qs as Root
 T.ComboBox {
     id: control
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     //defines the padding of the contentItem relative to the edge of the control
     padding: 4
@@ -43,6 +43,7 @@ T.ComboBox {
         implicitHeight: 24
         color: control.backgroundColor
         radius: control.radius
+        opacity: control.enabled ? 1 : 0.5
     }
 
     contentItem: Rectangle {
@@ -77,12 +78,14 @@ T.ComboBox {
     // It also seems to trigger any HyprlandFocusGrab
     popup: C.Menu {
         padding: control.padding
+        x: control.inset
         y: control.height
         implicitWidth: contentWidth + leftPadding + rightPadding
         implicitHeight: contentHeight + topPadding + bottomPadding // Can't be 0 or qs will crash
         width: Math.max(control.background.width, implicitWidth)
         height: Math.max(1, implicitHeight)
-        closePolicy: C.Popup.NoAutoClose // Doesn't seem to take effect
+        //closePolicy: C.Popup.NoAutoClose // Doesn't seem to take effect
+        closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnPressOutside
         //popupType: C.Popup.Native // Used to render the popup as it's own window
         background: Rectangle {
             color: Root.State.colors.surface
@@ -95,7 +98,6 @@ T.ComboBox {
             model: control.delegateModel // Provides both the model and delegate
         }
         // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
-        /*
         enter: Transition {
             NumberAnimation { property: "height"; from: 1; to: 400 }
         }
@@ -103,7 +105,6 @@ T.ComboBox {
             NumberAnimation { property: "height"; from: 400; to: 1;
             }
         }
-        */
     }
 
     indicator: Rectangle {
@@ -113,6 +114,7 @@ T.ComboBox {
         width: 8
         height: 8
         color: "transparent"
+        opacity: control.enabled ? 1 : 0.5
 
         // Background
         Canvas {

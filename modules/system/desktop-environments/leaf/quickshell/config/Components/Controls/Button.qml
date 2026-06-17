@@ -9,7 +9,7 @@ import qs as Root
 T.Button {
     id: control
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     //defines the padding of the contentItem relative to the edge of the control
     padding: 4
@@ -47,6 +47,7 @@ T.Button {
         implicitHeight: 24//control.contentItem.implicitHeight + control.padding
         color: control.backgroundColor
         radius: control.radius
+        opacity: control.enabled ? 1 : 0.5
     }
 
     spacing: 4
@@ -79,5 +80,6 @@ T.Button {
         Behavior on rotation {
             PropertyAnimation { property: "rotation"; duration: 300 }
         }
+        opacity: control.enabled ? 1 : 0.5
     }
 }
