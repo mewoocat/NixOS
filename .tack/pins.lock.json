@@ -1,10 +1,26 @@
 {
+  "agenix": {
+    "lastModified": 1770165109,
+    "narHash": "sha256-9VnK6Oqai65puVJ4WYtCTvlJeXxMzAp/69HhQuTdl/I=",
+    "owner": "ryantm",
+    "repo": "agenix",
+    "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
+    "type": "github"
+  },
   "dolphin-overlay": {
     "lastModified": 1780963999,
     "narHash": "sha256-il74x66c8LoyJil7JHMSoE38ihtP4HJHv8KOd2n25ww=",
     "owner": "mewoocat",
     "repo": "dolphin-overlay",
     "rev": "623aad81ee6ca980e1e8e39d62399c47381f302f",
+    "type": "github"
+  },
+  "helium": {
+    "lastModified": 1781324208,
+    "narHash": "sha256-bygOOsF1MFbhpl420ja6Md5bGIyRIJ2/UDS2nqEX1eA=",
+    "owner": "schembriaiden",
+    "repo": "helium-browser-nix-flake",
+    "rev": "87c5dbbabd13547db8e14937c77bd3abce315d56",
     "type": "github"
   },
   "hjem": {

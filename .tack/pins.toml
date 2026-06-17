@@ -55,3 +55,13 @@ type = "fetch"
 url = "gh:quickshell-mirror/quickshell"
 follows = { nixpkgs = "nixpkgs" }
 
+[inputs.helium]
+url = "gh:schembriaiden/helium-browser-nix-flake"
+follows = { nixpkgs = "nixpkgs" }
+
+[inputs.agenix]
+url = "gh:ryantm/agenix" # For secret management
+
+[inputs.secrets]
+url = "git+ssh://git@github.com/mewoocat/secrets?ref=main"
+type = "fetch"

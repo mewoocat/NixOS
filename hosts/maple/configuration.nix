@@ -10,10 +10,9 @@
     #inputs.disko.nixosModules.disko
     inputs.agenix.nixosModules.default
 
-    ./core.nix
     ./hardware-configuration.nix
 
-    ./disk-config.nix # Disk setup for nixos-anywhere
+    #./disk-config.nix # Disk setup for nixos-anywhere
 
     # User
     #../../users/eXia # need to add user without all the other junk

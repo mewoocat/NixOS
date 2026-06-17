@@ -94,7 +94,7 @@
       qtcreator
       blanket
       thunderbird
-      #inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
       tauon
       supercell-wx
       mgba

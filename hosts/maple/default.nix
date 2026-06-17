@@ -4,13 +4,13 @@
 inputs.nixpkgs-server.lib.nixosSystem {
   specialArgs = {inherit inputs;};
   modules = [
-    inputs.disko.nixosModules.disko
+    #inputs.disko.nixosModules.disko
     inputs.agenix.nixosModules.default
 
-    ./core.nix
+    #./core.nix
     ./hardware-configuration.nix
 
-    ./disk-config.nix # Disk setup for nixos-anywhere
+    #./disk-config.nix # Disk setup for nixos-anywhere
 
     # User
     #../../users/eXia # need to add user without all the other junk
