@@ -152,7 +152,6 @@ AbsGrid.WidgetData {
                 Layout.rowSpan: 1
                 Layout.row: 2
                 Layout.column: 2
-                Layout.alignment: Qt.AlignTop
                 enabled: root.currentPlayer !== null
                 textRole: "identity"
                 model: Mpris.players.values // Not sure why the ObjectModel itself doesn't work
@@ -161,6 +160,7 @@ AbsGrid.WidgetData {
                 onActivated: (index) => {
                     root.currentPlayerIndex = index
                 }
+                currentIndex: root.currentPlayerIndex
             }
 
             Rectangle {
