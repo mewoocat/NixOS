@@ -18,7 +18,7 @@ T.ComboBox {
     bottomPadding: padding
 
     // Defines the padding of the background
-    property real inset: 0
+    property real inset: 4
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -40,7 +40,7 @@ T.ComboBox {
     background: Rectangle {
         id: bg
         implicitWidth: 120
-        implicitHeight: 30
+        implicitHeight: 24
         color: control.backgroundColor
         radius: control.radius
     }
@@ -48,11 +48,13 @@ T.ComboBox {
     contentItem: Rectangle {
         color: "#0000ff00"
         Text {
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.margins: 4
+            anchors.centerIn: parent
+            width: parent.width
+            leftPadding: 8
+            rightPadding: control.indicator.width + control.rightPadding + 8
             text: control.displayText
             color: control.color
+            elide: Text.ElideRight
         }
     }
 
@@ -105,7 +107,7 @@ T.ComboBox {
     }
 
     indicator: Rectangle {
-        anchors.right: control.right
+        anchors.right: control.contentItem.right
         anchors.verticalCenter: control.verticalCenter
         anchors.margins: 8
         width: 8

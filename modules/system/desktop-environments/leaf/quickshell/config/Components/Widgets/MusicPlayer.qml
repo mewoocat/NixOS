@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
@@ -54,7 +55,7 @@ AbsGrid.WidgetData {
             rows: 3
             columns: 3
             rowSpacing: 0
-            columnSpacing: root.anchors.margins
+            columnSpacing: 0
 
             Connections {
                 target: Mpris.players
@@ -83,7 +84,7 @@ AbsGrid.WidgetData {
 
                 Image {
                     id: artBlurred
-                    visible: artExists
+                    visible: root.artExists
                     anchors.centerIn: parent
                     source: root.artExists ? root.currentPlayer.trackArtUrl : ""
                 }
@@ -98,7 +99,7 @@ AbsGrid.WidgetData {
                     id: art
                     visible: true
                     anchors.centerIn: parent
-                    implicitSize: artExists ? parent.height : parent.height - 24
+                    implicitSize: root.artExists ? parent.height : parent.height - 24
                     source: root.artExists ? root.currentPlayer.trackArtUrl : Quickshell.iconPath("emblem-music-symbolic")
                 }
             }
@@ -110,7 +111,6 @@ AbsGrid.WidgetData {
                 Layout.column: 1
                 Layout.leftMargin: widgetData.padding
                 Layout.fillWidth: true
-                //Layout.fillHeight: true
                 height: textCol.height
 
                 color: "transparent"
@@ -127,7 +127,7 @@ AbsGrid.WidgetData {
                     //Layout.preferredWidth: root.maxTextWidth // Width needs to be set for truncation to work
                     Layout.preferredWidth: parent.width
                     text: {
-                        if (root.currentPlayer === null) { return "" }
+                        if (root.currentPlayer === null) { return "Nothing playing" }
                         return root.currentPlayer.trackTitle || "Unknown Title"
                     }
                     color: Root.State.colors.on_surface
@@ -135,7 +135,7 @@ AbsGrid.WidgetData {
                 Text {
                     id: artist
                     text: {
-                        if (root.currentPlayer === null) { return "" }
+                        if (root.currentPlayer === null) { return "Nobody playing" }
                         return root.currentPlayer.trackArtist || "Unknown Artist"
                     }
                     elide: Text.ElideRight // Truncate with ... on the right
@@ -239,43 +239,50 @@ AbsGrid.WidgetData {
                     }
                 }
             }
-
-            RowLayout {
+            
+            Rectangle {
                 id: controls
                 Layout.columnSpan: 1
                 Layout.rowSpan: 1
                 Layout.row: 2
                 Layout.column: 1
-                Layout.fillWidth: true
-                Layout.preferredHeight: controls.height
-                Layout.alignment: Qt.AlignHCenter
-                Ctrls.Button {
-                    icon.name: "media-seek-backward-symbolic"
-                    onClicked: () => {
-                        if (root.currentPlayer === null) { console.warn(`No current player`); return }
-                        root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
-                    }
-                }
-                Ctrls.Button {
-                    icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing
-                        ? "media-playback-pause-symbolic"
-                        : "media-playback-start-symbolic"
-                    onClicked: () => {
-                        if (!root.currentPlayer || !root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
-                            console.warn(`Current player can't play/pause`)
-                            return
+                Layout.preferredHeight: controlRow.height
+                Layout.preferredWidth: controlRow.width
+                Layout.leftMargin: widgetData.padding - controlButton.inset
+                color: "transparent"
+
+                RowLayout {
+                    id: controlRow
+                    spacing: 0
+                    Ctrls.Button {
+                        id: controlButton
+                        icon.name: "media-seek-backward-symbolic"
+                        onClicked: () => {
+                            if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                            root.currentPlayer.canGoPrevious ? root.currentPlayer.previous() : console.warn(`Current player can't go previous`)
                         }
-                        root.currentPlayer.playbackState === MprisPlaybackState.Playing 
-                            ? root.currentPlayer.pause()
-                            : root.currentPlayer.play()
                     }
-                }
-                Ctrls.Button {
-                    icon.name: "media-seek-forward-symbolic"
-                    onClicked: () => 
-                    {
-                        if (root.currentPlayer === null) { console.warn(`No current player`); return }
-                        root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
+                    Ctrls.Button {
+                        icon.name: root.currentPlayer !== null && root.currentPlayer.playbackState === MprisPlaybackState.Playing
+                            ? "media-playback-pause-symbolic"
+                            : "media-playback-start-symbolic"
+                        onClicked: () => {
+                            if (!root.currentPlayer || !root.currentPlayer.canPlay || !root.currentPlayer.canPause) {
+                                console.warn(`Current player can't play/pause`)
+                                return
+                            }
+                            root.currentPlayer.playbackState === MprisPlaybackState.Playing 
+                                ? root.currentPlayer.pause()
+                                : root.currentPlayer.play()
+                        }
+                    }
+                    Ctrls.Button {
+                        icon.name: "media-seek-forward-symbolic"
+                        onClicked: () => 
+                        {
+                            if (root.currentPlayer === null) { console.warn(`No current player`); return }
+                            root.currentPlayer.canGoNext ? root.currentPlayer.next() : console.warn(`Current player can't go next`)
+                        }
                     }
                 }
             }
