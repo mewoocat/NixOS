@@ -62,6 +62,11 @@ follows = { nixpkgs = "nixpkgs" }
 [inputs.agenix]
 url = "gh:ryantm/agenix" # For secret management
 
+# Note: If running into auth issues, add the key to ssh agent via ssh-add
 [inputs.secrets]
 url = "git+ssh://git@github.com/mewoocat/secrets?ref=main"
 type = "fetch"
+
+# Needed for maple as it currently relies on the disko module for configuring it's root filesystem
+[inputs.disko]
+url = "gh:nix-community/disko"

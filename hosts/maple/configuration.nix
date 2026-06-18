@@ -7,12 +7,12 @@
 }: {
 
   imports = [
-    #inputs.disko.nixosModules.disko
+    inputs.disko.nixosModules.disko
     inputs.agenix.nixosModules.default
 
     ./hardware-configuration.nix
 
-    #./disk-config.nix # Disk setup for nixos-anywhere
+    ./disk-config.nix # Disk setup for nixos-anywhere
 
     # User
     #../../users/eXia # need to add user without all the other junk
@@ -73,7 +73,7 @@
 
   environment.systemPackages = [
     inputs.agenix.packages."${pkgs.stdenv.hostPlatform.system}".default # Agenix client
-    inputs.myNvimNvf.packages.x86_64-linux.default # My nvim config
+    inputs.nvim-nvf.packages.x86_64-linux.default # My nvim config
   ];
 
   users.users.root= {

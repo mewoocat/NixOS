@@ -7,6 +7,14 @@
     "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
     "type": "github"
   },
+  "disko": {
+    "lastModified": 1781152676,
+    "narHash": "sha256-RxWs5ND31KzTG7wvMM+PMfUjyNpmIEr999lqNARaM5o=",
+    "owner": "nix-community",
+    "repo": "disko",
+    "rev": "ff8702b4de27f72b4c78573dfb89ec74e36abdf1",
+    "type": "github"
+  },
   "dolphin-overlay": {
     "lastModified": 1780963999,
     "narHash": "sha256-il74x66c8LoyJil7JHMSoE38ihtP4HJHv8KOd2n25ww=",
@@ -86,6 +94,14 @@
     "repo": "quickshell",
     "rev": "d99d87d5e5ec4e696815348692fdaaf0b6be1b2c",
     "type": "github"
+  },
+  "secrets": {
+    "lastModified": 1763406993,
+    "narHash": "sha256-qThcAhEgL/3h4Y3Gdwf3SXuAT/UUTzpc1uqx8vT83qc=",
+    "ref": "refs/heads/main",
+    "rev": "a859c1fa958093bc71eef96bc72cb8407c0a4861",
+    "type": "git",
+    "url": "ssh://git@github.com/mewoocat/secrets"
   },
   "tack": {
     "lastModified": 1780213242,
