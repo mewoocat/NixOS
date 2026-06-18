@@ -5,6 +5,11 @@
   ...
 }: {
 
+  imports = [
+    ./hardware-configuration.nix
+    ../../common/servers/home-assistant
+  ];
+
   nix = {
     settings = {    
       # Enable flakes and the nix command
