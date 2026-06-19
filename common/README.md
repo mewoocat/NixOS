@@ -1,1 +1,1 @@
-Common config across multiple hosts
+Common configs across multiple hosts

@@ -77,6 +77,7 @@ T.ComboBox {
     // !! Warning: it seems that using a Popup {} in a Qs Window with focusable:true causes popup to immediately close.
     // It also seems to trigger any HyprlandFocusGrab
     popup: C.Menu {
+        id: popup
         padding: control.padding
         x: control.inset
         y: control.height
@@ -99,11 +100,10 @@ T.ComboBox {
         }
         // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
         enter: Transition {
-            NumberAnimation { property: "height"; from: 1; to: 400 }
+            NumberAnimation { property: "height"; from: 1; to: popup.height }
         }
         exit: Transition {
-            NumberAnimation { property: "height"; from: 400; to: 1;
-            }
+            NumberAnimation { property: "height"; from: popup.height; to: 1; }
         }
     }
 

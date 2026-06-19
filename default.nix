@@ -2,7 +2,7 @@
 # - look into tack
 
 let
-  sources = import ./npins;
+  #sources = import ./npins;
 
   inputs = import ./.tack;
 
@@ -39,13 +39,15 @@ let
     modules = [ configPath ];
     specialArgs = {
       inherit inputs; # Flake inputs attrbute sets
-      inherit sources; # Source input paths
+      #inherit sources; # Source input paths
     };
   };
 
 in {
-  inherit inputs;
-  inherit sources;
+  # For dev purposes
+  #inherit inputs;
+  #inherit sources;
+
   scythe = makeNixosSystem ./hosts/scythe/configuration.nix;
   obsidian = makeNixosSystem ./hosts/obsidian/configuration.nix;
   maple = makeNixosSystem ./hosts/maple/configuration.nix;

@@ -1,6 +1,6 @@
 # Overview
 
-My personal NixOS system flake.
+My NixOS system conigurations.
 
 ![](./assets/powered-by-nixos.gif)
 
@@ -8,61 +8,49 @@ My personal NixOS system flake.
 
 # Installation
 
-_Warning_ These instructions are somewhat incomplete
-
 1. Follow the [NixOS manual](https://nixos.org/manual/nixos/stable/) to get the
-   Minimal NixOS base system installed.
-2. Clone this repo to ~/
+   Minimal NixOS base system installed onto the desired machine.
+2. Clone this repo onto the machine and note it's path
 
 ```
 git clone https://github.com/mewoocat/NixOS.git
 ```
 
-3. Create a host configuration in `~/NixOS/hosts/`
+3. Create a host configuration in `NixOS/hosts/`
 
 - This usually involves copying the `hardware-configuration.nix` that was
   generated automatically by NixOS during the initial install
 
-4. Rebuild & Reboot
-
+4. Add a nixos system as an attribute to the set returned by `./default.nix`
+```nix
+  <hostname> = makeNixosSystem ./host/<hostname>/configuration.nix;
 ```
-nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)
+
+5. Rebuild & Reboot
+Install nix helper into the active shell
+```sh
+nix-shell -p nh
+```
+
+Rebuild the system
+```
+nh os switch -f <Path/to/NixOS> <hostname>
 reboot
 ```
 
 # Usage
 
-## Updating
+## Updating inputs
+Use the `tack` command to manage inputs or manually modify entries within the `./.tack/pins.toml` config file
 
-#### All inputs
-
+## Rebuilding
 ```
-nix flake update ~/NixOS`
-```
-
-#### A particular input
-
-```
-nix flake update <input_name>
-```
-
-## Rebuild NixOS configuration
-
-```
-nixos-rebuild --use-remote-sudo switch --flake ~/NixOS#$(hostname)
-```
-
-or use the bash alias
-
-```
-rebuild
+nh os switch -f <Path/to/NixOS> <hostname>
 ```
 
 # Credits
-
 - home-manager: for showing me how to do home management without home manager
 - raf: for answering my stupid questions
 
 ### Honorable mentions
-
 - nixpkgs src
