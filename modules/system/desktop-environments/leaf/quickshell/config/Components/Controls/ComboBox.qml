@@ -61,15 +61,11 @@ T.ComboBox {
 
     delegate: MenuItem {
         id: delegate
-        hoverEnabled: control.hoverEnabled
-        // Width of MenuItem should be determined by whether it's desired width, the displayed item, or the popup's width is largest
-        width: Math.max(implicitWidth, control.contentItem.width, control.popup.contentWidth)
-        radius: control.radius - control.padding - inset
-        inset: 2
-
         required property var model
         required property int index
-
+        hoverEnabled: control.hoverEnabled
+        width: control.popup.contentItem.width
+        radius: control.radius - control.padding - inset
         text: model[control.textRole]
         highlighted: index == control.highlightedIndex
     }
@@ -82,29 +78,42 @@ T.ComboBox {
         x: control.inset
         y: control.height
         implicitWidth: contentWidth + leftPadding + rightPadding
-        implicitHeight: contentHeight + topPadding + bottomPadding // Can't be 0 or qs will crash
+        implicitHeight: contentHeight + topPadding + bottomPadding
         width: Math.max(control.background.width, implicitWidth)
-        height: Math.max(1, implicitHeight)
-        //closePolicy: C.Popup.NoAutoClose // Doesn't seem to take effect
-        closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnPressOutside
+        height: Math.max(1, implicitHeight) // Can't be 0 or qs will crash
+        // This is the default but for some reason specifying it here results in clicking on the control to close the popup not working
+        //closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnReleaseOutside
         //popupType: C.Popup.Native // Used to render the popup as it's own window
+        //popupType: C.Popup.Window
         background: Rectangle {
             color: Root.State.colors.surface
             radius: control.radius
         }
         contentItem: ListView {
-            // contentHeight / contentWidth seem to no work in some cases?
-            implicitWidth: contentItem.childrenRect.width
+            // For some reason, only implicit sizes seem to apply here
+            implicitWidth: control.contentItem.width
             implicitHeight: contentItem.childrenRect.height
             model: control.delegateModel // Provides both the model and delegate
         }
-        // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
+        // WARNING!: These seem buggy
+        /*
         enter: Transition {
+            // These have issues
             NumberAnimation { property: "height"; from: 1; to: popup.height }
+
+            // These seem to work
+            //NumberAnimation { property: "scale"; from: 0.1; to: 1 }
+            //NumberAnimation { property: "opacity"; from: 0.1; to: 1 }
         }
         exit: Transition {
+            // These have issues
             NumberAnimation { property: "height"; from: popup.height; to: 1; }
+
+            // These seem to work
+            //NumberAnimation { property: "scale"; from: 1; to: 0.1 }
+            //NumberAnimation { property: "opacity"; from: 1; to: 0.1 }
         }
+        */
     }
 
     indicator: Rectangle {
