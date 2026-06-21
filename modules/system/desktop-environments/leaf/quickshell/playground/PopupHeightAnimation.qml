@@ -17,8 +17,8 @@ FloatingWindow {
   popup: Menu {
     id: popup
 
-    width : 600
-    popupType: C.Popup.Window
+    //width : 600
+    //popupType: Popup.Window
 
     //x: 100
     y: comobobox.height
@@ -33,7 +33,7 @@ FloatingWindow {
       NumberAnimation {
         property: "height"
         from: 0
-        to: 600
+        to: implicitHeight
         duration: 2000
       }
     }
@@ -41,21 +41,23 @@ FloatingWindow {
     exit: Transition {
       NumberAnimation {
         property: "height"
-        from: 600
+        from: implicitHeight
         to: 0
         duration: 2000
       }
     }
 
-    ListView {
+   contentItem: ListView {
       id: listView
-      model: DesktopEntries.applications
-      anchors.fill: parent
+      model: ["eiwf", "rgp.............iugheoiruhgpier", "rgrgrgrg"]//DesktopEntries.applications
+      //anchors.fill: parent
+      implicitHeight: contentItem.childrenRect.height
+      implicitWidth: contentItem.childrenRect.width
 
       delegate: Text {
-        required property DesktopEntry modelData
+        required property var modelData
         
-        text: modelData?.name ?? ""
+        text: modelData
       }
     }
   }

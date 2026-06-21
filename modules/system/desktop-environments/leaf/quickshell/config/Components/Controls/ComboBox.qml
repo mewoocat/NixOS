@@ -31,27 +31,6 @@ T.ComboBox {
     property int radius: 12
     property int minDelegateWidth: 200
 
-    // This is a super hacky solution and expects that the model passed to the combobox will always be an object and have a coresponding textRole prop
-    property int maxDelegateWidth: delegateTextMetrics.width
-    TextMetrics {
-        id: delegateTextMetrics
-        // Runs the provided callback for every item in the array and removes the item not returned
-        // Useful to find the longest text here
-        text: {
-            //console.log(`combobox model: ${model}`)
-            const objWithLongestText = model.reduce((previous, current) => {
-                //console.log(`prev: ${previous}`)
-                //console.log(`current: ${current}`)
-                const previousText = previous[control.textRole]
-                const currentText = current[control.textRole]
-                if (!previous || currentText.length > previousText.length) return current
-                return previous
-            })
-            //console.debug(`width text: ${objWithLongestText[control.textRole]}`)
-            return objWithLongestText[control.textRole]
-        }
-    }
-
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -86,7 +65,8 @@ T.ComboBox {
         required property var model
         required property int index
         hoverEnabled: control.hoverEnabled
-        implicitWidth: control.maxDelegateWidth + 40
+        //implicitWidth: 100//control.maxDelegateWidth + 40
+        implicitWidth: ListView.view.width
         radius: control.radius - control.padding - inset
         text: model[control.textRole]
         highlighted: index == control.highlightedIndex
@@ -100,6 +80,10 @@ T.ComboBox {
         id: popup
         clip: true
         padding: control.padding
+        leftInset: 0
+        rightInset: 0
+        topInset: 0
+        bottomInset: 0
         x: control.inset
         y: control.height
         // This is the default but for some reason specifying it here results in clicking on the control to close the popup not working
@@ -107,22 +91,25 @@ T.ComboBox {
         //popupType: C.Popup.Native // Used to render the popup as it's own window. Seems to cause issues with animation
         //popupType: C.Popup.Window
         popupType: C.Popup.Item
+        
         background: Rectangle {
-            color: "red"//Qt.alpha(Root.State.colors.surface, 1)
+            color: Qt.alpha(Root.State.colors.surface_container, 1)
             radius: control.radius
-            /*
-            border {
-                width: 1
-                color: "red"
-            }
-            */
+            implicitWidth: control.background.width // Match the width of the control's actual background
+            // implicitHeight is automatically filled for the background item in a control
         }
+
+        // Note that a vertical ListView only estimates the contentHeight and sets the contentWidth to -1. A horizontal
+        // ListView does the inverse.
         contentItem: ListView {
-            // For some reason, only implicit sizes seem to apply here
-            implicitWidth: control.maxDelegateWidth + 40
-            implicitHeight: contentItem.childrenRect.height
+            // Only implicit sizes can be used here since the contentItem is resized to fit the padding of the control.
+            // x, y, width, and height are not respected.
+            // implicitWidth is automatically set since this is the contentItem of a control
+            implicitHeight: contentHeight
             model: control.delegateModel // Provides both the model and delegate
+            currentIndex: control.currentIndex
         }
+
         enter: Transition {
             NumberAnimation { property: "height"; from: 1; to: popup.implicitHeight; duration: 250 }
         }
