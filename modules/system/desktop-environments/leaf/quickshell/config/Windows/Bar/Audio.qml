@@ -63,7 +63,8 @@ BarButton {
                         id: comboBox
                         implicitWidth: parent.width
                         model: Services.Audio.outputDevices
-                            .map(n => n.description) // Map to just the output name string (Results in a list of string names)
+                        textRole: "description"
+                            //.map(n => n.description) // Map to just the output name string (Results in a list of string names)
                         onActivated: (index) => { 
                             console.log(index)
                             Pipewire.preferredDefaultAudioSink = Services.Audio.outputDevices[index] // Set the audio output (untested)
