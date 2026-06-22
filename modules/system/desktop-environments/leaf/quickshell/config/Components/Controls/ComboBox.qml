@@ -92,15 +92,15 @@ T.ComboBox {
         //popupType: C.Popup.Window
         popupType: C.Popup.Item
         
+        // By default the background item fills the width/height of control minus any inset
         background: Rectangle {
             color: Qt.alpha(Root.State.colors.surface_container, 1)
             radius: control.radius
             implicitWidth: control.background.width // Match the width of the control's actual background
-            // implicitHeight is automatically filled for the background item in a control
         }
 
-        // Note that a vertical ListView only estimates the contentHeight and sets the contentWidth to -1. A horizontal
-        // ListView does the inverse.
+        // Note that a vertical ListView only estimates the contentHeight and sets the contentWidth to -1.
+        // A horizontal ListView does the inverse.
         contentItem: ListView {
             // Only implicit sizes can be used here since the contentItem is resized to fit the padding of the control.
             // x, y, width, and height are not respected.

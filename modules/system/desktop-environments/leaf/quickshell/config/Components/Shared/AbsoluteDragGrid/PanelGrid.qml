@@ -18,6 +18,14 @@ ColumnLayout {
     property bool allowEditToggle: true
     property bool editable: false
     property PanelTile selectedTile: null
+    // Doesn't seem to stop the animation from running
+    onSelectedTileChanged: {
+        if (selectedTile == null) {
+            ghostXAnim.stop()
+            ghostYAnim.stop()
+            ghostVisibleAnim.stop()
+        }
+    }
     property int maxHeight: gridPanel.height// + editPanel.expandedHeight
     property int selectedTileTargetX: {
         if (!selectedTile) { return 0 }
@@ -48,14 +56,36 @@ ColumnLayout {
 
         Item {
             id: targetGhost
-            x: root.selectedTile == null ? 0 : root.selectedTileTargetX * root.unitSize + root.selectedTile.padding
-            y: root.selectedTile == null ? 0 : root.selectedTileTargetY * root.unitSize + root.selectedTile.padding
-            Behavior on x { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
-            Behavior on y { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
-            visible: root.selectedTile != null
-            Behavior on visible { PropertyAnimation { duration: 50; easing.type: Easing.Linear; from: 0} }
+            x: root.selectedTile == null ? 100 : root.selectedTileTargetX * root.unitSize + root.selectedTile.padding
+            y: root.selectedTile == null ? 100 : root.selectedTileTargetY * root.unitSize + root.selectedTile.padding
             width: root.selectedTile?.width - root.selectedTile?.padding
             height: root.selectedTile?.height - root.selectedTile?.padding
+            visible: root.selectedTile != null
+
+            // These animations are causing the ghost glitch
+            Behavior on x { PropertyAnimation { 
+                id: ghostXAnim
+                //running: root.selectedTile != null
+                //paused: root.selectedTile != null
+                duration: 50
+                easing.type: Easing.Linear
+            } }
+            Behavior on y { PropertyAnimation {
+                id: ghostYAnim
+                //running: root.selectedTile != null
+                //paused: root.selectedTile != null
+                duration: 50
+                easing.type: Easing.Linear
+            } }
+            Behavior on visible { PropertyAnimation {
+                id: ghostVisibleAnim
+                //running: root.selectedTile != null
+                //paused: root.selectedTile != null
+                duration: 50
+                easing.type: Easing.Linear;
+                from: 0
+            } }
+
             Rectangle {
                 color: Root.State.colors.on_surface
                 opacity: 0.4
@@ -105,15 +135,5 @@ ColumnLayout {
                 }
             }
         }
-
-        Ctrls.Button {
-            visible: root.allowEditToggle
-            anchors.right: parent.right
-            anchors.top: parent.top
-            id: editButton
-            text: "edit"
-            onClicked: root.editable = !root.editable
-        }
-
     }
 }

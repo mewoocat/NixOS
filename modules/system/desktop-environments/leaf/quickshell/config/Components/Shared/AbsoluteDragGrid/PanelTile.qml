@@ -7,8 +7,9 @@ import Quickshell
 import qs.Components.Widgets
 import qs as Root
 
-Item {
+Rectangle {
     id: root
+    color: "#000000ff"
 
     required property WidgetData widgetData
     required property int unitSize
@@ -28,6 +29,31 @@ Item {
     function resetPosition() {
         x = initialX
         y = initialY
+    }
+
+    SequentialAnimation on rotation {
+        id: wobbleAnimation
+        loops: Animation.Infinite
+        running: root.editable
+        onRunningChanged: { if (!running) root.rotation = 0 }
+        RotationAnimation {
+            duration: 100
+            direction: RotationAnimation.Clockwise
+            from: 0
+            to: 2
+        }
+        RotationAnimation {
+            duration: 200
+            direction: RotationAnimation.Counterclockwise
+            from: 2
+            to: -2
+        }
+        RotationAnimation {
+            duration: 100
+            direction: RotationAnimation.Clockwise
+            from: -2
+            to: 0
+        }
     }
 
     // apparently need to use implicit sizes if this component is going to be used 
