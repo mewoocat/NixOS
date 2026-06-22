@@ -26,14 +26,27 @@ Shared.PanelWindow {
         spacing: 0
         property bool editable: false
         property int pageCount: 5
+        property int currentPage: 0
+        property int pageX: flickable.width * currentPage
 
-        // Note: anchors and width/height do not apply to direct children of a SwipeView, use implicit sizes instead
-        SwipeView {
-            id: swipeView
-            implicitWidth: 1000//panelGrid.width / widgetContent.pageCount
+        Flickable {
+            id: flickable
+            height: panelGrid.height
+            width: panelGrid.width / widgetContent.pageCount
+            contentHeight: panelGrid.height
+            contentWidth: panelGrid.width
+            contentX: widgetContent.pageX
+            Behavior on contentX { PropertyAnimation { duration: 250 } }
+            onDraggingChanged: {
+                if (!dragging) {
+                    console.log(`not moving`)
+                    widgetContent.currentPage = Math.round(contentX / width) // Get the closest page
+                    contentX = widgetContent.pageX
+                }
+            }
             AbsGrid.PanelGrid {
                 id: panelGrid
-                xSize: 60// * widgetContent.pageCount
+                xSize: 12 * widgetContent.pageCount
                 ySize: 10
                 model: Root.State.config.activityCenterWidgets
                 editable: widgetContent.editable
@@ -42,24 +55,8 @@ Shared.PanelWindow {
                     Root.State.configFileView.writeAdapter()
                 }
             }
-            Rectangle {
-                color: "#7700ff00"
-                implicitWidth: panelGrid.implicitWidth / widgetContent.pageCount
-                implicitHeight: panelGrid.implicitHeight
-            }
-            /*
-            Rectangle {
-                color: "#77ff0000"
-                implicitWidth: panelGrid.implicitWidth / widgetContent.pageCount
-                implicitHeight: panelGrid.implicitHeight
-            }
-            Rectangle {
-                color: "#770000ff"
-                implicitWidth: panelGrid.implicitWidth / widgetContent.pageCount
-                implicitHeight: panelGrid.implicitHeight
-            }
-            */
         }
+
         Rectangle {
             implicitHeight: box.height + box.padding * 2
             Layout.fillWidth: true
@@ -84,8 +81,8 @@ Shared.PanelWindow {
                     }
                     PageIndicator {
                         id: pageIndicator
-                        count: swipeView.count
-                        currentIndex: swipeView.currentIndex
+                        count: widgetContent.pageCount
+                        currentIndex: widgetContent.currentPage
                         // A pressed and index property is available for each delegate
                         delegate: Rectangle {
                             required property int index
@@ -108,7 +105,6 @@ Shared.PanelWindow {
                     }
                 }
             }
-
         }
     }
 }
