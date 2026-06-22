@@ -56,15 +56,65 @@ ColumnLayout {
 
         Item {
             id: targetGhost
-            x: root.selectedTile == null ? 100 : root.selectedTileTargetX * root.unitSize + root.selectedTile.padding
-            y: root.selectedTile == null ? 100 : root.selectedTileTargetY * root.unitSize + root.selectedTile.padding
+            x: root.selectedTile == null ? -1000 : root.selectedTileTargetX * root.unitSize + root.selectedTile.padding
+            y: root.selectedTile == null ? -1000 : root.selectedTileTargetY * root.unitSize + root.selectedTile.padding
             width: root.selectedTile?.width - root.selectedTile?.padding
             height: root.selectedTile?.height - root.selectedTile?.padding
-            visible: root.selectedTile != null
+            //visible: root.selectedTile != null
+
+            property bool animationsRunning: false
+
+            // Hack for ensuring the animations don't play when selectedTile is null
+            /*
+            Timer {
+                id: animationStartTimer
+                interval: 1000
+                running: false
+                onTriggered: animationsRunning = true
+            }
+            Timer {
+                id: animationStopTimer
+                interval: 100
+                running: false
+                onTriggered: animationsRunning = false
+            }
+            Connections {
+                target: root
+                function onSelectedTileChanged() {
+                    if (selectedTile != null) animationStartTimer.start()
+                }
+            }
+            */
+
+            states: [
+                State {
+                    name: "shown"
+                    when: root.selectedTile != null
+                    PropertyChanges {
+                        targetGhost {
+                            visible: true
+                        }
+                    }
+                }
+            ]
+
+            transitions: [
+                Transition {
+                    to: "shown"
+                    PauseAnimation { duration: 1000 }
+                    PropertyAction {
+                        target: targetGhost
+                        property: "visible"
+                        value: true
+                    }
+                }
+            ]
 
             // These animations are causing the ghost glitch
             Behavior on x { PropertyAnimation { 
                 id: ghostXAnim
+                //alwaysRunToEnd: false
+                running: targetGhost.animationsRunning
                 //running: root.selectedTile != null
                 //paused: root.selectedTile != null
                 duration: 50
@@ -72,19 +122,24 @@ ColumnLayout {
             } }
             Behavior on y { PropertyAnimation {
                 id: ghostYAnim
-                //running: root.selectedTile != null
+                //alwaysRunToEnd: false
+                running: targetGhost.animationsRunning
                 //paused: root.selectedTile != null
                 duration: 50
                 easing.type: Easing.Linear
             } }
+            /*
             Behavior on visible { PropertyAnimation {
                 id: ghostVisibleAnim
+                alwaysRunToEnd: false
+                running: targetGhost.animationsRunning
                 //running: root.selectedTile != null
                 //paused: root.selectedTile != null
                 duration: 50
                 easing.type: Easing.Linear;
                 from: 0
             } }
+            */
 
             Rectangle {
                 color: Root.State.colors.on_surface
