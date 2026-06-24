@@ -46,7 +46,7 @@ Rectangle {
 
     Item {
         id: targetGhost
-        x: root.selectedTile == null ? -0 : root.selectedTileTargetX * root.unitSize + root.selectedTile.padding
+        x: root.selectedTile == null ? 0 : root.selectedTileTargetX * root.unitSize + root.selectedTile.padding
         y: root.selectedTile == null ? 0 : root.selectedTileTargetY * root.unitSize + root.selectedTile.padding
         width: root.selectedTile?.width - root.selectedTile?.padding
         height: root.selectedTile?.height - root.selectedTile?.padding
@@ -133,6 +133,9 @@ Rectangle {
                 // source data.  The model is then implicitly updated due to it's continued binding
                 // with the source source data.
                 root.modelUpdated(newInstances)
+
+                // TODO: Look into whether setting the selected tile to null after setting 
+                // the x/y of this item results in the target ghost glitch
                 root.selectedTile = null
             }
         }
