@@ -40,7 +40,14 @@ Shared.PanelWindow {
             onDraggingChanged: {
                 if (!dragging) {
                     console.log(`not moving`)
-                    widgetContent.currentPage = Math.round(contentX / width) // Get the closest page
+                    // Get the closest page
+                    widgetContent.currentPage = Math.min(
+                        Math.max(
+                            0,
+                            Math.round(contentX / width)
+                        ), 
+                        widgetContent.pageCount - 1
+                    )
                     contentX = widgetContent.pageX
                 }
             }
