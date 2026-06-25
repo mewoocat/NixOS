@@ -32,15 +32,15 @@ Shared.PanelWindow {
         */
 
         property AbsGrid.PanelTile selectedTile: null
+        onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
 
         // Page impl
         RowLayout {
 
             // Seems that when dragging the MouseArea doesn't emit entered signal until the mouse is released
-            MouseArea {
+            DropArea {
                 width: panelGridPage1.width
                 height: panelGridPage1.height
-                hoverEnabled: true
                 onEntered: () => { 
                     console.log(`entered 1`)
                     if (widgetPager.selectedTile) {
@@ -59,14 +59,15 @@ Shared.PanelWindow {
                         Root.State.config.widgetPager[0] = newInstances
                         Root.State.configFileView.writeAdapter()
                     }
-                    onSelectedTileChanged: () => widgetPager.selectedTile = selectedTile
+                    onSelectedTileChanged: () => {
+                        if (selectedTile) { widgetPager.selectedTile = selectedTile }
+                    }
                 }
             }
 
-            MouseArea {
+            DropArea {
                 width: panelGridPage2.width
                 height: panelGridPage2.height
-                hoverEnabled: true
                 onEntered: () => {
                     console.log(`entered 2`)
                     if (widgetPager.selectedTile) {
@@ -84,6 +85,9 @@ Shared.PanelWindow {
                     onModelUpdated: (newInstances) => {
                         Root.State.config.widgetPager[1] = newInstances
                         Root.State.configFileView.writeAdapter()
+                    }
+                    onSelectedTileChanged: () => {
+                        if (selectedTile) { widgetPager.selectedTile = selectedTile }
                     }
                 }
             }
@@ -113,8 +117,8 @@ Shared.PanelWindow {
                     }
                     PageIndicator {
                         id: pageIndicator
-                        count: widgetPager.pageCount
-                        currentIndex: widgetPager.currentPage
+                        //count: widgetPager.pageCount
+                        //currentIndex: widgetPager.currentPage
                         // A pressed and index property is available for each delegate
                         delegate: Rectangle {
                             required property int index

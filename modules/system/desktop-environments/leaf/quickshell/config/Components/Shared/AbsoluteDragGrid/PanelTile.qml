@@ -31,6 +31,9 @@ Rectangle {
         y = initialY
     }
 
+    // Send drag events so that a DropArea can detect this item when dragged
+    Drag.active: mouseArea.drag.active
+
     SequentialAnimation on rotation {
         id: wobbleAnimation
         loops: Animation.Infinite
@@ -83,6 +86,7 @@ Rectangle {
     }
     // Note that this appears over the content when active
     MouseArea {
+        id: mouseArea
         visible: root.editable
         anchors.fill: parent
         onXChanged: root.widgetPositionChanged(root)
