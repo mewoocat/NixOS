@@ -37,7 +37,6 @@ Shared.PanelWindow {
         // Page impl
         RowLayout {
 
-            // Seems that when dragging the MouseArea doesn't emit entered signal until the mouse is released
             DropArea {
                 width: panelGridPage1.width
                 height: panelGridPage1.height

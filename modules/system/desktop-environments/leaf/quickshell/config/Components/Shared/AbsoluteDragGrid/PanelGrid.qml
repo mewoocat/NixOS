@@ -118,6 +118,17 @@ Rectangle {
                     return
                 }
 
+                // WARNING: THIS DOESN't WORK
+                // If this panel grid no longer owns the selected tile, eject it from the model.
+                // Something else has taken ownership of it (hopefully).
+                if (!root.selectedTile) {
+                    console.debug("pre: " + JSON.stringify(root.model,null,4))
+                    root.model.splice(root.model.indexOf(gridItem.widgetData),1)
+                    console.debug("post: " + JSON.stringify(root.model,null,4))
+                    root.modelUpdated(repeater.model)
+                    return
+                }
+
                 // Update the item
                 x = root.selectedTileTargetX * root.unitSize
                 y = root.selectedTileTargetY * root.unitSize
