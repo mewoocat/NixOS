@@ -22,7 +22,7 @@ Rectangle {
 
     signal tileSelected(item: PanelTile)
     signal positionUpdateRequested(item: PanelTile)
-    signal widgetPositionChanged(item: PanelTile)
+    //signal widgetPositionChanged(item: PanelTile)
 
     property int initialX: 0
     property int initialY: 0

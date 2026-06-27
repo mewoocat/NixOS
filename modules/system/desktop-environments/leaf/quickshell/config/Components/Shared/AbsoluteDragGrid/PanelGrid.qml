@@ -39,6 +39,18 @@ Rectangle {
     }
 
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
+    signal tileDropAccepted()
+    signal tileDropRejected()
+
+    function removeTile() {
+
+    }
+    function addTile(widgetInstance) {
+        root.model.push(widgetInstance)
+    }
+    function generateInstances() {
+        return root.logic.widgetDataListToWidgetInstanceList(repeater.model)
+    }
 
     implicitWidth: root.unitSize * root.xSize
     implicitHeight: root.unitSize * root.ySize
@@ -115,12 +127,14 @@ Rectangle {
                 if (!root.logic.isPositionOpen(widgetData, root.selectedTileTargetX, root.selectedTileTargetY, root.model)){
                     resetPosition()
                     root.selectedTile = null
+                    root.tileDropRejected()
                     return
                 }
 
                 // WARNING: THIS DOESN't WORK
                 // If this panel grid no longer owns the selected tile, eject it from the model.
                 // Something else has taken ownership of it (hopefully).
+                /*
                 if (!root.selectedTile) {
                     console.debug("pre: " + JSON.stringify(root.model,null,4))
                     root.model.splice(root.model.indexOf(gridItem.widgetData),1)
@@ -128,16 +142,19 @@ Rectangle {
                     root.modelUpdated(repeater.model)
                     return
                 }
+                */
 
-                // Update the item
-                x = root.selectedTileTargetX * root.unitSize
-                y = root.selectedTileTargetY * root.unitSize
+                // Update the item (Not needed if regenerating the whole model?)
+                //x = root.selectedTileTargetX * root.unitSize
+                //y = root.selectedTileTargetY * root.unitSize
+
+                /*
+                // Update the data obj
                 widgetData.xPosition = root.selectedTileTargetX
                 widgetData.yPosition = root.selectedTileTargetY
 
                 // Recompute the list of widget instances given the state change
                 const newInstances = root.logic.widgetDataListToWidgetInstanceList(repeater.model)
-
                 // Notify the source data to update. Since bindings are only one way, if the model
                 // property for this PanelGrid gets re-bound, the original source value won't be updated.
                 // So instead we send the updated model to the consumer and it can then update the 
@@ -148,6 +165,10 @@ Rectangle {
                 // TODO: Look into whether setting the selected tile to null after setting 
                 // the x/y of this item results in the target ghost glitch
                 root.selectedTile = null
+                */
+
+                // Notify consumer of dropped tile
+                root.tileDropAccepted()
             }
         }
     }
