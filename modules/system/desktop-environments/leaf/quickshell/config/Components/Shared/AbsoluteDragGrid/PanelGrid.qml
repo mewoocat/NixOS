@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import qs as Root
 import qs.Components.Controls as Ctrls
 
+// TODO: Writing the adapter shouldn't regenerate the widgets
 Rectangle {
     id: root
     property list<var> model: [] // Expects a list of WidgetInstances
@@ -18,10 +19,8 @@ Rectangle {
     property bool allowEditToggle: true
     property bool editable: false
     property PanelTile selectedTile: null
-
     property int selectedTileTargetX: {
         if (!selectedTile) { return 0 }
-
         let proposedXPos = Math.round(selectedTile.x / unitSize)
         let maxXPos = xSize - selectedTile.widgetData.xSize
         if (proposedXPos > maxXPos) { proposedXPos = maxXPos }
@@ -30,7 +29,6 @@ Rectangle {
     }
     property int selectedTileTargetY: {
         if (!selectedTile) { return 0 }
-
         let proposedYPos = Math.round(selectedTile.y / unitSize)
         let maxYPos = ySize - selectedTile.widgetData.ySize
         if (proposedYPos > maxYPos) { proposedYPos = maxYPos }
@@ -109,27 +107,39 @@ Rectangle {
         }
     }
 
+    // TODO: Look into not converting to widget data and instead the panel tile takes in the widget
+    // instance and coresponding widget data seperately
     Repeater {
         id: repeater
         // TODO: Look into Variants instead of dynamic obj creation from js https://quickshell.org/docs/v0.1.0/types/Quickshell/Variants
         model: root.logic.widgetInstanceListToWidgetDataList(root.model, root, root.widgetRadius)
+        onModelChanged: console.debug(`model: ${JSON.stringify(root.model,null,4)}`)
         delegate: PanelTile {
             id: gridItem
             required property WidgetData modelData
             widgetData: modelData
             editable: root.editable
+            panelGrid: root
             padding: root.widgetPadding
             radius: root.widgetRadius
             showBackground: widgetData.showBackground
             unitSize: root.unitSize
             onTileSelected: (item) => root.selectedTile = item
             onPositionUpdateRequested: (item) => {
-                if (!root.logic.isPositionOpen(widgetData, root.selectedTileTargetX, root.selectedTileTargetY, root.model)){
+                /*
+                if (!root.logic.isPositionOpen(widgetData, repeater.model)){
                     resetPosition()
                     root.selectedTile = null
                     root.tileDropRejected()
                     return
                 }
+                */
+
+                // Update the position of the tile relative it's PanelGrid
+                widgetData.xPosition = gridItem.panelGrid.selectedTileTargetX
+                widgetData.yPosition = gridItem.panelGrid.selectedTileTargetY
+                x = gridItem.panelGrid.selectedTileTargetX * root.unitSize
+                y = gridItem.panelGrid.selectedTileTargetY * root.unitSize
 
                 // WARNING: THIS DOESN't WORK
                 // If this panel grid no longer owns the selected tile, eject it from the model.

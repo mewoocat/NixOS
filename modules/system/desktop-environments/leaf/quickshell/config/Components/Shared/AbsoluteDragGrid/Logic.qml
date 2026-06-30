@@ -22,6 +22,7 @@ QtObject {
     function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle, widgetRadius: int): list<WidgetData> { 
         const widgetDataList = []
         for (const w of widgetJsonList) {
+            console.debug(`w: ${JSON.stringify(w,null,4)}`)
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             if (component.status == Component.Error) {
                 console.error(component.errorString())
@@ -42,7 +43,13 @@ QtObject {
         return widgetDataList
     }
     
-    function isPositionOpen(widgetData: WidgetData, targetXPosition: int, targetYPosition: int, allWidgetData: list<WidgetData>): bool {
+    function isPositionOpen(widgetData: WidgetData, panelGrid: PanelGrid): bool {
+        console.log(`widgetData: ${widgetData}`)
+        console.log(`panelGrid: ${panelGrid}`)
+        console.log(`panelGrid.model: ${panelGrid.model[0]}`)
+        const targetXPosition = panelGrid.selectedTileTargetX
+        const targetYPosition = panelGrid.selectedTileTargetY
+        const allWidgetData = panelGrid.model
         for (const otherData of allWidgetData) {
             if (otherData.uid === widgetData.uid) { continue } // Ignore self
             if (doRectanglesOverlap(

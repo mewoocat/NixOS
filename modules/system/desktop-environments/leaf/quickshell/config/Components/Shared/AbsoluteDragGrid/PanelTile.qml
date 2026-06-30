@@ -12,9 +12,9 @@ Rectangle {
     color: "#000000ff"
 
     required property WidgetData widgetData
-    required property int unitSize
-
-    property bool editable: false
+    required property PanelGrid panelGrid
+    property int unitSize: panelGrid.unitSize
+    property bool editable: panelGrid.editable
     property int padding: 0
     property int contentPadding: widgetData.padding
     property bool showBackground: true
