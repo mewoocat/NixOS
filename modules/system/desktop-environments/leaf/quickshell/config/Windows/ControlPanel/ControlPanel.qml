@@ -24,7 +24,6 @@ Shared.PanelWindow {
         id: panelGrid
         xSize: 4
         ySize: 5
-        allowEditToggle: false
         model: [
             {
                 uid: "Components/Widgets/Network.qml",

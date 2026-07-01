@@ -27,13 +27,13 @@ Shared.PanelWindow {
         property bool editable: false
 
         property AbsGrid.PanelTile selectedTile: null
-        property int selectedTileDstGridIndex: 0
+        property int srcGridIndex: -1
+        property int dstGridIndex: -1
         property AbsGrid.PanelGrid srcGrid: null
+        onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
         property AbsGrid.PanelGrid dstGrid: null
+        onDstGridChanged: print(`dstGrid: ${dstGrid}`)
         onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
-
-        // !! TODO: Look into adding/removing the dragged widgetdata to/from the dst/src panel grid models
-        // That way, we shouldn't have to manually do any reparenting and the panel grid can always handle the position checking.
 
         // Page impl
         RowLayout {
@@ -48,17 +48,33 @@ Shared.PanelWindow {
                     height: panelGridPage.height
                     onEntered: () => { 
                         console.log(`widget pager drop grid entered (${pageIndex})`)
-                        if (widgetPager.selectedTile && widgetPager.selectedTile.parent !== widgetPager.srcGrid) {
+                        if (!widgetPager.selectedTile) { return }
+
+                        // If the tile was dragged onto a grid different than the source
+                        if (widgetPager.selectedTile.parent !== panelGridPage) {
                             console.log(`calculating drop`)
                             widgetPager.selectedTile.parent = panelGridPage
                             widgetPager.selectedTile.panelGrid = panelGridPage
                             widgetPager.dstGrid = panelGridPage
+                            widgetPager.dstGridIndex = page.pageIndex
 
                             // Swap the selected tiles
                             widgetPager.srcGrid.selectedTile = null
                             widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
 
-                            widgetPager.selectedTileDstGridIndex = pageIndex
+                            widgetPager.dstGridIndex = pageIndex
+                        }
+                        // Otherwise the tile was dragged onto it's source grid (occurs even without dragging outside the source grid)
+                        else {
+                            // If a destination grid has been set
+                            if (widgetPager.dstGrid) {
+                                // No longer need to track selected tile or grid
+                                widgetPager.dstGrid.selectedTile = null
+                                widgetPager.dstGrid = null
+                                widgetPager.dstGridIndex = -1
+                            }
+                            // Ensure the source grid has the selected tile now
+                            widgetPager.srcGrid.selectedTile = widgetPager.selectedTile
                         }
                     }
                     AbsGrid.PanelGrid {
@@ -74,38 +90,59 @@ Shared.PanelWindow {
                         }
                         */
                         onSelectedTileChanged: () => {
+                            print(`selectedTileChange Received`)
                             // If a tile on this grid was selected
                             if (selectedTile) {
                                 // Track the tile as the current selected tile across all pages
                                 widgetPager.selectedTile = selectedTile
                                 // Set the source grid to this grid
                                 widgetPager.srcGrid = panelGridPage
+                                widgetPager.srcGridIndex = page.pageIndex
                             }
-                            /*
-                            else {
-                                widgetPager.selectedTile = null
-                            }
-                            */
                         }
-                        onTileDropAccepted: () => {
+                        onTileDropAccepted: (panelTile) => {
+
+                            // TODO: Figure out why drop on different grid evals this conditional to true
 
                             // If the tile got dropped on a different grid
-                            if (widgetPager.dstGrid !== panelGridPage) {
+                            if (widgetPager.dstGrid != null && widgetPager.dstGrid !== panelGridPage) {
+                                print(`tile drop on different grid`)
+                                widgetPager.srcGrid.selectedTile = null
+                                widgetPager.srcGridIndex = -1
+                                widgetPager.dstGrid.selectedTile = null
+                                widgetPager.dstGridIndex = -1
+
                                 // Remove the tile from it's source grid
-                                //widgetPager.srcGrid.removeTile(selectedTile.widgetData)
+                                const removeIndex = Root.State.config.widgetPager[widgetPager.srcGridIndex].findIndex((e) => e.uid === panelTile.widgetData.uid)
+                                Root.State.config.widgetPager[widgetPager.srcGridIndex].splice(removeIndex, 1)
                                 // Add tile to it's destination grid
-                                //widgetPager.dstGrid.addTile(selectedTile.widgetData)
+                                const addObject = {
+                                    uid: panelTile.widgetData.uid,
+                                    xPosition: panelTile.widgetData.xPosition,
+                                    yPosition: panelTile.widgetData.yPosition,
+                                    state: panelTile.widgetData.state
+                                }
+                                Root.State.config.widgetPager[widgetPager.srcGridIndex].push(addObject)
+
+                                const temp = Root.State.config.widgetPager
+                                Root.State.config.widgetPager = []
+                                Root.State.config.widgetPager = temp
+
+                                print(`writing pager data`)
+                                Root.State.configFileView.writeAdapter()
 
                                 /*
                                 // Regenerate the instances for the source grid (this grid)
                                 Root.State.config.widgetPager[0] = generateInstances()
                                 // Regenerate the instances for the destination grid (the grid the selected tile was dropped on)
                                 Root.State.config.widgetPager[widgetPager.selectedTileDstGridIndex] = generateInstances()
-                                Root.State.configFileView.writeAdapter()
                                 */
                             }
                             // If the tile got dropped on the same grid it originated from
                             else {
+                                print(`tile drop on same grid`)
+                                widgetPager.srcGrid.selectedTile = null
+                                widgetPager.srcGridIndex = -1
                                 // Only need to update this grid
                                 /*
                                 Root.State.config.widgetPager[0] = generateInstances()
@@ -126,35 +163,6 @@ Shared.PanelWindow {
                     }
                 }
             }
-
-            /*
-            DropArea {
-                width: panelGridPage2.width
-                height: panelGridPage2.height
-                onEntered: () => {
-                    console.log(`entered 2`)
-                    if (widgetPager.selectedTile) {
-                        widgetPager.selectedTile.parent = panelGridPage2
-                        panelGridPage1.selectedTile = null
-                        panelGridPage2.selectedTile = widgetPager.selectedTile
-                    }
-                }
-                AbsGrid.PanelGrid {
-                    id: panelGridPage2
-                    xSize: 12
-                    ySize: 10
-                    model: Root.State.config.widgetPager[1]
-                    editable: widgetPager.editable
-                    onModelUpdated: (newInstances) => {
-                        Root.State.config.widgetPager[1] = newInstances
-                        Root.State.configFileView.writeAdapter()
-                    }
-                    onSelectedTileChanged: () => {
-                        if (selectedTile) { widgetPager.selectedTile = selectedTile }
-                    }
-                }
-            }
-            */
         }
 
         Rectangle {
@@ -206,44 +214,6 @@ Shared.PanelWindow {
                 }
             }
         }
-
-        // Scrolling impl
-        /*
-        Flickable {
-            id: flickable
-            height: panelGrid.height
-            width: panelGrid.width / widgetContent.pageCount
-            contentHeight: panelGrid.height
-            contentWidth: panelGrid.width
-            contentX: widgetContent.pageX
-            Behavior on contentX { PropertyAnimation { duration: 250 } }
-            onDraggingChanged: {
-                if (!dragging) {
-                    console.log(`not moving`)
-                    // Get the closest page
-                    widgetContent.currentPage = Math.min(
-                        Math.max(
-                            0,
-                            Math.round(contentX / width)
-                        ), 
-                        widgetContent.pageCount - 1
-                    )
-                    contentX = widgetContent.pageX
-                }
-            }
-            AbsGrid.PanelGrid {
-                id: panelGrid
-                xSize: 12 * widgetContent.pageCount
-                ySize: 10
-                model: Root.State.config.activityCenterWidgets
-                editable: widgetContent.editable
-                onModelUpdated: (newInstances) => {
-                    Root.State.config.activityCenterWidgets = newInstances
-                    Root.State.configFileView.writeAdapter()
-                }
-            }
-        }
-        */
     }
 }
 

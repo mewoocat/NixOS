@@ -16,7 +16,6 @@ Rectangle {
     property int widgetRadius: Root.State.widgetRounding
     property int xSize: 4
     property int ySize: 8
-    property bool allowEditToggle: true
     property bool editable: false
     property PanelTile selectedTile: null
     property int selectedTileTargetX: {
@@ -37,18 +36,8 @@ Rectangle {
     }
 
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
-    signal tileDropAccepted()
-    signal tileDropRejected()
-
-    function removeTile() {
-
-    }
-    function addTile(widgetInstance) {
-        root.model.push(widgetInstance)
-    }
-    function generateInstances() {
-        return root.logic.widgetDataListToWidgetInstanceList(repeater.model)
-    }
+    signal tileDropAccepted(item: PanelTile)
+    signal tileDropRejected(item: PanelTile)
 
     implicitWidth: root.unitSize * root.xSize
     implicitHeight: root.unitSize * root.ySize
@@ -113,72 +102,21 @@ Rectangle {
         id: repeater
         // TODO: Look into Variants instead of dynamic obj creation from js https://quickshell.org/docs/v0.1.0/types/Quickshell/Variants
         model: root.logic.widgetInstanceListToWidgetDataList(root.model, root, root.widgetRadius)
-        onModelChanged: console.debug(`model: ${JSON.stringify(root.model,null,4)}`)
+        //onModelChanged: console.debug(`model: ${JSON.stringify(root.model,null,4)}`)
         delegate: PanelTile {
-            id: gridItem
             required property WidgetData modelData
             widgetData: modelData
-            editable: root.editable
             panelGrid: root
             padding: root.widgetPadding
             radius: root.widgetRadius
-            showBackground: widgetData.showBackground
-            unitSize: root.unitSize
             onTileSelected: (item) => root.selectedTile = item
-            onPositionUpdateRequested: (item) => {
-                /*
-                if (!root.logic.isPositionOpen(widgetData, repeater.model)){
-                    resetPosition()
-                    root.selectedTile = null
-                    root.tileDropRejected()
-                    return
-                }
-                */
-
-                // Update the position of the tile relative it's PanelGrid
-                widgetData.xPosition = gridItem.panelGrid.selectedTileTargetX
-                widgetData.yPosition = gridItem.panelGrid.selectedTileTargetY
-                x = gridItem.panelGrid.selectedTileTargetX * root.unitSize
-                y = gridItem.panelGrid.selectedTileTargetY * root.unitSize
-
-                // WARNING: THIS DOESN't WORK
-                // If this panel grid no longer owns the selected tile, eject it from the model.
-                // Something else has taken ownership of it (hopefully).
-                /*
-                if (!root.selectedTile) {
-                    console.debug("pre: " + JSON.stringify(root.model,null,4))
-                    root.model.splice(root.model.indexOf(gridItem.widgetData),1)
-                    console.debug("post: " + JSON.stringify(root.model,null,4))
-                    root.modelUpdated(repeater.model)
-                    return
-                }
-                */
-
-                // Update the item (Not needed if regenerating the whole model?)
-                //x = root.selectedTileTargetX * root.unitSize
-                //y = root.selectedTileTargetY * root.unitSize
-
-                /*
-                // Update the data obj
-                widgetData.xPosition = root.selectedTileTargetX
-                widgetData.yPosition = root.selectedTileTargetY
-
-                // Recompute the list of widget instances given the state change
-                const newInstances = root.logic.widgetDataListToWidgetInstanceList(repeater.model)
-                // Notify the source data to update. Since bindings are only one way, if the model
-                // property for this PanelGrid gets re-bound, the original source value won't be updated.
-                // So instead we send the updated model to the consumer and it can then update the 
-                // source data.  The model is then implicitly updated due to it's continued binding
-                // with the source source data.
-                root.modelUpdated(newInstances)
-
-                // TODO: Look into whether setting the selected tile to null after setting 
-                // the x/y of this item results in the target ghost glitch
+            onDropAccepted: (item) => {
                 root.selectedTile = null
-                */
-
-                // Notify consumer of dropped tile
-                root.tileDropAccepted()
+                root.tileDropAccepted(item)
+            }
+            onDropRejected: (item) => {
+                root.selectedTile = null
+                root.tileDropRejected(item)
             }
         }
     }

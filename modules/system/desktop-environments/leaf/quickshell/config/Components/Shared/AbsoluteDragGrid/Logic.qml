@@ -22,7 +22,7 @@ QtObject {
     function widgetInstanceListToWidgetDataList(widgetJsonList: list<var>, panelGrid: Rectangle, widgetRadius: int): list<WidgetData> { 
         const widgetDataList = []
         for (const w of widgetJsonList) {
-            console.debug(`w: ${JSON.stringify(w,null,4)}`)
+            //console.debug(`w: ${JSON.stringify(w,null,4)}`)
             const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
             if (component.status == Component.Error) {
                 console.error(component.errorString())

@@ -9,31 +9,30 @@ import qs as Root
 
 Rectangle {
     id: root
-    color: "#000000ff"
 
     required property WidgetData widgetData
     required property PanelGrid panelGrid
+
     property int unitSize: panelGrid.unitSize
     property bool editable: panelGrid.editable
-    property int padding: 0
+    property bool showBackground: widgetData.showBackground
     property int contentPadding: widgetData.padding
-    property bool showBackground: true
+    property int padding: 0
     property int radius: 0
-
-    signal tileSelected(item: PanelTile)
-    signal positionUpdateRequested(item: PanelTile)
-    //signal widgetPositionChanged(item: PanelTile)
-
     property int initialX: 0
     property int initialY: 0
+    property PanelGrid initialPanelGrid: panelGrid          // Holds the PanelGrid this tile originated from
+
+    signal tileSelected(item: PanelTile)
+    signal dropAccepted(item: PanelTile)
+    signal dropRejected(item: PanelTile)
+
     function resetPosition() {
         x = initialX
         y = initialY
     }
 
-    // Send drag events so that a DropArea can detect this item when dragged
-    Drag.active: mouseArea.drag.active
-
+    // Wobble animation
     SequentialAnimation on rotation {
         id: wobbleAnimation
         loops: Animation.Infinite
@@ -65,8 +64,11 @@ Rectangle {
     implicitHeight: widgetData.ySize * unitSize
     x: widgetData.xPosition * unitSize
     y: widgetData.yPosition * unitSize
+    color: "#000000ff"
     Behavior on x { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
     Behavior on y { PropertyAnimation { duration: 50; easing.type: Easing.Linear} }
+    // Send drag events so that a DropArea can detect this item when dragged
+    Drag.active: mouseArea.drag.active
 
     Rectangle {
         color: Root.State.colors.surface_container
@@ -84,13 +86,12 @@ Rectangle {
             sourceComponent: root.widgetData.component
         }
     }
+
     // Note that this appears over the content when active
     MouseArea {
         id: mouseArea
         visible: root.editable
         anchors.fill: parent
-        onXChanged: root.widgetPositionChanged(root)
-        onYChanged: root.widgetPositionChanged(root)
 
         Behavior on x { PropertyAnimation { duration: 150; easing.type: Easing.Linear} }
         Behavior on y { PropertyAnimation { duration: 150; easing.type: Easing.Linear} }
@@ -105,7 +106,22 @@ Rectangle {
             root.tileSelected(root) // emit signal
         }
         onReleased: {
-            root.positionUpdateRequested(root)
+            /*
+            if (!root.logic.isPositionOpen(widgetData, repeater.model)){
+                resetPosition()
+                root.selectedTile = null
+                root.dropRejected(root)
+                return
+            }
+            */
+
+            // Update the position of the tile relative it's PanelGrid
+            root.widgetData.xPosition = root.panelGrid.selectedTileTargetX
+            root.widgetData.yPosition = root.panelGrid.selectedTileTargetY
+            x = root.widgetData.xPosition * root.unitSize
+            y = root.widgetData.yPosition * root.unitSize
+
+            root.dropAccepted(root)
         }
     }
 }

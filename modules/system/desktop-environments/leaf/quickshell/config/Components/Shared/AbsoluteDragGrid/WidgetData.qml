@@ -11,7 +11,7 @@ QtObject {
     required property int ySize // The number of cells this widget spans on the y-axis
     property var defaultState: null // An object representing the default state of the widget. Null if widget has no state.
 
-    // State properties
+    // Persisted state properties
     property int xPosition: 0 // The x position this WidgetInstance is located at
     property int yPosition: 0 // The y position this widgetInstance is located at
     property var state: defaultState // An object representing any state of the widget. Null if widget has no state.
