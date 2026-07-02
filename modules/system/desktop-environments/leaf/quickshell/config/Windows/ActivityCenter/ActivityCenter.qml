@@ -27,8 +27,6 @@ Shared.PanelWindow {
         property bool editable: false
 
         property AbsGrid.PanelTile selectedTile: null
-        property int srcGridIndex: -1
-        property int dstGridIndex: -1
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
         property AbsGrid.PanelGrid dstGrid: null
@@ -49,38 +47,45 @@ Shared.PanelWindow {
                     onEntered: () => { 
                         console.log(`widget pager drop grid entered (${pageIndex})`)
                         if (!widgetPager.selectedTile) { return }
-
                         // If the tile was dragged onto a grid different than the source
+                        //
+                        // TODO: This apparently evals to false when the tile is dragged over a different grid but seemingly only
+                        // after the second time it detects a drag inside this drop area.  Because the drop area appears to fire
+                        // on entered multiple times even though it hasn't exited?
+                        //
+                        // Also need to fix src grid getting set to dst grid at some point
                         if (widgetPager.selectedTile.parent !== panelGridPage) {
-                            console.log(`calculating drop`)
+                            console.log(`preparing for drop on different grid`)
                             widgetPager.selectedTile.parent = panelGridPage
                             widgetPager.selectedTile.panelGrid = panelGridPage
                             widgetPager.dstGrid = panelGridPage
-                            widgetPager.dstGridIndex = page.pageIndex
 
                             // Swap the selected tiles
                             widgetPager.srcGrid.selectedTile = null
                             widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
-
-                            widgetPager.dstGridIndex = pageIndex
                         }
-                        // Otherwise the tile was dragged onto it's source grid (occurs even without dragging outside the source grid)
+                        // Otherwise the tile was dragged onto it's source grid 
+                        // (occurs even without dragging outside the source grid)
                         else {
-                            // If a destination grid has been set
+                            print(`preparing for drop on same grid`)
+                            // If a destination grid has been set (meaning the tile has been dragged to a different
+                            // grid and then back to it's original one)
                             if (widgetPager.dstGrid) {
-                                // No longer need to track selected tile or grid
+                                // Should remove the selected tile from dst grid
                                 widgetPager.dstGrid.selectedTile = null
+                                // No need to track dst grid anymore
                                 widgetPager.dstGrid = null
-                                widgetPager.dstGridIndex = -1
                             }
-                            // Ensure the source grid has the selected tile now
+                            // Ensure the source grid has the selected tile now and the tile is parented to it
                             widgetPager.srcGrid.selectedTile = widgetPager.selectedTile
+                            widgetPager.selectedTile.parent = widgetPager.srcGrid
                         }
                     }
                     AbsGrid.PanelGrid {
                         id: panelGridPage
                         xSize: 12
                         ySize: 10
+                        property int pageIndex: page.pageIndex
                         model: Root.State.config.widgetPager[page.pageIndex]
                         editable: widgetPager.editable
                         /*
@@ -97,24 +102,21 @@ Shared.PanelWindow {
                                 widgetPager.selectedTile = selectedTile
                                 // Set the source grid to this grid
                                 widgetPager.srcGrid = panelGridPage
-                                widgetPager.srcGridIndex = page.pageIndex
                             }
                         }
                         onTileDropAccepted: (panelTile) => {
 
-                            // TODO: Figure out why drop on different grid evals this conditional to true
-
                             // If the tile got dropped on a different grid
-                            if (widgetPager.dstGrid != null && widgetPager.dstGrid !== panelGridPage) {
+                            // If this grid (that the drop occurred on) is not the source grid
+                            if (panelGridPage !== widgetPager.srcGrid) {
                                 print(`tile drop on different grid`)
                                 widgetPager.srcGrid.selectedTile = null
-                                widgetPager.srcGridIndex = -1
                                 widgetPager.dstGrid.selectedTile = null
-                                widgetPager.dstGridIndex = -1
 
                                 // Remove the tile from it's source grid
-                                const removeIndex = Root.State.config.widgetPager[widgetPager.srcGridIndex].findIndex((e) => e.uid === panelTile.widgetData.uid)
-                                Root.State.config.widgetPager[widgetPager.srcGridIndex].splice(removeIndex, 1)
+                                const removeIndex = Root.State.config.widgetPager[widgetPager.srcGrid.pageIndex]
+                                                        .findIndex((e) => e.uid === panelTile.widgetData.uid)
+                                Root.State.config.widgetPager[widgetPager.srcGrid.pageIndex].splice(removeIndex, 1)
                                 // Add tile to it's destination grid
                                 const addObject = {
                                     uid: panelTile.widgetData.uid,
@@ -122,7 +124,7 @@ Shared.PanelWindow {
                                     yPosition: panelTile.widgetData.yPosition,
                                     state: panelTile.widgetData.state
                                 }
-                                Root.State.config.widgetPager[widgetPager.srcGridIndex].push(addObject)
+                                Root.State.config.widgetPager[widgetPager.dstGrid.pageIndex].push(addObject)
 
                                 const temp = Root.State.config.widgetPager
                                 Root.State.config.widgetPager = []
@@ -142,7 +144,7 @@ Shared.PanelWindow {
                             else {
                                 print(`tile drop on same grid`)
                                 widgetPager.srcGrid.selectedTile = null
-                                widgetPager.srcGridIndex = -1
+                                widgetPager.srcGrid = null
                                 // Only need to update this grid
                                 /*
                                 Root.State.config.widgetPager[0] = generateInstances()
