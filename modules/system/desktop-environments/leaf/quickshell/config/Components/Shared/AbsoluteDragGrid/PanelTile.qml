@@ -23,7 +23,7 @@ Rectangle {
     property int initialY: 0
     property PanelGrid initialPanelGrid: panelGrid          // Holds the PanelGrid this tile originated from
 
-    signal tileSelected(item: PanelTile)
+    signal dragStarted(item: PanelTile)
     signal dropAccepted(item: PanelTile)
     signal dropRejected(item: PanelTile)
 
@@ -103,9 +103,10 @@ Rectangle {
             // Store original position
             root.initialX = root.x
             root.initialY = root.y
-            root.tileSelected(root) // emit signal
+            root.dragStarted(root) // emit signal
         }
         onReleased: {
+            print(`${root}: relased with selected x/y ${root.panelGrid.selectedTileTargetX}/${root.panelGrid.selectedTileTargetY}`)
             /*
             if (!root.logic.isPositionOpen(widgetData, repeater.model)){
                 resetPosition()
@@ -118,8 +119,8 @@ Rectangle {
             // Update the position of the tile relative it's PanelGrid
             root.widgetData.xPosition = root.panelGrid.selectedTileTargetX
             root.widgetData.yPosition = root.panelGrid.selectedTileTargetY
-            x = root.widgetData.xPosition * root.unitSize
-            y = root.widgetData.yPosition * root.unitSize
+            root.x = root.widgetData.xPosition * root.unitSize
+            root.y = root.widgetData.yPosition * root.unitSize
 
             root.dropAccepted(root)
         }

@@ -38,6 +38,7 @@ Rectangle {
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
     signal tileDropAccepted(item: PanelTile)
     signal tileDropRejected(item: PanelTile)
+    signal tileDragStarted(item: PanelTile)
 
     implicitWidth: root.unitSize * root.xSize
     implicitHeight: root.unitSize * root.ySize
@@ -109,7 +110,10 @@ Rectangle {
             panelGrid: root
             padding: root.widgetPadding
             radius: root.widgetRadius
-            onTileSelected: (item) => root.selectedTile = item
+            onDragStarted: (item) => {
+                root.selectedTile = item
+                root.tileDragStarted(item)
+            }
             onDropAccepted: (item) => {
                 root.selectedTile = null
                 root.tileDropAccepted(item)

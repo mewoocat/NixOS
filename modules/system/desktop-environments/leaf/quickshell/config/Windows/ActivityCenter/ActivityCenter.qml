@@ -27,13 +27,19 @@ Shared.PanelWindow {
         property bool editable: false
 
         property AbsGrid.PanelTile selectedTile: null
+        onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
         property AbsGrid.PanelGrid dstGrid: null
         onDstGridChanged: print(`dstGrid: ${dstGrid}`)
-        onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
 
         // Page impl
+        //
+        // BIG WARNING: Keep in mind that when a tile is dragged onto a different grid, the item isn't recreated, meaning
+        // that it's signal handlers are still configured relative to it's original grid that instantiated it.
+        //
+        // TODO:
+        // - Persist the state changes in memory by altering the source models
         RowLayout {
 
             Repeater {
@@ -47,14 +53,9 @@ Shared.PanelWindow {
                     onEntered: () => { 
                         console.log(`widget pager drop grid entered (${pageIndex})`)
                         if (!widgetPager.selectedTile) { return }
+
                         // If the tile was dragged onto a grid different than the source
-                        //
-                        // TODO: This apparently evals to false when the tile is dragged over a different grid but seemingly only
-                        // after the second time it detects a drag inside this drop area.  Because the drop area appears to fire
-                        // on entered multiple times even though it hasn't exited?
-                        //
-                        // Also need to fix src grid getting set to dst grid at some point
-                        if (widgetPager.selectedTile.parent !== panelGridPage) {
+                        if (widgetPager.srcGrid !== panelGridPage) {
                             console.log(`preparing for drop on different grid`)
                             widgetPager.selectedTile.parent = panelGridPage
                             widgetPager.selectedTile.panelGrid = panelGridPage
@@ -94,26 +95,32 @@ Shared.PanelWindow {
                             Root.State.configFileView.writeAdapter()
                         }
                         */
-                        onSelectedTileChanged: () => {
-                            print(`selectedTileChange Received`)
-                            // If a tile on this grid was selected
-                            if (selectedTile) {
-                                // Track the tile as the current selected tile across all pages
-                                widgetPager.selectedTile = selectedTile
-                                // Set the source grid to this grid
-                                widgetPager.srcGrid = panelGridPage
-                            }
+                        onSelectedTileChanged: print(`${panelGridPage}: selected tile changed to ${selectedTile}`)
+                        onTileDragStarted: (item) => {
+                            print(`Pager:onDragStarted: ${item}`)
+                            // Track the tile as the current selected tile across all pages
+                            widgetPager.selectedTile = selectedTile
+                            // Set the source grid to this grid
+                            widgetPager.srcGrid = panelGridPage
                         }
                         onTileDropAccepted: (panelTile) => {
 
+                            print(`pager:onTileDropAccepted: panelGridPage: ${panelGridPage}`)
+                            print(`pager:onTileDropAccepted: widgetPager.srcGrid: ${widgetPager.srcGrid}`)
+                            print(`pager:onTileDropAccepted: widgetPager.dstGrid: ${widgetPager.dstGrid}`)
+
                             // If the tile got dropped on a different grid
                             // If this grid (that the drop occurred on) is not the source grid
-                            if (panelGridPage !== widgetPager.srcGrid) {
-                                print(`tile drop on different grid`)
-                                widgetPager.srcGrid.selectedTile = null
+                            if (widgetPager.dstGrid !== null && widgetPager.srcGrid !== widgetPager.dstGrid) {
+                                print(`tile drop on different grid: srcGrid: ${widgetPager.srcGrid} dstGrid: ${widgetPager.dstGrid}`)
+
+                                // Since the tile was originally created under it's src grid and it's original grid already sets
+                                // the selectedTile to null, no reason to set it to null here, i think
+                                //widgetPager.srcGrid.selectedTile = null
                                 widgetPager.dstGrid.selectedTile = null
 
                                 // Remove the tile from it's source grid
+                                /*
                                 const removeIndex = Root.State.config.widgetPager[widgetPager.srcGrid.pageIndex]
                                                         .findIndex((e) => e.uid === panelTile.widgetData.uid)
                                 Root.State.config.widgetPager[widgetPager.srcGrid.pageIndex].splice(removeIndex, 1)
@@ -132,6 +139,7 @@ Shared.PanelWindow {
 
                                 print(`writing pager data`)
                                 Root.State.configFileView.writeAdapter()
+                                */
 
                                 /*
                                 // Regenerate the instances for the source grid (this grid)
@@ -152,6 +160,8 @@ Shared.PanelWindow {
                                 */
                             }
                             widgetPager.selectedTile = null
+                            widgetPager.srcGrid = null
+                            widgetPager.dstGrid = null
                         }
                         onTileDropRejected: () => {
                             // If the tile got rejected on a different grid
