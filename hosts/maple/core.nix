@@ -69,6 +69,10 @@
 
   time.timeZone = "America/Chicago";
 
+  # Allow for sudo invocation with password, useful for non interactively running backup commands that need
+  # root access.
+  security.sudo.wheelNeedsPassword = false;
+
   users.users.eXia = {
     isNormalUser = true;
     extraGroups = ["wheel" "video"]; # Enable ‘sudo’ for the user.
