@@ -107,6 +107,7 @@ Rectangle {
         }
         onReleased: {
             print(`${root}: relased with selected x/y ${root.panelGrid.selectedTileTargetX}/${root.panelGrid.selectedTileTargetY}`)
+            print(`PanelTile: panelGrid: ${root.panelGrid}`)
             /*
             if (!root.logic.isPositionOpen(widgetData, repeater.model)){
                 resetPosition()

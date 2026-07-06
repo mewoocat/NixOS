@@ -30,7 +30,7 @@ Shared.PanelWindow {
         onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
-        property AbsGrid.PanelGrid dstGrid: null
+        property AbsGrid.PanelGrid dstGrid: null // TODO: is this even needed?
         onDstGridChanged: print(`dstGrid: ${dstGrid}`)
 
         // Page impl
@@ -54,16 +54,30 @@ Shared.PanelWindow {
                         console.log(`widget pager drop grid entered (${pageIndex})`)
                         if (!widgetPager.selectedTile) { return }
 
+                        // Turns ghost off for previous PanelGrid
+                        widgetPager.selectedTile.panelGrid.selectedTile = null
+
+                        // Update parent and panelGrid for the PanelTile
+                        widgetPager.selectedTile.parent = panelGridPage
+                        widgetPager.selectedTile.panelGrid = panelGridPage
+                        // Update destination grid
+                        widgetPager.dstGrid = panelGridPage
+
+                        // Turn on ghost for current PanelGrid
+                        panelGridPage.selectedTile = widgetPager.selectedTile
+
                         // If the tile was dragged onto a grid different than the source
                         if (widgetPager.srcGrid !== panelGridPage) {
                             console.log(`preparing for drop on different grid`)
-                            widgetPager.selectedTile.parent = panelGridPage
-                            widgetPager.selectedTile.panelGrid = panelGridPage
-                            widgetPager.dstGrid = panelGridPage
+
+                            // TODO: Delete
+                            //widgetPager.selectedTile.parent = panelGridPage
+                            //widgetPager.selectedTile.panelGrid = panelGridPage
+                            //widgetPager.dstGrid = panelGridPage
 
                             // Swap the selected tiles
-                            widgetPager.srcGrid.selectedTile = null
-                            widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
+                            //widgetPager.srcGrid.selectedTile = null // Warning: this might not be the previous grid
+                            //widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
                         }
                         // Otherwise the tile was dragged onto it's source grid 
                         // (occurs even without dragging outside the source grid)
@@ -73,13 +87,16 @@ Shared.PanelWindow {
                             // grid and then back to it's original one)
                             if (widgetPager.dstGrid) {
                                 // Should remove the selected tile from dst grid
-                                widgetPager.dstGrid.selectedTile = null
+                                //widgetPager.dstGrid.selectedTile = null
                                 // No need to track dst grid anymore
-                                widgetPager.dstGrid = null
+                                //widgetPager.dstGrid = null
+
+                                //widgetPager.srcGrid.selectedTile = null
+                                //widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
                             }
                             // Ensure the source grid has the selected tile now and the tile is parented to it
-                            widgetPager.srcGrid.selectedTile = widgetPager.selectedTile
-                            widgetPager.selectedTile.parent = widgetPager.srcGrid
+                            //widgetPager.srcGrid.selectedTile = widgetPager.selectedTile
+                            //widgetPager.selectedTile.parent = widgetPager.srcGrid
                         }
                     }
                     AbsGrid.PanelGrid {
@@ -102,6 +119,9 @@ Shared.PanelWindow {
                             widgetPager.selectedTile = selectedTile
                             // Set the source grid to this grid
                             widgetPager.srcGrid = panelGridPage
+
+                            
+                            //widgetPager.selectedTile.panelGrid.selectedTile = item
                         }
                         onTileDropAccepted: (panelTile) => {
 
@@ -117,6 +137,7 @@ Shared.PanelWindow {
                                 // Since the tile was originally created under it's src grid and it's original grid already sets
                                 // the selectedTile to null, no reason to set it to null here, i think
                                 //widgetPager.srcGrid.selectedTile = null
+                                // TODO: Might could move this to reset state
                                 widgetPager.dstGrid.selectedTile = null
 
                                 // Remove the tile from it's source grid
@@ -151,6 +172,7 @@ Shared.PanelWindow {
                             // If the tile got dropped on the same grid it originated from
                             else {
                                 print(`tile drop on same grid`)
+                                // TODO: Might could move this to reset state
                                 widgetPager.srcGrid.selectedTile = null
                                 widgetPager.srcGrid = null
                                 // Only need to update this grid
@@ -159,6 +181,8 @@ Shared.PanelWindow {
                                 Root.State.configFileView.writeAdapter()
                                 */
                             }
+
+                            // Reset state
                             widgetPager.selectedTile = null
                             widgetPager.srcGrid = null
                             widgetPager.dstGrid = null
