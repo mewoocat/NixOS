@@ -19,7 +19,7 @@ Ctrls.Button {
     padding: 2
     hoverEnabled: false
     property PwLinkGroup linkGroup
-    property PwNode node: linkGroup.source // The source node
+    property PwNode node: linkGroup?.source ?? null // The source node
     property string name: ""
     property string description: ""
     contentItem: ColumnLayout {
@@ -72,7 +72,7 @@ Ctrls.Button {
             Layout.fillWidth: true
             value: Services.Audio.getVolume(root.node)
             // Don't allow for value to be changed until node is bound
-            onValueChanged: root.node.ready ? root.node.audio.volume = value : null
+            onValueChanged: root.node?.ready ? root.node.audio.volume = value : null
         }
     }
 }

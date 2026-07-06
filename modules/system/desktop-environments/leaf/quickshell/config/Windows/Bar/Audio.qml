@@ -63,6 +63,11 @@ BarButton {
                         id: comboBox
                         implicitWidth: parent.width
                         model: Services.Audio.outputDevices
+                        currentIndex: {
+                            const i = model.findIndex(e => e === Pipewire.preferredDefaultAudioSink)
+                            if (i == -1) return 0
+                            return i
+                        }
                         textRole: "description"
                             //.map(n => n.description) // Map to just the output name string (Results in a list of string names)
                         onActivated: (index) => { 
@@ -89,7 +94,7 @@ BarButton {
                         model: Services.Audio.defaultOutputLinkTracker.linkGroups
                         delegate: Shared.MixerItem {
                             required property PwLinkGroup modelData
-                            implicitWidth: parent?.width
+                            implicitWidth: parent?.width ?? 0
                             linkGroup: modelData
                         }
                     }
