@@ -30,8 +30,11 @@ Shared.PanelWindow {
         onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
-        property AbsGrid.PanelGrid dstGrid: null // TODO: is this even needed?
-        onDstGridChanged: print(`dstGrid: ${dstGrid}`)
+        //property AbsGrid.PanelGrid dstGrid: null // TODO: is this even needed?, yes for the persistence routine to know which page index to apply the change to
+        //onDstGridChanged: print(`dstGrid: ${dstGrid}`)
+
+        property int srcIndex: -1
+        property int dstIndex: -1
 
         // Page impl
         //
@@ -49,6 +52,7 @@ Shared.PanelWindow {
                     required property int modelData
                     property int pageIndex: modelData
                     width: panelGridPage.width
+
                     height: panelGridPage.height
                     onEntered: () => { 
                         console.log(`widget pager drop grid entered (${pageIndex})`)
@@ -60,8 +64,9 @@ Shared.PanelWindow {
                         // Update parent and panelGrid for the PanelTile
                         widgetPager.selectedTile.parent = panelGridPage
                         widgetPager.selectedTile.panelGrid = panelGridPage
-                        // Update destination grid
-                        widgetPager.dstGrid = panelGridPage
+
+                        // Update destination index
+                        widgetPager.dstIndex = page.pageIndex
 
                         // Turn on ghost for current PanelGrid
                         panelGridPage.selectedTile = widgetPager.selectedTile
@@ -69,34 +74,11 @@ Shared.PanelWindow {
                         // If the tile was dragged onto a grid different than the source
                         if (widgetPager.srcGrid !== panelGridPage) {
                             console.log(`preparing for drop on different grid`)
-
-                            // TODO: Delete
-                            //widgetPager.selectedTile.parent = panelGridPage
-                            //widgetPager.selectedTile.panelGrid = panelGridPage
-                            //widgetPager.dstGrid = panelGridPage
-
-                            // Swap the selected tiles
-                            //widgetPager.srcGrid.selectedTile = null // Warning: this might not be the previous grid
-                            //widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
                         }
                         // Otherwise the tile was dragged onto it's source grid 
                         // (occurs even without dragging outside the source grid)
                         else {
                             print(`preparing for drop on same grid`)
-                            // If a destination grid has been set (meaning the tile has been dragged to a different
-                            // grid and then back to it's original one)
-                            if (widgetPager.dstGrid) {
-                                // Should remove the selected tile from dst grid
-                                //widgetPager.dstGrid.selectedTile = null
-                                // No need to track dst grid anymore
-                                //widgetPager.dstGrid = null
-
-                                //widgetPager.srcGrid.selectedTile = null
-                                //widgetPager.dstGrid.selectedTile = widgetPager.selectedTile
-                            }
-                            // Ensure the source grid has the selected tile now and the tile is parented to it
-                            //widgetPager.srcGrid.selectedTile = widgetPager.selectedTile
-                            //widgetPager.selectedTile.parent = widgetPager.srcGrid
                         }
                     }
                     AbsGrid.PanelGrid {
@@ -117,28 +99,19 @@ Shared.PanelWindow {
                             print(`Pager:onDragStarted: ${item}`)
                             // Track the tile as the current selected tile across all pages
                             widgetPager.selectedTile = selectedTile
-                            // Set the source grid to this grid
+                            // Set the source grid and index
                             widgetPager.srcGrid = panelGridPage
-
-                            
-                            //widgetPager.selectedTile.panelGrid.selectedTile = item
+                            widgetPager.srcIndex = page.pageIndex
                         }
                         onTileDropAccepted: (panelTile) => {
 
                             print(`pager:onTileDropAccepted: panelGridPage: ${panelGridPage}`)
                             print(`pager:onTileDropAccepted: widgetPager.srcGrid: ${widgetPager.srcGrid}`)
-                            print(`pager:onTileDropAccepted: widgetPager.dstGrid: ${widgetPager.dstGrid}`)
 
                             // If the tile got dropped on a different grid
                             // If this grid (that the drop occurred on) is not the source grid
-                            if (widgetPager.dstGrid !== null && widgetPager.srcGrid !== widgetPager.dstGrid) {
-                                print(`tile drop on different grid: srcGrid: ${widgetPager.srcGrid} dstGrid: ${widgetPager.dstGrid}`)
-
-                                // Since the tile was originally created under it's src grid and it's original grid already sets
-                                // the selectedTile to null, no reason to set it to null here, i think
-                                //widgetPager.srcGrid.selectedTile = null
-                                // TODO: Might could move this to reset state
-                                widgetPager.dstGrid.selectedTile = null
+                            if (widgetPager.srcGrid !== widgetPager.selectedTile.panelGrid) {
+                                print(`tile drop on different grid: srcGrid: ${widgetPager.srcGrid} targetGrid: ${widgetPager.selectedTile.panelGrid}`)
 
                                 // Remove the tile from it's source grid
                                 /*
@@ -172,9 +145,6 @@ Shared.PanelWindow {
                             // If the tile got dropped on the same grid it originated from
                             else {
                                 print(`tile drop on same grid`)
-                                // TODO: Might could move this to reset state
-                                widgetPager.srcGrid.selectedTile = null
-                                widgetPager.srcGrid = null
                                 // Only need to update this grid
                                 /*
                                 Root.State.config.widgetPager[0] = generateInstances()
@@ -182,16 +152,24 @@ Shared.PanelWindow {
                                 */
                             }
 
+                            // Turn off ghost for current hovered grid
+                            widgetPager.selectedTile.panelGrid.selectedTile = null
+
                             // Reset state
                             widgetPager.selectedTile = null
                             widgetPager.srcGrid = null
-                            widgetPager.dstGrid = null
+                            widgetPager.srcIndex = -1
+                            widgetPager.dstIndex = -1
                         }
+                        
+                        // TODO: test
                         onTileDropRejected: () => {
                             // If the tile got rejected on a different grid
-                            if (widgetPager.dstGrid !== panelGridPage) {
+                            if (widgetPager.selectedTile.panelGrid !== panelGridPage) {
                                 // Reparent it back to the original parent
                                 widgetPager.selectedTile.parent = widgetPager.srcGrid
+                                // Set the tile's panelGrid back to the source
+                                widgetPager.selectedTile.panelGrid = widgetPager.srcGrid
                                 // No need to track the selectedTile anymore
                                 widgetPager.selectedTile = null
                             }

@@ -2,7 +2,6 @@
 
 hostName="maple"
 
-# TODO: use nextcloud use for permissions
 rsync \
   -Aavx \
   --rsync-path "sudo rsync" \
@@ -10,6 +9,7 @@ rsync \
   --human-readable \
   --hard-links \
   --no-inc-recursive \
+  --compress \
   --delete \
   "$hostName:/var/lib/nextcloud" "/run/media/eXia/server-backup/nextcloud-backup_var-lib-nextcloud/"
   #-vvv
