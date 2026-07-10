@@ -95,12 +95,18 @@ Shared.PanelWindow {
                         }
                         */
                         onSelectedTileChanged: print(`${panelGridPage}: selected tile changed to ${selectedTile}`)
-                        onTileDragStarted: (item) => {
-                            print(`Pager:onDragStarted: ${item}`)
+                        onTileDragStarted: (tile) => {
+                            print(`Pager:onDragStarted: ${tile}`)
                             // Track the tile as the current selected tile across all pages
-                            widgetPager.selectedTile = selectedTile
+                            widgetPager.selectedTile = tile
                             // Set the source grid and index
-                            widgetPager.srcGrid = panelGridPage
+
+                            // TODO: I think this will be wrong if the model isn't updated and the tile changes
+                            // grids since it's still hooked up to it's original grid.
+                            //widgetPager.srcGrid = panelGridPage
+                            // this might be fix below
+                            widgetPager.srcGrid = tile.panelGrid
+
                             widgetPager.srcIndex = page.pageIndex
                         }
                         onTileDropAccepted: (panelTile) => {

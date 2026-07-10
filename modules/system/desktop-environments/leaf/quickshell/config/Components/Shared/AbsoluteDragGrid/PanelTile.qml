@@ -103,6 +103,10 @@ Rectangle {
             // Store original position
             root.initialX = root.x
             root.initialY = root.y
+
+            // Set selected tile here since the panelGrid prop is guaranteed to be the most up
+            // to date in the case that the PanelTile changes grids without the model changing.
+            root.panelGrid.selectedTile = root
             root.dragStarted(root) // emit signal
         }
         onReleased: {
