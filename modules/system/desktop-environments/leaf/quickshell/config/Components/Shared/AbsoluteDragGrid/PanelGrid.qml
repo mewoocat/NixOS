@@ -111,10 +111,13 @@ Rectangle {
             padding: root.widgetPadding
             radius: root.widgetRadius
             onDragStarted: (item) => {
-                // With pager setup, cannot always set selected tile here since it could have been moved to a different
+                // With pager setup, cannot always set selected tile of this gird since the tile could have been moved to a different
                 // grid and the models were not regenerated.  Therefore the tile in the other grid is still hooked up
                 // to this signal handler which will set the selected tile for it's original grid (this one)
                 //root.selectedTile = item // <- i think issue
+
+                // Instead set the selected tile of the grid the tile holds.  This should always be up to date
+                item.panelGrid.selectedTile = item
                 root.tileDragStarted(item)
             }
             onDropAccepted: (item) => {

@@ -121,7 +121,7 @@ Rectangle {
             }
             */
 
-            // Update the position of the tile relative it's PanelGrid
+            // Update the position of the tile relative to it's PanelGrid
             root.widgetData.xPosition = root.panelGrid.selectedTileTargetX
             root.widgetData.yPosition = root.panelGrid.selectedTileTargetY
             root.x = root.widgetData.xPosition * root.unitSize

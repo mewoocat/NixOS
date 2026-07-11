@@ -26,12 +26,12 @@ Shared.PanelWindow {
         spacing: 0
         property bool editable: false
 
+        onVisibleChanged: if (!visible) editable = false
+
         property AbsGrid.PanelTile selectedTile: null
         onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
-        //property AbsGrid.PanelGrid dstGrid: null // TODO: is this even needed?, yes for the persistence routine to know which page index to apply the change to
-        //onDstGridChanged: print(`dstGrid: ${dstGrid}`)
 
         property int srcIndex: -1
         property int dstIndex: -1
@@ -52,7 +52,6 @@ Shared.PanelWindow {
                     required property int modelData
                     property int pageIndex: modelData
                     width: panelGridPage.width
-
                     height: panelGridPage.height
                     onEntered: () => { 
                         console.log(`widget pager drop grid entered (${pageIndex})`)
