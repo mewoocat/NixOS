@@ -9,7 +9,8 @@ import qs.Components.Controls as Ctrls
 // TODO: Writing the adapter shouldn't regenerate the widgets
 Rectangle {
     id: root
-    property list<var> model: [] // Expects a list of WidgetInstances
+    property ScriptModel model: [] // Expects a list of WidgetInstances
+    onModelChanged: () => print(`PanelGrid: model: ${model.values}`)
     property Logic logic: Logic {}
     property int unitSize: 64
     property int widgetPadding: Root.State.widgetPadding
@@ -35,14 +36,30 @@ Rectangle {
         return proposedYPos
     }
 
+    implicitWidth: root.unitSize * root.xSize
+    implicitHeight: root.unitSize * root.ySize
+    color: "transparent"
+
+    function jsonToWidgetInstance(json: var): WidgetInstance {
+        const component = Qt.createComponent(`${Quickshell.shellDir}/Components/Shared/AbsoluteDragGrid/WidgetInstance.qml`)
+        if (component.status == Component.Error) {
+            console.error(component.errorString())
+        }
+        console.log(`component: ${component}`)
+        const obj = component.createObject(null, {
+            uid: json.uid,
+            xPosition: json.xPosition,
+            yPosition: json.yPosition,
+            state: json.state
+        })
+        console.log(`obj: ${obj}`)
+        return obj as WidgetInstance
+    }
+
     signal modelUpdated(model: list<var>) // When a new model state has been confirmed
     signal tileDropAccepted(item: PanelTile)
     signal tileDropRejected(item: PanelTile)
     signal tileDragStarted(item: PanelTile)
-
-    implicitWidth: root.unitSize * root.xSize
-    implicitHeight: root.unitSize * root.ySize
-    color: "transparent"
 
     Item {
         id: targetGhost
@@ -102,11 +119,14 @@ Rectangle {
     Repeater {
         id: repeater
         // TODO: Look into Variants instead of dynamic obj creation from js https://quickshell.org/docs/v0.1.0/types/Quickshell/Variants
-        model: root.logic.widgetInstanceListToWidgetDataList(root.model, root, root.widgetRadius)
+        //model: root.logic.widgetInstanceListToWidgetDataList(root.model, root, root.widgetRadius)
+        model: root.model
+        onModelChanged: print(`repeater model: ${model.values}`)
+
         //onModelChanged: console.debug(`model: ${JSON.stringify(root.model,null,4)}`)
         delegate: PanelTile {
-            required property WidgetData modelData
-            widgetData: modelData
+            required property var modelData
+            widgetInstance: modelData
             panelGrid: root
             padding: root.widgetPadding
             radius: root.widgetRadius
@@ -116,8 +136,6 @@ Rectangle {
                 // to this signal handler which will set the selected tile for it's original grid (this one)
                 //root.selectedTile = item // <- i think issue
 
-                // Instead set the selected tile of the grid the tile holds.  This should always be up to date
-                item.panelGrid.selectedTile = item
                 root.tileDragStarted(item)
             }
             onDropAccepted: (item) => {

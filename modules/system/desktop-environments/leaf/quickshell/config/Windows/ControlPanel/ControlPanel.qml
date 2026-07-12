@@ -20,6 +20,7 @@ Shared.PanelWindow {
         right: true
     }
 
+    /*
     content: AbsGrid.PanelGrid {
         id: panelGrid
         xSize: 4
@@ -57,4 +58,5 @@ Shared.PanelWindow {
             }
         ]
     }
+    */
 }

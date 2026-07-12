@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell
 import qs as Root
 import qs.Components.Shared as Shared
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
@@ -85,7 +86,25 @@ Shared.PanelWindow {
                         xSize: 12
                         ySize: 10
                         property int pageIndex: page.pageIndex
-                        model: Root.State.config.widgetPager[page.pageIndex]
+                        model: ScriptModel {
+                            /*
+                            values: Root.State.config.widgetPager[page.pageIndex]
+                                        .map(widgetInstJson => panelGridPage.jsonToWidgetInstance(widgetInstJson))
+                            */
+                            values: [... widgetInstances.instances]
+                        }
+                        Variants {
+                            id: widgetInstances
+                            model: Root.State.config.widgetPager[page.pageIndex]
+                            delegate: AbsGrid.WidgetInstance {
+                                required property var modelData
+                                property var json: modelData
+                                uid: json.uid
+                                xPosition: json.xPosition
+                                yPosition: json.yPosition
+                                state: json.state
+                            }
+                        }
                         editable: widgetPager.editable
                         /*
                         onModelUpdated: (newInstances) => {
