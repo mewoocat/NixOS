@@ -109,19 +109,25 @@ in{
     grim
     ddcutil
     ddcui
+    cage # wayland compositor for greeter
   ];
 
   # GreetD
-  /*
   services.greetd = {
-    enable = false;
+    enable = true;
     settings = {
       default_session = {
-        #command = "${pkgs.cage}/bin/cage -s -- leaf";
-        command = "leaf";
-        user = "eXia"; # Set user to auto login
+        command = "${pkgs.cage}/bin/cage -s -- qs -p ${./quickshell/config/Windows/Greeter/Shell.qml}";
+        #user = "eXia"; # Set user to auto login
+        user = "greeter";
       };
+
+      /*
+      default_session = {
+        command = "${config.programs.niri.package}/bin/niri-session";
+        user = "eXia";
+      };
+      */
     };
   };
-  */
 }

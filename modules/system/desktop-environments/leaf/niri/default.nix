@@ -35,14 +35,4 @@
       };
     };
   };
-
-  services.greetd = {
-    enable = false;
-    settings = {
-      default_session = {
-        command = "${config.programs.niri.package}/bin/niri-session";
-        user = "eXia";
-      };
-    };
-  };
 }
