@@ -10,8 +10,11 @@ import qs as Root
 Rectangle {
     id: root
 
-    required property WidgetData widgetData
+    // Seems that this works when var but causes the value to be null if typed as WidgetInstance
+    required property var widgetInstance
     required property PanelGrid panelGrid
+ 
+    property WidgetData widgetData: getWidgetData(widgetInstance, panelGrid)
 
     property int unitSize: panelGrid.unitSize
     property bool editable: panelGrid.editable
@@ -21,7 +24,13 @@ Rectangle {
     property int radius: 0
     property int initialX: 0
     property int initialY: 0
-    property PanelGrid initialPanelGrid: panelGrid          // Holds the PanelGrid this tile originated from
+
+    // Not sure if needed yet or if we can just track the initial grid from the pager
+    property PanelGrid initialPanelGrid: null          // Holds the PanelGrid this tile originated from
+    Component.onCompleted: {
+        initialPanelGrid = panelGrid
+        print(`WHAT!!! PanelTile: widgetInstance: ${widgetInstance}`)
+    }
 
     signal dragStarted(item: PanelTile)
     signal dropAccepted(item: PanelTile)
@@ -30,6 +39,30 @@ Rectangle {
     function resetPosition() {
         x = initialX
         y = initialY
+    }
+
+    function getWidgetData(w: var, p: PanelGrid): WidgetData {
+        print(`getWidgetData... w: ${w}, p: ${p}`)
+        // This returns a QtObject
+        const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
+        if (component.status == Component.Error) {
+            console.error(component.errorString())
+        }
+
+        // !! IMPORTANT: Need to parent the item here or keep a handle on it's return value, otherwise
+        // the garbage collector could just delete it when it feels like it.  (Fix for 4/9/26 incident)
+        // ^ not sure if this is needed now
+        const widgetData = component.createObject(null, {
+            uid: w.uid,
+            xPosition: w.xPosition,
+            yPosition: w.yPosition,
+            state: w.state,
+            panelGrid: p,
+            radius: p.widgetRadius,
+        })
+
+        console.log(`widgetData: ${widgetData}`)
+        return widgetData as WidgetData
     }
 
     // Wobble animation
@@ -103,6 +136,10 @@ Rectangle {
             // Store original position
             root.initialX = root.x
             root.initialY = root.y
+
+            // Set selected tile here since the panelGrid prop is guaranteed to be the most up
+            // to date in the case that the PanelTile changes grids without the model changing.
+            root.panelGrid.selectedTile = root
             root.dragStarted(root) // emit signal
         }
         onReleased: {
@@ -117,7 +154,7 @@ Rectangle {
             }
             */
 
-            // Update the position of the tile relative it's PanelGrid
+            // Update the position of the tile relative to it's PanelGrid
             root.widgetData.xPosition = root.panelGrid.selectedTileTargetX
             root.widgetData.yPosition = root.panelGrid.selectedTileTargetY
             root.x = root.widgetData.xPosition * root.unitSize

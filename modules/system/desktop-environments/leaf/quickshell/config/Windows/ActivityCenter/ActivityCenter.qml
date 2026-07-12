@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell
 import qs as Root
 import qs.Components.Shared as Shared
 import qs.Components.Shared.AbsoluteDragGrid as AbsGrid
@@ -26,12 +27,12 @@ Shared.PanelWindow {
         spacing: 0
         property bool editable: false
 
+        onVisibleChanged: if (!visible) editable = false
+
         property AbsGrid.PanelTile selectedTile: null
         onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
-        //property AbsGrid.PanelGrid dstGrid: null // TODO: is this even needed?, yes for the persistence routine to know which page index to apply the change to
-        //onDstGridChanged: print(`dstGrid: ${dstGrid}`)
 
         property int srcIndex: -1
         property int dstIndex: -1
@@ -52,7 +53,6 @@ Shared.PanelWindow {
                     required property int modelData
                     property int pageIndex: modelData
                     width: panelGridPage.width
-
                     height: panelGridPage.height
                     onEntered: () => { 
                         console.log(`widget pager drop grid entered (${pageIndex})`)
@@ -86,7 +86,25 @@ Shared.PanelWindow {
                         xSize: 12
                         ySize: 10
                         property int pageIndex: page.pageIndex
-                        model: Root.State.config.widgetPager[page.pageIndex]
+                        model: ScriptModel {
+                            /*
+                            values: Root.State.config.widgetPager[page.pageIndex]
+                                        .map(widgetInstJson => panelGridPage.jsonToWidgetInstance(widgetInstJson))
+                            */
+                            values: [... widgetInstances.instances]
+                        }
+                        Variants {
+                            id: widgetInstances
+                            model: Root.State.config.widgetPager[page.pageIndex]
+                            delegate: AbsGrid.WidgetInstance {
+                                required property var modelData
+                                property var json: modelData
+                                uid: json.uid
+                                xPosition: json.xPosition
+                                yPosition: json.yPosition
+                                state: json.state
+                            }
+                        }
                         editable: widgetPager.editable
                         /*
                         onModelUpdated: (newInstances) => {
@@ -95,12 +113,18 @@ Shared.PanelWindow {
                         }
                         */
                         onSelectedTileChanged: print(`${panelGridPage}: selected tile changed to ${selectedTile}`)
-                        onTileDragStarted: (item) => {
-                            print(`Pager:onDragStarted: ${item}`)
+                        onTileDragStarted: (tile) => {
+                            print(`Pager:onDragStarted: ${tile}`)
                             // Track the tile as the current selected tile across all pages
-                            widgetPager.selectedTile = selectedTile
+                            widgetPager.selectedTile = tile
                             // Set the source grid and index
-                            widgetPager.srcGrid = panelGridPage
+
+                            // TODO: I think this will be wrong if the model isn't updated and the tile changes
+                            // grids since it's still hooked up to it's original grid.
+                            //widgetPager.srcGrid = panelGridPage
+                            // this might be fix below
+                            widgetPager.srcGrid = tile.panelGrid
+
                             widgetPager.srcIndex = page.pageIndex
                         }
                         onTileDropAccepted: (panelTile) => {
