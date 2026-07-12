@@ -12,19 +12,34 @@
   };
 
   environment = {
+    # What is this even doing?
+    /*
     etc = {
       "modprobe.d/nvidia.conf" = {
         text = "options nvidia NVreg_RegistryDwords=\"PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3\"";
       };
     };
+    */
   };
 
+  boot.kernelParams = [
+    # (doesn't seem to help) Graphical corruption and system crashes on suspend/resume fix
+    #"nvidia.NVreg_TemporaryFilePath=/var/tmp"
+
+    # Seems to cause suspend to fail to start
+    #"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+  ];
+
+  powerManagement.enable = true;
+
   hardware.nvidia = {
-    # Modesetting is required.
+    # Modesetting (kernel mode setting / kms) is required for Wayland.
     modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = false;
+    # Often required for sleep/suspend to work
+    # INFO: This fixes suspend on gtx 1080
+    powerManagement.enable = true;
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
