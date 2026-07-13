@@ -4,4 +4,5 @@
   services.minecraft-server.enable = true;
   services.minecraft-server.eula = true;
   services.minecraft-server.openFirewall = true;
+  services.minecraft-server.dataDir = "/var/lib/minecraft";
 }

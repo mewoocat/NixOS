@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../common/servers/home-assistant
+    ../../common/servers/minecraft
   ];
 
   nix = {
@@ -60,7 +61,7 @@
     #networkmanager.logLevel = "DEBUG";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ 22 80 443 ];
       allowedUDPPortRanges = [];
     };
   };
@@ -73,6 +74,23 @@
       PermitRootLogin = "no";
       LogLevel = "VERBOSE";
     };
+  };
+
+  services.caddy = {
+    enable = true;
+    openFirewall = true;
+    # See for valid addresses: https://caddyserver.com/docs/caddyfile/concepts#addresses
+    #
+    # This will accept requests for any address on https and port 80
+    # However if the host portion of specified for the site, then only requests with the 
+    # HTTP Host header matching the site address will be accepted.
+    virtualHosts."http://".extraConfig = ''
+      respond "minecraft soon?!"
+
+      # host static html webpage
+      #root * /var/www
+      #file_server
+    '';
   };
   
   # This value determines the NixOS release from which the default
