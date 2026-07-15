@@ -70,3 +70,6 @@ type = "fetch"
 # Needed for maple as it currently relies on the disko module for configuring it's root filesystem
 [inputs.disko]
 url = "gh:nix-community/disko"
+
+[inputs.nix-minecraft]
+url = "gh:Infinidoge/nix-minecraft"

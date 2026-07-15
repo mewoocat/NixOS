@@ -55,6 +55,14 @@
     "rev": "7149d77f66536aaf02c845a9c2a08eb7e57a04c3",
     "type": "github"
   },
+  "nix-minecraft": {
+    "lastModified": 1783980112,
+    "narHash": "sha256-U8BMh76cqU8sdntzFZLEaSoGNJSxPqx9X9C111FEES8=",
+    "owner": "Infinidoge",
+    "repo": "nix-minecraft",
+    "rev": "bc2892356196d638d503d8cae8111dfd0247c729",
+    "type": "github"
+  },
   "nixpkgs": {
     "lastModified": 1781127806,
     "narHash": "sha256-gji2R2P56G9C8SwFgPrwYtSZ73g2Rc/83x7u6VB4/xM=",
