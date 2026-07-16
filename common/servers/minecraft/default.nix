@@ -57,7 +57,13 @@
           enable-rcon = false;
         };
         #package = pkgs.fabricServers.fabric-1_21_4; # somethings wrong with the fabric version
-        package = pkgs.vanillaServers.vanilla;
+        #package = pkgs.vanillaServers.vanilla; # works
+        #package = pkgs.fabricServers.fabric.override { jre_headless = pkgs.openjdk25_headless; }; # works
+        # works
+        # If getting weird runtime errors, try deleting the minecraft server folder 
+        package = pkgs.fabricServers.fabric-1_21_4.override {
+          loaderVersion = "0.19.3"; # Specific fabric loader version ... need to test if override is needed
+        };
         symlinks = {
           mods = pkgs.linkFarmFromDrvs "mods" [
             #modpackLarionWorldGeneration
