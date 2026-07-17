@@ -50,11 +50,19 @@
         serverProperties = {
           server-port = 25565; # default
           difficulty = 3;
-          gamemode = 1;
+          gamemode = 0; # survival
+          cheats = true;
           max-players = 10;
           motd = "NixOS Minecraft server!";
           white-list = false;
           enable-rcon = false;
+        };
+        operators = {
+          eXia_beep_boop = {
+            uuid = "0b444121-e744-4c6b-a994-43d3b764e0ad";
+            level = 4;
+            bypassesPlayerLimit = true;
+          };
         };
         #package = pkgs.fabricServers.fabric-1_21_4; # somethings wrong with the fabric version
         #package = pkgs.vanillaServers.vanilla; # works
@@ -66,8 +74,8 @@
         };
         symlinks = {
           mods = pkgs.linkFarmFromDrvs "mods" [
-            #modpackLarionWorldGeneration
-            #fabricApi
+            modpackLarionWorldGeneration
+            fabricApi
           ];
         };
       };

@@ -61,7 +61,7 @@
     #networkmanager.logLevel = "DEBUG";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [ 22 ];
       allowedUDPPortRanges = [];
     };
   };
@@ -76,8 +76,9 @@
     };
   };
 
+  # Basic http server
   services.caddy = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     # See for valid addresses: https://caddyserver.com/docs/caddyfile/concepts#addresses
     #
