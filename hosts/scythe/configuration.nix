@@ -38,8 +38,13 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = ["ntfs" "zfs"];
   };
+
+  #boot.zfs.forceImportRoot = false; # enabling this helps with compatibility but limits safeguards zfs uses
+  # ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine.  Not applicable for
+  # local drives not shared over the network
+  networking.hostId = "d01ce9f7";
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
