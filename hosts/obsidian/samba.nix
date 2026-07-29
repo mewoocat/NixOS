@@ -2,6 +2,7 @@
   services.samba = {
     enable = true;
     openFirewall = true;
+    # See https://wiki.nixos.org/wiki/Samba for template
     # See https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html for options
     settings = {
       global = {
@@ -16,24 +17,20 @@
         "hosts deny" = "0.0.0.0/0"; # Hosts that cannot access, all but hosts allow takes precedence
         "map to guest" = "Never"; # Don't allow guest access
       };
-      "private" = {
-        "path" = "/mnt/Shares/Private";
+      "Storage" = {
+        "path" = "/mnt/Storage/";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "username";
-        "force group" = "groupname";
+        #"force user" = "username";
+        #"force group" = "groupname";
       };
     };
   };
 
-  services.samba-wsdd = {
-    enable = true;
-    openFirewall = true;
-  };
-
+  /*
   services.avahi = {
     publish.enable = true;
     publish.userServices = true;
@@ -43,7 +40,6 @@
     enable = true;
     openFirewall = true;
   };
+  */
 
-  networking.firewall.enable = true;
-  networking.firewall.allowPing = true;
 }

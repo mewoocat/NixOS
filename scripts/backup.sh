@@ -11,15 +11,13 @@ dest=$2
 #backupDir="Backup-$date"
 #mkdir $dest/$backupDir
 
-#--dry-run
+#--dry-run \
+#--no-perms \
 rsync \
-  --dry-run \
   --human-readable \
   --hard-links \
   --archive \
   --info=progress2 \
   --no-inc-recursive \
   --delete \
-  --no-perms \
-
   "$src" "$dest"

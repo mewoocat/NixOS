@@ -28,6 +28,7 @@
     ../../modules/utilities
     ../../common/gaming/game.nix
     ./zfs.nix
+    ./samba.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -43,6 +44,15 @@
   #virtualisation.waydroid.enable = true;
 
   #virtualisation.docker.enable = true;
+
+  # Enable the OpenSSH daemon.
+  services.openssh = {
+    enable = true;
+    allowSFTP = false; # Not using this
+    settings = {
+      PasswordAuthentication = true;
+    };
+  };
 
   networking.firewall.allowedUDPPorts = [ 53 67 ];
   networking.firewall.allowedTCPPorts = [ 80 443 1883 6669 ];

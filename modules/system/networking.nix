@@ -16,8 +16,10 @@
   };
 
   # Enable the OpenSSH daemon.
+  #
   services.openssh = {
     #enable = false;
-    settings.PasswordAuthentication = false;
+    #settings.PasswordAuthentication = false;
   };
+  #
 }
