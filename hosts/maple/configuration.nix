@@ -86,6 +86,30 @@
 
   time.timeZone = "America/Chicago";
 
+  # Allow for all sudo enabled users to call sudo without a password
+  #security.sudo.wheelNeedsPassword = false;
+  
+  security.sudo = {
+    extraConfig = ''
+      Defaults insults
+    '';
+    extraRules = [
+      {
+        users = ["eXia"];
+        commands = [
+          {
+            #command = "ALL";
+            #command = "${pkgs.rsync}/bin/rsync"; # Doesn't work
+            # Works, apparently the command only applies to the actual path specified, or it's end link if it's a 
+            # symlink.
+            command = "/run/current-system/sw/bin/rsync";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
+    ];
+  };
+
   users.users.eXia = {
     isNormalUser = true;
     extraGroups = ["wheel" "video"]; # Enable ‘sudo’ for the user.
