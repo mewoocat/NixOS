@@ -1,5 +1,7 @@
 #!/bin/sh
 #
+# Generic script designed for creating backups
+#
 # Usage: ./backup.sh src/ dest/
 
 src=$1
@@ -9,6 +11,13 @@ dest=$2
 #backupDir="Backup-$date"
 #mkdir $dest/$backupDir
 
-# Designed for creating backups
-#--dry-run
-rsync --human-readable --hard-links --archive --info=progress2 --no-inc-recursive --delete $src $dest
+#--dry-run \
+#--no-perms \
+rsync \
+  --human-readable \
+  --hard-links \
+  --archive \
+  --info=progress2 \
+  --no-inc-recursive \
+  --delete \
+  "$src" "$dest"

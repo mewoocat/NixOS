@@ -2,8 +2,8 @@
   options,
   config,
   pkgs,
-  inputs,
   lib,
+  inputs,
   ...
 }: {
   # This is a custom option
@@ -13,9 +13,6 @@
   time.timeZone = "US/Eastern";
 
   imports = [
-    ../../modules/applications
-    ../../modules/dev-environments
-    inputs.hjem.nixosModules.default
     ./programs
   ];
 
@@ -54,9 +51,9 @@
       openvpn
       linux-wifi-hotspot
       #inputs.myNvim.packages.x86_64-linux.default
-      inputs.myNvimNvf.packages.x86_64-linux.default
+      inputs.nvim-nvf.packages.x86_64-linux.default
       microfetch
-      wineWowPackages.stable
+      wineWow64Packages.stable
       nh # Nix helper
       exfatprogs # exFAT filesystem userspace utilities
       stress 
@@ -68,6 +65,7 @@
       arduino
       nwg-displays
       idevicerestore # Restore/upgrade firmware of iOS devices
+      inputs.tack.packages.x86_64-linux.default
 
       # yubikey
       yubikey-manager # ykman cli tool
@@ -119,7 +117,7 @@
       rustc
 
       # Dev
-      inputs.alejandra.packages.${pkgs.stdenv.hostPlatform.system}.default
+      #inputs.alejandra.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 

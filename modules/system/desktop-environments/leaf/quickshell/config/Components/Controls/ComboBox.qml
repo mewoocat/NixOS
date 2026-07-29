@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import Quickshell
 import QtQuick
 import QtQuick.Controls as C
 import QtQuick.Templates as T
@@ -8,7 +9,7 @@ import qs as Root
 T.ComboBox {
     id: control
 
-    hoverEnabled: true
+    hoverEnabled: enabled
 
     //defines the padding of the contentItem relative to the edge of the control
     padding: 4
@@ -18,7 +19,7 @@ T.ComboBox {
     bottomPadding: padding
 
     // Defines the padding of the background
-    property real inset: 0
+    property real inset: 4
     leftInset: inset
     rightInset: inset
     topInset: inset
@@ -27,7 +28,7 @@ T.ComboBox {
     property color backgroundColor: control.hovered ? Root.State.colors.surface_container_highest : Root.State.colors.surface_container_high
     property color color: control.hovered ? Root.State.colors.on_surface : Root.State.colors.on_surface
     property bool isMutliColorIcon: false
-    property int radius: 12 //background.implicitHeight
+    property int radius: 12
     property int minDelegateWidth: 200
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
@@ -40,77 +41,91 @@ T.ComboBox {
     background: Rectangle {
         id: bg
         implicitWidth: 120
-        implicitHeight: 30
+        implicitHeight: 24
         color: control.backgroundColor
         radius: control.radius
+        opacity: control.enabled ? 1 : 0.5
     }
 
     contentItem: Rectangle {
         color: "#0000ff00"
         Text {
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.margins: 4
+            anchors.centerIn: parent
+            width: parent.width
+            leftPadding: 8
+            rightPadding: control.indicator.width + control.rightPadding + 8
             text: control.displayText
             color: control.color
+            elide: Text.ElideRight
         }
     }
 
     delegate: MenuItem {
         id: delegate
-        hoverEnabled: control.hoverEnabled
-        // Width of MenuItem should be determined by whether it's desired width, the displayed item, or the popup's width is largest
-        width: Math.max(implicitWidth, control.contentItem.width, control.popup.contentWidth)
-        radius: control.radius - control.padding - inset
-        inset: 2
-
         required property var model
         required property int index
-
+        hoverEnabled: control.hoverEnabled
+        //implicitWidth: 100//control.maxDelegateWidth + 40
+        implicitWidth: ListView.view.width
+        radius: control.radius - control.padding - inset
         text: model[control.textRole]
         highlighted: index == control.highlightedIndex
     }
 
     // !! Warning: it seems that using a Popup {} in a Qs Window with focusable:true causes popup to immediately close.
     // It also seems to trigger any HyprlandFocusGrab
+    //
+    // TODO: might want to move this to it's own file
     popup: C.Menu {
+        id: popup
+        clip: true
         padding: control.padding
+        leftInset: 0
+        rightInset: 0
+        topInset: 0
+        bottomInset: 0
+        x: control.inset
         y: control.height
-        implicitWidth: contentWidth + leftPadding + rightPadding
-        implicitHeight: contentHeight + topPadding + bottomPadding // Can't be 0 or qs will crash
-        width: Math.max(control.background.width, implicitWidth)
-        height: Math.max(1, implicitHeight)
-        closePolicy: C.Popup.NoAutoClose // Doesn't seem to take effect
-        //popupType: C.Popup.Native // Used to render the popup as it's own window
+        // This is the default but for some reason specifying it here results in clicking on the control to close the popup not working
+        closePolicy: C.Popup.CloseOnEscape | C.Popup.CloseOnReleaseOutside
+        //popupType: C.Popup.Native // Used to render the popup as it's own window. Seems to cause issues with animation
+        //popupType: C.Popup.Window
+        popupType: C.Popup.Item
+        
+        // By default the background item fills the width/height of control minus any inset
         background: Rectangle {
-            color: Root.State.colors.surface
+            color: Qt.alpha(Root.State.colors.surface_container, 1)
             radius: control.radius
+            implicitWidth: control.background.width // Match the width of the control's actual background
         }
+
+        // Note that a vertical ListView only estimates the contentHeight and sets the contentWidth to -1.
+        // A horizontal ListView does the inverse.
         contentItem: ListView {
-            // contentHeight / contentWidth seem to no work in some cases?
-            implicitWidth: contentItem.childrenRect.width
-            implicitHeight: contentItem.childrenRect.height
+            // Only implicit sizes can be used here since the contentItem is resized to fit the padding of the control.
+            // x, y, width, and height are not respected.
+            // implicitWidth is automatically set since this is the contentItem of a control
+            implicitHeight: contentHeight
             model: control.delegateModel // Provides both the model and delegate
+            currentIndex: control.currentIndex
         }
-        // WARNING!: The exit Transition a Popup doesn't seem to play unless esc is used to close
-        /*
+
         enter: Transition {
-            NumberAnimation { property: "height"; from: 1; to: 400 }
+            NumberAnimation { property: "height"; from: 1; to: popup.implicitHeight; duration: 250 }
         }
         exit: Transition {
-            NumberAnimation { property: "height"; from: 400; to: 1;
-            }
+            NumberAnimation { property: "height"; from: popup.implicitHeight; to: 1; duration: 250 }
         }
-        */
     }
 
     indicator: Rectangle {
-        anchors.right: control.right
+        anchors.right: control.contentItem.right
         anchors.verticalCenter: control.verticalCenter
         anchors.margins: 8
         width: 8
         height: 8
         color: "transparent"
+        opacity: control.enabled ? 1 : 0.5
 
         // Background
         Canvas {

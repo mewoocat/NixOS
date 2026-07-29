@@ -15,6 +15,7 @@ AbsGrid.WidgetData {
     name: "Weather (2x2)"
     xSize: 2
     ySize: 2
+    padding: 8
     component: Rectangle {
         anchors.fill: parent
         color: "transparent"

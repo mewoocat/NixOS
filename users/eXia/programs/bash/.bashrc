@@ -1,5 +1,5 @@
 
-# What is this even doing?
+# What is this even doing?  If the session isn't interactive don't run anything else here in order prevent anything outputing to stdout
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 

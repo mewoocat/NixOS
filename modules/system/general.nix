@@ -2,13 +2,20 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
 
   imports = [
-    inputs.agenix.nixosModules.default
+    #inputs.agenix.nixosModules.default
   ];
+
+  # Ensure nixpkgs instance is consistent across entire system
+  # reference: https://piegames.de/dumps/pinning-nixos-with-npins-revisited/#it-s-only-five-lines
+  nix.channel.enable = false;
+  nix.nixPath = [ "nixpkgs=/etc/nixos/nixpkgs" ];
+  environment.etc = {
+    "nixos/nixpkgs".source = builtins.storePath pkgs.path;
+  };
 
   nix = {
     settings = {
@@ -43,13 +50,15 @@
       allowInsecure = true;  
       permittedInsecurePackages = [
         "electron-36.9.5"
+        "electron-39.8.10"
       ];
     };
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${stdenv.hostPlatform.system}.default # Agenix cli client
+    #inputs.agenix.packages.${stdenv.hostPlatform.system}.default # Agenix cli client
     man-pages
+    npins
   ];
 
   #services.envfs.enable = true; # Populate /usr/bin with binaries # This appears broken

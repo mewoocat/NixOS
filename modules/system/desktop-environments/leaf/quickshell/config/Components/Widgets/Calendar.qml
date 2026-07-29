@@ -11,6 +11,7 @@ AbsGrid.WidgetData {
     name: "Calendar"
     xSize: 3
     ySize: 3
+    padding: 8
     component: Item {
         anchors.fill: parent
         ColumnLayout {

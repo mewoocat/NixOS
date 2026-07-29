@@ -1,7 +1,7 @@
-{config, pkgs, inputs, ...} : {
+{inputs, config, pkgs, ...} : {
 
   imports = [
-    inputs.qtengine.nixosModules.default
+    #inputs.qtengine.nixosModules.default
   ];
 
   qt = {
@@ -23,13 +23,16 @@
     kdePackages.breeze
     kdePackages.breeze.qt5 # For Qt5 support
     darkly
-    darkly-qt5 # For Qt5 support
+    #darkly-qt5 # For Qt5 support # Removed in 26.05
     adwaita-qt
     qlementine
 
+     
     inputs.qtengine.packages.${stdenv.hostPlatform.system}.default # For imperative qtengine config management
+    #qtengine
   ];
 
+  /*
   programs.qtengine = {
     enable = false;
     config = {
@@ -55,6 +58,7 @@
       };
     };
   };
+  */
 
   hjem.users.${config.username} = {
     clobberFiles = true;

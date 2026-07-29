@@ -23,8 +23,8 @@ T.Slider {
 
     property color backgroundColor: Root.State.colors.surface_container_highest
     property color textColor: control.hovered || control.pressed ? Root.State.colors.on_primary : "transparent"
-    property int defaultBgWidth: control.horizontal ? 100 : 24
-    property int defaultBgHeight: control.horizontal ? 24 : 100
+    property int defaultBgWidth: control.horizontal ? 100 : 20
+    property int defaultBgHeight: control.horizontal ? 20 : 100
     property real handleWidthScale: 1.75
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest

@@ -1,4 +1,41 @@
 layer-rule {
+  match namespace="shell:bar"
+    // Properties that apply continuously.
+    shadow {
+        on
+        // off
+        softness 8
+        spread 4
+        offset x=0 y=3
+        draw-behind-window false
+        color "#00000099"
+        // inactive-color "#00000064"
+    }
+
+    geometry-corner-radius 0
+    place-within-backdrop false
+    baba-is-float false
+
+    background-effect {
+        xray false
+        blur true
+        noise 0.05
+        saturation 3
+    }
+
+    popups {
+        geometry-corner-radius 0
+
+        background-effect {
+            xray false
+            blur true
+            noise 0.05
+            saturation 3
+        }
+    }
+}
+
+layer-rule {
   match namespace="^quickshell-bar.*"
     // Properties that apply continuously.
     shadow {

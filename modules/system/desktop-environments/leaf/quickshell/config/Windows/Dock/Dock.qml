@@ -31,8 +31,12 @@ Scope {
                 anchors {
                     bottom: true
                 }
-                implicitHeight: indicator.height
-                implicitWidth: indicator.width
+                //implicitHeight: indicator.height
+                //implicitWidth: indicator.width
+                // WARNING: dynamically chaging the size of PanelWindow blurred with a BackgroundEffect, seems
+                // to cause the blur area to lag.  Instead, set the size of the PanelWindow to the max needed.
+                implicitHeight: Root.State.dockHeight
+                implicitWidth: Math.min(appRow.width, window.screen.width)
                 property bool active: false
 
                 // Specify the region of the layer to have blur applied to it
@@ -137,10 +141,12 @@ Scope {
                         State {
                             name: "shown"
                             PropertyChanges {
+                                /*
                                 window {
                                     implicitHeight: Root.State.dockHeight
                                     implicitWidth: Math.min(appRow.width, window.screen.width)
                                 }
+                                */
                                 mouseArea {
                                     width: dock.width
                                 }
@@ -158,8 +164,8 @@ Scope {
                             to: "shown"
                             reversible: true
                             SequentialAnimation { 
-                                PropertyAction { target: window; properties: "implicitHeight,implicitWidth"; }
                                 PropertyAction { target: mouseArea; property: "width"; }
+                                //PropertyAction { targets: window; properties: "implicitHeight,implicitWidth"; }
                                 PropertyAction { target: indicator; property: "visible" }
                                 PropertyAnimation { target: appBox; property: "y"; duration: root.animationSpeed; easing.type: root.easingType }
                             }

@@ -15,9 +15,9 @@ AbsGrid.WidgetData {
     name: "Notifications"
     xSize: 6
     ySize: 6
+    padding: 8
     component: ColumnLayout {
         anchors.fill: parent
-        anchors.margins: root.padding
         RowLayout {
             Shared.TextBlock {
                 Layout.fillWidth: true

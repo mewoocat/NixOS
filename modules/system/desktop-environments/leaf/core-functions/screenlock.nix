@@ -2,8 +2,10 @@
   config,
   pkgs,
   inputs,
+  #sources,
   ...
 }: let
+  /*
   ags-lockscreen = pkgs.writeShellApplication {
     name = "ags-lock";
     runtimeInputs = with pkgs; [  
@@ -25,11 +27,13 @@
       #fi
     '';
   };
+  */
 
   qs-lockscreen = pkgs.writeShellApplication {
     name = "qs-lock";
     runtimeInputs = [   
       inputs.quickshell.packages.${config.hostSystem}.default
+      #(pkgs.callPackage (import sources.quickshell) {})
     ];
     text = '' 
       quickshell ipc call control lockScreen
@@ -52,7 +56,6 @@ in{
   };
 
   users.users.${config.username}.packages = [
-    ags-lockscreen
     qs-lockscreen
   ];
 
@@ -85,7 +88,9 @@ in{
     path = [
       #ags-lockscreen # For the ags-lock command
       qs-lockscreen
+
       config.programs.hyprland.package # For hyprctl
+      config.programs.niri.package
     ];
 
     # This will ExecStart this script which has access to the paths provided

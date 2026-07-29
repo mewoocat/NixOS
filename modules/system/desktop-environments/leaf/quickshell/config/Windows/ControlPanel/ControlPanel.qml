@@ -20,11 +20,11 @@ Shared.PanelWindow {
         right: true
     }
 
+    /*
     content: AbsGrid.PanelGrid {
         id: panelGrid
         xSize: 4
         ySize: 5
-        allowEditToggle: false
         model: [
             {
                 uid: "Components/Widgets/Network.qml",
@@ -58,4 +58,5 @@ Shared.PanelWindow {
             }
         ]
     }
+    */
 }

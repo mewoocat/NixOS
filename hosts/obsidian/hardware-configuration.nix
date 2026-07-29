@@ -32,6 +32,7 @@
     #"pcie_aspm.policy=performance" # Fix for RTL8822BE wifi card randomly disconnecting? ... No help :(
     #"rtw88_pci.disable_aspm=y"
     #"pcie_aspm=off" # Doesn't seem to help ... also not sure if it's being applied
+
   ];
 
   networking.hostName = "obsidian"; # Define your hostname.

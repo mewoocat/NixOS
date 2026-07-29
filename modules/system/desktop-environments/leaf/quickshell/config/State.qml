@@ -126,6 +126,50 @@ Singleton {
                 }
             ]
 
+            // An array of arrays where each sub array is a page of widgets
+            property list<var> widgetPager: [
+                [
+                    {
+                        "state": null,
+                        "uid": "Components/Widgets/Weather.qml",
+                        "xPosition": 5,
+                        "yPosition": 4
+                    },
+                    {
+                        "state": null,
+                        "uid": "Components/Widgets/AnalogClock.qml",
+                        "xPosition": 0,
+                        "yPosition": 0
+                    },
+                    {
+                        "state": null,
+                        "uid": "Components/Widgets/Notifications.qml",
+                        "xPosition": 0,
+                        "yPosition": 1
+                    }
+                ],
+                [
+                    {
+                        "state": null,
+                        "uid": "Components/Widgets/SystemStats.qml",
+                        "xPosition": 0,
+                        "yPosition": 8
+                    },
+                    {
+                        "state": null,
+                        "uid": "Components/Widgets/MusicPlayer.qml",
+                        "xPosition": 0,
+                        "yPosition": 6
+                    },
+                    {
+                        "state": null,
+                        "uid": "Components/Widgets/Tetris.qml",
+                        "xPosition": 0,
+                        "yPosition": 0
+                    }
+                ]
+            ]
+
             property var pfpImagePath: ""
             property var pinnedApps: ([ "foot", "vesktop", "obsidian" ])
             property var appFreqMap: ({})

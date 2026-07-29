@@ -15,8 +15,8 @@ AbsGrid.WidgetData {
 
         property var date: Services.DateTime.dateObj
         readonly property int degreesInSecond: 6
-        property int tickOuterPadding: 24
-        property int handOuterPadding: 24
+        property int tickOuterPadding: 16
+        property int handOuterPadding: 16
         property int majorTickLength: 8
         property int minorTickLength: 4
         property int secondHandLength: 28

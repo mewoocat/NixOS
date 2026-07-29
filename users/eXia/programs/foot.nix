@@ -11,7 +11,7 @@
         font = "SpaceMono Nerd Font:size=10";
         pad = "12x12";
       };
-      colors = {
+      colors-dark = {
         alpha = 0.80;
         #alpha = 1;
       };
