@@ -1,3 +1,4 @@
+import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
 import QtQuick
@@ -20,11 +21,27 @@ Shared.PanelWindow {
         right: true
     }
 
-    /*
     content: AbsGrid.PanelGrid {
         id: panelGrid
         xSize: 4
         ySize: 5
+        property var thing: AbsGrid.WidgetInstance {
+            uid: "Components/Widgets/Network.qml"
+            xPosition: 0
+            yPosition: 0
+        }
+        /*
+        model: ScriptModel {
+            values: [
+                panelGrid.thing
+            ]
+        }
+        */
+        model: [
+            Item {}
+        ]
+
+        /*
         model: [
             {
                 uid: "Components/Widgets/Network.qml",
@@ -57,6 +74,6 @@ Shared.PanelWindow {
                 yPosition: 3
             }
         ]
+        */
     }
-    */
 }

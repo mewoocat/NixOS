@@ -9,7 +9,7 @@ import qs.Components.Controls as Ctrls
 // TODO: Writing the adapter shouldn't regenerate the widgets
 Rectangle {
     id: root
-    property ScriptModel model: [] // Expects a list of WidgetInstances
+    property var model: [] // Expects an model of WidgetInstances
     onModelChanged: () => print(`PanelGrid: model: ${model.values}`)
     property Logic logic: Logic {}
     property int unitSize: 64

@@ -25,10 +25,10 @@
       kdePackages.ark # File archiver (compression)
       /*
       kdePackages.plasma-workspace # Has the SolidUiServer i think but not sure how to start it
-      kdePackages.kio # needed since 25.11
+      */
+      kdePackages.kio # Needed for password prompt inside dolphin
       kdePackages.kio-fuse #to mount remote filesystems via FUSE
       kdePackages.kio-extras #extra protocols support (sftp, fish and more)
-      */
       #nemo-with-extensions
     
       kdePackages.konsole
