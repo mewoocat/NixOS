@@ -5,8 +5,10 @@ import QtQuick
 Singleton {
     id: root
     property bool visible: false
+    property string mode: "" // volume, brightness
 
-    function activate() {
+    function activate(targetMode: string) {
+        mode = targetMode
         visible = true 
         visibleTimer.restart()
     }

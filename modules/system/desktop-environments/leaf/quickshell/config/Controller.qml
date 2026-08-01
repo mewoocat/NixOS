@@ -30,6 +30,6 @@ Singleton {
         // Stops the recording
         function stopRecording() { Services.ScreenCapture.stopRecording() }
 
-        function activateOSD() { Services.OSD.activate() }
+        function activateOSD(mode: string) { Services.OSD.activate(mode) }
     }
 }

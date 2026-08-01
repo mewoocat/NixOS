@@ -20,32 +20,24 @@ PanelWindow {
     Rectangle {
         id: bg
         property int margins: 8
-        width: row.width + row.margins * 2
-        height: row.height + row.margins * 2
+        width: loader.width + loader.margins * 2
+        height: loader.height + loader.margins * 2
         color: "#bb212121"
         radius: Root.State.rounding
-        RowLayout {
-            id: row
+        Loader {
+            id: loader
             x: margins
             y: margins
             property int margins: 8
-            Ctrls.Button {
-                icon.name: Services.Audio.getIconName(Pipewire.defaultAudioSink)
-                text: Math.ceil(Services.Audio.getVolume(Pipewire.defaultAudioSink) * 100) + '%'
-                implicitWidth: icon.width + spacing + leftPadding + rightPadding + volumeTextMetrics.width
-                onClicked: () => volumeExpander.expanded = true
-                TextMetrics {
-                    id: volumeTextMetrics
-                    text: "100%"
-                    Component.onCompleted: console.log(`text metrics: ${width}`)
-                }
-            }
-            Ctrls.Slider {
-                Layout.fillWidth: true
-                from: 0
-                value: Services.Audio.getVolume(Pipewire.defaultAudioSink)
-                onValueChanged: Pipewire.defaultAudioSink.audio.volume = value
-                to: 1
+            property Component volumeDelegate: Volume {}
+            property Component brightnessDelegate: Brightness {}
+            sourceComponent: switch(Services.OSD.mode) {
+                case "volume":
+                    return volumeDelegate
+                case "brightness":
+                    return brightnessDelegate
+                default:
+                    return null
             }
         }
     }
