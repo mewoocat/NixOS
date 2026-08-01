@@ -33,5 +33,6 @@ ShellRoot {
     ActivityCenter {}
     Lockscreen {}
     Dock {}
+    OnScreenDisplay {}
     //Settings {}
 }

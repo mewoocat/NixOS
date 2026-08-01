@@ -85,9 +85,9 @@ layer-rule {
     shadow {
         on
         // off
-        softness 8
-        spread 4
-        offset x=-3 y=3
+        softness 6
+        spread 3
+        offset x=-6 y=6
         draw-behind-window false
         color "#00000099"
         // inactive-color "#00000064"
