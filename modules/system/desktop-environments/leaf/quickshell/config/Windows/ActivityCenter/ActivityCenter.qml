@@ -86,13 +86,14 @@ Shared.PanelWindow {
                         xSize: 12
                         ySize: 10
                         property int pageIndex: page.pageIndex
+                        /*
                         model: ScriptModel {
-                            /*
-                            values: Root.State.config.widgetPager[page.pageIndex]
-                                        .map(widgetInstJson => panelGridPage.jsonToWidgetInstance(widgetInstJson))
-                            */
+                            //values: Root.State.config.widgetPager[page.pageIndex]
+                            //            .map(widgetInstJson => panelGridPage.jsonToWidgetInstance(widgetInstJson))
                             values: [... widgetInstances.instances]
                         }
+                        */
+                        model: widgetInstances.instances
                         Variants {
                             id: widgetInstances
                             model: Root.State.config.widgetPager[page.pageIndex]

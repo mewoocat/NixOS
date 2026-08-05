@@ -38,42 +38,38 @@ Shared.PanelWindow {
         }
         */
         model: [
-            Item {}
-        ]
-
-        /*
-        model: [
-            {
-                uid: "Components/Widgets/Network.qml",
-                xPosition: 0,
+            //Item {}
+            AbsGrid.WidgetInstance {
+                uid: "Components/Widgets/Network.qml"
+                xPosition: 0
                 yPosition: 0
             },
-            {
-                uid: "Components/Widgets/ScreenCapture.qml",
-                xPosition: 3,
+            AbsGrid.WidgetInstance {
+                uid: "Components/Widgets/ScreenCapture.qml"
+                xPosition: 3
                 yPosition: 1
             },
-            {
-                uid: "Components/Widgets/NightLight.qml",
-                xPosition: 3,
+            AbsGrid.WidgetInstance {
+                uid: "Components/Widgets/NightLight.qml"
+                xPosition: 3
                 yPosition: 0
             },
-            {
-                uid: "Components/Widgets/ColorMode.qml",
-                xPosition: 3,
+            AbsGrid.WidgetInstance {
+                uid: "Components/Widgets/ColorMode.qml"
+                xPosition: 3
                 yPosition: 2
             },
-            {
-                uid: "Components/Widgets/PowerProfile.qml",
-                xPosition: 0,
+            AbsGrid.WidgetInstance {
+                uid: "Components/Widgets/PowerProfile.qml"
+                xPosition: 0
                 yPosition: 2
             },
-            {
-                uid: "Components/Widgets/AudioAndBrightness.qml",
-                xPosition: 0,
+            AbsGrid.WidgetInstance {
+                uid: "Components/Widgets/AudioAndBrightness.qml"
+                xPosition: 0
                 yPosition: 3
             }
         ]
-        */
+
     }
 }
