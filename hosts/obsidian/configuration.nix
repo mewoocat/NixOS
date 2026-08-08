@@ -28,7 +28,6 @@
     ../../modules/utilities
     ../../common/gaming/game.nix
     ./zfs.nix
-    ./samba.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

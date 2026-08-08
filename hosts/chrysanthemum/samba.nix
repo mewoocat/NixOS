@@ -1,4 +1,5 @@
-{ pkgs, ... }:{
+{ config, pkgs, ... }:{
+  # Don't forget to create and add a password for a user: `sudo smbpasswd -a <user>`
   services.samba = {
     enable = true;
     openFirewall = true;
@@ -7,8 +8,8 @@
     settings = {
       global = {
         "workgroup" = "WORKGROUP";
-        "server string" = "obsidian-smb";
-        "netbios name" = "obsidian-smb";
+        "server string" = "${config.networking.hostName}-smb";
+        "netbios name" = "${config.networking.hostName}-smb";
         "security" = "user";
         #"use sendfile" = "yes";
         #"max protocol" = "smb2";
