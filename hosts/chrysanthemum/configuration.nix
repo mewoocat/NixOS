@@ -35,6 +35,8 @@
     HandleLidSwitch = "ignore";
   };
 
+  time.timeZone = "US/Eastern";
+
   users.users.eXia = {
     isNormalUser = true;
     extraGroups = [

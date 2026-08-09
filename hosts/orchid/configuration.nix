@@ -5,23 +5,17 @@
 }: {
 
   imports = [
-    # Core host related configuration
-    ./core.nix
 
     # Hardware
     ./hardware-configuration.nix
-    ../../modules/hardware/bluetooth.nix
-    ../../modules/hardware/ios.nix
-    ../../modules/hardware/rgb.nix
-    ../../modules/hardware/vial-keyboards.nix
-    ../../modules/hardware/nvidia.nix
+    ../../common/hardware/bluetooth.nix
+    ../../common/hardware/ios.nix
+    ../../common/hardware/rgb.nix
+    ../../common/hardware/vial-keyboards.nix
+    ../../common/hardware/nvidia.nix
 
     # Core system components
     ../../modules/system
-
-    # Desktop environment
-    #../../modules/system/desktop-environments/leaf
-    ../../modules/system/desktop-environments/kde
 
     # User
     ../../users/iris
@@ -29,10 +23,26 @@
     # Other
     ../../modules/utilities
     ../../modules/utilities/virtualization.nix
-    ../../modules/gaming/game.nix
+    ../../common/gaming/game.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = true;
+
+  services.desktopManager.plasma6.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.gamescope}/bin/gamescope -e --mangoapp -- steam -steamdeck -steamos3";
+        user = "iris"; # Set user to auto login
+      };
+    };
+  };
+
   networking.hostName = "orchid";
+  networking.networkmanager.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -78,7 +88,10 @@
     ];
     packages = with pkgs; [
       microfetch
-      inputs.myNvimNvf.packages.x86_64-linux.default
+      inputs.nvim-nvf.packages.x86_64-linux.default
+      git
+      btop
+      zellij
     ];
   };
 

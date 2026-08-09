@@ -89,8 +89,15 @@ in {
 
     # Instead of using pkgs.nextcloud29Packages.apps or similar,
     # we'll reference the package version specified in services.nextcloud.package
+    #
+    # List of options: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/servers/nextcloud/packages/nextcloud-apps.json
     extraApps = {
-      inherit (config.services.nextcloud.package.packages.apps) contacts calendar notes tasks;
+      inherit (config.services.nextcloud.package.packages.apps)
+      contacts
+      calendar
+      notes
+      tasks
+      bookmarks;
     };
     extraAppsEnable = true;
   };

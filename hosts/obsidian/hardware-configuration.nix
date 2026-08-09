@@ -56,6 +56,15 @@
     ];
   };
 
+  fileSystems."/mnt/Bag" = {
+    device = "/dev/disk/by-uuid/3490b5ff-f52a-4e14-9eb6-d706ed73fa56";
+    fsType = "ext4";
+    options = [
+      "defaults"
+      "x-gvfs-show" # To show drive in GUI file manager
+    ];
+  };
+
   # I think this breaks shit
   /*
   boot.supportedFilesystems = ["ntfs"];

@@ -22,7 +22,7 @@
       #globalprotect-openconnect
       onlyoffice-desktopeditors
 
-      inputs.GlobalProtect-openconnect.packages.x86_64-linux.default
+      #inputs.GlobalProtect-openconnect.packages.x86_64-linux.default
     ];
   };
 
