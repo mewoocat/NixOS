@@ -24,6 +24,8 @@
     ../../modules/utilities
     ../../modules/utilities/virtualization.nix
     ../../common/gaming/game.nix
+
+
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -34,12 +36,25 @@
   services.greetd = {
     enable = true;
     settings = {
-      default_session = {
-        command = "${pkgs.gamescope}/bin/gamescope -e --mangoapp -- steam -steamdeck -steamos3";
+      default_session = let
+        # fix for blank screen bug where screen only shows when mouse is shown
+        # see: https://github.com/ValveSoftware/gamescope/issues/1252
+        # Apparently mangohud via --mangoapp needs to be enabled/running and a config needs to be preset to work around 
+        # the issue.  Looks to be caused by an architecture issue on nvidia's 1000 series cards.
+        steam-ui = pkgs.writeShellScriptBin "steam-ui" ''
+          export MANGOHUD_CONFIG=fps_only,font_size=10,background_alpha=0.0,hud_no_margin,offset_x=0,offset_y=0
+          gamescope -W 1920 -H 1080 -r 60 --steam --mangoapp --force-grab-cursor -- steam -steamdeck -steamos3
+        '';
+      in {
+        command = "${steam-ui}/bin/steam-ui";
         user = "iris"; # Set user to auto login
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    mangohud # Needed for the --mangoapp option for gamescope to work
+  ];
 
   networking.hostName = "orchid";
   networking.networkmanager.enable = true;
