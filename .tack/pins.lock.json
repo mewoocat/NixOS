@@ -72,11 +72,11 @@
     "type": "github"
   },
   "nixpkgs": {
-    "lastModified": 1781127806,
-    "narHash": "sha256-gji2R2P56G9C8SwFgPrwYtSZ73g2Rc/83x7u6VB4/xM=",
+    "lastModified": 1786430034,
+    "narHash": "sha256-Vux08kA5PICwS2sViCMfwVLAHNoH8TkKAeBo25LjpMI=",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "e4937ac55876da24a64ac6c218d4693507387606",
+    "rev": "70cc4559b10a6062b05ff1af17e0add065ccaed9",
     "type": "github"
   },
   "nvim-nvf": {

@@ -49,7 +49,7 @@ in {
     #hostName = "localhost";
     hostName = "${builtins.readFile (inputs.secrets + "/plaintext/nextcloud-domain.txt")}";
     database.createLocally = true; # Need to create mysql db if not manually creating it
-    package = pkgs.nextcloud33;
+    package = pkgs.nextcloud34;
     https = true;
     maxUploadSize = "50G";
     home = "/var/lib/nextcloud"; # Storage path of nextcloud.
@@ -128,12 +128,12 @@ in {
       };
     }; 
   };
+
   services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {
     forceSSL = true;
     #enableACME = true; # Auto tries to generate cert?
     useACMEHost = rootDomain; # Use wildcard certificate generated for the root domain
     acmeRoot = null; # Disable the .well-known/acme-challenge/ endpoint since we're using DNS-01 Challenge instead of HTTP-01
-
   };
 
   # Nextcloud backup

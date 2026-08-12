@@ -66,6 +66,7 @@
       nwg-displays
       idevicerestore # Restore/upgrade firmware of iOS devices
       inputs.tack.packages.x86_64-linux.default
+      cryptsetup # For managing LUKS encrypted partions
 
       # yubikey
       yubikey-manager # ykman cli tool

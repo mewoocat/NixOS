@@ -26,7 +26,7 @@ gh = "github:{path}"
 url = "gh:manic-systems/tack"
 
 [inputs.nixpkgs]
-url = "gh:NixOS/nixpkgs"
+url = "gh:NixOS/nixpkgs/nixos-26.05"
 
 [inputs.hjem]
 url = "gh:feel-co/hjem"
