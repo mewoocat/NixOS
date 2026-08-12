@@ -53,6 +53,7 @@ in {
     https = true;
     maxUploadSize = "50G";
     home = "/var/lib/nextcloud"; # Storage path of nextcloud.
+    nginx.enableFastcgiRequestBuffering = true; # Fix for 0 byte files scenario, see option description...
     config = { 
       # These two options appear to be only used during the initial nextcloud install
       # For these to take affect again, nextcloud must be fully reinstalled
