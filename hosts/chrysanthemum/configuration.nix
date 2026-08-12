@@ -9,6 +9,8 @@
     ./hardware-configuration.nix
     ../../common/servers/home-assistant
     ../../common/servers/minecraft
+    ./zfs.nix
+    ./samba.nix
   ];
 
   nix = {
@@ -32,6 +34,8 @@
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
   };
+
+  time.timeZone = "US/Eastern";
 
   users.users.eXia = {
     isNormalUser = true;

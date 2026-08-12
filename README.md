@@ -47,6 +47,10 @@ Use the `tack` command to manage inputs or manually modify entries within the `.
 ```
 nh os switch -f <Path/to/NixOS> <hostname>
 ```
+or
+```
+ nixos-rebuild --sudo -f <nixos_dir> -A <hostname> switch --ask-elevate-password
+```
 
 # Credits
 - home-manager: for showing me how to do home management without home manager

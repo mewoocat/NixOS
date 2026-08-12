@@ -1,4 +1,12 @@
 {
+  "Jovian-NixOS": {
+    "lastModified": 1786221710,
+    "narHash": "sha256-aanL3SfzU8+p2HeD3AaPVU23Kd2XpPibQVC7zFlu3hw=",
+    "owner": "Jovian-Experiments",
+    "repo": "Jovian-NixOS",
+    "rev": "57773e5c9efe27d298d732a2a061a380a5194090",
+    "type": "github"
+  },
   "agenix": {
     "lastModified": 1770165109,
     "narHash": "sha256-9VnK6Oqai65puVJ4WYtCTvlJeXxMzAp/69HhQuTdl/I=",

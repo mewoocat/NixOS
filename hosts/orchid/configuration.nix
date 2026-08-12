@@ -5,23 +5,17 @@
 }: {
 
   imports = [
-    # Core host related configuration
-    ./core.nix
 
     # Hardware
     ./hardware-configuration.nix
-    ../../modules/hardware/bluetooth.nix
-    ../../modules/hardware/ios.nix
-    ../../modules/hardware/rgb.nix
-    ../../modules/hardware/vial-keyboards.nix
-    ../../modules/hardware/nvidia.nix
+    ../../common/hardware/bluetooth.nix
+    ../../common/hardware/ios.nix
+    ../../common/hardware/rgb.nix
+    ../../common/hardware/vial-keyboards.nix
+    ../../common/hardware/nvidia.nix
 
     # Core system components
     ../../modules/system
-
-    # Desktop environment
-    #../../modules/system/desktop-environments/leaf
-    ../../modules/system/desktop-environments/kde
 
     # User
     ../../users/iris
@@ -29,10 +23,41 @@
     # Other
     ../../modules/utilities
     ../../modules/utilities/virtualization.nix
-    ../../modules/gaming/game.nix
+    ../../common/gaming/game.nix
+
+
+  ];
+
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = true;
+
+  services.desktopManager.plasma6.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = let
+        # fix for blank screen bug where screen only shows when mouse is shown
+        # see: https://github.com/ValveSoftware/gamescope/issues/1252
+        # Apparently mangohud via --mangoapp needs to be enabled/running and a config needs to be preset to work around 
+        # the issue.  Looks to be caused by an architecture issue on nvidia's 1000 series cards.
+        steam-ui = pkgs.writeShellScriptBin "steam-ui" ''
+          export MANGOHUD_CONFIG=fps_only,font_size=10,background_alpha=0.0,hud_no_margin,offset_x=0,offset_y=0
+          gamescope -W 1920 -H 1080 -r 60 --steam --mangoapp --force-grab-cursor -- steam -steamdeck -steamos3
+        '';
+      in {
+        command = "${steam-ui}/bin/steam-ui";
+        user = "iris"; # Set user to auto login
+      };
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    mangohud # Needed for the --mangoapp option for gamescope to work
   ];
 
   networking.hostName = "orchid";
+  networking.networkmanager.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -78,7 +103,10 @@
     ];
     packages = with pkgs; [
       microfetch
-      inputs.myNvimNvf.packages.x86_64-linux.default
+      inputs.nvim-nvf.packages.x86_64-linux.default
+      git
+      btop
+      zellij
     ];
   };
 

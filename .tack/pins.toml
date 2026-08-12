@@ -73,3 +73,6 @@ url = "gh:nix-community/disko"
 
 [inputs.nix-minecraft]
 url = "gh:Infinidoge/nix-minecraft"
+
+[inputs.Jovian-NixOS]
+url = "gh:Jovian-Experiments/Jovian-NixOS"
