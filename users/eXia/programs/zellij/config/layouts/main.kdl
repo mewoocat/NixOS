@@ -1,4 +1,6 @@
 layout {
+
+  // This declares the default behavior for each tab node
   default_tab_template {
     pane size=1 borderless=true {
         plugin location="tab-bar"
@@ -16,5 +18,20 @@ layout {
   tab name="NixOS | editor" cwd="~/NixOS" {
     pane command="vi" {
     }
+  }
+
+  tab name="Quickshell | cli" cwd="~/NixOS/modules/system/desktop-environments/leaf/quickshell/" {
+    pane {
+    }
+  }
+
+  tab name="Quickshell | editor" cwd="~/NixOS/modules/system/desktop-environments/leaf/quickshell/" {
+    pane command="vi" {
+    }
+  }
+ 
+  tab name="btop" {
+    pane command="btop" {}
+
   }
 }

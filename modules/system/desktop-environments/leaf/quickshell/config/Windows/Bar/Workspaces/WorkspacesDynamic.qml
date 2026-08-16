@@ -29,8 +29,19 @@ WrapperMouseArea {
                     if (a.coordinates[1] > b.coordinates[1]) return 1
                     return -1
                 })
+            /*
             WsButton {
                 id: workspaceButton
+                required property Windowset modelData
+                required property int index
+                ws: modelData
+                isLast: index + 1 === wsRepeater.model.length
+                Layout.fillHeight: true
+                implicitHeight: Root.State.barHeight
+            }
+            */
+            WsButtonPreview {
+                id: workspaceButtonPreview
                 required property Windowset modelData
                 required property int index
                 ws: modelData

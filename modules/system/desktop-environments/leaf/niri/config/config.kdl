@@ -33,7 +33,7 @@ spawn-at-startup "awww-daemon"
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
 blur {
-    // off
+    off
     passes 3
     offset 3.0
     noise 0.02

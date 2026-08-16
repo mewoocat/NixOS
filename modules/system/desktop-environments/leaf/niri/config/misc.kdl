@@ -33,7 +33,7 @@ cursor {
 }
 
 overview {
-    zoom 0.5
+    zoom 0.7
     //backdrop-color "#262626"
 
     workspace-shadow {

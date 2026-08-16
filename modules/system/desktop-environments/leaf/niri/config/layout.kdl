@@ -60,7 +60,7 @@ layout {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        active-color "#ff0000"
 
         // Color of the ring on inactive monitors.
         //
@@ -148,9 +148,9 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 16
-        right 16
-        top 16
-        bottom 16
+        left 20
+        right 20
+        top 0
+        bottom 0
     }
 }
