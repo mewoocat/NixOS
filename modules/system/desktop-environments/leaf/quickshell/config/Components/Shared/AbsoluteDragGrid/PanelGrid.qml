@@ -10,7 +10,7 @@ import qs.Components.Controls as Ctrls
 Rectangle {
     id: root
     property list<WidgetInstance> model: [] // Expects an model of WidgetInstances
-    onModelChanged: () => print(`PanelGrid: model: ${model.values}`)
+    //onModelChanged: () => print(`PanelGrid: model: ${model.values}`)
     property Logic logic: Logic {}
     property int unitSize: 64
     property int widgetPadding: Root.State.widgetPadding
@@ -45,14 +45,14 @@ Rectangle {
         if (component.status == Component.Error) {
             console.error(component.errorString())
         }
-        console.log(`component: ${component}`)
+        //console.log(`component: ${component}`)
         const obj = component.createObject(null, {
             uid: json.uid,
             xPosition: json.xPosition,
             yPosition: json.yPosition,
             state: json.state
         })
-        console.log(`obj: ${obj}`)
+        //console.log(`obj: ${obj}`)
         return obj as WidgetInstance
     }
 
@@ -121,7 +121,7 @@ Rectangle {
         // TODO: Look into Variants instead of dynamic obj creation from js https://quickshell.org/docs/v0.1.0/types/Quickshell/Variants
         //model: root.logic.widgetInstanceListToWidgetDataList(root.model, root, root.widgetRadius)
         model: root.model
-        onModelChanged: print(`repeater model: ${model.values}`)
+        //onModelChanged: print(`repeater model: ${model.values}`)
 
         //onModelChanged: console.debug(`model: ${JSON.stringify(root.model,null,4)}`)
         delegate: PanelTile {

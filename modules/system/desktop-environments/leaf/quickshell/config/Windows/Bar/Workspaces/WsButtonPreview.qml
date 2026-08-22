@@ -11,7 +11,6 @@ import qs.Components.Shared as Shared
 import qs.Services as Services
 import Niri
 
-// TODO: Maybe rewrite this without using the button control since we want some more special animation behavior
 Ctrls.Button {
     id: root
     required property Windowset ws
@@ -51,15 +50,24 @@ Ctrls.Button {
     contentItem: Rectangle {
         color: "#ff00ff00"
         Repeater {
+            /* type error
             model: ScriptModel {
                 values: [... Services.Niri.windows]//.filter(w => w.id == root.ws.id)
             }
-            //model: Services.Niri.windows
-            Component.onCompleted: console.log(`niri windows: ${model.values}`)
+            */
+            model: Services.Niri.windows
             Rectangle {
+                required property var model
+                id: window
+                required property var modelData
+                property var thing: model.title
                 color: "red"
                 width: 10
                 height: 10
+                Component.onCompleted: console.log(`niri window: ${thing}`)
+                Text {
+                    text: window.thing
+                }
             }
         }
     }

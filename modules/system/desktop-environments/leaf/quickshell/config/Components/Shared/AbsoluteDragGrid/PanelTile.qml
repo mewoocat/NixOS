@@ -29,7 +29,7 @@ Rectangle {
     property PanelGrid initialPanelGrid: null          // Holds the PanelGrid this tile originated from
     Component.onCompleted: {
         initialPanelGrid = panelGrid
-        print(`WHAT!!! PanelTile: widgetInstance: ${widgetInstance}`)
+        //print(`WHAT!!! PanelTile: widgetInstance: ${widgetInstance}`)
     }
 
     signal dragStarted(item: PanelTile)
@@ -42,7 +42,7 @@ Rectangle {
     }
 
     function getWidgetData(w: var, p: PanelGrid): WidgetData {
-        print(`getWidgetData... w: ${w}, p: ${p}`)
+        //print(`getWidgetData... w: ${w}, p: ${p}`)
         // This returns a QtObject
         const component = Qt.createComponent(`${Quickshell.shellDir}/${w.uid}` )
         if (component.status == Component.Error) {
@@ -61,7 +61,7 @@ Rectangle {
             radius: p.widgetRadius,
         })
 
-        console.log(`widgetData: ${widgetData}`)
+        //console.log(`widgetData: ${widgetData}`)
         return widgetData as WidgetData
     }
 
@@ -143,8 +143,8 @@ Rectangle {
             root.dragStarted(root) // emit signal
         }
         onReleased: {
-            print(`${root}: relased with selected x/y ${root.panelGrid.selectedTileTargetX}/${root.panelGrid.selectedTileTargetY}`)
-            print(`PanelTile: panelGrid: ${root.panelGrid}`)
+            //print(`${root}: relased with selected x/y ${root.panelGrid.selectedTileTargetX}/${root.panelGrid.selectedTileTargetY}`)
+            //print(`PanelTile: panelGrid: ${root.panelGrid}`)
             /*
             if (!root.logic.isPositionOpen(widgetData, repeater.model)){
                 resetPosition()

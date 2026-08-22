@@ -30,7 +30,7 @@ Shared.PanelWindow {
         onVisibleChanged: if (!visible) editable = false
 
         property AbsGrid.PanelTile selectedTile: null
-        onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
+        //onSelectedTileChanged: console.log(`widgetPager.selectedTile changed to ${selectedTile}`)
         property AbsGrid.PanelGrid srcGrid: null
         onSrcGridChanged: print(`srcGrid: ${srcGrid}`)
 
@@ -55,7 +55,7 @@ Shared.PanelWindow {
                     width: panelGridPage.width
                     height: panelGridPage.height
                     onEntered: () => { 
-                        console.log(`widget pager drop grid entered (${pageIndex})`)
+                        //console.log(`widget pager drop grid entered (${pageIndex})`)
                         if (!widgetPager.selectedTile) { return }
 
                         // Turns ghost off for previous PanelGrid
@@ -73,7 +73,7 @@ Shared.PanelWindow {
 
                         // If the tile was dragged onto a grid different than the source
                         if (widgetPager.srcGrid !== panelGridPage) {
-                            console.log(`preparing for drop on different grid`)
+                            //console.log(`preparing for drop on different grid`)
                         }
                         // Otherwise the tile was dragged onto it's source grid 
                         // (occurs even without dragging outside the source grid)

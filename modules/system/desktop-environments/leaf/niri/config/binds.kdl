@@ -292,5 +292,6 @@ binds {
 
     Mod+F1 hotkey-overlay-title="Lock screen" { spawn-sh "quickshell ipc call control lockScreen"; }
     Mod+F2 hotkey-overlay-title="Restart shell" { spawn-sh "pkill quickshell; quickshell"; }
+    Mod+F3 hotkey-overlay-title="Random wallpaper" { spawn-sh "~/NixOS/scripts/randwall.sh"; }
     Mod+X hotkey-overlay-title="Open launcher" { spawn-sh "quickshell ipc call control toggleLauncher"; }
 }
