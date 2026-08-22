@@ -95,6 +95,14 @@
     "rev": "d4e56593f23e6489371869718e4200ea4c4f9377",
     "type": "github"
   },
+  "qml-niri": {
+    "lastModified": 1786189893,
+    "narHash": "sha256-7iy5fo8tZ7BFw4Tgz6msS9B34xs1g7GVr9M6wU2XEJI=",
+    "owner": "imiric",
+    "repo": "qml-niri",
+    "rev": "93e603901bed2c4465d5675ae43fd52b7f7c4adf",
+    "type": "github"
+  },
   "qtengine": {
     "lastModified": 1778644540,
     "narHash": "sha256-D7mzavE5WfLyvEXV0pvO3/gxC+SSmfjw4Lxy7I5qvnI=",

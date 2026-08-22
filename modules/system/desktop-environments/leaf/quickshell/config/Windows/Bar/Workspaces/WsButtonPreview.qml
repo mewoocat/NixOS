@@ -4,9 +4,12 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.WindowManager
 import Quickshell.Widgets
+import Quickshell
 import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
+import qs.Services as Services
+import Niri
 
 // TODO: Maybe rewrite this without using the button control since we want some more special animation behavior
 Ctrls.Button {
@@ -47,5 +50,17 @@ Ctrls.Button {
 
     contentItem: Rectangle {
         color: "#ff00ff00"
+        Repeater {
+            model: ScriptModel {
+                values: [... Services.Niri.windows]//.filter(w => w.id == root.ws.id)
+            }
+            //model: Services.Niri.windows
+            Component.onCompleted: console.log(`niri windows: ${model.values}`)
+            Rectangle {
+                color: "red"
+                width: 10
+                height: 10
+            }
+        }
     }
 }

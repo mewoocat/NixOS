@@ -55,6 +55,10 @@ type = "fetch"
 url = "gh:quickshell-mirror/quickshell"
 follows = { nixpkgs = "nixpkgs" }
 
+[inputs.qml-niri]
+url = "gh:imiric/qml-niri"
+follows = { nixpkgs = "nixpkgs", quickshell = "quickshell"}
+
 [inputs.helium]
 url = "gh:schembriaiden/helium-browser-nix-flake"
 follows = { nixpkgs = "nixpkgs" }

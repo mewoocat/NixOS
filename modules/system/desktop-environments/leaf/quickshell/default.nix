@@ -30,10 +30,15 @@ in {
 
     # Installing globally to appease qmlls
     # https://quickshell.outfoxxed.me/docs/configuration/getting-started/
-    inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
-    #(pkgs.callPackage (import sources.quickshell {}))
-    #(pkgs.callPackage (import sources.quickshell) {})
-    #quickshell
+    #inputs.quickshell.packages.${config.hostSystem}.default # Quickshell package
+    # Overriding to add qml-niri plugin, apparently adding the plugin to the buildInputs works?
+    (inputs.quickshell.packages.${config.hostSystem}.default.overrideAttrs (
+      prevAttrs: { 
+        buildInputs = [
+          inputs.qml-niri.packages.${config.hostSystem}.default
+        ] ++ prevAttrs.buildInputs;
+      }
+    ))
 
 
     kdePackages.qtdeclarative # Add qml types in path for qmlls
