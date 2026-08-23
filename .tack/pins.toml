@@ -27,6 +27,7 @@ url = "gh:manic-systems/tack"
 
 [inputs.nixpkgs]
 url = "gh:NixOS/nixpkgs/nixos-26.05"
+type = "flake" # Needs to be fetched as flake in order for dependent flake inputs to access nixpkgs attrs
 
 [inputs.hjem]
 url = "gh:feel-co/hjem"
