@@ -25,8 +25,8 @@
   # Avoid potential issues with disk ids if pool was create via /dev/disk/by-id
   boot.zfs.devNodes = "/dev/disk/by-id";
 
-  services.zfs.autoScrub.enable = true;
-  services.zfs.trim.enable = true;
+  #services.zfs.autoScrub.enable = true;
+  #services.zfs.trim.enable = true;
  
   # ZFS filesystems (datasets)
   fileSystems."/" =
