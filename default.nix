@@ -53,4 +53,5 @@ in {
   maple = makeNixosSystem ./hosts/maple/configuration.nix;
   chrysanthemum = makeNixosSystem ./hosts/chrysanthemum/configuration.nix;
   orchid = makeNixosSystem ./hosts/orchid/configuration.nix;
+  redwood = makeNixosSystem ./hosts/redwood/configuration.nix;
 }
