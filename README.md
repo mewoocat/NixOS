@@ -40,7 +40,7 @@ reboot
 
 or use `nixos-install` `--file` and `--attr` via the install
 ```
-NIX_CONFIG="experimental-features fetch-tree flakes" nixos-install --file </path/to/this/repo> --attr <hostname>
+NIX_CONFIG="experimental-features = fetch-tree flakes" nixos-install --file </path/to/this/repo> --attr <hostname>
 ```
 
 # Usage
