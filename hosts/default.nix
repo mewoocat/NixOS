@@ -6,4 +6,5 @@
   orchid = import ./orchid { inherit inputs; };
   maple = import ./maple { inherit inputs; };
   chrysanthemum = import ./chrysanthemum { inherit inputs; };
+  redwood = import ./redwood { inherit inputs; };
 }

@@ -38,6 +38,11 @@ nh os switch -f <Path/to/NixOS> <hostname>
 reboot
 ```
 
+or use `nixos-install` `--file` and `--attr` via the install
+```
+nixos-install --file </path/to/this/repo> --attr <hostname>
+```
+
 # Usage
 
 ## Updating inputs
