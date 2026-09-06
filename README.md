@@ -52,6 +52,9 @@ or
  nixos-rebuild --sudo -f <nixos_dir> -A <hostname> switch --ask-elevate-password
 ```
 
+nixpkgs_store_path=$(nix-instantiate --eval ~/NixOS/.tack/ -A nixpkgs.outPath | tr -d '"')
+nix_path="nixpkgs=$nixpkgs_store_path:nixos-config=$HOME/NixOS/utilities/iso-generation/config.nix"
+
 # Credits
 - home-manager: for showing me how to do home management without home manager
 - raf: for answering my stupid questions

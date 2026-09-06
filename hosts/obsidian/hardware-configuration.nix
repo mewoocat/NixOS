@@ -47,15 +47,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/mnt/Games" = {
-    device = "/dev/disk/by-uuid/6d33eff7-479a-4147-a650-b0181b641a99";
-    fsType = "ext4";
-    options = [
-      "defaults"
-      "x-gvfs-show" # To show drive in GUI file manager
-    ];
-  };
-
   fileSystems."/mnt/Bag" = {
     device = "/dev/disk/by-uuid/3490b5ff-f52a-4e14-9eb6-d706ed73fa56";
     fsType = "ext4";

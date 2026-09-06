@@ -28,6 +28,10 @@
 
   ];
 
+  # Set your time zone.
+  #time.timeZone = null;
+  services.automatic-timezoned.enable = true;
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = true;
 
