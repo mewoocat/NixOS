@@ -61,7 +61,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/9fac654b-d9a3-4362-b3cb-a808708b1810";
+    [ { device = "/dev/disk/by-partuuid/e8cb929c-0ad6-4af1-b43f-8e016968a40a";
 	randomEncryption = true;  # Encrypted with a random secret on each boot
 	}
     ];
