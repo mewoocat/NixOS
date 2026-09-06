@@ -26,7 +26,7 @@
   boot.zfs.devNodes = "/dev/disk/by-id";
 
   services.zfs.autoScrub.enable = true;
-  servies.zfs.trim.enable = true;
+  services.zfs.trim.enable = true;
  
   # ZFS filesystems (datasets)
   fileSystems."/" =
