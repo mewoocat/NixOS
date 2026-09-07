@@ -34,6 +34,7 @@
       "dialout" # Allows user to access serial devices, used for flashgbx
       "wireshark"
     ];
+    hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     # Set ssh public keys
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIPDCMbjh85oDIz/XiQLUzBzUMTOccUo+VL857FHMcbC eXia@obsidian"
