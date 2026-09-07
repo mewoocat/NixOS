@@ -80,11 +80,11 @@
     "type": "github"
   },
   "nvim-nvf": {
-    "lastModified": 1787376462,
-    "narHash": "sha256-NEVvjVETGaGEx8fVt8jE/O9noEjQVc50+j9sfzDnQJE=",
+    "lastModified": 1788818770,
+    "narHash": "sha256-suh6J8iQIhCd3Mp1MEk7jYFICcK2na0SDzGAIDi7/hQ=",
     "owner": "mewoocat",
     "repo": "nvim-nvf",
-    "rev": "bc0463bd66a1591eca8d8ea8fe935a3d18b9d846",
+    "rev": "b2c0afbd8c9e78da43030d5fdc2f2783222193b2",
     "type": "github"
   },
   "qetris": {
