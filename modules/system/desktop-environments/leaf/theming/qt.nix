@@ -65,8 +65,8 @@
     files = {
 
       ".config/qtengine/config.json" = {
-        #source = ./qtengine.json;
-        source = "/home/eXia/NixOS/modules/system/desktop-environments/leaf/theming/qtengine.json"; # For development
+        source = ./qtengine.json;
+        #source = "/home/eXia/NixOS/modules/system/desktop-environments/leaf/theming/qtengine.json"; # For development
       };
 
     };
