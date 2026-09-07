@@ -44,7 +44,9 @@ in {
     #qt6Packages.qt6ct
     leaf-theme-manager
     awww # Wallpaper manager
-    inputs.matugen.packages.x86_64-linux.default
+    
+    #inputs.matugen.packages.x86_64-linux.default
+    matugen
 
   ];
 
