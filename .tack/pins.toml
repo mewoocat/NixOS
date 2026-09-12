@@ -26,7 +26,9 @@ gh = "github:{path}"
 url = "gh:manic-systems/tack"
 
 [inputs.nixpkgs]
-url = "gh:NixOS/nixpkgs/nixos-26.05"
+url = "gh:NixOS/nixpkgs/nixos-unstable"
+#url = "gh:NixOS/nixpkgs/nixos-26.05"
+#url = "gh:NixOS/nixpkgs?rev=8c50a710ddca43d7a530fb805ad55bde8d0141c5"
 type = "flake" # Needs to be fetched as flake in order for dependent flake inputs to access nixpkgs attrs
 
 [inputs.hjem]

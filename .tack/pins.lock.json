@@ -48,11 +48,11 @@
     "type": "github"
   },
   "matugen": {
-    "lastModified": 1780737668,
-    "narHash": "sha256-0GK0IRxEoOarciYgBCk/nz5ZXJKkYDok7N7aUfU20u0=",
+    "lastModified": 1787395013,
+    "narHash": "sha256-AhQbhkLLdo+34IPn8b8Uino2HYbiisBSU5OHvIe+elw=",
     "owner": "InioX",
     "repo": "matugen",
-    "rev": "df4a7764b170862fbf999fa799e97494b8f0718b",
+    "rev": "826e16b8f34402f67de86d9374bd6fd1040e7304",
     "type": "github"
   },
   "nix-gaming": {
@@ -72,11 +72,11 @@
     "type": "github"
   },
   "nixpkgs": {
-    "lastModified": 1786430034,
-    "narHash": "sha256-Vux08kA5PICwS2sViCMfwVLAHNoH8TkKAeBo25LjpMI=",
+    "lastModified": 1788881743,
+    "narHash": "sha256-2V9GZGvPfrNzxFozhI9dcqV+c3QdA8YZrvAAzqEB+dI=",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "70cc4559b10a6062b05ff1af17e0add065ccaed9",
+    "rev": "d6524aaca2ff07876657ae2b323f24be4874944b",
     "type": "github"
   },
   "nvim-nvf": {

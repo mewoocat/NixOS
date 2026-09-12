@@ -34,10 +34,3 @@
     // automatically.
     position x=0 y=0
 }
-
-/-output "DP-1" {
-    mode "1920x1080@60"
-    scale 2
-    transform "normal"
-    position x=0 y=720
-}

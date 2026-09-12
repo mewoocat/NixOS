@@ -7,7 +7,7 @@ import Quickshell.Services.Greetd
 
 ShellRoot {
     FloatingWindow {
-        color: "red"
+        color: "#101010"
         ColumnLayout {
             Text {
                 text: "greetd socket available: " + Greetd.available 

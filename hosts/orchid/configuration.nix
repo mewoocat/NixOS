@@ -35,8 +35,13 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = true;
 
+  # Plasma mode
   services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
+  # Steam OS mode
+  /*
   services.greetd = {
     enable = true;
     settings = {
@@ -55,6 +60,7 @@
       };
     };
   };
+  */
 
   environment.systemPackages = with pkgs; [
     mangohud # Needed for the --mangoapp option for gamescope to work

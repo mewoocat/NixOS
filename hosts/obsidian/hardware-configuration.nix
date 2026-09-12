@@ -72,6 +72,12 @@
       options = [ "subvol=nix" ];
     };
 
+  fileSystems."/games" =
+    { device = "/dev/disk/by-uuid/de7656d8-7d97-45a2-bd34-9cf6b9486f5f";
+      fsType = "btrfs";
+      options = [ "subvol=games" ];
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/88B7-E423";
       fsType = "vfat";
