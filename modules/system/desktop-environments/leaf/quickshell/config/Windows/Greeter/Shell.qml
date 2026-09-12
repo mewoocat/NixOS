@@ -6,29 +6,35 @@ import QtQuick.Layouts
 import Quickshell.Services.Greetd
 
 ShellRoot {
-    FloatingWindow {
+    PanelWindow {
+        focusable: true
+        anchors {
+            left: true
+            right: true
+            bottom: true
+            top: true
+        }
         color: "#101010"
         ColumnLayout {
+            anchors.centerIn: parent
             Text {
-                text: "greetd socket available: " + Greetd.available 
+                text: `greetd socket available: ${Greetd.available}\n state: ${GreetdState.toString(Greetd.state)}`
             }
-            Text {
-                text: `state: ${GreetdState.toString(Greetd.state)}`
+            TextField {
+                id: user
+                focus: true
+                placeholderText: "username..."
             }
-            Button {
-                text: 'create sessions'
-                onClicked: {
-                    Greetd.createSession("eXia")
-                }
+            TextField {
+                id: pass
+                placeholderText: "password..."
+                echoMode: TextInput.Password
             }
             Button {
                 text: 'launch'
                 onClicked: {
-                    Greetd.launch(['niri-session'])
+                    Greetd.createSession(`${user.text}`)
                 }
-            }
-            TextField {
-                id: pass
             }
         }
 
@@ -36,6 +42,10 @@ ShellRoot {
             target: Greetd
             function onAuthMessage(msg, err, resReq, echoRep) {
                 Greetd.respond(pass.text)
+            }
+
+            function onReadyToLaunch() {
+                Greetd.launch(['niri-session'])
             }
         }
     }
