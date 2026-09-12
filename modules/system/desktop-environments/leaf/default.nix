@@ -17,6 +17,7 @@ in{
     ./quickshell
     ./niri
     ./fonts.nix
+    ./greeter
   ];
 
   environment.sessionVariables = {
@@ -113,26 +114,4 @@ in{
   ];
 
   # GreetD
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = let
-        niri-config = ''
-          spawn-at-startup "qs -p ${./quickshell/config/Windows/Greeter/Shell.qml}"
-        '';
-        in {
-        #command = "${pkgs.cage}/bin/cage -s -- qs -p ${./quickshell/config/Windows/Greeter/Shell.qml}";
-        command = "${config.programs.niri.package}/bin/niri -c ${niri-config}";
-        #user = "eXia"; # Set user to auto login
-        user = "greeter";
-      };
-
-      /*
-      default_session = {
-        command = "${config.programs.niri.package}/bin/niri-session";
-        user = "eXia";
-      };
-      */
-    };
-  };
 }
