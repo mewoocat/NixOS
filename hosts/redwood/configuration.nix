@@ -120,7 +120,7 @@
       "/etc/ssh/redwood"
     ];
     secrets = {
-      recwood-ssh-host-key = {
+      redwood-ssh-host-key = {
         file = inputs.secrets + "/redwood-ssh-host-key.age";
       };
     };
@@ -136,11 +136,15 @@
         enable = true;
         port = 2222;
         hostKeys = [
-          config.age.secrets.recwood-ssh-host-key.path
+          config.age.secrets.redwood-ssh-host-key.path
         ];
         authorizedKeys = [
           # eXia PGP Auth
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeX8NlT5LeZIFXNCORH4oGp/++NA6FLlfUxjdq/UQe63Q4/BNT2Yr6CJLF9EEYUaUO1+iEfQMTEnWyYHfoEQvCaXjHOMf2w/GCEZRME9vR3EujVDUNcBKbytPO0bnccG96u4dvRP8/E0lrln1kkMmukhwawaLR/TkF0YYxwR21ExRQpDac6tr7qDHf+R0JW+evzrz1geuE5m3vMYMulwL6d7lfw5zqyJw53ef8FdjJS0shSjRwOaGYBTIywneCORvJeyXo1ZhbArhdcrqM+oMsPuciwcjnkbvI8+yTG+e8FyD1i0sLFKCZOnPFrH2y7z/04gZTtZfHmWJo90j8utEl"
+          #
+          # Adding command="systemctl default" will cause the zfs decryption prompt to appear when logging in: https://wiki.nixos.org/wiki/Remote_disk_unlocking
+          # Running `systemctl default` causes `systemd-tty-ask-password-agent --watch` to run which will hand any zfs passphrase requests to the ssh client.
+          # See: https://discourse.nixos.org/t/decrypting-zfs-pools-over-ssh-on-26-05/77828/2
+          ''command="systemctl default" ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeX8NlT5LeZIFXNCORH4oGp/++NA6FLlfUxjdq/UQe63Q4/BNT2Yr6CJLF9EEYUaUO1+iEfQMTEnWyYHfoEQvCaXjHOMf2w/GCEZRME9vR3EujVDUNcBKbytPO0bnccG96u4dvRP8/E0lrln1kkMmukhwawaLR/TkF0YYxwR21ExRQpDac6tr7qDHf+R0JW+evzrz1geuE5m3vMYMulwL6d7lfw5zqyJw53ef8FdjJS0shSjRwOaGYBTIywneCORvJeyXo1ZhbArhdcrqM+oMsPuciwcjnkbvI8+yTG+e8FyD1i0sLFKCZOnPFrH2y7z/04gZTtZfHmWJo90j8utEl''
         ];
       };
     };

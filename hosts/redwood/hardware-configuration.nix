@@ -14,6 +14,9 @@
   boot.extraModulePackages = [ ];
 
   # This system has been configured using zfs
+  #
+  # The datasets in main pool are configured as mountpoint=none (i think)
+  # TODO: Since i'm using the nixos fileSystems options, it seems it might be better to use mountpoint=legacy
   # 
   # Disable zfs auto mounting since we're specifying the drives here.  Or remove the fileSystems entries.
   # See wiki.nixos.org/wiki/ZFS for more info.
