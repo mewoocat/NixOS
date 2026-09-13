@@ -43,6 +43,9 @@ or use `nixos-install` `--file` and `--attr` via the install
 NIX_CONFIG="experimental-features = fetch-tree flakes" nixos-install --file </path/to/this/repo> --attr <hostname>
 ```
 
+### Secrets
+For systems that need decrypt secrets from agenix, make sure the ssh host key for the system is used to encypt the secret and to copy it's private to `/etc/ssh/` on the host system.
+
 # Usage
 
 ## Updating inputs
