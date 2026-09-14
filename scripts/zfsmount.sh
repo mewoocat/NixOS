@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Should be the zfs_member partition on the drive
 DRIVE="/dev/disk/by-id/ata-WDC_WD40EFZZ-68CPAN0_WD-WX52DC5FWJ57-part1"
 POOL="StoragePool"
 MNT="/mnt/Storage"

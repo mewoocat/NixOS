@@ -109,12 +109,11 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
   # Setup for decrypting zfs zpool remotely
-  #
   # See: https://wiki.nixos.org/wiki/ZFS
-  #
   nix.settings.experimental-features = [
     "nix-command" # needed for agenix?
   ];
+  /*
   age = {
     identityPaths = [
       "/etc/ssh/redwood"
@@ -122,9 +121,13 @@
     secrets = {
       redwood-ssh-host-key = {
         file = inputs.secrets + "/redwood-ssh-host-key.age";
+        owner = "root";
+        group = "root";
       };
     };
   };
+  */
+
   #
   # The network card may not work in initrd unless it's kernel module is manually loaded
   # Use `lspci -v` to find the network card and reference it's "Kernel Modules" property
@@ -136,7 +139,8 @@
         enable = true;
         port = 2222;
         hostKeys = [
-          config.age.secrets.redwood-ssh-host-key.path
+          #config.age.secrets.redwood-ssh-host-key.path
+          "/etc/ssh/redwood"
         ];
         authorizedKeys = [
           # eXia PGP Auth

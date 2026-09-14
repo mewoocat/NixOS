@@ -20,7 +20,7 @@
   systemd.services.zfs-mount.enable = false;
 
   # Auto import pools on boot 
-  boot.zfs.extraPools = [ "main" ];
+  boot.zfs.extraPools = [ "main" "StoragePool" ];
   
   # Avoid potential issues with disk ids if pool was create via /dev/disk/by-id
   boot.zfs.devNodes = "/dev/disk/by-id";
@@ -55,6 +55,23 @@
     { device = "main/home";
       fsType = "zfs";
       options = [ "zfsutil" ];
+    };
+
+  fileSystems."/srv/Storage" =
+    { device = "StoragePool";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+
+      # Don't use "zfsutil" if this filesystem has a legacy mountpoint
+      #options = [  ];
+      # Cause this filesystem to be mounted in stage 1 of boot, which allows for remote unlocking via the same
+      # `systemctl default` from ssh client.
+
+      # Ideally, you don't unlock non essential filesystems during stage 1 and instead perform in stage 2 by setting 
+      # a keyfile location on the main root encypted drive that can be used once root is mounted and decrypted in stage 1.
+      # handle 
+      # See: https://discourse.nixos.org/t/decrypting-zfs-pools-over-ssh-on-26-05/77828/2
+      neededForBoot = true;
     };
 
   # Boot filesystem
