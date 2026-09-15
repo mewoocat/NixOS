@@ -1,5 +1,7 @@
 { config, pkgs, ... }:{
   # Don't forget to create and add a password for a user: `sudo smbpasswd -a <user>`
+  # If you want to declaratively set the passwords, an activation script or similar is needed to run 
+  # the smbpasswd command on the users. See: https://wiki.nixos.org/wiki/Samba for an example.
   services.samba = {
     enable = true;
     openFirewall = true;
@@ -19,7 +21,7 @@
         "map to guest" = "Never"; # Don't allow guest access
       };
       "Storage" = {
-        "path" = "/mnt/Storage/";
+        "path" = "/srv/Storage/";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";

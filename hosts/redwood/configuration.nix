@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
+      ./samba.nix
+
       # Modules
       inputs.agenix.nixosModules.default
     ];
@@ -39,6 +41,29 @@
     # Set ssh public keys
     openssh.authorizedKeys.keys = [
       #"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBO24z1xI9hHgqMr7pHYxj9vQCjkIqnFrRvK6lcOu9h+"
+    ];
+  };
+
+  users.users.eXia = {
+    isNormalUser = true;  
+    extraGroups = [
+      "wheel"
+      "video"
+      "samba"
+    ];
+    hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
+    # Set ssh public keys
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC20jrdK1MUQ9OoV0/AhZSiWsYTx2lFI3j5V5Wb5zR5q"
+      # eXia PGP
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeX8NlT5LeZIFXNCORH4oGp/++NA6FLlfUxjdq/UQe63Q4/BNT2Yr6CJLF9EEYUaUO1+iEfQMTEnWyYHfoEQvCaXjHOMf2w/GCEZRME9vR3EujVDUNcBKbytPO0bnccG96u4dvRP8/E0lrln1kkMmukhwawaLR/TkF0YYxwR21ExRQpDac6tr7qDHf+R0JW+evzrz1geuE5m3vMYMulwL6d7lfw5zqyJw53ef8FdjJS0shSjRwOaGYBTIywneCORvJeyXo1ZhbArhdcrqM+oMsPuciwcjnkbvI8+yTG+e8FyD1i0sLFKCZOnPFrH2y7z/04gZTtZfHmWJo90j8utEl"
+    ];
+    packages = with pkgs; [
+      microfetch
+      inputs.nvim-nvf.packages.x86_64-linux.default
+      git
+      btop
+      zellij
     ];
   };
 
@@ -113,7 +138,6 @@
   nix.settings.experimental-features = [
     "nix-command" # needed for agenix?
   ];
-  /*
   age = {
     identityPaths = [
       "/etc/ssh/redwood"
@@ -126,7 +150,6 @@
       };
     };
   };
-  */
 
   #
   # The network card may not work in initrd unless it's kernel module is manually loaded
@@ -139,8 +162,8 @@
         enable = true;
         port = 2222;
         hostKeys = [
-          #config.age.secrets.redwood-ssh-host-key.path
-          "/etc/ssh/redwood"
+          config.age.secrets.redwood-ssh-host-key.path
+          "/etc/ssh/redwood" # This private key needs to manually be generated or copied here
         ];
         authorizedKeys = [
           # eXia PGP Auth

@@ -10,7 +10,6 @@
     ../../common/servers/home-assistant
     ../../common/servers/minecraft
     ./zfs.nix
-    ./samba.nix
   ];
 
   nix = {

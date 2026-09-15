@@ -57,6 +57,7 @@
       options = [ "zfsutil" ];
     };
 
+  # This dataset has zfs mountpoint set to none, just like the above ^
   fileSystems."/srv/Storage" =
     { device = "StoragePool";
       fsType = "zfs";
