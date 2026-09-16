@@ -1,29 +1,17 @@
 {config, inputs, ...}: {
   age.secrets = {
-    wireguard-maple.file = inputs.secrets + "/wireguard-maple.age";
+    wireguard-redwood-private.file = inputs.secrets + "/wireguard-redwood-private.age";
   };
 
-  # Setup in a hub and spoke topology
   networking = {
     firewall = {
       allowedUDPPorts = [ config.networking.wg-quick.interfaces.wg0.listenPort ];
     };
     wg-quick = {
       interfaces = {
-        # Keep in mind that a "server" in a wireguard network is just a peer like any other machines in the network.
         wg0 = {
-          # This defines the specific ip address of this server in the VPN and the CIDR suffix describes the structure
-          # of the subnet.  This determines the routing behavior when this peer recieves traffic destined for a different
-          # peer in the subnet.  If /32 (single ip address) is used, then this peer won't forward any traffic.
-          # Otherwise it will route traffic to other peers within the specified ip address range.
-          #
-          # Note that meaning of the CIDR suffix is different for the `allowedIPs` option.  In this case it refers
-          # to all the possible ip addresses that it will accept traffic for given the public key.  Use /32 for allowedIPs
-          # if that connecting peer is configured to only use a single ip address.
-          #
-          # See: https://github.com/pirate/wireguard-docs/issues/73
           address = [
-            "10.10.0.1/24" # The private ip for this server
+            "10.10.1.1/24" # The private ip for this server
           ];
           privateKeyFile = config.age.secrets.wireguard-maple.path; # Server's private key
           listenPort = 51820; # Peers initiate connection to this server via this port

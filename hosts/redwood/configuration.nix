@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
 
       ./samba.nix
+      ./wireguard.nix
 
       # Modules
       inputs.agenix.nixosModules.default
