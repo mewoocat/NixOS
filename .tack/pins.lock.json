@@ -123,9 +123,9 @@
     "type": "git",
     "url": "ssh://git@github.com/mewoocat/secrets",
     "ref": "refs/heads/main",
-    "rev": "9df758517c966b5fa4258cfd22bcdca454ad0a14",
-    "narHash": "sha256-h+fILBCC8OXglTAv4FKFDlW+GSprGCq3r+CoGzdzjLs=",
-    "lastModified": 1789264285
+    "rev": "287414ab8e3160b82805b523f902acd48d42792a",
+    "narHash": "sha256-O9Pr2u6rsMxeko3glICcgsxbjkdlke65aaDeea8U4e8=",
+    "lastModified": 1789610896
   },
   "tack": {
     "type": "github",

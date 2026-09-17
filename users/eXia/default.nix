@@ -71,6 +71,7 @@
       cryptsetup # For managing LUKS encrypted partions
       parted # For parition management
       inputs.agenix.packages."${pkgs.stdenv.hostPlatform.system}".default # Agenix client
+      wireguard-tools # wg, wg-quick
 
       # yubikey
       yubikey-manager # ykman cli tool

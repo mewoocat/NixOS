@@ -43,7 +43,8 @@ in {
   #   - Reboot
   #   - Enable nextcloud again and rebuild
 
-  # Uses nginx reverse proxy by default
+  # Uses nginx reverse proxy by default.  So instead of the nextcloud service being exposed directly, nginx
+  # handles the requests and forwards them to nextcloud.
   services.nextcloud = {
     enable = true;
     #hostName = "localhost";

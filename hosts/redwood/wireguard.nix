@@ -1,6 +1,6 @@
 {config, inputs, ...}: {
   age.secrets = {
-    wireguard-redwood-private.file = inputs.secrets + "/wireguard-redwood-private.age";
+    wireguard-redwood.file = inputs.secrets + "/wireguard-redwood.age";
   };
 
   networking = {
@@ -11,9 +11,9 @@
       interfaces = {
         wg0 = {
           address = [
-            "10.10.1.1/24" # The private ip for this server
+            "10.10.0.7/32" # The private ip for this server and network shape
           ];
-          privateKeyFile = config.age.secrets.wireguard-maple.path; # Server's private key
+          privateKeyFile = config.age.secrets.wireguard-redwood.path; # Server's private key
           listenPort = 51820; # Peers initiate connection to this server via this port
           # The devices which can connect to this server
 
