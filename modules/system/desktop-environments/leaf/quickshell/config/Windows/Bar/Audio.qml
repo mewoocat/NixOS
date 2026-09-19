@@ -45,12 +45,6 @@ BarButton {
                         Layout.fillWidth: true
                     }
 
-                    Shared.TextBlock {
-                        padding: 8
-                        text: "Output"
-                        font.bold: true
-                    }
-
                     // Default output
                     Shared.MixerItem {
                         node: Pipewire.defaultAudioSink
@@ -60,7 +54,7 @@ BarButton {
 
                     // Output device selector
                     Ctrls.ComboBox {
-                        id: comboBox
+                        id: outputComboBox
                         implicitWidth: parent.width
                         model: Services.Audio.outputDevices
                         currentIndex: {
@@ -75,6 +69,40 @@ BarButton {
                             Pipewire.preferredDefaultAudioSink = Services.Audio.outputDevices[index] // Set the audio output (untested)
                         }
                     }
+
+                    Shared.TextBlock {
+                        padding: 8
+                        text: "Input"
+                        font.bold: true
+                    }
+
+                    // Default input
+                    Shared.MixerItem {
+                        node: {
+                            let n = Pipewire.defaultAudioSource
+                            console.debug(JSON.stringify(n, null, 4))
+                            return n
+                        }
+                        name: node?.nickname ?? "no name"
+                        description: node?.properties["media.class"] ?? "no description"
+                    }
+
+                    // Input device selector
+                    Ctrls.ComboBox {
+                        id: inputComboBox
+                        implicitWidth: parent.width
+                        model: Services.Audio.inputDevices
+                        currentIndex: {
+                            const i = model.findIndex(e => e === Pipewire.preferredDefaultAudioSource)
+                            return i == -1 ? 0 : i
+                        }
+                        textRole: "description"
+                            //.map(n => n.description) // Map to just the output name string (Results in a list of string names)
+                        onActivated: (index) => { 
+                            Pipewire.preferredDefaultAudioSource = Services.Audio.inputDevices[index] // Set the audio output (untested)
+                        }
+                    }
+
                     Shared.Seperator {
                         implicitHeight: 8
                         Layout.fillWidth: true

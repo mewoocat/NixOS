@@ -26,6 +26,20 @@ Singleton {
     // For use with a QT icon pack
     function getIconName(node: PwNode): string {
 
+        // If node is an input
+        if (node.isSink === false) {
+            if (node.audio.muted) {
+                return "microphone-sensitivity-muted-symbolic"
+            }
+            const vol = node.audio.volume * 100
+            switch (true) {
+                case vol > 80: return "microphone-sensitivity-high-symbolilc"
+                case vol > 50: return "microphone-sensitivity-medium-symbolic"
+                case vol > 0: return "microphone-sensitivity-low-symbolic"
+                default: return "microphone-sensitivity-low-symbolic"
+            }    
+        }
+
         // Ensure node is set and is bound
         if (!node || !node.ready) { return "audio-volume-off-symbolic" }
         const properties = node.properties
@@ -80,6 +94,10 @@ Singleton {
 
     property list<PwNode> outputDevices: Pipewire.nodes.values
         .filter(n => n.isSink) // filter nodes for sinks (Output devices)
+        .filter(n => !n.isStream) // filter only hardware
+
+    property list<PwNode> inputDevices: Pipewire.nodes.values
+        .filter(n => !n.isSink) // filter nodes for input devices
         .filter(n => !n.isStream) // filter only hardware
 
 }
