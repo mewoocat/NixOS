@@ -83,3 +83,6 @@ url = "gh:Infinidoge/nix-minecraft"
 
 [inputs.Jovian-NixOS]
 url = "gh:Jovian-Experiments/Jovian-NixOS"
+
+[inputs.nh]
+url = "git+https://github.com/nix-community/nh?ref=master" # https://github.com/nix-community/nh/commit/646c51b6a87311f71966ed2b606e5bfd61148e79

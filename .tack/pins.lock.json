@@ -55,6 +55,14 @@
     "narHash": "sha256-AhQbhkLLdo+34IPn8b8Uino2HYbiisBSU5OHvIe+elw=",
     "lastModified": 1787395013
   },
+  "nh": {
+    "type": "git",
+    "url": "https://github.com/nix-community/nh",
+    "ref": "refs/heads/master",
+    "rev": "646c51b6a87311f71966ed2b606e5bfd61148e79",
+    "narHash": "sha256-glr9jvZcYU8p8jGlraFjVvrtHogL14LECA8xGi+BooY=",
+    "lastModified": 1789911794
+  },
   "nix-gaming": {
     "type": "github",
     "owner": "fufexan",

@@ -56,7 +56,10 @@
       inputs.nvim-nvf.packages.x86_64-linux.default
       microfetch
       wineWow64Packages.stable
-      nh # Nix helper
+
+      #nh # Nix helper
+      inputs.nh.packages.x86_64-linux.default
+
       exfatprogs # exFAT filesystem userspace utilities
       stress 
       s-tui
