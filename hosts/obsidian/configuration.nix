@@ -33,7 +33,13 @@
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        # Ignore efi errors about esp not found or efi variables that can't be written.
+        # Possibly useful for dualboot system.
+        # See: https://discourse.nixos.org/t/bootloader-failed-to-install-with-systemd-boot/79615
+        graceful = true;
+      };
       efi.canTouchEfiVariables = true;
     };
     supportedFilesystems = ["ntfs"];

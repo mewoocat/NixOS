@@ -4,8 +4,6 @@
 let
   #sources = import ./npins;
 
-  inputs = import ./.tack;
-
   # Flake compatibility
   #getFlakeOutputs = npinsSource: (import sources.flake-compat { src = npinsSource; }).outputs;
   /*
@@ -32,9 +30,15 @@ let
   };
   */
 
-  # System builder
+  inputs = import ./.tack;
+
   nixpkgs = inputs.nixpkgs;
-  nixosSystem = import "${nixpkgs}/nixos/lib/eval-config.nix"; # Same thing as flake nixpkgs.lib.nixosSystem, apparently what nixos-rebuild also uses 
+
+  # This way seesm to cause the pregit version
+  #nixosSystem = import "${nixpkgs}/nixos/lib/eval-config.nix"; # Same thing as flake nixpkgs.lib.nixosSystem, apparently what nixos-rebuild also uses ???
+  nixosSystem = nixpkgs.lib.nixosSystem; # Normal?
+
+  # System builder function
   makeNixosSystem = configPath: nixosSystem {
     modules = [ configPath ];
     specialArgs = {

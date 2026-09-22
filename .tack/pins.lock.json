@@ -58,10 +58,10 @@
   "nh": {
     "type": "git",
     "url": "https://github.com/nix-community/nh",
-    "ref": "refs/heads/master",
-    "rev": "646c51b6a87311f71966ed2b606e5bfd61148e79",
-    "narHash": "sha256-glr9jvZcYU8p8jGlraFjVvrtHogL14LECA8xGi+BooY=",
-    "lastModified": 1789911794
+    "ref": "refs/heads/notashelf/push-zlxzxkrpryxp",
+    "rev": "bd73a303c9149de4261276376f19aff157cc6e16",
+    "narHash": "sha256-Hcsvauk5dPWvmao8PKK1r/VFC0l1CLpM+rpIM4WhJb8=",
+    "lastModified": 1789913822
   },
   "nix-gaming": {
     "type": "github",
@@ -83,9 +83,9 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "d6524aaca2ff07876657ae2b323f24be4874944b",
-    "narHash": "sha256-2V9GZGvPfrNzxFozhI9dcqV+c3QdA8YZrvAAzqEB+dI=",
-    "lastModified": 1788881743
+    "rev": "44a91898084f46797b5fac650c7e8c9ac38c43d4",
+    "narHash": "sha256-Ft/BRnIqw1MywFoXydKobjjWmDFgDdYtSpJliE8+yUw=",
+    "lastModified": 1789921291
   },
   "nvim-nvf": {
     "type": "github",

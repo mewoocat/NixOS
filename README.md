@@ -57,7 +57,7 @@ nh os switch -f <Path/to/NixOS> <hostname>
 ```
 or
 ```
- nixos-rebuild --sudo -f <nixos_dir> -A <hostname> switch --ask-elevate-password
+ nixos-rebuild --sudo -f <nixos_dir> -A <hostname> switch --ask-sudo-password
 ```
 
 nixpkgs_store_path=$(nix-instantiate --eval ~/NixOS/.tack/ -A nixpkgs.outPath | tr -d '"')

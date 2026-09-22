@@ -46,6 +46,8 @@
     inputs.nix-gaming.packages.${config.hostSystem}.osu-lazer-bin # Works great on openGL :)
 
     # Minecraft
+    prismlauncher
+    /*
     (prismlauncher.override {
       jdks = [
         temurin-bin-8
@@ -54,6 +56,7 @@
         temurin-bin-25
       ];
     })
+    */
 
     # Launchers
     # Native GOG, Epic, and Amazon Games Launcher

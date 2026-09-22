@@ -12,9 +12,8 @@
         '';
         in {
         #command = "${pkgs.cage}/bin/cage -s -- qs -p ${./quickshell/config/Windows/Greeter/Shell.qml}";
-        command = "${config.programs.niri.package}/bin/niri -c ${niri-config}";
-        #user = "eXia"; # Set user to auto login
-        user = "greeter";
+        command = "niri -c ${niri-config}";
+        user = "greeter"; # User to run command as
       };
     };
   };

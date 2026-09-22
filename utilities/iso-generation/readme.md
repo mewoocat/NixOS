@@ -7,6 +7,6 @@ There are multiple ways to generate iso images
     - image variants: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/modules/image/images.nix
 - Using `nix-build` and a file that imports a defined config like `nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix`
     - This is the approch used for the `build-iso.sh` script
-- Using `nh os build-image`
-    - Should look into this in the future
+- Using `nh os build-image --image-variant iso </path/to/nixos> <nixos-system-attribute>`
+    - Currently only supported in master right now
 
