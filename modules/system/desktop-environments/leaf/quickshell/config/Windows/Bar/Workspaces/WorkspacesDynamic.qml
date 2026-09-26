@@ -40,8 +40,19 @@ WrapperMouseArea {
                 implicitHeight: Root.State.barHeight
             }
             */
+            /*
             WsButtonPreview {
                 id: workspaceButtonPreview
+                required property Windowset modelData
+                required property int index
+                ws: modelData
+                isLast: index + 1 === wsRepeater.model.length
+                Layout.fillHeight: true
+                implicitHeight: Root.State.barHeight
+            }
+            */
+            WsButtonAppList {
+                id: workspaceButton
                 required property Windowset modelData
                 required property int index
                 ws: modelData

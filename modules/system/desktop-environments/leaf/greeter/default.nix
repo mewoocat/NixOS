@@ -12,7 +12,8 @@
         '';
         in {
         #command = "${pkgs.cage}/bin/cage -s -- qs -p ${./quickshell/config/Windows/Greeter/Shell.qml}";
-        command = "niri -c ${niri-config}";
+        # Sleeping is a working around for greetd starting before it's ok to exec niri
+        command = "bash -c 'sleep 5; niri -c ${niri-config}'";
         user = "greeter"; # User to run command as
       };
     };

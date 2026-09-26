@@ -37,6 +37,24 @@
       sha256 = "sha256-0YO6y4RRZ/CSZML5AyK37P/ogm3r2m9g5ZeIkmS+9K8=";
     };
 
+    modListCommand = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/Bx6i1J4x/versions/r9trhpT3/modscmd-fabric-1.0.2.jar";
+      sha256 = "sha256-Rwpsy1/HSmCN+MkBttS1DIjkdZgt1YOOyKzOndmfDHw=";
+    };
+    # dependency of modListCommand
+    mcPitanLib = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/uNRoUnGT/versions/1AfjWvTE/mcpitanlib-4.0.7-1.21.4-fabric.jar";
+      sha256 = "sha256-vZiEass98s3zMr+uwcdNB+26Wni5+W5pPHcLLpMoKt4=";
+    };
+    terralith = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/MuJMtPGQ/Terralith_1.21.x_v2.5.8.jar";
+      sha256 = "sha256-ADM6EwrDi3ucqTcACY1eAuBhK9wtNSKq2i825WAGIb8=";
+    };
+    cobblemon = pkgs.fetchurl {
+      url = "";
+      sha256 = "";
+    };
+
   in {
     enable = true;
     eula = true;
@@ -76,6 +94,8 @@
           mods = pkgs.linkFarmFromDrvs "mods" [
             modpackLarionWorldGeneration
             fabricApi
+            modListCommand mcPitanLib
+            terralith
           ];
         };
       };

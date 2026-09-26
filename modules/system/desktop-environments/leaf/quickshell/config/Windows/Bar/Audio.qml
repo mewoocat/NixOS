@@ -80,7 +80,7 @@ BarButton {
                     Shared.MixerItem {
                         node: {
                             let n = Pipewire.defaultAudioSource
-                            console.debug(JSON.stringify(n, null, 4))
+                            //console.debug(JSON.stringify(n, null, 4))
                             return n
                         }
                         name: node?.nickname ?? "no name"

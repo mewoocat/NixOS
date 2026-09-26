@@ -32,7 +32,7 @@ ShellRoot {
     Notifications {}
     ActivityCenter {}
     Lockscreen {}
-    Dock {}
+    // Dock {} // Pls fix me :'(
     OnScreenDisplay {}
     //Settings {}
 }
