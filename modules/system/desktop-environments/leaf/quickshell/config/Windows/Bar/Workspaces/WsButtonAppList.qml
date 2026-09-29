@@ -9,6 +9,7 @@ import Quickshell.Wayland
 import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
+import qs.Services as Services
 
 // TODO: Maybe rewrite this without using the button control since we want some more special animation behavior
 Ctrls.Button {
@@ -55,13 +56,14 @@ Ctrls.Button {
             property Component appListComp: RowLayout {
                 Repeater {
                     id: repeater
-                    // TODO: Probably need to use qml-niri plugin for now since there doesn't seem to be a good way
-                    // to associate a Toplevel to a Windowset.
-                    model: ToplevelManager.toplevels
+                    // Could also probably use a SortFilterProxyModel https://doc.qt.io/qt-6/qml-qtqml-models-sortfilterproxymodel.html
+                    // to filter the model rather than wrapping it in a ScriptModel
+                    model: Services.Niri.windows.values.filter(w => w.workspaceId === root.ws.id)
+                    //model: ToplevelManager.toplevels // Currently doesn't have a way to map to windowsets
                     delegate: Ctrls.Button {
                         id: toplevelButton
-                        required property Toplevel modelData
-                        text: modelData.appId
+                        // WindowModel roles which are the properties of the modelData https://github.com/imiric/qml-niri#windowmodel-roles
+                        required property var modelData
                         contentItem: Shared.Icon {
                             source: Quickshell.iconPath(toplevelButton.modelData.appId)
                         }
