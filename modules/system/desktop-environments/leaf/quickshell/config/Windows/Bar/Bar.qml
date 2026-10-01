@@ -4,7 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs as Root
 import "./SystemTray"
-import "./Workspaces"
+import "./WorkspacesNiri"
 
 Scope {
 
@@ -44,7 +44,7 @@ Scope {
                         spacing: 0
 
                         Launcher {}
-                        WorkspacesDynamic {
+                        WorkspacesNiri {
                             screen: bar.screen
                         }
                     }

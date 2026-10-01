@@ -14,13 +14,13 @@ import qs.Services as Services
 // TODO: Maybe rewrite this without using the button control since we want some more special animation behavior
 Ctrls.Button {
     id: root
-    required property Windowset ws
+    required property var ws // This: https://github.com/imiric/qml-niri#workspacemodel-roles
     required property bool isLast
 
     leftInset: 2
     rightInset: 2
-    topInset: root.ws.active ? 6 : 8
-    bottomInset: root.ws.active ? 6 : 8
+    topInset: root.ws.isActive ? 6 : 8
+    bottomInset: root.ws.isActive ? 6 : 8
     Behavior on topInset { PropertyAnimation {duration: 150} }
     Behavior on bottomInset { PropertyAnimation {duration: 150} }
     padding: 0
@@ -32,33 +32,43 @@ Ctrls.Button {
         }
     }
     onClicked: {
-        ws.activate()
+        Services.Niri.focusWorkspaceById(ws.id)
         console.debug(`width: ${contentItem.width}`);
     }
 
     background: Rectangle {
         radius: height / 2
-        implicitWidth: root.ws.active ? 52 : 40
+        implicitWidth: root.ws.isActive ? 52 : 40
         Behavior on implicitWidth { PropertyAnimation {duration: 150} }
-        color: root.hovered || root.ws.active
+        color: root.hovered || root.ws.isActive
             ? Root.State.colors.primary
             : !root.isLast 
                 ? Root.State.colors.primary_container
                 : "transparent"
-    }
+    } 
 
-    contentItem: RowLayout {
-        spacing: 0
-        // App list
+    contentItem: RowLayout { spacing: 0 // App list
         Loader {
             visible: active // Size stays same after item is unloaded.  Hide to not render in this case.
-            active: root.ws.active
+            active: root.ws.isActive
             property Component appListComp: RowLayout {
                 Repeater {
                     id: repeater
                     // Could also probably use a SortFilterProxyModel https://doc.qt.io/qt-6/qml-qtqml-models-sortfilterproxymodel.html
                     // to filter the model rather than wrapping it in a ScriptModel
-                    model: Services.Niri.windows.values.filter(w => w.workspaceId === root.ws.id)
+                    model: SortFilterProxyModel {
+                        model: Services.Niri.windows
+                        filters: [
+                            FunctionFilter {
+                                component RoleData: QtObject { property string workspaceId }
+                                function filter(w: RoleData): bool {
+                                    //console.log(`ButtonWS: ${root.ws.id}`)
+                                    //console.log(`NiriWindowWS: ${JSON.stringify(w, null, 4)}`)
+                                    return w.workspaceId == root.ws.id
+                                }
+                            }
+                        ]
+                    }
                     //model: ToplevelManager.toplevels // Currently doesn't have a way to map to windowsets
                     delegate: Ctrls.Button {
                         id: toplevelButton
@@ -79,7 +89,7 @@ Ctrls.Button {
             Layout.fillWidth: true
             text: !root.isLast ? root.ws.name : "+"
             font.pointSize: 8
-            color: root.hovered || root.ws.active
+            color: root.hovered || root.ws.isActive
                 ? Root.State.colors.on_primary
                 : !root.isLast 
                     ? Root.State.colors.on_primary_container

@@ -7,9 +7,9 @@
 
   imports = [
     ./hardware-configuration.nix
-    ../../common/servers/home-assistant
+    #../../common/servers/home-assistant
     ../../common/servers/minecraft
-    ./zfs.nix
+    #./zfs.nix
   ];
 
   nix = {

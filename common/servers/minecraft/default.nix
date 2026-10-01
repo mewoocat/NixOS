@@ -20,6 +20,9 @@
   ];
   services.minecraft-servers = let
 
+    
+    # Naming convention: name - MC Version - Mod Version
+
     # this requires a .mrpack file
     modpack = pkgs.fetchModrinthModpack {
       #url = "https://cdn.modrinth.com/data/PROJECT_ID/versions/VERSION_ID/modpack.mrpack";
@@ -46,14 +49,78 @@
       url = "https://cdn.modrinth.com/data/uNRoUnGT/versions/1AfjWvTE/mcpitanlib-4.0.7-1.21.4-fabric.jar";
       sha256 = "sha256-vZiEass98s3zMr+uwcdNB+26Wni5+W5pPHcLLpMoKt4=";
     };
+
     terralith = pkgs.fetchurl {
       url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/MuJMtPGQ/Terralith_1.21.x_v2.5.8.jar";
       sha256 = "sha256-ADM6EwrDi3ucqTcACY1eAuBhK9wtNSKq2i825WAGIb8=";
     };
-    cobblemon = pkgs.fetchurl {
-      url = "";
+
+
+
+    # 26.2
+
+    terralith-26_2-2_6_4 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/OxfI2n80/Terralith_26.2_v2.6.4.jar";
+      sha256 = "sha256-2GfG80joacGeill56d0sRu0FjB7bRwkPaGPDLM5ISRc=";
+    };
+    lithostitched-26_2-1_8_0 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/XaDC71GB/versions/sGGUpIGT/lithostitched-1.8.0-fabric-26.2.jar";
+      sha256 = "sha256-TXSo7CAjZXNSrgUfGmJwv/R0vzzEYBMQDv9fndu90CQ=";
+    };
+
+    better-nether-26_201_2 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/MpzVLzy5/versions/iBR9QMPF/better-nether-26.201.2.jar";
+      sha256 = "sha256-q4tx8/9J3VZ2NR0zbcdr2xDqOcohAfyWP2dr8ZiPGjo=";
+    };
+    # deps
+    fabricApi-26_2 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/ewUK83HI/fabric-api-0.161.0%2B26.2.jar";
+      sha256 = "sha256-5bhYzrEykMJ04xy4iP9aGkDLkQZ+f/qwtbd1rsUeIWo=";
+    };
+    worldweaver-26_201_2 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/RiN8rDVs/versions/GHdiOIsp/worldweaver-26.201.2.jar";
+      sha256 = "sha256-4ELsIBHRYT6vnn/D4nF58xsaG+cEtCcdA1WJppkUuKE=";
+    };
+    bclib-26_201_2 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/BgNRHReB/versions/7BfGRji6/bclib-26.201.2.jar";
+      sha256 = "sha256-eXu4294MKCZdCMwxWBWH4sbrLzRKIM3hZU+4Gc2hGT0=";
+    };
+
+    famersDelight-26_1-3_6_26 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/7vxePowz/versions/RvMf1qzl/FarmersDelight-26.2-3.6.26%2Brefabricated.jar";
+      sha256 = "sha256-FCoBZkl9gRyx/VUopi46C9HniFBq0nadMD0VnJvpHsI=";
+    };
+
+    friendsAndFoes-26_2-4_0_27 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/POQ2i9zu/versions/rJBCX3gG/friendsandfoes-fabric-4.0.27%2Bmc26.2.jar";
+      sha256 = "sha256-lnkkoPmbAZ6l5P9JjbyYP+4Oym7gT7dagvpBJAsnuVw=";
+    };
+
+    resourcefulLib-5_0_4 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/G1hIVOrD/versions/4BbCbnE6/ResourcefulLib-5.0.4.jar";
+      sha256 = "sha256-RmAoExYit/w9wcWuAxXYU2WqMSrpC7g2tI8YOOhYBWY=";
+    };
+  
+    xareos-minimap-26_2-26_5_1 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/1bokaNcj/versions/VlMbRW2O/xaerominimap-fabric-26.2-26.5.1.jar";
+      sha256 = "sha256-B18mKUfl5cAZLJw2Y5+mZyAMB40lfLZW3gtKPOLWUkA=";
+    };
+
+
+
+    # Spark - Performance Profiler
+    spark-26_2 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/l6YH9Als/versions/e3hsPc1o/spark-1.10.187-fabric.jar";
       sha256 = "";
     };
+
+    # Lithium - Server efficieny optimization
+    lithium-26_2 = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/f7vZ0VWU/lithium-fabric-0.25.3%2Bmc26.2.jar";
+      sha256 = "";
+    };
+
+
 
   in {
     enable = true;
@@ -61,8 +128,9 @@
     openFirewall = true;
     dataDir = "/srv/minecraft"; # Each server will be under a sub dir here
     servers = {
+
       ServerA = {
-        enable = true;
+        enable = false;
         autoStart = true;
         # See https://minecraft.wiki/w/Server.properties for list of available properties
         serverProperties = {
@@ -99,6 +167,145 @@
           ];
         };
       };
+
+      ServerB = {
+        enable = true;
+        autoStart = true;
+        # See https://minecraft.wiki/w/Server.properties for list of available properties
+        serverProperties = {
+          server-port = 25566; # default
+          difficulty = 3;
+          gamemode = 0; # survival
+          cheats = true;
+          max-players = 10;
+          motd = "Shelby's desires";
+          white-list = false;
+          enable-rcon = false;
+        };
+        operators = {
+          eXia_beep_boop = {
+            uuid = "0b444121-e744-4c6b-a994-43d3b764e0ad";
+            level = 4;
+            bypassesPlayerLimit = true;
+          };
+        };
+        package = pkgs.fabricServers.fabric-26_2.override {
+          loaderVersion = "0.19.3";
+          jre_headless = pkgs.openjdk25_headless; # fabric 26.2 needs jdk 25
+        };
+        symlinks = {
+          mods = pkgs.linkFarmFromDrvs "mods" [
+            terralith-26_2-2_6_4
+              lithostitched-26_2-1_8_0
+            better-nether-26_201_2
+            fabricApi-26_2
+            worldweaver-26_201_2
+            bclib-26_201_2
+            famersDelight-26_1-3_6_26
+            friendsAndFoes-26_2-4_0_27
+            resourcefulLib-5_0_4
+            xareos-minimap-26_2-26_5_1
+          ];
+        };
+      };
+
+
+      # 1.21.1
+      ServerC = let
+        fabricApi = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Mys3P7lK/fabric-api-0.116.17%2B1.21.1.jar";
+          sha256 = "sha256-eaxEtAeArL2ISzTFC+HjmvaChH5fXLOx/d7qp2jc6AA=";
+        };
+        cobblemon = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/MdwFAVRL/versions/gBW3vLC7/Cobblemon-fabric-1.8.1%2B1.21.1.jar";
+          sha256 = "sha256-TZC6Z3XjozKq2dXkmp9jZvlzs+GhLgAE0iziHGAO68U=";
+        };
+        terralith = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/eWDLFabb/Terralith_1.21.x_v2.6.2.jar";
+          sha256 = "sha256-nNTUAv3g9SPltDCsj9R5zgWup6UP4MjCaQH192knIhQ=";
+        };
+        lithostitched = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/XaDC71GB/versions/eN30OQaU/lithostitched-1.8.0-fabric-21.1.jar";
+          sha256 = "sha256-G7Xh8Tw5TntpS5S/+a8ktEnlGQeWUcoCdl2nreMHn/c=";
+        };
+        teletransportationAcceptTPA = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/6h6n9XJ9/versions/Si2A8zdz/tpa-1.3.1.jar";
+          sha256 = "sha256-QDwF/l/Xba61rdWNdqn8+d6+yAlbTquw5cf/8q8iQ40=";
+        };
+        cobblemonAdditions = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/W2pr9jyL/versions/NVitD9gY/cobblemon-additions-4.3.0.jar";
+          sha256 = "sha256-MzkWwtKmRpN5QuG0+p5+rw9/VG3D3A3vkMkLL/82MrM=";
+        };
+        cobbleDollars = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/s7N7AsqL/versions/NQdxKsW7/CobbleDollars-fabric-2.0.0%2BBeta-6.1%2B1.21.1.jar";
+          sha256 = "sha256-oAdSPi3YxvR+3JFNM9Jq0KhgoBJAOOHsYwOlk6kZwbQ=";
+        };
+        radicalCobblemonTrainers = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/lRwTUnD7/versions/rgfBfnW9/rctmod-fabric-1.21.1-0.19.2-beta.jar";
+          sha256 = "sha256-Lj0sYQEpAPz1qVfilnYmmVj6zKWT3rx6nglROFRqywo=";
+        };
+        forgeConfigAPIPort = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/ohNO6lps/versions/N5qzq0XV/ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar";
+          sha256 = "sha256-LjqPDjvahafXInIOfOh5y9nQKNk5XG/CJNMps8mC2bE=";
+        };
+        radicalCobblemonTrainersAPI = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/CBfM2yw7/versions/bgmxNN26/rctapi-fabric-1.21.1-0.16.1-beta.jar";
+          sha256 = "sha256-kT8SvHerQ81O6FIJsHjbSDWUkNFlQ2SLoJf6LnkQyE4=";
+        };
+        architecturyAPI = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/lhGA9TYQ/versions/Pzc2FP5K/architectury-13.0.11-fabric.jar";
+          sha256 = "sha256-qxfVx9jYyTzHE0N+1Cbw/w1vgCpI//DFeam9OqqDPv0=";
+        };
+        radGyms = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/eF8kqlHd/versions/jNLB4nS8/rad-gyms-fabric-0.5.0.jar";
+          sha256 = "sha256-sUNcCq8+bbseVVxDUj7Les45YWeQy5IwW0YqU9Jzwx0=";
+        };
+
+      in {
+        enable = true;
+        autoStart = true;
+        # See https://minecraft.wiki/w/Server.properties for list of available properties
+        serverProperties = {
+          server-port = 25567; # default
+          difficulty = 2; # normal
+          gamemode = 0; # survival
+          cheats = true;
+          max-players = 10;
+          motd = "nasty surprise";
+          white-list = false;
+          enable-rcon = false;
+        };
+        operators = {
+          eXia_beep_boop = {
+            uuid = "0b444121-e744-4c6b-a994-43d3b764e0ad";
+            level = 4;
+            bypassesPlayerLimit = true;
+          };
+        };
+        package = pkgs.fabricServers.fabric-1_21_1.override {
+          #loaderVersion = "";
+          #jre_headless = pkgs.openjdk...;
+        };
+        symlinks = {
+          mods = pkgs.linkFarmFromDrvs "mods" [
+            fabricApi
+            terralith
+              lithostitched
+            teletransportationAcceptTPA
+            
+            # Cobblemon
+            cobblemon
+            cobblemonAdditions
+              cobbleDollars
+            radicalCobblemonTrainers
+              forgeConfigAPIPort
+              radicalCobblemonTrainersAPI
+              architecturyAPI
+            radGyms
+          ];
+        };
+      };
+
     };
 
     # Shows better service logs
