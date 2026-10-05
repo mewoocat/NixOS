@@ -1,20 +1,33 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, inputs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      ./samba.nix
-      ./wireguard.nix
+    ./samba.nix
+    ./wireguard.nix
+    #./minecraft.nix
+    ../../common/servers/minecraft
 
-      # Modules
-      inputs.agenix.nixosModules.default
-    ];
+    # Modules
+    inputs.agenix.nixosModules.default
+  ];
+
+  nixpkgs = {
+    # !! WARNING !! The nixpkgs.config option is of type attribute set which cannot merge lists
+    # Therefore, only define options in one place.
+    config = {
+      allowUnfree = true;
+    };
+  };
 
   networking.hostId = "dddb96d2";
   networking.hostName = "redwood"; # Define your hostname.
@@ -34,7 +47,6 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-
   # Set this to false to force the nixos password config to overwrite any existing config
   users.mutableUsers = false;
   users.users.root = {
@@ -46,7 +58,7 @@
   };
 
   users.users.eXia = {
-    isNormalUser = true;  
+    isNormalUser = true;
     extraGroups = [
       "wheel"
       "video"
@@ -146,6 +158,9 @@
     secrets = {
       redwood-ssh-host-key = {
         file = inputs.secrets + "/redwood-ssh-host-key.age";
+        # NOTE: This secret is being decrypted to a location outside of /run/agenix/ due to the issue mentioned
+        # here: https://github.com/ryantm/agenix/issues/193
+        path = "/etc/ssh/redwood-from-agenix-lol";
         owner = "root";
         group = "root";
       };
@@ -155,7 +170,7 @@
   #
   # The network card may not work in initrd unless it's kernel module is manually loaded
   # Use `lspci -v` to find the network card and reference it's "Kernel Modules" property
-  boot.initrd.availableKernelModules = [ "e1000e" ]; # This might just be one of the ethernet cards
+  boot.initrd.availableKernelModules = ["e1000e"]; # This might just be one of the ethernet cards
   boot = {
     initrd.network = {
       enable = true;
@@ -181,6 +196,4 @@
   #In order to use DHCP in initrd, networking.useDHCP must be true and network
   networking.useDHCP = true;
   networking.networkmanager.enable = false;
-
 }
-

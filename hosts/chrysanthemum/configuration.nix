@@ -4,16 +4,15 @@
   pkgs,
   ...
 }: {
-
   imports = [
     ./hardware-configuration.nix
     #../../common/servers/home-assistant
-    ../../common/servers/minecraft
+    #../../common/servers/minecraft
     #./zfs.nix
   ];
 
   nix = {
-    settings = {    
+    settings = {
       # Enable flakes and the nix command
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
@@ -28,7 +27,7 @@
   boot.loader.grub.enable = true;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
- 
+
   # Disable action on laptop lid close
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
@@ -42,7 +41,7 @@
       "wheel"
       "video"
       "networkmanager"
-    ]; 
+    ];
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     openssh.authorizedKeys.keys = [
       #"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4NXTpvhSTTtinjDzyCuPQmcAzuMES/gMtLvLp93xMA"
@@ -57,14 +56,14 @@
     ];
   };
 
- # Networking
+  # Networking
   networking = {
     hostName = "chrysanthemum";
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     #networkmanager.logLevel = "DEBUG";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [22];
       allowedUDPPortRanges = [];
     };
   };
@@ -86,7 +85,7 @@
     # See for valid addresses: https://caddyserver.com/docs/caddyfile/concepts#addresses
     #
     # This will accept requests for any address on https and port 80
-    # However if the host portion of specified for the site, then only requests with the 
+    # However if the host portion of specified for the site, then only requests with the
     # HTTP Host header matching the site address will be accepted.
     virtualHosts."http://".extraConfig = ''
       respond "minecraft soon?!"
@@ -96,7 +95,7 @@
       #file_server
     '';
   };
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave

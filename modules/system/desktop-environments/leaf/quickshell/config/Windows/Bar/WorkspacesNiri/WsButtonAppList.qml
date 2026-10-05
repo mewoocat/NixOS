@@ -74,9 +74,11 @@ Ctrls.Button {
                         id: toplevelButton
                         // WindowModel roles which are the properties of the modelData https://github.com/imiric/qml-niri#windowmodel-roles
                         required property var modelData
-                        contentItem: Shared.Icon {
-                            source: Quickshell.iconPath(toplevelButton.modelData.appId)
-                        }
+                        isMultiColorIcon: true
+                        // TODO: make size dynamic
+                        icon.width: 10
+                        icon.height: 10
+                        icon.source: Quickshell.iconPath(toplevelButton.modelData.appId)
                     }
                 }
             }
