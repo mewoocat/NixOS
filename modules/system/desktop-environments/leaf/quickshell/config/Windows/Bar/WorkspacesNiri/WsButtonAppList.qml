@@ -33,7 +33,6 @@ Ctrls.Button {
     }
     onClicked: {
         Services.Niri.focusWorkspaceById(ws.id)
-        console.debug(`width: ${contentItem.width}`);
     }
 
     background: Rectangle {
@@ -50,7 +49,7 @@ Ctrls.Button {
     contentItem: RowLayout { spacing: 0 // App list
         Loader {
             visible: active // Size stays same after item is unloaded.  Hide to not render in this case.
-            active: root.ws.isActive
+            active: true//root.ws.isActive || root.hovered
             property Component appListComp: RowLayout {
                 Repeater {
                     id: repeater
@@ -76,9 +75,10 @@ Ctrls.Button {
                         required property var modelData
                         isMultiColorIcon: true
                         // TODO: make size dynamic
-                        icon.width: 10
-                        icon.height: 10
+                        icon.width: 20
+                        icon.height: 20
                         icon.source: Quickshell.iconPath(toplevelButton.modelData.appId)
+                        onClicked: () => Services.Niri.focusWindow(modelData.id)
                     }
                 }
             }

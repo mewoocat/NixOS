@@ -373,15 +373,16 @@
     managementSystem.systemd-socket.enable = true;
   };
 
-  # Extra hardening for server c which is defined in the nix-minecraft module here:
+  # Extra hardening for server c which is defined using the nix-minecraft module here:
   # - https://github.com/Infinidoge/nix-minecraft/blob/master/modules/minecraft-servers.nix
   # See also:
   # - https://wiki.nixos.org/wiki/Systemd/Hardening
   # - https://notashelf.dev/posts/insecurities-remedies-i
-  /*
+  #
+  # WARNING: If experiences strange errors with the server, try checking if hardening broke something.
   systemd.services.minecraft-server-ServerC = {
     serviceConfig = {
-      ProtectSystem = "full";
+      ProtectSystem = "strict";
       RuntimeDirectory = "minecraft"; # Created under /run directory
       RootDirectory = "/run/minecraft";
       #StateDirectory = "minecraft";
@@ -394,7 +395,8 @@
         "/srv/minecraft/"
         "/run/minecraft/"
       ];
+      NoNewPrivileges = true;
+      RemoveIPC = true;
     };
   };
-  */
 }
