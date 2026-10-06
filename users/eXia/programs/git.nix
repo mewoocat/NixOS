@@ -1,10 +1,7 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }: {
-  # TODO: remove?
   programs.git = {
     enable = true;
     config = {

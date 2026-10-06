@@ -7,5 +7,6 @@
     ./foot.nix
     ./nextcloud.nix
     ./obs.nix
+    ./git.nix
   ];
 }
