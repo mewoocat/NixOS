@@ -146,11 +146,14 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
 
+  nix.settings.trusted-users = ["eXia" "root"];
+
   # Setup for decrypting zfs zpool remotely
   # See: https://wiki.nixos.org/wiki/ZFS
   nix.settings.experimental-features = [
     "nix-command" # needed for agenix?
   ];
+
   age = {
     identityPaths = [
       "/etc/ssh/redwood"

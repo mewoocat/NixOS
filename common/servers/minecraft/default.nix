@@ -264,9 +264,14 @@
           url = "https://cdn.modrinth.com/data/gG3mz6AL/versions/FQY0xvNo/CobblemonIntros-1.0.0.jar";
           sha256 = "sha256-9DHUS8BM39WmG0NDrsk12tBzY4vfouMpGsEBg8Drz+I=";
         };
-        cobblemonLegendaryMonuments = pkgs.fetchurl {
+        # WARNING: Has some sort of bug that causes crash related to Zekrom
+        cobblemonLegendaryMonuments-8_1 = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/m6RyHSbV/versions/F6Ub0Gga/legendarymonuments-fabric-1.21.1-8.1-Love_for_All.jar";
           sha256 = "sha256-ZMBNsdl1fFLSzIBc3CQmiNuMPYN6F1AFk8UJW2Zng7M=";
+        };
+        cobblemonLegendaryMonuments-8_2 = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/m6RyHSbV/versions/dcZ53MPy/legendarymonuments-fabric-1.21.1-8.2-Keep-Fighting.jar?mr_download_reason=standalone&mr_game_version=1.21.1&mr_loader=fabric";
+          sha256 = "sha256-agrwkyGWTbaiQGYxhR8ybZnAPcQZd55w7z972DTsYpY=";
         };
         accessories = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/jtmvUHXj/versions/Xlt4eWBe/accessories-fabric-1.1.0-beta.53%2B1.21.1.jar";
@@ -353,7 +358,8 @@
             cobblemonPokeNav
             cobblemonBattleMusic
             cobblemonIntros
-            cobblemonLegendaryMonuments
+            cobblemonLegendaryMonuments-8_1
+            #cobblemonLegendaryMonuments-8_2
             accessories
             chipped
             resourcefulLib

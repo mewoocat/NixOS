@@ -44,7 +44,7 @@ window-rule {
 
 // Apply to all windows
 window-rule {
-    geometry-corner-radius 16
+    geometry-corner-radius 0
     clip-to-geometry true
     background-effect {
       blur true

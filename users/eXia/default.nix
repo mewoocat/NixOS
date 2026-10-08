@@ -41,9 +41,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIPDCMbjh85oDIz/XiQLUzBzUMTOccUo+VL857FHMcbC eXia@obsidian"
     ];
     packages = with pkgs; [
-
       # Utilities
-      bottom    
+      bottom
       blueman
       nmap
       cmakeMinimal
@@ -61,7 +60,7 @@
       inputs.nh.packages.x86_64-linux.default
 
       exfatprogs # exFAT filesystem userspace utilities
-      stress 
+      stress
       s-tui
       gcc14
       dconf-editor
@@ -130,7 +129,7 @@
     ];
   };
 
-  programs.kdeconnect.enable = true;
+  programs.kdeconnect.enable = false;
   programs.wireshark.enable = true; # Add Wireshark to the global environment and create a ‘wireshark’ group
   programs.gnupg = {
     agent = {
@@ -139,5 +138,4 @@
       #pinentryPackage = pkgs.pinentry-gtk2;
     };
   };
-
 }

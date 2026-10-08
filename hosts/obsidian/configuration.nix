@@ -27,7 +27,7 @@
     # Other
     ../../modules/utilities
     ../../common/gaming/game.nix
-    ./zfs.nix
+    #./zfs.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -45,6 +45,8 @@
     supportedFilesystems = ["ntfs"];
   };
 
+  #nix.settings.trusted-users = ["eXia"];
+
   # Android emulation
   #virtualisation.waydroid.enable = true;
 
@@ -59,9 +61,11 @@
     };
   };
 
-  networking.firewall.allowedUDPPorts = [ 53 67 ];
-  networking.firewall.allowedTCPPorts = [ 80 443 1883 6669 ];
-  
+  /*
+  networking.firewall.allowedUDPPorts = [53 67];
+  networking.firewall.allowedTCPPorts = [80 443 1883 6669];
+  */
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

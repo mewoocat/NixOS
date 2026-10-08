@@ -12,7 +12,6 @@
     ./disks.nix
     ./general.nix
     ./fonts.nix
-    ./git.nix
   ];
 
   options = {
