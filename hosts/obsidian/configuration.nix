@@ -27,6 +27,7 @@
     # Other
     ../../modules/utilities
     ../../common/gaming/game.nix
+    ../../common/general.nix
     #./zfs.nix
   ];
 
@@ -45,12 +46,11 @@
     supportedFilesystems = ["ntfs"];
   };
 
+  # In order for a remote build host to copy closure to this machine, the user on this target machine in which
+  # the build is being performed on behalf of, needs to be a trusted user.
   nix.settings.trusted-users = ["eXia"];
 
-  # Android emulation
-  #virtualisation.waydroid.enable = true;
-
-  #virtualisation.docker.enable = true;
+  networking.networkmanager.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh = {

@@ -3,9 +3,7 @@
   pkgs,
   ...
 }: {
-
   imports = [
-
     # Hardware
     ./hardware-configuration.nix
     ../../common/hardware/bluetooth.nix
@@ -24,8 +22,7 @@
     ../../modules/utilities
     ../../modules/utilities/virtualization.nix
     ../../common/gaming/game.nix
-
-
+    ../../common/general.nix
   ];
 
   # Set your time zone.
@@ -48,7 +45,7 @@
       default_session = let
         # fix for blank screen bug where screen only shows when mouse is shown
         # see: https://github.com/ValveSoftware/gamescope/issues/1252
-        # Apparently mangohud via --mangoapp needs to be enabled/running and a config needs to be preset to work around 
+        # Apparently mangohud via --mangoapp needs to be enabled/running and a config needs to be preset to work around
         # the issue.  Looks to be caused by an architecture issue on nvidia's 1000 series cards.
         steam-ui = pkgs.writeShellScriptBin "steam-ui" ''
           export MANGOHUD_CONFIG=fps_only,font_size=10,background_alpha=0.0,hud_no_margin,offset_x=0,offset_y=0
@@ -79,14 +76,12 @@
   };
 
   nix = {
-    settings = {    
+    settings = {
       # Enable flakes (not needed?)
       #experimental-features = ["nix-command" "flakes"];
       trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
     };
   };
-
-  virtualisation.docker.enable = true;
 
   services.openssh = {
     enable = true;
@@ -99,7 +94,7 @@
   };
 
   users.users.eXia = {
-    isNormalUser = true;  
+    isNormalUser = true;
     extraGroups = [
       "wheel"
       "video"
@@ -138,5 +133,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

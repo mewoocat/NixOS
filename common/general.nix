@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-
   imports = [
     #inputs.agenix.nixosModules.default
   ];
@@ -12,17 +11,13 @@
   # Ensure nixpkgs instance is consistent across entire system
   # reference: https://piegames.de/dumps/pinning-nixos-with-npins-revisited/#it-s-only-five-lines
   nix.channel.enable = false;
-  nix.nixPath = [ "nixpkgs=/etc/nixos/nixpkgs" ];
+  nix.nixPath = ["nixpkgs=/etc/nixos/nixpkgs"];
   environment.etc = {
     "nixos/nixpkgs".source = builtins.storePath pkgs.path;
   };
 
   nix = {
     settings = {
-      # Cachix for Hyprland
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-      
       # Enable flakes
       experimental-features = ["nix-command" "flakes"];
     };
@@ -47,10 +42,10 @@
     # Therefore, only define the permittedInsecurePackages in one place (i.e. here)
     config = {
       allowUnfree = true;
-      allowInsecure = true;  
+      allowInsecure = true;
       permittedInsecurePackages = [
-        "electron-36.9.5"
-        "electron-39.8.10"
+        #"electron-36.9.5"
+        #"electron-39.8.10"
       ];
     };
   };

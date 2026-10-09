@@ -1,35 +1,42 @@
 # Host: scythe
 # Razer blade stealth late 2016
-{ config, pkgs, inputs, ... }: {
-    imports = [
-      # Nixos modules
-      inputs.hjem.outputs.nixosModules.default
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Nixos modules
+    inputs.hjem.outputs.nixosModules.default
 
-      # Hardware
-      ./hardware-configuration.nix
-      ../../common/hardware/bluetooth.nix
-      ../../common/hardware/drawing-tablet.nix
-      ../../common/hardware/ios.nix
-      ../../common/hardware/razer.nix
-      ../../common/hardware/rgb.nix
-      ../../common/hardware/vial-keyboards.nix
+    # Hardware
+    ./hardware-configuration.nix
+    ../../common/hardware/bluetooth.nix
+    ../../common/hardware/drawing-tablet.nix
+    ../../common/hardware/ios.nix
+    ../../common/hardware/razer.nix
+    ../../common/hardware/rgb.nix
+    ../../common/hardware/vial-keyboards.nix
 
-      # Core system components
-      ../../modules/system
+    # Core system components
+    ../../modules/system
 
-      # Desktop environment
-      ../../modules/system/desktop-environments/leaf
+    # Desktop environment
+    ../../modules/system/desktop-environments/leaf
 
-      # Users
-      ../../users/eXia
+    # Users
+    ../../users/eXia
 
-      # Utilities
-      ../../modules/utilities
+    # Utilities
+    ../../modules/utilities
 
-    ];
+    ../../common/general.nix
+  ];
 
+  networking.networkmanager.enable = true;
   networking.hostName = "scythe"; # Define your hostname.
-  
+
   services.hardware.bolt.enable = true; # Thunderbolt
 
   # Use the systemd-boot EFI boot loader.
@@ -45,7 +52,7 @@
   # ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine.  Not applicable for
   # local drives not shared over the network
   networking.hostId = "d01ce9f7";
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave

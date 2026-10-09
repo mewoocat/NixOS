@@ -7,11 +7,6 @@
 }: {
   imports = [
     ./user.nix
-    ./power.nix
-    ./networking.nix
-    ./disks.nix
-    ./general.nix
-    ./fonts.nix
   ];
 
   options = {

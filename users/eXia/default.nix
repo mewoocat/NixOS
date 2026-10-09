@@ -9,17 +9,12 @@
   # This is a custom option
   username = "eXia";
 
-  # Set your time zone.
-  time.timeZone = "US/Eastern";
-
   imports = [
     ./programs
   ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = true;
-
-  services.teamviewer.enable = false;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eXia = {
@@ -129,7 +124,6 @@
     ];
   };
 
-  programs.kdeconnect.enable = false;
   programs.wireshark.enable = true; # Add Wireshark to the global environment and create a ‘wireshark’ group
   programs.gnupg = {
     agent = {
@@ -138,4 +132,13 @@
       #pinentryPackage = pkgs.pinentry-gtk2;
     };
   };
+
+  # Drive management
+  programs.gnome-disks.enable = true;
+  # Needed for gparted
+
+  environment.systemPackages = with pkgs; [
+    gparted
+    ntfs3g # For ntfs file systems
+  ];
 }

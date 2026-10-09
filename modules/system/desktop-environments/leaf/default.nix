@@ -1,18 +1,11 @@
 {
   config,
   pkgs,
-  lib,
   ...
-}: let
-  leaf-dir = "/home/${config.username}/.config/leaf-de";
-  # Accessing the path using ${} from within a string returns the nix store version of the file
-  defaultConfigStr = "${./ags/ags-config/defaultUserSettings.json}"; 
-in{
+}: {
   imports = [
     ./core-applications
     ./core-functions
-    #./ags
-    #./hyprland
     ./theming
     ./quickshell
     ./niri
@@ -27,9 +20,12 @@ in{
 
   programs.dconf.enable = true; # Required for gtk?
 
+  # Power management
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
   environment = {
     systemPackages = with pkgs; [
-
       #polkit_gnome # Not sure if this is needed since the service is defined below?
 
       # For screen recording
@@ -43,6 +39,9 @@ in{
       GSETTINGS_SCHEMA_DIR = "${pkgs.gnome.nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/";
     };
   };
+
+  security.polkit.enable = true;
+  services.udisks2.enable = true; # For udiskie automount to work
 
   # If an error occurs in any of the scripts here, the nixos-activation service will break
   system.userActivationScripts = {};
@@ -63,19 +62,11 @@ in{
     };
   };
 
-  # System service for starting hyprland
-  /*
-  systemd.user.services.hyprland = {
-    description = "Hyprland session";
-    before = ["graphical-session.target"];
-    wants = ["graphical-session.target"];
-    wantedBy = ["graphical-session.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${config.programs.hyprland.package}/bin/Hyprland";
-    };
-  };
-  */
+  # Fonts
+  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.space-mono
+  ];
 
   users.users.${config.username}.packages = with pkgs; [
     xdg-utils # needed for discord/vesktop to open web links in default browser
@@ -106,12 +97,10 @@ in{
     dig
     libnotify
     p7zip
-    satty
+    #satty
     grim
     ddcutil
     ddcui
     cage # wayland compositor for greeter
   ];
-
-  # GreetD
 }
