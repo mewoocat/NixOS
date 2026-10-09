@@ -45,7 +45,7 @@
     supportedFilesystems = ["ntfs"];
   };
 
-  #nix.settings.trusted-users = ["eXia"];
+  nix.settings.trusted-users = ["eXia"];
 
   # Android emulation
   #virtualisation.waydroid.enable = true;
