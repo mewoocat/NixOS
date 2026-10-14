@@ -8,6 +8,8 @@
     #inputs.agenix.nixosModules.default
   ];
 
+  services.automatic-timezoned.enable = true;
+
   # Ensure nixpkgs instance is consistent across entire system
   # reference: https://piegames.de/dumps/pinning-nixos-with-npins-revisited/#it-s-only-five-lines
   nix.channel.enable = false;
@@ -53,7 +55,6 @@
   environment.systemPackages = with pkgs; [
     #inputs.agenix.packages.${stdenv.hostPlatform.system}.default # Agenix cli client
     man-pages
-    npins
   ];
 
   #services.envfs.enable = true; # Populate /usr/bin with binaries # This appears broken

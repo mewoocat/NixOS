@@ -29,6 +29,11 @@
           HostName 192.168.0.105
           User root
 
+        Host redwood_initrd
+          HostName 192.168.0.105
+          User eXia
+          IdentityFile ~/.ssh/maple-yubikey-pgp.pub
+
         Host maple
           HostName mapletreeway.cloud
           user eXia

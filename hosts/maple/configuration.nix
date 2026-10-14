@@ -5,7 +5,6 @@
   inputs,
   ...
 }: {
-
   imports = [
     inputs.disko.nixosModules.disko
     inputs.agenix.nixosModules.default
@@ -25,13 +24,14 @@
     #../../common/servers/fail2ban
     #../../common/servers/traccar
     #../../common/servers/minecraft
-
   ];
 
   # zfs
-  boot.supportedFilesystems = [ "zfs" ]; # also enabled boot.zfs
+  boot.supportedFilesystems = ["zfs"]; # also enabled boot.zfs
   boot.zfs.forceImportRoot = false; # enabling this helps with compatibility but limits safeguards zfs uses
   networking.hostId = "d01ce9f7"; # ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine
+
+  boot.kernel.sysctl."net.ipv4.ip_forward" = "1"; # Act like a router and forward packets
 
   boot.loader.grub = {
     enable = true;
@@ -42,7 +42,7 @@
   };
 
   nix = {
-    settings = {    
+    settings = {
       # Enable flakes
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["eXia"]; # Needed to allow eXia to rebuild remotely
@@ -55,7 +55,7 @@
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 5201 ];
+      allowedTCPPorts = [22 5201];
       allowedUDPPortRanges = [];
     };
   };
@@ -76,7 +76,7 @@
     inputs.nvim-nvf.packages.x86_64-linux.default # My nvim config
   ];
 
-  users.users.root= {
+  users.users.root = {
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     # Set ssh public keys
     openssh.authorizedKeys.keys = [
@@ -88,7 +88,7 @@
 
   # Allow for all sudo enabled users to call sudo without a password
   #security.sudo.wheelNeedsPassword = false;
-  
+
   security.sudo = {
     extraConfig = ''
       Defaults insults
@@ -100,7 +100,7 @@
           {
             #command = "ALL";
             #command = "${pkgs.rsync}/bin/rsync"; # Doesn't work
-            # Works, apparently the command only applies to the actual path specified, or it's end link if it's a 
+            # Works, apparently the command only applies to the actual path specified, or it's end link if it's a
             # symlink.
             command = "/run/current-system/sw/bin/rsync";
             options = ["NOPASSWD"];

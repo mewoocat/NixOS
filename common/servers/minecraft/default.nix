@@ -316,6 +316,7 @@
       in {
         enable = true;
         autoStart = true;
+        jvmOpts = "-Xms6144M"; # Set java heap to 6144M
         # See https://minecraft.wiki/w/Server.properties for list of available properties
         serverProperties = {
           server-port = 25567; # default

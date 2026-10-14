@@ -16,6 +16,7 @@
     ./wireguard.nix
     #./minecraft.nix
     ../../common/servers/minecraft
+    ../../common/general.nix
 
     # Modules
     inputs.agenix.nixosModules.default
@@ -166,6 +167,7 @@
         path = "/etc/ssh/redwood-from-agenix-lol";
         owner = "root";
         group = "root";
+        symlink = false; # temp fix for https://github.com/ryantm/agenix/issues/193
       };
     };
   };
@@ -180,9 +182,13 @@
       ssh = {
         enable = true;
         port = 2222;
+        # TODO! Maybe don't do this??? https://search.nixos.org/options?channel=26.05&query=initrd.network.ssh&type=options
         hostKeys = [
+          #"/etc/ssh/dummy_host_key" # a host key is needed
+
+          # This file seems to no be found during initrd???
           config.age.secrets.redwood-ssh-host-key.path
-          "/etc/ssh/redwood" # This private key needs to manually be generated or copied here
+          #"/etc/ssh/redwood" # This private key needs to manually be generated or copied here
         ];
         authorizedKeys = [
           # eXia PGP Auth

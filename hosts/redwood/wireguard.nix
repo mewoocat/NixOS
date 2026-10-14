@@ -23,6 +23,24 @@
 
           # This defines all the peers that can connection to this server
           peers = [
+            # maple
+            {
+              publicKey = "dZic8G35hoOEncz5UULHyr2KBH6ZjgWob1i2zwqFqCQ=";
+
+              # Will only accept packets that have a source ip of one of these addresses
+              allowedIPs = [
+                "10.10.0.0/24"
+              ];
+              # Connect to this endpoint
+              #endpoint = ""; # TODO: domain
+              # Send authenticated empty packet every n (e.g. 25) seconds to ensure this interface stays alive in
+              # the NAT's routing tables between this interface and this peer.  This allows for traffic to be sent
+              # to this interface from this peer which is useful for sending traffic from a seperate spoke peer to
+              # this interface without forwarding a port on the NAT.
+              persistentKeepalive = 25;
+            }
+
+            /*
             # scythe
             {
               publicKey = "S3pdgCs5SSZlWb9mYfW0HZ/8CGl/0GMOebGGzLSNOA4="; # Peer's public key
@@ -73,6 +91,7 @@
               ];
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
             }
+            */
           ];
         };
       };

@@ -1,4 +1,8 @@
-{config, inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   age.secrets = {
     wireguard-maple.file = inputs.secrets + "/wireguard-maple.age";
   };
@@ -6,7 +10,7 @@
   # Setup in a hub and spoke topology
   networking = {
     firewall = {
-      allowedUDPPorts = [ config.networking.wg-quick.interfaces.wg0.listenPort ];
+      allowedUDPPorts = [config.networking.wg-quick.interfaces.wg0.listenPort];
     };
     wg-quick = {
       interfaces = {
@@ -36,9 +40,9 @@
               publicKey = "S3pdgCs5SSZlWb9mYfW0HZ/8CGl/0GMOebGGzLSNOA4="; # Peer's public key
               # The designated private ip for this peer in the tunnel.
               # /32 indicates that the ip is single node rather than indicating multiple nodes under a subnet.
-              # For our purpose it needs to be /32 since we *only* want traffic for this peer to go to/from this 
+              # For our purpose it needs to be /32 since we *only* want traffic for this peer to go to/from this
               # single IP (point-to-point hub and spoke topology)
-              # See: 
+              # See:
               # - https://forum.mikrotik.com/t/only-one-wireguard-peer-working-at-a-time/167740/6
               # - https://github.com/pirate/wireguard-docs#quickstart step 4.
               allowedIPs = [
@@ -80,6 +84,15 @@
                 "10.10.0.6/32" # The designated private ip for this peer in the tunnel
               ];
               endpoint = null; # The server doesn't initiate connections to this peer & this peer has a dynamic ip
+            }
+
+            # redwood
+            {
+              publicKey = "95fo14bvMXDjB0ZgJSGv3R6n3cCYK/aQ0f2QNcmLEGE=";
+              allowedIPs = [
+                "10.10.0.7/32"
+              ];
+              endpoint = null;
             }
           ];
         };
