@@ -325,8 +325,14 @@
           cheats = true;
           max-players = 10;
           motd = "nasty surprise";
-          white-list = false;
+          white-list = true;
           enable-rcon = false;
+        };
+        whitelist = {
+          jadeybear07 = "4819b83c-7389-47d9-b42d-8de15c9b29cf";
+          Luyti = "01bde76c-8953-4b29-ade3-e7e6eb390b1c";
+          Pan1c1 = "ecd54daf-d735-422f-bad0-394d0293a0b5";
+          sabrippp = "231c244b-25dc-4224-b708-80423af4a064";
         };
         operators = {
           eXia_beep_boop = {
