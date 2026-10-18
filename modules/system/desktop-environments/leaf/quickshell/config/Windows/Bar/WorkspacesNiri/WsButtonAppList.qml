@@ -97,7 +97,7 @@ Ctrls.Button {
                         // TODO: make size dynamic
                         icon.width: 20
                         icon.height: 20
-                        icon.source: Quickshell.iconPath(toplevelButton.modelData.appId)
+                        icon.source: modelData.iconPath ?? Quickshell.iconPath(modelData.appId)
                         onClicked: () => Services.Niri.focusWindow(modelData.id)
                     }
                 }
