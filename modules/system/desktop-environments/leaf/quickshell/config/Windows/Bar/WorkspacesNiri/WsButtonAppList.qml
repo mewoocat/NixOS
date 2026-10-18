@@ -17,8 +17,8 @@ Ctrls.Button {
     required property var ws // This: https://github.com/imiric/qml-niri#workspacemodel-roles
     required property bool isLast
 
-    //leftInset: 2
-    //rightInset: 2
+    padding: inset
+    inset: 4
     //topInset: root.ws.isActive ? 6 : 8
     //bottomInset: root.ws.isActive ? 6 : 8
     Behavior on topInset {
@@ -31,8 +31,6 @@ Ctrls.Button {
             duration: 150
         }
     }
-    padding: 0
-    inset: 0
 
     onHoveredChanged: {
         if (root.hovered) {
@@ -46,7 +44,9 @@ Ctrls.Button {
 
     background: Rectangle {
         radius: height / 2
-        //implicitWidth: root.contentItem.width < 52 ? 52 : root.contentItem.width
+        //implicitWidth: root.contentItem.implicitWidth < 52 ? 52 : root.contentItem.implicitWidth + 16
+        implicitWidth: root.contentItem.implicitWidth + root.padding
+        implicitHeight: root.contentItem.implicitHeight + root.padding
         Behavior on implicitWidth {
             PropertyAnimation {
                 duration: 150
@@ -75,15 +75,11 @@ Ctrls.Button {
                 spacing: 0
                 Repeater {
                     id: repeater
-                    // Could also probably use a SortFilterProxyModel https://doc.qt.io/qt-6/qml-qtqml-models-sortfilterproxymodel.html
-                    // to filter the model rather than wrapping it in a ScriptModel
                     model: SortFilterProxyModel {
                         model: Services.Niri.windows
                         filters: [
                             FunctionFilter {
                                 function filter(w: RoleData): bool {
-                                    //console.log(`ButtonWS: ${root.ws.id}`)
-                                    //console.log(`NiriWindowWS: ${JSON.stringify(w, null, 4)}`)
                                     return w.workspaceId == root.ws.id;
                                 }
                             }
@@ -95,11 +91,13 @@ Ctrls.Button {
                         // WindowModel roles which are the properties of the modelData https://github.com/imiric/qml-niri#windowmodel-roles
                         required property var modelData
                         isMultiColorIcon: true
-                        // TODO: make size dynamic
-                        //icon.width: contentItem.width
-                        //icon.height: contentItem.height
-                        implicitHeight: root.background.height
-                        inset: 0
+
+                        // Ensure static aspect ratio and limit size to available height
+                        icon.width: icon.height
+                        icon.height: background.implicitHeight - inset
+
+                        //implicitHeight: root.background.height
+                        inset: 0// root.inset + 2
                         padding: 0
                         icon.source: modelData.iconPath ?? Quickshell.iconPath(modelData.appId)
                         onClicked: () => Services.Niri.focusWindow(modelData.id)

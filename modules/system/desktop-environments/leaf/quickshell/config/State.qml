@@ -62,7 +62,7 @@ Singleton {
     property int widgetPadding: 6
     property int widgetRounding: rounding - windowPadding + widgetPadding
     property double opacity: 0.8
-    property int barHeight: 32
+    property int barHeight: 40
     property int dockHeight: 64
     property string launcherIcon: "system-search-symbolic"//"distributor-logo-nixos"
     // Variable group lol
@@ -183,7 +183,7 @@ Singleton {
                 property int rounding: 8
                 property int gapsIn: 16
                 property int gapsOut: 32
-                property bool blur: false
+                property bool blur: false // Unused
             }
         } 
     }
