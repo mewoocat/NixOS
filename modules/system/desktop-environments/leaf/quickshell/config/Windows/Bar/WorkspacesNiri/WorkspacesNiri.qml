@@ -25,14 +25,13 @@ WrapperMouseArea {
                 model: Services.Niri.workspaces
                 filters: [
                     FunctionFilter {
-                        component RoleData: QtObject { property string output }
                         function filter(ws: RoleData): bool {
-                            console.debug(`ws: ${ws.output} screen: ${root.screen.name}`)
-                            return ws.output === root.screen.name
+                            console.debug(`ws: ${ws.output} screen: ${root.screen.name}`);
+                            return ws.output === root.screen.name;
                         }
                     }
                 ]
-                // sorters: [	
+                // sorters: [
                 //     component RoleData: QtObject { property string workspaceId }
                 //     FunctionSorter
                 //         .sort((a, b) => {
@@ -46,10 +45,13 @@ WrapperMouseArea {
                 required property var modelData
                 required property int index
                 ws: modelData
-                isLast: index + 1 === wsRepeater.model.length
+                isLast: index === Services.Niri.workspaces.count
                 Layout.fillHeight: true
                 implicitHeight: Root.State.barHeight
             }
         }
+    }
+    component RoleData: QtObject {
+        property string output
     }
 }

@@ -44,12 +44,17 @@ window-rule {
 
 // Apply to all windows
 window-rule {
-    geometry-corner-radius 0
+    geometry-corner-radius 8
     clip-to-geometry true
     background-effect {
       blur true
       xray false
     }
+    open-maximized false
+    open-maximized-to-edges false
+    default-column-width { proportion 0.5; }
+    default-column-display "normal"
+    open-floating false
 }
 
 

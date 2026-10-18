@@ -324,7 +324,7 @@
           gamemode = 0; # survival
           cheats = true;
           max-players = 10;
-          motd = "nasty surprise";
+          motd = "cobble cobble";
           white-list = true;
           enable-rcon = false;
         };
