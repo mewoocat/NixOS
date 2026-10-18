@@ -17,7 +17,6 @@ workspace "Main"
 workspace "Notes"
 workspace "Web"
 workspace "Code"
-workspace "Chat"
 
 
 
@@ -33,7 +32,7 @@ spawn-at-startup "awww-daemon"
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
 blur {
-    off
+    on
     passes 3
     offset 3.0
     noise 0.02

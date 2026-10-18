@@ -32,6 +32,7 @@ Ctrls.Button {
         }
     }
     padding: 0
+    inset: 0
 
     onHoveredChanged: {
         if (root.hovered) {
@@ -45,7 +46,7 @@ Ctrls.Button {
 
     background: Rectangle {
         radius: height / 2
-        implicitWidth: root.contentItem.width < 52 ? 52 : root.contentItem.width
+        //implicitWidth: root.contentItem.width < 52 ? 52 : root.contentItem.width
         Behavior on implicitWidth {
             PropertyAnimation {
                 duration: 150
@@ -61,7 +62,7 @@ Ctrls.Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             Layout.fillWidth: true
-            visible: root.ws.name != ""
+            visible: root.ws.name != "" || root.isLast
             text: !root.isLast ? root.ws.name : "+"
             font.pointSize: 8
             color: root.hovered || root.ws.isActive ? Root.State.colors.on_primary_container : !root.isLast ? Root.State.colors.on_primary_container : Root.State.colors.on_surface
@@ -95,8 +96,11 @@ Ctrls.Button {
                         required property var modelData
                         isMultiColorIcon: true
                         // TODO: make size dynamic
-                        icon.width: 20
-                        icon.height: 20
+                        //icon.width: contentItem.width
+                        //icon.height: contentItem.height
+                        implicitHeight: root.background.height
+                        inset: 0
+                        padding: 0
                         icon.source: modelData.iconPath ?? Quickshell.iconPath(modelData.appId)
                         onClicked: () => Services.Niri.focusWindow(modelData.id)
                     }

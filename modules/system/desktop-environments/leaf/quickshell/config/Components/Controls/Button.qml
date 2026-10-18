@@ -13,17 +13,13 @@ T.Button {
 
     // Padding of the contentItem relative to the edge of the control
     padding: 4
-    leftPadding: padding + 6
-    rightPadding: padding + 6
+    leftPadding: padding //+ 6
+    rightPadding: padding //+ 6
     topPadding: padding
     bottomPadding: padding
 
     property color inactiveBackgroundColor: "transparent"
-    property color backgroundColor: control.checked 
-        ? Root.State.colors.primary
-        : hovered
-            ? Root.State.colors.surface_container_highest
-            : inactiveBackgroundColor
+    property color backgroundColor: control.checked ? Root.State.colors.primary : hovered ? Root.State.colors.surface_container_highest : inactiveBackgroundColor
     property color color: control.checked ? Root.State.colors.on_primary : Root.State.colors.on_surface
     property bool isMultiColorIcon: false
     property int radius: background.height / 2
@@ -36,10 +32,8 @@ T.Button {
 
     // The size of the control is determined by whether the background and the inset or content and padding is largest
     // See: https://doc.qt.io/qt-6/qml-qtquick-controls-control.html#implicitBackgroundHeight-prop
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            implicitContentWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             implicitContentHeight + topPadding + bottomPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
 
     background: Rectangle {
         id: bg
@@ -74,11 +68,15 @@ T.Button {
         font.family: control.font.family
         color: control.color
         display: control.display
-        leftPadding: 0
+        leftPadding: 6
+        rightPadding: 6
         // Icons generally seem to have a bit of padding built in, if text is included, add more padding to balance it out
         //rightPadding: control.text != "" && control.icon.name != "" ? 8 : 6
         Behavior on rotation {
-            PropertyAnimation { property: "rotation"; duration: 300 }
+            PropertyAnimation {
+                property: "rotation"
+                duration: 300
+            }
         }
         opacity: control.enabled ? 1 : 0.5
     }
