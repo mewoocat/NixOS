@@ -18,8 +18,6 @@ workspace "Notes"
 workspace "Web"
 workspace "Code"
 
-
-
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.

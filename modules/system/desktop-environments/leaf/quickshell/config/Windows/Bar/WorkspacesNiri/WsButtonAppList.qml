@@ -17,7 +17,7 @@ Ctrls.Button {
     required property var ws // This: https://github.com/imiric/qml-niri#workspacemodel-roles
     required property bool isLast
 
-    padding: inset
+    padding: inset + 4
     inset: 4
     //topInset: root.ws.isActive ? 6 : 8
     //bottomInset: root.ws.isActive ? 6 : 8
@@ -45,8 +45,8 @@ Ctrls.Button {
     background: Rectangle {
         radius: height / 2
         //implicitWidth: root.contentItem.implicitWidth < 52 ? 52 : root.contentItem.implicitWidth + 16
-        implicitWidth: root.contentItem.implicitWidth + root.padding
-        implicitHeight: root.contentItem.implicitHeight + root.padding
+        //implicitWidth: root.contentItem.implicitWidth + root.padding
+        //implicitHeight: root.contentItem.implicitHeight + root.padding
         Behavior on implicitWidth {
             PropertyAnimation {
                 duration: 150
@@ -57,6 +57,7 @@ Ctrls.Button {
 
     contentItem: RowLayout {
         spacing: 0 // App list
+        /*
         Text {
             id: displayName
             horizontalAlignment: Text.AlignHCenter
@@ -68,6 +69,7 @@ Ctrls.Button {
             color: root.hovered || root.ws.isActive ? Root.State.colors.on_primary_container : !root.isLast ? Root.State.colors.on_primary_container : Root.State.colors.on_surface
             padding: 8
         }
+        */
         Loader {
             visible: active // Size stays same after item is unloaded.  Hide to not render in this case.
             active: true//root.ws.isActive || root.hovered
@@ -88,18 +90,18 @@ Ctrls.Button {
                     //model: ToplevelManager.toplevels // Currently doesn't have a way to map to windowsets
                     delegate: Ctrls.Button {
                         id: toplevelButton
+
                         // WindowModel roles which are the properties of the modelData https://github.com/imiric/qml-niri#windowmodel-roles
                         required property var modelData
+
+                        icon.source: modelData.iconPath ?? Quickshell.iconPath(modelData.appId)
+
+                        implicitHeight: root.background.height - root.topInset - root.bottomInset
+                        inset: 0
+                        padding: 2
+
                         isMultiColorIcon: true
 
-                        // Ensure static aspect ratio and limit size to available height
-                        icon.width: icon.height
-                        icon.height: background.implicitHeight - inset
-
-                        //implicitHeight: root.background.height
-                        inset: 0// root.inset + 2
-                        padding: 0
-                        icon.source: modelData.iconPath ?? Quickshell.iconPath(modelData.appId)
                         onClicked: () => Services.Niri.focusWindow(modelData.id)
                     }
                 }
