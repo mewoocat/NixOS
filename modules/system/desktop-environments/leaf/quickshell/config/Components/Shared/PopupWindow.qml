@@ -10,7 +10,7 @@ import qs as Root
 // TODO: wrap in loader so that popup is only loaded when it needs to be seen
 //
 // WARNING: If blur is disabled in hyprland but the layer still has it enabled for popups, then some square corners
-// will show up around these popup windows.  Also disabling the blur for the layer fixes this.  But disabling the 
+// will show up around these popup windows.  Also disabling the blur for the layer fixes this.  But disabling the
 // popup blur globally won't apply to this layer.
 //
 // NOTE: Shadows are implemented here since they are not supported in niri/hyprland for layer popups
@@ -20,7 +20,7 @@ PopupWindow {
     id: root
 
     required property Item content // WARNING! Can't have explicit width/height due to WrapperRectangle
-    property bool grabEnabled: true
+    //property bool clickAwayEnabled: true
     property color bgColor: Root.State.colors.surface
     property int shadowSize: 8
     property int contentMargin: Root.State.windowPadding
@@ -35,7 +35,7 @@ PopupWindow {
     //grabFocus: true // Built in focus grab handler (doesn't detect clicks within other qs windows)
     // Create a close on click away area for each screen
     property var clickAway: Variants {
-        model: Quickshell.screens 
+        model: Quickshell.screens
         // qmllint disable uncreatable-type
         PanelWindow {
             visible: root.visible
@@ -57,12 +57,10 @@ PopupWindow {
             }
             // Allow clicks to pass through
             // Doesn't seem to be a way to do this *and* detect mouse clicks
-            /*
-            mask: Region {
-                item: area
-                intersection: Intersection.Subtract
-            }
-            */
+            //mask: Region {
+            //    item: area
+            //    intersection: Intersection.Subtract
+            //}
         }
     }
 
@@ -79,22 +77,22 @@ PopupWindow {
         radius: background.radius
     }
 
-    // IMPORTANT: Make sure to call this method before the PopupWindow is destoryed, or else a 
+    // IMPORTANT: Make sure to call this method before the PopupWindow is destoryed, or else a
     // crash may occur.
     function closeWindow() {
         // Pretty sure hiding this popup will trigger the HyplandFocusGrab cleared signal.
-        // Because it would be the only window in the HyprlandFocusGrab window list and 
+        // Because it would be the only window in the HyprlandFocusGrab window list and
         // hiding all in the list fires the signal.
-        root.visible = false
+        root.visible = false;
     }
 
     FocusScope {
         id: focusScope
         focus: true
-        Keys.onPressed: (event) => {
-            console.log('eh')
+        Keys.onPressed: event => {
+            console.log('eh');
             if (event.key == Qt.Key_Escape) {
-                root.closeWindow()
+                root.closeWindow();
             }
         }
         width: shadowBox.width

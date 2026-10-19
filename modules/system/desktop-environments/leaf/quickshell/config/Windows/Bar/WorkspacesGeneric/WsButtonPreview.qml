@@ -20,31 +20,39 @@ Ctrls.Button {
     rightInset: 2
     topInset: root.ws.active ? 6 : 8
     bottomInset: root.ws.active ? 6 : 8
-    Behavior on topInset { PropertyAnimation {duration: 150} }
-    Behavior on bottomInset { PropertyAnimation {duration: 150} }
+    Behavior on topInset {
+        PropertyAnimation {
+            duration: 150
+        }
+    }
+    Behavior on bottomInset {
+        PropertyAnimation {
+            duration: 150
+        }
+    }
 
     topPadding: topInset
     bottomPadding: bottomInset
 
     onHoveredChanged: {
         if (root.hovered) {
-            Root.State.hoveredWorkspaceButton = root
-            Root.State.hoveredWorkspace = ws
+            Root.State.hoveredWorkspaceButton = root;
+            Root.State.hoveredWorkspace = ws;
         }
     }
     onClicked: {
-        ws.activate()
+        ws.activate();
     }
 
     background: Rectangle {
         radius: height / 2
         implicitWidth: root.ws.active ? 52 : 40
-        Behavior on implicitWidth { PropertyAnimation {duration: 150} }
-        color: root.hovered || root.ws.active
-            ? Root.State.colors.primary
-            : !root.isLast 
-                ? Root.State.colors.primary_container
-                : "transparent"
+        Behavior on implicitWidth {
+            PropertyAnimation {
+                duration: 150
+            }
+        }
+        color: root.hovered || root.ws.active ? Root.State.colors.primary : !root.isLast ? Root.State.colors.primary_container : "transparent"
     }
 
     contentItem: Rectangle {
@@ -57,8 +65,8 @@ Ctrls.Button {
             */
             model: Services.Niri.windows
             Rectangle {
-                required property var model
                 id: window
+                required property var model
                 required property var modelData
                 property var thing: model.title
                 color: "red"

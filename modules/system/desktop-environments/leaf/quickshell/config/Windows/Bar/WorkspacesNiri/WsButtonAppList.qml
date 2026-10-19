@@ -112,4 +112,34 @@ Ctrls.Button {
     component RoleData: QtObject {
         property string workspaceId
     }
+
+    // Popup preview
+    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
+        id: popupPreview
+
+        visible: root.hovered
+
+        anchor {
+            item: root
+            edges: Edges.Top | Edges.Left
+            gravity: Edges.Bottom | Edges.Left
+            margins.left: -8
+        }
+
+        content: RowLayout {
+            spacing: 0
+            Repeater {
+                model: Services.Niri.windows
+                delegate: Loader {
+                    id: loader
+
+                    property Component window: ScreencopyView {
+                        captureSource: ToplevelManager.toplevels.values[0]
+                    }
+
+                    sourceComponent: window
+                }
+            }
+        }
+    }
 }
