@@ -57,7 +57,6 @@ Ctrls.Button {
 
     contentItem: RowLayout {
         spacing: 0 // App list
-        /*
         Text {
             id: displayName
             horizontalAlignment: Text.AlignHCenter
@@ -67,9 +66,8 @@ Ctrls.Button {
             text: !root.isLast ? root.ws.name : "+"
             font.pointSize: 8
             color: root.hovered || root.ws.isActive ? Root.State.colors.on_primary_container : !root.isLast ? Root.State.colors.on_primary_container : Root.State.colors.on_surface
-            padding: 8
+            padding: 4
         }
-        */
         Loader {
             visible: active // Size stays same after item is unloaded.  Hide to not render in this case.
             active: true//root.ws.isActive || root.hovered
