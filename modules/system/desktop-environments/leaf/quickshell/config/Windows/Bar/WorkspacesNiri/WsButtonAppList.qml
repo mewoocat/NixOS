@@ -17,6 +17,14 @@ Ctrls.Button {
     required property var ws // This: https://github.com/imiric/qml-niri#workspacemodel-roles
     required property bool isLast
 
+    // WARNING! Each property needs to be defined here for it to be readable (i think)
+    component RoleData: QtObject {
+        property string workspaceId
+        property string appId
+        property string title
+        property string iconPath
+    }
+
     padding: inset + 4
     inset: 4
     //topInset: root.ws.isActive ? 6 : 8
@@ -101,43 +109,73 @@ Ctrls.Button {
                         isMultiColorIcon: true
 
                         onClicked: () => Services.Niri.focusWindow(modelData.id)
+
+                        // Popup preview
+                        property Shared.PopupWindow popupWindow: Shared.PopupWindow {
+                            id: popupPreview
+
+                            visible: toplevelButton.hovered
+
+                            anchor {
+                                item: toplevelButton
+                                edges: Edges.Bottom | Edges.Left
+                                gravity: Edges.Bottom | Edges.Right
+                                margins.left: -popupPreview.shadowSize // To account for the shadow
+                            }
+                            content: RowLayout {
+                                Repeater {
+                                    model: SortFilterProxyModel {
+                                        model: Services.Niri.windows
+                                        filters: [
+                                            FunctionFilter {
+                                                function filter(w: RoleData): bool {
+                                                    console.log(`!!!!!!!!!!!!!!!!!!!!!! ${w.workspaceId} : ${w.appId}`)
+                                                    console.log(`${root.ws.id} : ${toplevelButton.modelData.appId}`)
+                                                    return w.workspaceId == root.ws.id && w.appId == toplevelButton.modelData.appId;
+                                                }
+                                            }
+                                        ]
+                                    }
+                                    delegate: ColumnLayout {
+                                        id: toplevelSub
+                                        required property var modelData
+                                        RowLayout {
+                                            Shared.TextBlock {
+                                                text: toplevelSub.modelData.title
+                                            }
+                                            Ctrls.Button {
+                                                icon.name: "remove"
+                                            }
+                                        }
+
+                                        Rectangle {
+                                            implicitWidth: 128
+                                            implicitHeight: 64
+                                            Image {
+                                                anchors.centerIn: parent
+                                                width: 32
+                                                height: 32
+                                                source: toplevelSub.modelData.iconPath
+                                            }
+
+                                        }
+
+                                        // Needs https://github.com/niri-wm/niri/pull/4599
+                                        /*
+                                        ScreencopyView {
+                                            captureSource: ToplevelManager.toplevels.values[0]
+                                        }
+                                        */
+
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
             sourceComponent: appListComp
         }
     }
-    component RoleData: QtObject {
-        property string workspaceId
-    }
-
-    // Popup preview
-    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
-        id: popupPreview
-
-        visible: root.hovered
-
-        anchor {
-            item: root
-            edges: Edges.Top | Edges.Left
-            gravity: Edges.Bottom | Edges.Left
-            margins.left: -8
-        }
-
-        content: RowLayout {
-            spacing: 0
-            Repeater {
-                model: Services.Niri.windows
-                delegate: Loader {
-                    id: loader
-
-                    property Component window: ScreencopyView {
-                        captureSource: ToplevelManager.toplevels.values[0]
-                    }
-
-                    sourceComponent: window
-                }
-            }
-        }
-    }
+    
 }
