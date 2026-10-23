@@ -111,66 +111,6 @@ Ctrls.Button {
                         onClicked: () => Services.Niri.focusWindow(modelData.id)
 
                         // Popup preview
-                        property Shared.PopupWindow popupWindow: Shared.PopupWindow {
-                            id: popupPreview
-
-                            visible: toplevelButton.hovered
-
-                            anchor {
-                                item: toplevelButton
-                                edges: Edges.Bottom | Edges.Left
-                                gravity: Edges.Bottom | Edges.Right
-                                margins.left: -popupPreview.shadowSize // To account for the shadow
-                            }
-                            content: RowLayout {
-                                Repeater {
-                                    model: SortFilterProxyModel {
-                                        model: Services.Niri.windows
-                                        filters: [
-                                            FunctionFilter {
-                                                function filter(w: RoleData): bool {
-                                                    console.log(`!!!!!!!!!!!!!!!!!!!!!! ${w.workspaceId} : ${w.appId}`)
-                                                    console.log(`${root.ws.id} : ${toplevelButton.modelData.appId}`)
-                                                    return w.workspaceId == root.ws.id && w.appId == toplevelButton.modelData.appId;
-                                                }
-                                            }
-                                        ]
-                                    }
-                                    delegate: ColumnLayout {
-                                        id: toplevelSub
-                                        required property var modelData
-                                        RowLayout {
-                                            Shared.TextBlock {
-                                                text: toplevelSub.modelData.title
-                                            }
-                                            Ctrls.Button {
-                                                icon.name: "remove"
-                                            }
-                                        }
-
-                                        Rectangle {
-                                            implicitWidth: 128
-                                            implicitHeight: 64
-                                            Image {
-                                                anchors.centerIn: parent
-                                                width: 32
-                                                height: 32
-                                                source: toplevelSub.modelData.iconPath
-                                            }
-
-                                        }
-
-                                        // Needs https://github.com/niri-wm/niri/pull/4599
-                                        /*
-                                        ScreencopyView {
-                                            captureSource: ToplevelManager.toplevels.values[0]
-                                        }
-                                        */
-
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -178,4 +118,83 @@ Ctrls.Button {
         }
     }
     
+
+    // Popup Preview
+    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
+        id: popupPreview
+
+        visible: root.hovered //|| hovered
+        shadowSize: 0
+
+        anchor {
+            item: root
+            edges: Edges.Bottom | Edges.Left
+            gravity: Edges.Bottom | Edges.Right
+            margins.left: -popupPreview.shadowSize // To account for the shadow, just looks better imo
+        }
+
+        content: RowLayout {
+            spacing: 20
+            Repeater {
+                model: SortFilterProxyModel {
+                    model: Services.Niri.windows
+                    filters: [
+                        FunctionFilter {
+                            function filter(w: RoleData): bool {
+                                //console.log(`!!!!!!!!!!!!!!!!!!!!!! ${w.workspaceId} : ${w.appId}`)
+                                //console.log(`${root.ws.id} : ${toplevelButton.modelData.appId}`)
+                                return w.workspaceId == root.ws.id
+                            }
+                        }
+                    ]
+                }
+                delegate: ColumnLayout {
+                    spacing: 0
+                    id: toplevelSub
+                    required property var modelData
+                    Rectangle {
+                        radius: popupPreview.contentMargin
+                        color: Root.State.colors.surface_container
+                        Layout.preferredWidth: windowPreview.implicitWidth
+                        Layout.preferredHeight: windowHeader.height
+                        RowLayout {
+                            id: windowHeader
+                            spacing: 0
+                            width: parent.width
+                            Shared.TextBlock {
+                                text: toplevelSub.modelData.title
+                                Layout.fillWidth: true
+                                padding: 0
+                            }
+                            Ctrls.Button {
+                                id: closeButton
+                                icon.name: "remove"
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        id: windowPreview
+                        implicitWidth: 256
+                        implicitHeight: 144
+                        Image {
+                            anchors.centerIn: parent
+                            width: 32
+                            height: 32
+                            source: toplevelSub.modelData.iconPath
+                        }
+
+                    }
+
+                    // Needs https://github.com/niri-wm/niri/pull/4599
+                    /*
+                    ScreencopyView {
+                        captureSource: ToplevelManager.toplevels.values[0]
+                    }
+                    */
+
+                }
+            }
+        }
+    }
 }

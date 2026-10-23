@@ -24,13 +24,15 @@ PopupWindow {
     property color bgColor: Root.State.colors.surface
     property int shadowSize: 8
     property int contentMargin: Root.State.windowPadding
-    implicitWidth: visible ? focusScope.width : shadowSize * 2
-    implicitHeight: visible ? focusScope.height : shadowSize * 2
+    implicitWidth: visible ? focusScope.width : 1
+    implicitHeight: visible ? focusScope.height : 1
     // TODO: Figure out stutter with animations
     //Behavior on implicitHeight { PropertyAnimation { duration: 2000 } }
     //Behavior on implicitWidth { PropertyAnimation { duration: 2000 } }
     //Behavior on anchor.item { PropertyAnimation { duration: 1000 } }
     color: "transparent"
+
+    property bool hovered: shadowBox.containsMouse
 
     //grabFocus: true // Built in focus grab handler (doesn't detect clicks within other qs windows)
     // Create a close on click away area for each screen
@@ -71,6 +73,7 @@ PopupWindow {
         rect.y: 0//root.anchor.item.height
         */
     }
+
     // Specify the region of the layer to have blur applied to it
     BackgroundEffect.blurRegion: Region {
         item: background
@@ -90,7 +93,6 @@ PopupWindow {
         id: focusScope
         focus: true
         Keys.onPressed: event => {
-            console.log('eh');
             if (event.key == Qt.Key_Escape) {
                 root.closeWindow();
             }
@@ -99,8 +101,9 @@ PopupWindow {
         height: shadowBox.height
 
         // Make the popup large enough to display a shadow under it's background
-        Item {
+        MouseArea {
             id: shadowBox
+            hoverEnabled: true
             width: background.width + root.shadowSize * 2
             height: background.height + root.shadowSize * 2
 
@@ -131,6 +134,12 @@ PopupWindow {
                 //margin: 1
                 child: root.content
                 margin: root.contentMargin
+            }
+
+            Text {
+                text: `${root.hovered} : ${shadowBox.containsMouse}`
+                color: "red"
+                font.pointSize: 30
             }
         }
     }
