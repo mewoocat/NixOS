@@ -43,7 +43,7 @@ window-rule {
 // ^ this is commented out
 
 // Apply to all windows
-window-rule {
+/-window-rule {
     geometry-corner-radius 8
     clip-to-geometry true
     background-effect {
@@ -54,7 +54,7 @@ window-rule {
     open-maximized-to-edges false
     default-column-width { proportion 0.5; }
     default-column-display "normal"
-    open-floating false
+    //open-floating false
 }
 
 

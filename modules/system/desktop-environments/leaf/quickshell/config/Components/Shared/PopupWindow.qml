@@ -24,8 +24,8 @@ PopupWindow {
     property color bgColor: Root.State.colors.surface
     property int shadowSize: 8
     property int contentMargin: Root.State.windowPadding
-    implicitWidth: visible ? focusScope.width : 1
-    implicitHeight: visible ? focusScope.height : 1
+    implicitWidth: visible ? focusScope.width : 16
+    implicitHeight: visible ? focusScope.height : 16
     // TODO: Figure out stutter with animations
     //Behavior on implicitHeight { PropertyAnimation { duration: 2000 } }
     //Behavior on implicitWidth { PropertyAnimation { duration: 2000 } }

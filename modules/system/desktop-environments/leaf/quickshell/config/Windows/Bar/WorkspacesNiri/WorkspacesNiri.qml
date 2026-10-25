@@ -10,10 +10,10 @@ import qs.Components.Controls as Ctrls
 import qs.Services as Services
 
 // Idealy this would be done using the generic approach but Quickshell's Windowset and Toplevel types are not feasibly associatable.
-WrapperMouseArea {
+WrapperRectangle {
     id: root
     required property ShellScreen screen
-    hoverEnabled: true
+    //hoverEnabled: true
 
     RowLayout {
         spacing: 0

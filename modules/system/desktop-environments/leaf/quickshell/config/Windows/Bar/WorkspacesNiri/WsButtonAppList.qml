@@ -17,6 +17,8 @@ Ctrls.Button {
     required property var ws // This: https://github.com/imiric/qml-niri#workspacemodel-roles
     required property bool isLast
 
+    property bool popupVisible: false
+
     // WARNING! Each property needs to be defined here for it to be readable (i think)
     component RoleData: QtObject {
         property string workspaceId
@@ -119,11 +121,12 @@ Ctrls.Button {
     }
     
 
+    /*
     // Popup Preview
     property Shared.PopupWindow popupWindow: Shared.PopupWindow {
         id: popupPreview
 
-        visible: root.hovered //|| hovered
+        visible: (root.hovered || hovered) && !closeDelayHit
         shadowSize: 0
 
         anchor {
@@ -131,6 +134,14 @@ Ctrls.Button {
             edges: Edges.Bottom | Edges.Left
             gravity: Edges.Bottom | Edges.Right
             margins.left: -popupPreview.shadowSize // To account for the shadow, just looks better imo
+        }
+
+        property bool closeDelayHit: false
+        Timer {
+            id: closeDelay
+            interval: 200
+            onTriggered: () => closeDelayHit = true
+            running: false
         }
 
         content: RowLayout {
@@ -187,14 +198,46 @@ Ctrls.Button {
                     }
 
                     // Needs https://github.com/niri-wm/niri/pull/4599
-                    /*
-                    ScreencopyView {
-                        captureSource: ToplevelManager.toplevels.values[0]
-                    }
-                    */
+                    //ScreencopyView {
+                    //    captureSource: ToplevelManager.toplevels.values[0]
+                    //}
 
                 }
             }
+        }
+    }
+    */
+
+    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
+        id: popupPreview
+
+        visible: root.hovered || hovered// || closeTimer.running
+        onHoveredChanged: () => !hovered || !root.hovered
+            ? closeTimer.start()
+            : timeoutHit = false // reset when either is hovered
+        shadowSize: 0
+        contentMargin: 0
+
+        anchor {
+            item: root
+            edges: Edges.Bottom | Edges.Left
+            gravity: Edges.Bottom | Edges.Right
+            margins.left: -popupPreview.shadowSize // To account for the shadow, just looks better imo
+            margins.bottom: 10
+        }
+
+        property bool timeoutHit: false
+        Timer {
+            id: closeTimer
+            interval: 1000
+            onTriggered: () => closeDelayHit = true
+            running: false
+        }
+
+        content: Rectangle {
+            color: "green"
+            implicitWidth: 1000
+            implicitHeight: 60
         }
     }
 }
