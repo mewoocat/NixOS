@@ -17,8 +17,6 @@ Ctrls.Button {
     required property var ws // This: https://github.com/imiric/qml-niri#workspacemodel-roles
     required property bool isLast
 
-    property bool popupVisible: false
-
     // WARNING! Each property needs to be defined here for it to be readable (i think)
     component RoleData: QtObject {
         property string workspaceId
@@ -211,10 +209,39 @@ Ctrls.Button {
     property Shared.PopupWindow popupWindow: Shared.PopupWindow {
         id: popupPreview
 
-        visible: root.hovered || hovered// || closeTimer.running
+        visible: false //root.hovered || hovered// || closeTimer.running
+
+        onHoveredChanged: handleTimer()
+
+        function handleTimer() {
+            if (root.hovered || popupPreview.hovered) {
+                popupPreview.visible = true
+                closeTimer.stop()
+            }
+            else {
+                closeTimer.start()
+            }
+        }
+
+        Timer {
+            id: closeTimer
+            interval: 1000
+            onTriggered: () => popupPreview.visible = false
+            running: false
+        }
+
+        Connections {
+            target: root
+            function onHoveredChanged() {
+                popupPreview.handleTimer()        
+            }
+        }
+
+        /*
         onHoveredChanged: () => !hovered || !root.hovered
             ? closeTimer.start()
             : timeoutHit = false // reset when either is hovered
+        */
         shadowSize: 0
         contentMargin: 0
 
@@ -227,12 +254,6 @@ Ctrls.Button {
         }
 
         property bool timeoutHit: false
-        Timer {
-            id: closeTimer
-            interval: 1000
-            onTriggered: () => closeDelayHit = true
-            running: false
-        }
 
         content: Rectangle {
             color: "green"
