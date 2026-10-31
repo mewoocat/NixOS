@@ -14,12 +14,11 @@ import "Windows/ActivityCenter"
 import "Windows/Notifications"
 import "Windows/Lockscreen"
 
-
 Singleton {
     id: root
 
     function enable() {
-        console.log(`starting leaf shell...`)
+        console.log(`starting leaf shell...`);
     }
 
     property string leafConfigDir: "/home/eXia/.config/leaf-de"
@@ -32,30 +31,33 @@ Singleton {
     property bool screenLocked: false
 
     function closeAll() {
-        launcherActive = false
-        controlPanelActive = false
-        activityCenterActive = false
+        launcherActive = false;
+        controlPanelActive = false;
+        activityCenterActive = false;
     }
     property bool launcherActive: false
     property bool controlPanelActive: false
     property bool activityCenterActive: false
 
     property PromptWindow promptWindow: PromptWindow {}
-        property bool promptVisibility: promptStack.length != 0
-        property list<Component> promptStack: []
-        onPromptStackChanged: {
-            if (promptStack.length == 0) { promptVisibility = false }
-            else { promptVisibility = true }
+    property bool promptVisibility: promptStack.length != 0
+    property list<Component> promptStack: []
+    onPromptStackChanged: {
+        if (promptStack.length == 0) {
+            promptVisibility = false;
+        } else {
+            promptVisibility = true;
         }
+    }
 
     property Shared.Expander currentControlPanelPage: null
- 
+
     // Styling
     property int rounding: 16
     property int smallRounding: 8
     property int innerRounding: rounding - windowPadding
     property int windowPadding: 8
-    property int panelMargin: 8
+    property int panelMargin: 0
     property int smallSpace: 4
     property int mediumSpace: 8
     property int largeSpace: 10
@@ -74,7 +76,6 @@ Singleton {
 
     property int widgetUnitSize: 64
 
-
     // There's definitely something fishy going on here
     // Might be due to using multiple json adapter instances
     FileView {
@@ -86,21 +87,21 @@ Singleton {
         blockLoading: true
 
         // Reload the file if it changes
-        watchChanges: true 
+        watchChanges: true
         onFileChanged: {
-            console.debug(`file changed`)
-            reload()
+            console.debug(`file changed`);
+            reload();
         }
 
         // If the adapter's contents change, update the file
         onAdapterUpdated: {
-            console.log(`Adapter updated for ${path}`)
+            console.log(`Adapter updated for ${path}`);
             //writeAdapter() // Test this before re-enabling
         }
 
-        onLoadFailed: (err) => console.error(`File load failed for: ${path} with ${err}`)
-        onLoaded: console.info(`File load ok for: ${path}`) 
-        onSaveFailed: (err) => console.error(`File save failed for: ${path} with ${err}`)
+        onLoadFailed: err => console.error(`File load failed for: ${path} with ${err}`)
+        onLoaded: console.info(`File load ok for: ${path}`)
+        onSaveFailed: err => console.error(`File save failed for: ${path} with ${err}`)
         onSaved: console.info(`File save ok for ${path}`)
 
         // Adapter between qml object and json
@@ -117,7 +118,7 @@ Singleton {
 
         // Can be ignored, apparently due to a compilation speed up hack in Quickshell.
         // qmllint disable unresolved-type
-        adapter: JsonAdapter {            
+        adapter: JsonAdapter {
             property list<var> activityCenterWidgets: [
                 {
                     uid: "Components/Widgets/Weather.qml",
@@ -127,8 +128,7 @@ Singleton {
             ]
 
             // An array of arrays where each sub array is a page of widgets
-            property list<var> widgetPager: [
-                [
+            property list<var> widgetPager: [[
                     {
                         "state": null,
                         "uid": "Components/Widgets/Weather.qml",
@@ -147,8 +147,7 @@ Singleton {
                         "xPosition": 0,
                         "yPosition": 1
                     }
-                ],
-                [
+                ], [
                     {
                         "state": null,
                         "uid": "Components/Widgets/SystemStats.qml",
@@ -167,17 +166,16 @@ Singleton {
                         "xPosition": 0,
                         "yPosition": 0
                     }
-                ]
-            ]
+                ]]
 
             property var pfpImagePath: ""
-            property var pinnedApps: ([ "foot", "vesktop", "obsidian" ])
+            property var pinnedApps: (["foot", "vesktop", "obsidian"])
             property var appFreqMap: ({})
 
             property JsonObject location: JsonObject {
                 property real latitude: 0
                 property real longitude: 0
-            } 
+            }
 
             property JsonObject appearance: JsonObject {
                 property int rounding: 8
@@ -185,7 +183,7 @@ Singleton {
                 property int gapsOut: 32
                 property bool blur: false // Unused
             }
-        } 
+        }
     }
 
     FileView {
@@ -193,15 +191,15 @@ Singleton {
         path: root.colorsJsonPath
         blockLoading: true
         // Reload the file if it changes
-        watchChanges: true 
+        watchChanges: true
         onFileChanged: {
-            console.debug(`${path} changed`)
-            reload()
+            console.debug(`${path} changed`);
+            reload();
         }
 
-        onLoadFailed: (err) => console.error(`File load failed for: ${path} with ${err}`)
-        onLoaded: console.info(`File load ok for: ${path}`) 
-        onSaveFailed: (err) => console.error(`File save failed for: ${path} with ${err}`)
+        onLoadFailed: err => console.error(`File load failed for: ${path} with ${err}`)
+        onLoaded: console.info(`File load ok for: ${path}`)
+        onSaveFailed: err => console.error(`File save failed for: ${path} with ${err}`)
         onSaved: console.info(`File save ok for ${path}`)
 
         // Adapter between qml object and json
@@ -261,21 +259,21 @@ Singleton {
             property color on_background: "#e0e4db"
             property color shadow: "#000000"
             property color scrim: "#000000"
-         
+
             property color blue_source: "#0000ff"
             property color blue_value: "#0000ff"
             property color blue: "#afc6ff"
             property color on_blue: "#142f60"
             property color blue_container: "#2d4578"
             property color on_blue_container: "#d9e2ff"
-         
+
             property color red_source: "#ff0000"
             property color red_value: "#ff0000"
             property color red: "#ffb595"
             property color on_red: "#542105"
             property color red_container: "#713619"
             property color on_red_container: "#ffdbcd"
-         
+
             property color green_source: "#00ff00"
             property color green_value: "#00ff00"
             property color green: "#a2d399"
@@ -284,6 +282,6 @@ Singleton {
             property color on_green_container: "#bdf0b3"
 
             property color source_color: "#1b8332"
-        } 
+        }
     }
 }

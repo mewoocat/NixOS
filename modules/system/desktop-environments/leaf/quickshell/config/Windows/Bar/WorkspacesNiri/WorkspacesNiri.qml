@@ -10,48 +10,45 @@ import qs.Components.Controls as Ctrls
 import qs.Services as Services
 
 // Idealy this would be done using the generic approach but Quickshell's Windowset and Toplevel types are not feasibly associatable.
-WrapperRectangle {
+RowLayout {
     id: root
     required property ShellScreen screen
-    //hoverEnabled: true
+    spacing: 0
 
-    RowLayout {
-        spacing: 0
-
-        Repeater {
-            id: wsRepeater
-            // Only show workspaces for this screen
-            model: SortFilterProxyModel {
-                model: Services.Niri.workspaces
-                filters: [
-                    FunctionFilter {
-                        function filter(ws: RoleData): bool {
-                            console.debug(`ws: ${ws.output} screen: ${root.screen.name}`);
-                            return ws.output === root.screen.name;
-                        }
-                    }
-                ]
-                // sorters: [
-                //     component RoleData: QtObject { property string workspaceId }
-                //     FunctionSorter
-                //         .sort((a, b) => {
-                //             if (a.coordinates[1] > b.coordinates[1]) return 1
-                //             return -1
-                //         })
-                // ]
-            }
-            delegate: WsButtonAppList {
-                id: workspaceButton
-                required property var modelData
-                required property int index
-                ws: modelData
-                isLast: index === Services.Niri.workspaces.count
-                Layout.fillHeight: true
-                implicitHeight: Root.State.barHeight
-            }
-        }
-    }
     component RoleData: QtObject {
         property string output
+    }
+
+    Repeater {
+        id: wsRepeater
+        // Only show workspaces for this screen
+        model: SortFilterProxyModel {
+            model: Services.Niri.workspaces
+            filters: [
+                FunctionFilter {
+                    function filter(ws: RoleData): bool {
+                        console.debug(`ws: ${ws.output} screen: ${root.screen.name}`);
+                        return ws.output === root.screen.name;
+                    }
+                }
+            ]
+            // sorters: [
+            //     component RoleData: QtObject { property string workspaceId }
+            //     FunctionSorter
+            //         .sort((a, b) => {
+            //             if (a.coordinates[1] > b.coordinates[1]) return 1
+            //             return -1
+            //         })
+            // ]
+        }
+        delegate: WsButtonAppList {
+            id: workspaceButton
+            required property var modelData
+            required property int index
+            ws: modelData
+            isLast: index === Services.Niri.workspaces.count
+            Layout.fillHeight: true
+            implicitHeight: Root.State.barHeight
+        }
     }
 }

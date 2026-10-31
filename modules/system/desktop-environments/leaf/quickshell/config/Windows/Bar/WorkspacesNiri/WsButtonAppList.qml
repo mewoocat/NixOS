@@ -2,10 +2,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.WindowManager
 import Quickshell
-import Quickshell.Widgets
-import Quickshell.Wayland
 import qs as Root
 import qs.Components.Controls as Ctrls
 import qs.Components.Shared as Shared
@@ -117,30 +114,55 @@ Ctrls.Button {
             sourceComponent: appListComp
         }
     }
-    
 
-    /*
-    // Popup Preview
-    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
+    // Hover popup window
+    Shared.PopupWindow {
         id: popupPreview
 
-        visible: (root.hovered || hovered) && !closeDelayHit
-        shadowSize: 0
+        visible: false //root.hovered || hovered// || closeTimer.running
+
+        // Watch button and popup hover changes to ensure popup stays visible when
+        // button or popup is hovered.
+        onHoveredChanged: handleTimer()
+        Connections {
+            target: root
+            function onHoveredChanged() {
+                popupPreview.handleTimer();
+            }
+        }
+        function handleTimer() {
+            if (root.hovered || popupPreview.hovered) {
+                popupPreview.visible = true;
+                closeTimer.stop();
+            } else {
+                closeTimer.start();
+            }
+        }
+        Timer {
+            id: closeTimer
+            interval: 10
+            onTriggered: () => popupPreview.visible = false
+            running: false
+        }
+
+        /*
+        onHoveredChanged: () => !hovered || !root.hovered
+            ? closeTimer.start()
+            : timeoutHit = false // reset when either is hovered
+        */
+        shadowSize: 8
+        contentMargin: 8
 
         anchor {
             item: root
             edges: Edges.Bottom | Edges.Left
             gravity: Edges.Bottom | Edges.Right
+            // Margins only seem to apply to sides specified as edges
             margins.left: -popupPreview.shadowSize // To account for the shadow, just looks better imo
+            margins.bottom: 0
         }
 
-        property bool closeDelayHit: false
-        Timer {
-            id: closeDelay
-            interval: 200
-            onTriggered: () => closeDelayHit = true
-            running: false
-        }
+        property bool timeoutHit: false
 
         content: RowLayout {
             spacing: 20
@@ -152,14 +174,14 @@ Ctrls.Button {
                             function filter(w: RoleData): bool {
                                 //console.log(`!!!!!!!!!!!!!!!!!!!!!! ${w.workspaceId} : ${w.appId}`)
                                 //console.log(`${root.ws.id} : ${toplevelButton.modelData.appId}`)
-                                return w.workspaceId == root.ws.id
+                                return w.workspaceId == root.ws.id;
                             }
                         }
                     ]
                 }
                 delegate: ColumnLayout {
-                    spacing: 0
                     id: toplevelSub
+                    spacing: 0
                     required property var modelData
                     Rectangle {
                         radius: popupPreview.contentMargin
@@ -186,13 +208,13 @@ Ctrls.Button {
                         id: windowPreview
                         implicitWidth: 256
                         implicitHeight: 144
+                        color: "black"
                         Image {
                             anchors.centerIn: parent
                             width: 32
                             height: 32
                             source: toplevelSub.modelData.iconPath
                         }
-
                     }
 
                     // Needs https://github.com/niri-wm/niri/pull/4599
@@ -202,63 +224,6 @@ Ctrls.Button {
 
                 }
             }
-        }
-    }
-    */
-
-    property Shared.PopupWindow popupWindow: Shared.PopupWindow {
-        id: popupPreview
-
-        visible: false //root.hovered || hovered// || closeTimer.running
-
-        onHoveredChanged: handleTimer()
-
-        function handleTimer() {
-            if (root.hovered || popupPreview.hovered) {
-                popupPreview.visible = true
-                closeTimer.stop()
-            }
-            else {
-                closeTimer.start()
-            }
-        }
-
-        Timer {
-            id: closeTimer
-            interval: 1000
-            onTriggered: () => popupPreview.visible = false
-            running: false
-        }
-
-        Connections {
-            target: root
-            function onHoveredChanged() {
-                popupPreview.handleTimer()        
-            }
-        }
-
-        /*
-        onHoveredChanged: () => !hovered || !root.hovered
-            ? closeTimer.start()
-            : timeoutHit = false // reset when either is hovered
-        */
-        shadowSize: 0
-        contentMargin: 0
-
-        anchor {
-            item: root
-            edges: Edges.Bottom | Edges.Left
-            gravity: Edges.Bottom | Edges.Right
-            margins.left: -popupPreview.shadowSize // To account for the shadow, just looks better imo
-            margins.bottom: 10
-        }
-
-        property bool timeoutHit: false
-
-        content: Rectangle {
-            color: "green"
-            implicitWidth: 1000
-            implicitHeight: 60
         }
     }
 }

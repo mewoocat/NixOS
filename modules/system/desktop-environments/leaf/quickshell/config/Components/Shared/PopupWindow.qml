@@ -135,12 +135,6 @@ PopupWindow {
                 child: root.content
                 margin: root.contentMargin
             }
-
-            Text {
-                text: `${root.hovered} : ${shadowBox.containsMouse}`
-                color: "red"
-                font.pointSize: 30
-            }
         }
     }
 }

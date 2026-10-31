@@ -9,7 +9,7 @@ import qs as Root
 import qs.Services as Services
 import qs.Components.Shared as Shared
 
-Shared.PanelWindow {
+Shared.PanelWindow2 {
     id: launcher
     name: "launcher"
     visible: Root.State.launcherActive
@@ -20,19 +20,21 @@ Shared.PanelWindow {
     }
     focusable: true
 
+    /*
     onCloseRequested: () => {
-        Root.State.launcherActive = false
+        Root.State.launcherActive = false;
     }
+    */
 
     onVisibleChanged: () => {
-        appList.reset()
+        appList.reset();
     }
 
     function launchApp(app: DesktopEntry) {
-        console.log(`Launching app: ${app.id}`)
-        Services.Applications.incrementFreq(app.id) // Update it's frequency
-        app.execute()
-        launcher.closeRequested()
+        console.log(`Launching app: ${app.id}`);
+        Services.Applications.incrementFreq(app.id); // Update it's frequency
+        app.execute();
+        launcher.closeRequested();
     }
 
     content: RowLayout {
@@ -54,5 +56,3 @@ Shared.PanelWindow {
         }
     }
 }
-
-
