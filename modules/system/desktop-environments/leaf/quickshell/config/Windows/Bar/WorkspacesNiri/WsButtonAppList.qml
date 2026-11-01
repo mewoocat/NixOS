@@ -84,8 +84,9 @@ Ctrls.Button {
                         model: Services.Niri.windows
                         filters: [
                             FunctionFilter {
-                                function filter(w: RoleData): bool {
-                                    return w.workspaceId == root.ws.id;
+                                // The parameter name is one of the model roles (i.e. properties of each model object)
+                                function filter(workspaceId: int): bool {
+                                    return workspaceId == root.ws.id;
                                 }
                             }
                         ]
@@ -171,11 +172,13 @@ Ctrls.Button {
                     model: Services.Niri.windows
                     filters: [
                         FunctionFilter {
+                            /*
                             function filter(w: RoleData): bool {
                                 //console.log(`!!!!!!!!!!!!!!!!!!!!!! ${w.workspaceId} : ${w.appId}`)
                                 //console.log(`${root.ws.id} : ${toplevelButton.modelData.appId}`)
                                 return w.workspaceId == root.ws.id;
                             }
+                            */
                         }
                     ]
                 }

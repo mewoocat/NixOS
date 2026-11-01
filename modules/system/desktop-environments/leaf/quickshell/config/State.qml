@@ -74,7 +74,11 @@ Singleton {
     }
     */
 
-    property int widgetUnitSize: 64
+    // Window Refs 
+    property QtObject windows: QtObject {
+        property Launcher launcher: null
+    }
+
 
     // There's definitely something fishy going on here
     // Might be due to using multiple json adapter instances

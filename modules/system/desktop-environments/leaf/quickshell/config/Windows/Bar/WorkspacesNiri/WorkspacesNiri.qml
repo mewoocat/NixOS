@@ -17,6 +17,7 @@ RowLayout {
 
     component RoleData: QtObject {
         property string output
+        //property string name
     }
 
     Repeater {

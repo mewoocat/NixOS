@@ -12,7 +12,7 @@ import qs.Components.Shared as Shared
 Shared.PanelWindow2 {
     id: launcher
     name: "launcher"
-    visible: Root.State.launcherActive
+    //visible: false//Root.State.launcherActive
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     anchors {
         top: true
@@ -20,11 +20,9 @@ Shared.PanelWindow2 {
     }
     focusable: true
 
-    /*
-    onCloseRequested: () => {
-        Root.State.launcherActive = false;
+    Component.onCompleted: {
+        Root.State.windows.launcher = launcher // Set the window ref in state
     }
-    */
 
     onVisibleChanged: () => {
         appList.reset();
@@ -34,7 +32,7 @@ Shared.PanelWindow2 {
         console.log(`Launching app: ${app.id}`);
         Services.Applications.incrementFreq(app.id); // Update it's frequency
         app.execute();
-        launcher.closeRequested();
+        launcher.closeWindow()
     }
 
     content: RowLayout {

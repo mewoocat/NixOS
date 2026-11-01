@@ -1,6 +1,10 @@
 # Host: obsidian
 # Ryzen 5 + GTX 1080 / RX 470 Desktop
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.hjem.outputs.nixosModules.default
 
@@ -59,6 +63,11 @@
     settings = {
       PasswordAuthentication = true;
     };
+  };
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda; # For Nvidia gpu
   };
 
   /*

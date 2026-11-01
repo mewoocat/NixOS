@@ -6,15 +6,11 @@ import QtQuick
 import qs as Root
 import qs.Components.Shared as Shared
 
-// TODO: I think that the required keyword doesn't trigger an error on missing
-// prop with the PanelWindow type (need to test)
 PanelWindow { // qmllint disable uncreatable-type
     id: root
 
     required property string name // Needs to be camelCase
     required property var content // Thing to place in window
-
-    //signal closeRequested // To let the consumer know when the window wants to close
 
     property bool grabEnabled: true
     property int padding: Root.State.windowPadding
@@ -22,16 +18,7 @@ PanelWindow { // qmllint disable uncreatable-type
     property int inset: 8 // Background inset
 
     // Visibility
-    visible: true
-    /*
-    onVisibleChanged: () => {
-        if (visible) {
-            focusScope.x = 0;
-        } else {
-            focusScope.x = -focusScope.width;
-        }
-    }
-    */
+    visible: false
 
     // Open animation
     SequentialAnimation {
@@ -44,34 +31,26 @@ PanelWindow { // qmllint disable uncreatable-type
         PropertyAnimation {
             target: focusScope
             property: "x"
-            duration: 200
+            duration: 500
             easing.type: Easing.Linear
-        }
-        PropertyAction {
-            target: focusScope
-            property: "x"
-            value: 0
+            to: 0
         }
     }
 
     // Close animation
     SequentialAnimation {
         id: closeAnimation
-        PropertyAction {
-            target: focusScope
-            property: "x"
-            value: -focusScope.width
-        }
         PropertyAnimation {
             target: focusScope
             property: "x"
-            duration: 200
+            duration: 500
             easing.type: Easing.Linear
+            to: -root.width
         }
         PropertyAction {
             target: root
             property: "visible"
-            value: true
+            value: false
         }
     }
 
@@ -150,16 +129,38 @@ PanelWindow { // qmllint disable uncreatable-type
     WlrLayershell.namespace: 'quickshell-panel-' + name // Set layer name
     //WlrLayershell.namespace: 'quickshell' // Set layer name
 
+    FrameAnimation {
+        running: root.visible
+        onTriggered: {
+            //root.BackgroundEffect.blurRegion.item = null
+            //root.BackgroundEffect.blurRegion.item = background
+            const point = root.mapFromItem(background, 0, 0)
+            blurRegion.x = point.x
+            blurRegion.y = point.y
+        }
+    }
     // Specify the region of the layer to have blur applied to it rather than the whole layer
+    BackgroundEffect.blurRegion: Region {
+        id: blurRegion
+        //item: background
+        radius: background.radius
+        width: background.width
+        height: background.height
+    }
+
     /*
     BackgroundEffect.blurRegion: Region {
-        item: background
-        radius: background.radius
+        regions: [
+            Region {
+                item: focusScope
+                radius: Root.State.rounding
+            }
+        ]
     }
     */
 
     Rectangle {
-        color: "red"
+        color: "transparent"
         width: root.implicitWidth
         height: root.implicitHeight
     }
@@ -181,8 +182,8 @@ PanelWindow { // qmllint disable uncreatable-type
             }
         }
 
-        width: background.width
-        height: background.height
+        width: background.width + root.inset * 2
+        height: background.height + root.inset * 2
         focus: true
         Keys.onPressed: event => {
             console.log(`PanelWindow key event`);
@@ -205,6 +206,7 @@ PanelWindow { // qmllint disable uncreatable-type
             implicitWidth: root.content.width + root.padding * 2
             implicitHeight: root.content.height + root.padding * 2
             Rectangle {
+                id: content
                 x: root.padding
                 y: root.padding
                 color: "transparent"

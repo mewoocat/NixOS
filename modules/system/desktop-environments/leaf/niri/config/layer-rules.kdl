@@ -47,8 +47,8 @@ layer-rule {
     // block-out-from "screen-capture"
 
     shadow {
-        on
-        // off
+        //on
+        off
         softness 6
         spread 3
         offset x=-6 y=6

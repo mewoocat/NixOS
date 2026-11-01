@@ -9,7 +9,7 @@ BarButton {
         */
 
         Root.State.closeAll();
-        Root.State.launcher.toggleWindow();
+        Root.State.windows.launcher.toggleWindow();
     }
     icon.name: Root.State.launcherIcon
     //isMutliColorIcon: true
