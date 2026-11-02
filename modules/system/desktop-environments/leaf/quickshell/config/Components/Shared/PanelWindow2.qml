@@ -16,6 +16,7 @@ PanelWindow { // qmllint disable uncreatable-type
     property int padding: Root.State.windowPadding
     property int radius: Root.State.rounding
     property int inset: 8 // Background inset
+    property Item bg: null
 
     // Visibility
     visible: false
@@ -126,9 +127,10 @@ PanelWindow { // qmllint disable uncreatable-type
         left: Root.State.panelMargin
         bottom: Root.State.panelMargin
     }
-    WlrLayershell.namespace: 'quickshell-panel-' + name // Set layer name
+    WlrLayershell.namespace: 'something'//'quickshell-panel-' + name // Set layer name
     //WlrLayershell.namespace: 'quickshell' // Set layer name
 
+    /*
     FrameAnimation {
         running: root.visible
         onTriggered: {
@@ -139,13 +141,18 @@ PanelWindow { // qmllint disable uncreatable-type
             blurRegion.y = point.y
         }
     }
+    */
     // Specify the region of the layer to have blur applied to it rather than the whole layer
     BackgroundEffect.blurRegion: Region {
         id: blurRegion
-        //item: background
+        // It seems that some items just don't want to work here?
+        item: focusScope.children[0]
         radius: background.radius
-        width: background.width
-        height: background.height
+        Component.onCompleted: {
+            console.debug(`item .............. ${item}`)
+        }
+        //width: background.width
+        //height: background.height
     }
 
     /*
@@ -160,11 +167,27 @@ PanelWindow { // qmllint disable uncreatable-type
     */
 
     Rectangle {
-        color: "transparent"
-        width: root.implicitWidth
-        height: root.implicitHeight
+        id: focusScope
+        color: "#22440000"
+        width: background.width + root.inset * 2
+        height: background.height + root.inset * 2 
+        property Rectangle background: Rectangle {
+            id: background
+            x: root.inset
+            y: root.inset
+            color: "#22004400"
+            width: 600
+            height: 400
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 90
+                color: "#22000044"
+            }
+        }
+        children: [ background ]
     }
 
+    /*
     ////////////////////////////////////////////////////////////////
     // FocusScope is used to ensure the last item with focus set to true
     // receives the actual focus.  This is useful for a text field in
@@ -202,6 +225,9 @@ PanelWindow { // qmllint disable uncreatable-type
                     easing.type: Easing.Linear
                 }
             }
+            Component.onCompleted: {
+                root.bg = background
+            }
             radius: root.radius
             implicitWidth: root.content.width + root.padding * 2
             implicitHeight: root.content.height + root.padding * 2
@@ -216,4 +242,6 @@ PanelWindow { // qmllint disable uncreatable-type
             }
         }
     }
+    */
+
 }

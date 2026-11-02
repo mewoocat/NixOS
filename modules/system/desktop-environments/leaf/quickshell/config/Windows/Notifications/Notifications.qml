@@ -11,7 +11,7 @@ import qs as Root
 // This is a transparent window that shows any new notifications for a short time
 PanelWindow {
     id: root
-    property int animationSpeed: 300 // ms
+    property int animationSpeed: 2000 // ms
     property bool active: Services.Notifications.notificationPopups.values.length > 0
     property bool isAnimationPaused: area.containsMouse
     property string name: "notifications"
@@ -38,7 +38,8 @@ PanelWindow {
         }
     }
     BackgroundEffect.blurRegion: Region {
-        regions: root.notifRegions.instances
+        //regions: root.notifRegions.instances
+        item: notifList.contentItem.children[0]
     }
 
     implicitWidth: area.width
@@ -86,7 +87,7 @@ PanelWindow {
             // Animations 
             add: Transition {
                 NumberAnimation {
-                    properties: "y"
+                    properties: "x"
                     from: -100
                     duration: root.animationSpeed
                 }
@@ -136,7 +137,7 @@ PanelWindow {
 
                 Timer {
                     id: timer
-                    interval: 2000
+                    interval: 4000
                     running: true && !root.isAnimationPaused
                     onTriggered: Services.Notifications.removeNotifFromPopupModel(notif.modelData)
                 }

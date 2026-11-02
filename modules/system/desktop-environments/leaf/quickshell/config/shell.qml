@@ -28,7 +28,8 @@ ShellRoot {
     }
     Bar {}
     ControlPanel {}
-    Launcher {}
+    //Launcher {}
+    Launcher2 {}
     Notifications {}
     ActivityCenter {}
     Lockscreen {}
