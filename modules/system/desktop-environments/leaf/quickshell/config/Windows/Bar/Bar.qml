@@ -44,6 +44,7 @@ Scope {
                         spacing: 0
 
                         Launcher {}
+                        Launcher2 {}
                         WorkspacesNiri {
                             screen: bar.screen
                         }

@@ -17,7 +17,7 @@
     #../../users/eXia # need to add user without all the other junk
 
     # Services
-    ./wireguard-server.nix
+    ./wireguard.nix
     ../../common/servers/nextcloud
     #../../common/servers/ad-guard-home
     ../../common/servers/owntracks

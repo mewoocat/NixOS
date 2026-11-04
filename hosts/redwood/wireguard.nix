@@ -32,7 +32,7 @@
                 "10.10.0.0/24"
               ];
               # Connect to this endpoint
-              #endpoint = ""; # TODO: domain
+              endpoint = "${builtins.readFile (inputs.secrets + "/plaintext/ip-a.txt")}:51820";
               # Send authenticated empty packet every n (e.g. 25) seconds to ensure this interface stays alive in
               # the NAT's routing tables between this interface and this peer.  This allows for traffic to be sent
               # to this interface from this peer which is useful for sending traffic from a seperate spoke peer to

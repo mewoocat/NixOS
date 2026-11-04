@@ -1,4 +1,8 @@
 {
+  "$declared": {
+    "nvim-nvf": "github:mewoocat/nvim-nvf",
+    "secrets": "git+ssh://git@github.com/mewoocat/secrets?ref=main"
+  },
   "Jovian-NixOS": {
     "type": "github",
     "owner": "Jovian-Experiments",
@@ -131,9 +135,9 @@
     "type": "git",
     "url": "ssh://git@github.com/mewoocat/secrets",
     "ref": "refs/heads/main",
-    "rev": "287414ab8e3160b82805b523f902acd48d42792a",
-    "narHash": "sha256-O9Pr2u6rsMxeko3glICcgsxbjkdlke65aaDeea8U4e8=",
-    "lastModified": 1789610896
+    "rev": "d7b80874d304c6a0ea3d9e4b816f67429a4488ac",
+    "narHash": "sha256-iaB6MjLNRewu2WKEPY0hyeyJJWpMQLc9p/HwOUsByI4=",
+    "lastModified": 1793668141
   },
   "tack": {
     "type": "github",

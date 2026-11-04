@@ -77,6 +77,7 @@ Singleton {
     // Window Refs 
     property QtObject windows: QtObject {
         property Launcher launcher: null
+        property Launcher2 launcher2: null
     }
 
 
