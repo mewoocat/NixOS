@@ -14,7 +14,7 @@ Singleton {
         target: "control"
 
         function toggleLauncher() {
-            Root.State.launcherActive = !Root.State.launcherActive
+            Root.State.windows.launcher.toggleWindow()
         }
         function toggleActivityCenter() {
             Root.State.activityCenterActive = !Root.State.activityCenterActive

@@ -18,6 +18,7 @@ Shared.PanelWindow2 {
     }
     focusable: true
     //WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    WlrLayershell.namespace: 'quickshell-panel-launcher'
 
     onVisibleChanged: () => {
         appList.reset();
@@ -25,7 +26,7 @@ Shared.PanelWindow2 {
 
     function launchApp(app: DesktopEntry) {
         console.log(`Launching app: ${app.id}`);
-        Services.Applications.incrementFreq(app.id); // Update it's frequency
+        Services.Applications.incrementFreq(app.id);
         app.execute();
         launcher.closeWindow()
     }

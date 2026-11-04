@@ -11,23 +11,31 @@ PanelWindow { // qmllint disable uncreatable-type
 
     property int padding: 8
     property int margin: 8
+    property int radius: Root.State.rounding
     property Item content: null
+    property int animationTime: 500
+    property var easingType: Easing.OutQuad
 
-    implicitWidth: background.width
-    implicitHeight: background.height
+    implicitWidth: focusScope.width
+    implicitHeight: focusScope.height
     exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
     anchors {
         left: true
     }
     visible: false
     color: "transparent"
+    WlrLayershell.namespace: 'quickshell-panel' // Set layer name
 
     Component.onCompleted: {
         Root.State.windows.launcher = launcher
     }
 
     BackgroundEffect.blurRegion: Region {
-        item: focusScope
+        id: blurRegion
+        // Note: Seems that when moving a parent of this item, the region doesn't auto update.  However,
+        // if this item itself is animated, then the region stays in sync.
+        item: background
+        radius: root.radius
     }
 
     // Open animation
@@ -39,10 +47,10 @@ PanelWindow { // qmllint disable uncreatable-type
             value: true
         }
         PropertyAnimation {
-            target: focusScope
+            target: background
             property: "x"
-            duration: 500
-            easing.type: Easing.Linear
+            duration: root.animationTime
+            easing.type: root.easingType
             to: 0
         }
     }
@@ -51,11 +59,11 @@ PanelWindow { // qmllint disable uncreatable-type
     SequentialAnimation {
         id: closeAnimation
         PropertyAnimation {
-            target: focusScope
+            target: background
             property: "x"
-            duration: 500
-            easing.type: Easing.Linear
-            to: -100
+            duration: root.animationTime
+            easing.type: root.easingType
+            to: -100//-focusScope.width
         }
         PropertyAction {
             target: root
@@ -76,41 +84,49 @@ PanelWindow { // qmllint disable uncreatable-type
         visible ? closeWindow() : openWindow();
     }
 
-    //////////////////////////////////////////////////////////////// 
-    // FocusScope is used to ensure the last item with focus set to true
-    // receives the actual focus.  This is useful for a text field in
-    // a window, as we would want that to have focus but then any non handled
-    // key events would automatically propogate up back to the window and
-    // handled here.
-    // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
-    FocusScope {
-        x: -100
-        id: focusScope
-        width: background.width
-        height: background.height
-        focus: true
-        Keys.onPressed: (event) => {
-            if (event.key == Qt.Key_Escape) {
-                root.closeWindow()
-            }
-        }
+    // This item moves to simulate window animation
+
         Rectangle {
             id: background
+            //x: -100
+
             color: Root.State.colors.surface
-            radius: 0
-            width: root.content.width + root.padding * 2
-            height: root.content.height + root.padding * 2
+            radius: root.radius
+            x: root.margin
+            y: root.margin
+            width: focusScope.width + root.margin * 2
+            height: focusScope.height + root.margin * 2
+
             Rectangle {
                 id: contentBox
-                x: root.padding
-                y: root.padding
-                color: "transparent"
-                width: root.content.width
-                height: root.content.height
-                children: [ root.content ]
+                color: "#00ff0000"
+                width: contentBox.width + root.padding * 2
+                height: contentBox.height + root.padding * 2
+
+                //////////////////////////////////////////////////////////////// 
+                // FocusScope is used to ensure the last item with focus set to true
+                // receives the actual focus.  This is useful for a text field in
+                // a window, as we would want that to have focus but then any non handled
+                // key events would automatically propogate up back to the window and
+                // handled here.
+                // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
+                FocusScope {
+                    id: focusScope
+
+                    x: root.padding
+                    y: root.padding
+                    width: root.content.width
+                    height: root.content.height
+                    focus: true
+                    Keys.onPressed: (event) => {
+                        if (event.key == Qt.Key_Escape) {
+                            root.closeWindow()
+                        }
+                    }
+                    children: [ root.content ]
+                }
             }
         }
-    }
 
     /*
     FrameAnimation {

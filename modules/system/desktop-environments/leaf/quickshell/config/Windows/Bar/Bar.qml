@@ -31,7 +31,8 @@ Scope {
                 WlrLayershell.namespace: "quickshell-bar" // Set layer name
 
                 Rectangle {
-                    color: Root.State.colors.surface
+                    id: background
+                    color: "#99222222"//Root.State.colors.surface
                     anchors.fill: parent
 
                     // Set the window's screen to the injected property
