@@ -16,8 +16,8 @@ PanelWindow { // qmllint disable uncreatable-type
     property int animationTime: 500
     property var easingType: Easing.OutQuad
 
-    implicitWidth: focusScope.width
-    implicitHeight: focusScope.height
+    implicitWidth: animationBox.width
+    implicitHeight: animationBox.height
     exclusiveZone: 0 // Prevents windows with one anchor fron taking up tiling space
     anchors {
         left: true
@@ -47,7 +47,7 @@ PanelWindow { // qmllint disable uncreatable-type
             value: true
         }
         PropertyAnimation {
-            target: background
+            target: animationBox
             property: "x"
             duration: root.animationTime
             easing.type: root.easingType
@@ -59,7 +59,7 @@ PanelWindow { // qmllint disable uncreatable-type
     SequentialAnimation {
         id: closeAnimation
         PropertyAnimation {
-            target: background
+            target: animationBox
             property: "x"
             duration: root.animationTime
             easing.type: root.easingType
@@ -85,48 +85,48 @@ PanelWindow { // qmllint disable uncreatable-type
     }
 
     // This item moves to simulate window animation
+    Rectangle {
+        id: animationBox
+
+        //x: -100
+        width: background.width + root.margin * 2
+        height: background.height + root.margin * 2
 
         Rectangle {
             id: background
-            //x: -100
 
-            color: Root.State.colors.surface
-            radius: root.radius
             x: root.margin
             y: root.margin
-            width: focusScope.width + root.margin * 2
-            height: focusScope.height + root.margin * 2
+            width: contentBox.width + root.padding * 2
+            height: contentBox.height + root.padding * 2
+            color: Root.State.colors.surface
+            radius: root.radius
 
-            Rectangle {
-                id: contentBox
-                color: "#00ff0000"
-                width: contentBox.width + root.padding * 2
-                height: contentBox.height + root.padding * 2
 
-                //////////////////////////////////////////////////////////////// 
-                // FocusScope is used to ensure the last item with focus set to true
-                // receives the actual focus.  This is useful for a text field in
-                // a window, as we would want that to have focus but then any non handled
-                // key events would automatically propogate up back to the window and
-                // handled here.
-                // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
-                FocusScope {
-                    id: focusScope
+            //////////////////////////////////////////////////////////////// 
+            // FocusScope is used to ensure the last item with focus set to true
+            // receives the actual focus.  This is useful for a text field in
+            // a window, as we would want that to have focus but then any non handled
+            // key events would automatically propogate up back to the window and
+            // handled here.
+            // See: https://doc.qt.io/qt-6/qtquick-input-focus.html
+            FocusScope {
+                id: focusScope
 
-                    x: root.padding
-                    y: root.padding
-                    width: root.content.width
-                    height: root.content.height
-                    focus: true
-                    Keys.onPressed: (event) => {
-                        if (event.key == Qt.Key_Escape) {
-                            root.closeWindow()
-                        }
+                x: root.padding
+                y: root.padding
+                width: root.content.width
+                height: root.content.height
+                focus: true
+                Keys.onPressed: (event) => {
+                    if (event.key == Qt.Key_Escape) {
+                        root.closeWindow()
                     }
-                    children: [ root.content ]
                 }
+                children: [ root.content ]
             }
         }
+    }
 
     /*
     FrameAnimation {
