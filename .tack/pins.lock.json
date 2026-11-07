@@ -1,5 +1,6 @@
 {
   "$declared": {
+    "niri": "github:niri-wm/niri",
     "nvim-nvf": "github:mewoocat/nvim-nvf",
     "secrets": "git+ssh://git@github.com/mewoocat/secrets?ref=main"
   },
@@ -66,6 +67,14 @@
     "rev": "b01878652196a182c9860d8b514bb9975038ca14",
     "narHash": "sha256-Zjv1hBSGvwlx9OS5lnKLwk+Ce+BOPMlHboDe+XrUtKc=",
     "lastModified": 1793093573
+  },
+  "niri": {
+    "type": "github",
+    "owner": "niri-wm",
+    "repo": "niri",
+    "rev": "bc6d4ec00fa422bce3043ba30faefda694c13024",
+    "narHash": "sha256-M6RcyjJTuPY6f+jkzYkRbHM3mwLyp7sYGIwnxBhdJT0=",
+    "lastModified": 1793899714
   },
   "nix-gaming": {
     "type": "github",

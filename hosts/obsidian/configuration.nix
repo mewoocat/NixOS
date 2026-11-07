@@ -70,6 +70,12 @@
     package = pkgs.ollama-cuda; # For Nvidia gpu
   };
 
+  # Set this to false to force the nixos password config to overwrite any existing config
+  users.mutableUsers = false;
+  users.users.root = {
+    hashedPassword = "$y$j9T$56oM.CwwWoTl4t7TI/FDL.$fZX6Xy1DlOnqGv/jUHRioL9LuQ5stIftBYXujorzsl/";
+  };
+
   /*
   networking.firewall.allowedUDPPorts = [53 67];
   networking.firewall.allowedTCPPorts = [80 443 1883 6669];

@@ -209,16 +209,16 @@
           sha256 = "sha256-eaxEtAeArL2ISzTFC+HjmvaChH5fXLOx/d7qp2jc6AA=";
         };
         cobblemon = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/MdwFAVRL/versions/gBW3vLC7/Cobblemon-fabric-1.8.1%2B1.21.1.jar";
-          sha256 = "sha256-TZC6Z3XjozKq2dXkmp9jZvlzs+GhLgAE0iziHGAO68U=";
+          url = "https://cdn.modrinth.com/data/MdwFAVRL/versions/PdOzYHKU/Cobblemon-fabric-1.8.4%2B1.21.1.jar";
+          sha256 = "sha256-d8SGay5MOK+0iO0Jti/9JynOKR3Hk/ypwFXAh/CwOXg=";
         };
         terralith = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/8oi3bsk5/versions/eWDLFabb/Terralith_1.21.x_v2.6.2.jar";
           sha256 = "sha256-nNTUAv3g9SPltDCsj9R5zgWup6UP4MjCaQH192knIhQ=";
         };
         lithostitched = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/XaDC71GB/versions/eN30OQaU/lithostitched-1.8.0-fabric-21.1.jar";
-          sha256 = "sha256-G7Xh8Tw5TntpS5S/+a8ktEnlGQeWUcoCdl2nreMHn/c=";
+          url = "https://cdn.modrinth.com/data/XaDC71GB/versions/GZFp8lnS/lithostitched-1.8.1-fabric-21.1.jar";
+          sha256 = "sha256-BJgPfmZwMvyJxhxMJkVlwVZLKAjFfaUtz+Qn/qH+4dE=";
         };
         teletransportationAcceptTPA = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/6h6n9XJ9/versions/Si2A8zdz/tpa-1.3.1.jar";
@@ -241,24 +241,24 @@
           sha256 = "sha256-LjqPDjvahafXInIOfOh5y9nQKNk5XG/CJNMps8mC2bE=";
         };
         radicalCobblemonTrainersAPI = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/CBfM2yw7/versions/bgmxNN26/rctapi-fabric-1.21.1-0.16.1-beta.jar";
-          sha256 = "sha256-kT8SvHerQ81O6FIJsHjbSDWUkNFlQ2SLoJf6LnkQyE4=";
+          url = "https://cdn.modrinth.com/data/CBfM2yw7/versions/DoQNDXAU/rctapi-fabric-1.21.1-0.16.2-beta.jar";
+          sha256 = "sha256-AlNBE3ANHd/N0cGwD99CY3QTgEdz+OZ0N6gjFQgJvRU=";
         };
         architecturyAPI = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/lhGA9TYQ/versions/Pzc2FP5K/architectury-13.0.11-fabric.jar";
           sha256 = "sha256-qxfVx9jYyTzHE0N+1Cbw/w1vgCpI//DFeam9OqqDPv0=";
         };
         radGyms = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/eF8kqlHd/versions/jNLB4nS8/rad-gyms-fabric-0.5.0.jar";
-          sha256 = "sha256-sUNcCq8+bbseVVxDUj7Les45YWeQy5IwW0YqU9Jzwx0=";
+          url = "https://cdn.modrinth.com/data/eF8kqlHd/versions/phkPsqy1/rad-gyms-fabric-0.5.2.jar";
+          sha256 = "sha256-/ni8QYxXt5MvKUOoJK2U8tPnZ8eIC9z7XMX+9feWrfI=";
         };
         cobblemonPokeNav = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/bI8Nt3uA/versions/BV5KiAcY/cobblenav-fabric-2.4.1.jar";
-          sha256 = "sha256-h+n2fKPJjkTt9ve2PQkqVZrfPeRzevYtZtTu4ru6g3w=";
+          url = "https://cdn.modrinth.com/data/bI8Nt3uA/versions/wq3mHFqw/cobblenav-fabric-2.4.2.jar";
+          sha256 = "sha256-7YvWblkORxa4/zJ4NaZGIUEp70d8nFJsV988BOCyZvk=";
         };
         cobblemonBattleMusic = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/n3D4BPgL/versions/fzLc8awA/blackwhite-battle-music-1.1.jar";
-          sha256 = "sha256-imdCQ2jnGzRlGCOtyhuOJ3Af3WWwx7+R6P7zXu2bFnU=";
+          url = "https://cdn.modrinth.com/data/n3D4BPgL/versions/ia9JTCJa/blackwhite-battle-music-1.2.jar";
+          sha256 = "sha256-RmX+rXWr/XwfZvzRSKK5eo96GplOqDMpJavM0tmXev8=";
         };
         cobblemonIntros = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/gG3mz6AL/versions/FQY0xvNo/CobblemonIntros-1.0.0.jar";
@@ -270,12 +270,12 @@
           sha256 = "sha256-ZMBNsdl1fFLSzIBc3CQmiNuMPYN6F1AFk8UJW2Zng7M=";
         };
         cobblemonLegendaryMonuments-8_2 = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/m6RyHSbV/versions/dcZ53MPy/legendarymonuments-fabric-1.21.1-8.2-Keep-Fighting.jar?mr_download_reason=standalone&mr_game_version=1.21.1&mr_loader=fabric";
+          url = "https://cdn.modrinth.com/data/m6RyHSbV/versions/dcZ53MPy/legendarymonuments-fabric-1.21.1-8.2-Keep-Fighting.jar";
           sha256 = "sha256-agrwkyGWTbaiQGYxhR8ybZnAPcQZd55w7z972DTsYpY=";
         };
         accessories = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/jtmvUHXj/versions/Xlt4eWBe/accessories-fabric-1.1.0-beta.53%2B1.21.1.jar";
-          sha256 = "sha256-Ueb21SyyUjGZrTblvASAIjD4aQTDWsPb825ZyGssMNE=";
+          url = "https://cdn.modrinth.com/data/jtmvUHXj/versions/YZ9RWTNl/accessories-fabric-1.1.0-beta.54%2B1.21.1.jar";
+          sha256 = "sha256-XtqyEKKDrGauESat+PQ9fzCovc9U7l+vzxJ61d27Cio=";
         };
         chipped = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/BAscRYKm/versions/6h2mVZcb/chipped-fabric-1.21.1-4.0.2.jar";
@@ -290,8 +290,8 @@
           sha256 = "sha256-4XqthMaQrE5GMApBgLOuQHf/pPUm28gtEXr7v/Tug+Q=";
         };
         cobblemonMegaShowdown = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/SszvX85I/versions/TKdAixuR/mega_showdown-fabric-1.2.0%2B1.8.1%2B1.21.1-release.jar";
-          sha256 = "sha256-1yQkO9/dEsJm3fX1+g3zbGinWSWPAVRp7RxAXzuiYac=";
+          url = "https://cdn.modrinth.com/data/SszvX85I/versions/pToIDLtC/mega_showdown-fabric-1.3.3%2B1.8.4%2B1.21.1-release.jar";
+          sha256 = "sha256-sQYu/i5bwCYdq/mjnR8Pm4gFgEISDqzJ+RzOpsvp1No=";
         };
         owo-lib = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/ccKDOlHs/versions/m3XmDd8j/owo-lib-0.13.0-alpha.15%2B1.21.jar";
@@ -306,12 +306,12 @@
           sha256 = "sha256-M4lOldo69ZAUs50SZYbVJB4H6jn4YYdj4w2rY3QF+V8=";
         };
         cobblemonCaptureXP = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/LBl4Qguc/versions/FOUiJc3h/capturexp-fabric-1.8.1-1.3.0.jar";
-          sha256 = "sha256-yPmDx+mRYAc/wOpEOK6hwIxUXZlIn3VssbL14NACzJM=";
+          url = "https://cdn.modrinth.com/data/LBl4Qguc/versions/Sc6S9mBv/capturexp-fabric-1.8.4-1.3.0.jar";
+          sha256 = "sha256-JO4TRxmuveue7S/ssUKjI+KLJhx6g3t6kn2Q1eDsgN4=";
         };
         cobbleTimCore = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/lVP9aUaY/versions/lYFZ3a5r/timcore-fabric-1.8.1-1.33.2.jar";
-          sha256 = "sha256-n1ZXuC+kSzOjf/IGp798Elo7obfIxHVmG5N4lcUiP0Q=";
+          url = "https://cdn.modrinth.com/data/lVP9aUaY/versions/spCxxTX2/timcore-fabric-1.8.4-1.36.1.jar";
+          sha256 = "sha256-BgAGjxKZRurmM/dcspuId0sMIOSvqY4OO9B00mq8CcE=";
         };
       in {
         enable = true;
@@ -365,8 +365,8 @@
             cobblemonPokeNav
             cobblemonBattleMusic
             cobblemonIntros
-            cobblemonLegendaryMonuments-8_1
-            #cobblemonLegendaryMonuments-8_2
+            #cobblemonLegendaryMonuments-8_1
+            cobblemonLegendaryMonuments-8_2
             accessories
             chipped
             resourcefulLib
