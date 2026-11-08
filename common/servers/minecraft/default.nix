@@ -269,6 +269,7 @@
           url = "https://cdn.modrinth.com/data/m6RyHSbV/versions/F6Ub0Gga/legendarymonuments-fabric-1.21.1-8.1-Love_for_All.jar";
           sha256 = "sha256-ZMBNsdl1fFLSzIBc3CQmiNuMPYN6F1AFk8UJW2Zng7M=";
         };
+        # WARNING: Bug with trainer battles https://github.com/gitoido-mc/rad-gyms/issues/150
         cobblemonLegendaryMonuments-8_2 = pkgs.fetchurl {
           url = "https://cdn.modrinth.com/data/m6RyHSbV/versions/dcZ53MPy/legendarymonuments-fabric-1.21.1-8.2-Keep-Fighting.jar";
           sha256 = "sha256-agrwkyGWTbaiQGYxhR8ybZnAPcQZd55w7z972DTsYpY=";
@@ -365,8 +366,8 @@
             cobblemonPokeNav
             cobblemonBattleMusic
             cobblemonIntros
-            #cobblemonLegendaryMonuments-8_1
-            cobblemonLegendaryMonuments-8_2
+            cobblemonLegendaryMonuments-8_1
+            #cobblemonLegendaryMonuments-8_2
             accessories
             chipped
             resourcefulLib

@@ -90,3 +90,6 @@ url = "gh:nix-community/nh"
 
 [inputs.niri]
 url = "gh:niri-wm/niri"
+
+[inputs.leaf]
+url = "gh:mewoocat/LeafShell"
