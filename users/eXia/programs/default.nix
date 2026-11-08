@@ -1,4 +1,4 @@
-{...}:{
+{...}: {
   imports = [
     ./bash
     ./btop
@@ -8,5 +8,6 @@
     ./nextcloud.nix
     ./obs.nix
     ./git.nix
+    ./ssh.nix
   ];
 }
