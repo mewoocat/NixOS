@@ -23,7 +23,8 @@
     ../../modules/system
 
     # Desktop environment
-    ../../modules/system/desktop-environments/leaf
+    #../../modules/system/desktop-environments/leaf
+    inputs.leaf
 
     # Users
     ../../users/eXia

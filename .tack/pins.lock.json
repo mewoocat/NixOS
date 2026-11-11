@@ -52,6 +52,14 @@
     "narHash": "sha256-BohcZsIqBOd6YL6+jUkdM4GE+aQc72E6yrqVyt1z5X4=",
     "lastModified": 1793026809
   },
+  "leaf": {
+    "type": "github",
+    "owner": "mewoocat",
+    "repo": "LeafShell",
+    "rev": "e05abbdd92990c8e7134fdc79c7951e39df20ce7",
+    "narHash": "sha256-J/92nkOzMWPQZN0m4BydsZPIdqoU8/VJbMw7KwDmzRk=",
+    "lastModified": 1794354938
+  },
   "matugen": {
     "type": "github",
     "owner": "InioX",

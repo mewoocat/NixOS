@@ -11,6 +11,8 @@
 
   imports = [
     ./programs
+    ../../common/applications/nautilus
+    ../../common/applications/dolphin.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -101,6 +103,20 @@
       tauon
       supercell-wx
       mgba
+      kdePackages.kcalc
+      # Media viewer
+      (mpv.override {
+        scripts = with pkgs.mpvScripts; [
+          thumbfast
+          mpv-image-viewer.image-positioning # Need to setup keybinds
+          mpv-image-viewer.minimap
+          mpv-image-viewer.status-line
+          mpv-image-viewer.freeze-window
+        ];
+      })
+      pix
+      gnome-text-editor
+      easyeffects
 
       # Music
       #amarok # Music player
@@ -136,6 +152,8 @@
   # Drive management
   programs.gnome-disks.enable = true;
   # Needed for gparted
+
+  programs.noisetorch.enable = true;
 
   environment.systemPackages = with pkgs; [
     gparted

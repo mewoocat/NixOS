@@ -93,3 +93,4 @@ url = "gh:niri-wm/niri"
 
 [inputs.leaf]
 url = "gh:mewoocat/LeafShell"
+type = "fetch"
