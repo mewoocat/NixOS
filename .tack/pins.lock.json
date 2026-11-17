@@ -57,9 +57,9 @@
     "type": "github",
     "owner": "mewoocat",
     "repo": "LeafShell",
-    "rev": "b769fe2c2b56d268254fc8db6ed5a45b2089ac14",
-    "narHash": "sha256-9MnY8wx6XQR9mizykA25jKD2n7qCwu2KLGhRH8pCD+M=",
-    "lastModified": 1794826722
+    "rev": "46c060074abbadb0a0c986cbad82d7668387058a",
+    "narHash": "sha256-O3zLLpxZp3ikHGYsUOWw71PwLDwIZ6TfJkCQ5I41ZNI=",
+    "lastModified": 1794890510
   },
   "matugen": {
     "type": "github",
