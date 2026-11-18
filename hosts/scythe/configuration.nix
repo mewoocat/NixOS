@@ -40,6 +40,8 @@
     user = "eXia";
   };
 
+  nix.settings.trusted-users = ["eXia"];
+
   networking.networkmanager.enable = true;
   networking.hostName = "scythe"; # Define your hostname.
 
