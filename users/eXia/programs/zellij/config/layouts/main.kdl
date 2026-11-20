@@ -20,18 +20,24 @@ layout {
     }
   }
 
-  tab name="Quickshell | cli" cwd="~/NixOS/modules/system/desktop-environments/leaf/quickshell/" {
+  tab name="leaf | cli" cwd="~/Projects/LeafShell/" {
     pane {
     }
   }
 
-  tab name="Quickshell | editor" cwd="~/NixOS/modules/system/desktop-environments/leaf/quickshell/" {
+  tab name="leaf | editor" cwd="~/Projects/LeafShell/" {
     pane command="vi" {
     }
   }
  
-  tab name="btop" {
-    pane command="btop" {}
-
+  tab
+    name="nix repl"
+    cwd="~/NixOS"
+  {
+    pane
+      command="btop"
+    { }
   }
+
+  tab name="btop" { pane command="btop" {} }
 }

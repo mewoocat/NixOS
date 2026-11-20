@@ -6,7 +6,9 @@
   ...
 }: {
   imports = [
+    # External modules
     inputs.hjem.outputs.nixosModules.default
+    (inputs.leaf + "/nixos-module")
 
     # Hardware
     ./hardware-configuration.nix

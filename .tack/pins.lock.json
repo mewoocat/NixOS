@@ -1,5 +1,6 @@
 {
   "$declared": {
+    "leaf": "github:mewoocat/LeafShell",
     "niri": "github:niri-wm/niri",
     "nvim-nvf": "github:mewoocat/nvim-nvf",
     "secrets": "git+ssh://git@github.com/mewoocat/secrets?ref=main"
@@ -56,9 +57,9 @@
     "type": "github",
     "owner": "mewoocat",
     "repo": "LeafShell",
-    "rev": "e05abbdd92990c8e7134fdc79c7951e39df20ce7",
-    "narHash": "sha256-J/92nkOzMWPQZN0m4BydsZPIdqoU8/VJbMw7KwDmzRk=",
-    "lastModified": 1794354938
+    "rev": "46c060074abbadb0a0c986cbad82d7668387058a",
+    "narHash": "sha256-O3zLLpxZp3ikHGYsUOWw71PwLDwIZ6TfJkCQ5I41ZNI=",
+    "lastModified": 1794890510
   },
   "matugen": {
     "type": "github",
@@ -112,9 +113,9 @@
     "type": "github",
     "owner": "mewoocat",
     "repo": "nvim-nvf",
-    "rev": "8d3b307db9ccfc1b438da268aabb45e254965e13",
-    "narHash": "sha256-YFFqmcVmad0cDhC9diXEjBHTycmUra6ZpX1JFA4eArg=",
-    "lastModified": 1794191936
+    "rev": "5655a1c71716d295c9b512c668a2f61e76e77371",
+    "narHash": "sha256-RiPBWZf5IjvMWm55Xl/8EBPyMUF1NOoYSV0CZxDU12Q=",
+    "lastModified": 1794963992
   },
   "qetris": {
     "type": "github",

@@ -1,6 +1,0 @@
-# Top most .editorconfg file in this project
-root = false
-
-[*.qml]
-indent_size = 4
-indent_style = space

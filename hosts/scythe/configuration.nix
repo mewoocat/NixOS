@@ -9,6 +9,7 @@
   imports = [
     # Nixos modules
     inputs.hjem.outputs.nixosModules.default
+    (inputs.leaf + "/nixos-module")
 
     # Hardware
     ./hardware-configuration.nix
@@ -24,7 +25,6 @@
 
     # Desktop environment
     #../../modules/system/desktop-environments/leaf
-    inputs.leaf
 
     # Users
     ../../users/eXia
@@ -34,6 +34,13 @@
 
     ../../common/general.nix
   ];
+
+  leaf-shell = {
+    enable = true;
+    user = "eXia";
+  };
+
+  nix.settings.trusted-users = ["eXia"];
 
   networking.networkmanager.enable = true;
   networking.hostName = "scythe"; # Define your hostname.
