@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./core-applications
     ./core-functions
     ./theming
     ./quickshell

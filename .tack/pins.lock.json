@@ -112,9 +112,9 @@
     "type": "github",
     "owner": "mewoocat",
     "repo": "nvim-nvf",
-    "rev": "7d9186429abc893f4ddbcdce6f06a8303281cf1b",
-    "narHash": "sha256-rWRg8KfSS2RYgZbFsTILLguZzlitfxUPmrjuwp6mt7A=",
-    "lastModified": 1790829718
+    "rev": "8d3b307db9ccfc1b438da268aabb45e254965e13",
+    "narHash": "sha256-YFFqmcVmad0cDhC9diXEjBHTycmUra6ZpX1JFA4eArg=",
+    "lastModified": 1794191936
   },
   "qetris": {
     "type": "github",

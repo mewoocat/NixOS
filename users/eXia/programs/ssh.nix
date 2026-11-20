@@ -16,7 +16,8 @@
 
         Host redwood_initrd
           HostName 192.168.0.105
-          User eXia
+          Port 2222
+          User root
           IdentityFile ~/.ssh/maple-yubikey-pgp.pub
 
         Host maple
