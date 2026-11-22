@@ -23,9 +23,6 @@
     # Core system components
     ../../modules/system
 
-    # Desktop environment
-    ../../modules/system/desktop-environments/leaf
-
     # User
     ../../users/eXia
     #../../users/iris
@@ -36,6 +33,12 @@
     ../../common/general.nix
     #./zfs.nix
   ];
+
+  # Desktop environment
+  leaf-shell = {
+    enable = true;
+    user = "eXia";
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot = {
