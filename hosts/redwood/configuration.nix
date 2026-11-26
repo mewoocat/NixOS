@@ -9,9 +9,7 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-
     ./samba.nix
     ./wireguard.nix
     #./minecraft.nix
@@ -68,7 +66,6 @@
     hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     # Set ssh public keys
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC20jrdK1MUQ9OoV0/AhZSiWsYTx2lFI3j5V5Wb5zR5q"
       # eXia PGP
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeX8NlT5LeZIFXNCORH4oGp/++NA6FLlfUxjdq/UQe63Q4/BNT2Yr6CJLF9EEYUaUO1+iEfQMTEnWyYHfoEQvCaXjHOMf2w/GCEZRME9vR3EujVDUNcBKbytPO0bnccG96u4dvRP8/E0lrln1kkMmukhwawaLR/TkF0YYxwR21ExRQpDac6tr7qDHf+R0JW+evzrz1geuE5m3vMYMulwL6d7lfw5zqyJw53ef8FdjJS0shSjRwOaGYBTIywneCORvJeyXo1ZhbArhdcrqM+oMsPuciwcjnkbvI8+yTG+e8FyD1i0sLFKCZOnPFrH2y7z/04gZTtZfHmWJo90j8utEl"
     ];
@@ -81,12 +78,8 @@
     ];
   };
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+  #environment.systemPackages = with pkgs; [
+  #];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessionse
@@ -96,15 +89,15 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     settings = {
       PasswordAuthentication = true;
-      PermitRootLogin = "yes";
+      PermitRootLogin = "no";
     };
+
+    # Will generate host keys automatically
     /*
     extraConfig = ''
       HostKey /etc/ssh/ssh_host_ed25519_key_redwood
@@ -118,10 +111,8 @@
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -202,7 +193,7 @@
     };
   };
   #
-  #In order to use DHCP in initrd, networking.useDHCP must be true and network
+  # In order to use DHCP in initrd, networking.useDHCP must be true and networkmanager should be disabled (i think?)
   networking.useDHCP = true;
   networking.networkmanager.enable = false;
 }

@@ -8,6 +8,7 @@
     #inputs.agenix.nixosModules.default
   ];
 
+  # WARNING: Appears that being connected to a vpn can cause the timezone to switch to the lcoation of the vpn server
   services.automatic-timezoned.enable = true;
 
   # Ensure nixpkgs instance is consistent across entire system

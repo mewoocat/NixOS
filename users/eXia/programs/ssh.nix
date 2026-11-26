@@ -1,18 +1,28 @@
 {...}: {
+  programs.gnupg = {
+    agent = {
+      enable = true;
+      enableSSHSupport = true; # Drop in replacement for ssh-agent called gpg-agent
+      #pinentryPackage = pkgs.pinentry-gtk2;
+    };
+  };
+
   # User config
   hjem.users.eXia.files = {
     ".ssh/config" = {
       #clobber = true;
       text = ''
         Host orchid
-          HostName 192.168.0.111
+          HostName 192.168.0.103
           User eXia
-          IdentityFile /run/media/eXia/starfish.private/ssh/orchid
+          #IdentityFile /run/media/eXia/starfish.private/ssh/orchid
+          IdentityFile ~/.ssh/maple-yubikey-pgp.pub
           IdentitiesOnly yes
 
         Host redwood
           HostName 192.168.0.105
-          User root
+          User eXia
+          IdentityFile ~/.ssh/maple-yubikey-pgp.pub
 
         Host redwood_initrd
           HostName 192.168.0.105

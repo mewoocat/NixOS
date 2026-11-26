@@ -1,14 +1,12 @@
 {
-
   config,
   lib,
   pkgs,
   inputs,
   ...
-}: let 
-  rootDomain = builtins.readFile (inputs.secrets + "/plaintext/domain.txt"); 
+}: let
+  rootDomain = builtins.readFile (inputs.secrets + "/plaintext/domain.txt");
 in {
-  
   # Add Agenix secrets
   #age.secretsDir = "/tmp";
   age.secrets = {
@@ -23,19 +21,18 @@ in {
     };
   };
 
-
   environment.systemPackages = with pkgs; [
     # Provide database related commands for management
     # mariadb is a drop in replacement for mysql and is what is used in the nextcloud module
-    # when mysql is selected as the db 
+    # when mysql is selected as the db
     mariadb
   ];
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [80 443];
 
   # WARNING: It appears that the first time nextcloud is enabled, it runs a setup script that
-  # produces some state.  Future rebuilds don't seem to change certain options that were set, 
-  # most notably the admin username and password.  
+  # produces some state.  Future rebuilds don't seem to change certain options that were set,
+  # most notably the admin username and password.
   #
   # Need to figure out how to trigger a reinstall and which options are affected.
   # What seems to work:
@@ -55,15 +52,16 @@ in {
     maxUploadSize = "50G";
     home = "/var/lib/nextcloud"; # Storage path of nextcloud.
     nginx.enableFastcgiRequestBuffering = true; # Fix for 0 byte files scenario, see option description...
-    config = { 
+    config = {
+      # WARNING: These options have been removed
       # These two options appear to be only used during the initial nextcloud install
       # For these to take affect again, nextcloud must be fully reinstalled
       #
-      # I think idealy that these options should just be used for initially setting the 
+      # I think idealy that these options should just be used for initially setting the
       # admin username and password and then changing them in the client later
-      adminuser = "admin";
+      #adminuser = "admin";
       #adminpassFile = "/etc/nextcloud-admin-pass";
-      adminpassFile = config.age.secrets.nextcloud-admin-pass.path;
+      #adminpassFile = config.age.secrets.nextcloud-admin-pass.path;
 
       # I'm also guess that most if not all of these values are used for the intial setup script
       # and cannot be declaritively changed
@@ -84,7 +82,7 @@ in {
       ];
 
       # Might be able to declare the config.php secret property this way
-      #secret = ""; 
+      #secret = "";
 
       log_type = "file"; # Enable file based logging. By default logs to a file called nextcloud.log in the data dir
     };
@@ -94,12 +92,14 @@ in {
     #
     # List of options: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/servers/nextcloud/packages/nextcloud-apps.json
     extraApps = {
-      inherit (config.services.nextcloud.package.packages.apps)
-      contacts
-      calendar
-      notes
-      tasks
-      bookmarks;
+      inherit
+        (config.services.nextcloud.package.packages.apps)
+        contacts
+        calendar
+        notes
+        tasks
+        bookmarks
+        ;
     };
     extraAppsEnable = true;
   };
@@ -111,9 +111,9 @@ in {
   # server controls the domain, is not possible due to the web server not being exposed directly
   # the public internet.  Instead, DNS validation must be used instead, which is what is done here.
   security.acme = {
-    acceptTerms = true;   
+    acceptTerms = true;
     defaults = {
-      email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt"); 
+      email = builtins.readFile (inputs.secrets + "/plaintext/letsencrypt-email.txt");
       # The the DNS provider for the domain
       dnsProvider = "porkbun";
       # Sets the needed secret env variables to authenticate api access to porkbun
@@ -121,13 +121,13 @@ in {
       environmentFile = config.age.secrets.porkbun-api-key.path;
     };
     # Generate root wildcard certificate (can be used for the root domain and any first level subdomains)
-    certs = { 
+    certs = {
       ${rootDomain} = {
         # ACME servers will only hand out wildcard certs over DNS validation
         domain = "*.${rootDomain}";
         group = config.services.nginx.group;
       };
-    }; 
+    };
   };
 
   services.nginx.virtualHosts."${config.services.nextcloud.hostName}" = {

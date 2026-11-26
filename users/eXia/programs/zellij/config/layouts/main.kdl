@@ -11,6 +11,11 @@ layout {
     }
   }
 
+  tab name="General | cli" {
+    pane {
+    }
+  }
+
   tab name="NixOS | cli" {
     pane {
     }
@@ -29,15 +34,16 @@ layout {
     pane command="vi" {
     }
   }
+
+  tab name="ssh | redwood" {
+    pane command="ssh redwood" { }
+  }
  
-  tab
-    name="nix repl"
-    cwd="~/NixOS"
-  {
-    pane
-      command="btop"
-    { }
+  tab name="nix repl" cwd="~/NixOS" {
+    pane command="btop" { }
   }
 
-  tab name="btop" { pane command="btop" {} }
+  tab name="btop" {
+    pane command="btop" { }
+  }
 }

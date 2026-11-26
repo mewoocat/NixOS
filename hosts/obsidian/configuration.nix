@@ -71,7 +71,7 @@
   };
 
   services.ollama = {
-    enable = true;
+    enable = false;
     package = pkgs.ollama-cuda; # For Nvidia gpu
   };
 
