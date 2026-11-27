@@ -39,9 +39,6 @@
 
   nix.settings.trusted-users = ["eXia"];
 
-  networking.networkmanager.enable = true;
-  networking.hostName = "scythe"; # Define your hostname.
-
   services.hardware.bolt.enable = true; # Thunderbolt
 
   # Use the systemd-boot EFI boot loader.
@@ -53,7 +50,8 @@
     supportedFilesystems = ["ntfs" "zfs"];
   };
 
-  #boot.zfs.forceImportRoot = false; # enabling this helps with compatibility but limits safeguards zfs uses
+  networking.networkmanager.enable = true;
+  networking.hostName = "scythe"; # Define your hostname.
   # ensure when using ZFS that a pool isn’t imported accidentally on a wrong machine.  Not applicable for
   # local drives not shared over the network
   networking.hostId = "d01ce9f7";

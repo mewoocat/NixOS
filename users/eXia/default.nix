@@ -31,7 +31,6 @@
       "dialout" # Allows user to access serial devices, used for flashgbx
       "wireshark"
     ];
-    #hashedPassword = "$y$j9T$Pb8ERrwDCIQE4HqB15PA60$ykb7An0BUxkXmQjWTYUPsqdhwaOvDmLnZTkbIL0bLU7";
     hashedPassword = "$y$j9T$sw1axh51XAFgp7RJcUGxf0$nd676hIAh695.Z9DHJfdRd1nEwFCAMkVzK3u.M9Zq33";
     # Set ssh public keys
     openssh.authorizedKeys.keys = [
@@ -66,11 +65,12 @@
       arduino
       nwg-displays
       idevicerestore # Restore/upgrade firmware of iOS devices
-      inputs.tack.packages.x86_64-linux.default
       cryptsetup # For managing LUKS encrypted partions
       parted # For parition management
       inputs.agenix.packages."${pkgs.stdenv.hostPlatform.system}".default # Agenix client
       wireguard-tools # wg, wg-quick
+
+      #inputs.tack.packages.x86_64-linux.default
 
       # yubikey
       yubikey-manager # ykman cli tool
@@ -141,12 +141,12 @@
   };
 
   programs.wireshark.enable = true; # Add Wireshark to the global environment and create a ‘wireshark’ group
-
-  # Drive management
-  programs.gnome-disks.enable = true;
-  # Needed for gparted
-
+  programs.gnome-disks.enable = true; # Drive management
   programs.noisetorch.enable = true;
+  programs.tack = {
+    enable = true;
+    nixConfTokens = true;
+  };
 
   environment.systemPackages = with pkgs; [
     gparted

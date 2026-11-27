@@ -73,14 +73,9 @@
     "type": "github",
     "owner": "mewoocat",
     "repo": "LeafShell",
-    "rev": "6fa68eb70cd3f6964b451e4d33b3af9b996694b0",
-    "narHash": "sha256-KamnyR4Hnqmrhn+MYbORDrJCS9DBHaw59eLPx4cZQyY=",
-    "lastModified": 1795670716,
-    "archive": {
-      "hash": "sha256-OP8sJK0khQUxeY7oXF67FrRrtfcvFON7Ola+Y0YzNBs=",
-      "outHash": "sha256-Ni/VdkdFW9oR6k9kZTjcOBoDVe2AQW4cYX5NF8PITb0="
-    },
-    "public": true
+    "rev": "94e4b8d60d329fd7301c1844ad581ddff1433af8",
+    "narHash": "sha256-En2mOxKVq+4emPjsRx3Vu2UoTVVHfIv6s503U0pAMho=",
+    "lastModified": 1795754638
   },
   "matugen": {
     "type": "github",
@@ -102,9 +97,10 @@
     "type": "github",
     "owner": "niri-wm",
     "repo": "niri",
-    "rev": "2fbc6f3b5b5094098472ed620e28db1fed5fed91",
-    "narHash": "sha256-z/jsUe7O6diShp7lVtxKZqc1XN8ARTEEqlmZy9Ry7Qs=",
-    "lastModified": 1795332971
+    "rev": "6072f67d9fe0f1c1182f72cc5d4f2ca5f047bf9e",
+    "narHash": "sha256-yif75UVBA3wY6uafe0CdpbSm9CL8d2rYYNKdDYXuBIE=",
+    "lastModified": 1795582935,
+    "public": true
   },
   "nix-gaming": {
     "type": "github",
